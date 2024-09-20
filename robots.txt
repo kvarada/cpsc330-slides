@@ -1,0 +1,1 @@
+Sitemap: https://kvarada.github.io/cpsc330-slides/sitemap.xml
