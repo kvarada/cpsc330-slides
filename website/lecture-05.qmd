@@ -1,0 +1,21 @@
+---
+title: "Lecture 5: Preprocessing and sklearn pipelines"
+description: ""
+description-short: 'Preprocessing motivation, Common transformations in `sklearn`, `sklearn` transformers vs. Estimators, The golden rule in the feature transformations, `sklearn` pipelines'
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-02-terminology-decision-trees.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Recap 
+- Preprocessing motivation
+- Common transformations in `sklearn`
+- `sklearn` transformers vs. Estimators
+- The golden rule in the feature transformations
+- `sklearn` pipelines

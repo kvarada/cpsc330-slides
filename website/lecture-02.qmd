@@ -1,0 +1,22 @@
+---
+title: "Lecture 2: Terminology, baselines, Decision Trees"
+description: "Supervised machine learning terminology, baselines, introduction to decision trees"
+description-short: "Supervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees"
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-02-terminology-decision-trees.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Features, target, examples, training
+- Parameters and hyperparameters
+- Decision boundary
+- Classification vs. regression
+- Inference vs. prediction
+- Accuracy vs. error, baselines
+- Intuition of decision trees

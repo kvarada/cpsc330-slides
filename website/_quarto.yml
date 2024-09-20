@@ -1,0 +1,56 @@
+project:  
+  type: website
+  preview:
+    port: 12345
+  render:
+    - "./*.qmd"
+    - "slides/*.qmd"
+    - "lab/*.qmd"
+    - "about/index.qmd"  
+  resources:
+    - slides
+
+website:
+  title: "CPSC 330"
+  description: "Slides for CPSC 330 Section 2"
+  site-url: https://kvarada.github.io/cpsc330-slides/
+
+  repo-url: https://github.com/kvarada/cpsc330-slides/
+  repo-subdir: website
+  
+  navbar:
+    title: "CPSC 330 Section 2"
+    left:
+      - href: index.qmd
+        text: Home
+      - href: lecture.qmd
+        text: Lectures
+  
+  page-navigation: true
+  
+  sidebar:
+    - id: lecture
+      contents:
+        - lecture.qmd
+        - lecture-01.qmd
+        - lecture-02.qmd
+        - lecture-03.qmd
+        - lecture-04.qmd
+        - lecture-05.qmd
+format:
+  html:
+    theme: [zephyr]
+    toc: false
+    lightbox: true
+          
+editor:
+  render-on-save: true
+
+execute:
+  freeze: auto
+
+publish:
+  gh-pages:
+    name: "gh-pages"
+    branch: main # Or "master" or whatever branch you use
+    path: website

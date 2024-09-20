@@ -1,0 +1,18 @@
+---
+title: "Lecture 1: Course Introduction"
+description: "Introduction to CPSC 330"  
+description-short: "What is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies"
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-01-intro.html" height="600px" class="ratio ratio-16x9" >}}
+
+## Outline
+
+- What is machine learning
+- Types of machine learning
+- Learning to navigate through the course materials
+- Getting familiar with the course policies

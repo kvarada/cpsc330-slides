@@ -1,0 +1,23 @@
+---
+title: Overview
+
+listing:
+  - id: schedule
+    type: table
+    sort:
+      - file
+    sort-ui: false
+    filter-ui: false
+    fields: 
+      - title
+      - description-short
+    field-display-names: 
+      description-short: Description
+    contents:
+      - "lecture-*.qmd"
+---
+
+## Schedule
+
+::: {#schedule}
+:::

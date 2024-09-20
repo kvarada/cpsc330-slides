@@ -1,0 +1,21 @@
+---
+title: "Lecture 4: $k$-nearest neighbours and SVM RBFs"
+description: "A high-level introduction to KNNs and SVM RBFs"
+description-short: 'Introduction to KNNs, hyperparameter `n_neighbours` or $k$, `C` and `gamma` hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.'
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-02-terminology-decision-trees.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Recap 
+- Similarity-based algorithms
+- $k$-nearest neighbours intuitions
+- Curse of dimensionality
+- SVM with RBF kernel intuition
+- Interpretation of `C` and `gamma` hyperparameters of SVM RBF
