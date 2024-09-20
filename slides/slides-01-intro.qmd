@@ -1,5 +1,6 @@
 ---
 title: 'Lecture 1: Introduction to CPSC 330'
+author: "Varada Kolhatkar"
 description: Introduction to ML and CPSC 330
 
 format:

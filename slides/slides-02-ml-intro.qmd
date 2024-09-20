@@ -1,5 +1,6 @@
 ---
 title: "Introduction to Machine Learning"
+author: "Varada Kolhatkar"
 format: 
     revealjs:
       smaller: true

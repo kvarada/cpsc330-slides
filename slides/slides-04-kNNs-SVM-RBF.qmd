@@ -1,5 +1,6 @@
 ---
 title: 'Lecture 4: $k$-nearest neighbours and SVM RBFs'
+author: "Varada Kolhatkar"
 description: Supervised Machine Learning Fundamentals
 description-short: 'introduction to KNNs, hyperparameter `n_neighbours` or $k$, `C` and `gamma` hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.'
 format:
