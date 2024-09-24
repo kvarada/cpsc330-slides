@@ -20,7 +20,7 @@ format:
 - Lecture recordings for the first two weeks have been made available. 
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
-- HW3 is due next week Monday, Oct 1st, 11:59 pm. 
+- HW3 is due next week Tuesday, Oct 1st, 11:59 pm. 
   - You can work in pairs for this assignment. 
 
 ```{python}
@@ -49,14 +49,9 @@ from sklearn.datasets import make_blobs, make_classification
 ## Data 
 ```{python}
 #| echo: true
-
-# make synthetic data
-X, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5)
-
-# split it into training and test sets
+X, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5) # make synthetic data
 X_train_toy, X_test_toy, y_train_toy, y_test_toy = train_test_split(
-    X, y, random_state=5, test_size=0.4)
-
+    X, y, random_state=5, test_size=0.4) # split it into training and test sets
 # Visualize the training data
 plt.scatter(X_train_toy[:, 0], X_train_toy[:, 1], label="Training set", s=60)
 plt.scatter(
@@ -65,7 +60,7 @@ plt.scatter(
 plt.legend(loc="upper right")
 ```
 
-## Recap: Bad methodology 1
+## Bad methodology 1
 - What's wrong with scaling data separately? 
 
 ```{python}
@@ -100,7 +95,7 @@ plot_original_scaled(
 )
 ```
 
-## Recap: Bad methodology 2 
+## Bad methodology 2 
 - What's wrong with scaling the data together
 
 ```{python}
@@ -122,7 +117,7 @@ print(f"Test score: {knn.score(XX_test, y_test_toy):.2f}")  # Misleading score
 ```
 
 
-## Bad methodology 3 (class discussion)
+## Bad methodology 3
 
 - What's wrong here? 
 ```{python}
@@ -136,18 +131,21 @@ X_test_scaled = scaler.transform(X_test_toy)
 cross_val_score(knn, X_train_scaled, y_train_toy)
 ```
 
+::: {.scroll-container style="overflow-y: scroll; height: 500px;"}
 ## Improper preprocessing
 
 ```{python}
 plot_improper_processing("kNN")
 ```
+:::
 
+::: {.scroll-container style="overflow-y: scroll; height: 500px;"}
 ## Proper preprocessing
 
 ```{python}
 plot_proper_processing("kNN")
 ```
-
+:::
 
 ## Recap: `sklearn` Pipelines
 
@@ -155,9 +153,8 @@ plot_proper_processing("kNN")
 - Simplify the code and improves readability.
 - Reduce the risk of data leakage by ensuring proper transformation of the training and test sets.
 - Automatically apply transformations in sequence.
-
-### Example:
-Chaining a `StandardScaler` with a `KNeighborsClassifier` model.
+- **Example:**
+  - Chaining a `StandardScaler` with a `KNeighborsClassifier` model.
 
 ```{python}
 #| echo: true
@@ -179,6 +176,36 @@ cross_val_score(pipe_knn, X_train_toy, y_train_toy)
 
 - Use a column transformer with sklearn pipelines. 
 
+
+## (iClicker) Exercise 6.1
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+**Select all of the following statements which are TRUE.**
+
+- (A) You could carry out cross-validation by passing a `ColumnTransformer` object to `cross_validate`.
+- (B) After applying column transformer, the order of the columns in the transformed data has to be the same as the order of the columns in the original data.
+- (C) After applying a column transformer, the transformed data is always going to be of different shape than the original data.
+- (D) When you call `fit_transform` on a `ColumnTransformer` object, you get a numpy ndarray.
+
+# More preprocessing
+
+## Remarks on preprocessing 
+- There is no one-size-fits-all solution in data preprocessing, and decisions often involve a degree of subjectivity. 
+  - Exploratory data analysis and domain knowledge inform these decisions
+- Always consider the specific goals of your project when deciding how to encode features. 
+
+
+## Alternative methods for scaling
+- [StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
+  - Good choice when the column follows a normal distribution or a distribution somewhat like a normal distribution.
+- [MinMaxScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html): Transform each feature to a desired range. Appropriate when 
+  - Good choice for features such as human age, where there is a fixed range of values and the feature is uniformly distributed across the range
+- [Normalizer](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html): Works on rows rather than columns. Normalize examples individually to unit norm.
+  - Good choice for frequency-type data 
+- [Log scaling](https://scikit-learn.org/stable/modules/preprocessing.html#custom-transformers)
+  - Good choice for features such as ratings per movies (power law distribution; a few movies have lots of ratings but most movies have very few ratings) 
+- ...
+
 ## Ordinal encoding vs. One-hot encoding
 
 - Ordinal Encoding: Encodes categorical features as an integer array.
@@ -186,19 +213,25 @@ cross_val_score(pipe_knn, X_train_toy, y_train_toy)
 - Sometimes how we encode a specific feature depends upon the context.  
 
 ## Ordinal encoding vs. One-hot encoding
-- Consider **weather** feature and its four levels: ['Sunny', 'Cloudy', 'Rainy', 'Snowy']
+- Consider **weather** feature and its four categories: Sunny (☀️), Cloudy (🌥️), Rainy (⛈️), Snowy (❄️)
+- Which encoding would you use in each of the following scenarios? 
+  - **Predicting traffic volume** 
+  - **Predicting severity of weather-related road incidents** 
+
+## Ordinal encoding vs. One-hot encoding
+- Consider **weather** feature and its four categories: Sunny (☀️), Cloudy (🌥️), Rainy (⛈️), Snowy (❄️)
 - **Predicting traffic volume:** Using one-hot encoding would make sense here because the impact of different weather conditions on traffic volume does not necessarily follow a clear order and different weather conditions could have very distinct effects.
 - **Predicting severity of weather-related road incidents:** An ordinal encoding might be more appropriate if you define your weather categories from least to most severe as this could correlate directly with the likelihood or severity of incidents.
 
 ## `handle_unknown = "ignore"` of `OneHotEncoder` 
-- Using `handle_unknown='ignore'` with `OneHotEncoder` to safely ignore unseen categories during transform.
-- Is this a good approach in all scenarios? 
+- Use `handle_unknown='ignore'` with `OneHotEncoder` to safely ignore unseen categories during transform.
+- In each of the following scenarios, identify whether it's a reasonable strategy or not. 
+  - Example 1: Suppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like `location`, `device_type`, and `product_category`. During training, you have observed a set of categories for `product_category`, but in the future, new product categories might be added.
+  - Example 2: You’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea).
 
-```python
-from sklearn.preprocessing import OneHotEncoder
-
-OneHotEncoder(handle_unknown='ignore')
-```
+## `handle_unknown = "ignore"` of `OneHotEncoder` 
+- Reasonable use: When unseen categories are less likely to impact the model's prediction accuracy (e.g., product categories in e-commerce), and you prefer to avoid breaking the model.
+- Not-so-reasonable use: When unseen categories could provide critical new information that could significantly alter predictions (e.g., in medical diagnostics), ignoring them could result in a poor or dangerous outcome.
 
 ## `drop="if_binary"` argument of OneHotEncoder
 
@@ -207,8 +240,11 @@ OneHotEncoder(handle_unknown='ignore')
 
 ## Categorical variables with too many categories
 - Strategies for categorical variables with too many categories:
-- Dimensionality reduction techniques
-- Bucketing categories into ‘others’
+  - Dimensionality reduction techniques
+  - Bucketing categories into ‘others’
+  - Clustering or grouping categories manually 
+  - Only considering top-N categories 
+  - ...
 
 ## Dealing with text features 
 - Preprocessing text to fit into machine learning models using text vectorization.
@@ -216,12 +252,13 @@ OneHotEncoder(handle_unknown='ignore')
 ![](img/bag-of-words.png)
 
 ## `sklearn` `CountVectorizer`
-- Use `scikit-learn`’s CountVectorizer to encode text data
-- CountVectorizer: Transforms text into a matrix of token counts
-
+- Use `scikit-learn`’s `CountVectorizer` to encode text data
+- `CountVectorizer`: Transforms text into a matrix of token counts
 - Important parameters:
-	  - `max_df`, `min_df`: Control document frequency thresholds.
-	  - `ngram_range`: Defines the range of n-grams to be extracted.
+  - `max_features`: Control the number of features used in the model 
+  - `max_df`, `min_df`: Control document frequency thresholds
+  - `ngram_range`: Defines the range of n-grams to be extracted
+  - `stop_words`: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc.
 
 ## Incorporating text features in a machine learning pipeline
 ```python
@@ -235,15 +272,7 @@ text_pipeline = make_pipeline(
 )
 ```
 
-## (iClicker) Exercise 6.1
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
-
-**Select all of the following statements which are TRUE.**
-
-- (A) You could carry out cross-validation by passing a `ColumnTransformer` object to `cross_validate`.
-- (B) After applying column transformer, the order of the columns in the transformed data has to be the same as the order of the columns in the original data.
-- (C) After applying a column transformer, the transformed data is always going to be of different shape than the original data.
-- (D) When you call `fit_transform` on a `ColumnTransformer` object, you get a numpy ndarray.
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
 
 
 ## (iClicker) Exercise 6.2
