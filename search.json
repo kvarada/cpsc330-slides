@@ -228,7 +228,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#recap-sklearn-pipelines",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Recap: sklearn Pipelines",
-    "text": "Recap: sklearn Pipelines\n\nPipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow.\nSimplify the code and improves readability.\nReduce the risk of data leakage by ensuring proper transformation of the training and test sets.\nAutomatically apply transformations in sequence.\n\nExample:\nChaining a StandardScaler with a KNeighborsClassifier model.\n\nfrom sklearn.pipeline import make_pipeline\n\npipe_knn = make_pipeline(StandardScaler(), KNeighborsClassifier())\n\n# Correct way to do cross validation without breaking the golden rule. \ncross_val_score(pipe_knn, X_train_toy, y_train_toy) \n\narray([0.25      , 0.5       , 0.5       , 0.58333333, 0.41666667])"
+    "text": "Recap: sklearn Pipelines\n\nPipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow.\nSimplify the code and improves readability.\nReduce the risk of data leakage by ensuring proper transformation of the training and test sets.\nAutomatically apply transformations in sequence.\nExample:\n\nChaining a StandardScaler with a KNeighborsClassifier model.\n\n\n\nfrom sklearn.pipeline import make_pipeline\n\npipe_knn = make_pipeline(StandardScaler(), KNeighborsClassifier())\n\n# Correct way to do cross validation without breaking the golden rule. \ncross_val_score(pipe_knn, X_train_toy, y_train_toy) \n\narray([0.25      , 0.5       , 0.5       , 0.58333333, 0.41666667])"
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#sklearns-columntransformer",
@@ -250,6 +250,13 @@
     "title": "Lecture 6: Column transformer and text features",
     "section": "Remarks on preprocessing",
     "text": "Remarks on preprocessing\n\nThere is no one-size-fits-all solution in data preprocessing, and decisions often involve a degree of subjectivity.\n\nExploratory data analysis and domain knowledge inform these decisions\n\nAlways consider the specific goals of your project when deciding how to encode features."
+  },
+  {
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#alternative-methods-for-scaling",
+    "href": "slides/slides-06-column-transformer-text-feats.html#alternative-methods-for-scaling",
+    "title": "Lecture 6: Column transformer and text features",
+    "section": "Alternative methods for scaling",
+    "text": "Alternative methods for scaling\n\nStandardScaler\n\nGood choice when the column follows a normal distribution or a distribution somewhat like a normal distribution.\n\nMinMaxScaler: Transform each feature to a desired range. Appropriate when\n\nGood choice for features such as human age, where there is a fixed range of values and the feature is uniformly distributed across the range\n\nNormalizer: Works on rows rather than columns. Normalize examples individually to unit norm.\n\nGood choice for frequency-type data\n\nLog scaling\n\nGood choice for features such as ratings per movies (power law distribution; a few movies have lots of ratings but most movies have very few ratings)\n\n…"
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#ordinal-encoding-vs.-one-hot-encoding",
@@ -277,7 +284,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder",
     "title": "Lecture 6: Column transformer and text features",
     "section": "handle_unknown = \"ignore\" of OneHotEncoder",
-    "text": "handle_unknown = \"ignore\" of OneHotEncoder\n\nUse handle_unknown='ignore' with OneHotEncoder to safely ignore unseen categories during transform.\nIn each of the following scenarios, identify whether it’s a reasonable strategy or not.\n\nSuppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like location, device_type, and product_category. During training, you have observed a set of categories for product_category, but in the future, new product categories might be added.\nYou’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea)."
+    "text": "handle_unknown = \"ignore\" of OneHotEncoder\n\nUse handle_unknown='ignore' with OneHotEncoder to safely ignore unseen categories during transform.\nIn each of the following scenarios, identify whether it’s a reasonable strategy or not.\n\nExample 1: Suppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like location, device_type, and product_category. During training, you have observed a set of categories for product_category, but in the future, new product categories might be added.\nExample 2: You’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea)."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder-1",

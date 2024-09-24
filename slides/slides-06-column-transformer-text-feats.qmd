@@ -153,9 +153,8 @@ plot_proper_processing("kNN")
 - Simplify the code and improves readability.
 - Reduce the risk of data leakage by ensuring proper transformation of the training and test sets.
 - Automatically apply transformations in sequence.
-
-### Example:
-Chaining a `StandardScaler` with a `KNeighborsClassifier` model.
+- **Example:**
+  - Chaining a `StandardScaler` with a `KNeighborsClassifier` model.
 
 ```{python}
 #| echo: true
@@ -195,6 +194,18 @@ iClicker cloud join link: **https://join.iclicker.com/VYFJ**
   - Exploratory data analysis and domain knowledge inform these decisions
 - Always consider the specific goals of your project when deciding how to encode features. 
 
+
+## Alternative methods for scaling
+- [StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
+  - Good choice when the column follows a normal distribution or a distribution somewhat like a normal distribution.
+- [MinMaxScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html): Transform each feature to a desired range. Appropriate when 
+  - Good choice for features such as human age, where there is a fixed range of values and the feature is uniformly distributed across the range
+- [Normalizer](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html): Works on rows rather than columns. Normalize examples individually to unit norm.
+  - Good choice for frequency-type data 
+- [Log scaling](https://scikit-learn.org/stable/modules/preprocessing.html#custom-transformers)
+  - Good choice for features such as ratings per movies (power law distribution; a few movies have lots of ratings but most movies have very few ratings) 
+- ...
+
 ## Ordinal encoding vs. One-hot encoding
 
 - Ordinal Encoding: Encodes categorical features as an integer array.
@@ -215,8 +226,8 @@ iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 ## `handle_unknown = "ignore"` of `OneHotEncoder` 
 - Use `handle_unknown='ignore'` with `OneHotEncoder` to safely ignore unseen categories during transform.
 - In each of the following scenarios, identify whether it's a reasonable strategy or not. 
-  - Suppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like location, device_type, and product_category. During training, you have observed a set of categories for product_category, but in the future, new product categories might be added.
-  - You’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea).
+  - Example 1: Suppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like `location`, `device_type`, and `product_category`. During training, you have observed a set of categories for `product_category`, but in the future, new product categories might be added.
+  - Example 2: You’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea).
 
 ## `handle_unknown = "ignore"` of `OneHotEncoder` 
 - Reasonable use: When unseen categories are less likely to impact the model's prediction accuracy (e.g., product categories in e-commerce), and you prefer to avoid breaking the model.
