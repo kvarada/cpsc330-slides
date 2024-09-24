@@ -179,14 +179,14 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#data",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Data",
-    "text": "Data\n\n# make synthetic data\nX, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5)\n\n# split it into training and test sets\nX_train_toy, X_test_toy, y_train_toy, y_test_toy = train_test_split(\n    X, y, random_state=5, test_size=0.4)\n\n# Visualize the training data\nplt.scatter(X_train_toy[:, 0], X_train_toy[:, 1], label=\"Training set\", s=60)\nplt.scatter(\n    X_test_toy[:, 0], X_test_toy[:, 1], color=mglearn.cm2(1), label=\"Test set\", s=60\n)\nplt.legend(loc=\"upper right\")"
+    "text": "Data\n\nX, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5) # make synthetic data\nX_train_toy, X_test_toy, y_train_toy, y_test_toy = train_test_split(\n    X, y, random_state=5, test_size=0.4) # split it into training and test sets\n# Visualize the training data\nplt.scatter(X_train_toy[:, 0], X_train_toy[:, 1], label=\"Training set\", s=60)\nplt.scatter(\n    X_test_toy[:, 0], X_test_toy[:, 1], color=mglearn.cm2(1), label=\"Test set\", s=60\n)\nplt.legend(loc=\"upper right\")"
   },
   {
-    "objectID": "slides/slides-06-column-transformer-text-feats.html#recap-bad-methodology-1",
-    "href": "slides/slides-06-column-transformer-text-feats.html#recap-bad-methodology-1",
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-1",
+    "href": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-1",
     "title": "Lecture 6: Column transformer and text features",
-    "section": "Recap: Bad methodology 1",
-    "text": "Recap: Bad methodology 1\n\nWhat’s wrong with scaling data separately?\n\n\nscaler = StandardScaler() # Creating a scalert object \nscaler.fit(X_train_toy) # Calling fit on the training data \ntrain_scaled = scaler.transform(\n    X_train_toy\n)  # Transforming the training data using the scaler fit on training data\n\nscaler = StandardScaler()  # Creating a separate object for scaling test data\nscaler.fit(X_test_toy)  # Calling fit on the test data\ntest_scaled = scaler.transform(\n    X_test_toy\n)  # Transforming the test data using the scaler fit on test data\n\nknn = KNeighborsClassifier()\nknn.fit(train_scaled, y_train_toy)\nprint(f\"Training score: {knn.score(train_scaled, y_train_toy):.2f}\")\nprint(f\"Test score: {knn.score(test_scaled, y_test_toy):.2f}\") # misleading scores\n\nTraining score: 0.63\nTest score: 0.60"
+    "section": "Bad methodology 1",
+    "text": "Bad methodology 1\n\nWhat’s wrong with scaling data separately?\n\n\nscaler = StandardScaler() # Creating a scalert object \nscaler.fit(X_train_toy) # Calling fit on the training data \ntrain_scaled = scaler.transform(\n    X_train_toy\n)  # Transforming the training data using the scaler fit on training data\n\nscaler = StandardScaler()  # Creating a separate object for scaling test data\nscaler.fit(X_test_toy)  # Calling fit on the test data\ntest_scaled = scaler.transform(\n    X_test_toy\n)  # Transforming the test data using the scaler fit on test data\n\nknn = KNeighborsClassifier()\nknn.fit(train_scaled, y_train_toy)\nprint(f\"Training score: {knn.score(train_scaled, y_train_toy):.2f}\")\nprint(f\"Test score: {knn.score(test_scaled, y_test_toy):.2f}\") # misleading scores\n\nTraining score: 0.63\nTest score: 0.60"
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#scaling-train-and-test-data-separately",
@@ -196,18 +196,18 @@
     "text": "Scaling train and test data separately"
   },
   {
-    "objectID": "slides/slides-06-column-transformer-text-feats.html#recap-bad-methodology-2",
-    "href": "slides/slides-06-column-transformer-text-feats.html#recap-bad-methodology-2",
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-2",
+    "href": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-2",
     "title": "Lecture 6: Column transformer and text features",
-    "section": "Recap: Bad methodology 2",
-    "text": "Recap: Bad methodology 2\n\nWhat’s wrong with scaling the data together\n\n\n# join the train and test sets back together\nXX = np.vstack((X_train_toy, X_test_toy))\n\nscaler = StandardScaler()\nscaler.fit(XX)\nXX_scaled = scaler.transform(XX)\n\nXX_train = XX_scaled[:X_train_toy.shape[0]]\nXX_test = XX_scaled[X_train_toy.shape[0]:]\n\nknn = KNeighborsClassifier()\nknn.fit(XX_train, y_train_toy)\nprint(f\"Training score: {knn.score(XX_train, y_train_toy):.2f}\")  # Misleading score\nprint(f\"Test score: {knn.score(XX_test, y_test_toy):.2f}\")  # Misleading score\n\nTraining score: 0.63\nTest score: 0.55"
+    "section": "Bad methodology 2",
+    "text": "Bad methodology 2\n\nWhat’s wrong with scaling the data together\n\n\n# join the train and test sets back together\nXX = np.vstack((X_train_toy, X_test_toy))\n\nscaler = StandardScaler()\nscaler.fit(XX)\nXX_scaled = scaler.transform(XX)\n\nXX_train = XX_scaled[:X_train_toy.shape[0]]\nXX_test = XX_scaled[X_train_toy.shape[0]:]\n\nknn = KNeighborsClassifier()\nknn.fit(XX_train, y_train_toy)\nprint(f\"Training score: {knn.score(XX_train, y_train_toy):.2f}\")  # Misleading score\nprint(f\"Test score: {knn.score(XX_test, y_test_toy):.2f}\")  # Misleading score\n\nTraining score: 0.63\nTest score: 0.55"
   },
   {
-    "objectID": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-3-class-discussion",
-    "href": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-3-class-discussion",
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-3",
+    "href": "slides/slides-06-column-transformer-text-feats.html#bad-methodology-3",
     "title": "Lecture 6: Column transformer and text features",
-    "section": "Bad methodology 3 (class discussion)",
-    "text": "Bad methodology 3 (class discussion)\n\nWhat’s wrong here?\n\n\nknn = KNeighborsClassifier()\n\nscaler = StandardScaler()\nscaler.fit(X_train_toy)\nX_train_scaled = scaler.transform(X_train_toy)\nX_test_scaled = scaler.transform(X_test_toy)\ncross_val_score(knn, X_train_scaled, y_train_toy)\n\narray([0.25      , 0.5       , 0.58333333, 0.58333333, 0.41666667])"
+    "section": "Bad methodology 3",
+    "text": "Bad methodology 3\n\nWhat’s wrong here?\n\n\nknn = KNeighborsClassifier()\n\nscaler = StandardScaler()\nscaler.fit(X_train_toy)\nX_train_scaled = scaler.transform(X_train_toy)\nX_test_scaled = scaler.transform(X_test_toy)\ncross_val_score(knn, X_train_scaled, y_train_toy)\n\narray([0.25      , 0.5       , 0.58333333, 0.58333333, 0.41666667])"
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#improper-preprocessing",
@@ -312,7 +312,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#sklearn-countvectorizer",
     "title": "Lecture 6: Column transformer and text features",
     "section": "sklearn CountVectorizer",
-    "text": "sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\n\nmax_df, min_df: Control document frequency thresholds.\nngram_range: Defines the range of n-grams to be extracted."
+    "text": "sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#incorporating-text-features-in-a-machine-learning-pipeline",

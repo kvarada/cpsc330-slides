@@ -49,14 +49,9 @@ from sklearn.datasets import make_blobs, make_classification
 ## Data 
 ```{python}
 #| echo: true
-
-# make synthetic data
-X, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5)
-
-# split it into training and test sets
+X, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5) # make synthetic data
 X_train_toy, X_test_toy, y_train_toy, y_test_toy = train_test_split(
-    X, y, random_state=5, test_size=0.4)
-
+    X, y, random_state=5, test_size=0.4) # split it into training and test sets
 # Visualize the training data
 plt.scatter(X_train_toy[:, 0], X_train_toy[:, 1], label="Training set", s=60)
 plt.scatter(
@@ -65,7 +60,7 @@ plt.scatter(
 plt.legend(loc="upper right")
 ```
 
-## Recap: Bad methodology 1
+## Bad methodology 1
 - What's wrong with scaling data separately? 
 
 ```{python}
@@ -100,7 +95,7 @@ plot_original_scaled(
 )
 ```
 
-## Recap: Bad methodology 2 
+## Bad methodology 2 
 - What's wrong with scaling the data together
 
 ```{python}
@@ -122,7 +117,7 @@ print(f"Test score: {knn.score(XX_test, y_test_toy):.2f}")  # Misleading score
 ```
 
 
-## Bad methodology 3 (class discussion)
+## Bad methodology 3
 
 - What's wrong here? 
 ```{python}
@@ -136,18 +131,21 @@ X_test_scaled = scaler.transform(X_test_toy)
 cross_val_score(knn, X_train_scaled, y_train_toy)
 ```
 
+::: {.scroll-container style="overflow-y: scroll; height: 500px;"}
 ## Improper preprocessing
 
 ```{python}
 plot_improper_processing("kNN")
 ```
+:::
 
+::: {.scroll-container style="overflow-y: scroll; height: 500px;"}
 ## Proper preprocessing
 
 ```{python}
 plot_proper_processing("kNN")
 ```
-
+:::
 
 ## Recap: `sklearn` Pipelines
 
@@ -243,13 +241,13 @@ iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 ![](img/bag-of-words.png)
 
 ## `sklearn` `CountVectorizer`
-- Use `scikit-learn`’s CountVectorizer to encode text data
-- CountVectorizer: Transforms text into a matrix of token counts
-
+- Use `scikit-learn`’s `CountVectorizer` to encode text data
+- `CountVectorizer`: Transforms text into a matrix of token counts
 - Important parameters:
-    - `max_features`: Control the number of features used in the model  
-	  - `max_df`, `min_df`: Control document frequency thresholds.
-	  - `ngram_range`: Defines the range of n-grams to be extracted.
+  - `max_features`: Control the number of features used in the model 
+  - `max_df`, `min_df`: Control document frequency thresholds
+  - `ngram_range`: Defines the range of n-grams to be extracted
+  - `stop_words`: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc.
 
 ## Incorporating text features in a machine learning pipeline
 ```python
