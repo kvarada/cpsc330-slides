@@ -238,6 +238,20 @@
     "text": "sklearn’s ColumnTransformer\n\nUse ColumnTransformer to build all our transformations together into one object\n\n\n\nUse a column transformer with sklearn pipelines."
   },
   {
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#iclicker-exercise-6.1",
+    "href": "slides/slides-06-column-transformer-text-feats.html#iclicker-exercise-6.1",
+    "title": "Lecture 6: Column transformer and text features",
+    "section": "(iClicker) Exercise 6.1",
+    "text": "(iClicker) Exercise 6.1\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nYou could carry out cross-validation by passing a ColumnTransformer object to cross_validate.\n\n\nAfter applying column transformer, the order of the columns in the transformed data has to be the same as the order of the columns in the original data.\n\n\nAfter applying a column transformer, the transformed data is always going to be of different shape than the original data.\n\n\nWhen you call fit_transform on a ColumnTransformer object, you get a numpy ndarray."
+  },
+  {
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#remarks-on-preprocessing",
+    "href": "slides/slides-06-column-transformer-text-feats.html#remarks-on-preprocessing",
+    "title": "Lecture 6: Column transformer and text features",
+    "section": "Remarks on preprocessing",
+    "text": "Remarks on preprocessing\n\nThere is no one-size-fits-all solution in data preprocessing, and decisions often involve a degree of subjectivity.\n\nExploratory data analysis and domain knowledge inform these decisions\n\nAlways consider the specific goals of your project when deciding how to encode features."
+  },
+  {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#ordinal-encoding-vs.-one-hot-encoding",
     "href": "slides/slides-06-column-transformer-text-feats.html#ordinal-encoding-vs.-one-hot-encoding",
     "title": "Lecture 6: Column transformer and text features",
@@ -249,14 +263,28 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#ordinal-encoding-vs.-one-hot-encoding-1",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Ordinal encoding vs. One-hot encoding",
-    "text": "Ordinal encoding vs. One-hot encoding\n\nConsider weather feature and its four levels: [‘Sunny’, ‘Cloudy’, ‘Rainy’, ‘Snowy’]\nPredicting traffic volume: Using one-hot encoding would make sense here because the impact of different weather conditions on traffic volume does not necessarily follow a clear order and different weather conditions could have very distinct effects.\nPredicting severity of weather-related road incidents: An ordinal encoding might be more appropriate if you define your weather categories from least to most severe as this could correlate directly with the likelihood or severity of incidents."
+    "text": "Ordinal encoding vs. One-hot encoding\n\nConsider weather feature and its four categories: Sunny (☀️), Cloudy (🌥️), Rainy (⛈️), Snowy (❄️)\nWhich encoding would you use in each of the following scenarios?\n\nPredicting traffic volume\nPredicting severity of weather-related road incidents"
+  },
+  {
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#ordinal-encoding-vs.-one-hot-encoding-2",
+    "href": "slides/slides-06-column-transformer-text-feats.html#ordinal-encoding-vs.-one-hot-encoding-2",
+    "title": "Lecture 6: Column transformer and text features",
+    "section": "Ordinal encoding vs. One-hot encoding",
+    "text": "Ordinal encoding vs. One-hot encoding\n\nConsider weather feature and its four categories: Sunny (☀️), Cloudy (🌥️), Rainy (⛈️), Snowy (❄️)\nPredicting traffic volume: Using one-hot encoding would make sense here because the impact of different weather conditions on traffic volume does not necessarily follow a clear order and different weather conditions could have very distinct effects.\nPredicting severity of weather-related road incidents: An ordinal encoding might be more appropriate if you define your weather categories from least to most severe as this could correlate directly with the likelihood or severity of incidents."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder",
     "href": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder",
     "title": "Lecture 6: Column transformer and text features",
     "section": "handle_unknown = \"ignore\" of OneHotEncoder",
-    "text": "handle_unknown = \"ignore\" of OneHotEncoder\n\nUsing handle_unknown='ignore' with OneHotEncoder to safely ignore unseen categories during transform.\nIs this a good approach in all scenarios?\n\nfrom sklearn.preprocessing import OneHotEncoder\n\nOneHotEncoder(handle_unknown='ignore')"
+    "text": "handle_unknown = \"ignore\" of OneHotEncoder\n\nUse handle_unknown='ignore' with OneHotEncoder to safely ignore unseen categories during transform.\nIn each of the following scenarios, identify whether it’s a reasonable strategy or not.\n\nSuppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like location, device_type, and product_category. During training, you have observed a set of categories for product_category, but in the future, new product categories might be added.\nYou’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea)."
+  },
+  {
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder-1",
+    "href": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder-1",
+    "title": "Lecture 6: Column transformer and text features",
+    "section": "handle_unknown = \"ignore\" of OneHotEncoder",
+    "text": "handle_unknown = \"ignore\" of OneHotEncoder\n\nReasonable use: When unseen categories are less likely to impact the model’s prediction accuracy (e.g., product categories in e-commerce), and you prefer to avoid breaking the model.\nNot-so-reasonable use: When unseen categories could provide critical new information that could significantly alter predictions (e.g., in medical diagnostics), ignoring them could result in a poor or dangerous outcome."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#dropif_binary-argument-of-onehotencoder",
@@ -270,7 +298,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#categorical-variables-with-too-many-categories",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Categorical variables with too many categories",
-    "text": "Categorical variables with too many categories\n\nStrategies for categorical variables with too many categories:\nDimensionality reduction techniques\nBucketing categories into ‘others’"
+    "text": "Categorical variables with too many categories\n\nStrategies for categorical variables with too many categories:\n\nDimensionality reduction techniques\nBucketing categories into ‘others’\nClustering or grouping categories manually\nOnly considering top-N categories\n…"
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#dealing-with-text-features",
@@ -284,7 +312,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#sklearn-countvectorizer",
     "title": "Lecture 6: Column transformer and text features",
     "section": "sklearn CountVectorizer",
-    "text": "sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters: - max_df, min_df: Control document frequency thresholds. - ngram_range: Defines the range of n-grams to be extracted."
+    "text": "sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\n\nmax_df, min_df: Control document frequency thresholds.\nngram_range: Defines the range of n-grams to be extracted."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#incorporating-text-features-in-a-machine-learning-pipeline",
@@ -292,13 +320,6 @@
     "title": "Lecture 6: Column transformer and text features",
     "section": "Incorporating text features in a machine learning pipeline",
     "text": "Incorporating text features in a machine learning pipeline\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.svm import SVC\nfrom sklearn.pipeline import make_pipeline\n\ntext_pipeline = make_pipeline(\n    CountVectorizer(),\n    SVC()\n)"
-  },
-  {
-    "objectID": "slides/slides-06-column-transformer-text-feats.html#iclicker-exercise-6.1",
-    "href": "slides/slides-06-column-transformer-text-feats.html#iclicker-exercise-6.1",
-    "title": "Lecture 6: Column transformer and text features",
-    "section": "(iClicker) Exercise 6.1",
-    "text": "(iClicker) Exercise 6.1\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nYou could carry out cross-validation by passing a ColumnTransformer object to cross_validate.\n\n\nAfter applying column transformer, the order of the columns in the transformed data has to be the same as the order of the columns in the original data.\n\n\nAfter applying a column transformer, the transformed data is always going to be of different shape than the original data.\n\n\nWhen you call fit_transform on a ColumnTransformer object, you get a numpy ndarray."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#iclicker-exercise-6.2",
