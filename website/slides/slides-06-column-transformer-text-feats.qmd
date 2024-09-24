@@ -1,0 +1,138 @@
+---
+title: "Lecture 6: Column transformer and text features"
+author: "Varada Kolhatkar"
+description: "Column transformer and introduction to text features"
+description-short: "Preprocessing and sklearn pipelines"
+format:
+  revealjs:
+    embed-resources: true
+    slide-number: true
+    smaller: true
+    center: true
+    logo: img/UBC-CS-logo.png
+    resources:
+      - data/
+      - img/  
+---
+
+## Announcements 
+
+- Lecture recordings for the first two weeks have been made available. 
+- HW3 is due next week Monday, Oct 1st, 11:59 pm. 
+  - You can work in pairs for this assignment. 
+
+
+## Recap: `sklearn` Pipelines
+
+- Pipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow.
+- Simplify the code and improves readability.
+- Reduce the risk of data leakage by ensuring proper transformation of the training and test sets.
+- Automatically apply transformations in sequence.
+
+### Example:
+Chaining a `StandardScaler` with a `KNeighborsClassifier` model.
+
+```python
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+
+pipeline = make_pipeline(StandardScaler(), KNeighborsClassifier())
+
+pipeline.fit(X_train, y_train)
+y_pred = pipeline.predict(X_test)
+```
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
+
+## `sklearn`'s `ColumnTransformer` 
+
+- Use ColumnTransformer to build all our transformations together into one object 
+
+![](img/column-transformer.png)
+
+- Use a column transformer with sklearn pipelines. 
+
+## Ordinal encoding vs. One-hot encoding
+
+- Ordinal Encoding: Encodes categorical features as an integer array.
+- One-hot Encoding: Creates binary columns for each category’s presence.
+- Sometimes how we encode a specific feature depends upon the context.  
+
+## Ordinal encoding vs. One-hot encoding
+- Consider **weather** feature and its four levels: ['Sunny', 'Cloudy', 'Rainy', 'Snowy']
+- **Predicting traffic volume:** Using one-hot encoding would make sense here because the impact of different weather conditions on traffic volume does not necessarily follow a clear order and different weather conditions could have very distinct effects.
+- **Predicting severity of weather-related road incidents:** An ordinal encoding might be more appropriate if you define your weather categories from least to most severe as this could correlate directly with the likelihood or severity of incidents.
+
+## `handle_unknown = "ignore"` of `OneHotEncoder` 
+- Using `handle_unknown='ignore'` with `OneHotEncoder` to safely ignore unseen categories during transform.
+- Is this a good approach in all scenarios? 
+
+```python
+from sklearn.preprocessing import OneHotEncoder
+
+OneHotEncoder(handle_unknown='ignore')
+```
+
+
+## `drop="if_binary"` argument of OneHotEncoder
+
+- drop='if_binary' argument in OneHotEncoder:
+- Reduces redundancy by dropping one of the columns if the feature is binary.
+
+
+## Categorical variables with too many categories
+- Strategies for categorical variables with too many categories:
+- Dimensionality reduction techniques
+- Bucketing categories into ‘others’
+
+## Dealing with text features 
+- Preprocessing text to fit into machine learning models using text vectorization.
+- Bag of words representation 
+![](img/bag-of-words.png)
+
+## `sklearn` `CountVectorizer`
+- Use `scikit-learn`’s CountVectorizer to encode text data
+- CountVectorizer: Transforms text into a matrix of token counts
+
+- Important parameters:
+	  - `max_df`, `min_df`: Control document frequency thresholds.
+	  - `ngram_range`: Defines the range of n-grams to be extracted.
+
+## Incorporating text features in a machine learning pipeline
+```python
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.svm import SVC
+from sklearn.pipeline import make_pipeline
+
+text_pipeline = make_pipeline(
+    CountVectorizer(),
+    SVC()
+)
+```
+
+## (iClicker) Exercise 6.1
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+**Select all of the following statements which are TRUE.**
+
+- (A) You could carry out cross-validation by passing a `ColumnTransformer` object to `cross_validate`.
+- (B) After applying column transformer, the order of the columns in the transformed data has to be the same as the order of the columns in the original data.
+- (C) After applying a column transformer, the transformed data is always going to be of different shape than the original data.
+- (D) When you call `fit_transform` on a `ColumnTransformer` object, you get a numpy ndarray.
+
+
+## (iClicker) Exercise 6.2
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+Select all of the following statements which are TRUE.
+
+- (A) `handle_unknown="ignore"` would treat all unknown categories equally.
+- (B) As you increase the value for `max_features` hyperparameter of `CountVectorizer` the training score is likely to go up.
+- (C) Suppose you are encoding text data using `CountVectorizer`. If you encounter a word in the validation or the test split that's not available in the training data, we'll get an error.
+- (D) In the code below, inside `cross_validate`, each fold might have slightly different number of features (columns) in the fold.
+
+```python
+pipe = (CountVectorizer(), SVC())
+cross_validate(pipe, X_train, y_train)
+```

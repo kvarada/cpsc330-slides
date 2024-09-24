@@ -1,0 +1,20 @@
+---
+title: "Lecture 6: `sklearn` column transformer and text fearutres"
+description: "`sklearn` column transformer and text fearutres"
+description-short: 'Column transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline' 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-06-column-transformer-text-feats.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Recap 
+- Column transformer 
+- Arguments of one-hot encoder
+- `sklearn` `CountVectorizer`
+- incorporating text features in the pipeline
