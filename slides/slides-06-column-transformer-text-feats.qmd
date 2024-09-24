@@ -20,7 +20,7 @@ format:
 - Lecture recordings for the first two weeks have been made available. 
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
-- HW3 is due next week Monday, Oct 1st, 11:59 pm. 
+- HW3 is due next week Tuesday, Oct 1st, 11:59 pm. 
   - You can work in pairs for this assignment. 
 
 ```{python}
