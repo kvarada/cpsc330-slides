@@ -21,6 +21,136 @@ format:
 - HW3 is due next week Monday, Oct 1st, 11:59 pm. 
   - You can work in pairs for this assignment. 
 
+```{python}
+import os
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from IPython.display import HTML
+
+sys.path.append("code/.")
+from plotting_functions import *
+from utils import *
+
+pd.set_option("display.max_colwidth", 200)
+
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.dummy import DummyClassifier, DummyRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
+from sklearn.svm import SVC
+from sklearn.datasets import make_blobs, make_classification
+```
+
+# Recap: Preprocessing mistakes
+
+## Data 
+```{python}
+#| echo: true
+
+# make synthetic data
+X, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5)
+# split it into training and test sets
+X_train_toy, X_test_toy, y_train_toy, y_test_toy = train_test_split(
+    X, y, random_state=5, test_size=0.4)
+plt.scatter(X_train_toy[:, 0], X_train_toy[:, 1], label="Training set", s=60)
+plt.scatter(
+    X_test_toy[:, 0], X_test_toy[:, 1], color=mglearn.cm2(1), label="Test set", s=60
+)
+plt.legend(loc="upper right")
+```
+
+## Recap: Bad methodology 1
+- What's wrong with scaling data separately? 
+
+```{python}
+#| echo: true
+scaler = StandardScaler()
+scaler.fit(X_train_toy)
+train_scaled = scaler.transform(X_train_toy)
+
+scaler = StandardScaler()  # Creating a separate object for scaling test data
+scaler.fit(X_test_toy)  # Calling fit on the test data
+test_scaled = scaler.transform(
+    X_test_toy
+)  # Transforming the test data using the scaler fit on test data
+
+knn = KNeighborsClassifier()
+knn.fit(train_scaled, y_train_toy)
+print(f"Training score: {knn.score(train_scaled, y_train_toy):.2f}")
+print(f"Test score: {knn.score(test_scaled, y_test_toy):.2f}")
+```
+
+## Scaling train and test data separately
+
+```{python}
+plot_original_scaled(
+    X_train_toy,
+    X_test_toy,
+    train_scaled,
+    test_scaled,
+    title_transformed="Improperly transformed",
+)
+```
+
+## Recap: Bad methodology 2 
+- What's wrong with scaling the data together
+
+```{python}
+#| echo: true
+# join the train and test sets back together
+XX = np.vstack((X_train_toy, X_test_toy))
+
+scaler = StandardScaler()
+scaler.fit(XX)
+XX_scaled = scaler.transform(XX)
+
+XX_train = XX_scaled[:X_train_toy.shape[0]]
+XX_test = XX_scaled[X_train_toy.shape[0]:]
+
+knn = KNeighborsClassifier()
+knn.fit(XX_train, y_train_toy)
+print(f"Training score: {knn.score(XX_train, y_train_toy):.2f}")  # Misleading score
+print(f"Test score: {knn.score(XX_test, y_test_toy):.2f}")  # Misleading score
+```
+
+
+## Bad methodology 3 (class discussion)
+
+- What's wrong here? 
+```{python}
+#| echo: true
+knn = KNeighborsClassifier()
+
+scaler = StandardScaler()
+scaler.fit(X_train_toy)
+X_train_scaled = scaler.transform(X_train_toy)
+X_test_scaled = scaler.transform(X_test_toy)
+scores = cross_validate(knn, X_train_scaled, y_train_toy, return_train_score=True)
+pd.DataFrame(scores)
+```
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+## Improper preprocessing
+
+```{python}
+plot_improper_processing("kNN")
+```
+:::
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+## Proper preprocessing
+
+```{python}
+plot_proper_processing("kNN")
+```
+:::
+
 
 ## Recap: `sklearn` Pipelines
 
