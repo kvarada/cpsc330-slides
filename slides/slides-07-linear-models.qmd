@@ -19,10 +19,13 @@ format:
 
 - Important information about midterm 1
   - https://piazza.com/class/m01ukubppof625/post/249
+- Change of my office hours
+  - Thursdays from 2 to 3 in my office ICCS 237
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
 - HW3 is due next week Tuesday, Oct 1st, 11:59 pm. 
   - You can work in pairs for this assignment. 
+
 
 ```{python}
 import os
@@ -248,9 +251,9 @@ iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 
 Select all of the following statements which are TRUE.
 
-- (A) Increasing the hyperparameter alpha of Ridge is likely to decrease model complexity.
-- (B) Ridge can be used with datasets that have multiple features.
-- (C) With Ridge, we learn one coefficient per training example.
+- (A) Increasing the hyperparameter `alpha` of `Ridge` is likely to decrease model complexity.
+- (B) `Ridge` can be used with datasets that have multiple features.
+- (C) With `Ridge`, we learn one coefficient per training example.
 - (D) If you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term.
 
 
