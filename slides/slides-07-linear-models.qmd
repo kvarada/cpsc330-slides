@@ -17,6 +17,8 @@ format:
 
 ## Announcements 
 
+- Important information about midterm 1
+  - https://piazza.com/class/m01ukubppof625/post/249
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
 - HW3 is due next week Tuesday, Oct 1st, 11:59 pm. 
@@ -131,7 +133,7 @@ plt.grid(True)
 plt.show()
 ```
 - Making predictions
-  - $\hat{y} = w_1 \times \text{# hours studied} + w_0$
+  - $$ y_{hat} = w_1 \times \text{# hours studied} + w_0$$
 
 :::
 
@@ -149,7 +151,6 @@ plt.show()
 - `Ridge` 
   - When you have **multicollinearity** (highly correlated features).
   - When you want to prevent **overfitting** in linear models.
-  - When **model stability** is important.
 - **In this course, we'll use `Ridge`.**
 
 ## Logistic regression 

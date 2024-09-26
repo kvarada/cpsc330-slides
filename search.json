@@ -340,7 +340,7 @@
     "href": "slides/slides-07-linear-models.html#announcements",
     "title": "Lecture 7: Linear models",
     "section": "Announcements",
-    "text": "Announcements\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Oct 1st, 11:59 pm.\n\nYou can work in pairs for this assignment."
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/m01ukubppof625/post/249\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Oct 1st, 11:59 pm.\n\nYou can work in pairs for this assignment."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
@@ -375,7 +375,7 @@
     "href": "slides/slides-07-linear-models.html#linear-models",
     "title": "Lecture 7: Linear models",
     "section": "Linear models",
-    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions\n\n\\(\\hat{y} = w_1 \\times \\text{# hours studied} + w_0\\)"
+    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions\n\n\\[ y_{hat} = w_1 \\times \\text{# hours studied} + w_0\\]"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
@@ -389,7 +389,7 @@
     "href": "slides/slides-07-linear-models.html#when-to-use-what",
     "title": "Lecture 7: Linear models",
     "section": "When to use what?",
-    "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\nWhen model stability is important.\n\nIn this course, we’ll use Ridge."
+    "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#logistic-regression",
