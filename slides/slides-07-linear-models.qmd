@@ -69,9 +69,6 @@ text_pipeline = make_pipeline(
 )
 ```
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
-
-
 ## (iClicker) Exercise 6.2
 iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 
@@ -141,10 +138,32 @@ plt.show()
 ::::
 
 ## `Ridge` vs. `LinearRegression`
+- Ordinary linear regression is sensitive to **multicolinearity** and overfitting
+- Multicolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.   
+- Linear regression may produce large and unstable coefficients in such cases. 
+- `Ridge` adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients.
 
-## Logistic Regression 
+## When to use what?
+- `LinearRegression`
+  - When interpretability is key, and no multicollinearity exists
+- `Ridge` 
+  - When you have **multicollinearity** (highly correlated features).
+  - When you want to prevent **overfitting** in linear models.
+  - When **model stability** is important.
+- **In this course, we'll use `Ridge`.**
 
+## Logistic regression 
 - Suppose your target is binary: pass or fail 
+- Logistic regression is used for such binary classification tasks.  
+- Logistic regression predicts a probability that the given example belongs to a particular class.
+- It uses **Sigmoid function** to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.
+- A threshold (usually 0.5) is applied to the predicted probability to decide the final class label.  
+
+## Logistic regression: Decision boundary 
+
+:::: {.columns}
+
+:::{.column width="60%"}
 
 ```{python}
 import matplotlib.pyplot as plt
@@ -172,21 +191,55 @@ X_test = np.linspace(min(hours_studied), max(hours_studied), 100).reshape(-1, 1)
 # Predict probabilities
 probabilities = model.predict_proba(X_test)[:, 1]
 
+# Find decision boundary (where probability = 0.5)
+decision_boundary = X_test[np.isclose(probabilities, 0.5, atol=0.01)][0]
+
 # Plotting
 plt.figure(figsize=(8, 5))
-plt.scatter(hours_studied, y, color='red', label='Actual data (0=Fail, 1=Pass)')
+plt.scatter(hours_studied, y, color='red', label='0=Fail, 1=Pass')
 plt.plot(X_test, probabilities, label='Prediction Probability', color='blue')
+plt.axvline(x=decision_boundary, ymin=0, ymax=0.5, color='green', linestyle='--')
+plt.hlines(y=0.5, xmin=min(hours_studied), xmax=decision_boundary, color='green', linestyle='--')
 plt.xlabel('Hours Studied')
 plt.ylabel('Probability of Passing')
 plt.title('Logistic Regression Prediction Probabilities')
-plt.legend()
+plt.legend(loc="best", fontsize="small")
 plt.grid(True)
 plt.show()
 ```
+:::
+:::{.column width="40%"}
+- The decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5. 
+:::
 
-## Sigmoid 
+::::
 
-## Parametric vs. non-Parametric models 
+## Parametric vs. non-Parametric models (high-level)
+- Imagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.
+- Scenario 1: 100 features and 1,000 examples
+- Scenario 2: 100 features and 1 million examples
+
+## Parametric vs. non-Parametric models (high-level)
+:::: {.columns}
+
+:::{.column width="50%"}
+#### Parametric
+- Examples: Logistic regression, linear regression, linear SVM  
+- Models with a fixed number of parameters, regardless of the dataset size
+- Simple, computationally efficient, less prone to overfitting
+- Less flexible, may not capture complex relationships
+:::
+
+:::{.column width="50%"}
+#### Non parametric
+- Examples: KNN, SVM RBF, Decision tree with no specific depth specified 
+- Models where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned. 
+- Flexible, can adapt to complex patterns
+- Computationally expensive, risk of overfitting with noisy data
+:::
+
+
+::::
 
 ## (iClicker) Exercise 7.1
 
@@ -210,4 +263,4 @@ Select all of the following statements which are TRUE.
 - (C) For linear classifier trained on $d$ features, the decision boundary is a $d-1$-dimensional hyperparlane.
 - (D) A linear model is likely to be uncertain about the data points close to the decision boundary.
 
-# [Class demo]()
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_07_linear-models.ipynb)
