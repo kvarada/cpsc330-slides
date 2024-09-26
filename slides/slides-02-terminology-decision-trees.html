@@ -449,7 +449,7 @@ Varada Kolhatkar
 <li>There are many frameworks to do do machine learning.</li>
 <li>We’ll mainly be using <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code> framework</a>.</li>
 </ul>
-<div id="6d4cbc2b" class="cell" data-execution_count="2">
+<div id="1ea3c453" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 
         <iframe width="1000" height="650" src="https://scikit-learn.org" frameborder="0" allowfullscreen=""></iframe>
@@ -460,7 +460,7 @@ Varada Kolhatkar
 <section id="running-example" class="slide level2 center">
 <h2>Running example</h2>
 <p>Imagine you’re in the fortunate situation where, after graduating, you have a few job offers and need to decide which one to choose. You want to pick the job that will likely make you the happiest. To help with your decision, you collect data from like-minded people. Here are the first few rows of this toy dataset.</p>
-<div id="bcd63b1b" class="cell" data-execution_count="3">
+<div id="343ade96" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>toy_happiness_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">'toy_job_happiness.csv'</span>)</span>
 <span id="cb1-2"><a></a>toy_happiness_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -579,7 +579,7 @@ Varada Kolhatkar
 <ul>
 <li>Is this a <strong>classification</strong> problem or a <strong>regression</strong> problem?</li>
 </ul>
-<div id="919f4d17" class="cell" data-execution_count="4">
+<div id="8050b2b2" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <style scoped="">
@@ -697,7 +697,7 @@ Varada Kolhatkar
 <ul>
 <li>In order to train a model we need to separate <span class="math inline"><em>X</em></span> and <span class="math inline"><em>y</em></span> from the dataframe.</li>
 </ul>
-<div id="352ee74b" class="cell" data-execution_count="5">
+<div id="ff309aa4" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>X <span class="op">=</span> toy_happiness_df.drop(columns<span class="op">=</span>[<span class="st">"happy?"</span>]) <span class="co"># Extract the feature set by removing the target column "happy?"</span></span>
 <span id="cb2-2"><a></a>y <span class="op">=</span> toy_happiness_df[<span class="st">"happy?"</span>] <span class="co"># Extract the target variable "happy?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -707,7 +707,7 @@ Varada Kolhatkar
 <ul>
 <li>Let’s try a simplest algorithm of predicting the most popular target!</li>
 </ul>
-<div id="86c5eb32" class="cell" data-execution_count="6">
+<div id="bf71d040" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb3-2"><a></a>model <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>) <span class="co"># Initialize the DummyClassifier to always predict the most frequent class</span></span>
 <span id="cb3-3"><a></a>model.fit(X, y) <span class="co"># Train the model on the feature set X and target variable y</span></span>
@@ -829,7 +829,7 @@ Varada Kolhatkar
 <section id="decision-tree-with-sklearn" class="slide level2 center">
 <h2>Decision tree with <code>sklearn</code></h2>
 <p>Let’s train a simple decision tree on our toy dataset.</p>
-<div id="e79b5e77" class="cell" data-execution_count="7">
+<div id="4727e78d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier <span class="co"># import the classifier</span></span>
 <span id="cb4-2"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> plot_tree</span>
 <span id="cb4-3"><a></a></span>
@@ -855,7 +855,7 @@ Varada Kolhatkar
 <li>supportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,</li>
 </ul></li>
 </ul>
-<div id="fe53b2e6" class="cell" data-execution_count="8">
+<div id="f66571ce" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -873,7 +873,7 @@ Varada Kolhatkar
 <li>supportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,</li>
 </ul></li>
 </ul>
-<div id="fda9d54b" class="cell" data-execution_count="9">
+<div id="beb553b3" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>test_example <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">60000</span>, <span class="dv">0</span>, <span class="dv">1</span>]]</span>
 <span id="cb5-2"><a></a><span class="bu">print</span>(<span class="st">"Model prediction: "</span>, model.predict(test_example))</span>
 <span id="cb5-3"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names <span class="op">=</span> [<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">9</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -894,7 +894,7 @@ Varada Kolhatkar
 <ul>
 <li>How many possible questions could we ask in this context?</li>
 </ul>
-<div id="fb6a8f84" class="cell" data-execution_count="10">
+<div id="cc368012" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 <style scoped="">
@@ -1003,7 +1003,7 @@ Varada Kolhatkar
 </section>
 <section id="decision-boundary-with-max_depth1" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=1</code></h2>
-<div id="390b280a" class="cell" data-execution_count="11">
+<div id="fe5987e8" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1015,7 +1015,7 @@ Varada Kolhatkar
 </section>
 <section id="decision-boundary-with-max_depth2" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=2</code></h2>
-<div id="7ff9f112" class="cell" data-execution_count="12">
+<div id="2dc47d96" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
