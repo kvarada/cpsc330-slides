@@ -144,6 +144,46 @@ plt.show()
 
 ## Logistic Regression 
 
+- Suppose your target is binary: pass or fail 
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+
+# Data
+hours_studied = [0.5, 1.0, 2.0, 2.0, 3.5, 4.0, 5.5, 6.0]
+grades = ['fail', 'fail', 'pass', 'fail', 'pass', 'fail', 'pass', 'pass']
+
+# Converting target variable to binary (0: fail, 1: pass)
+grades_binary = [1 if grade == 'pass' else 0 for grade in grades]
+
+# Reshape the data to fit the model
+X = np.array(hours_studied).reshape(-1, 1)
+y = np.array(grades_binary)
+
+# Fit logistic regression model
+model = LogisticRegression()
+model.fit(X, y)
+
+# Generate a range of hours studied for prediction
+X_test = np.linspace(min(hours_studied), max(hours_studied), 100).reshape(-1, 1)
+
+# Predict probabilities
+probabilities = model.predict_proba(X_test)[:, 1]
+
+# Plotting
+plt.figure(figsize=(8, 5))
+plt.scatter(hours_studied, y, color='red', label='Actual data (0=Fail, 1=Pass)')
+plt.plot(X_test, probabilities, label='Prediction Probability', color='blue')
+plt.xlabel('Hours Studied')
+plt.ylabel('Probability of Passing')
+plt.title('Logistic Regression Prediction Probabilities')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
 ## Sigmoid 
 
 ## Parametric vs. non-Parametric models 
