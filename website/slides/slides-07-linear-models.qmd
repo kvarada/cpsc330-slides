@@ -1,0 +1,173 @@
+---
+title: "Lecture 7: Linear models"
+author: "Varada Kolhatkar"
+description: "Linear regression, logistic regression"
+description-short: "Linear regression, logistic regression, prediction probabilities, sigmoid, interpretation of coefficients"
+format:
+  revealjs:
+    embed-resources: true
+    slide-number: true
+    smaller: true
+    center: true
+    logo: img/UBC-CS-logo.png
+    resources:
+      - data/
+      - img/  
+---
+
+## Announcements 
+
+- Where to find slides? 
+  - https://kvarada.github.io/cpsc330-slides/lecture.html
+- HW3 is due next week Tuesday, Oct 1st, 11:59 pm. 
+  - You can work in pairs for this assignment. 
+
+```{python}
+import os
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from plotting_functions import *
+from utils import *
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.impute import SimpleImputer
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
+from sklearn.svm import SVC
+from sklearn.datasets import make_blobs, make_classification
+```
+
+## Recap: Dealing with text features 
+- Preprocessing text to fit into machine learning models using text vectorization.
+- Bag of words representation 
+![](img/bag-of-words.png)
+
+## Recap: `sklearn` `CountVectorizer`
+- Use `scikit-learn`’s `CountVectorizer` to encode text data
+- `CountVectorizer`: Transforms text into a matrix of token counts
+- Important parameters:
+  - `max_features`: Control the number of features used in the model 
+  - `max_df`, `min_df`: Control document frequency thresholds
+  - `ngram_range`: Defines the range of n-grams to be extracted
+  - `stop_words`: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc.
+
+## Recap: Incorporating text features in a machine learning pipeline
+```python
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.svm import SVC
+from sklearn.pipeline import make_pipeline
+
+text_pipeline = make_pipeline(
+    CountVectorizer(),
+    SVC()
+)
+```
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
+
+
+## (iClicker) Exercise 6.2
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+Select all of the following statements which are TRUE.
+
+- (A) `handle_unknown="ignore"` would treat all unknown categories equally.
+- (B) As you increase the value for `max_features` hyperparameter of `CountVectorizer` the training score is likely to go up.
+- (C) Suppose you are encoding text data using `CountVectorizer`. If you encounter a word in the validation or the test split that's not available in the training data, we'll get an error.
+- (D) In the code below, inside `cross_validate`, each fold might have slightly different number of features (columns) in the fold.
+
+```python
+pipe = (CountVectorizer(), SVC())
+cross_validate(pipe, X_train, y_train)
+```
+
+## Linear models 
+
+:::: {.columns}
+
+:::{.column width="45%"}
+- Linear models make an assumption that the relationship between `X` and `y` is linear. 
+- In this case, with only one feature, our model is a straight line.
+- What do we need to represent a line?
+  - Slope ($w_1$): Determines the angle of the line.
+  - Y-intercept ($w_0$): Where the line crosses the y-axis.
+
+:::
+
+
+::: {.column width="55%"}
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+# Data
+hours_studied = [0.5, 1.0, 2.0, 2.0, 3.5, 4.0, 5.5, 6.0]
+grades = [25, 35, 70, 40, 60, 55, 75, 80]
+
+# Convert data to numpy arrays and reshape for model fitting
+X = np.array(hours_studied).reshape(-1, 1)
+y = np.array(grades)
+
+from sklearn.linear_model import LinearRegression
+# Fit a linear regression model
+model = LinearRegression()
+model.fit(X, y)
+
+# Generate predictions for plotting the regression line
+X_range = np.linspace(X.min(), X.max(), 100).reshape(-1, 1)
+y_pred = model.predict(X_range)
+
+# Plotting the data points and the regression line
+plt.figure(figsize=(8, 4))
+plt.scatter(X, y, color='green', edgecolors='black', s=130, label='Data Points')
+plt.plot(X_range, y_pred, color='blue', linewidth=2, label='Regression Line')
+plt.xlabel('# hours studied')
+plt.ylabel('% grade in Quiz 2')
+plt.title('Linear Models: Prediction')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+- Making predictions
+  - $\hat{y} = w_1 \times \text{# hours studied} + w_0$
+
+:::
+
+::::
+
+## `Ridge` vs. `LinearRegression`
+
+## Logistic Regression 
+
+## Sigmoid 
+
+## Parametric vs. non-Parametric models 
+
+## (iClicker) Exercise 7.1
+
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+Select all of the following statements which are TRUE.
+
+- (A) Increasing the hyperparameter alpha of Ridge is likely to decrease model complexity.
+- (B) Ridge can be used with datasets that have multiple features.
+- (C) With Ridge, we learn one coefficient per training example.
+- (D) If you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term.
+
+
+## (iClicker) Exercise 7.2
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+Select all of the following statements which are TRUE.
+
+- (A) Increasing logistic regression’s `C` hyperparameter increases model complexity.
+- (B) The raw output score can be used to calculate the probability score for a given prediction.
+- (C) For linear classifier trained on $d$ features, the decision boundary is a $d-1$-dimensional hyperparlane.
+- (D) A linear model is likely to be uncertain about the data points close to the decision boundary.
+
+# [Class demo]()
