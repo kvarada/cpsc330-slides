@@ -1,5 +1,5 @@
 ---
-title: "Lecture 1: Course Introduction"
+title: "Lecture 1: Course introduction"
 description: "Introduction to CPSC 330"  
 description-short: "What is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies"
 

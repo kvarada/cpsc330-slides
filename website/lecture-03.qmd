@@ -1,5 +1,5 @@
 ---
-title: "CPSC 330 Lecture 3: ML fundamentals"
+title: "Lecture 3: ML fundamentals"
 description: "Supervised Machine Learning Fundamentals"
 description-short: "Generalization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule"
 

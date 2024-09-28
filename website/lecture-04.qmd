@@ -8,7 +8,7 @@ editor: { render-on-save: true }
 
 ## Slides
 
-{{< revealjs "slides/slides-02-terminology-decision-trees.html" height="600px" class="ratio ratio-16x9" >}}
+{{< revealjs "slides/slides-04-kNNs-SVM-RBF.html" height="600px" class="ratio ratio-16x9" >}}
 
 
 ## Outline
