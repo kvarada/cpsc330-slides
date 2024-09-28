@@ -1,7 +1,8 @@
 ---
-title: 'Lecture 5: Preprocessing and sklearn pipelines'
-description: Supervised Machine Learning Fundamentals
-description-short: ''
+title: "Lecture 5: Preprocessing and sklearn pipelines"
+author: "Varada Kolhatkar"
+description: "Preprocessing and sklearn pipelines"
+description-short: "Preprocessing and sklearn pipelines"
 format:
   revealjs:
     embed-resources: true

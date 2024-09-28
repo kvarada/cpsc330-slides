@@ -1,5 +1,6 @@
 ---
 title: 'CPSC 330 Lecture 3: ML fundamentals'
+author: "Varada Kolhatkar"
 description: Supervised Machine Learning Fundamentals
 description-short: 'generalization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule'
 format:
