@@ -997,14 +997,35 @@
     "href": "slides/slides-08-hyperparameter-optimization.html#announcements",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/m01ukubppof625/post/249\n\nChange of my office hours\n\nThursdays from 2 to 3 in my office ICCS 237\n\nHW3 is due next today 11:59 pm.\nHW4 has been released"
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/m01ukubppof625/post/249\n\nChange of my office hours\n\nThursdays from 2 to 3 in my office ICCS 237\n\nHW3 is due today 11:59 pm.\nHW4 has been released"
   },
   {
-    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-countvectorizer",
-    "href": "slides/slides-08-hyperparameter-optimization.html#recap-countvectorizer",
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
-    "section": "Recap: CountVectorizer",
-    "text": "Recap: CountVectorizer\n\nUnlike many other transformers which take a DataFrame as input…\nCountVectorizer is designed to work with pandas.Series\nDataFrame Input: Used by most transformers for handling multiple features.\nSeries Input: CountVectorizer simplifies processing by focusing on one text column at a time."
+    "section": "Recap: Logistic regression",
+    "text": "Recap: Logistic regression\n\nA linear model used for binary classification tasks.\n\nThere is a variant of logistic regression called multinomial logistic regression for multiclass classification.\n\nParameters:\n\nCoefficients (Weights): The model learns a coefficient or a weight associated with each feature that represents its importance.\nBias (Intercept): A constant term added to the linear combination of features and their coefficients."
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-1",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-1",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Recap: Logistic regression",
+    "text": "Recap: Logistic regression\n\nThe model computes a weighted sum of the input features’ values, adjusted by their respective coefficients and the bias term.\nThis weighted sum is passed through a sigmoid function to transform it into a probability score, indicating the likelihood of the input belonging to the “positive” class.\n\n\\[\\begin{equation}\nP_{hat} = \\sigma\\left(\\sum_{i=1}^d w_i x_i + b\\right)\n\\end{equation}\\]\n\n\\(P_{hat}\\) is the predicted probability of the example belonging to the positive class.\n\\(w_i\\) is the learned weight associated with feature \\(i\\)\n\\(x_i\\) is the value of the input feature \\(i\\)\n\\(b\\) is the bias term"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-2",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-2",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Recap: Logistic regression",
+    "text": "Recap: Logistic regression\n\nFor a dataset with \\(d\\) features, the decision boundary that separates the classes is a \\(d-1\\) dimensional hyperplane.\n\nComplexity hyperparameter: C in sklearn.\n\nHigher C \\(\\rightarrow\\) more complex model meaning larger coefficients\nLower C \\(\\rightarrow\\) less complex model meaning smaller coefficients"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-countvectorizer-input",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-countvectorizer-input",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Recap: CountVectorizer input",
+    "text": "Recap: CountVectorizer input\n\nPrimarily designed to accept either a pandas.Series of text data or a 1D numpy array. It can also process a list of string data directly.\nUnlike many transformers that handle multiple features (DataFrame or 2D numpy array), CountVectorizer a single text column at a time.\nIf your dataset contains multiple text columns, you will need to instantiate separate CountVectorizer objects for each text feature.\nThis approach ensures that the unique vocabulary and tokenization processes are correctly applied to each specific text column without interference."
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#hyperparameter-optimization-motivation",
@@ -1067,7 +1088,7 @@
     "href": "slides/slides-08-hyperparameter-optimization.html#random-search-example",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Random search example",
-    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\n0.9822492602034216"
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\n0.9840446723701153"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#optimization-bias",

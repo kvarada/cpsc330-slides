@@ -21,7 +21,7 @@ format:
   - https://piazza.com/class/m01ukubppof625/post/249
 - Change of my office hours
   - Thursdays from 2 to 3 in my office ICCS 237
-- HW3 is due next today 11:59 pm. 
+- HW3 is due today 11:59 pm. 
 - HW4 has been released 
 
 
@@ -43,13 +43,41 @@ import mglearn
 DATA_DIR = 'data/' 
 ```
 
-## Recap: `CountVectorizer`
+## Recap: Logistic regression
+- A **linear model used for binary classification** tasks. 
+  - There is a variant of logistic regression called multinomial logistic regression for multiclass classification.
+- Parameters: 
+  - Coefficients (Weights): The model learns a coefficient or a weight associated with each feature that represents its importance.
+  - Bias (Intercept): A constant term added to the linear combination of features and their coefficients.
 
-- Unlike many other transformers which take a DataFrame as input...
-- CountVectorizer is designed to work with pandas.Series
-- DataFrame Input: Used by most transformers for handling multiple features.
-- Series Input: CountVectorizer simplifies processing by focusing on one text column at a time.
+## Recap: Logistic regression 
+- The model computes a weighted sum of the input features’ values, adjusted by their respective coefficients and the bias term.
+- This weighted sum is passed through a sigmoid function to transform it into a probability score, indicating the likelihood of the input belonging to the "positive" class.
 
+\begin{equation}
+P_{hat} = \sigma\left(\sum_{i=1}^d w_i x_i + b\right) 
+\end{equation}
+
+- $P_{hat}$ is the predicted probability of the example belonging to the positive class. 
+- $w_i$ is the learned weight associated with feature $i$
+- $x_i$ is the value of the input feature $i$
+- $b$ is the bias term 
+
+## Recap: Logistic regression
+
+- For a dataset with $d$ features, the decision boundary that 
+separates the classes is a $d-1$ dimensional hyperplane.  
+- Complexity hyperparameter: `C` in `sklearn`. 
+  - Higher `C` $\rightarrow$ more complex model meaning larger coefficients
+  - Lower `C` $\rightarrow$ less complex model meaning smaller coefficients
+
+
+## Recap: `CountVectorizer` input 
+
+- Primarily designed to accept either a `pandas.Series` of text data or a 1D `numpy` array. It can also process a list of string data directly.
+- Unlike many transformers that handle multiple features (`DataFrame` or 2D `numpy` array), `CountVectorizer` a single text column at a time.
+- If your dataset contains multiple text columns, you will need to instantiate separate `CountVectorizer` objects for each text feature.
+- This approach ensures that the unique vocabulary and tokenization processes are correctly applied to each specific text column without interference.
 
 ## Hyperparameter optimization motivation
 
@@ -89,8 +117,6 @@ parameters = {
     "C": [0.01, 0.1, 1.0],
 }
 ```
-
-
 
 ## Hyperparameter optimization with loops
 
