@@ -1,0 +1,205 @@
+---
+title: "CPSC 330 Lecture 8: Hyperparameter Optimization"
+author: "Varada Kolhatkar"
+description: "Linear regression, logistic regression"
+description-short: "Linear regression, logistic regression, prediction probabilities, sigmoid, interpretation of coefficients"
+format:
+  revealjs:
+    embed-resources: true
+    slide-number: true
+    smaller: true
+    center: true
+    logo: img/UBC-CS-logo.png
+    resources:
+      - data/
+      - img/  
+---
+
+## Announcements 
+
+- Important information about midterm 1
+  - https://piazza.com/class/m01ukubppof625/post/249
+- Change of my office hours
+  - Thursdays from 2 to 3 in my office ICCS 237
+- HW3 is due next today 11:59 pm. 
+- HW4 has been released 
+
+
+```{python}
+import os
+import sys
+import pandas as pd 
+import numpy as np
+from sklearn import datasets
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import CountVectorizer
+from scipy.stats import expon, lognorm, loguniform, randint, uniform, norm, randint
+%matplotlib inline
+import mglearn
+DATA_DIR = 'data/' 
+```
+
+## Recap: `CountVectorizer`
+
+- Unlike many other transformers which take a DataFrame as input...
+- CountVectorizer is designed to work with pandas.Series
+- DataFrame Input: Used by most transformers for handling multiple features.
+- Series Input: CountVectorizer simplifies processing by focusing on one text column at a time.
+
+
+## Hyperparameter optimization motivation
+
+![](img/hyperparam-optimization.png)
+
+
+## Data
+
+```{python}
+#| echo: true
+sms_df = pd.read_csv(DATA_DIR + "spam.csv", encoding="latin-1")
+sms_df = sms_df.drop(columns = ["Unnamed: 2", "Unnamed: 3", "Unnamed: 4"])
+sms_df = sms_df.rename(columns={"v1": "target", "v2": "sms"})
+train_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)
+X_train, y_train = train_df["sms"], train_df["target"]
+X_test, y_test = test_df["sms"], test_df["target"]
+train_df.head(4)
+```
+
+## Model building 
+
+- Let's define a pipeline 
+
+```{python}
+#| echo: true
+
+pipe_svm = make_pipeline(CountVectorizer(), SVC())
+```
+
+- Suppose we want to try out different hyperparameter values. 
+```{python}
+#| echo: true
+
+parameters = {
+    "max_features": [100, 200, 400],
+    "gamma": [0.01, 0.1, 1.0],
+    "C": [0.01, 0.1, 1.0],
+}
+```
+
+
+
+## Hyperparameter optimization with loops
+
+- Define a parameter space.
+- Iterate through possible combinations.
+- Evaluate model performance.
+- What are some limitations of this approach? 
+
+
+## `sklearn` methods 
+
+- `sklearn` provides two main methods for hyperparameter optimization
+  - Grid Search
+  - Random Search
+
+## Grid Search 
+
+- Covers all possible combinations from the provided grid. 
+- Can be parallelized easily.
+- Integrates cross-validation.
+
+
+## Grid search example 
+```{python}
+#| echo: true
+
+from sklearn.model_selection import GridSearchCV
+
+pipe_svm = make_pipeline(CountVectorizer(), SVC())
+
+param_grid = {
+    "countvectorizer__max_features": [100, 200, 400],
+    "svc__gamma": [0.01, 0.1, 1.0],
+    "svc__C": [0.01, 0.1, 1.0],
+}
+grid_search = GridSearchCV(pipe_svm, 
+                  param_grid = param_grid, 
+                  n_jobs=-1, 
+                  return_train_score=True
+                 )
+grid_search.fit(X_train, y_train)
+grid_search.best_score_
+```
+
+
+## Random Search 
+- More efficient than grid search when dealing with large hyperparameter spaces.
+- Samples a given number of parameter settings from distributions.
+
+![](img/randomsearch_bergstra.png)
+
+## Random search example 
+
+```{python}
+#| echo: true
+
+from sklearn.model_selection import RandomizedSearchCV
+from scipy.stats import randint
+
+pipe_svc = make_pipeline(CountVectorizer(), SVC())
+
+param_dist = {
+    "countvectorizer__max_features": randint(100, 2000), 
+    "svc__C": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),
+    "svc__gamma": loguniform(1e-5, 1e3),
+}
+random_search = RandomizedSearchCV(pipe_svm,                                    
+                  param_distributions = param_dist, 
+                  n_iter=10, 
+                  n_jobs=-1, 
+                  return_train_score=True)
+
+# Carry out the search
+random_search.fit(X_train, y_train)
+random_search.best_score_
+```
+
+## Optimization bias 
+
+- Why do we need separate validation and test datasets? 
+
+![](img/optimization-bias.png)
+
+## Mitigating optimization bias.
+  - Cross-validation
+  - Ensembles 
+  - Regularization and choosing a simpler model  
+
+
+## (iClicker) Exercise 8.1
+
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+Select all of the following statements which are TRUE.
+
+- (A) If you get best results at the edges of your parameter grid, it might be a good idea to adjust the range of values in your parameter grid.
+- (B) Grid search is guaranteed to find the best hyperparameter values.
+- (C) It is possible to get different hyperparameters in different runs of RandomizedSearchCV.
+
+## Questions for you
+
+- You have a dataset and you give me 1/10th of it. The dataset given to me is rather small and so I split it into 96% train and 4% validation split. I carry out hyperparameter optimization using a single 4% validation split and report validation accuracy of 0.97. Would it classify the rest of the data with similar accuracy?
+  - Probably
+  - Probably not
+
+
+## Questions for class discussion
+
+- Suppose you have 10 hyperparameters, each with 4 possible values. If you run `GridSearchCV` with this parameter grid, how many cross-validation experiments will be carried out? 
+- Suppose you have 10 hyperparameters and each takes 4 values. If you run `RandomizedSearchCV` with this parameter grid with `n_iter=20`, how many cross-validation experiments will be carried out? 
+
+
