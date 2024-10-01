@@ -1,5 +1,5 @@
 ---
-title: "Lecture 7: Linear models"
+title: "CPSC 330 Lecture 7: Linear models"
 author: "Varada Kolhatkar"
 description: "Linear regression, logistic regression"
 description-short: "Linear regression, logistic regression, prediction probabilities, sigmoid, interpretation of coefficients"
