@@ -1040,6 +1040,27 @@
     "text": "ML workflow"
   },
   {
+    "objectID": "slides/slides-09-classification-metrics.html#accuracy",
+    "href": "slides/slides-09-classification-metrics.html#accuracy",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Accuracy",
+    "text": "Accuracy\n\nSo far we have been measuring model performance using Accuracy.\nAccuracy is the proportion of all classifications that were correct, whether positive or negative. \\[Accuracy = \\frac{\\text{corrct classifications}}{\\text{total classifications}}\\]\nHowever, in many real-world applications, the dataset is imbalanced or one kind of mistake is more costly than the other\nIn such cases, it’s better to optimize for one of the other metrics instead."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
+    "href": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Fraud Confusion matrix",
+    "text": "Fraud Confusion matrix\n\nWhich types of errors would be most critical for the bank to address?"
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix-1",
+    "href": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix-1",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Fraud Confusion matrix",
+    "text": "Fraud Confusion matrix\n\n\n\n\n\nTN \\(\\rightarrow\\) True negatives\nFP \\(\\rightarrow\\) False positives\nFN \\(\\rightarrow\\) False negatives\nTP \\(\\rightarrow\\) True positives"
+  },
+  {
     "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions",
     "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
@@ -1061,6 +1082,13 @@
     "text": "Confusion matrix questions\nIn a medical test for a disease, diseased states are labeled as 1 and healthy states as 0. If a healthy patient is incorrectly diagnosed with the disease, what is this error known as?\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
   },
   {
+    "objectID": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
+    "href": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Precision, Recall, F1-Score",
+    "text": "Precision, Recall, F1-Score"
+  },
+  {
     "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.1",
     "href": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.1",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
@@ -1075,11 +1103,39 @@
     "text": "Counter examples\nMethod A - higher accuracy but lower precision\n\n\n\nNegative\nPositive\n\n\n\n\n90\n5\n\n\n5\n0\n\n\n\nMethod B - lower accuracy but higher precision\n\n\n\nNegative\nPositive\n\n\n\n\n80\n15\n\n\n0\n5"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#thresholding-exercise-9.2",
-    "href": "slides/slides-09-classification-metrics.html#thresholding-exercise-9.2",
+    "objectID": "slides/slides-09-classification-metrics.html#thresholding",
+    "href": "slides/slides-09-classification-metrics.html#thresholding",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Thresholding Exercise 9.2",
-    "text": "Thresholding Exercise 9.2\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nIf we increase the classification threshold, both true and false positives are likely to decrease.\n\n\nIf we increase the classification threshold, both true and false negatives are likely to decrease.\n\n\nLowering the classification threshold generally increases the model’s recall.\n\n\n\nRaising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives."
+    "section": "Thresholding",
+    "text": "Thresholding\n\nThe above metrics assume a fixed threshold.\nWe use thresholding to get the binary prediction.\nA typical threshold is 0.5.\n\nA prediction of 0.90 \\(\\rightarrow\\) a high likelihood that the transaction is fraudulent and we predict fraud\nA prediction of 0.20 \\(\\rightarrow\\) a low likelihood that the transaction is non-fraudulent and we predict Non fraud\n\nWhat happens if the predicted score is equal to the chosen threshold?\nPlay with classification thresholds"
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.2",
+    "href": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.2",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "iClicker Exercise 9.2",
+    "text": "iClicker Exercise 9.2\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nIf we increase the classification threshold, both true and false positives are likely to decrease.\n\n\nIf we increase the classification threshold, both true and false negatives are likely to decrease.\n\n\nLowering the classification threshold generally increases the model’s recall.\n\n\n\nRaising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#pr-curve",
+    "href": "slides/slides-09-classification-metrics.html#pr-curve",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "PR curve",
+    "text": "PR curve\n\nCalculate precision and recall (TPR) at every possible threshold and graph them.\nBetter choice for highly imbalanced datasets"
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#roc-curve",
+    "href": "slides/slides-09-classification-metrics.html#roc-curve",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "ROC curve",
+    "text": "ROC curve\n\nCalculate the true positive rate (TPR) and false positive rate (FPR) at every possible thresholding and graph TPR over FPR.\nGood choice when the datasets are roughly balanced."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#auc",
+    "href": "slides/slides-09-classification-metrics.html#auc",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "AUC",
+    "text": "AUC\n\nThe area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative."
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#roc-auc-questions",
