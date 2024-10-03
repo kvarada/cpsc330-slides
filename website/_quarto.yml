@@ -37,6 +37,10 @@ website:
         - lecture-03.qmd
         - lecture-04.qmd
         - lecture-05.qmd
+        - lecture-06.qmd        
+        - lecture-07.qmd
+        - lecture-08.qmd        
+        - lecture-09.qmd                
 format:
   html:
     theme: [zephyr]
