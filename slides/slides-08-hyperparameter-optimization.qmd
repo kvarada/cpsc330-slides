@@ -45,10 +45,10 @@ DATA_DIR = 'data/'
 
 ## Recap: Logistic regression
 - A **linear model used for binary classification** tasks. 
-  - There is a variant of logistic regression called multinomial logistic regression for multiclass classification.
+  - (Optional) There is am extension of logistic regression called multinomial logistic regression for multiclass classification.
 - Parameters: 
-  - Coefficients (Weights): The model learns a coefficient or a weight associated with each feature that represents its importance.
-  - Bias (Intercept): A constant term added to the linear combination of features and their coefficients.
+  - **Coefficients (Weights)**: The model learns a coefficient or a weight associated with each feature that represents its importance.
+  - **Bias (Intercept)**: A constant term added to the linear combination of features and their coefficients.
 
 ## Recap: Logistic regression 
 - The model computes a weighted sum of the input features’ values, adjusted by their respective coefficients and the bias term.
