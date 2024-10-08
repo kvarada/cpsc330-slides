@@ -1,0 +1,20 @@
+---
+title: "Lecture 10: Regression metrics"
+description: "Metrics for Regression"
+description-short: "" 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-10-regression-metrics.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- `Ridge` and `RidgeCV`.
+- `alpha` hyperparameter of `Ridge`
+- Coefficients of transformed features
+- MSE, RMSE, MAPE
+- Apply log-transform on the target values in a regression problem with `TransformedTargetRegressor`
