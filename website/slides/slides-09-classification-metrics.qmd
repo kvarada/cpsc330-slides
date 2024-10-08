@@ -44,6 +44,34 @@ DATA_DIR = 'data/'
 ## ML workflow 
 ![](img/ml-workflow.png)
 
+## Accuracy
+- So far we have been measuring model performance using **Accuracy**. 
+- **Accuracy** is the proportion of all classifications that were correct, whether *positive* or *negative*. 
+$$Accuracy = \frac{\text{corrct classifications}}{\text{total classifications}}$$
+- However, in many real-world applications, the dataset is imbalanced or one kind of mistake is more costly than the other
+- In such cases, it's better to optimize for one of the other metrics instead.
+
+## Fraud Confusion matrix
+
+- Which types of errors would be most critical for the bank to address?
+
+![](img/fraud-confusion-matrix.png)
+
+## Fraud Confusion matrix
+:::: {.columns}
+:::{.column width="80%"}
+![](img/tp-fp-tn-fn-fraud.png)
+:::
+
+:::{.column width="20%"}
+- TN $\rightarrow$ True negatives 
+- FP $\rightarrow$ False positives 
+- FN $\rightarrow$ False negatives
+- TP $\rightarrow$ True positives 
+:::
+::::
+
+
 ## Confusion matrix questions 
 
 Imagine a spam filter model where emails classified as spam are labeled 1 and non-spam emails are labeled 0. If a spam email is incorrectly classified as non-spam, what is this error called?
@@ -72,6 +100,10 @@ In a medical test for a disease, diseased states are labeled as 1 and healthy st
 - (D) A true negative
 
 
+## Precision, Recall, F1-Score
+![](img/precision-recall.png)
+![](img/fraud-precision-recall.png)
+
 ## iClicker Exercise 9.1
 
 **iClicker cloud join link: https://join.iclicker.com/VYFJ**
@@ -99,8 +131,19 @@ Method B - lower accuracy but higher precision
 | 80      | 15|
 | 0      | 5|
 
+## Thresholding 
 
-## Thresholding Exercise 9.2
+- The above metrics assume a fixed threshold. 
+- We use thresholding to get the binary prediction. 
+- A typical threshold is 0.5.
+    - A prediction of 0.90 $\rightarrow$ a high likelihood that the transaction is fraudulent and we predict **fraud**
+    - A prediction of 0.20 $\rightarrow$ a low likelihood that the transaction is non-fraudulent and we predict **Non fraud**
+- **What happens if the predicted score is equal to the chosen threshold?**
+
+- [Play with classification thresholds](https://developers.google.com/machine-learning/crash-course/classification/thresholding)
+
+
+## iClicker Exercise 9.2
 
 **iClicker cloud join link: https://join.iclicker.com/VYFJ**
 
@@ -110,6 +153,23 @@ Method B - lower accuracy but higher precision
 - (B) If we increase the classification threshold, both true and false negatives are likely to decrease.
 - (C) Lowering the classification threshold generally increases the model’s recall.  
 - (D) Raising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives.
+
+
+## PR curve
+- Calculate precision and recall (TPR) at every possible threshold and graph them. 
+- Better choice for highly imbalanced datasets 
+
+![](img/pr-curve-example.png)
+
+
+
+## ROC curve 
+- Calculate the true positive rate (TPR) and false positive rate (FPR) at every possible thresholding and graph TPR over FPR. 
+- Good choice when the datasets are roughly balanced. 
+![](img/roc-curve-example.png)
+
+## AUC 
+- The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative.
 
 
 ## ROC AUC questions
