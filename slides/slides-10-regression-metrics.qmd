@@ -71,15 +71,27 @@ $$ FPR  = \frac{FP}{FP + TN}$$
 - The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative.
 
 ## Questions for you {.smaller}
-- What will be the AUC of a baseline model? 
-![](img/roc-baseline.png)
+:::: {.columns}
+:::{.column width="60%"}
+![](img/roc-baseline.png) 
+:::
+:::{.column width="40%"}
+- What's the AUC of a baseline model? 
+:::
+::::
 
 [Source](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)
 
 ## Questions for you {.smaller}
 
-- Which model would you pick? 
+:::: {.columns}
+:::{.column width="60%"}
 ![](img/roc-curve-which-model.png)
+:::
+:::{.column width="40%"}
+- Which model would you pick? 
+:::
+::::
 
 ## Dealing with class imbalance
 - Under sampling 
@@ -91,6 +103,29 @@ $$ FPR  = \frac{FP}{FP + TN}$$
 
 # [Regression metrics class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_10-regression-metrics.ipynb)
 
+## Ridge and RidgeCV
+- **Ridge Regression**: `alpha` hyperparameter controls model complexity.
+- **RidgeCV**: Ridge regression with built-in cross-validation to find the optimal `alpha`.
+
+## `alpha` hyperparameter
+- **Role of `alpha`**:
+  - Controls model complexity
+  - Higher `alpha`: Simpler model, smaller coefficients.
+  - Lower `alpha`: Complex model, larger coefficients.
+
+## Regression metrics: MSE, RMSE, MAPE
+
+- **Mean Squared Error (MSE)**: Average of the squares of the errors.
+- **Root Mean Squared Error (RMSE)**: Square root of MSE, same units as the target variable.
+- **Mean Absolute Percentage Error (MAPE)**: Average of the absolute percentage errors.
+
+## Applying log transformation to the targets
+
+- Suitable when the target has a wide range and spans several orders of magnitude 
+  - Example: counts data such as social media likes or price data
+- Helps manage skewed data, making patterns more apparent and regression models more effective.
+- `TransformedTargetRegressor`
+  - Wraps a regression model and applies a transformation to the target values.
 
 
 ## iClicker Exercise 10.1

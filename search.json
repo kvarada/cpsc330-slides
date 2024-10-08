@@ -841,7 +841,7 @@
     "href": "lecture.html",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\n \n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -852,7 +852,7 @@
     "href": "lecture.html#schedule",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\n \n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -947,14 +947,14 @@
     "href": "slides/slides-10-regression-metrics.html#questions-for-you-1",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
     "section": "Questions for you",
-    "text": "Questions for you\n\nWhat will be the AUC of a baseline model? \n\nSource"
+    "text": "Questions for you\n\n\n\n\n\nWhat’s the AUC of a baseline model?\n\n\nSource"
   },
   {
     "objectID": "slides/slides-10-regression-metrics.html#questions-for-you-2",
     "href": "slides/slides-10-regression-metrics.html#questions-for-you-2",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
     "section": "Questions for you",
-    "text": "Questions for you\n\nWhich model would you pick?"
+    "text": "Questions for you\n\n\n\n\n\nWhich model would you pick?"
   },
   {
     "objectID": "slides/slides-10-regression-metrics.html#dealing-with-class-imbalance",
@@ -962,6 +962,34 @@
     "title": "CPSC 330 Lecture 10: Regression Metrics",
     "section": "Dealing with class imbalance",
     "text": "Dealing with class imbalance\n\nUnder sampling\nOversampling\nclass weight=\"balanced\" (preferred method for this course)\nSMOTE"
+  },
+  {
+    "objectID": "slides/slides-10-regression-metrics.html#ridge-and-ridgecv",
+    "href": "slides/slides-10-regression-metrics.html#ridge-and-ridgecv",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Ridge and RidgeCV",
+    "text": "Ridge and RidgeCV\n\nRidge Regression: alpha hyperparameter controls model complexity.\nRidgeCV: Ridge regression with built-in cross-validation to find the optimal alpha."
+  },
+  {
+    "objectID": "slides/slides-10-regression-metrics.html#alpha-hyperparameter",
+    "href": "slides/slides-10-regression-metrics.html#alpha-hyperparameter",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "alpha hyperparameter",
+    "text": "alpha hyperparameter\n\nRole of alpha:\n\nControls model complexity\nHigher alpha: Simpler model, smaller coefficients.\nLower alpha: Complex model, larger coefficients."
+  },
+  {
+    "objectID": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape",
+    "href": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Regression metrics: MSE, RMSE, MAPE",
+    "text": "Regression metrics: MSE, RMSE, MAPE\n\nMean Squared Error (MSE): Average of the squares of the errors.\nRoot Mean Squared Error (RMSE): Square root of MSE, same units as the target variable.\nMean Absolute Percentage Error (MAPE): Average of the absolute percentage errors."
+  },
+  {
+    "objectID": "slides/slides-10-regression-metrics.html#applying-log-transformation-to-the-targets",
+    "href": "slides/slides-10-regression-metrics.html#applying-log-transformation-to-the-targets",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Applying log transformation to the targets",
+    "text": "Applying log transformation to the targets\n\nSuitable when the target has a wide range and spans several orders of magnitude\n\nExample: counts data such as social media likes or price data\n\nHelps manage skewed data, making patterns more apparent and regression models more effective.\nTransformedTargetRegressor\n\nWraps a regression model and applies a transformation to the target values."
   },
   {
     "objectID": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.1",
@@ -1136,7 +1164,7 @@
     "href": "lecture-10.html#outline",
     "title": "Lecture 10: Regression metrics",
     "section": "Outline",
-    "text": "Outline\n\nRidge and RidgeCV.\nalpha hyperparameter of Ridge\nCoefficients of transformed features\nMSE, RMSE, MAPE\nApply log-transform on the target values in a regression problem with TransformedTargetRegressor",
+    "text": "Outline\n\nRecap: Classification metrics\nRidge and RidgeCV.\nalpha hyperparameter of Ridge\nMSE, RMSE, MAPE\nApply log-transform on the target values in a regression problem with TransformedTargetRegressor",
     "crumbs": [
       "Lectures",
       "Lecture 10: Regression metrics"
