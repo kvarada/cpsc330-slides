@@ -162,7 +162,6 @@ Method B - lower accuracy but higher precision
 ![](img/pr-curve-example.png)
 
 
-
 ## ROC curve 
 - Calculate the true positive rate (TPR) and false positive rate (FPR) at every possible thresholding and graph TPR over FPR. 
 - Good choice when the datasets are roughly balanced. 

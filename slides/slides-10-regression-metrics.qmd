@@ -64,6 +64,7 @@ $$ f1 = 2 \times \frac{ precision \times recall}{precision + recall}$$
 ## Recap: ROC curve 
 - Calculate the true positive rate (TPR) and false positive rate (FPR) ($\frac{FP}{FP + TN}$) at every possible thresholding and graph TPR over FPR. 
 - Good choice when the datasets are roughly balanced. 
+![](img/roc-example.png)
 ![](img/roc-curve-example.png)
 
 ## Recap: ROC Curve 
