@@ -1294,21 +1294,33 @@
     "href": "lecture-11.html",
     "title": "Lecture 10: Regression metrics",
     "section": "",
-    "text": "View slides in full screen"
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 10: Regression metrics"
+    ]
   },
   {
     "objectID": "lecture-11.html#slides",
     "href": "lecture-11.html#slides",
     "title": "Lecture 10: Regression metrics",
     "section": "",
-    "text": "View slides in full screen"
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 10: Regression metrics"
+    ]
   },
   {
     "objectID": "lecture-11.html#outline",
     "href": "lecture-11.html#outline",
     "title": "Lecture 10: Regression metrics",
     "section": "Outline",
-    "text": "Outline\n\nRecap: Classification metrics\nRidge and RidgeCV.\nalpha hyperparameter of Ridge\nMSE, RMSE, MAPE\nApply log-transform on the target values in a regression problem with TransformedTargetRegressor"
+    "text": "Outline\n\nRecap: Classification metrics\nRidge and RidgeCV.\nalpha hyperparameter of Ridge\nMSE, RMSE, MAPE\nApply log-transform on the target values in a regression problem with TransformedTargetRegressor",
+    "crumbs": [
+      "Lectures",
+      "Lecture 10: Regression metrics"
+    ]
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#announcements",
