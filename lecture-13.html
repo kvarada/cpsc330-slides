@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Random forests, gradient boosting, averaging, and stacking">
 
-<title>Overview – CPSC 330</title>
+<title>Lecture 12: Ensembles – CPSC 330</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,9 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./lecture-01.html" rel="next">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<link href="./lecture-12.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,35 +68,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-schedule .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-description-short',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-schedule'] = new List('listing-schedule', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
+ 
+  <style>
+  .slide-deck {
+      border: 3px solid #dee2e6;
+      width: 100%;
+  }
+  </style>
+  
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -167,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture.html">Overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture-13.html">Lecture 12: Ensembles</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -181,7 +159,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lecture.html" class="sidebar-item-text sidebar-link active">
+  <a href="./lecture.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
@@ -259,7 +237,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lecture-13.html" class="sidebar-item-text sidebar-link">
+  <a href="./lecture-13.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 12: Ensembles</span></a>
   </div>
 </li>
@@ -274,9 +252,14 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Overview</h1>
+<h1 class="title">Lecture 12: Ensembles</h1>
 </div>
 
+<div>
+  <div class="description">
+    Random forests, gradient boosting, averaging, and stacking
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -291,132 +274,23 @@ window.Quarto = {
 </header>
 
 
-<section id="schedule" class="level2">
-<h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
-<div id="listing-schedule" class="quarto-listing quarto-listing-container-table">
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-Title
-</th>
-<th>
-Description
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-listing-file-modified-sort="1727023948922" data-listing-reading-time-sort="1" data-listing-word-count-sort="29" data-listing-title-sort="Lecture 1: Course introduction" data-listing-filename-sort="lecture-01.qmd">
-<td>
-<a href="./lecture-01.html" class="title listing-title">Lecture 1: Course introduction</a>
-</td>
-<td>
-<span class="listing-description-short">What is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies</span>
-</td>
-</tr>
-<tr data-index="1" data-listing-file-modified-sort="1727020072401" data-listing-reading-time-sort="1" data-listing-word-count-sort="31" data-listing-title-sort="Lecture 2: Terminology, baselines, decision Trees" data-listing-filename-sort="lecture-02.qmd">
-<td>
-<a href="./lecture-02.html" class="title listing-title">Lecture 2: Terminology, baselines, decision Trees</a>
-</td>
-<td>
-<span class="listing-description-short">Supervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs.&nbsp;regression, inference vs.&nbsp;prediction, accuracy vs.&nbsp;error, baselines, intuition of decision trees</span>
-</td>
-</tr>
-<tr data-index="2" data-listing-file-modified-sort="1727020071065" data-listing-reading-time-sort="1" data-listing-word-count-sort="20" data-listing-title-sort="Lecture 3: ML fundamentals" data-listing-filename-sort="lecture-03.qmd">
-<td>
-<a href="./lecture-03.html" class="title listing-title">Lecture 3: ML fundamentals</a>
-</td>
-<td>
-<span class="listing-description-short">Generalization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule</span>
-</td>
-</tr>
-<tr data-index="3" data-listing-file-modified-sort="1726853636482" data-listing-reading-time-sort="1" data-listing-word-count-sort="32" data-listing-title-sort="Lecture 4: $k$-nearest neighbours and SVM RBFs" data-listing-filename-sort="lecture-04.qmd">
-<td>
-<a href="./lecture-04.html" class="title listing-title">Lecture 4: <span class="math inline">\(k\)</span>-nearest neighbours and SVM RBFs</a>
-</td>
-<td>
-<span class="listing-description-short">Introduction to KNNs, hyperparameter <code>n_neighbours</code> or <span class="math inline">\(k\)</span>, <code>C</code> and <code>gamma</code> hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.</span>
-</td>
-</tr>
-<tr data-index="4" data-listing-file-modified-sort="1726853796858" data-listing-reading-time-sort="1" data-listing-word-count-sort="29" data-listing-title-sort="Lecture 5: Preprocessing and sklearn pipelines" data-listing-filename-sort="lecture-05.qmd">
-<td>
-<a href="./lecture-05.html" class="title listing-title">Lecture 5: Preprocessing and sklearn pipelines</a>
-</td>
-<td>
-<span class="listing-description-short">Preprocessing motivation, Common transformations in <code>sklearn</code>, <code>sklearn</code> transformers vs.&nbsp;Estimators, The golden rule in the feature transformations, <code>sklearn</code> pipelines</span>
-</td>
-</tr>
-<tr data-index="5" data-listing-file-modified-sort="1727140455309" data-listing-reading-time-sort="1" data-listing-word-count-sort="25" data-listing-title-sort="Lecture 6: `sklearn` column transformer and text fearutres" data-listing-filename-sort="lecture-06.qmd">
-<td>
-<a href="./lecture-06.html" class="title listing-title">Lecture 6: <code>sklearn</code> column transformer and text fearutres</a>
-</td>
-<td>
-<span class="listing-description-short">Column transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline</span>
-</td>
-</tr>
-<tr data-index="6" data-listing-file-modified-sort="1727321729508" data-listing-reading-time-sort="1" data-listing-word-count-sort="39" data-listing-title-sort="Lecture 7: Linear models" data-listing-filename-sort="lecture-07.qmd">
-<td>
-<a href="./lecture-07.html" class="title listing-title">Lecture 7: Linear models</a>
-</td>
-<td>
-<span class="listing-description-short">Intuition behind linear models, linear regression and logistic regression, <code>scikit-learn</code>’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs.&nbsp;non-parametric models</span>
-</td>
-</tr>
-<tr data-index="7" data-listing-file-modified-sort="1727752691647" data-listing-reading-time-sort="1" data-listing-word-count-sort="21" data-listing-title-sort="Lecture 8: Hyperparameter Optimization" data-listing-filename-sort="lecture-08.qmd">
-<td>
-<a href="./lecture-08.html" class="title listing-title">Lecture 8: Hyperparameter Optimization</a>
-</td>
-<td>
-<span class="listing-description-short">motivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias</span>
-</td>
-</tr>
-<tr data-index="8" data-listing-file-modified-sort="1727968687137" data-listing-reading-time-sort="1" data-listing-word-count-sort="53" data-listing-title-sort="Lecture 9: Classification metrics" data-listing-filename-sort="lecture-09.qmd">
-<td>
-<a href="./lecture-09.html" class="title listing-title">Lecture 9: Classification metrics</a>
-</td>
-<td>
-<span class="listing-description-short">confusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance</span>
-</td>
-</tr>
-<tr data-index="9" data-listing-file-modified-sort="1728401011839" data-listing-reading-time-sort="1" data-listing-word-count-sort="33" data-listing-title-sort="Lecture 10: Regression metrics" data-listing-filename-sort="lecture-10.qmd">
-<td>
-<a href="./lecture-10.html" class="title listing-title">Lecture 10: Regression metrics</a>
-</td>
-<td>
-<span class="listing-description-short">Classification metrics recap, <code>ridge</code> and <code>RidgeCV</code>, <code>alpha</code> hyperparameter of <code>ridge</code>, MSE, RMSE, MAPE, log transformations on the target</span>
-</td>
-</tr>
-<tr data-index="10" data-listing-file-modified-sort="1728583017476" data-listing-reading-time-sort="1" data-listing-word-count-sort="8" data-listing-title-sort="Lecture 11: Midterm review" data-listing-filename-sort="lecture-11.qmd">
-<td>
-<a href="./lecture-11.html" class="title listing-title">Lecture 11: Midterm review</a>
-</td>
-<td>
-<span class="listing-description-short">&nbsp;</span>
-</td>
-</tr>
-<tr data-index="11" data-listing-file-modified-sort="1729259226586" data-listing-reading-time-sort="1" data-listing-word-count-sort="16" data-listing-title-sort="Lecture 12: Ensembles" data-listing-filename-sort="lecture-12.qmd">
-<td>
-<a href="./lecture-12.html" class="title listing-title">Lecture 12: Ensembles</a>
-</td>
-<td>
-<span class="listing-description-short">&nbsp;</span>
-</td>
-</tr>
-<tr data-index="12" data-listing-file-modified-sort="1729607663620" data-listing-reading-time-sort="1" data-listing-word-count-sort="16" data-listing-title-sort="Lecture 12: Ensembles" data-listing-filename-sort="lecture-13.qmd">
-<td>
-<a href="./lecture-13.html" class="title listing-title">Lecture 12: Ensembles</a>
-</td>
-<td>
-<span class="listing-description-short">&nbsp;</span>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
-
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+    <p><a href="slides/slides-13-feature-importances.html" target="_blank">View slides in full screen</a></p>
+       <div class="ratio ratio-16x9">
+      <iframe class="slide-deck" src="slides/slides-13-feature-importances.html" height="600px"></iframe>
+    </div>
+  
+</section>
+<section id="outline" class="level2">
+<h2 class="anchored" data-anchor-id="outline">Outline</h2>
+<ul>
+<li>Motivation</li>
+<li>Random forests</li>
+<li>Gradient boosting</li>
+<li>Averaging</li>
+<li>Stacking</li>
+</ul>
 
 
 </section>
@@ -844,11 +718,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./lecture-12.html" class="pagination-link" aria-label="Lecture 12: Ensembles">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lecture 12: Ensembles</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./lecture-01.html" class="pagination-link" aria-label="Lecture 1: Course introduction">
-        <span class="nav-page-text">Lecture 1: Course introduction</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
