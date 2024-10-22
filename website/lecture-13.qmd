@@ -1,0 +1,19 @@
+---
+title: "Lecture 12: Ensembles"
+description: "Random forests, gradient boosting, averaging, and stacking"
+description-short: "" 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-13-feature-importances.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+- Motivation
+- Random forests
+- Gradient boosting
+- Averaging
+- Stacking 
