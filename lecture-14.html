@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Metrics for classification">
+<meta name="description" content="Motivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs.&nbsp;RFE">
 
-<title>Lecture 9: Classification metrics – CPSC 330</title>
+<title>Lecture 14: Feature engineering and selection – CPSC 330</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,8 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./lecture-10.html" rel="next">
-<link href="./lecture-08.html" rel="prev">
+<link href="./lecture-13.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -146,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture-09.html">Lecture 9: Classification metrics</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture-14.html">Lecture 14: Feature engineering and selection</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -214,7 +213,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lecture-09.html" class="sidebar-item-text sidebar-link active">
+  <a href="./lecture-09.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 9: Classification metrics</span></a>
   </div>
 </li>
@@ -244,7 +243,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lecture-14.html" class="sidebar-item-text sidebar-link">
+  <a href="./lecture-14.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 14: Feature engineering and selection</span></a>
   </div>
 </li>
@@ -259,12 +258,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 9: Classification metrics</h1>
+<h1 class="title">Lecture 14: Feature engineering and selection</h1>
 </div>
 
 <div>
   <div class="description">
-    Metrics for classification
+    Motivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs.&nbsp;RFE
   </div>
 </div>
 
@@ -283,23 +282,19 @@ window.Quarto = {
 
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
-    <p><a href="slides/slides-09-classification-metrics.html" target="_blank">View slides in full screen</a></p>
+    <p><a href="slides/slides-14-feature-engineering-selection.html" target="_blank">View slides in full screen</a></p>
        <div class="ratio ratio-16x9">
-      <iframe class="slide-deck" src="slides/slides-09-classification-metrics.html" height="600px"></iframe>
+      <iframe class="slide-deck" src="slides/slides-14-feature-engineering-selection.html" height="600px"></iframe>
     </div>
   
 </section>
 <section id="outline" class="level2">
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
 <ul>
-<li>Issues with using accuracy</li>
-<li>Components of a confusion matrix</li>
-<li>Precision, recall, and f1-score and use them to evaluate different classifiers</li>
-<li>Precision-recall curves</li>
-<li>Average precision score</li>
-<li>ROC curves and ROC AUC using scikit-learn</li>
-<li>Dealing with class imbalance</li>
-<li>Model performance on specific groups in a dataset.</li>
+<li>Motivation for feature engineering</li>
+<li>Preliminary feature engineering on text data</li>
+<li>General concept of feature selection.</li>
+<li>Model-based feature selection vs.&nbsp;RFE</li>
 </ul>
 
 
@@ -728,14 +723,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./lecture-08.html" class="pagination-link" aria-label="Lecture 8: Hyperparameter Optimization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lecture 8: Hyperparameter Optimization</span>
+      <a href="./lecture-13.html" class="pagination-link" aria-label="Lecture 13: Feature importances">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lecture 13: Feature importances</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./lecture-10.html" class="pagination-link" aria-label="Lecture 10: Regression metrics">
-        <span class="nav-page-text">Lecture 10: Regression metrics</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

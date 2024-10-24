@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Random forests, gradient boosting, averaging, and stacking">
+<meta name="description" content="interpreting coefficients of linear models, model transparency, feature_importances, SHAP">
 
-<title>Lecture 12: Ensembles – CPSC 330</title>
+<title>Lecture 13: Feature importances – CPSC 330</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./lecture-14.html" rel="next">
 <link href="./lecture-12.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -145,7 +146,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture-13.html">Lecture 12: Ensembles</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture-13.html">Lecture 13: Feature importances</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -238,7 +239,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lecture-13.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 12: Ensembles</span></a>
+ <span class="menu-text">Lecture 13: Feature importances</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture-14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 14: Feature engineering and selection</span></a>
   </div>
 </li>
     </ul>
@@ -252,12 +259,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 12: Ensembles</h1>
+<h1 class="title">Lecture 13: Feature importances</h1>
 </div>
 
 <div>
   <div class="description">
-    Random forests, gradient boosting, averaging, and stacking
+    interpreting coefficients of linear models, model transparency, feature_importances, SHAP
   </div>
 </div>
 
@@ -285,11 +292,10 @@ window.Quarto = {
 <section id="outline" class="level2">
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
 <ul>
-<li>Motivation</li>
-<li>Random forests</li>
-<li>Gradient boosting</li>
-<li>Averaging</li>
-<li>Stacking</li>
+<li>interpreting coefficients of linear models</li>
+<li>model transparency</li>
+<li>feature_importances</li>
+<li>SHAP</li>
 </ul>
 
 
@@ -723,6 +729,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./lecture-14.html" class="pagination-link" aria-label="Lecture 14: Feature engineering and selection">
+        <span class="nav-page-text">Lecture 14: Feature engineering and selection</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
