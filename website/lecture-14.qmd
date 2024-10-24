@@ -1,0 +1,18 @@
+---
+title: "Lecture 14: Feature engineering and selection"
+description: "Motivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE"
+description-short: "Motivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE" 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-14-feature-engineering-selection.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+- Motivation for feature engineering
+- Preliminary feature engineering on text data
+- General concept of feature selection.
+- Model-based feature selection vs. RFE 
