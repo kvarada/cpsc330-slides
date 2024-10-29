@@ -393,13 +393,16 @@
 <blockquote>
 … At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used.
 </blockquote>
+</section>
+<section id="some-quotes-on-feature-engineering-1" class="slide level2 center">
+<h2>Some quotes on feature engineering</h2>
 <p>A quote by Andrew Ng, <a href="https://ai.stanford.edu/~ang/slides/DeepLearning-Mar2013.pptx">Machine Learning and AI via Brain simulations</a></p>
 <blockquote>
 Coming up with features is difficult, time-consuming, requires expert knowledge. “Applied machine learning” is basically feature engineering.
 </blockquote>
 </section>
-<section id="better-features-usually-help-more-than-a-better-model." class="slide level2 center">
-<h2>Better features usually help more than a better model.</h2>
+<section id="better-features-usually-help-more-than-a-better-model" class="slide level2 smaller center">
+<h2>Better features usually help more than a better model</h2>
 <ul>
 <li>Good features would ideally:
 <ul>
@@ -438,58 +441,30 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 <img data-src="img/spectogram.png" class="r-stretch"><p><a href="https://en.wikipedia.org/wiki/Spectrogram">Source</a></p>
 </section></section>
 <section>
-<section id="feature-engineering-on-numeric-features" class="title-slide slide level1 center">
-<h1>Feature engineering on numeric features</h1>
+<section id="demo-of-feature-engineering-and-selection" class="title-slide slide level1 center">
+<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb">Demo of feature engineering and selection</a></h1>
 
 </section>
-<section id="feature-interactions-and-feature-crosses" class="slide level2 center">
-<h2>Feature interactions and feature crosses</h2>
+<h3 id="iclicker-exercise-14.1">(iClicker) Exercise 14.1</h3>
+<p><strong>Select all of the following statements which are TRUE.</strong></p>
 <ul>
-<li>A <strong>feature cross</strong> is a synthetic feature formed by multiplying or crossing two or more features.</li>
-<li>Example: Is the following dataset (XOR function) linearly separable?</li>
+<li><ol type="A">
+<li>Simple association-based feature selection approaches do not take into account the interaction between features.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>The order of features removed given by <code>rfe.ranking_</code> is the same as the order of original feature importances given by the model.</li>
+</ol></li>
 </ul>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><span class="math display"><em>x</em><sub>1</sub></span></th>
-<th><span class="math display"><em>x</em><sub>2</sub></span></th>
-<th>target</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>-1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>-1</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td>-1</td>
-<td>-1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="feature-crosses-for-ohe-features" class="slide level2 center">
-<h2>Feature crosses for OHE features</h2>
 
 <div class="quarto-auto-generated-content">
 <p><img src="img/UBC-CS-logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
-</div>
-</section></section>
+</div></section>
     </div>
   </div>
 

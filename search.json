@@ -553,235 +553,361 @@
     "text": "Intuition of C and gamma in SVM RBF\n\nC (Regularization): Controls the trade-off between perfect training accuracy and having a simpler decision boundary.\n\nHigh C: Strict, complex boundary (overfitting risk).\nLow C: More errors allowed, smoother boundary (generalizes better).\n\nGamma (Kernel Width): Controls the influence of individual data points.\n\nHigh Gamma: Points have local impact, complex boundary.\nLow Gamma: Points affect broader areas, smoother boundary.\n\nKey trade-off: Proper balance between C and gamma is crucial for avoiding overfitting or underfitting."
   },
   {
-    "objectID": "lecture-13.html",
-    "href": "lecture-13.html",
-    "title": "Lecture 13: Feature importances",
+    "objectID": "lecture-14.html",
+    "href": "lecture-14.html",
+    "title": "Lecture 14: Feature engineering and selection",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 13: Feature importances"
+      "Lecture 14: Feature engineering and selection"
     ]
   },
   {
-    "objectID": "lecture-13.html#slides",
-    "href": "lecture-13.html#slides",
-    "title": "Lecture 13: Feature importances",
+    "objectID": "lecture-14.html#slides",
+    "href": "lecture-14.html#slides",
+    "title": "Lecture 14: Feature engineering and selection",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 13: Feature importances"
+      "Lecture 14: Feature engineering and selection"
     ]
   },
   {
-    "objectID": "lecture-13.html#outline",
-    "href": "lecture-13.html#outline",
-    "title": "Lecture 13: Feature importances",
+    "objectID": "lecture-14.html#outline",
+    "href": "lecture-14.html#outline",
+    "title": "Lecture 14: Feature engineering and selection",
     "section": "Outline",
-    "text": "Outline\n\ninterpreting coefficients of linear models\nmodel transparency\nfeature_importances\nSHAP",
+    "text": "Outline\n\nMotivation for feature engineering\nPreliminary feature engineering on text data\nGeneral concept of feature selection.\nModel-based feature selection vs. RFE",
     "crumbs": [
       "Lectures",
-      "Lecture 13: Feature importances"
+      "Lecture 14: Feature engineering and selection"
     ]
   },
   {
-    "objectID": "lecture-11.html",
-    "href": "lecture-11.html",
-    "title": "Lecture 11: Midterm review",
+    "objectID": "lecture-12.html",
+    "href": "lecture-12.html",
+    "title": "Lecture 12: Ensembles",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 11: Midterm review"
+      "Lecture 12: Ensembles"
     ]
   },
   {
-    "objectID": "lecture-11.html#slides",
-    "href": "lecture-11.html#slides",
-    "title": "Lecture 11: Midterm review",
+    "objectID": "lecture-12.html#slides",
+    "href": "lecture-12.html#slides",
+    "title": "Lecture 12: Ensembles",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 11: Midterm review"
+      "Lecture 12: Ensembles"
     ]
   },
   {
-    "objectID": "lecture-11.html#outline",
-    "href": "lecture-11.html#outline",
-    "title": "Lecture 11: Midterm review",
+    "objectID": "lecture-12.html#outline",
+    "href": "lecture-12.html#outline",
+    "title": "Lecture 12: Ensembles",
     "section": "Outline",
-    "text": "Outline",
+    "text": "Outline\n\nMotivation\nRandom forests\nGradient boosting\nAveraging\nStacking",
     "crumbs": [
       "Lectures",
-      "Lecture 11: Midterm review"
+      "Lecture 12: Ensembles"
     ]
   },
   {
-    "objectID": "lecture-09.html",
-    "href": "lecture-09.html",
-    "title": "Lecture 9: Classification metrics",
+    "objectID": "lecture-10.html",
+    "href": "lecture-10.html",
+    "title": "Lecture 10: Regression metrics",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 9: Classification metrics"
+      "Lecture 10: Regression metrics"
     ]
   },
   {
-    "objectID": "lecture-09.html#slides",
-    "href": "lecture-09.html#slides",
-    "title": "Lecture 9: Classification metrics",
+    "objectID": "lecture-10.html#slides",
+    "href": "lecture-10.html#slides",
+    "title": "Lecture 10: Regression metrics",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 9: Classification metrics"
+      "Lecture 10: Regression metrics"
     ]
   },
   {
-    "objectID": "lecture-09.html#outline",
-    "href": "lecture-09.html#outline",
-    "title": "Lecture 9: Classification metrics",
+    "objectID": "lecture-10.html#outline",
+    "href": "lecture-10.html#outline",
+    "title": "Lecture 10: Regression metrics",
     "section": "Outline",
-    "text": "Outline\n\nIssues with using accuracy\nComponents of a confusion matrix\nPrecision, recall, and f1-score and use them to evaluate different classifiers\nPrecision-recall curves\nAverage precision score\nROC curves and ROC AUC using scikit-learn\nDealing with class imbalance\nModel performance on specific groups in a dataset.",
+    "text": "Outline\n\nRecap: Classification metrics\nRidge and RidgeCV.\nalpha hyperparameter of Ridge\nMSE, RMSE, MAPE\nApply log-transform on the target values in a regression problem with TransformedTargetRegressor",
     "crumbs": [
       "Lectures",
-      "Lecture 9: Classification metrics"
+      "Lecture 10: Regression metrics"
     ]
   },
   {
-    "objectID": "lecture-07.html",
-    "href": "lecture-07.html",
-    "title": "Lecture 7: Linear models",
+    "objectID": "lecture-08.html",
+    "href": "lecture-08.html",
+    "title": "Lecture 8: Hyperparameter Optimization",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 7: Linear models"
+      "Lecture 8: Hyperparameter Optimization"
     ]
   },
   {
-    "objectID": "lecture-07.html#slides",
-    "href": "lecture-07.html#slides",
-    "title": "Lecture 7: Linear models",
+    "objectID": "lecture-08.html#slides",
+    "href": "lecture-08.html#slides",
+    "title": "Lecture 8: Hyperparameter Optimization",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 7: Linear models"
+      "Lecture 8: Hyperparameter Optimization"
     ]
   },
   {
-    "objectID": "lecture-07.html#outline",
-    "href": "lecture-07.html#outline",
-    "title": "Lecture 7: Linear models",
+    "objectID": "lecture-08.html#outline",
+    "href": "lecture-08.html#outline",
+    "title": "Lecture 8: Hyperparameter Optimization",
     "section": "Outline",
-    "text": "Outline\n\nIntuition behind linear models\nLinear regression and logistic regression\nscikit-learn’s Ridge model\nPrediction probabilities\nInterpret model predictions using coefficients learned by a linear model\nParametric vs. non-parametric models",
+    "text": "Outline\n\nWhy hyperparameter optimization?\nHyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV\nOptimization bias",
     "crumbs": [
       "Lectures",
-      "Lecture 7: Linear models"
+      "Lecture 8: Hyperparameter Optimization"
     ]
   },
   {
-    "objectID": "lecture-05.html",
-    "href": "lecture-05.html",
-    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "objectID": "lecture-06.html",
+    "href": "lecture-06.html",
+    "title": "Lecture 6: sklearn column transformer and text fearutres",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 5: Preprocessing and sklearn pipelines"
+      "Lecture 6: `sklearn` column transformer and text fearutres"
     ]
   },
   {
-    "objectID": "lecture-05.html#slides",
-    "href": "lecture-05.html#slides",
-    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "objectID": "lecture-06.html#slides",
+    "href": "lecture-06.html#slides",
+    "title": "Lecture 6: sklearn column transformer and text fearutres",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 5: Preprocessing and sklearn pipelines"
+      "Lecture 6: `sklearn` column transformer and text fearutres"
     ]
   },
   {
-    "objectID": "lecture-05.html#outline",
-    "href": "lecture-05.html#outline",
-    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "objectID": "lecture-06.html#outline",
+    "href": "lecture-06.html#outline",
+    "title": "Lecture 6: sklearn column transformer and text fearutres",
     "section": "Outline",
-    "text": "Outline\n\nRecap\nPreprocessing motivation\nCommon transformations in sklearn\nsklearn transformers vs. Estimators\nThe golden rule in the feature transformations\nsklearn pipelines",
+    "text": "Outline\n\nRecap\nColumn transformer\nArguments of one-hot encoder\nsklearn CountVectorizer\nincorporating text features in the pipeline",
     "crumbs": [
       "Lectures",
-      "Lecture 5: Preprocessing and sklearn pipelines"
+      "Lecture 6: `sklearn` column transformer and text fearutres"
     ]
   },
   {
-    "objectID": "lecture-03.html",
-    "href": "lecture-03.html",
-    "title": "Lecture 3: ML fundamentals",
+    "objectID": "lecture-04.html",
+    "href": "lecture-04.html",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 3: ML fundamentals"
+      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
     ]
   },
   {
-    "objectID": "lecture-03.html#slides",
-    "href": "lecture-03.html#slides",
-    "title": "Lecture 3: ML fundamentals",
+    "objectID": "lecture-04.html#slides",
+    "href": "lecture-04.html#slides",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 3: ML fundamentals"
+      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
     ]
   },
   {
-    "objectID": "lecture-03.html#outline",
-    "href": "lecture-03.html#outline",
-    "title": "Lecture 3: ML fundamentals",
+    "objectID": "lecture-04.html#outline",
+    "href": "lecture-04.html#outline",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
     "section": "Outline",
-    "text": "Outline\n\nGeneralization, data splitting\nCross-validation\nOverfitting, underfitting, the fundamental tradeoff\nThe golden rule",
+    "text": "Outline\n\nRecap\nSimilarity-based algorithms\n\\(k\\)-nearest neighbours intuitions\nCurse of dimensionality\nSVM with RBF kernel intuition\nInterpretation of C and gamma hyperparameters of SVM RBF",
     "crumbs": [
       "Lectures",
-      "Lecture 3: ML fundamentals"
+      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
     ]
   },
   {
-    "objectID": "lecture-01.html",
-    "href": "lecture-01.html",
-    "title": "Lecture 1: Course introduction",
+    "objectID": "lecture-02.html",
+    "href": "lecture-02.html",
+    "title": "Lecture 2: Terminology, baselines, decision Trees",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 1: Course introduction"
+      "Lecture 2: Terminology, baselines, decision Trees"
     ]
   },
   {
-    "objectID": "lecture-01.html#slides",
-    "href": "lecture-01.html#slides",
-    "title": "Lecture 1: Course introduction",
+    "objectID": "lecture-02.html#slides",
+    "href": "lecture-02.html#slides",
+    "title": "Lecture 2: Terminology, baselines, decision Trees",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 1: Course introduction"
+      "Lecture 2: Terminology, baselines, decision Trees"
     ]
   },
   {
-    "objectID": "lecture-01.html#outline",
-    "href": "lecture-01.html#outline",
-    "title": "Lecture 1: Course introduction",
+    "objectID": "lecture-02.html#outline",
+    "href": "lecture-02.html#outline",
+    "title": "Lecture 2: Terminology, baselines, decision Trees",
     "section": "Outline",
-    "text": "Outline\n\nWhat is machine learning\nTypes of machine learning\nLearning to navigate through the course materials\nGetting familiar with the course policies",
+    "text": "Outline\n\nFeatures, target, examples, training\nParameters and hyperparameters\nDecision boundary\nClassification vs. regression\nInference vs. prediction\nAccuracy vs. error, baselines\nIntuition of decision trees",
     "crumbs": [
       "Lectures",
-      "Lecture 1: Course introduction"
+      "Lecture 2: Terminology, baselines, decision Trees"
     ]
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#announcements",
+    "href": "slides/slides-15-k-means.html#announcements",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "Announcements",
+    "text": "Announcements\n\nHW5 extension: New due date is tomorrow.\nHW6 will be released today. It’ll be due next week Wednesday."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#iclicker-midterm-poll",
+    "href": "slides/slides-15-k-means.html#iclicker-midterm-poll",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "(iClicker) Midterm poll",
+    "text": "(iClicker) Midterm poll\nSelect all of the following statements which are TRUE.\n\n\nI’m happy with my progress and learning in this course.\n\n\nI find the course content interesting, but the pace is a bit overwhelming. Balancing this course with other responsibilities is challenging\n\n\nI’m doing okay, but I feel stressed and worried about upcoming assessments.\n\n\nI’m confused about some concepts and would appreciate more clarification or review sessions.\n\n\nI’m struggling to keep up with the material. I am not happy with my learning in this course and my morale is low :(."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#supervised-learning",
+    "href": "slides/slides-15-k-means.html#supervised-learning",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "Supervised learning",
+    "text": "Supervised learning\n\nTraining data comprises a set of observations (X) and their corresponding targets (y).\nWe wish to find a model function f that relates X to y.\nThen use that model function to predict the targets of new examples.\nWe have been working with this set up so far."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#unsupervised-learning",
+    "href": "slides/slides-15-k-means.html#unsupervised-learning",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "Unsupervised learning",
+    "text": "Unsupervised learning\n\nTraining data consists of observations (X) without any corresponding targets.\nUnsupervised learning could be used to group similar things together in X or to find underlying structure in the data."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#clustering-activity",
+    "href": "slides/slides-15-k-means.html#clustering-activity",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "Clustering Activity",
+    "text": "Clustering Activity\n\n\nCategorize the food items in the image and write your categories. Do you think there is one correct way to cluster these images? Why or why not?\nIf you want to build a machine learning model to cluster such images how would you represent such images?"
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#the-perfect-spaghetti-sauce",
+    "href": "slides/slides-15-k-means.html#the-perfect-spaghetti-sauce",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "The “perfect” spaghetti sauce",
+    "text": "The “perfect” spaghetti sauce\nSuppose you are a hypothetical spaghetti sauce company and you’re asked to create the “perfect” spaghetti sauce which makes all your customers happy. The truth is humans are diverse and there is no “perfect” spaghetti sauce. There are “perfect” spaghetti sauces that cater to different tastes!"
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#the-perfect-spaghetti-sauce-1",
+    "href": "slides/slides-15-k-means.html#the-perfect-spaghetti-sauce-1",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "The “perfect” spaghetti sauce",
+    "text": "The “perfect” spaghetti sauce\nHoward Moskowitz found out that Americans fall into one of the following three categories:\n\npeople who like their spaghetti sauce plain\npeople who like their spaghetti sauce spicy\npeople who like their spaghetti sauce extra chunky\n\n Reference: Malcolm Gladwell’s Ted talk"
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#the-perfect-spaghetti-sauce-2",
+    "href": "slides/slides-15-k-means.html#the-perfect-spaghetti-sauce-2",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "The “perfect” spaghetti sauce",
+    "text": "The “perfect” spaghetti sauce\n\nIf one “perfect” authentic sauce satisfies 60%, of the people on average, creating several tailored sauce clusters could increase average happiness to between 75% to 78%.\nCan we apply this concept of clustering and tailoring solutions to specific groups in machine learning?"
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#k-means-clustering",
+    "href": "slides/slides-15-k-means.html#k-means-clustering",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "K-means Clustering",
+    "text": "K-means Clustering\n\nAlgorithm Steps:\n\nSelect K initial centroids.\nAssign each data point to the nearest centroid.\nRecalculate centroids based on assigned points.\nRepeat until centroids stabilize or reach a maximum number of iterations."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#k-means-example",
+    "href": "slides/slides-15-k-means.html#k-means-example",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "K-Means example",
+    "text": "K-Means example"
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#k-means-pros-and-cons",
+    "href": "slides/slides-15-k-means.html#k-means-pros-and-cons",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "K-Means pros and cons",
+    "text": "K-Means pros and cons\n\nAdvantages:\n\nSimple and efficient for large datasets.\nWorks well with spherical clusters.\n\nLimitations:\n\nNeeds pre-defined K.\nSensitive to outliers and initial centroid placement."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#iclicker-exercise-15.1",
+    "href": "slides/slides-15-k-means.html#iclicker-exercise-15.1",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "iClicker Exercise 15.1",
+    "text": "iClicker Exercise 15.1\nSelect all of the following statements which are True\n\n\nK-Means algorithm always converges to the same solution.\n\n\nK in K-Means should always be ≤ # of features.\n\n\nIn K-Means, it makes sense to have K ≤ # of examples.\n\n\nIn K-Means, in some iterations some points may be left unassigned."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#iclicker-exercise-15.2",
+    "href": "slides/slides-15-k-means.html#iclicker-exercise-15.2",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "iClicker Exercise 15.2",
+    "text": "iClicker Exercise 15.2\nSelect all of the following statements which are True\n\n\nK-Means is sensitive to initialization and the solution may change depending upon the initialization.\n\n\nK-means terminates when the number of clusters does not increase between iterations.\n\n\nK-means terminates when the centroid locations do not change between iterations.\n\n\nK-Means is guaranteed to find the optimal solution."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#the-elbow-method",
+    "href": "slides/slides-15-k-means.html#the-elbow-method",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "The Elbow Method",
+    "text": "The Elbow Method\n\nPurpose: Identify the optimal number of clusters (K).\nHow it Works:\n\nPlot intra-cluster distances for different values of K.\nLook for the “elbow” point where the intra-cluster reduction slows.\n\nInterpretation:\n\nThe point of diminishing returns suggests a good K."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#the-elbow-method-example",
+    "href": "slides/slides-15-k-means.html#the-elbow-method-example",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "The Elbow method example",
+    "text": "The Elbow method example"
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#the-silhouette-method",
+    "href": "slides/slides-15-k-means.html#the-silhouette-method",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "The Silhouette method",
+    "text": "The Silhouette method\n\nSilhouette Score: Measures how well data points fit within their cluster.\n\n$s(i) = \\frac{b(i) - a(i)}{\\max (a(i), b(i))}$\n\na(i): Mean distance to other points in the same cluster.\nb(i): Mean distance to points in the nearest neighboring cluster."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#the-silhouette-method-1",
+    "href": "slides/slides-15-k-means.html#the-silhouette-method-1",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "The Silhouette method",
+    "text": "The Silhouette method\n\nRange: -1 to 1\n\n1: Perfect clustering.\n0: Overlapping clusters.\nNegative: Poor clustering.\n\nHigher average silhouette score indicates “better” clustering."
+  },
+  {
+    "objectID": "slides/slides-15-k-means.html#iclicker-exercise-15.3",
+    "href": "slides/slides-15-k-means.html#iclicker-exercise-15.3",
+    "title": "CPSC 330 Lecture 15: K-Means",
+    "section": "iClicker Exercise 15.3",
+    "text": "iClicker Exercise 15.3\nSelect all of the following statements which are True\n\n\nIf you train K-Means with n_clusters= the number of examples, the inertia value will be 0.\n\n\nThe elbow plot shows the tradeoff between within cluster distance and the number of clusters.\n\n\nUnlike the Elbow method, the Silhouette method is not dependent on the notion of cluster centers.\n\n\nThe elbow plot is not a reliable method to obtain the optimal number of clusters in all cases.\n\n\nThe Silhouette scores ranges between -1 and 1 where higher scores indicates better cluster assignments."
   },
   {
     "objectID": "slides/slides-13-feature-importances.html#announcements",
@@ -1075,7 +1201,7 @@
     "href": "lecture.html",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Midterm review\n\n\n \n\n\n\n\nLecture 12: Ensembles\n\n\n \n\n\n\n\nLecture 13: Feature importances\n\n\n \n\n\n\n\nLecture 14: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Midterm review\n\n\n \n\n\n\n\nLecture 12: Ensembles\n\n\n \n\n\n\n\nLecture 13: Feature importances\n\n\n \n\n\n\n\nLecture 14: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 15: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -1086,7 +1212,7 @@
     "href": "lecture.html#schedule",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Midterm review\n\n\n \n\n\n\n\nLecture 12: Ensembles\n\n\n \n\n\n\n\nLecture 13: Feature importances\n\n\n \n\n\n\n\nLecture 14: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Midterm review\n\n\n \n\n\n\n\nLecture 12: Ensembles\n\n\n \n\n\n\n\nLecture 13: Feature importances\n\n\n \n\n\n\n\nLecture 14: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 15: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -1307,14 +1433,21 @@
     "href": "slides/slides-14-feature-engineering-selection.html#some-quotes-on-feature-engineering",
     "title": "CPSC 330 Lecture 14: Feature Engineering and Selection",
     "section": "Some quotes on feature engineering",
-    "text": "Some quotes on feature engineering\nA quote by Pedro Domingos A Few Useful Things to Know About Machine Learning\n\n… At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used.\n\nA quote by Andrew Ng, Machine Learning and AI via Brain simulations\n\nComing up with features is difficult, time-consuming, requires expert knowledge. “Applied machine learning” is basically feature engineering."
+    "text": "Some quotes on feature engineering\nA quote by Pedro Domingos A Few Useful Things to Know About Machine Learning\n\n… At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used."
   },
   {
-    "objectID": "slides/slides-14-feature-engineering-selection.html#better-features-usually-help-more-than-a-better-model.",
-    "href": "slides/slides-14-feature-engineering-selection.html#better-features-usually-help-more-than-a-better-model.",
+    "objectID": "slides/slides-14-feature-engineering-selection.html#some-quotes-on-feature-engineering-1",
+    "href": "slides/slides-14-feature-engineering-selection.html#some-quotes-on-feature-engineering-1",
     "title": "CPSC 330 Lecture 14: Feature Engineering and Selection",
-    "section": "Better features usually help more than a better model.",
-    "text": "Better features usually help more than a better model.\n\nGood features would ideally:\n\ncapture most important aspects of the problem\nallow learning with few examples\ngeneralize to new scenarios.\n\nThere is a trade-off between simple and expressive features:\n\nWith simple features overfitting risk is low, but scores might be low.\nWith complicated features scores can be high, but so is overfitting risk."
+    "section": "Some quotes on feature engineering",
+    "text": "Some quotes on feature engineering\nA quote by Andrew Ng, Machine Learning and AI via Brain simulations\n\nComing up with features is difficult, time-consuming, requires expert knowledge. “Applied machine learning” is basically feature engineering."
+  },
+  {
+    "objectID": "slides/slides-14-feature-engineering-selection.html#better-features-usually-help-more-than-a-better-model",
+    "href": "slides/slides-14-feature-engineering-selection.html#better-features-usually-help-more-than-a-better-model",
+    "title": "CPSC 330 Lecture 14: Feature Engineering and Selection",
+    "section": "Better features usually help more than a better model",
+    "text": "Better features usually help more than a better model\n\nGood features would ideally:\n\ncapture most important aspects of the problem\nallow learning with few examples\ngeneralize to new scenarios.\n\nThere is a trade-off between simple and expressive features:\n\nWith simple features overfitting risk is low, but scores might be low.\nWith complicated features scores can be high, but so is overfitting risk."
   },
   {
     "objectID": "slides/slides-14-feature-engineering-selection.html#the-best-features-may-be-dependent-on-the-model-you-use",
@@ -1331,249 +1464,256 @@
     "text": "Domain-specific transformations\nIn some domains there are natural transformations to do: - Spectrograms (sound data) - Wavelets (image data) - Convolutions\n\nSource"
   },
   {
-    "objectID": "slides/slides-14-feature-engineering-selection.html#feature-interactions-and-feature-crosses",
-    "href": "slides/slides-14-feature-engineering-selection.html#feature-interactions-and-feature-crosses",
-    "title": "CPSC 330 Lecture 14: Feature Engineering and Selection",
-    "section": "Feature interactions and feature crosses",
-    "text": "Feature interactions and feature crosses\n\nA feature cross is a synthetic feature formed by multiplying or crossing two or more features.\nExample: Is the following dataset (XOR function) linearly separable?\n\n\n\n\nx1\nx2\ntarget\n\n\n\n\n1\n1\n0\n\n\n-1\n1\n1\n\n\n1\n-1\n1\n\n\n-1\n-1\n0"
-  },
-  {
-    "objectID": "slides/slides-14-feature-engineering-selection.html#feature-crosses-for-ohe-features",
-    "href": "slides/slides-14-feature-engineering-selection.html#feature-crosses-for-ohe-features",
-    "title": "CPSC 330 Lecture 14: Feature Engineering and Selection",
-    "section": "Feature crosses for OHE features",
-    "text": "Feature crosses for OHE features"
-  },
-  {
-    "objectID": "lecture-02.html",
-    "href": "lecture-02.html",
-    "title": "Lecture 2: Terminology, baselines, decision Trees",
+    "objectID": "lecture-01.html",
+    "href": "lecture-01.html",
+    "title": "Lecture 1: Course introduction",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 2: Terminology, baselines, decision Trees"
+      "Lecture 1: Course introduction"
     ]
   },
   {
-    "objectID": "lecture-02.html#slides",
-    "href": "lecture-02.html#slides",
-    "title": "Lecture 2: Terminology, baselines, decision Trees",
+    "objectID": "lecture-01.html#slides",
+    "href": "lecture-01.html#slides",
+    "title": "Lecture 1: Course introduction",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 2: Terminology, baselines, decision Trees"
+      "Lecture 1: Course introduction"
     ]
   },
   {
-    "objectID": "lecture-02.html#outline",
-    "href": "lecture-02.html#outline",
-    "title": "Lecture 2: Terminology, baselines, decision Trees",
+    "objectID": "lecture-01.html#outline",
+    "href": "lecture-01.html#outline",
+    "title": "Lecture 1: Course introduction",
     "section": "Outline",
-    "text": "Outline\n\nFeatures, target, examples, training\nParameters and hyperparameters\nDecision boundary\nClassification vs. regression\nInference vs. prediction\nAccuracy vs. error, baselines\nIntuition of decision trees",
+    "text": "Outline\n\nWhat is machine learning\nTypes of machine learning\nLearning to navigate through the course materials\nGetting familiar with the course policies",
     "crumbs": [
       "Lectures",
-      "Lecture 2: Terminology, baselines, decision Trees"
+      "Lecture 1: Course introduction"
     ]
   },
   {
-    "objectID": "lecture-04.html",
-    "href": "lecture-04.html",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "objectID": "lecture-03.html",
+    "href": "lecture-03.html",
+    "title": "Lecture 3: ML fundamentals",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
+      "Lecture 3: ML fundamentals"
     ]
   },
   {
-    "objectID": "lecture-04.html#slides",
-    "href": "lecture-04.html#slides",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "objectID": "lecture-03.html#slides",
+    "href": "lecture-03.html#slides",
+    "title": "Lecture 3: ML fundamentals",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
+      "Lecture 3: ML fundamentals"
     ]
   },
   {
-    "objectID": "lecture-04.html#outline",
-    "href": "lecture-04.html#outline",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "objectID": "lecture-03.html#outline",
+    "href": "lecture-03.html#outline",
+    "title": "Lecture 3: ML fundamentals",
     "section": "Outline",
-    "text": "Outline\n\nRecap\nSimilarity-based algorithms\n\\(k\\)-nearest neighbours intuitions\nCurse of dimensionality\nSVM with RBF kernel intuition\nInterpretation of C and gamma hyperparameters of SVM RBF",
+    "text": "Outline\n\nGeneralization, data splitting\nCross-validation\nOverfitting, underfitting, the fundamental tradeoff\nThe golden rule",
     "crumbs": [
       "Lectures",
-      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
+      "Lecture 3: ML fundamentals"
     ]
   },
   {
-    "objectID": "lecture-06.html",
-    "href": "lecture-06.html",
-    "title": "Lecture 6: sklearn column transformer and text fearutres",
+    "objectID": "lecture-05.html",
+    "href": "lecture-05.html",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 6: `sklearn` column transformer and text fearutres"
+      "Lecture 5: Preprocessing and sklearn pipelines"
     ]
   },
   {
-    "objectID": "lecture-06.html#slides",
-    "href": "lecture-06.html#slides",
-    "title": "Lecture 6: sklearn column transformer and text fearutres",
+    "objectID": "lecture-05.html#slides",
+    "href": "lecture-05.html#slides",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 6: `sklearn` column transformer and text fearutres"
+      "Lecture 5: Preprocessing and sklearn pipelines"
     ]
   },
   {
-    "objectID": "lecture-06.html#outline",
-    "href": "lecture-06.html#outline",
-    "title": "Lecture 6: sklearn column transformer and text fearutres",
+    "objectID": "lecture-05.html#outline",
+    "href": "lecture-05.html#outline",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
     "section": "Outline",
-    "text": "Outline\n\nRecap\nColumn transformer\nArguments of one-hot encoder\nsklearn CountVectorizer\nincorporating text features in the pipeline",
+    "text": "Outline\n\nRecap\nPreprocessing motivation\nCommon transformations in sklearn\nsklearn transformers vs. Estimators\nThe golden rule in the feature transformations\nsklearn pipelines",
     "crumbs": [
       "Lectures",
-      "Lecture 6: `sklearn` column transformer and text fearutres"
+      "Lecture 5: Preprocessing and sklearn pipelines"
     ]
   },
   {
-    "objectID": "lecture-08.html",
-    "href": "lecture-08.html",
-    "title": "Lecture 8: Hyperparameter Optimization",
+    "objectID": "lecture-07.html",
+    "href": "lecture-07.html",
+    "title": "Lecture 7: Linear models",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 8: Hyperparameter Optimization"
+      "Lecture 7: Linear models"
     ]
   },
   {
-    "objectID": "lecture-08.html#slides",
-    "href": "lecture-08.html#slides",
-    "title": "Lecture 8: Hyperparameter Optimization",
+    "objectID": "lecture-07.html#slides",
+    "href": "lecture-07.html#slides",
+    "title": "Lecture 7: Linear models",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 8: Hyperparameter Optimization"
+      "Lecture 7: Linear models"
     ]
   },
   {
-    "objectID": "lecture-08.html#outline",
-    "href": "lecture-08.html#outline",
-    "title": "Lecture 8: Hyperparameter Optimization",
+    "objectID": "lecture-07.html#outline",
+    "href": "lecture-07.html#outline",
+    "title": "Lecture 7: Linear models",
     "section": "Outline",
-    "text": "Outline\n\nWhy hyperparameter optimization?\nHyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV\nOptimization bias",
+    "text": "Outline\n\nIntuition behind linear models\nLinear regression and logistic regression\nscikit-learn’s Ridge model\nPrediction probabilities\nInterpret model predictions using coefficients learned by a linear model\nParametric vs. non-parametric models",
     "crumbs": [
       "Lectures",
-      "Lecture 8: Hyperparameter Optimization"
+      "Lecture 7: Linear models"
     ]
   },
   {
-    "objectID": "lecture-10.html",
-    "href": "lecture-10.html",
-    "title": "Lecture 10: Regression metrics",
+    "objectID": "lecture-09.html",
+    "href": "lecture-09.html",
+    "title": "Lecture 9: Classification metrics",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 10: Regression metrics"
+      "Lecture 9: Classification metrics"
     ]
   },
   {
-    "objectID": "lecture-10.html#slides",
-    "href": "lecture-10.html#slides",
-    "title": "Lecture 10: Regression metrics",
+    "objectID": "lecture-09.html#slides",
+    "href": "lecture-09.html#slides",
+    "title": "Lecture 9: Classification metrics",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 10: Regression metrics"
+      "Lecture 9: Classification metrics"
     ]
   },
   {
-    "objectID": "lecture-10.html#outline",
-    "href": "lecture-10.html#outline",
-    "title": "Lecture 10: Regression metrics",
+    "objectID": "lecture-09.html#outline",
+    "href": "lecture-09.html#outline",
+    "title": "Lecture 9: Classification metrics",
     "section": "Outline",
-    "text": "Outline\n\nRecap: Classification metrics\nRidge and RidgeCV.\nalpha hyperparameter of Ridge\nMSE, RMSE, MAPE\nApply log-transform on the target values in a regression problem with TransformedTargetRegressor",
+    "text": "Outline\n\nIssues with using accuracy\nComponents of a confusion matrix\nPrecision, recall, and f1-score and use them to evaluate different classifiers\nPrecision-recall curves\nAverage precision score\nROC curves and ROC AUC using scikit-learn\nDealing with class imbalance\nModel performance on specific groups in a dataset.",
     "crumbs": [
       "Lectures",
-      "Lecture 10: Regression metrics"
+      "Lecture 9: Classification metrics"
     ]
   },
   {
-    "objectID": "lecture-12.html",
-    "href": "lecture-12.html",
-    "title": "Lecture 12: Ensembles",
+    "objectID": "lecture-11.html",
+    "href": "lecture-11.html",
+    "title": "Lecture 11: Midterm review",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 12: Ensembles"
+      "Lecture 11: Midterm review"
     ]
   },
   {
-    "objectID": "lecture-12.html#slides",
-    "href": "lecture-12.html#slides",
-    "title": "Lecture 12: Ensembles",
+    "objectID": "lecture-11.html#slides",
+    "href": "lecture-11.html#slides",
+    "title": "Lecture 11: Midterm review",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 12: Ensembles"
+      "Lecture 11: Midterm review"
     ]
   },
   {
-    "objectID": "lecture-12.html#outline",
-    "href": "lecture-12.html#outline",
-    "title": "Lecture 12: Ensembles",
+    "objectID": "lecture-11.html#outline",
+    "href": "lecture-11.html#outline",
+    "title": "Lecture 11: Midterm review",
     "section": "Outline",
-    "text": "Outline\n\nMotivation\nRandom forests\nGradient boosting\nAveraging\nStacking",
+    "text": "Outline",
     "crumbs": [
       "Lectures",
-      "Lecture 12: Ensembles"
+      "Lecture 11: Midterm review"
     ]
   },
   {
-    "objectID": "lecture-14.html",
-    "href": "lecture-14.html",
-    "title": "Lecture 14: Feature engineering and selection",
+    "objectID": "lecture-13.html",
+    "href": "lecture-13.html",
+    "title": "Lecture 13: Feature importances",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 14: Feature engineering and selection"
+      "Lecture 13: Feature importances"
     ]
   },
   {
-    "objectID": "lecture-14.html#slides",
-    "href": "lecture-14.html#slides",
-    "title": "Lecture 14: Feature engineering and selection",
+    "objectID": "lecture-13.html#slides",
+    "href": "lecture-13.html#slides",
+    "title": "Lecture 13: Feature importances",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 14: Feature engineering and selection"
+      "Lecture 13: Feature importances"
     ]
   },
   {
-    "objectID": "lecture-14.html#outline",
-    "href": "lecture-14.html#outline",
-    "title": "Lecture 14: Feature engineering and selection",
+    "objectID": "lecture-13.html#outline",
+    "href": "lecture-13.html#outline",
+    "title": "Lecture 13: Feature importances",
     "section": "Outline",
-    "text": "Outline\n\nMotivation for feature engineering\nPreliminary feature engineering on text data\nGeneral concept of feature selection.\nModel-based feature selection vs. RFE",
+    "text": "Outline\n\ninterpreting coefficients of linear models\nmodel transparency\nfeature_importances\nSHAP",
     "crumbs": [
       "Lectures",
-      "Lecture 14: Feature engineering and selection"
+      "Lecture 13: Feature importances"
     ]
+  },
+  {
+    "objectID": "lecture-15.html",
+    "href": "lecture-15.html",
+    "title": "Lecture 15: K Means",
+    "section": "",
+    "text": "View slides in full screen"
+  },
+  {
+    "objectID": "lecture-15.html#slides",
+    "href": "lecture-15.html#slides",
+    "title": "Lecture 15: K Means",
+    "section": "",
+    "text": "View slides in full screen"
+  },
+  {
+    "objectID": "lecture-15.html#outline",
+    "href": "lecture-15.html#outline",
+    "title": "Lecture 15: K Means",
+    "section": "Outline",
+    "text": "Outline\n\nUnsupervised paradigm.\nMotivation and potential applications of clustering.\nK-Means algorithm\nPros and cons of K-Means\nThe Elbow plot and Silhouette plots for a given dataset.\nImportance of input data representation in clustering."
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#announcements",

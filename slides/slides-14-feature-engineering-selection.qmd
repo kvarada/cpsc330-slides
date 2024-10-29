@@ -72,7 +72,7 @@ A quote by Pedro Domingos [A Few Useful Things to Know About Machine Learning](h
 ... At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used. 
 </blockquote>
 
-
+## Some quotes on feature engineering 
 A quote by Andrew Ng, [Machine Learning and AI via Brain simulations](https://ai.stanford.edu/~ang/slides/DeepLearning-Mar2013.pptx)
 
 <blockquote>
@@ -80,7 +80,7 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 </blockquote>
 
 
-## Better features usually help more than a better model.
+## Better features usually help more than a better model {.smaller}
 - Good features would ideally:
     - capture most important aspects of the problem
     - allow learning with few examples 
@@ -113,20 +113,14 @@ In some domains there are natural transformations to do:
 
 [Source](https://en.wikipedia.org/wiki/Spectrogram) 
 
-# Feature engineering on numeric features 
-
-## Feature interactions and feature crosses 
-- A **feature cross** is a synthetic feature formed by multiplying or crossing two or more features. 
-- Example: 
-Is the following dataset (XOR function) linearly separable?  
-
-| $$x_1$$ | $$x_2$$ | target|
-|---------|---------|---------|
-| 1 | 1  | 0|
-| -1 | 1  | 1|
-| 1 | -1  | 1|
-| -1 | -1  | 0| 
-
-## Feature crosses for OHE features
+# [Demo of feature engineering and selection](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb)
 
 
+
+### (iClicker) Exercise 14.1 
+
+**Select all of the following statements which are TRUE.**
+
+- (A) Simple association-based feature selection approaches do not take into account the interaction between features.
+- (B) You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).
+- (C) The order of features removed given by `rfe.ranking_` is the same as the order of original feature importances given by the model.  
