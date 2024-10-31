@@ -1,7 +1,8 @@
 ---
-title: "Lecture 12: Ensembles"
-description: "Random forests, gradient boosting, averaging, and stacking"
+title: "Lecture 13: Feature importances"
+description: "interpreting coefficients of linear models, model transparency, feature_importances, SHAP"
 description-short: "" 
+
 
 editor: { render-on-save: true }
 ---
@@ -12,8 +13,7 @@ editor: { render-on-save: true }
 
 
 ## Outline
-- Motivation
-- Random forests
-- Gradient boosting
-- Averaging
-- Stacking 
+- interpreting coefficients of linear models
+- model transparency
+- feature_importances
+- SHAP
