@@ -133,12 +133,21 @@ plot_original_clustered(X, dbscan, dbscan.labels_)
 ![](img/DBSCAN_search.gif)
 
 ## DBSCAN Analogy
-
+:::: {.columns}
+::: {.column width="60%"}
+```{python}
+X, y = make_blobs(random_state=0, n_samples=12)
+discrete_scatter(X[:, 0], X[:, 1]);
+```
+:::
+::: {.column width="40%"}
 Consider DBSCAN in a social context: 
 
 - Social butterflies (🦋): Core points
 - Friends of social butterflies who are not social butterflies: Border points
 - Lone wolves (🐺): Noise points  
+:::
+::::
 
 ## Two main hyperparameters
 - `eps`: determines what it means for points to be "close"
@@ -167,7 +176,6 @@ plot_X_dendrogram(X, linkage_array, label_n_clusters=True) # user-defined functi
 ## Dendrogram 
 
 :::: {.columns}
-
 ::: {.column width="60%"}
 ```{python}
 from scipy.cluster.hierarchy import dendrogram
@@ -178,7 +186,7 @@ plt.xlabel("Sample index")
 plt.ylabel("Cluster distance");
 ```
 :::
-::: {column width="40%"}
+::: {.column width="40%"}
 
 - Dendrogram is a tree-like plot. 
 - On the x-axis we have data points. 

@@ -2094,7 +2094,7 @@
     "href": "slides/slides-16-DBSCAN-hierarchical.html#dbscan-analogy",
     "title": "CPSC 330 Lecture 16: DBSCAN, Hierarchical Clustering",
     "section": "DBSCAN Analogy",
-    "text": "DBSCAN Analogy\nConsider DBSCAN in a social context:\n\nSocial butterflies (🦋): Core points\nFriends of social butterflies who are not social butterflies: Border points\nLone wolves (🐺): Noise points"
+    "text": "DBSCAN Analogy\n\n\n\n\n\n\n\n\n\n\n\n\nConsider DBSCAN in a social context:\n\nSocial butterflies (🦋): Core points\nFriends of social butterflies who are not social butterflies: Border points\nLone wolves (🐺): Noise points"
   },
   {
     "objectID": "slides/slides-16-DBSCAN-hierarchical.html#two-main-hyperparameters",
@@ -2122,7 +2122,7 @@
     "href": "slides/slides-16-DBSCAN-hierarchical.html#dendrogram",
     "title": "CPSC 330 Lecture 16: DBSCAN, Hierarchical Clustering",
     "section": "Dendrogram",
-    "text": "Dendrogram\n\n\n\n\n\n\n\n\n\n\n\n::: {column width=“40%”}\nDendrogram is a tree-like plot.\nOn the x-axis we have data points.\nOn the y-axis we have distances between clusters.\n\n\n::::"
+    "text": "Dendrogram\n\n\n\n\n\n\n\n\n\n\n\n\n\nDendrogram is a tree-like plot.\nOn the x-axis we have data points.\nOn the y-axis we have distances between clusters."
   },
   {
     "objectID": "slides/slides-16-DBSCAN-hierarchical.html#flat-clusters",
