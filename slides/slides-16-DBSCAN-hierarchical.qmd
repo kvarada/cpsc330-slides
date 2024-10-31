@@ -1,0 +1,225 @@
+---
+title: 'CPSC 330 Lecture 16: DBSCAN, Hierarchical Clustering'
+description: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
+format:
+    revealjs:
+        html-math-method: plain
+        slide-number: true
+        slide-level: 2
+        theme:
+          - slides.scss
+        center: true
+        logo: img/UBC-CS-logo.png
+        resources:
+          - data/
+          - img/
+
+editor:
+  render-on-save: true
+---
+
+## Happy Halloween
+
+![](img/eva-halloween.png)
+
+## Announcements 
+
+- HW5 extension: Was due yesterday 
+- HW6 is due next week Wednesday. 
+  - Computationally intensive 
+  - You need to install many packages 
+
+## Imports 
+
+```{python}
+import os
+import random
+import sys
+
+import numpy as np
+import pandas as pd
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+import matplotlib.pyplot as plt
+import seaborn as sns
+from plotting_functions import *
+from plotting_functions_unsup import *
+from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
+from sklearn import cluster, datasets, metrics
+from sklearn.cluster import DBSCAN, AgglomerativeClustering, KMeans
+from sklearn.mixture import GaussianMixture
+from sklearn.datasets import make_blobs, make_moons
+from sklearn.decomposition import PCA
+from sklearn.metrics.pairwise import euclidean_distances
+from sklearn.preprocessing import StandardScaler
+from yellowbrick.cluster import SilhouetteVisualizer
+from scipy.cluster.hierarchy import (
+    average,
+    complete,
+    dendrogram,
+    fcluster,
+    single,
+    ward,
+)
+
+plt.rcParams["font.size"] = 16
+plt.rcParams["figure.figsize"] = (5, 4)
+%matplotlib inline
+pd.set_option("display.max_colwidth", 0)
+```
+
+## iClicker Exercise 16.1 
+
+**Select all of the following statements which are TRUE.**
+
+- (A) Similar to K-nearest neighbours, K-Means is a non parametric model.
+- (B) The meaning of $K$ in K-nearest neighbours and K-Means clustering is very similar. 
+- (C) Scaling of input features is crucial in clustering.  
+- (D) In clustering, it's almost always a good idea to find equal-sized clusters. 
+
+# K-means Limitations {.smaller}
+
+## Shape of clusters
+- Good for spherical clusters of more or less equal sizes 
+![](img/kmeans_boundaries.png)
+
+## K-Means: failure case 1
+
+- K-Means performs poorly if the clusters have more complex shapes (e.g., two moons data below). 
+
+```{python}
+X, y = make_moons(n_samples=200, noise=0.05, random_state=42)
+plot_kmeans(X, 2)
+```
+
+## K-Means: failure case 2
+
+- Again, K-Means is unable to capture complex cluster shapes. 
+
+```{python}
+X = datasets.make_circles(n_samples=200, noise=0.06, factor=0.4)[0]
+plot_kmeans(X, 2)
+```
+
+## K-Means: failure case 3
+
+- It assumes that all directions are equally important for each cluster and fails to identify non-spherical clusters. 
+
+```{python}
+# generate some random cluster data
+X, y = make_blobs(random_state=170, n_samples=200)
+rng = np.random.RandomState(74)
+transformation = rng.normal(size=(2, 2))
+X = np.dot(X, transformation)
+plot_kmeans(X, 2)
+```
+
+# Can we do better? 
+
+## DBSCAN
+
+- **D**ensity-**B**ased **S**patial **C**lustering of **A**pplications with **N**oise
+- A density-based clustering algorithm
+
+```{python}
+#| echo: true
+X, y = make_moons(n_samples=200, noise=0.08, random_state=42)
+dbscan = DBSCAN(eps=0.2)
+dbscan.fit(X)
+plot_original_clustered(X, dbscan, dbscan.labels_)
+```
+
+## How does it work?
+![](img/DBSCAN_search.gif)
+
+## DBSCAN Analogy
+
+Consider DBSCAN in a social context: 
+
+- Social butterflies (🦋): Core points
+- Friends of social butterflies who are not social butterflies: Border points
+- Lone wolves (🐺): Noise points  
+
+## Two main hyperparameters
+- `eps`: determines what it means for points to be "close"
+- `min_samples`: determines the number of **neighboring points** we require to consider in order for a point to be part of a cluster
+
+## DBSCAN: failure cases {.smaller}
+
+- Let's consider this dataset with three clusters of varying densities.  
+- K-Means performs better compared to DBSCAN. But it has the benefit of knowing the value of $K$ in advance. 
+
+```{python}
+X_varied, y_varied = make_blobs(
+    n_samples=200, cluster_std=[1.0, 5.0, 1.0], random_state=10
+)
+plot_k_means_dbscan_comparison(X_varied)
+```
+
+## Hierarchical clustering 
+```{python}
+X_orig, y = make_blobs(random_state=0, n_samples=11)
+X = StandardScaler().fit_transform(X_orig)
+linkage_array = ward(X)
+plot_X_dendrogram(X, linkage_array, label_n_clusters=True) # user-defined function defined in code/plotting_functions.py
+```
+
+## Dendrogram 
+
+:::: {.columns}
+
+::: {.column width="60%"}
+```{python}
+from scipy.cluster.hierarchy import dendrogram
+
+ax = plt.gca()
+dendrogram(linkage_array, ax=ax, color_threshold=2)
+plt.xlabel("Sample index")
+plt.ylabel("Cluster distance");
+```
+:::
+::: {column width="40%"}
+
+- Dendrogram is a tree-like plot. 
+- On the x-axis we have data points. 
+- On the y-axis we have distances between clusters. 
+:::
+::::
+
+## Flat clusters
+
+- This is good but how can we get cluster labels from a dendrogram? 
+- We can bring the clustering to a "flat" format use `fcluster`
+
+## Flat clusters
+```{python}
+#| echo: true
+from scipy.cluster.hierarchy import fcluster
+# flattening the dendrogram based on maximum number of clusters. 
+hier_labels1 = fcluster(linkage_array, 3, criterion="maxclust") 
+plot_dendrogram_clusters(X, linkage_array, hier_labels1, title="flattened with max_clusts=3")
+```
+
+## Linkage criteria {.smaller}
+- When we create a dendrogram, we need to calculate distance between clusters. How do we measure distances between clusters? 
+- The **linkage criteria** determines how to find similarity between clusters:
+- Some example linkage criteria are: 
+    - Single linkage $\rightarrow$ smallest minimal distance, leads to loose clusters
+    - Complete linkage $\rightarrow$ smallest maximum distance, leads to tight clusters 
+    - Average linkage $\rightarrow$ smallest average distance between all pairs of points in the clusters
+    - Ward linkage $\rightarrow$ smallest increase in within-cluster variance, leads to equally sized clusters
+
+## Activity
+
+- Fill in the table below in this Google doc: https://shorturl.at/3yOdg
+
+| **Clustering Method**  | **KMeans**                                           | **DBSCAN**                                          | **Hierarchical Clustering**                            |
+|------------------------|------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------|
+| **Approach**           | | |
+| **Hyperparameters**    | | |
+| **Shape of clusters**  | | |
+| **Handling noise**     | | | 
+| **Examples**           | | |
+
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_16-dbscan-hierarchical.ipynb)

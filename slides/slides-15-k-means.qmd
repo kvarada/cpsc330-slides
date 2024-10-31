@@ -155,6 +155,10 @@ Select all of the following statements which are **True**
 - Higher average silhouette score indicates "better" clustering.
 
 
+## Silhouette plot example
+
+![](img/silhoutte-example.png)
+
 ## iClicker Exercise 15.3 {.smaller}
 
 Select all of the following statements which are **True** 
