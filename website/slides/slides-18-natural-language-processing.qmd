@@ -1,0 +1,31 @@
+---
+title: 'CPSC 330 Lecture 18: Introduction to Natural Language Processing'
+description: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
+format:
+    revealjs:
+        html-math-method: plain
+        slide-number: true
+        slide-level: 2
+        theme:
+          - slides.scss
+        center: true
+        logo: img/UBC-CS-logo.png
+        resources:
+          - data/
+          - img/
+
+editor:
+  render-on-save: true
+---
+
+
+## Announcements
+
+- No classes next week.
+- I'll be holding a Zoom OH next week Wednesday from 10:30 to noon. 
+- I also have an in-person office hours today afternoon from 2 to 3. 
+- Midterm 2 coming up next week. A practice exam will be released today. 
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_18-natural-language-processing.ipynb)
+
+<br><br><br><br>
