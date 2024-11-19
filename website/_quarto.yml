@@ -50,6 +50,7 @@ website:
         - lecture-16.qmd                
         - lecture-17.qmd
         - lecture-18.qmd
+        - lecture-19.qmd
 format:
   html:
     theme: [zephyr]
