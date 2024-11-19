@@ -177,6 +177,22 @@ cross_val_score(pipe_knn, X_train_toy, y_train_toy)
 - Use a column transformer with sklearn pipelines. 
 
 
+## Announcements
+
+- My OH this week has been moved to 4:30 pm in my office ICCS 237. 
+
+
+## (iClicker) Midterm 2 poll 
+iClicker cloud join link: **https://join.iclicker.com/VYFJ**
+
+**Select all of the following statements which are TRUE.**
+
+- (A) 
+- (B) After applying column transformer, the order of the columns in the transformed data has to be the same as the order of the columns in the original data.
+- (C) After applying a column transformer, the transformed data is always going to be of different shape than the original data.
+- (D) When you call `fit_transform` on a `ColumnTransformer` object, you get a numpy ndarray.
+
+
 ## (iClicker) Exercise 6.1
 iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 
