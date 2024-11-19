@@ -30,6 +30,12 @@ import matplotlib.image as mpimg
 %matplotlib inline
 ```
 
+## Announcements
+
+- HW7 was due yesterday 
+- HW8 has been released (due next week Monday)
+  - Almost there! Hang in there 😊
+- Midterm 2 grading is in progress. 
 
 # iClicker 19.0
 
