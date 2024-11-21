@@ -1,0 +1,17 @@
+---
+title: "Lecture 20: Time series"
+description: ""
+description-short: ""
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-20-time-series.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+- Multiclass classification 
+- Introduction to deep learning
+- Transfer learning 
