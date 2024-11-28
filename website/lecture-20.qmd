@@ -12,6 +12,8 @@ editor: { render-on-save: true }
 
 
 ## Outline
-- Multiclass classification 
-- Introduction to deep learning
-- Transfer learning 
+- Motivation
+- Time series data
+- Train/test splitting and cross-validation with time series data.
+- Time series feature engineering:
+- Forecast multiple time steps into the future.

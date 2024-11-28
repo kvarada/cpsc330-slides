@@ -52,6 +52,8 @@ website:
         - lecture-18.qmd
         - lecture-19.qmd
         - lecture-20.qmd
+        - lecture-21.qmd        
+        - lecture-22.qmd        
 format:
   html:
     theme: [zephyr]
