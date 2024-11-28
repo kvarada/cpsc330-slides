@@ -1,5 +1,5 @@
 ---
-title: "CPSC 330 Lecture 21: Survival analysis"
+title: "CPSC 330 Lecture 22: Communication"
 author: "Varada Kolhatkar"
 format: 
     revealjs:
@@ -18,7 +18,7 @@ format:
 
 - HW9 has been released (due Sec 5th)
   - Almost there! Hang in there 😊
-- Midterm 2 grading is almost done. 
+- Midterm 2 grades have been posted. 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_21-survival-analysis.ipynb) 
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_22-communication.ipynb) 
 
