@@ -1,0 +1,19 @@
+---
+title: "Lecture 22: Communication"
+description: ""
+description-short: ""
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-22-communication.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Communication in applied ML 
+- Best practices of technical communication
+- Communicating confidence to stakeholders in an ML project.
+- Identifying misleading visualizations.
