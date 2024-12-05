@@ -1157,13 +1157,80 @@ Varada Kolhatkar
 <section id="announcements" class="slide level2 center">
 <h2>Announcements</h2>
 <ul>
-<li>HW9 is due today Dec 5th. (No late submission allowed.)</li>
+<li>Last lecture today!</li>
+<li>HW9 is due today Dec 5th at 11:59 PM (No late submission allowed.)</li>
 <li>Ethics bonus assignment is due tomorrow at 11:59pm.</li>
 <li>I’ll be holding OH on December 11th from 2 to 3:30</li>
 </ul>
 </section>
+<section id="questions-for-you" class="slide level2 center">
+<h2>❓❓ Questions for you</h2>
+<p>Imagine you’ve created a machine learning model and are eager to share it with others. Consider the following scenarios for sharing your model:</p>
+<ul>
+<li><strong>To a non-technical Audience:</strong> How would you present your model to friends and family who may not have a technical background?</li>
+<li><strong>To a technical audience:</strong> How would you share your model with peers or professionals in the field who have a technical understanding of machine learning?</li>
+<li><strong>In an academic or research setting:</strong> How would you disseminate your model within academic or research communities? <br><br><br><br><br><br><br><br><br><br></li>
+</ul>
+</section>
+<section id="try-out-this-moment-predictor" class="slide level2 center">
+<h2>Try out this moment predictor</h2>
+<p><a href="https://cpsc330-moment-predictor.onrender.com/">https://cpsc330-moment-predictor.onrender.com/</a></p>
+<ul>
+<li>In this lecture, I will show you how to set up/develop this.</li>
+</ul>
+</section>
+<section id="what-is-deployment" class="slide level2 center">
+<h2>What is deployment?</h2>
+<ul>
+<li>After we train a model, we want to use it!</li>
+<li>The user likely does not want to install your Python stack, train your model.</li>
+<li>You don’t necessarily want to share their dataset.</li>
+<li>So we need to do two things:
+<ol type="1">
+<li>Save/store your model for later use.</li>
+<li>Make the saved model conveniently accessible.</li>
+</ol></li>
+</ul>
+</section>
+<section id="we-will-use-the-tools-below-for" class="slide level2 center">
+<h2>We will use the tools below for</h2>
+<ul>
+<li>Saving the model: We will use <a href="https://joblib.readthedocs.io/">Joblib</a></li>
+<li>Making the saved model conveniently accessible: <a href="https://flask.palletsprojects.com/">Flask</a> &amp; <a href="https://render.com/">render</a></li>
+</ul>
+</section>
+<section>
 <section id="class-demo" class="title-slide slide level1 center">
 <h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_24-Deployment.ipynb">Class demo</a></h1>
+
+</section>
+<section id="why-course-evaluations" class="slide level2 center">
+<h2>Why course evaluations?</h2>
+<p>https://canvas.ubc.ca/courses/149122/external_tools/53187</p>
+<ul>
+<li>They help us improve our teaching!</li>
+<li>UBC &amp; CS uses them to provide rewards to instructors and TAs who are doing well!</li>
+<li>UBC &amp; CS uses them to identify where instructors, TAs and courses need additional supports to improve.</li>
+<li>UBC uses these in evaluating professors for tenure and promotion.</li>
+<li>I’ll very much appreciate your constructive and concrete feedback.</li>
+</ul>
+</section>
+<section id="what-did-we-cover" class="slide level2 center">
+<h2>What did we cover</h2>
+<ul>
+<li><p>Part 1: Supervised learning on tabular data: ML fundamentals, preprocessing and data encoding, a bunch of models, evaluation metrics, feature importances and model transparency, feature selection, hyperparameter optimization</p></li>
+<li><p>Part 2: Dealing with other non-tabular data types: Clustering, recommender systems, computer vision with pre-trained deep learning models (high level), language data, text preprocessing, embeddings, topic modeling, time series, right-censored data / survival analysis</p></li>
+<li><p>Part 3: Communication, Ethics, and Deployment</p></li>
+</ul>
+</section>
+<section id="what-we-didnt-cover" class="slide level2 center">
+<h2>What we didn’t cover</h2>
+<ul>
+<li>How do these models work under the hood</li>
+</ul>
+<h3 id="what-would-i-do-differently">What would I do differently?</h3>
+<p>Lots of room for improvement. Here are some things on my mind.<br>
+- Flipped classroom in a more effective way in the first part of the course. - More demos during the lecture time - Worksheets/practice questions during tutorials - Course project?? - Add more interactive components in the lectures - Some material to cover: dealing with outliers, data collection, large language models</p>
 
 <div class="quarto-auto-generated-content">
 <p><img role="img" src="data:image/png;base64,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" class="slide-logo"></p>
@@ -1171,7 +1238,7 @@ Varada Kolhatkar
 
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
