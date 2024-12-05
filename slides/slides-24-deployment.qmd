@@ -54,7 +54,7 @@ Imagine you've created a machine learning model and are eager to share it with o
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_24-Deployment.ipynb) 
 
-## Why course evaluations? 
+## Course evaluations (~15 mins)
 
 https://canvas.ubc.ca/courses/149122/external_tools/53187
 
@@ -79,6 +79,7 @@ https://canvas.ubc.ca/courses/149122/external_tools/53187
 ## What would I do differently?
 
 Lots of room for improvement. Here are some things on my mind.  
+
 - Flipped classroom in a more effective way in the first part of the course. 
 - More demos during the lecture time
 - Worksheets/practice questions during tutorials 
@@ -96,6 +97,33 @@ If you want to further develop your machine learning skills:
 - If you are interested in research in machine learning
   - Take CPSC 340. If you do not have the required prereqs you can try to audit it.
 - Get into the habit of reading papers and replicating results
+
+
+## ❓❓ Questions for you
+
+For each of the scenarios below 
+
+- Identify if ML is a good solution for a problem.
+- If yes
+    - Frame the problem to a ML problem.
+    - Discuss what kind of features you would need to effectively solve the problem
+    - What would be a reasonable baseline? 
+    - Which model would be a suitable model for the given scenario? 
+    - What would be the appropriate success metrics.
+
+
+## ❓❓ Questions for you
+
+|     App           | Goal | 
+|-------------------|--------------------------|
+| QueuePredictor app    |  Inform callers how long they'll wait on hold given the current call volume|
+| To-doList App    | Keep track of the tasks that a user inputs and organize them by date | 
+| SegmentSphere App | To segment customers to tailor marketing strategies based on purchasing behavior |
+| Video app	        | Recommend useful videos|
+| Dining app        | Identify cuisine by a restaurant's menu|
+| Weather app       | Calculate precipitation in six hour increments for a geographic region  |
+| EvoCarShare app   | Calculate number of car rentals in four increaments at a particular Evo parking spot |
+| Pharma app| Understand the effect of a new drug on patient survival time |
 
 
 ## Conclusion & farewell

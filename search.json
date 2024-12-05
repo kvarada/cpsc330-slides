@@ -1322,11 +1322,11 @@
     "text": "We will use the tools below for\n\nSaving the model: We will use Joblib\nMaking the saved model conveniently accessible: Flask & render"
   },
   {
-    "objectID": "slides/slides-24-deployment.html#why-course-evaluations",
-    "href": "slides/slides-24-deployment.html#why-course-evaluations",
+    "objectID": "slides/slides-24-deployment.html#course-evaluations-15-mins",
+    "href": "slides/slides-24-deployment.html#course-evaluations-15-mins",
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
-    "section": "Why course evaluations?",
-    "text": "Why course evaluations?\nhttps://canvas.ubc.ca/courses/149122/external_tools/53187\n\nThey help us improve our teaching!\nUBC & CS uses them to provide rewards to instructors and TAs who are doing well!\nUBC & CS uses them to identify where instructors, TAs and courses need additional supports to improve.\nUBC uses these in evaluating professors for tenure and promotion.\nI’ll very much appreciate your constructive and concrete feedback."
+    "section": "Course evaluations (~15 mins)",
+    "text": "Course evaluations (~15 mins)\nhttps://canvas.ubc.ca/courses/149122/external_tools/53187\n\nThey help us improve our teaching!\nUBC & CS uses them to provide rewards to instructors and TAs who are doing well!\nUBC & CS uses them to identify where instructors, TAs and courses need additional supports to improve.\nUBC uses these in evaluating professors for tenure and promotion.\nI’ll very much appreciate your constructive and concrete feedback."
   },
   {
     "objectID": "slides/slides-24-deployment.html#what-did-we-cover",
@@ -1347,7 +1347,7 @@
     "href": "slides/slides-24-deployment.html#what-would-i-do-differently",
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
     "section": "What would I do differently?",
-    "text": "What would I do differently?\nLots of room for improvement. Here are some things on my mind.\n- Flipped classroom in a more effective way in the first part of the course. - More demos during the lecture time - Worksheets/practice questions during tutorials - Course project?? - Add more interactive components in the lectures - Some material to cover: dealing with outliers, data collection, large language models"
+    "text": "What would I do differently?\nLots of room for improvement. Here are some things on my mind.\n\nFlipped classroom in a more effective way in the first part of the course.\nMore demos during the lecture time\nWorksheets/practice questions during tutorials\nCourse project??\nAdd more interactive components in the lectures\nSome material to cover: dealing with outliers, data collection, large language models"
   },
   {
     "objectID": "slides/slides-24-deployment.html#what-next",
@@ -1355,6 +1355,20 @@
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
     "section": "What next?",
     "text": "What next?\nIf you want to further develop your machine learning skills: - Practice! - Work on your own projects - Work hard and be consistent.\n\nIf you are interested in research in machine learning\n\nTake CPSC 340. If you do not have the required prereqs you can try to audit it.\n\nGet into the habit of reading papers and replicating results"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#questions-for-you-1",
+    "href": "slides/slides-24-deployment.html#questions-for-you-1",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "❓❓ Questions for you",
+    "text": "❓❓ Questions for you\nFor each of the scenarios below\n\nIdentify if ML is a good solution for a problem.\nIf yes\n\nFrame the problem to a ML problem.\nDiscuss what kind of features you would need to effectively solve the problem\nWhat would be a reasonable baseline?\nWhich model would be a suitable model for the given scenario?\nWhat would be the appropriate success metrics."
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#questions-for-you-2",
+    "href": "slides/slides-24-deployment.html#questions-for-you-2",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "❓❓ Questions for you",
+    "text": "❓❓ Questions for you\n\n\n\n\n\n\n\nApp\nGoal\n\n\n\n\nQueuePredictor app\nInform callers how long they’ll wait on hold given the current call volume\n\n\nTo-doList App\nKeep track of the tasks that a user inputs and organize them by date\n\n\nSegmentSphere App\nTo segment customers to tailor marketing strategies based on purchasing behavior\n\n\nVideo app\nRecommend useful videos\n\n\nDining app\nIdentify cuisine by a restaurant’s menu\n\n\nWeather app\nCalculate precipitation in six hour increments for a geographic region\n\n\nEvoCarShare app\nCalculate number of car rentals in four increaments at a particular Evo parking spot\n\n\nPharma app\nUnderstand the effect of a new drug on patient survival time"
   },
   {
     "objectID": "slides/slides-24-deployment.html#conclusion-farewell",
