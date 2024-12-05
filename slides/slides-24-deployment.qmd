@@ -1,0 +1,25 @@
+---
+title: "CPSC 330 Lecture 24: Deployment and conclusion"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      embed-resources: true
+      slide-number: true
+      smaller: true
+      center: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+
+## Announcements
+
+- HW9 is due today Dec 5th. (No late submission allowed.)
+- Ethics bonus assignment is due tomorrow at 11:59pm. 
+- I'll be holding OH on December 11th from 2 to 3:30
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_24-Deployment.ipynb) 
+
+
