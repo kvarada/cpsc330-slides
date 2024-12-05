@@ -1,0 +1,18 @@
+---
+title: "Lecture 24: Deployment and conclusion"
+description: ""
+description-short: ""
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-24-deployment.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Deployment using render 
+- Course evaluations
+- Course summary
