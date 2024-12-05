@@ -1340,7 +1340,28 @@
     "href": "slides/slides-24-deployment.html#what-we-didnt-cover",
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
     "section": "What we didn’t cover",
-    "text": "What we didn’t cover\n\nHow do these models work under the hood\n\nWhat would I do differently?\nLots of room for improvement. Here are some things on my mind.\n- Flipped classroom in a more effective way in the first part of the course. - More demos during the lecture time - Worksheets/practice questions during tutorials - Course project?? - Add more interactive components in the lectures - Some material to cover: dealing with outliers, data collection, large language models"
+    "text": "What we didn’t cover\n\nHow do these models work under the hood"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#what-would-i-do-differently",
+    "href": "slides/slides-24-deployment.html#what-would-i-do-differently",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "What would I do differently?",
+    "text": "What would I do differently?\nLots of room for improvement. Here are some things on my mind.\n- Flipped classroom in a more effective way in the first part of the course. - More demos during the lecture time - Worksheets/practice questions during tutorials - Course project?? - Add more interactive components in the lectures - Some material to cover: dealing with outliers, data collection, large language models"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#what-next",
+    "href": "slides/slides-24-deployment.html#what-next",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "What next?",
+    "text": "What next?\nIf you want to further develop your machine learning skills: - Practice! - Work on your own projects - Work hard and be consistent.\n\nIf you are interested in research in machine learning\n\nTake CPSC 340. If you do not have the required prereqs you can try to audit it.\n\nGet into the habit of reading papers and replicating results"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#conclusion-farewell",
+    "href": "slides/slides-24-deployment.html#conclusion-farewell",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "Conclusion & farewell",
+    "text": "Conclusion & farewell\nThat’s all, folks. We made it! Good luck on your final exam! When you get a chance, please let me know what worked for you and what didn’t work for you in this course."
   },
   {
     "objectID": "slides/slides-21-survival-analysis.html#announcements",

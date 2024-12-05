@@ -74,9 +74,9 @@ https://canvas.ubc.ca/courses/149122/external_tools/53187
 ## What we didn't cover 
 - How do these models work under the hood 
 
+![](img/modular-ML.png)
 
-
-### What would I do differently?
+## What would I do differently?
 
 Lots of room for improvement. Here are some things on my mind.  
 - Flipped classroom in a more effective way in the first part of the course. 
@@ -86,4 +86,20 @@ Lots of room for improvement. Here are some things on my mind.
 - Add more interactive components in the lectures
 - Some material to cover: dealing with outliers, data collection, large language models
 
+## What next?
 
+If you want to further develop your machine learning skills:
+- Practice!
+- Work on your own projects
+- Work hard and be consistent.
+
+- If you are interested in research in machine learning
+  - Take CPSC 340. If you do not have the required prereqs you can try to audit it.
+- Get into the habit of reading papers and replicating results
+
+
+## Conclusion & farewell
+
+That’s all, folks. We made it! Good luck on your final exam! When you get a chance, please let me know what worked for you and what didn’t work for you in this course.
+
+![](img/eva-congrats.png)
