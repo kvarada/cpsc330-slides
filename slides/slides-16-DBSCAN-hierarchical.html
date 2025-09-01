@@ -397,10 +397,6 @@
 </div>
 
 </section>
-<section id="happy-halloween" class="slide level2 center">
-<h2>Happy Halloween</h2>
-
-<img data-src="img/eva-halloween.png" class="r-stretch"></section>
 <section id="announcements" class="slide level2 center">
 <h2>Announcements</h2>
 <ul>
@@ -411,19 +407,8 @@
 <li>You need to install many packages</li>
 </ul></li>
 </ul>
-</section>
-<section id="imports" class="slide level2 center">
-<h2>Imports</h2>
-<div id="9de13718" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-2-output-1.png" width="254" height="444"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
 <section id="iclicker-exercise-16.1" class="slide level2 center">
 <h2>iClicker Exercise 16.1</h2>
 <p><strong>Select all of the following statements which are TRUE.</strong></p>
@@ -444,7 +429,7 @@
 </ul>
 </section>
 <section>
-<section id="k-means-limitations" class="title-slide slide level1 smaller center">
+<section id="k-means-limitations" class="title-slide slide level1 center">
 <h1>K-means Limitations</h1>
 
 </section>
@@ -459,46 +444,22 @@
 <ul>
 <li>K-Means performs poorly if the clusters have more complex shapes (e.g., two moons data below).</li>
 </ul>
-<div id="5e147d8f" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-3-output-1.png" width="826" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-3-output-1.png" class="r-stretch"></section>
 <section id="k-means-failure-case-2" class="slide level2 center">
 <h2>K-Means: failure case 2</h2>
 <ul>
 <li>Again, K-Means is unable to capture complex cluster shapes.</li>
 </ul>
-<div id="699cbf9a" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-4-output-1.png" width="818" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-4-output-1.png" class="r-stretch"></section>
 <section id="k-means-failure-case-3" class="slide level2 center">
 <h2>K-Means: failure case 3</h2>
 <ul>
 <li>It assumes that all directions are equally important for each cluster and fails to identify non-spherical clusters.</li>
 </ul>
-<div id="68880ac6" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-5-output-1.png" width="807" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-</section></section>
+
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-5-output-1.png" class="r-stretch"></section></section>
 <section>
 <section id="can-we-do-better" class="title-slide slide level1 center">
 <h1>Can we do better?</h1>
@@ -510,46 +471,26 @@
 <li><strong>D</strong>ensity-<strong>B</strong>ased <strong>S</strong>patial <strong>C</strong>lustering of <strong>A</strong>pplications with <strong>N</strong>oise</li>
 <li>A density-based clustering algorithm</li>
 </ul>
-<div id="128213e6" class="cell" data-execution_count="5">
+<div id="5b6bc960" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>X, y <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">200</span>, noise<span class="op">=</span><span class="fl">0.08</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb1-2"><a></a>dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb1-3"><a></a>dbscan.fit(X)</span>
 <span id="cb1-4"><a></a>plot_original_clustered(X, dbscan, dbscan.labels_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-6-output-1.png" width="974" height="375"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</section>
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-6-output-1.png" class="r-stretch"></section>
 <section id="how-does-it-work" class="slide level2 center">
 <h2>How does it work?</h2>
 
 <img data-src="img/DBSCAN_search.gif" class="r-stretch"></section>
 <section id="dbscan-analogy" class="slide level2 center">
 <h2>DBSCAN Analogy</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<div id="bdc3948f" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-7-output-1.png" width="408" height="339"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:40%;">
 <p>Consider DBSCAN in a social context:</p>
 <ul>
 <li>Social butterflies (🦋): Core points</li>
 <li>Friends of social butterflies who are not social butterflies: Border points</li>
-<li>Lone wolves (🐺): Noise points<br>
-</li>
+<li>Lone wolves (🐺): Noise points</li>
 </ul>
-</div></div>
 </section>
 <section id="two-main-hyperparameters" class="slide level2 center">
 <h2>Two main hyperparameters</h2>
@@ -558,58 +499,26 @@
 <li><code>min_samples</code>: determines the number of <strong>neighboring points</strong> we require to consider in order for a point to be part of a cluster</li>
 </ul>
 </section>
-<section id="dbscan-failure-cases" class="slide level2 smaller center">
+<section id="dbscan-failure-cases" class="slide level2 center">
 <h2>DBSCAN: failure cases</h2>
 <ul>
 <li>Let’s consider this dataset with three clusters of varying densities.<br>
 </li>
 <li>K-Means performs better compared to DBSCAN. But it has the benefit of knowing the value of <span class="math inline"><em>K</em></span> in advance.</li>
 </ul>
-<div id="b4011fca" class="cell" data-execution_count="7">
+<div id="9e1426bc" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-8-output-2.png" width="1390" height="375"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</section>
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-7-output-2.png" class="r-stretch"></section>
 <section id="hierarchical-clustering" class="slide level2 center">
 <h2>Hierarchical clustering</h2>
-<div id="fc6c9a8e" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-9-output-1.png" width="1073" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-8-output-1.png" class="r-stretch"></section>
 <section id="dendrogram" class="slide level2 center">
 <h2>Dendrogram</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<div id="c8c309ac" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-10-output-1.png" width="427" height="358"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:40%;">
-<ul>
-<li>Dendrogram is a tree-like plot.</li>
-<li>On the x-axis we have data points.</li>
-<li>On the y-axis we have distances between clusters.</li>
-</ul>
-</div></div>
 </section>
 <section id="flat-clusters" class="slide level2 center">
 <h2>Flat clusters</h2>
@@ -617,23 +526,8 @@
 <li>This is good but how can we get cluster labels from a dendrogram?</li>
 <li>We can bring the clustering to a “flat” format use <code>fcluster</code></li>
 </ul>
-</section>
-<section id="flat-clusters-1" class="slide level2 center">
-<h2>Flat clusters</h2>
-<div id="995dab79" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> fcluster</span>
-<span id="cb3-2"><a></a><span class="co"># flattening the dendrogram based on maximum number of clusters. </span></span>
-<span id="cb3-3"><a></a>hier_labels1 <span class="op">=</span> fcluster(linkage_array, <span class="dv">3</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
-<span id="cb3-4"><a></a>plot_dendrogram_clusters(X, linkage_array, hier_labels1, title<span class="op">=</span><span class="st">"flattened with max_clusts=3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-11-output-1.png" width="948" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-16-DBSCAN-hierarchical_files/figure-revealjs/cell-9-output-1.png" class="r-stretch"></section>
 <section id="linkage-criteria" class="slide level2 smaller center">
 <h2>Linkage criteria</h2>
 <ul>
@@ -651,7 +545,7 @@
 <section id="activity" class="slide level2 center">
 <h2>Activity</h2>
 <ul>
-<li>Fill in the table below in this Google doc: https://shorturl.at/3yOdg</li>
+<li>Fill in the table below in this <a href="">Google doc</a></li>
 </ul>
 <table class="caption-top">
 <colgroup>

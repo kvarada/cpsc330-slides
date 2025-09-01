@@ -1,6 +1,5 @@
 ---
 title: 'CPSC 330 Lecture 18: Introduction to Natural Language Processing'
-author: "Varada Kolhatkar"
 description: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
 format:
     revealjs:

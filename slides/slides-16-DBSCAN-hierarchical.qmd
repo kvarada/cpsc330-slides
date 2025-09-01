@@ -18,18 +18,12 @@ editor:
   render-on-save: true
 ---
 
-## Happy Halloween
-
-![](img/eva-halloween.png)
-
 ## Announcements 
 
 - HW5 extension: Was due yesterday 
 - HW6 is due next week Wednesday. 
   - Computationally intensive 
   - You need to install many packages 
-
-## Imports 
 
 ```{python}
 import os
@@ -77,7 +71,7 @@ pd.set_option("display.max_colwidth", 0)
 - (C) Scaling of input features is crucial in clustering.  
 - (D) In clustering, it's almost always a good idea to find equal-sized clusters. 
 
-# K-means Limitations {.smaller}
+# K-means Limitations
 
 ## Shape of clusters
 - Good for spherical clusters of more or less equal sizes 
@@ -133,27 +127,18 @@ plot_original_clustered(X, dbscan, dbscan.labels_)
 ![](img/DBSCAN_search.gif)
 
 ## DBSCAN Analogy
-:::: {.columns}
-::: {.column width="60%"}
-```{python}
-X, y = make_blobs(random_state=0, n_samples=12)
-discrete_scatter(X[:, 0], X[:, 1]);
-```
-:::
-::: {.column width="40%"}
+
 Consider DBSCAN in a social context: 
 
 - Social butterflies (🦋): Core points
 - Friends of social butterflies who are not social butterflies: Border points
 - Lone wolves (🐺): Noise points  
-:::
-::::
 
 ## Two main hyperparameters
 - `eps`: determines what it means for points to be "close"
 - `min_samples`: determines the number of **neighboring points** we require to consider in order for a point to be part of a cluster
 
-## DBSCAN: failure cases {.smaller}
+## DBSCAN: failure cases
 
 - Let's consider this dataset with three clusters of varying densities.  
 - K-Means performs better compared to DBSCAN. But it has the benefit of knowing the value of $K$ in advance. 
@@ -175,36 +160,19 @@ plot_X_dendrogram(X, linkage_array, label_n_clusters=True) # user-defined functi
 
 ## Dendrogram 
 
-:::: {.columns}
-::: {.column width="60%"}
-```{python}
-from scipy.cluster.hierarchy import dendrogram
 
-ax = plt.gca()
-dendrogram(linkage_array, ax=ax, color_threshold=2)
-plt.xlabel("Sample index")
-plt.ylabel("Cluster distance");
-```
-:::
-::: {.column width="40%"}
-
-- Dendrogram is a tree-like plot. 
-- On the x-axis we have data points. 
-- On the y-axis we have distances between clusters. 
-:::
-::::
 
 ## Flat clusters
 
 - This is good but how can we get cluster labels from a dendrogram? 
 - We can bring the clustering to a "flat" format use `fcluster`
 
-## Flat clusters
 ```{python}
-#| echo: true
 from scipy.cluster.hierarchy import fcluster
+
 # flattening the dendrogram based on maximum number of clusters. 
 hier_labels1 = fcluster(linkage_array, 3, criterion="maxclust") 
+hier_labels1
 plot_dendrogram_clusters(X, linkage_array, hier_labels1, title="flattened with max_clusts=3")
 ```
 
@@ -219,7 +187,7 @@ plot_dendrogram_clusters(X, linkage_array, hier_labels1, title="flattened with m
 
 ## Activity
 
-- Fill in the table below in this Google doc: https://shorturl.at/3yOdg
+- Fill in the table below in this [Google doc]()
 
 | **Clustering Method**  | **KMeans**                                           | **DBSCAN**                                          | **Hierarchical Clustering**                            |
 |------------------------|------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------|
