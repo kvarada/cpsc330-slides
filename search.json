@@ -354,14 +354,14 @@
     "href": "slides/slides-01-intro.html#tutorials",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Tutorials",
-    "text": "Tutorials\n\nWeekly tutorials will be office hour format run by the TAs.\nThere is a small participation grade associated with attending tutorials.\nMake use of this helpful resource."
+    "text": "Tutorials\n\nWeekly tutorials will be run by the TAs.\nThere is a small participation grade associated with attending tutorials.\nMake use of this helpful resource."
   },
   {
-    "objectID": "slides/slides-01-intro.html#home-work-assignments",
-    "href": "slides/slides-01-intro.html#home-work-assignments",
+    "objectID": "slides/slides-01-intro.html#homework-assignments",
+    "href": "slides/slides-01-intro.html#homework-assignments",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Home work assignments",
-    "text": "Home work assignments\n\nFirst homework assignment is due this coming Tuesday, September 9, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
+    "section": "Homework assignments",
+    "text": "Homework assignments\n\nFirst homework assignment is due this coming Tuesday, September 9, midnight. This is a relatively straightforward assignment on Python.\nIf you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
   },
   {
     "objectID": "slides/slides-01-intro.html#exams",

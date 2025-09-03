@@ -691,12 +691,13 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/
 - All materials will be posted in this GitHub repository. 
 
 ## Tutorials 
-- Weekly tutorials will be **office hour format** run by the TAs. 
+- Weekly tutorials will be run by the TAs. 
 - There is a small participation grade associated with attending tutorials. 
 - Make use of this helpful resource. 
 
-## Home work assignments
-- First homework assignment is due **this coming Tuesday**, September 9, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
+## Homework assignments
+- First homework assignment is due **this coming Tuesday**, September 9, midnight. This is a relatively straightforward assignment on Python. 
+- If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
 - You must do the first two homework assignments on your own.
 
 ## Exams 
