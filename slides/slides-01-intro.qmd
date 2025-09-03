@@ -617,7 +617,7 @@ Here are some typical learning problems.
 - Recommendation systems ([Amazon item recommendation system](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf))
     - Predict the "rating" or "preference" a user would give to an item.    
 
-## What is supervised learning? 
+## What is supervised learning? {.smaller}
 
 - Training data comprises a set of observations ($X$) and their corresponding targets ($y$). 
 - We wish to find a model function $f$ that relates $X$ to $y$.
@@ -625,7 +625,7 @@ Here are some typical learning problems.
 
 ![](img/sup-learning.png){.nostretch fig-align="center" width="700px"}
 
-## 🤔 Eva's questions
+## 🤔 Eva's questions {.smaller}
 \
 
 At this point, Eva is wondering about many questions. 
@@ -645,7 +645,7 @@ It's great to think about these questions right now. But Eva has to be patient. 
 
 ## Surveys
 
-- Please complete the "Getting to know you" survey on [Canvas]().
+- Please complete the "Getting to know you" survey on Canvas.
 - Also, please complete the anonymous restaurant survey on Qualtrics [here](https://ubc.ca1.qualtrics.com/jfe/form/SV_73VuZiuwM1eDVrw).
   - We will try to analyze this data set in the coming weeks. 
 
@@ -656,7 +656,7 @@ Course website: [https://github.com/UBC-CS/cpsc330-2025W1](https://github.com/UB
 :::
 
 ::: {.callout-important}
-Make sure you go through the syllabus thoroughly and complete the syllabus quiz before Monday, Sept 19th at 11:59pm. 
+Make sure you go through the syllabus thoroughly and complete the syllabus quiz before Sept 19th at 11:59pm. 
 :::
 
 ## CPSC 330 vs. 340
@@ -672,14 +672,16 @@ which explains the difference between two courses.
 - CPSC 340 goes deeper but has a more narrow scope.
 - I think CPSC 330 will be more useful if you just plan to apply basic ML.
 
-## Registration, waitlist and prerequisites
+## Registration, waitlist and prerequisites {.smaller}
 
 ::: {.callout-important}
 Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/master/docs/course_info.md#registration) carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.
 :::
 
-- If you are on waitlist and if you'd like to try your chances, you should be able to access [Canvas](https://canvas.ubc.ca/courses/149122) and Piazza.  
-- If you're unable to make it this time, there will be two sections of this course offered next semester and then again in the summer.
+- There are still seats available in Section 103.
+- If you are on the waitlist and would like to try your chances, you should already have access to Canvas and Piazza.
+- **Please note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.**
+- If you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer.
 
 ## Lecture format
 
@@ -687,9 +689,11 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/
 - Sometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.
 - We will also try to work on some questions and exercises together during the class. 
 - All materials will be posted in this GitHub repository. 
-- Weekly tutorials will be **office hour format** run by the TAs and are **completely optional**.
-  - You do not need to be registered in a tutorial.
-  - You can attend whatever tutorials or office hours your want, regardless of in which/whether you're registered.
+
+## Tutorials 
+- Weekly tutorials will be **office hour format** run by the TAs. 
+- There is a small participation grade associated with attending tutorials. 
+- Make use of this helpful resource. 
 
 ## Home work assignments
 - First homework assignment is due **this coming Tuesday**, September 9, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
@@ -705,7 +709,7 @@ Here is our course Calendar. Make sure you check it on a regular basis:
 
 [https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html](https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html)
 
-## Course structure
+## Course structure {.smaller}
 
 - Introduction
   - Week 1 
@@ -761,9 +765,9 @@ x
   - This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.
   - But you need to launch the app properly to interact with the notebooks.
 
-## Lecture notes
+## Lecture notes {.smaller}
 
-- All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2023W1/README.html).
+- All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2024W1/README.html).
 - We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
 - A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
 - Each instructor will have slightly adapted versions of notes to present slides during lectures.  
@@ -810,12 +814,12 @@ but you can find some useful Python resources [here](https://github.com/UBC-CS/c
 
 <br><br>
 
-## Checklist for you before the next class
+## Checklist for you before the next class {.smaller}
 
-- [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/149122) shell? 
-- [ ] Are you able to access [course Piazza]()?
-- [ ] Are you able to access [Gradescope](https://www.gradescope.ca/courses/18608)? (If not, refer to the [Gradescope Student Guide](https://lthub.ubc.ca/guides/gradescope-student-guide/).)
-- [ ] Are you able to access [iClicker Cloud](https://join.iclicker.com/VYFJ) for this course?
+- [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/170662) shell? 
+- [ ] Are you able to access [course Piazza](https://piazza.com/ubc.ca/winterterm12025/cpsc330/home)?
+- [ ] Are you able to access [Gradescope](https://www.gradescope.ca/courses/29785)? (If not, refer to the [Gradescope Student Guide](https://lthub.ubc.ca/guides/gradescope-student-guide/).)
+- [ ] Are you able to access [iClicker Cloud for Section 102](https://join.iclicker.com/FZMQ) for this course? Make sure to access it via Canvas. 
 - [ ] Did you follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html) to create a course conda environment on your computer?
 - [ ] Did you complete the "Getting to know you" survey on Canvas?
 - [ ] Did you complete the anonymous [restaurant survey on Qualtrics](https://ubc.ca1.qualtrics.com/jfe/form/SV_73VuZiuwM1eDVrw)?

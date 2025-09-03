@@ -326,7 +326,7 @@
     "href": "slides/slides-01-intro.html#about-this-course",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "About this course",
-    "text": "About this course\n\n\n\n\n\n\nImportant\n\n\nCourse website: https://github.com/UBC-CS/cpsc330-2025W1 is the most important link. Please read everything on this GitHub page!\n\n\n\n\n\n\n\n\n\nImportant\n\n\nMake sure you go through the syllabus thoroughly and complete the syllabus quiz before Monday, Sept 19th at 11:59pm."
+    "text": "About this course\n\n\n\n\n\n\nImportant\n\n\nCourse website: https://github.com/UBC-CS/cpsc330-2025W1 is the most important link. Please read everything on this GitHub page!\n\n\n\n\n\n\n\n\n\nImportant\n\n\nMake sure you go through the syllabus thoroughly and complete the syllabus quiz before Sept 19th at 11:59pm."
   },
   {
     "objectID": "slides/slides-01-intro.html#cpsc-330-vs.-340",
@@ -340,14 +340,21 @@
     "href": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Registration, waitlist and prerequisites",
-    "text": "Registration, waitlist and prerequisites\n\n\n\n\n\n\nImportant\n\n\nPlease go through this document carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.\n\n\n\n\nIf you are on waitlist and if you’d like to try your chances, you should be able to access Canvas and Piazza.\n\nIf you’re unable to make it this time, there will be two sections of this course offered next semester and then again in the summer."
+    "text": "Registration, waitlist and prerequisites\n\n\n\n\n\n\nImportant\n\n\nPlease go through this document carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.\n\n\n\n\nThere are still seats available in Section 103.\nIf you are on the waitlist and would like to try your chances, you should already have access to Canvas and Piazza.\nPlease note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.\nIf you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer."
   },
   {
     "objectID": "slides/slides-01-intro.html#lecture-format",
     "href": "slides/slides-01-intro.html#lecture-format",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Lecture format",
-    "text": "Lecture format\n\nIn person lectures T/Th.\nSometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.\nWe will also try to work on some questions and exercises together during the class.\nAll materials will be posted in this GitHub repository.\nWeekly tutorials will be office hour format run by the TAs and are completely optional.\n\nYou do not need to be registered in a tutorial.\nYou can attend whatever tutorials or office hours your want, regardless of in which/whether you’re registered."
+    "text": "Lecture format\n\nIn person lectures T/Th.\nSometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.\nWe will also try to work on some questions and exercises together during the class.\nAll materials will be posted in this GitHub repository."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#tutorials",
+    "href": "slides/slides-01-intro.html#tutorials",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Tutorials",
+    "text": "Tutorials\n\nWeekly tutorials will be office hour format run by the TAs.\nThere is a small participation grade associated with attending tutorials.\nMake use of this helpful resource."
   },
   {
     "objectID": "slides/slides-01-intro.html#home-work-assignments",
@@ -445,7 +452,7 @@
     "href": "slides/slides-01-intro.html#checklist-for-you-before-the-next-class",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Checklist for you before the next class",
-    "text": "Checklist for you before the next class\n\nAre you able to access course Canvas shell?\nAre you able to access course Piazza?\nAre you able to access Gradescope? (If not, refer to the Gradescope Student Guide.)\nAre you able to access iClicker Cloud for this course?\nDid you follow the setup instructions here to create a course conda environment on your computer?\nDid you complete the “Getting to know you” survey on Canvas?\nDid you complete the anonymous restaurant survey on Qualtrics?\nAre you almost finished or at least started with homework 1?"
+    "text": "Checklist for you before the next class\n\nAre you able to access course Canvas shell?\nAre you able to access course Piazza?\nAre you able to access Gradescope? (If not, refer to the Gradescope Student Guide.)\nAre you able to access iClicker Cloud for Section 102 for this course? Make sure to access it via Canvas.\nDid you follow the setup instructions here to create a course conda environment on your computer?\nDid you complete the “Getting to know you” survey on Canvas?\nDid you complete the anonymous restaurant survey on Qualtrics?\nAre you almost finished or at least started with homework 1?"
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#announcements",
