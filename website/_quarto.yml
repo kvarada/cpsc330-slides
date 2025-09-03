@@ -38,23 +38,23 @@ website:
         - lecture-04.qmd
         - lecture-05.qmd
         - lecture-06.qmd        
-        - lecture-07.qmd
-        - lecture-08.qmd        
-        - lecture-09.qmd                
-        - lecture-10.qmd        
-        - lecture-11.qmd        
-        - lecture-12.qmd        
-        - lecture-13.qmd        
-        - lecture-14.qmd                
-        - lecture-15.qmd
-        - lecture-16.qmd                
-        - lecture-17.qmd
-        - lecture-18.qmd
-        - lecture-19.qmd
-        - lecture-20.qmd
-        - lecture-21.qmd        
-        - lecture-22.qmd
-        - lecture-24.qmd        
+        # - lecture-07.qmd
+        # - lecture-08.qmd        
+        # - lecture-09.qmd                
+        # - lecture-10.qmd        
+        # - lecture-11.qmd        
+        # - lecture-12.qmd        
+        # - lecture-13.qmd        
+        # - lecture-14.qmd                
+        # - lecture-15.qmd
+        # - lecture-16.qmd                
+        # - lecture-17.qmd
+        # - lecture-18.qmd
+        # - lecture-19.qmd
+        # - lecture-20.qmd
+        # - lecture-21.qmd        
+        # - lecture-22.qmd
+        # - lecture-24.qmd        
 format:
   html:
     theme: [zephyr]

@@ -20,6 +20,7 @@ format:
 editor:
   render-on-save: true
 ---
+
 ```{python}
 import numpy as np
 import pandas as pd
@@ -27,6 +28,8 @@ import matplotlib.pyplot as plt
 import os
 import sys
 sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from plotting_functions import *
+from unsupervised_learning_code import *
 from IPython.display import HTML, display
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -35,31 +38,31 @@ from sklearn.pipeline import make_pipeline
 
 plt.rcParams["font.size"] = 16
 pd.set_option("display.max_colwidth", 200)
+%matplotlib inline
 
 DATA_DIR = 'data/' 
 ```
 
-## Learning outcomes 
-From this lecture, you will be able to 
 
-- Explain the motivation behind study machine learning. 
-- Briefly describe supervised learning.
-- Differentiate between traditional programming and machine learning.
-- Assess whether a given problem is suitable for a machine learning solution.
-- Navigate through the course material. 
-- Be familiar with the policies and how the class is going to run.
+## 🎯 Learning Outcomes {.smaller}
 
-## QR code of CPSC 330 website
+By the end of this module, you will be able to:
+
+- Explain the difference between AI, ML, and DL 
+- Describe what machine learning is and when it is appropriate to use ML-based solutions.
+- Identify different types of machine learning problems, such as classification, regression, clustering, and time series forecasting.
+- Recognize common data types in machine learning, including tabular, text, and image data.
+- Evaluate whether a machine learning solution is suitable for your problem or whether a rule-based or human-expert solution is more appropriate.
+
+## CPSC 330 website
 \
 
-- Course Jupyter book: https://ubc-cs.github.io/cpsc330-2024W1
-- Course GitHub repository: https://github.com/UBC-CS/cpsc330-2024W1
-
-![](img/CPSC330-QR-code.png){.nostretch fig-align="center" width="500px"}
+- Course Jupyter book: https://ubc-cs.github.io/cpsc330-2025W1
+- Course GitHub repository: https://github.com/UBC-CS/cpsc330-2025W1
 
 # 🤝 Introductions 🤝 {.middle}
 
-## Meet your instructor {background="#43464B"}
+## Meet your instructor {.smaller}
 
 :::: {.columns}
 
@@ -70,8 +73,8 @@ From this lecture, you will be able to
 ::: {.column width="80%"}
 - Varada Kolhatkar [[ʋəɾəda kɔːlɦəʈkər](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet)]
 - You can call me Varada, **V**, or **Ada**.
-- I am an Assistant Professor of Teaching in the Department of Computer Science.
-- I did my Ph.D. in Computational Linguistics at the University of Toronto. 
+- Associate Professor of Teaching in the Department of Computer Science.
+- Ph.D. in Computational Linguistics at the University of Toronto. 
 - I primarily teach machine learning courses in the [Master of Data Science (MDS) program](https://masterdatascience.ubc.ca/). 
 - Contact information
     - Email: kvarada@cs.ubc.ca
@@ -98,189 +101,198 @@ Eva is among one of you. She has some experience in Python programming. She know
 
 - Introduce yourself to your neighbour. 
 - Since we're going to spend the semester with each other, I would like to know you a bit better. 
-- Please fill out [Getting to know you survey](https://canvas.ubc.ca/courses/149122/quizzes) when you get a chance.
+- Please fill out [Getting to know you survey](https://canvas.ubc.ca/courses/170662/quizzes/897830) when you get a chance.
 
-## Asking questions during class
-You are welcome to ask questions by raising your hand.
-There is also [a reflection Google Document](https://docs.google.com/document/d/1q9peVKhyoVhrmZ9Afk4LOGlVJA3GXStuVKQWVQDOG2o/edit?usp=sharing) for this course for your questions/comments/reflections. It will be great if you can write about your takeaways, struggle points, and general comments in this document so that I'll try to address those points in the next lecture. 
+## Asking questions during class {.smaller}
 
+- You are welcome to ask questions by raising your hand.
+- No question is a stupid question. 
+- Recommended reading as you begin your learning journey: [The Fear of Publicly Not Knowing](https://medium.com/bucknell-hci/the-fear-of-publicly-not-knowing-239e1b7a39f3)
 
-## Activity 1: https://shorturl.at/CteOU
+> What I quickly came to realize was that publicly not knowing wasn't a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA.
+
+## Activity 1
 \
+Discuss with you neighbour
 
-- Write your answers to the questions below in this Google doc: https://shorturl.at/CteOU
+- What do you know about machine learning?
+- What would you like to get out this course?
+- Are there any particular topics or aspects of this course that you are especially excited or anxious about? Why?
 
-* What do you know about machine learning?
-* What would you like to get out this course?
-* Are there any particular topics or aspects of this course that you are especially excited or anxious about? Why?
+## Which cat do you think is AI-generated? {.smaller}
+
+:::: {.columns}
+::: {.column width="60%"}
+
+![](img/ai-or-not-cat.png)
+
+[Source](https://thinktan.net/are-you-sure-this-photo-is-not-ai-generated/)
+:::
+
+::: {.column width="40%"}
+
+- A
+- B
+- Both
+- None
+
+:::
+:::: 
+- What clues did you use to decide?
 
 
-# What is Machine Learning (ML)?
+## What is AI, ML, DL? {.smaller}
+- **Artificial Intelligence (AI)**: Making computers act smart
+- **Machine Learning (ML)**: Learning patterns from data
+- **Deep Learning (DL)**: Using neural networks to learn complex patterns
 
-## Spam prediction 
+![](img/ai-ml-dl.png){.nostretch fig-align="center" width="700px"}
 
-- Suppose you are given some data with labeled spam and non-spam messages 
+## Let's walk through an example 
 
-::: panel-tabset
-### Code
+- Have you used search in Google Photos? You can search for "cat" and it will retrieve photos from your libraries containing cats.
+- This can be done using **image classification**. 
 
+## Image classification {.smaller}
+- Imagine we want a system that can tell cats and foxes apart.
+- How might we do this with traditional programming? With ML?
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](img/cat-or-fox.png) 
+:::
+
+::: {.column width="60%"}
+
+| Image ID | Whiskers Present | Ear Size  | Face Shape | Fur Color  | Eye Shape   | Label |
+|----------|------------------|-----------|------------|------------|-------------|-------|
+| 1        | Yes              | Small     | Round      | Mixed      | Round       | Cat   |
+| 2        | Yes              | Medium    | Round      | Brown      | Almond      | Cat   |
+| 3        | Yes              | Large     | Pointed    | Red        | Narrow      | Fox   |
+| 4        | Yes              | Large     | Pointed    | Red        | Narrow      | Fox   |
+| 5        | Yes              | Small     | Round      | Mixed      | Round       | Cat   |
+| 6        | Yes              | Large     | Pointed    | Red        | Narrow      | Fox   |
+| 7        | Yes              | Small     | Round      | Grey       | Round       | Cat   |
+| 8        | Yes              | Small     | Round      | Black      | Round       | Cat   |
+| 9        | Yes              | Large     | Pointed    | Red        | Narrow      | Fox   |
+
+::: 
+
+::::
+
+
+## Traditional programming: example
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](img/cat-or-fox.png) 
+:::
+
+::: {.column width="60%"}
+- You hard-code rules. If all of the following satisfy, it's a fox.     
+    - pointed face ✅
+    - red fur ✅
+    - narrow eyes ✅    
+- This works for normal cases, but what if there are exceptions
+::: 
+
+::::
+
+## ML approach: example
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](img/cat-or-fox.png) 
+:::
+
+::: {.column width="50%"}
+- We don't tell the model the exact rule. Instead, we give it many labeled images, and it learns probabilistic patterns across multiple features, not rigid rules.
+    - If fur is red $\rightarrow$ 90% chance of Fox.
+
+::: 
+
+::::
+
+## DL approach: example 
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](img/cat-or-fox.png) 
+:::
+
+::: {.column width="60%"}
+- A neural network automatically learns which features to look at (edges $\rightarrow$ textures $\rightarrow$ objects).
+- No need to even specify face shape or fur colour. It learns relevant features on its own. 
+::: 
+
+::::
+
+## What is ML? 
+
+- Learn patterns from examples (data)
+- Make predictions, identify patterns, generate content
+- ML systems **improve over time** with more data
+- No single model fits all problems
+
+## When to use ML? 
+
+- When the problem can't be solved with a fixed set of rules
+- When you have **lots of data** and **complex relationships**
+- When human decision-making is too slow or inconsistent
+
+| Approach                 | Best for                                 |
+|--------------------------|-------------------------------------------|
+| Traditional Programming  | Rules are known, data is clean/predictable |
+| Machine Learning         | Rules are complex/unknown, data is noisy  |
+
+# When to use Machine Learning (ML) solutions? 
+
+## Example: Supervised classification {.smaller}
+- We want to predict liver disease from tabular features:
 ```{python}
-#| echo: true
-sms_df = pd.read_csv(DATA_DIR + "spam.csv", encoding="latin-1")
-sms_df = sms_df.drop(columns = ["Unnamed: 2", "Unnamed: 3", "Unnamed: 4"])
-sms_df = sms_df.rename(columns={"v1": "target", "v2": "sms"})
-train_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)
-```
-
-### Output
-
-::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
-
-```{python}
+df = pd.read_csv(DATA_DIR + "indian_liver_patient.csv")
+df = df.drop(columns=["Gender"])
+df["Dataset"] = df["Dataset"].replace(1, "Disease")
+df["Dataset"] = df["Dataset"].replace(2, "No Disease")
+df.rename(columns={"Dataset": "Target"}, inplace=True)
+train_df, test_df = train_test_split(df, test_size=4, random_state=42)
+X_train = train_df.drop(columns=["Target"])
+y_train = train_df["Target"]
+X_test = test_df.drop(columns=["Target"])
+y_test = test_df["Target"]
 HTML(train_df.head().to_html(index=False))
 ```
 
-:::
+## Model training 
+```{python}
+#| echo: true
+from lightgbm.sklearn import LGBMClassifier
+model = LGBMClassifier(random_state=123, verbose=-1)
+model.fit(X_train, y_train)
+```
 
-:::
+## New examples 
 
-## Traditional programming vs. ML
+- Given features of new patients below we'll use this model to predict whether these patients have the liver disease or not.
+```{python}
+HTML(X_test.reset_index(drop=True).to_html(index=False))
+```
 
-- Imagine writing a Python program for spam identification, i.e., whether a text message or an email is spam or non-spam. 
-- Traditional programming 
-    - Come up with rules using human understanding of spam messages. 
-    - Time consuming and hard to come up with robust set of rules. 
-- Machine learning
-    - Collect large amount of data of spam and non-spam emails and let the machine learning algorithm figure out rules. 
-
-## Let's train a model 
-
-- There are several packages that help us perform machine learning.
+## Model predictions on new examples {.smaller}
+- Let's examine predictions
 
 ```{python}
 #| echo: true
-X_train, y_train = train_df["sms"], train_df["target"]
-X_test, y_test = test_df["sms"], test_df["target"]
-clf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))
-clf.fit(X_train, y_train); # Training the model
+pred_df = pd.DataFrame({"Predicted_target": model.predict(X_test).tolist()})
+df_concat = pd.concat([pred_df, X_test.reset_index(drop=True)], axis=1)
+HTML(df_concat.to_html(index=False))
 ```
 
-## Unseen messages
-
-- Now use the trained model to predict targets of unseen messages:
-
-```{python}
-pd.DataFrame(X_test[0:4])
-```
-
-## Predicting on unseen data {.smaller}
-
-**The model is accurately predicting labels for the unseen text messages above!**
-
-```{python}
-pred_dict = {
-    "sms": X_test[0:4],
-    "spam_predictions": clf.predict(X_test[0:4]),
-}
-pred_df = pd.DataFrame(pred_dict)
-pred_df.style.set_properties(**{"text-align": "left"})
-```
-
-## A different way to solve problems 
-
-Machine learning uses computer programs to model data. It can be used to extract hidden patterns, make predictions in new situation, or generate novel content.   
-
-<blockquote>
-A field of study that gives computers the ability to learn without being explicitly programmed. <br> -- Arthur Samuel (1959)
-</blockquote>
-
-
-## ML vs. traditional programming
-
-- With machine learning, you're likely to 
-    - Save time 
-    - Customize and scale products 
-
-![](img/traditional-programming-vs-ML.png){.nostretch fig-align="center" width="500px"}
-
-## Prevalence of ML
-
-Let's look at some examples. 
-
-<!-- <img src="img/ml-examples.png" height="1000" width="1000">  -->
-![](img/ml-examples.png)
-
-## Activity: For what type of problems ML is appropriate? (~5 mins)
-
-Discuss with your neighbour for which of the following problems you would use machine learning 
-
-- Finding a list of prime numbers up to a limit
-- Given an image, automatically identifying and labeling objects in the image
-- Finding the distance between two nodes in a graph 
-
-## Types of machine learning
-
-Here are some typical learning problems. 
-
-- **Supervised learning** ([Gmail spam filtering](https://support.google.com/a/answer/2368132?hl=en))
-    - Training a model from input data and its corresponding targets to predict targets for new examples.     
-- Unsupervised learning ([Google News](https://news.google.com/))
-    - Training a model to find patterns in a dataset, typically an unlabeled dataset.
-- Reinforcement learning ([AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far))
-    - A family of algorithms for finding suitable actions to take in a given situation in order to maximize a reward. 
-- Recommendation systems ([Amazon item recommendation system](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf))
-    - Predict the "rating" or "preference" a user would give to an item.    
-
-## What is supervised learning? 
-
-- Training data comprises a set of observations ($X$) and their corresponding targets ($y$). 
-- We wish to find a model function $f$ that relates $X$ to $y$.
-- We use the model function to predict targets of new examples. 
-
-![](img/sup-learning.png){.nostretch fig-align="center" width="700px"}
-
-
-## 🤔 Eva's questions
-\
-
-At this point, Eva is wondering about many questions. 
-
-- How are we exactly "learning" whether a message is spam and ham? 
-- Are we expected to get correct predictions for all possible messages? How does it predict the label for a message it has not seen before?  
-- What if the model mis-labels an unseen example? For instance, what if the model incorrectly predicts a non-spam as a spam? What would be the consequences? 
-- How do we measure the success or failure of spam identification? 
-- If you want to use this model in the wild, how do you know how reliable it is?  
-- Would it be useful to know how confident the model is about the predictions rather than just a yes or a no?
-
-It's great to think about these questions right now. But Eva has to be patient. By the end of this course you'll know answers to many of these questions!  
-
-## Predicting labels of a given image 
-
-- We can also use machine learning to predict labels of given images using a technique called **transfer learning**. 
-
-::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
-
-```{python}
-import img_classify
-from PIL import Image
-import glob
-import matplotlib.pyplot as plt
-# Predict topn labels and their associated probabilities for unseen images
-images = glob.glob(DATA_DIR + "test_images/*.*")
-class_labels_file = DATA_DIR + 'imagenet_classes.txt'
-for img_path in images:
-    img = Image.open(img_path).convert('RGB')
-    img.load()
-    plt.imshow(img)
-    plt.show();    
-    df = img_classify.classify_image(img_path, class_labels_file)
-    print(df.to_string(index=False))
-    print("--------------------------------------------------------------")
-```
-
-:::
-
-## Predicting housing prices
+## Example: Supervised regression {.smaller}
 
 Suppose we want to predict housing prices given a number of attributes associated with houses. The target here is **continuous** and not **discrete**. 
 
@@ -305,43 +317,331 @@ model = LGBMRegressor()
 model.fit(X_train, y_train);
 ```
 
-## Predicting prices of unseen houses
+## Predicting prices of unseen houses {.smaller}
 
 ```{python}
+#| echo: true
 pred_df = pd.DataFrame(
-    # {"Predicted target": model.predict(X_test[0:4]).tolist(), "Actual price": y_test[0:4].tolist()}
     {"Predicted_target": model.predict(X_test[0:4]).tolist()}
 )
 df_concat = pd.concat([pred_df, X_test[0:4].reset_index(drop=True)], axis=1)
 HTML(df_concat.to_html(index=False))
 ```
+We are predicting **continuous values** here as apposed to discrete values in `disease` vs. `no disease` example. 
 
-We are predicting continuous values here as apposed to discrete values in `spam` vs. `ham` example. 
 
-## Machine learning workflow 
+# Text data 
 
-Supervised machine learning is quite flexible; it can be used on a variety of problems and different kinds of data. Here is a typical workflow of a supervised machine learning systems.  
+## Example: Text classification {.smaller}
 
-![](img/ml-workflow.png){.nostretch fig-align="center" width="700px"}
+- Suppose you are given some data with labeled spam and non-spam messages and you want to predict whether a new message is spam or not spam.  
 
-<!-- <img src="img/ml-workflow.png" height="800" width="800">  -->
+::: panel-tabset
+### Code
 
-We will build machine learning pipelines in this course, focusing on some of the steps above. 
+```{python}
+#| echo: true
+sms_df = pd.read_csv(DATA_DIR + "spam.csv", encoding="latin-1")
+sms_df = sms_df.drop(columns = ["Unnamed: 2", "Unnamed: 3", "Unnamed: 4"])
+sms_df = sms_df.rename(columns={"v1": "target", "v2": "sms"})
+train_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)
+```
 
-<br><br>
+### Output {.smaller}
 
-## ❓❓ Questions for you
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
 
-iClicker cloud join link: https://join.iclicker.com/VYFJ
+```{python}
+HTML(train_df.head().to_html(index=False))
+```
+:::
+:::
 
-### Select all of the following statements which are **True** (iClicker)
+## Let's train a model 
 
-- (A) Predicting spam is an example of machine learning. 
-- (B) Predicting housing prices is not an example of machine learning. 
-- (C) For problems such as spelling correction, translation, face recognition, spam identification, if you are a domain expert, it's usually faster and scalable to come up with a robust set of rules manually rather than building a machine learning model. 
-- (D) If you are asked to write a program to find all prime numbers up to  a limit, it is better to implement one of the algorithms for doing so rather than using machine learning. 
-- (E) Google News is likely be using machine learning to organize news. 
-<br><br><br><br>
+```{python}
+#| echo: true
+X_train, y_train = train_df["sms"], train_df["target"]
+X_test, y_test = test_df["sms"], test_df["target"]
+clf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))
+clf.fit(X_train, y_train) # Training the model
+```
+
+## Unseen messages {.smaller}
+
+- Now use the trained model to predict targets of unseen messages:
+
+```{python}
+pd.DataFrame(X_test[0:4])
+```
+
+## Predicting on unseen data {.smaller}
+
+**The model is accurately predicting labels for the unseen text messages above!**
+
+```{python}
+pred_dict = {
+    "sms": X_test[0:4],
+    "spam_predictions": clf.predict(X_test[0:4]),
+}
+pred_df = pd.DataFrame(pred_dict)
+pred_df.style.set_properties(**{"text-align": "left"})
+```
+
+## Examplel: Text classification with LLMs
+\ 
+
+```{python}
+#| echo: true
+from transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer
+# Sentiment analysis pipeline
+analyzer = pipeline("sentiment-analysis", model='distilbert-base-uncased-finetuned-sst-2-english')
+analyzer(["I asked my model to predict my future, and it said '404: Life not found.'",
+          '''Machine learning is just like cooking—sometimes you follow the recipe, 
+            and other times you just hope for the best!.'''])
+```
+
+
+## Zero-shot learning {.smaller}
+\
+
+- Now suppose you want to identify the emotion expressed in the text rather than just positive or negative. 
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+```{python}
+from datasets import load_dataset
+
+dataset = load_dataset("dair-ai/emotion")
+exs = dataset["test"]["text"][0:10]
+exs
+```
+:::
+
+## Zero-shot learning for emotion detection 
+\
+
+```{python}
+#| echo: true
+from transformers import AutoTokenizer
+from transformers import pipeline 
+import torch
+
+#Load the pretrained model
+model_name = "facebook/bart-large-mnli"
+classifier = pipeline('zero-shot-classification', model=model_name)
+exs = dataset["test"]["text"][10:20]
+candidate_labels = ["sadness", "joy", "love","anger", "fear", "surprise"]
+outputs = classifier(exs, candidate_labels)
+```
+
+## Zero-shot learning for emotion detection {.smaller}
+\
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+```{python}
+pd.DataFrame(outputs)
+```
+:::
+
+# Image data
+
+## Example: Predicting labels of a given image {.smaller}
+- Suppose you have a bunch of animal images. You do not have any labels associated with them and you want to predict labels of these images. 
+- We can use machine learning to predict labels of these images using a technique called **transfer learning**. 
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+
+```{python}
+import img_classify
+from PIL import Image
+import glob
+import matplotlib.pyplot as plt
+# Predict topn labels and their associated probabilities for unseen images
+images = glob.glob(DATA_DIR + "test_images/*.*")
+class_labels_file = DATA_DIR + 'imagenet_classes.txt'
+for img_path in images:
+    img = Image.open(img_path).convert('RGB')
+    img.load()
+    plt.imshow(img)
+    plt.show();    
+    df = img_classify.classify_image(img_path, class_labels_file)
+    print(df.to_string(index=False))
+    print("--------------------------------------------------------------")
+```
+:::
+:::
+
+# Clustering images
+## Finding groups in food images 
+\
+```{python}
+data_dir = "data/food/train"
+file_names = [image_file for image_file in glob.glob(data_dir + "/*/*.jpg")]
+n_images = len(file_names)
+BATCH_SIZE = n_images  # because our dataset is quite small
+food_inputs, food_classes = read_img_dataset(data_dir, BATCH_SIZE)
+X_food = food_inputs.numpy()
+plot_sample_imgs(food_inputs[0:24,:,:,:])
+```
+
+## K-Means on food dataset
+\
+
+```{python}
+#| echo: true
+densenet = models.densenet121(weights="DenseNet121_Weights.IMAGENET1K_V1")
+densenet.classifier = torch.nn.Identity()  # remove that last "classification" layer
+```
+
+```{python}
+#| echo: true
+Z_food = get_features_unsup(densenet, food_inputs)
+k = 5
+km = KMeans(n_clusters=k, n_init='auto', random_state=123)
+km.fit(Z_food)
+```
+
+## Examining food clusters
+\
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+
+```{python}
+#| echo: true
+for cluster in range(k):
+    get_cluster_images(km, Z_food, X_food, cluster, n_img=6)
+
+```
+:::
+
+## Example: Finding most similar items
+
+- Consider the following titles and queries. 
+```{python}
+#| echo: true
+# Corpus of existing paper titles or abstracts
+corpus = [
+    "Mapping eelgrass beds in British Columbia using remote sensing",
+    "Bayesian optimization for reaction discovery and yield improvement",
+    "RNA-seq analysis of microbiome interactions and infection susceptibility",
+    "Using YOLOv8 for automatic object detection in microscopy images",
+    "Anomaly detection in ocean temperature sensor data with machine learning",
+    "Embedding-based literature recommendation using scientific abstracts"
+]
+
+# List of new queries to compare
+queries = [
+    "Predicting yield of chemical reactions using optimization techniques",
+    "Tracking changes in marine vegetation through drone imagery",
+    "Detecting patterns of infection from gene expression data",
+    "Literature discovery using sentence embeddings and neural search",
+    "Outlier detection in sensor measurements from ocean buoys"
+]
+```
+
+## Which queries are similar to which titles? 
+
+```{python}
+#| echo: true
+from sentence_transformers import SentenceTransformer, util
+import numpy as np
+
+# Load the MiniLM model
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+
+# Encode corpus and queries
+corpus_embeddings = model.encode(corpus, convert_to_tensor=True).cpu()
+query_embeddings = model.encode(queries, convert_to_tensor=True).cpu()
+
+# Set number of top matches to show
+top_k = 1
+```
+
+## Which queries are similar to which titles? 
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+
+```{python}
+# Loop over queries and find top match(es)
+for idx, (query, query_embedding) in enumerate(zip(queries, query_embeddings)):
+    print(f"\n🔍 Query {idx+1}: {query}")
+    scores = util.cos_sim(query_embedding, corpus_embeddings)[0]
+    top_results = np.argpartition(-scores, range(top_k))[:top_k]
+
+    for rank, corpus_idx in enumerate(top_results):
+        print(f"   ➤ Match {rank+1}: {corpus[corpus_idx]}")
+        print(f"     Cosine similarity: {scores[corpus_idx]:.4f}")
+```
+:::
+
+# Interactive: Is ML appropriate?
+
+## ❓❓ Questions for you {.smaller}
+
+iClicker cloud join link: 
+
+**Select all that apply: Which problems are suitable for ML?**
+
+- (A) Checking if a UBC email address ends with @student.ubc.ca before allowing login
+- (B) Deciding which students should be awarded a scholarship based on their personal essays
+- (C) Predicting which songs you'll like based on your Spotify listening history
+- (D) Detecting plagiarism by checking if two essays are exactly identical
+- (E) Automatically tagging photos of your friends on Instagram
+
+## Summary: When is ML suitable?
+
+| **Approach**     | **Best Used When...**                                                                 |
+|------------------|----------------------------------------------------------------------------------------|
+| **Machine Learning** | The dataset is **large and complex**, and the decision rules are **unknown, fuzzy, or too complex to define explicitly** |
+| **Rule-based System** | The logic is **clear and deterministic**, and the rules or thresholds are **known and stable** |
+| **Human Expert**  | The problem involves **ethics, creativity, emotion, or ambiguity** that can't be formalized easily |
+
+## Activity 2 
+
+Think of a problem you have come across in the past which could be solved using machine learning. 
+
+- What would be the input and output? 
+- How do humans solve this now? Are there heuristics or rules?
+- What kind of data do you have or could you collect?
+
+## Types of machine learning {.smaller}
+
+Here are some typical learning problems. 
+
+- **Supervised learning** ([Gmail spam filtering](https://support.google.com/a/answer/2368132?hl=en))
+    - Training a model from input data and its corresponding targets to predict targets for new examples.     
+- Unsupervised learning ([Google News](https://news.google.com/))
+    - Training a model to find patterns in a dataset, typically an unlabeled dataset.
+- Reinforcement learning ([AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far))
+    - A family of algorithms for finding suitable actions to take in a given situation in order to maximize a reward. 
+- Recommendation systems ([Amazon item recommendation system](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf))
+    - Predict the "rating" or "preference" a user would give to an item.    
+
+## What is supervised learning? 
+
+- Training data comprises a set of observations ($X$) and their corresponding targets ($y$). 
+- We wish to find a model function $f$ that relates $X$ to $y$.
+- We use the model function to predict targets of new examples. 
+
+![](img/sup-learning.png){.nostretch fig-align="center" width="700px"}
+
+## 🤔 Eva's questions
+\
+
+At this point, Eva is wondering about many questions. 
+
+- How are we exactly "learning" whether a message is spam and ham? 
+- Are we expected to get correct predictions for all possible messages? How does it predict the label for a message it has not seen before?  
+- What if the model mis-labels an unseen example? For instance, what if the model incorrectly predicts a non-spam as a spam? What would be the consequences? 
+- How do we measure the success or failure of spam identification? 
+- If you want to use this model in the wild, how do you know how reliable it is?  
+- Would it be useful to know how confident the model is about the predictions rather than just a yes or a no?
+
+It's great to think about these questions right now. But Eva has to be patient. By the end of this course you'll know answers to many of these questions!  
+
+## Break 
+
+![](img/eva-coffee.png)
 
 ## Surveys
 
@@ -352,7 +652,7 @@ iClicker cloud join link: https://join.iclicker.com/VYFJ
 ## About this course
 
 ::: {.callout-important}
-Course website: [https://github.com/UBC-CS/cpsc330-2024W1](https://github.com/UBC-CS/cpsc330-2024W1) is the most important link. Please read everything on this GitHub page!
+Course website: [https://github.com/UBC-CS/cpsc330-2025W1](https://github.com/UBC-CS/cpsc330-2025W1) is the most important link. Please read everything on this GitHub page!
 :::
 
 ::: {.callout-important}
@@ -361,7 +661,7 @@ Make sure you go through the syllabus thoroughly and complete the syllabus quiz 
 
 ## CPSC 330 vs. 340
 
-Read [https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/330_vs_340.md]([https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/330_vs_340.md)
+Read [https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md]([https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md)
 which explains the difference between two courses.  
 
 **TLDR:**
@@ -375,7 +675,7 @@ which explains the difference between two courses.
 ## Registration, waitlist and prerequisites
 
 ::: {.callout-important}
-Please go through [this document](https://github.com/UBC-CS/cpsc330-2024W1/blob/master/docs/course_info.md#registration) carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.
+Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/master/docs/course_info.md#registration) carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.
 :::
 
 - If you are on waitlist and if you'd like to try your chances, you should be able to access [Canvas](https://canvas.ubc.ca/courses/149122) and Piazza.  
@@ -392,7 +692,7 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2024W1/blob/
   - You can attend whatever tutorials or office hours your want, regardless of in which/whether you're registered.
 
 ## Home work assignments
-- First homework assignment is due **this coming Tuesday**, September 10, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
+- First homework assignment is due **this coming Tuesday**, September 9, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
 - You must do the first two homework assignments on your own.
 
 ## Exams 
@@ -403,7 +703,7 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2024W1/blob/
 
 Here is our course Calendar. Make sure you check it on a regular basis: 
 
-[https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/calendar.html](https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/calendar.html)
+[https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html](https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html)
 
 ## Course structure
 
@@ -419,10 +719,10 @@ Here is our course Calendar. Make sure you check it on a regular basis:
 
 ## Code of conduct
 
-- Our main forum for getting help will be [Piazza](https://piazza.com/ubc.ca/winterterm12024/cpsc_v3301011021032024w1).
+- Our main forum for getting help will be [Piazza](https://piazza.com/ubc.ca/winterterm12025/cpsc_v3301011021032025w1).
 
 ::: {.callout-important}
-Please read [this entire document about asking for help](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/asking_for_help.md).
+Please read [this entire document about asking for help](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/asking_for_help.md).
 **TLDR:** Be nice.
 :::
 
@@ -457,7 +757,7 @@ x
 ## Jupyter 
 
 - By default, Jupyter prints out the result of the last line of code, so you don't need as many `print` statements.
-- In addition to the "live" notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. [this](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/01_intro.ipynb).
+- In addition to the "live" notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. [this](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/01_intro.ipynb).
   - This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.
   - But you need to launch the app properly to interact with the notebooks.
 
@@ -465,15 +765,15 @@ x
 
 - All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2023W1/README.html).
 - We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
-- A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2024W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2024W1/README.html) right before each class.
+- A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
 - Each instructor will have slightly adapted versions of notes to present slides during lectures.  
 - You will find the link to these slides in our repository: 
-https://github.com/UBC-CS/cpsc330-2024W1/tree/main/lectures/102-Varada-lectures
+https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures
 
 ## Grades
 
-- The grading breakdown is [here](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/syllabus.md#grading-scheme). 
-- The policy on challenging grades is [here](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/grades.md).
+- The grading breakdown is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/syllabus.md#grading-scheme). 
+- The policy on challenging grades is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/grades.md).
 
 # Setting up your computer for the course 
 
@@ -486,7 +786,7 @@ In this course, we will primarily be using `Python` , `git`, `GitHub`, `Canvas`,
 
 ## Course `conda` environment
 
-- Follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2024W1/docs/setup.html) to create a course `conda` environment on your computer. 
+- Follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html) to create a course `conda` environment on your computer. 
 - If you do not have your computer with you, you can partner up with someone and set up your own computer later.
 
 ## Python requirements/resources
@@ -505,7 +805,7 @@ Homework 1 is all about Python.
 
 :::{.callout-note}
 We do not have time to teach all the Python we need 
-but you can find some useful Python resources [here](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/resources.md).  
+but you can find some useful Python resources [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/resources.md).  
 :::
 
 <br><br>
@@ -513,10 +813,10 @@ but you can find some useful Python resources [here](https://github.com/UBC-CS/c
 ## Checklist for you before the next class
 
 - [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/149122) shell? 
-- [ ] Are you able to access [course Piazza](https://piazza.com/ubc.ca/winterterm12024/cpsc_v3301011021032024w1)?
+- [ ] Are you able to access [course Piazza]()?
 - [ ] Are you able to access [Gradescope](https://www.gradescope.ca/courses/18608)? (If not, refer to the [Gradescope Student Guide](https://lthub.ubc.ca/guides/gradescope-student-guide/).)
 - [ ] Are you able to access [iClicker Cloud](https://join.iclicker.com/VYFJ) for this course?
-- [ ] Did you follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2024W1/docs/setup.html) to create a course conda environment on your computer?
+- [ ] Did you follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html) to create a course conda environment on your computer?
 - [ ] Did you complete the "Getting to know you" survey on Canvas?
 - [ ] Did you complete the anonymous [restaurant survey on Qualtrics](https://ubc.ca1.qualtrics.com/jfe/form/SV_73VuZiuwM1eDVrw)?
 - [ ] Are you almost finished or at least started with homework 1?

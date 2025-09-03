@@ -49,7 +49,6 @@ colors = ['xkcd:azure', 'yellowgreen', 'tomato', 'teal', 'indigo', 'aqua', 'oran
 # Common visualization functions
 ####################################
 
-
 def discrete_scatter(x1, x2, y=None, markers=None, s=8, ax=None,
                      labels=None, padding=.2, alpha=1, c=None, markeredgewidth=0.6, 
                      label_points=False, x1_annot=-0.1, x2_annot=0.2):
@@ -1592,5 +1591,3 @@ def plot_sup_x_unsup(data, w, h):
 #     ax.set_xticklabels(ax.get_xticks(), fontdict={'fontsize': w + h})
 #     ax.set_yticklabels(ax.get_yticks(), fontdict={'fontsize': w + h})
     
-    
-            
