@@ -406,38 +406,32 @@ Varada Kolhatkar
 </div>
 
 </section>
-<section id="learning-outcomes" class="slide level2 center">
-<h2>Learning outcomes</h2>
-<p>From this lecture, you will be able to</p>
+<section id="learning-outcomes" class="slide level2 smaller center">
+<h2>🎯 Learning Outcomes</h2>
+<p>By the end of this module, you will be able to:</p>
 <ul>
-<li>Explain the motivation behind study machine learning.</li>
-<li>Briefly describe supervised learning.</li>
-<li>Differentiate between traditional programming and machine learning.</li>
-<li>Assess whether a given problem is suitable for a machine learning solution.</li>
-<li>Navigate through the course material.</li>
-<li>Be familiar with the policies and how the class is going to run.</li>
+<li>Explain the difference between AI, ML, and DL</li>
+<li>Describe what machine learning is and when it is appropriate to use ML-based solutions.</li>
+<li>Identify different types of machine learning problems, such as classification, regression, clustering, and time series forecasting.</li>
+<li>Recognize common data types in machine learning, including tabular, text, and image data.</li>
+<li>Evaluate whether a machine learning solution is suitable for your problem or whether a rule-based or human-expert solution is more appropriate.</li>
 </ul>
 </section>
-<section id="qr-code-of-cpsc-330-website" class="slide level2 center">
-<h2>QR code of CPSC 330 website</h2>
+<section id="cpsc-330-website" class="slide level2 center">
+<h2>CPSC 330 website</h2>
 <p><br>
 </p>
 <ul>
-<li>Course Jupyter book: https://ubc-cs.github.io/cpsc330-2024W1</li>
-<li>Course GitHub repository: https://github.com/UBC-CS/cpsc330-2024W1</li>
+<li>Course Jupyter book: https://ubc-cs.github.io/cpsc330-2025W1</li>
+<li>Course GitHub repository: https://github.com/UBC-CS/cpsc330-2025W1</li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/CPSC330-QR-code.png" class="quarto-figure quarto-figure-center" width="500"></p>
-</figure>
-</div>
 </section>
 <section>
 <section id="introductions" class="title-slide slide level1 middle center">
 <h1>🤝 Introductions 🤝</h1>
 
 </section>
-<section id="meet-your-instructor" class="slide level2 center" data-background="#43464B">
+<section id="meet-your-instructor" class="slide level2 smaller center">
 <h2>Meet your instructor</h2>
 <div class="columns">
 <div class="column" style="width:20%;">
@@ -446,8 +440,8 @@ Varada Kolhatkar
 <ul>
 <li>Varada Kolhatkar [<a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet">ʋəɾəda kɔːlɦəʈkər</a>]</li>
 <li>You can call me Varada, <strong>V</strong>, or <strong>Ada</strong>.</li>
-<li>I am an Assistant Professor of Teaching in the Department of Computer Science.</li>
-<li>I did my Ph.D.&nbsp;in Computational Linguistics at the University of Toronto.</li>
+<li>Associate Professor of Teaching in the Department of Computer Science.</li>
+<li>Ph.D.&nbsp;in Computational Linguistics at the University of Toronto.</li>
 <li>I primarily teach machine learning courses in the <a href="https://masterdatascience.ubc.ca/">Master of Data Science (MDS) program</a>.</li>
 <li>Contact information
 <ul>
@@ -471,376 +465,1158 @@ Varada Kolhatkar
 <ul>
 <li>Introduce yourself to your neighbour.</li>
 <li>Since we’re going to spend the semester with each other, I would like to know you a bit better.</li>
-<li>Please fill out <a href="https://canvas.ubc.ca/courses/149122/quizzes">Getting to know you survey</a> when you get a chance.</li>
+<li>Please fill out <a href="https://canvas.ubc.ca/courses/170662/quizzes/897830">Getting to know you survey</a> when you get a chance.</li>
 </ul>
 </section>
-<section id="asking-questions-during-class" class="slide level2 center">
+<section id="asking-questions-during-class" class="slide level2 smaller center">
 <h2>Asking questions during class</h2>
-<p>You are welcome to ask questions by raising your hand. There is also <a href="https://docs.google.com/document/d/1q9peVKhyoVhrmZ9Afk4LOGlVJA3GXStuVKQWVQDOG2o/edit?usp=sharing">a reflection Google Document</a> for this course for your questions/comments/reflections. It will be great if you can write about your takeaways, struggle points, and general comments in this document so that I’ll try to address those points in the next lecture.</p>
-</section>
-<section id="activity-1-httpsshorturl.atcteou" class="slide level2 center">
-<h2>Activity 1: https://shorturl.at/CteOU</h2>
-<p><br>
-</p>
 <ul>
-<li><p>Write your answers to the questions below in this Google doc: https://shorturl.at/CteOU</p></li>
-<li><p>What do you know about machine learning?</p></li>
-<li><p>What would you like to get out this course?</p></li>
-<li><p>Are there any particular topics or aspects of this course that you are especially excited or anxious about? Why?</p></li>
+<li>You are welcome to ask questions by raising your hand.</li>
+<li>No question is a stupid question.</li>
+<li>Recommended reading as you begin your learning journey: <a href="https://medium.com/bucknell-hci/the-fear-of-publicly-not-knowing-239e1b7a39f3">The Fear of Publicly Not Knowing</a></li>
 </ul>
-</section></section>
-<section>
-<section id="what-is-machine-learning-ml" class="title-slide slide level1 center">
-<h1>What is Machine Learning (ML)?</h1>
-
-</section>
-<section id="spam-prediction" class="slide level2 center">
-<h2>Spam prediction</h2>
-<ul>
-<li>Suppose you are given some data with labeled spam and non-spam messages</li>
-</ul>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div id="ae68c2b1" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>sms_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">"spam.csv"</span>, encoding<span class="op">=</span><span class="st">"latin-1"</span>)</span>
-<span id="cb1-2"><a></a>sms_df <span class="op">=</span> sms_df.drop(columns <span class="op">=</span> [<span class="st">"Unnamed: 2"</span>, <span class="st">"Unnamed: 3"</span>, <span class="st">"Unnamed: 4"</span>])</span>
-<span id="cb1-3"><a></a>sms_df <span class="op">=</span> sms_df.rename(columns<span class="op">=</span>{<span class="st">"v1"</span>: <span class="st">"target"</span>, <span class="st">"v2"</span>: <span class="st">"sms"</span>})</span>
-<span id="cb1-4"><a></a>train_df, test_df <span class="op">=</span> train_test_split(sms_df, test_size<span class="op">=</span><span class="fl">0.10</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-1-2">
-<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="d59f9535" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="3">
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th">target</th>
-<th data-quarto-table-cell-role="th">sms</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>spam</td>
-<td>LookAtMe!: Thanks for your purchase of a video clip from LookAtMe!, you've been charged 35p. Think you can do better? Why not send a video in a MMSto 32323.</td>
-</tr>
-<tr class="even">
-<td>ham</td>
-<td>Aight, I'll hit you up when I get some cash</td>
-</tr>
-<tr class="odd">
-<td>ham</td>
-<td>Don no da:)whats you plan?</td>
-</tr>
-<tr class="even">
-<td>ham</td>
-<td>Going to take your babe out ?</td>
-</tr>
-<tr class="odd">
-<td>ham</td>
-<td>No need lar. Jus testing e phone card. Dunno network not gd i thk. Me waiting 4 my sis 2 finish bathing so i can bathe. Dun disturb u liao u cleaning ur room.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="traditional-programming-vs.-ml" class="slide level2 center">
-<h2>Traditional programming vs.&nbsp;ML</h2>
-<ul>
-<li>Imagine writing a Python program for spam identification, i.e., whether a text message or an email is spam or non-spam.</li>
-<li>Traditional programming
-<ul>
-<li>Come up with rules using human understanding of spam messages.</li>
-<li>Time consuming and hard to come up with robust set of rules.</li>
-</ul></li>
-<li>Machine learning
-<ul>
-<li>Collect large amount of data of spam and non-spam emails and let the machine learning algorithm figure out rules.</li>
-</ul></li>
-</ul>
-</section>
-<section id="lets-train-a-model" class="slide level2 center">
-<h2>Let’s train a model</h2>
-<ul>
-<li>There are several packages that help us perform machine learning.</li>
-</ul>
-<div id="bdff0320" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>X_train, y_train <span class="op">=</span> train_df[<span class="st">"sms"</span>], train_df[<span class="st">"target"</span>]</span>
-<span id="cb2-2"><a></a>X_test, y_test <span class="op">=</span> test_df[<span class="st">"sms"</span>], test_df[<span class="st">"target"</span>]</span>
-<span id="cb2-3"><a></a>clf <span class="op">=</span> make_pipeline(CountVectorizer(max_features<span class="op">=</span><span class="dv">5000</span>), LogisticRegression(max_iter<span class="op">=</span><span class="dv">5000</span>))</span>
-<span id="cb2-4"><a></a>clf.fit(X_train, y_train)<span class="op">;</span> <span class="co"># Training the model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="unseen-messages" class="slide level2 center">
-<h2>Unseen messages</h2>
-<ul>
-<li>Now use the trained model to predict targets of unseen messages:</li>
-</ul>
-<div id="8b8288b0" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="5">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">sms</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3245</td>
-<td>Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">944</td>
-<td>I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one m...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1044</td>
-<td>We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2484</td>
-<td>Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="predicting-on-unseen-data" class="slide level2 smaller center">
-<h2>Predicting on unseen data</h2>
-<p><strong>The model is accurately predicting labels for the unseen text messages above!</strong></p>
-<div id="abe60285" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display" data-execution_count="6">
-<style type="text/css">
-#T_6661f_row0_col0, #T_6661f_row0_col1, #T_6661f_row1_col0, #T_6661f_row1_col1, #T_6661f_row2_col0, #T_6661f_row2_col1, #T_6661f_row3_col0, #T_6661f_row3_col1 {
-  text-align: left;
-}
-</style>
-
-<table id="T_6661f" class="caption-top" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_6661f_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">sms</th>
-<th id="T_6661f_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">spam_predictions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td id="T_6661f_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">3245</td>
-<td id="T_6661f_row0_col0" class="data row0 col0">Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
-<td id="T_6661f_row0_col1" class="data row0 col1">ham</td>
-</tr>
-<tr class="even">
-<td id="T_6661f_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">944</td>
-<td id="T_6661f_row1_col0" class="data row1 col0">I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one me the less expensive ones</td>
-<td id="T_6661f_row1_col1" class="data row1 col1">ham</td>
-</tr>
-<tr class="odd">
-<td id="T_6661f_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">1044</td>
-<td id="T_6661f_row2_col0" class="data row2 col0">We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
-<td id="T_6661f_row2_col1" class="data row2 col1">spam</td>
-</tr>
-<tr class="even">
-<td id="T_6661f_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">2484</td>
-<td id="T_6661f_row3_col0" class="data row3 col0">Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
-<td id="T_6661f_row3_col1" class="data row3 col1">ham</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="a-different-way-to-solve-problems" class="slide level2 center">
-<h2>A different way to solve problems</h2>
-<p>Machine learning uses computer programs to model data. It can be used to extract hidden patterns, make predictions in new situation, or generate novel content.</p>
 <blockquote>
-A field of study that gives computers the ability to learn without being explicitly programmed. <br> – Arthur Samuel (1959)
+<p>What I quickly came to realize was that publicly not knowing wasn’t a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA.</p>
 </blockquote>
 </section>
-<section id="ml-vs.-traditional-programming" class="slide level2 center">
-<h2>ML vs.&nbsp;traditional programming</h2>
-<ul>
-<li>With machine learning, you’re likely to
-<ul>
-<li>Save time</li>
-<li>Customize and scale products</li>
-</ul></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/traditional-programming-vs-ML.png" class="quarto-figure quarto-figure-center" width="500"></p>
-</figure>
-</div>
-</section>
-<section id="prevalence-of-ml" class="slide level2 center">
-<h2>Prevalence of ML</h2>
-<p>Let’s look at some examples.</p>
-<!-- <img src="img/ml-examples.png" height="1000" width="1000">  -->
-
-<img data-src="img/ml-examples.png" class="r-stretch"></section>
-<section id="activity-for-what-type-of-problems-ml-is-appropriate-5-mins" class="slide level2 center">
-<h2>Activity: For what type of problems ML is appropriate? (~5 mins)</h2>
-<p>Discuss with your neighbour for which of the following problems you would use machine learning</p>
-<ul>
-<li>Finding a list of prime numbers up to a limit</li>
-<li>Given an image, automatically identifying and labeling objects in the image</li>
-<li>Finding the distance between two nodes in a graph</li>
-</ul>
-</section>
-<section id="types-of-machine-learning" class="slide level2 center">
-<h2>Types of machine learning</h2>
-<p>Here are some typical learning problems.</p>
-<ul>
-<li><strong>Supervised learning</strong> (<a href="https://support.google.com/a/answer/2368132?hl=en">Gmail spam filtering</a>)
-<ul>
-<li>Training a model from input data and its corresponding targets to predict targets for new examples.<br>
-</li>
-</ul></li>
-<li>Unsupervised learning (<a href="https://news.google.com/">Google News</a>)
-<ul>
-<li>Training a model to find patterns in a dataset, typically an unlabeled dataset.</li>
-</ul></li>
-<li>Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a>)
-<ul>
-<li>A family of algorithms for finding suitable actions to take in a given situation in order to maximize a reward.</li>
-</ul></li>
-<li>Recommendation systems (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf">Amazon item recommendation system</a>)
-<ul>
-<li>Predict the “rating” or “preference” a user would give to an item.</li>
-</ul></li>
-</ul>
-</section>
-<section id="what-is-supervised-learning" class="slide level2 center">
-<h2>What is supervised learning?</h2>
-<ul>
-<li>Training data comprises a set of observations (<span class="math inline"><em>X</em></span>) and their corresponding targets (<span class="math inline"><em>y</em></span>).</li>
-<li>We wish to find a model function <span class="math inline"><em>f</em></span> that relates <span class="math inline"><em>X</em></span> to <span class="math inline"><em>y</em></span>.</li>
-<li>We use the model function to predict targets of new examples.</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/sup-learning.png" class="quarto-figure quarto-figure-center" width="700"></p>
-</figure>
-</div>
-</section>
-<section id="evas-questions" class="slide level2 center">
-<h2>🤔 Eva’s questions</h2>
+<section id="activity-1" class="slide level2 center">
+<h2>Activity 1</h2>
 <p><br>
-</p>
-<p>At this point, Eva is wondering about many questions.</p>
+Discuss with you neighbour</p>
 <ul>
-<li>How are we exactly “learning” whether a message is spam and ham?</li>
-<li>Are we expected to get correct predictions for all possible messages? How does it predict the label for a message it has not seen before?<br>
-</li>
-<li>What if the model mis-labels an unseen example? For instance, what if the model incorrectly predicts a non-spam as a spam? What would be the consequences?</li>
-<li>How do we measure the success or failure of spam identification?</li>
-<li>If you want to use this model in the wild, how do you know how reliable it is?<br>
-</li>
-<li>Would it be useful to know how confident the model is about the predictions rather than just a yes or a no?</li>
+<li>What do you know about machine learning?</li>
+<li>What would you like to get out this course?</li>
+<li>Are there any particular topics or aspects of this course that you are especially excited or anxious about? Why?</li>
 </ul>
-<p>It’s great to think about these questions right now. But Eva has to be patient. By the end of this course you’ll know answers to many of these questions!</p>
 </section>
-<section id="predicting-labels-of-a-given-image" class="slide level2 center">
-<h2>Predicting labels of a given image</h2>
+<section id="which-cat-do-you-think-is-ai-generated" class="slide level2 smaller center">
+<h2>Which cat do you think is AI-generated?</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="img/ai-or-not-cat.png"></p>
+<p><a href="https://thinktan.net/are-you-sure-this-photo-is-not-ai-generated/">Source</a></p>
+</div><div class="column" style="width:40%;">
 <ul>
-<li>We can also use machine learning to predict labels of given images using a technique called <strong>transfer learning</strong>.</li>
+<li>A</li>
+<li>B</li>
+<li>Both</li>
+<li>None</li>
 </ul>
-<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="159eac20" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div>
+</div></div>
+<ul>
+<li>What clues did you use to decide?</li>
+</ul>
+</section>
+<section id="what-is-ai-ml-dl" class="slide level2 smaller center">
+<h2>What is AI, ML, DL?</h2>
+<ul>
+<li><strong>Artificial Intelligence (AI)</strong>: Making computers act smart</li>
+<li><strong>Machine Learning (ML)</strong>: Learning patterns from data</li>
+<li><strong>Deep Learning (DL)</strong>: Using neural networks to learn complex patterns</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-8-output-1.png"></p>
+<p><img data-src="img/ai-ml-dl.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                         Class  Probability score
-                     tiger cat              0.636
-              tabby, tabby cat              0.174
-Pembroke, Pembroke Welsh corgi              0.081
-               lynx, catamount              0.011
---------------------------------------------------------------</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-8-output-3.png"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                     Class  Probability score
-         cheetah, chetah, Acinonyx jubatus              0.994
-                  leopard, Panthera pardus              0.005
-jaguar, panther, Panthera onca, Felis onca              0.001
-       snow leopard, ounce, Panthera uncia              0.000
---------------------------------------------------------------</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-8-output-5.png"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                   Class  Probability score
-                                 macaque              0.885
-patas, hussar monkey, Erythrocebus patas              0.062
-      proboscis monkey, Nasalis larvatus              0.015
-                       titi, titi monkey              0.010
---------------------------------------------------------------</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-8-output-7.png"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        Class  Probability score
-Walker hound, Walker foxhound              0.582
-             English foxhound              0.144
-                       beagle              0.068
-                  EntleBucher              0.059
---------------------------------------------------------------</code></pre>
-</div>
-</div>
 </div>
 </section>
-<section id="predicting-housing-prices" class="slide level2 center">
-<h2>Predicting housing prices</h2>
+<section id="lets-walk-through-an-example" class="slide level2 center">
+<h2>Let’s walk through an example</h2>
+<ul>
+<li>Have you used search in Google Photos? You can search for “cat” and it will retrieve photos from your libraries containing cats.</li>
+<li>This can be done using <strong>image classification</strong>.</li>
+</ul>
+</section>
+<section id="image-classification" class="slide level2 smaller center">
+<h2>Image classification</h2>
+<ul>
+<li>Imagine we want a system that can tell cats and foxes apart.</li>
+<li>How might we do this with traditional programming? With ML?</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="img/cat-or-fox.png"></p>
+</div><div class="column" style="width:60%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 21%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 15%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Image ID</th>
+<th>Whiskers Present</th>
+<th>Ear Size</th>
+<th>Face Shape</th>
+<th>Fur Color</th>
+<th>Eye Shape</th>
+<th>Label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Yes</td>
+<td>Small</td>
+<td>Round</td>
+<td>Mixed</td>
+<td>Round</td>
+<td>Cat</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Yes</td>
+<td>Medium</td>
+<td>Round</td>
+<td>Brown</td>
+<td>Almond</td>
+<td>Cat</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Yes</td>
+<td>Large</td>
+<td>Pointed</td>
+<td>Red</td>
+<td>Narrow</td>
+<td>Fox</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Yes</td>
+<td>Large</td>
+<td>Pointed</td>
+<td>Red</td>
+<td>Narrow</td>
+<td>Fox</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Yes</td>
+<td>Small</td>
+<td>Round</td>
+<td>Mixed</td>
+<td>Round</td>
+<td>Cat</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Yes</td>
+<td>Large</td>
+<td>Pointed</td>
+<td>Red</td>
+<td>Narrow</td>
+<td>Fox</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Yes</td>
+<td>Small</td>
+<td>Round</td>
+<td>Grey</td>
+<td>Round</td>
+<td>Cat</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Yes</td>
+<td>Small</td>
+<td>Round</td>
+<td>Black</td>
+<td>Round</td>
+<td>Cat</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Yes</td>
+<td>Large</td>
+<td>Pointed</td>
+<td>Red</td>
+<td>Narrow</td>
+<td>Fox</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="traditional-programming-example" class="slide level2 center">
+<h2>Traditional programming: example</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="img/cat-or-fox.png"></p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li>You hard-code rules. If all of the following satisfy, it’s a fox.
+<ul>
+<li>pointed face ✅</li>
+<li>red fur ✅</li>
+<li>narrow eyes ✅<br>
+</li>
+</ul></li>
+<li>This works for normal cases, but what if there are exceptions</li>
+</ul>
+</div></div>
+</section>
+<section id="ml-approach-example" class="slide level2 center">
+<h2>ML approach: example</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/cat-or-fox.png"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>We don’t tell the model the exact rule. Instead, we give it many labeled images, and it learns probabilistic patterns across multiple features, not rigid rules.
+<ul>
+<li>If fur is red <span class="math inline">→</span> 90% chance of Fox.</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="dl-approach-example" class="slide level2 center">
+<h2>DL approach: example</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="img/cat-or-fox.png"></p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li>A neural network automatically learns which features to look at (edges <span class="math inline">→</span> textures <span class="math inline">→</span> objects).</li>
+<li>No need to even specify face shape or fur colour. It learns relevant features on its own.</li>
+</ul>
+</div></div>
+</section>
+<section id="what-is-ml" class="slide level2 center">
+<h2>What is ML?</h2>
+<ul>
+<li>Learn patterns from examples (data)</li>
+<li>Make predictions, identify patterns, generate content</li>
+<li>ML systems <strong>improve over time</strong> with more data</li>
+<li>No single model fits all problems</li>
+</ul>
+</section>
+<section id="when-to-use-ml" class="slide level2 center">
+<h2>When to use ML?</h2>
+<ul>
+<li>When the problem can’t be solved with a fixed set of rules</li>
+<li>When you have <strong>lots of data</strong> and <strong>complex relationships</strong></li>
+<li>When human decision-making is too slow or inconsistent</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Traditional Programming</td>
+<td>Rules are known, data is clean/predictable</td>
+</tr>
+<tr class="even">
+<td>Machine Learning</td>
+<td>Rules are complex/unknown, data is noisy</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="when-to-use-machine-learning-ml-solutions" class="title-slide slide level1 center">
+<h1>When to use Machine Learning (ML) solutions?</h1>
+
+</section>
+<section id="example-supervised-classification" class="slide level2 smaller center">
+<h2>Example: Supervised classification</h2>
+<ul>
+<li>We want to predict liver disease from tabular features:</li>
+</ul>
+<div id="33c560bb" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">Total_Bilirubin</th>
+<th data-quarto-table-cell-role="th">Direct_Bilirubin</th>
+<th data-quarto-table-cell-role="th">Alkaline_Phosphotase</th>
+<th data-quarto-table-cell-role="th">Alamine_Aminotransferase</th>
+<th data-quarto-table-cell-role="th">Aspartate_Aminotransferase</th>
+<th data-quarto-table-cell-role="th">Total_Protiens</th>
+<th data-quarto-table-cell-role="th">Albumin</th>
+<th data-quarto-table-cell-role="th">Albumin_and_Globulin_Ratio</th>
+<th data-quarto-table-cell-role="th">Target</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>40</td>
+<td>14.5</td>
+<td>6.4</td>
+<td>358</td>
+<td>50</td>
+<td>75</td>
+<td>5.7</td>
+<td>2.1</td>
+<td>0.50</td>
+<td>Disease</td>
+</tr>
+<tr class="even">
+<td>33</td>
+<td>0.7</td>
+<td>0.2</td>
+<td>256</td>
+<td>21</td>
+<td>30</td>
+<td>8.5</td>
+<td>3.9</td>
+<td>0.80</td>
+<td>Disease</td>
+</tr>
+<tr class="odd">
+<td>24</td>
+<td>0.7</td>
+<td>0.2</td>
+<td>188</td>
+<td>11</td>
+<td>10</td>
+<td>5.5</td>
+<td>2.3</td>
+<td>0.71</td>
+<td>No Disease</td>
+</tr>
+<tr class="even">
+<td>60</td>
+<td>0.7</td>
+<td>0.2</td>
+<td>171</td>
+<td>31</td>
+<td>26</td>
+<td>7.0</td>
+<td>3.5</td>
+<td>1.00</td>
+<td>No Disease</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>0.8</td>
+<td>0.2</td>
+<td>199</td>
+<td>34</td>
+<td>31</td>
+<td>6.5</td>
+<td>3.5</td>
+<td>1.16</td>
+<td>No Disease</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="model-training" class="slide level2 center">
+<h2>Model training</h2>
+<div id="4986312d" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> lightgbm.sklearn <span class="im">import</span> LGBMClassifier</span>
+<span id="cb1-2"><a></a>model <span class="op">=</span> LGBMClassifier(random_state<span class="op">=</span><span class="dv">123</span>, verbose<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb1-3"><a></a>model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<style>#sk-container-id-1 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-1 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-1 pre {
+  padding: 0;
+}
+
+#sk-container-id-1 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-1 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-1 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-1 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-1 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-1 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-1 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-1 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-1 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-1 div.sk-toggleable__content {
+  display: none;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-1 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-1 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-1 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-1 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-1 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-1 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+</a></style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LGBMClassifier(random_state=123, verbose=-1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LGBMClassifier</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">boosting_type&nbsp;</td>
+<td class="value">'gbdt'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">num_leaves&nbsp;</td>
+<td class="value">31</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">max_depth&nbsp;</td>
+<td class="value">-1</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">learning_rate&nbsp;</td>
+<td class="value">0.1</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">n_estimators&nbsp;</td>
+<td class="value">100</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">subsample_for_bin&nbsp;</td>
+<td class="value">200000</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">objective&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">class_weight&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">min_split_gain&nbsp;</td>
+<td class="value">0.0</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">min_child_weight&nbsp;</td>
+<td class="value">0.001</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">min_child_samples&nbsp;</td>
+<td class="value">20</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">subsample&nbsp;</td>
+<td class="value">1.0</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">subsample_freq&nbsp;</td>
+<td class="value">0</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">colsample_bytree&nbsp;</td>
+<td class="value">1.0</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">reg_alpha&nbsp;</td>
+<td class="value">0.0</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">reg_lambda&nbsp;</td>
+<td class="value">0.0</td>
+</tr>
+<tr class="odd user-set">
+<td><em></em></td>
+<td class="param">random_state&nbsp;</td>
+<td class="value">123</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">importance_type&nbsp;</td>
+<td class="value">'split'</td>
+</tr>
+<tr class="even user-set">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">-1</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script>
+</div>
+</div>
+</section>
+<section id="new-examples" class="slide level2 center">
+<h2>New examples</h2>
+<ul>
+<li>Given features of new patients below we’ll use this model to predict whether these patients have the liver disease or not.</li>
+</ul>
+<div id="99cbe248" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="4">
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">Total_Bilirubin</th>
+<th data-quarto-table-cell-role="th">Direct_Bilirubin</th>
+<th data-quarto-table-cell-role="th">Alkaline_Phosphotase</th>
+<th data-quarto-table-cell-role="th">Alamine_Aminotransferase</th>
+<th data-quarto-table-cell-role="th">Aspartate_Aminotransferase</th>
+<th data-quarto-table-cell-role="th">Total_Protiens</th>
+<th data-quarto-table-cell-role="th">Albumin</th>
+<th data-quarto-table-cell-role="th">Albumin_and_Globulin_Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>19</td>
+<td>1.4</td>
+<td>0.8</td>
+<td>178</td>
+<td>13</td>
+<td>26</td>
+<td>8.0</td>
+<td>4.6</td>
+<td>1.30</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>1.0</td>
+<td>0.2</td>
+<td>719</td>
+<td>157</td>
+<td>108</td>
+<td>7.2</td>
+<td>3.7</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>60</td>
+<td>5.7</td>
+<td>2.8</td>
+<td>214</td>
+<td>412</td>
+<td>850</td>
+<td>7.3</td>
+<td>3.2</td>
+<td>0.78</td>
+</tr>
+<tr class="even">
+<td>42</td>
+<td>0.5</td>
+<td>0.1</td>
+<td>162</td>
+<td>155</td>
+<td>108</td>
+<td>8.1</td>
+<td>4.0</td>
+<td>0.90</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="model-predictions-on-new-examples" class="slide level2 smaller center">
+<h2>Model predictions on new examples</h2>
+<ul>
+<li>Let’s examine predictions</li>
+</ul>
+<div id="d43ee2a8" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>pred_df <span class="op">=</span> pd.DataFrame({<span class="st">"Predicted_target"</span>: model.predict(X_test).tolist()})</span>
+<span id="cb2-2"><a></a>df_concat <span class="op">=</span> pd.concat([pred_df, X_test.reset_index(drop<span class="op">=</span><span class="va">True</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-3"><a></a>HTML(df_concat.to_html(index<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th">Predicted_target</th>
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">Total_Bilirubin</th>
+<th data-quarto-table-cell-role="th">Direct_Bilirubin</th>
+<th data-quarto-table-cell-role="th">Alkaline_Phosphotase</th>
+<th data-quarto-table-cell-role="th">Alamine_Aminotransferase</th>
+<th data-quarto-table-cell-role="th">Aspartate_Aminotransferase</th>
+<th data-quarto-table-cell-role="th">Total_Protiens</th>
+<th data-quarto-table-cell-role="th">Albumin</th>
+<th data-quarto-table-cell-role="th">Albumin_and_Globulin_Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No Disease</td>
+<td>19</td>
+<td>1.4</td>
+<td>0.8</td>
+<td>178</td>
+<td>13</td>
+<td>26</td>
+<td>8.0</td>
+<td>4.6</td>
+<td>1.30</td>
+</tr>
+<tr class="even">
+<td>Disease</td>
+<td>12</td>
+<td>1.0</td>
+<td>0.2</td>
+<td>719</td>
+<td>157</td>
+<td>108</td>
+<td>7.2</td>
+<td>3.7</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>Disease</td>
+<td>60</td>
+<td>5.7</td>
+<td>2.8</td>
+<td>214</td>
+<td>412</td>
+<td>850</td>
+<td>7.3</td>
+<td>3.2</td>
+<td>0.78</td>
+</tr>
+<tr class="even">
+<td>Disease</td>
+<td>42</td>
+<td>0.5</td>
+<td>0.1</td>
+<td>162</td>
+<td>155</td>
+<td>108</td>
+<td>8.1</td>
+<td>4.0</td>
+<td>0.90</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="example-supervised-regression" class="slide level2 smaller center">
+<h2>Example: Supervised regression</h2>
 <p>Suppose we want to predict housing prices given a number of attributes associated with houses. The target here is <strong>continuous</strong> and not <strong>discrete</strong>.</p>
-<div id="38482949" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div id="d0030671" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header" style="text-align: right;">
@@ -978,28 +1754,25 @@ Walker hound, Walker foxhound              0.582
 </section>
 <section id="building-a-regression-model" class="slide level2 center">
 <h2>Building a regression model</h2>
-<div id="5a49769c" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> lightgbm.sklearn <span class="im">import</span> LGBMRegressor</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span> [<span class="st">"target"</span>]), train_df[<span class="st">"target"</span>]</span>
-<span id="cb7-4"><a></a>X_test, y_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span> [<span class="st">"target"</span>]), train_df[<span class="st">"target"</span>]</span>
-<span id="cb7-5"><a></a></span>
-<span id="cb7-6"><a></a>model <span class="op">=</span> LGBMRegressor()</span>
-<span id="cb7-7"><a></a>model.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[LightGBM] [Info] Auto-choosing row-wise multi-threading, the overhead of testing was 0.000636 seconds.
-You can set `force_row_wise=true` to remove the overhead.
-And if memory is not enough, you can set `force_col_wise=true`.
-[LightGBM] [Info] Total Bins 2333
-[LightGBM] [Info] Number of data points in the train set: 17290, number of used features: 18
-[LightGBM] [Info] Start training from score 539762.702545</code></pre>
-</div>
+<div id="47876885" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> lightgbm.sklearn <span class="im">import</span> LGBMRegressor</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span> [<span class="st">"target"</span>]), train_df[<span class="st">"target"</span>]</span>
+<span id="cb3-4"><a></a>X_test, y_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span> [<span class="st">"target"</span>]), train_df[<span class="st">"target"</span>]</span>
+<span id="cb3-5"><a></a></span>
+<span id="cb3-6"><a></a>model <span class="op">=</span> LGBMRegressor()</span>
+<span id="cb3-7"><a></a>model.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="predicting-prices-of-unseen-houses" class="slide level2 center">
+<section id="predicting-prices-of-unseen-houses" class="slide level2 smaller center">
 <h2>Predicting prices of unseen houses</h2>
-<div id="732c54d6" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="ad579416" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>pred_df <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb4-2"><a></a>    {<span class="st">"Predicted_target"</span>: model.predict(X_test[<span class="dv">0</span>:<span class="dv">4</span>]).tolist()}</span>
+<span id="cb4-3"><a></a>)</span>
+<span id="cb4-4"><a></a>df_concat <span class="op">=</span> pd.concat([pred_df, X_test[<span class="dv">0</span>:<span class="dv">4</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-5"><a></a>HTML(df_concat.to_html(index<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header" style="text-align: right;">
@@ -1113,42 +1886,2015 @@ And if memory is not enough, you can set `force_col_wise=true`.
 </table>
 </div>
 </div>
-<p>We are predicting continuous values here as apposed to discrete values in <code>spam</code> vs.&nbsp;<code>ham</code> example.</p>
+<p>We are predicting <strong>continuous values</strong> here as apposed to discrete values in <code>disease</code> vs.&nbsp;<code>no disease</code> example.</p>
+</section></section>
+<section>
+<section id="text-data" class="title-slide slide level1 center">
+<h1>Text data</h1>
+
 </section>
-<section id="machine-learning-workflow" class="slide level2 center">
-<h2>Machine learning workflow</h2>
-<p>Supervised machine learning is quite flexible; it can be used on a variety of problems and different kinds of data. Here is a typical workflow of a supervised machine learning systems.</p>
-<div class="quarto-figure quarto-figure-center">
+<section id="example-text-classification" class="slide level2 smaller center">
+<h2>Example: Text classification</h2>
+<ul>
+<li>Suppose you are given some data with labeled spam and non-spam messages and you want to predict whether a new message is spam or not spam.</li>
+</ul>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div id="5fadb9de" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>sms_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">"spam.csv"</span>, encoding<span class="op">=</span><span class="st">"latin-1"</span>)</span>
+<span id="cb5-2"><a></a>sms_df <span class="op">=</span> sms_df.drop(columns <span class="op">=</span> [<span class="st">"Unnamed: 2"</span>, <span class="st">"Unnamed: 3"</span>, <span class="st">"Unnamed: 4"</span>])</span>
+<span id="cb5-3"><a></a>sms_df <span class="op">=</span> sms_df.rename(columns<span class="op">=</span>{<span class="st">"v1"</span>: <span class="st">"target"</span>, <span class="st">"v2"</span>: <span class="st">"sms"</span>})</span>
+<span id="cb5-4"><a></a>train_df, test_df <span class="op">=</span> train_test_split(sms_df, test_size<span class="op">=</span><span class="fl">0.10</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
+<div id="ddbbe00f" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="10">
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th">target</th>
+<th data-quarto-table-cell-role="th">sms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>spam</td>
+<td>LookAtMe!: Thanks for your purchase of a video clip from LookAtMe!, you've been charged 35p. Think you can do better? Why not send a video in a MMSto 32323.</td>
+</tr>
+<tr class="even">
+<td>ham</td>
+<td>Aight, I'll hit you up when I get some cash</td>
+</tr>
+<tr class="odd">
+<td>ham</td>
+<td>Don no da:)whats you plan?</td>
+</tr>
+<tr class="even">
+<td>ham</td>
+<td>Going to take your babe out ?</td>
+</tr>
+<tr class="odd">
+<td>ham</td>
+<td>No need lar. Jus testing e phone card. Dunno network not gd i thk. Me waiting 4 my sis 2 finish bathing so i can bathe. Dun disturb u liao u cleaning ur room.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="lets-train-a-model" class="slide level2 center">
+<h2>Let’s train a model</h2>
+<div id="cef31b69" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>X_train, y_train <span class="op">=</span> train_df[<span class="st">"sms"</span>], train_df[<span class="st">"target"</span>]</span>
+<span id="cb6-2"><a></a>X_test, y_test <span class="op">=</span> test_df[<span class="st">"sms"</span>], test_df[<span class="st">"target"</span>]</span>
+<span id="cb6-3"><a></a>clf <span class="op">=</span> make_pipeline(CountVectorizer(max_features<span class="op">=</span><span class="dv">5000</span>), LogisticRegression(max_iter<span class="op">=</span><span class="dv">5000</span>))</span>
+<span id="cb6-4"><a></a>clf.fit(X_train, y_train) <span class="co"># Training the model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<style>#sk-container-id-2 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-2 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-2 pre {
+  padding: 0;
+}
+
+#sk-container-id-2 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-2 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-2 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-2 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-2 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-2 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-2 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-2 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-2 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-2 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-2 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-2 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-2 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-2 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-2 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-2 div.sk-toggleable__content {
+  display: none;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-2 div.sk-label label.sk-toggleable__label,
+#sk-container-id-2 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-2 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-2 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-2 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-2 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-2 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-2 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-2 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-2 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+</a></style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),
+                ('logisticregression', LogisticRegression(max_iter=5000))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd user-set">
+<td><em></em></td>
+<td class="param">steps&nbsp;</td>
+<td class="value">[('countvectorizer', ...), ('logisticregression', ...)]</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">transform_input&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">memory&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">False</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>CountVectorizer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">?<span>Documentation for CountVectorizer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="countvectorizer__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">input&nbsp;</td>
+<td class="value">'content'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">encoding&nbsp;</td>
+<td class="value">'utf-8'</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">decode_error&nbsp;</td>
+<td class="value">'strict'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">strip_accents&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">lowercase&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">preprocessor&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">tokenizer&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">stop_words&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">token_pattern&nbsp;</td>
+<td class="value">'(?u)\\b\\w\\w+\\b'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">ngram_range&nbsp;</td>
+<td class="value">(1, ...)</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">analyzer&nbsp;</td>
+<td class="value">'word'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">max_df&nbsp;</td>
+<td class="value">1.0</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">min_df&nbsp;</td>
+<td class="value">1</td>
+</tr>
+<tr class="even user-set">
+<td><em></em></td>
+<td class="param">max_features&nbsp;</td>
+<td class="value">5000</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">vocabulary&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">binary&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">dtype&nbsp;</td>
+<td class="value">&lt;class 'numpy.int64'&gt;</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="logisticregression__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">penalty&nbsp;</td>
+<td class="value">'l2'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">dual&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">tol&nbsp;</td>
+<td class="value">0.0001</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">C&nbsp;</td>
+<td class="value">1.0</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">fit_intercept&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">intercept_scaling&nbsp;</td>
+<td class="value">1</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">class_weight&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">random_state&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">solver&nbsp;</td>
+<td class="value">'lbfgs'</td>
+</tr>
+<tr class="even user-set">
+<td><em></em></td>
+<td class="param">max_iter&nbsp;</td>
+<td class="value">5000</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">multi_class&nbsp;</td>
+<td class="value">'deprecated'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">0</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">warm_start&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">l1_ratio&nbsp;</td>
+<td class="value">None</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script>
+</div>
+</div>
+</section>
+<section id="unseen-messages" class="slide level2 smaller center">
+<h2>Unseen messages</h2>
+<ul>
+<li>Now use the trained model to predict targets of unseen messages:</li>
+</ul>
+<div id="77c8257f" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3245</td>
+<td>Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">944</td>
+<td>I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one m...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1044</td>
+<td>We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2484</td>
+<td>Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="predicting-on-unseen-data" class="slide level2 smaller center">
+<h2>Predicting on unseen data</h2>
+<p><strong>The model is accurately predicting labels for the unseen text messages above!</strong></p>
+<div id="f8a4ef40" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="13">
+<style type="text/css">
+#T_d1b33_row0_col0, #T_d1b33_row0_col1, #T_d1b33_row1_col0, #T_d1b33_row1_col1, #T_d1b33_row2_col0, #T_d1b33_row2_col1, #T_d1b33_row3_col0, #T_d1b33_row3_col1 {
+  text-align: left;
+}
+</style>
+
+<table id="T_d1b33" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_d1b33_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">sms</th>
+<th id="T_d1b33_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">spam_predictions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_d1b33_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">3245</td>
+<td id="T_d1b33_row0_col0" class="data row0 col0">Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
+<td id="T_d1b33_row0_col1" class="data row0 col1">ham</td>
+</tr>
+<tr class="even">
+<td id="T_d1b33_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">944</td>
+<td id="T_d1b33_row1_col0" class="data row1 col0">I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one me the less expensive ones</td>
+<td id="T_d1b33_row1_col1" class="data row1 col1">ham</td>
+</tr>
+<tr class="odd">
+<td id="T_d1b33_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">1044</td>
+<td id="T_d1b33_row2_col0" class="data row2 col0">We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
+<td id="T_d1b33_row2_col1" class="data row2 col1">spam</td>
+</tr>
+<tr class="even">
+<td id="T_d1b33_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">2484</td>
+<td id="T_d1b33_row3_col0" class="data row3 col0">Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
+<td id="T_d1b33_row3_col1" class="data row3 col1">ham</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="examplel-text-classification-with-llms" class="slide level2 center">
+<h2>Examplel: Text classification with LLMs</h2>
+<p>&nbsp;</p>
+<div id="4a043961" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline, AutoModelForTokenClassification, AutoTokenizer</span>
+<span id="cb7-2"><a></a><span class="co"># Sentiment analysis pipeline</span></span>
+<span id="cb7-3"><a></a>analyzer <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>, model<span class="op">=</span><span class="st">'distilbert-base-uncased-finetuned-sst-2-english'</span>)</span>
+<span id="cb7-4"><a></a>analyzer([<span class="st">"I asked my model to predict my future, and it said '404: Life not found.'"</span>,</span>
+<span id="cb7-5"><a></a>          <span class="st">'''Machine learning is just like cooking—sometimes you follow the recipe, </span></span>
+<span id="cb7-6"><a></a><span class="st">            and other times you just hope for the best!.'''</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>[{'label': 'NEGATIVE', 'score': 0.995707631111145},
+ {'label': 'POSITIVE', 'score': 0.9994770884513855}]</code></pre>
+</div>
+</div>
+</section>
+<section id="zero-shot-learning" class="slide level2 smaller center">
+<h2>Zero-shot learning</h2>
+<p><br>
+</p>
+<ul>
+<li>Now suppose you want to identify the emotion expressed in the text rather than just positive or negative.</li>
+</ul>
+<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
+<div id="0c3be4ca" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>['im feeling rather rotten so im not very ambitious right now',
+ 'im updating my blog because i feel shitty',
+ 'i never make her separate from me because i don t ever want her to feel like i m ashamed with her',
+ 'i left with my bouquet of red and yellow tulips under my arm feeling slightly more optimistic than when i arrived',
+ 'i was feeling a little vain when i did this one',
+ 'i cant walk into a shop anywhere where i do not feel uncomfortable',
+ 'i felt anger when at the end of a telephone call',
+ 'i explain why i clung to a relationship with a boy who was in many ways immature and uncommitted despite the excitement i should have been feeling for getting accepted into the masters program at the university of virginia',
+ 'i like to have the same breathless feeling as a reader eager to see what will happen next',
+ 'i jest i feel grumpy tired and pre menstrual which i probably am but then again its only been a week and im about as fit as a walrus on vacation for the summer']</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="zero-shot-learning-for-emotion-detection" class="slide level2 center">
+<h2>Zero-shot learning for emotion detection</h2>
+<p><br>
+</p>
+<div id="f626429b" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
+<span id="cb10-2"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline </span>
+<span id="cb10-3"><a></a><span class="im">import</span> torch</span>
+<span id="cb10-4"><a></a></span>
+<span id="cb10-5"><a></a><span class="co">#Load the pretrained model</span></span>
+<span id="cb10-6"><a></a>model_name <span class="op">=</span> <span class="st">"facebook/bart-large-mnli"</span></span>
+<span id="cb10-7"><a></a>classifier <span class="op">=</span> pipeline(<span class="st">'zero-shot-classification'</span>, model<span class="op">=</span>model_name)</span>
+<span id="cb10-8"><a></a>exs <span class="op">=</span> dataset[<span class="st">"test"</span>][<span class="st">"text"</span>][<span class="dv">10</span>:<span class="dv">20</span>]</span>
+<span id="cb10-9"><a></a>candidate_labels <span class="op">=</span> [<span class="st">"sadness"</span>, <span class="st">"joy"</span>, <span class="st">"love"</span>,<span class="st">"anger"</span>, <span class="st">"fear"</span>, <span class="st">"surprise"</span>]</span>
+<span id="cb10-10"><a></a>outputs <span class="op">=</span> classifier(exs, candidate_labels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="zero-shot-learning-for-emotion-detection-1" class="slide level2 smaller center">
+<h2>Zero-shot learning for emotion detection</h2>
+<p><br>
+</p>
+<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
+<div id="66325186" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sequence</th>
+<th data-quarto-table-cell-role="th">labels</th>
+<th data-quarto-table-cell-role="th">scores</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>i don t feel particularly agitated</td>
+<td>[surprise, anger, joy, sadness, fear, love]</td>
+<td>[0.360086590051651, 0.3019047975540161, 0.11901281774044037, 0.11381449550390244, 0.060391612350940704, 0.04478970915079117]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>i feel beautifully emotional knowing that these women of whom i knew just a handful were holding me and my baba on our journey</td>
+<td>[joy, love, surprise, fear, sadness, anger]</td>
+<td>[0.36994314193725586, 0.2887154817581177, 0.25607964396476746, 0.04292308911681175, 0.03344891220331192, 0.008889704942703247]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>i pay attention it deepens into a feeling of being invaded and helpless</td>
+<td>[fear, surprise, sadness, anger, joy, love]</td>
+<td>[0.34146907925605774, 0.3088078498840332, 0.25616830587387085, 0.07989830523729324, 0.007844790816307068, 0.005811698734760284]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>i just feel extremely comfortable with the group of people that i dont even need to hide myself</td>
+<td>[joy, surprise, love, sadness, anger, fear]</td>
+<td>[0.3305220901966095, 0.29472312331199646, 0.15343144536018372, 0.07691436260938644, 0.07596738636493683, 0.06844153255224228]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>i find myself in the odd position of feeling supportive of</td>
+<td>[surprise, joy, fear, love, sadness, anger]</td>
+<td>[0.8287988901138306, 0.04317942634224892, 0.039773669093847275, 0.031413134187459946, 0.031412459909915924, 0.025422409176826477]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>i was feeling as heartbroken as im sure katniss was</td>
+<td>[sadness, surprise, fear, love, anger, joy]</td>
+<td>[0.7667969465255737, 0.1818471997976303, 0.025871198624372482, 0.011756820604205132, 0.008171578869223595, 0.005556156858801842]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>i feel a little mellow today</td>
+<td>[surprise, joy, love, fear, sadness, anger]</td>
+<td>[0.49373722076416016, 0.26321911811828613, 0.113678477704525, 0.06402145326137543, 0.050955016165971756, 0.01438874565064907]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>i feel like my only role now would be to tear your sails with my pessimism and discontent</td>
+<td>[sadness, anger, surprise, fear, joy, love]</td>
+<td>[0.6992796063423157, 0.20048746466636658, 0.06185894086956978, 0.03287427872419357, 0.00364686525426805, 0.0018528560176491737]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>i feel just bcoz a fight we get mad to each other n u wanna make a publicity n let the world knows about our fight</td>
+<td>[anger, surprise, sadness, fear, joy, love]</td>
+<td>[0.6029903292655945, 0.19827111065387726, 0.10198860615491867, 0.08116946369409561, 0.01011708565056324, 0.005463303066790104]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>i feel like reds and purples are just so rich and kind of perfect</td>
+<td>[joy, surprise, love, anger, fear, sadness]</td>
+<td>[0.3644145727157593, 0.3051210045814514, 0.19462504982948303, 0.055566269904375076, 0.05413524806499481, 0.026137862354516983]</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="image-data" class="title-slide slide level1 center">
+<h1>Image data</h1>
+
+</section>
+<section id="example-predicting-labels-of-a-given-image" class="slide level2 smaller center">
+<h2>Example: Predicting labels of a given image</h2>
+<ul>
+<li>Suppose you have a bunch of animal images. You do not have any labels associated with them and you want to predict labels of these images.</li>
+<li>We can use machine learning to predict labels of these images using a technique called <strong>transfer learning</strong>.</li>
+</ul>
+<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
+<div id="dae74d4c" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div>
 <figure>
-<p><img data-src="img/ml-workflow.png" class="quarto-figure quarto-figure-center" width="700"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-1.png"></p>
 </figure>
 </div>
-<!-- <img src="img/ml-workflow.png" height="800" width="800">  -->
-<p>We will build machine learning pipelines in this course, focusing on some of the steps above.</p>
-<p><br><br></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         Class  Probability score
+                     tiger cat              0.636
+              tabby, tabby cat              0.174
+Pembroke, Pembroke Welsh corgi              0.081
+               lynx, catamount              0.011
+--------------------------------------------------------------</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-3.png"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                     Class  Probability score
+         cheetah, chetah, Acinonyx jubatus              0.994
+                  leopard, Panthera pardus              0.005
+jaguar, panther, Panthera onca, Felis onca              0.001
+       snow leopard, ounce, Panthera uncia              0.000
+--------------------------------------------------------------</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-5.png"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                   Class  Probability score
+                                 macaque              0.885
+patas, hussar monkey, Erythrocebus patas              0.062
+      proboscis monkey, Nasalis larvatus              0.015
+                       titi, titi monkey              0.010
+--------------------------------------------------------------</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-7.png"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Class  Probability score
+Walker hound, Walker foxhound              0.582
+             English foxhound              0.144
+                       beagle              0.068
+                  EntleBucher              0.059
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
+</div>
+<p>:::</p>
+</section></section>
+<section>
+<section id="clustering-images" class="title-slide slide level1 center">
+<h1>Clustering images</h1>
+
 </section>
-<section id="questions-for-you" class="slide level2 center">
+<section id="finding-groups-in-food-images" class="slide level2 center">
+<h2>Finding groups in food images</h2>
+<p><br>
+</p>
+
+<img data-src="slides-01-intro_files/figure-revealjs/cell-20-output-1.png" class="r-stretch"></section>
+<section id="k-means-on-food-dataset" class="slide level2 center">
+<h2>K-Means on food dataset</h2>
+<p><br>
+</p>
+<div id="ea53d530" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a>densenet <span class="op">=</span> models.densenet121(weights<span class="op">=</span><span class="st">"DenseNet121_Weights.IMAGENET1K_V1"</span>)</span>
+<span id="cb15-2"><a></a>densenet.classifier <span class="op">=</span> torch.nn.Identity()  <span class="co"># remove that last "classification" layer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e70edd9c" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>Z_food <span class="op">=</span> get_features_unsup(densenet, food_inputs)</span>
+<span id="cb16-2"><a></a>k <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb16-3"><a></a>km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, n_init<span class="op">=</span><span class="st">'auto'</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
+<span id="cb16-4"><a></a>km.fit(Z_food)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<style>#sk-container-id-3 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-3 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-3 pre {
+  padding: 0;
+}
+
+#sk-container-id-3 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-3 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-3 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-3 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-3 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-3 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-3 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-3 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-3 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-3 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-3 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-3 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-3 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-3 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-3 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-3 div.sk-toggleable__content {
+  display: none;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-3 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-3 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-3 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-3 div.sk-label label.sk-toggleable__label,
+#sk-container-id-3 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-3 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-3 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-3 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-3 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-3 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-3 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-3 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-3 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-3 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-3 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+</a></style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=5, random_state=123)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" checked=""><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>KMeans</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd user-set">
+<td><em></em></td>
+<td class="param">n_clusters&nbsp;</td>
+<td class="value">5</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">init&nbsp;</td>
+<td class="value">'k-means++'</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">n_init&nbsp;</td>
+<td class="value">'auto'</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">max_iter&nbsp;</td>
+<td class="value">300</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">tol&nbsp;</td>
+<td class="value">0.0001</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">0</td>
+</tr>
+<tr class="odd user-set">
+<td><em></em></td>
+<td class="param">random_state&nbsp;</td>
+<td class="value">123</td>
+</tr>
+<tr class="even default">
+<td><em></em></td>
+<td class="param">copy_x&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="odd default">
+<td><em></em></td>
+<td class="param">algorithm&nbsp;</td>
+<td class="value">'lloyd'</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script>
+</div>
+</div>
+</section>
+<section id="examining-food-clusters" class="slide level2 center">
+<h2>Examining food clusters</h2>
+<p><br>
+</p>
+<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
+<div id="69228cdf" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="cf">for</span> cluster <span class="kw">in</span> <span class="bu">range</span>(k):</span>
+<span id="cb17-2"><a></a>    get_cluster_images(km, Z_food, X_food, cluster, n_img<span class="op">=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>39
+Image indices:  [ 39 197  12  14 138 181]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-2.png"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>228
+Image indices:  [228  65 128  54 175 260]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-4.png"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>138
+Image indices:  [138  54 185 278  39  89]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-6.png"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>193
+Image indices:  [193  39 145 212 169 108]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-8.png"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>120
+Image indices:  [120 268 244  94  72  87]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-10.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-finding-most-similar-items" class="slide level2 center">
+<h2>Example: Finding most similar items</h2>
+<ul>
+<li>Consider the following titles and queries.</li>
+</ul>
+<div id="071f3bdb" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a><span class="co"># Corpus of existing paper titles or abstracts</span></span>
+<span id="cb23-2"><a></a>corpus <span class="op">=</span> [</span>
+<span id="cb23-3"><a></a>    <span class="st">"Mapping eelgrass beds in British Columbia using remote sensing"</span>,</span>
+<span id="cb23-4"><a></a>    <span class="st">"Bayesian optimization for reaction discovery and yield improvement"</span>,</span>
+<span id="cb23-5"><a></a>    <span class="st">"RNA-seq analysis of microbiome interactions and infection susceptibility"</span>,</span>
+<span id="cb23-6"><a></a>    <span class="st">"Using YOLOv8 for automatic object detection in microscopy images"</span>,</span>
+<span id="cb23-7"><a></a>    <span class="st">"Anomaly detection in ocean temperature sensor data with machine learning"</span>,</span>
+<span id="cb23-8"><a></a>    <span class="st">"Embedding-based literature recommendation using scientific abstracts"</span></span>
+<span id="cb23-9"><a></a>]</span>
+<span id="cb23-10"><a></a></span>
+<span id="cb23-11"><a></a><span class="co"># List of new queries to compare</span></span>
+<span id="cb23-12"><a></a>queries <span class="op">=</span> [</span>
+<span id="cb23-13"><a></a>    <span class="st">"Predicting yield of chemical reactions using optimization techniques"</span>,</span>
+<span id="cb23-14"><a></a>    <span class="st">"Tracking changes in marine vegetation through drone imagery"</span>,</span>
+<span id="cb23-15"><a></a>    <span class="st">"Detecting patterns of infection from gene expression data"</span>,</span>
+<span id="cb23-16"><a></a>    <span class="st">"Literature discovery using sentence embeddings and neural search"</span>,</span>
+<span id="cb23-17"><a></a>    <span class="st">"Outlier detection in sensor measurements from ocean buoys"</span></span>
+<span id="cb23-18"><a></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="which-queries-are-similar-to-which-titles" class="slide level2 center">
+<h2>Which queries are similar to which titles?</h2>
+<div id="344f7407" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer, util</span>
+<span id="cb24-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb24-3"><a></a></span>
+<span id="cb24-4"><a></a><span class="co"># Load the MiniLM model</span></span>
+<span id="cb24-5"><a></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/all-MiniLM-L6-v2'</span>)</span>
+<span id="cb24-6"><a></a></span>
+<span id="cb24-7"><a></a><span class="co"># Encode corpus and queries</span></span>
+<span id="cb24-8"><a></a>corpus_embeddings <span class="op">=</span> model.encode(corpus, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu()</span>
+<span id="cb24-9"><a></a>query_embeddings <span class="op">=</span> model.encode(queries, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu()</span>
+<span id="cb24-10"><a></a></span>
+<span id="cb24-11"><a></a><span class="co"># Set number of top matches to show</span></span>
+<span id="cb24-12"><a></a>top_k <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="which-queries-are-similar-to-which-titles-1" class="slide level2 center">
+<h2>Which queries are similar to which titles?</h2>
+<div class="scroll-container" style="overflow-y: scroll; height: 400px;">
+<div id="c2cc5cf4" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+🔍 Query 1: Predicting yield of chemical reactions using optimization techniques
+   ➤ Match 1: Bayesian optimization for reaction discovery and yield improvement
+     Cosine similarity: 0.7420
+
+🔍 Query 2: Tracking changes in marine vegetation through drone imagery
+   ➤ Match 1: Mapping eelgrass beds in British Columbia using remote sensing
+     Cosine similarity: 0.5305
+
+🔍 Query 3: Detecting patterns of infection from gene expression data
+   ➤ Match 1: RNA-seq analysis of microbiome interactions and infection susceptibility
+     Cosine similarity: 0.4292
+
+🔍 Query 4: Literature discovery using sentence embeddings and neural search
+   ➤ Match 1: Embedding-based literature recommendation using scientific abstracts
+     Cosine similarity: 0.5649
+
+🔍 Query 5: Outlier detection in sensor measurements from ocean buoys
+   ➤ Match 1: Anomaly detection in ocean temperature sensor data with machine learning
+     Cosine similarity: 0.6847</code></pre>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="interactive-is-ml-appropriate" class="title-slide slide level1 center">
+<h1>Interactive: Is ML appropriate?</h1>
+
+</section>
+<section id="questions-for-you" class="slide level2 smaller center">
 <h2>❓❓ Questions for you</h2>
-<p>iClicker cloud join link: https://join.iclicker.com/VYFJ</p>
-<h3 id="select-all-of-the-following-statements-which-are-true-iclicker">Select all of the following statements which are <strong>True</strong> (iClicker)</h3>
+<p>iClicker cloud join link:</p>
+<p><strong>Select all that apply: Which problems are suitable for ML?</strong></p>
 <ul>
 <li><ol type="A">
-<li>Predicting spam is an example of machine learning.</li>
+<li>Checking if a UBC email address ends with <span class="citation" data-cites="student.ubc.ca">@student.ubc.ca</span> before allowing login</li>
 </ol></li>
 <li><ol start="2" type="A">
-<li>Predicting housing prices is not an example of machine learning.</li>
+<li>Deciding which students should be awarded a scholarship based on their personal essays</li>
 </ol></li>
 <li><ol start="3" type="A">
-<li>For problems such as spelling correction, translation, face recognition, spam identification, if you are a domain expert, it’s usually faster and scalable to come up with a robust set of rules manually rather than building a machine learning model.</li>
+<li>Predicting which songs you’ll like based on your Spotify listening history</li>
 </ol></li>
 <li><ol start="4" type="A">
-<li>If you are asked to write a program to find all prime numbers up to a limit, it is better to implement one of the algorithms for doing so rather than using machine learning.</li>
+<li>Detecting plagiarism by checking if two essays are exactly identical</li>
 </ol></li>
 <li><ol start="5" type="A">
-<li>Google News is likely be using machine learning to organize news. <br><br><br><br></li>
+<li>Automatically tagging photos of your friends on Instagram</li>
 </ol></li>
 </ul>
 </section>
+<section id="summary-when-is-ml-suitable" class="slide level2 center">
+<h2>Summary: When is ML suitable?</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 83%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Approach</strong></th>
+<th><strong>Best Used When…</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Machine Learning</strong></td>
+<td>The dataset is <strong>large and complex</strong>, and the decision rules are <strong>unknown, fuzzy, or too complex to define explicitly</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Rule-based System</strong></td>
+<td>The logic is <strong>clear and deterministic</strong>, and the rules or thresholds are <strong>known and stable</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Human Expert</strong></td>
+<td>The problem involves <strong>ethics, creativity, emotion, or ambiguity</strong> that can’t be formalized easily</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="activity-2" class="slide level2 center">
+<h2>Activity 2</h2>
+<p>Think of a problem you have come across in the past which could be solved using machine learning.</p>
+<ul>
+<li>What would be the input and output?</li>
+<li>How do humans solve this now? Are there heuristics or rules?</li>
+<li>What kind of data do you have or could you collect?</li>
+</ul>
+</section>
+<section id="types-of-machine-learning" class="slide level2 smaller center">
+<h2>Types of machine learning</h2>
+<p>Here are some typical learning problems.</p>
+<ul>
+<li><strong>Supervised learning</strong> (<a href="https://support.google.com/a/answer/2368132?hl=en">Gmail spam filtering</a>)
+<ul>
+<li>Training a model from input data and its corresponding targets to predict targets for new examples.<br>
+</li>
+</ul></li>
+<li>Unsupervised learning (<a href="https://news.google.com/">Google News</a>)
+<ul>
+<li>Training a model to find patterns in a dataset, typically an unlabeled dataset.</li>
+</ul></li>
+<li>Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a>)
+<ul>
+<li>A family of algorithms for finding suitable actions to take in a given situation in order to maximize a reward.</li>
+</ul></li>
+<li>Recommendation systems (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf">Amazon item recommendation system</a>)
+<ul>
+<li>Predict the “rating” or “preference” a user would give to an item.</li>
+</ul></li>
+</ul>
+</section>
+<section id="what-is-supervised-learning" class="slide level2 center">
+<h2>What is supervised learning?</h2>
+<ul>
+<li>Training data comprises a set of observations (<span class="math inline"><em>X</em></span>) and their corresponding targets (<span class="math inline"><em>y</em></span>).</li>
+<li>We wish to find a model function <span class="math inline"><em>f</em></span> that relates <span class="math inline"><em>X</em></span> to <span class="math inline"><em>y</em></span>.</li>
+<li>We use the model function to predict targets of new examples.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/sup-learning.png" class="quarto-figure quarto-figure-center" width="700"></p>
+</figure>
+</div>
+</section>
+<section id="evas-questions" class="slide level2 center">
+<h2>🤔 Eva’s questions</h2>
+<p><br>
+</p>
+<p>At this point, Eva is wondering about many questions.</p>
+<ul>
+<li>How are we exactly “learning” whether a message is spam and ham?</li>
+<li>Are we expected to get correct predictions for all possible messages? How does it predict the label for a message it has not seen before?<br>
+</li>
+<li>What if the model mis-labels an unseen example? For instance, what if the model incorrectly predicts a non-spam as a spam? What would be the consequences?</li>
+<li>How do we measure the success or failure of spam identification?</li>
+<li>If you want to use this model in the wild, how do you know how reliable it is?<br>
+</li>
+<li>Would it be useful to know how confident the model is about the predictions rather than just a yes or a no?</li>
+</ul>
+<p>It’s great to think about these questions right now. But Eva has to be patient. By the end of this course you’ll know answers to many of these questions!</p>
+</section>
+<section id="break" class="slide level2 center">
+<h2>Break</h2>
+
+<img data-src="img/eva-coffee.png" class="r-stretch"></section>
 <section id="surveys" class="slide level2 center">
 <h2>Surveys</h2>
 <ul>
@@ -1170,7 +3916,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p>Course website: <a href="https://github.com/UBC-CS/cpsc330-2024W1">https://github.com/UBC-CS/cpsc330-2024W1</a> is the most important link. Please read everything on this GitHub page!</p>
+<p>Course website: <a href="https://github.com/UBC-CS/cpsc330-2025W1">https://github.com/UBC-CS/cpsc330-2025W1</a> is the most important link. Please read everything on this GitHub page!</p>
 </div>
 </div>
 </div>
@@ -1190,7 +3936,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 </section>
 <section id="cpsc-330-vs.-340" class="slide level2 center">
 <h2>CPSC 330 vs.&nbsp;340</h2>
-<p>Read <a href="[https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/330_vs_340.md">https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/330_vs_340.md</a> which explains the difference between two courses.</p>
+<p>Read <a href="[https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md">https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md</a> which explains the difference between two courses.</p>
 <p><strong>TLDR:</strong></p>
 <ul>
 <li>340: how do ML models work?</li>
@@ -1211,7 +3957,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p>Please go through <a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/master/docs/course_info.md#registration">this document</a> carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.</p>
+<p>Please go through <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/master/docs/course_info.md#registration">this document</a> carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.</p>
 </div>
 </div>
 </div>
@@ -1238,7 +3984,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <section id="home-work-assignments" class="slide level2 center">
 <h2>Home work assignments</h2>
 <ul>
-<li>First homework assignment is due <strong>this coming Tuesday</strong>, September 10, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.<br>
+<li>First homework assignment is due <strong>this coming Tuesday</strong>, September 9, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.<br>
 </li>
 <li>You must do the first two homework assignments on your own.</li>
 </ul>
@@ -1252,7 +3998,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <section id="course-calendar" class="slide level2 center">
 <h2>Course calendar</h2>
 <p>Here is our course Calendar. Make sure you check it on a regular basis:</p>
-<p><a href="https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/calendar.html">https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/calendar.html</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html">https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html</a></p>
 </section>
 <section id="course-structure" class="slide level2 center">
 <h2>Course structure</h2>
@@ -1279,7 +4025,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <section id="code-of-conduct" class="slide level2 center">
 <h2>Code of conduct</h2>
 <ul>
-<li>Our main forum for getting help will be <a href="https://piazza.com/ubc.ca/winterterm12024/cpsc_v3301011021032024w1">Piazza</a>.</li>
+<li>Our main forum for getting help will be <a href="https://piazza.com/ubc.ca/winterterm12025/cpsc_v3301011021032025w1">Piazza</a>.</li>
 </ul>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
@@ -1290,7 +4036,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p>Please read <a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/asking_for_help.md">this entire document about asking for help</a>. <strong>TLDR:</strong> Be nice.</p>
+<p>Please read <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/asking_for_help.md">this entire document about asking for help</a>. <strong>TLDR:</strong> Be nice.</p>
 </div>
 </div>
 </div>
@@ -1314,17 +4060,17 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <li>When you open a Jupyter notebook in one of these apps, the document is “live”, meaning you can run the code.</li>
 </ul>
 <p>For example:</p>
-<div id="fd54ee99" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="8ce6caf3" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>2</code></pre>
 </div>
 </div>
-<div id="c01edf0e" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb11-2"><a></a>x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">9999</span></span>
-<span id="cb11-3"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div id="c1ad3509" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb28-2"><a></a>x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">9999</span></span>
+<span id="cb28-3"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>[9999, 2, 3]</code></pre>
 </div>
 </div>
@@ -1333,7 +4079,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <h2>Jupyter</h2>
 <ul>
 <li>By default, Jupyter prints out the result of the last line of code, so you don’t need as many <code>print</code> statements.</li>
-<li>In addition to the “live” notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g.&nbsp;<a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/01_intro.ipynb">this</a>.
+<li>In addition to the “live” notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g.&nbsp;<a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/01_intro.ipynb">this</a>.
 <ul>
 <li>This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.</li>
 <li>But you need to launch the app properly to interact with the notebooks.</li>
@@ -1345,17 +4091,17 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <ul>
 <li>All the lectures from last year are <a href="https://ubc-cs.github.io/cpsc330-2023W1/README.html">available here</a>.</li>
 <li>We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.</li>
-<li>A “finalized” version will be pushed to <a href="https://github.com/UBC-CS/cpsc330-2024W1">GitHub</a> and the <a href="https://ubc-cs.github.io/cpsc330-2024W1/README.html">Jupyter book</a> right before each class.</li>
+<li>A “finalized” version will be pushed to <a href="https://github.com/UBC-CS/cpsc330-2025W1">GitHub</a> and the <a href="https://ubc-cs.github.io/cpsc330-2025W1/README.html">Jupyter book</a> right before each class.</li>
 <li>Each instructor will have slightly adapted versions of notes to present slides during lectures.<br>
 </li>
-<li>You will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2024W1/tree/main/lectures/102-Varada-lectures</li>
+<li>You will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures</li>
 </ul>
 </section>
 <section id="grades" class="slide level2 center">
 <h2>Grades</h2>
 <ul>
-<li>The grading breakdown is <a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/syllabus.md#grading-scheme">here</a>.</li>
-<li>The policy on challenging grades is <a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/grades.md">here</a>.</li>
+<li>The grading breakdown is <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/syllabus.md#grading-scheme">here</a>.</li>
+<li>The policy on challenging grades is <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/grades.md">here</a>.</li>
 </ul>
 </section></section>
 <section>
@@ -1374,7 +4120,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <section id="course-conda-environment" class="slide level2 center">
 <h2>Course <code>conda</code> environment</h2>
 <ul>
-<li>Follow the setup instructions <a href="https://ubc-cs.github.io/cpsc330-2024W1/docs/setup.html">here</a> to create a course <code>conda</code> environment on your computer.</li>
+<li>Follow the setup instructions <a href="https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html">here</a> to create a course <code>conda</code> environment on your computer.</li>
 <li>If you do not have your computer with you, you can partner up with someone and set up your own computer later.</li>
 </ul>
 </section>
@@ -1399,7 +4145,7 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>We do not have time to teach all the Python we need but you can find some useful Python resources <a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/resources.md">here</a>.</p>
+<p>We do not have time to teach all the Python we need but you can find some useful Python resources <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/resources.md">here</a>.</p>
 </div>
 </div>
 </div>
@@ -1409,10 +4155,10 @@ And if memory is not enough, you can set `force_col_wise=true`.
 <h2>Checklist for you before the next class</h2>
 <ul class="task-list">
 <li><label><input type="checkbox">Are you able to access course <a href="https://canvas.ubc.ca/courses/149122">Canvas</a> shell?</label></li>
-<li><label><input type="checkbox">Are you able to access <a href="https://piazza.com/ubc.ca/winterterm12024/cpsc_v3301011021032024w1">course Piazza</a>?</label></li>
+<li><label><input type="checkbox">Are you able to access <a href="">course Piazza</a>?</label></li>
 <li><label><input type="checkbox">Are you able to access <a href="https://www.gradescope.ca/courses/18608">Gradescope</a>? (If not, refer to the <a href="https://lthub.ubc.ca/guides/gradescope-student-guide/">Gradescope Student Guide</a>.)</label></li>
 <li><label><input type="checkbox">Are you able to access <a href="https://join.iclicker.com/VYFJ">iClicker Cloud</a> for this course?</label></li>
-<li><label><input type="checkbox">Did you follow the setup instructions <a href="https://ubc-cs.github.io/cpsc330-2024W1/docs/setup.html">here</a> to create a course conda environment on your computer?</label></li>
+<li><label><input type="checkbox">Did you follow the setup instructions <a href="https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html">here</a> to create a course conda environment on your computer?</label></li>
 <li><label><input type="checkbox">Did you complete the “Getting to know you” survey on Canvas?</label></li>
 <li><label><input type="checkbox">Did you complete the anonymous <a href="https://ubc.ca1.qualtrics.com/jfe/form/SV_73VuZiuwM1eDVrw">restaurant survey on Qualtrics</a>?</label></li>
 <li><label><input type="checkbox">Are you almost finished or at least started with homework 1?</label></li>

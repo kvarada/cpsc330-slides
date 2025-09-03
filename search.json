@@ -1,290 +1,24 @@
 [
   {
-    "objectID": "slides/slides-19-computer-vision.html#announcements",
-    "href": "slides/slides-19-computer-vision.html#announcements",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Announcements",
-    "text": "Announcements\n\nHW7 was due yesterday\nHW8 has been released (due next week Monday)\n\nAlmost there! Hang in there 😊\n\nMidterm 2 grading is in progress."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#iclicker-19.1",
-    "href": "slides/slides-19-computer-vision.html#iclicker-19.1",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "iClicker 19.1",
-    "text": "iClicker 19.1\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nIt’s possible to use word2vec embedding representations for text classification instead of bag-of-words representation.\n\n\nThe topic model approach we used in the last lecture, Latent Dirichlet Allocation (LDA), is an unsupervised approach.\n\n\nIn an LDA topic model, the same word can be associated with two different topics with high probability.\n\n\nIn an LDA topic model, a document is a mixture of multiple topics.\n\n\nIf I train a topic model on a large collection of news articles with K = 10, I would get 10 topic labels (e.g., sports, culture, politics, finance) as output."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#multiclass-classification",
-    "href": "slides/slides-19-computer-vision.html#multiclass-classification",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Multiclass classification",
-    "text": "Multiclass classification\n\nSo far we have been talking about binary classification\nCan we use these classifiers when there are more than two classes?\n\n“ImageNet” computer vision competition, for example, has 1000 classes\n\nCan we use decision trees or KNNs for multi-class classification?\nWhat about logistic regression?"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#softmax-function-for-probabilities",
-    "href": "slides/slides-19-computer-vision.html#softmax-function-for-probabilities",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Softmax Function for Probabilities",
-    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#making-predictions",
-    "href": "slides/slides-19-computer-vision.html#making-predictions",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Making Predictions",
-    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class () is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#binary-vs-multinomial-logistic-regression",
-    "href": "slides/slides-19-computer-vision.html#binary-vs-multinomial-logistic-regression",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Binary vs multinomial logistic regression",
-    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., image classification)"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#image-classification",
-    "href": "slides/slides-19-computer-vision.html#image-classification",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Image classification",
-    "text": "Image classification\n\n\nHave you used search in Google Photos? You can search for “my photos of cat” and it will retrieve photos from your libraries containing cats. This can be done using image classification, which is treated as a supervised learning problem, where we define a set of target classes (objects to identify in images), and train a model to recognize them using labeled example photos."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#image-classification-1",
-    "href": "slides/slides-19-computer-vision.html#image-classification-1",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Image classification",
-    "text": "Image classification\n\n\nImage classification is not an easy problem because of the variations in the location of the object, lighting, background, camera angle, camera focus etc."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#neural-networks",
-    "href": "slides/slides-19-computer-vision.html#neural-networks",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Neural networks",
-    "text": "Neural networks\n\n\n\nNeural networks are perfect for these types of problems where local structures are important.\nA significant advancement in image classification was the application of convolutional neural networks (ConvNets or CNNs) to this problem.\n\nImageNet Classification with Deep Convolutional Neural Networks\nAchieved a winning test error rate of 15.3%, compared to 26.2% achieved by the second-best entry in the ILSVRC-2012 competition.\n\nLet’s go over the basics of a neural network."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#introduction-to-neural-networks",
-    "href": "slides/slides-19-computer-vision.html#introduction-to-neural-networks",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Introduction to neural networks",
-    "text": "Introduction to neural networks\n\n\n\nNeural networks can be viewed a generalization of linear models where we apply a series of transformations.\nHere is graphical representation of a logistic regression model.\nWe have 4 features: x[0], x[1], x[2], x[3]\n\n\n\n\n\n\ncluster_0\n\ninputs\n\n\ncluster_2\n\noutput\n\n\n\nx[0]\n\nx[0]\n\n\n\ny\n\ny\n\n\n\nx[0]-&gt;y\n\n\nw[0]\n\n\n\nx[1]\n\nx[1]\n\n\n\nx[1]-&gt;y\n\n\nw[1]\n\n\n\nx[2]\n\nx[2]\n\n\n\nx[2]-&gt;y\n\n\nw[2]\n\n\n\nx[3]\n\nx[3]\n\n\n\nx[3]-&gt;y\n\n\nw[3]"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#adding-a-layer-of-transformations",
-    "href": "slides/slides-19-computer-vision.html#adding-a-layer-of-transformations",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Adding a layer of transformations",
-    "text": "Adding a layer of transformations\n\n\n\nBelow we are adding one “layer” of transformations in between features and the target.\nWe are repeating the the process of computing the weighted sum multiple times.\n\nThe hidden units (e.g., h[1], h[2], …) represent the intermediate processing steps.\n\n\n\n\n\n\ncluster_0\n\ninputs\n\n\ncluster_1\n\nhidden layer\n\n\ncluster_2\n\noutput\n\n\n\nx[0]\n\nx[0]\n\n\n\nh0\n\nh[0]\n\n\n\nx[0]-&gt;h0\n\n\n\n\n\nh1\n\nh[1]\n\n\n\nx[0]-&gt;h1\n\n\n\n\n\nh2\n\nh[2]\n\n\n\nx[0]-&gt;h2\n\n\n\n\n\nx[1]\n\nx[1]\n\n\n\nx[1]-&gt;h0\n\n\n\n\n\nx[1]-&gt;h1\n\n\n\n\n\nx[1]-&gt;h2\n\n\n\n\n\nx[2]\n\nx[2]\n\n\n\nx[2]-&gt;h0\n\n\n\n\n\nx[2]-&gt;h1\n\n\n\n\n\nx[2]-&gt;h2\n\n\n\n\n\nx[3]\n\nx[3]\n\n\n\nx[3]-&gt;h0\n\n\n\n\n\nx[3]-&gt;h1\n\n\n\n\n\nx[3]-&gt;h2\n\n\n\n\n\ny\n\ny\n\n\n\nh0-&gt;y\n\n\n\n\n\nh1-&gt;y\n\n\n\n\n\nh2-&gt;y"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#one-more-layer-of-transformations",
-    "href": "slides/slides-19-computer-vision.html#one-more-layer-of-transformations",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "One more layer of transformations",
-    "text": "One more layer of transformations\n\n\n\nNow we are adding one more layer of transformations.\n\n\n\n\n\n\ncluster_0\n\ninputs\n\n\ncluster_1\n\nhidden layer 1\n\n\ncluster_2\n\nhidden layer 2\n\n\ncluster_3\n\noutput\n\n\n\nx[0]\n\nx[0]\n\n\n\nh1[0]\n\nh1[0]\n\n\n\nx[0]-&gt;h1[0]\n\n\n\n\n\nh1[1]\n\nh1[1]\n\n\n\nx[0]-&gt;h1[1]\n\n\n\n\n\nh1[2]\n\nh1[2]\n\n\n\nx[0]-&gt;h1[2]\n\n\n\n\n\nx[1]\n\nx[1]\n\n\n\nx[1]-&gt;h1[0]\n\n\n\n\n\nx[1]-&gt;h1[1]\n\n\n\n\n\nx[1]-&gt;h1[2]\n\n\n\n\n\nx[2]\n\nx[2]\n\n\n\nx[2]-&gt;h1[0]\n\n\n\n\n\nx[2]-&gt;h1[1]\n\n\n\n\n\nx[2]-&gt;h1[2]\n\n\n\n\n\nx[3]\n\nx[3]\n\n\n\nx[3]-&gt;h1[0]\n\n\n\n\n\nx[3]-&gt;h1[1]\n\n\n\n\n\nx[3]-&gt;h1[2]\n\n\n\n\n\nh2[0]\n\nh2[0]\n\n\n\nh1[0]-&gt;h2[0]\n\n\n\n\n\nh2[1]\n\nh2[1]\n\n\n\nh1[0]-&gt;h2[1]\n\n\n\n\n\nh2[2]\n\nh2[2]\n\n\n\nh1[0]-&gt;h2[2]\n\n\n\n\n\nh1[1]-&gt;h2[0]\n\n\n\n\n\nh1[1]-&gt;h2[1]\n\n\n\n\n\nh1[1]-&gt;h2[2]\n\n\n\n\n\nh1[2]-&gt;h2[0]\n\n\n\n\n\nh1[2]-&gt;h2[1]\n\n\n\n\n\nh1[2]-&gt;h2[2]\n\n\n\n\n\ny\n\ny\n\n\n\nh2[0]-&gt;y\n\n\n\n\n\nh2[1]-&gt;y\n\n\n\n\n\nh2[2]-&gt;y"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#neural-networks-1",
-    "href": "slides/slides-19-computer-vision.html#neural-networks-1",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Neural networks",
-    "text": "Neural networks\n\n\n\nWith a neural net, you specify the number of features after each transformation.\n\nIn the above, it goes from 4 to 3 to 3 to 1.\n\nTo make them really powerful compared to the linear models, we apply a non-linear function to the weighted sum for each hidden node.\nNeural network = neural net\nDeep learning ~ using neural networks"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#why-neural-networks",
-    "href": "slides/slides-19-computer-vision.html#why-neural-networks",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Why neural networks?",
-    "text": "Why neural networks?\n\n\n\nThey can learn very complex functions.\n\nThe fundamental tradeoff is primarily controlled by the number of layers and layer sizes.\nMore layers / bigger layers –&gt; more complex model.\nYou can generally get a model that will not underfit.\n\nThey work really well for structured data:\n\n1D sequence, e.g. timeseries, language\n2D image\n3D image or video\n\nThey’ve had some incredible successes in the last 12 years.\nTransfer learning (coming later today) is really useful."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#why-not-neural-networks",
-    "href": "slides/slides-19-computer-vision.html#why-not-neural-networks",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Why not neural networks?",
-    "text": "Why not neural networks?\n\n\n\nOften they require a lot of data.\nThey require a lot of compute time, and, to be faster, specialized hardware called GPUs.\nThey have huge numbers of hyperparameters\n\nThink of each layer having hyperparameters, plus some overall hyperparameters.\nBeing slow compounds this problem.\n\nThey are not interpretable.\nI don’t recommend training them on your own without further training\nGood news\n\nYou don’t have to train your models from scratch in order to use them.\nI’ll show you some ways to use neural networks without training them yourselves."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#deep-learning-software",
-    "href": "slides/slides-19-computer-vision.html#deep-learning-software",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Deep learning software",
-    "text": "Deep learning software\n\n\nThe current big players are:\n\nPyTorch\nTensorFlow\n\nBoth are heavily used in industry. If interested, see comparison of deep learning software."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#introduction-to-computer-vision",
-    "href": "slides/slides-19-computer-vision.html#introduction-to-computer-vision",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Introduction to computer vision",
-    "text": "Introduction to computer vision\n\n\n\nComputer vision refers to understanding images/videos, usually using ML/AI.\nIn the last decade this field has been dominated by deep learning. We will explore image classification and object detection."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#introduction-to-computer-vision-1",
-    "href": "slides/slides-19-computer-vision.html#introduction-to-computer-vision-1",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Introduction to computer vision",
-    "text": "Introduction to computer vision\n\n\n\nimage classification: is this a cat or a dog?\nobject localization: where is the cat in this image?\nobject detection: What are the various objects in the image?\ninstance segmentation: What are the shapes of these various objects in the image?\nand much more…"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models",
-    "text": "Pre-trained models\n\n\n\nIn practice, very few people train an entire CNN from scratch because it requires a large dataset, powerful computers, and a huge amount of human effort to train the model.\nInstead, a common practice is to download a pre-trained model and fine tune it for your task. This is called transfer learning.\nTransfer learning is one of the most common techniques used in the context of computer vision and natural language processing.\nIt refers to using a model already trained on one task as a starting point for learning to perform another task."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models out-of-the-box",
-    "text": "Pre-trained models out-of-the-box\n\n\n\n\n\nLet’s first apply one of these pre-trained models to our own problem right out of the box."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-1",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-1",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models out-of-the-box",
-    "text": "Pre-trained models out-of-the-box\n\n\n\nWe can easily download famous models using the torchvision.models module. All models are available with pre-trained weights (based on ImageNet’s 224 x 224 images)\nWe used a pre-trained model vgg16 which is trained on the ImageNet data.\nWe preprocess the given image.\nWe get prediction from this pre-trained model on a given image along with prediction probabilities.\n\nFor a given image, this model will spit out one of the 1000 classes from ImageNet."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-2",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-2",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models out-of-the-box",
-    "text": "Pre-trained models out-of-the-box\n\nLet’s predict labels with associated probabilities for unseen images\n\n\n\n\n\n\n\n\n\n\n\n                         Class  Probability score\n                     tiger cat              0.353\n              tabby, tabby cat              0.207\n               lynx, catamount              0.050\nPembroke, Pembroke Welsh corgi              0.046\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                     Class  Probability score\n         cheetah, chetah, Acinonyx jubatus              0.983\n                  leopard, Panthera pardus              0.012\njaguar, panther, Panthera onca, Felis onca              0.004\n       snow leopard, ounce, Panthera uncia              0.001\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                   Class  Probability score\n                                 macaque              0.714\npatas, hussar monkey, Erythrocebus patas              0.122\n      proboscis monkey, Nasalis larvatus              0.098\n                   guenon, guenon monkey              0.017\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                        Class  Probability score\nWalker hound, Walker foxhound              0.580\n             English foxhound              0.091\n                  EntleBucher              0.080\n                       beagle              0.065\n--------------------------------------------------------------"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-3",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-3",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models out-of-the-box",
-    "text": "Pre-trained models out-of-the-box\n\n\n\nWe got these predictions without “doing the ML ourselves”.\nWe are using pre-trained vgg16 model which is available in torchvision.\n\ntorchvision has many such pre-trained models available that have been very successful across a wide range of tasks: AlexNet, VGG, ResNet, Inception, MobileNet, etc.\n\nMany of these models have been pre-trained on famous datasets like ImageNet.\nSo if we use them out-of-the-box, they will give us one of the ImageNet classes as classification."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-4",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-4",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models out-of-the-box",
-    "text": "Pre-trained models out-of-the-box\n\n\n\nLet’s try some images which are unlikely to be there in ImageNet.\nIt’s not doing very well here because ImageNet doesn’t have proper classes for these images.\n\n\n\n\n\n\n\n\n\n\n\n         Class  Probability score\ncucumber, cuke              0.146\n         plate              0.117\n     guacamole              0.099\n  Granny Smith              0.091\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                      Class  Probability score\n                                        fig              0.637\n                                pomegranate              0.193\ngrocery store, grocery, food market, market              0.041\n                                      crate              0.023\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                               Class  Probability score\n                                         toilet seat              0.171\n                                          safety pin              0.060\nbannister, banister, balustrade, balusters, handrail              0.039\n                                              bubble              0.035\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                  Class  Probability score\n                   vase              0.078\n                thimble              0.074\n             plate rack              0.049\nsaltshaker, salt shaker              0.047\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                      Class  Probability score\n           pizza, pizza pie              0.998\nfrying pan, frypan, skillet              0.001\n                     potpie              0.000\n                French loaf              0.000\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n              Class  Probability score\n     patio, terrace              0.213\n           fountain              0.164\nlakeside, lakeshore              0.097\n            sundial              0.088\n--------------------------------------------------------------"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-5",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-5",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models out-of-the-box",
-    "text": "Pre-trained models out-of-the-box\n\n\n\nHere we are Pre-trained models out-of-the-box.\nCan we use pre-trained models for our own classification problem with our classes?\nYes!! We have two options here:\n\nAdd some extra layers to the pre-trained network to suit our particular task\nPass training data through the network and save the output to use as features for training some other model"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models to extract features",
-    "text": "Pre-trained models to extract features\n\n\n\nLet’s use pre-trained models to extract features.\nWe will pass our specific data through a pre-trained network to get a feature vector for each example in the data.\nThe feature vector is usually extracted from the last layer, before the classification layer from the pre-trained network.\nYou can think of each layer a transformer applying some transformations on the input received to that later."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-1",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-1",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models to extract features",
-    "text": "Pre-trained models to extract features\n\n\n\nOnce we extract these feature vectors for all images in our training data, we can train a machine learning classifier such as logistic regression or random forest.\nThis classifier will be trained on our classes using feature representations extracted from the pre-trained models.\n\nLet’s try this out.\nIt’s better to train such models with GPU. Since our dataset is quite small, we won’t have problems running it on a CPU."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-2",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-2",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models to extract features",
-    "text": "Pre-trained models to extract features\n\n\nLet’s look at some sample images in the dataset."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#dataset-statistics",
-    "href": "slides/slides-19-computer-vision.html#dataset-statistics",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Dataset statistics",
-    "text": "Dataset statistics\n\n\nHere is the stat of our toy dataset.\n\n\nClasses: ['beet_salad', 'chocolate_cake', 'edamame', 'french_fries', 'pizza', 'spring_rolls', 'sushi']\nClass count: 40, 38, 40\nSamples: 283\nFirst sample: ('data/food/train/beet_salad/104294.jpg', 0)"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-3",
-    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-3",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Pre-trained models to extract features",
-    "text": "Pre-trained models to extract features\n\n\n\nNow for each image in our dataset, we’ll extract a feature vector from a pre-trained model called densenet121, which is trained on the ImageNet dataset."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#shape-of-the-feature-vector",
-    "href": "slides/slides-19-computer-vision.html#shape-of-the-feature-vector",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Shape of the feature vector",
-    "text": "Shape of the feature vector\n\n\n\nNow we have extracted feature vectors for all examples. What’s the shape of these features?\n\n\n\ntorch.Size([283, 1024])\n\n\n\nThe size of each feature vector is 1024 because the size of the last layer in densenet architecture is 1024.\n\n\nSource"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#a-feature-vector-given-by-densenet",
-    "href": "slides/slides-19-computer-vision.html#a-feature-vector-given-by-densenet",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "A feature vector given by densenet",
-    "text": "A feature vector given by densenet\n \n\nLet’s examine the feature vectors.\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n...\n1014\n1015\n1016\n1017\n1018\n1019\n1020\n1021\n1022\n1023\n\n\n\n\n0\n0.000290\n0.003821\n0.005015\n0.001307\n0.052690\n0.063403\n0.000626\n0.001850\n0.256254\n0.000223\n...\n0.229935\n1.046375\n2.241259\n0.229641\n0.033674\n0.742792\n1.338698\n2.130880\n0.625475\n0.463088\n\n\n1\n0.000407\n0.005973\n0.003206\n0.001932\n0.090702\n0.438523\n0.001513\n0.003906\n0.166081\n0.000286\n...\n0.910680\n1.580815\n0.087191\n0.606904\n0.436106\n0.306456\n0.940102\n1.159818\n1.712705\n1.624753\n\n\n2\n0.000626\n0.005090\n0.002887\n0.001299\n0.091715\n0.548537\n0.000491\n0.003587\n0.266537\n0.000408\n...\n0.465152\n0.678276\n0.946387\n1.194697\n2.537747\n1.642383\n0.701200\n0.115620\n0.186433\n0.166605\n\n\n3\n0.000169\n0.006087\n0.002489\n0.002167\n0.087537\n0.623212\n0.000427\n0.000226\n0.460680\n0.000388\n...\n0.394083\n0.700158\n0.105200\n0.856323\n0.038457\n0.023948\n0.131838\n1.296370\n0.723323\n1.915215\n\n\n4\n0.000286\n0.005520\n0.001906\n0.001599\n0.186034\n0.850148\n0.000835\n0.003025\n0.036309\n0.000142\n...\n3.313760\n0.565744\n0.473564\n0.139446\n0.029283\n1.165938\n0.442319\n0.227593\n0.884266\n1.592698\n\n\n\n\n5 rows × 1024 columns\n\n\n\n\nThe features are hard to interpret but they have some important information about the images which can be useful for classification."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#logistic-regression-with-the-extracted-features",
-    "href": "slides/slides-19-computer-vision.html#logistic-regression-with-the-extracted-features",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Logistic regression with the extracted features",
-    "text": "Logistic regression with the extracted features\n\n\n\nLet’s try out logistic regression on these extracted features.\n\n\n\nTraining score:  1.0\n\n\n\n\nValidation score:  0.835820895522388\n\n\n\nThis is great accuracy for so little data and little effort!!!"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#sample-predictions",
-    "href": "slides/slides-19-computer-vision.html#sample-predictions",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Sample predictions",
-    "text": "Sample predictions\n\n\nLet’s examine some sample predictions on the validation set."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#object-detection",
-    "href": "slides/slides-19-computer-vision.html#object-detection",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Object detection",
-    "text": "Object detection\n\n\n\nAnother useful task and tool to know is object detection using YOLO model.\nLet’s identify objects in a sample image using a pretrained model called YOLO8.\nList the objects present in this image."
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#object-detection-using-yolo",
-    "href": "slides/slides-19-computer-vision.html#object-detection-using-yolo",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Object detection using YOLO",
-    "text": "Object detection using YOLO\n\n\nLet’s try this out using a pre-trained model.\n\nfrom ultralytics import YOLO\nmodel = YOLO(\"yolov8n.pt\")  # pretrained YOLOv8n model\n\nyolo_input = \"data/yolo_test/3356700488_183566145b.jpg\"\nyolo_result = \"data/yolo_result.jpg\"\n# Run batched inference on a list of images\nresult = model(yolo_input)  # return a list of Results objects\nresult[0].save(filename=yolo_result)\n\nDownloading https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n.pt to 'yolov8n.pt'...\n\n\n\nimage 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 115.2ms\nSpeed: 1.5ms preprocess, 115.2ms inference, 7.9ms postprocess per image at shape (1, 3, 512, 640)\n\n\n'data/yolo_result.jpg'"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#object-detection-output",
-    "href": "slides/slides-19-computer-vision.html#object-detection-output",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Object detection output",
-    "text": "Object detection output"
-  },
-  {
-    "objectID": "slides/slides-19-computer-vision.html#summary",
-    "href": "slides/slides-19-computer-vision.html#summary",
-    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
-    "section": "Summary",
-    "text": "Summary\n\n\n\nNeural networks are a flexible class of models.\n\nThey are particular powerful for structured input like images, videos, audio, etc.\nThey can be challenging to train and often require significant computational resources.\n\nThe good news is we can use pre-trained neural networks.\n\nThis saves us a huge amount of time/cost/effort/resources.\nWe can use these pre-trained networks directly or use them as feature transformers."
-  },
-  {
     "objectID": "slides/slides-01-intro.html#learning-outcomes",
     "href": "slides/slides-01-intro.html#learning-outcomes",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Learning outcomes",
-    "text": "Learning outcomes\nFrom this lecture, you will be able to\n\nExplain the motivation behind study machine learning.\nBriefly describe supervised learning.\nDifferentiate between traditional programming and machine learning.\nAssess whether a given problem is suitable for a machine learning solution.\nNavigate through the course material.\nBe familiar with the policies and how the class is going to run."
+    "section": "🎯 Learning Outcomes",
+    "text": "🎯 Learning Outcomes\nBy the end of this module, you will be able to:\n\nExplain the difference between AI, ML, and DL\nDescribe what machine learning is and when it is appropriate to use ML-based solutions.\nIdentify different types of machine learning problems, such as classification, regression, clustering, and time series forecasting.\nRecognize common data types in machine learning, including tabular, text, and image data.\nEvaluate whether a machine learning solution is suitable for your problem or whether a rule-based or human-expert solution is more appropriate."
   },
   {
-    "objectID": "slides/slides-01-intro.html#qr-code-of-cpsc-330-website",
-    "href": "slides/slides-01-intro.html#qr-code-of-cpsc-330-website",
+    "objectID": "slides/slides-01-intro.html#cpsc-330-website",
+    "href": "slides/slides-01-intro.html#cpsc-330-website",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "QR code of CPSC 330 website",
-    "text": "QR code of CPSC 330 website\n\n\n\nCourse Jupyter book: https://ubc-cs.github.io/cpsc330-2024W1\nCourse GitHub repository: https://github.com/UBC-CS/cpsc330-2024W1"
+    "section": "CPSC 330 website",
+    "text": "CPSC 330 website\n\n\n\nCourse Jupyter book: https://ubc-cs.github.io/cpsc330-2025W1\nCourse GitHub repository: https://github.com/UBC-CS/cpsc330-2025W1"
   },
   {
     "objectID": "slides/slides-01-intro.html#meet-your-instructor",
     "href": "slides/slides-01-intro.html#meet-your-instructor",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Meet your instructor",
-    "text": "Meet your instructor\n\n\n\n\n\nVarada Kolhatkar [ʋəɾəda kɔːlɦəʈkər]\nYou can call me Varada, V, or Ada.\nI am an Assistant Professor of Teaching in the Department of Computer Science.\nI did my Ph.D. in Computational Linguistics at the University of Toronto.\nI primarily teach machine learning courses in the Master of Data Science (MDS) program.\nContact information\n\nEmail: kvarada@cs.ubc.ca\nOffice: ICCS 237"
+    "text": "Meet your instructor\n\n\n\n\n\nVarada Kolhatkar [ʋəɾəda kɔːlɦəʈkər]\nYou can call me Varada, V, or Ada.\nAssociate Professor of Teaching in the Department of Computer Science.\nPh.D. in Computational Linguistics at the University of Toronto.\nI primarily teach machine learning courses in the Master of Data Science (MDS) program.\nContact information\n\nEmail: kvarada@cs.ubc.ca\nOffice: ICCS 237"
   },
   {
     "objectID": "slides/slides-01-intro.html#meet-eva-a-fictitious-persona",
@@ -305,35 +39,140 @@
     "href": "slides/slides-01-intro.html#asking-questions-during-class",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Asking questions during class",
-    "text": "Asking questions during class\nYou are welcome to ask questions by raising your hand. There is also a reflection Google Document for this course for your questions/comments/reflections. It will be great if you can write about your takeaways, struggle points, and general comments in this document so that I’ll try to address those points in the next lecture."
+    "text": "Asking questions during class\n\nYou are welcome to ask questions by raising your hand.\nNo question is a stupid question.\nRecommended reading as you begin your learning journey: The Fear of Publicly Not Knowing\n\n\nWhat I quickly came to realize was that publicly not knowing wasn’t a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA."
   },
   {
-    "objectID": "slides/slides-01-intro.html#activity-1-httpsshorturl.atcteou",
-    "href": "slides/slides-01-intro.html#activity-1-httpsshorturl.atcteou",
+    "objectID": "slides/slides-01-intro.html#activity-1",
+    "href": "slides/slides-01-intro.html#activity-1",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Activity 1: https://shorturl.at/CteOU",
-    "text": "Activity 1: https://shorturl.at/CteOU\n\n\n\nWrite your answers to the questions below in this Google doc: https://shorturl.at/CteOU\nWhat do you know about machine learning?\nWhat would you like to get out this course?\nAre there any particular topics or aspects of this course that you are especially excited or anxious about? Why?"
+    "section": "Activity 1",
+    "text": "Activity 1\n\nDiscuss with you neighbour\n\nWhat do you know about machine learning?\nWhat would you like to get out this course?\nAre there any particular topics or aspects of this course that you are especially excited or anxious about? Why?"
   },
   {
-    "objectID": "slides/slides-01-intro.html#spam-prediction",
-    "href": "slides/slides-01-intro.html#spam-prediction",
+    "objectID": "slides/slides-01-intro.html#which-cat-do-you-think-is-ai-generated",
+    "href": "slides/slides-01-intro.html#which-cat-do-you-think-is-ai-generated",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Spam prediction",
-    "text": "Spam prediction\n\nSuppose you are given some data with labeled spam and non-spam messages\n\n\nCodeOutput\n\n\n\nsms_df = pd.read_csv(DATA_DIR + \"spam.csv\", encoding=\"latin-1\")\nsms_df = sms_df.drop(columns = [\"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"])\nsms_df = sms_df.rename(columns={\"v1\": \"target\", \"v2\": \"sms\"})\ntrain_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)\n\n\n\n\n\n\n\n\n\ntarget\nsms\n\n\n\n\nspam\nLookAtMe!: Thanks for your purchase of a video clip from LookAtMe!, you've been charged 35p. Think you can do better? Why not send a video in a MMSto 32323.\n\n\nham\nAight, I'll hit you up when I get some cash\n\n\nham\nDon no da:)whats you plan?\n\n\nham\nGoing to take your babe out ?\n\n\nham\nNo need lar. Jus testing e phone card. Dunno network not gd i thk. Me waiting 4 my sis 2 finish bathing so i can bathe. Dun disturb u liao u cleaning ur room."
+    "section": "Which cat do you think is AI-generated?",
+    "text": "Which cat do you think is AI-generated?\n\n\n\nSource\n\n\nA\nB\nBoth\nNone\n\n\n\nWhat clues did you use to decide?"
   },
   {
-    "objectID": "slides/slides-01-intro.html#traditional-programming-vs.-ml",
-    "href": "slides/slides-01-intro.html#traditional-programming-vs.-ml",
+    "objectID": "slides/slides-01-intro.html#what-is-ai-ml-dl",
+    "href": "slides/slides-01-intro.html#what-is-ai-ml-dl",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Traditional programming vs. ML",
-    "text": "Traditional programming vs. ML\n\nImagine writing a Python program for spam identification, i.e., whether a text message or an email is spam or non-spam.\nTraditional programming\n\nCome up with rules using human understanding of spam messages.\nTime consuming and hard to come up with robust set of rules.\n\nMachine learning\n\nCollect large amount of data of spam and non-spam emails and let the machine learning algorithm figure out rules."
+    "section": "What is AI, ML, DL?",
+    "text": "What is AI, ML, DL?\n\nArtificial Intelligence (AI): Making computers act smart\nMachine Learning (ML): Learning patterns from data\nDeep Learning (DL): Using neural networks to learn complex patterns"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#lets-walk-through-an-example",
+    "href": "slides/slides-01-intro.html#lets-walk-through-an-example",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Let’s walk through an example",
+    "text": "Let’s walk through an example\n\nHave you used search in Google Photos? You can search for “cat” and it will retrieve photos from your libraries containing cats.\nThis can be done using image classification."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#image-classification",
+    "href": "slides/slides-01-intro.html#image-classification",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Image classification",
+    "text": "Image classification\n\nImagine we want a system that can tell cats and foxes apart.\nHow might we do this with traditional programming? With ML?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage ID\nWhiskers Present\nEar Size\nFace Shape\nFur Color\nEye Shape\nLabel\n\n\n\n\n1\nYes\nSmall\nRound\nMixed\nRound\nCat\n\n\n2\nYes\nMedium\nRound\nBrown\nAlmond\nCat\n\n\n3\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n4\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n5\nYes\nSmall\nRound\nMixed\nRound\nCat\n\n\n6\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n7\nYes\nSmall\nRound\nGrey\nRound\nCat\n\n\n8\nYes\nSmall\nRound\nBlack\nRound\nCat\n\n\n9\nYes\nLarge\nPointed\nRed\nNarrow\nFox"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#traditional-programming-example",
+    "href": "slides/slides-01-intro.html#traditional-programming-example",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Traditional programming: example",
+    "text": "Traditional programming: example\n\n\n\n\n\nYou hard-code rules. If all of the following satisfy, it’s a fox.\n\npointed face ✅\nred fur ✅\nnarrow eyes ✅\n\n\nThis works for normal cases, but what if there are exceptions"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#ml-approach-example",
+    "href": "slides/slides-01-intro.html#ml-approach-example",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "ML approach: example",
+    "text": "ML approach: example\n\n\n\n\n\nWe don’t tell the model the exact rule. Instead, we give it many labeled images, and it learns probabilistic patterns across multiple features, not rigid rules.\n\nIf fur is red → 90% chance of Fox."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#dl-approach-example",
+    "href": "slides/slides-01-intro.html#dl-approach-example",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "DL approach: example",
+    "text": "DL approach: example\n\n\n\n\n\nA neural network automatically learns which features to look at (edges → textures → objects).\nNo need to even specify face shape or fur colour. It learns relevant features on its own."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#what-is-ml",
+    "href": "slides/slides-01-intro.html#what-is-ml",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "What is ML?",
+    "text": "What is ML?\n\nLearn patterns from examples (data)\nMake predictions, identify patterns, generate content\nML systems improve over time with more data\nNo single model fits all problems"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#when-to-use-ml",
+    "href": "slides/slides-01-intro.html#when-to-use-ml",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "When to use ML?",
+    "text": "When to use ML?\n\nWhen the problem can’t be solved with a fixed set of rules\nWhen you have lots of data and complex relationships\nWhen human decision-making is too slow or inconsistent\n\n\n\n\n\n\n\n\nApproach\nBest for\n\n\n\n\nTraditional Programming\nRules are known, data is clean/predictable\n\n\nMachine Learning\nRules are complex/unknown, data is noisy"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#example-supervised-classification",
+    "href": "slides/slides-01-intro.html#example-supervised-classification",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Example: Supervised classification",
+    "text": "Example: Supervised classification\n\nWe want to predict liver disease from tabular features:\n\n\n\n\n\n\nAge\nTotal_Bilirubin\nDirect_Bilirubin\nAlkaline_Phosphotase\nAlamine_Aminotransferase\nAspartate_Aminotransferase\nTotal_Protiens\nAlbumin\nAlbumin_and_Globulin_Ratio\nTarget\n\n\n\n\n40\n14.5\n6.4\n358\n50\n75\n5.7\n2.1\n0.50\nDisease\n\n\n33\n0.7\n0.2\n256\n21\n30\n8.5\n3.9\n0.80\nDisease\n\n\n24\n0.7\n0.2\n188\n11\n10\n5.5\n2.3\n0.71\nNo Disease\n\n\n60\n0.7\n0.2\n171\n31\n26\n7.0\n3.5\n1.00\nNo Disease\n\n\n18\n0.8\n0.2\n199\n34\n31\n6.5\n3.5\n1.16\nNo Disease"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#model-training",
+    "href": "slides/slides-01-intro.html#model-training",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Model training",
+    "text": "Model training\n\nfrom lightgbm.sklearn import LGBMClassifier\nmodel = LGBMClassifier(random_state=123, verbose=-1)\nmodel.fit(X_train, y_train)\n\nLGBMClassifier(random_state=123, verbose=-1)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LGBMClassifieriFitted\n        \n            \n                Parameters\n                \n\n\n\n\nboosting_type \n'gbdt'\n\n\n\nnum_leaves \n31\n\n\n\nmax_depth \n-1\n\n\n\nlearning_rate \n0.1\n\n\n\nn_estimators \n100\n\n\n\nsubsample_for_bin \n200000\n\n\n\nobjective \nNone\n\n\n\nclass_weight \nNone\n\n\n\nmin_split_gain \n0.0\n\n\n\nmin_child_weight \n0.001\n\n\n\nmin_child_samples \n20\n\n\n\nsubsample \n1.0\n\n\n\nsubsample_freq \n0\n\n\n\ncolsample_bytree \n1.0\n\n\n\nreg_alpha \n0.0\n\n\n\nreg_lambda \n0.0\n\n\n\nrandom_state \n123\n\n\n\nn_jobs \nNone\n\n\n\nimportance_type \n'split'\n\n\n\nverbose \n-1"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#new-examples",
+    "href": "slides/slides-01-intro.html#new-examples",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "New examples",
+    "text": "New examples\n\nGiven features of new patients below we’ll use this model to predict whether these patients have the liver disease or not.\n\n\n\n\n\n\nAge\nTotal_Bilirubin\nDirect_Bilirubin\nAlkaline_Phosphotase\nAlamine_Aminotransferase\nAspartate_Aminotransferase\nTotal_Protiens\nAlbumin\nAlbumin_and_Globulin_Ratio\n\n\n\n\n19\n1.4\n0.8\n178\n13\n26\n8.0\n4.6\n1.30\n\n\n12\n1.0\n0.2\n719\n157\n108\n7.2\n3.7\n1.00\n\n\n60\n5.7\n2.8\n214\n412\n850\n7.3\n3.2\n0.78\n\n\n42\n0.5\n0.1\n162\n155\n108\n8.1\n4.0\n0.90"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#model-predictions-on-new-examples",
+    "href": "slides/slides-01-intro.html#model-predictions-on-new-examples",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Model predictions on new examples",
+    "text": "Model predictions on new examples\n\nLet’s examine predictions\n\n\npred_df = pd.DataFrame({\"Predicted_target\": model.predict(X_test).tolist()})\ndf_concat = pd.concat([pred_df, X_test.reset_index(drop=True)], axis=1)\nHTML(df_concat.to_html(index=False))\n\n\n\n\nPredicted_target\nAge\nTotal_Bilirubin\nDirect_Bilirubin\nAlkaline_Phosphotase\nAlamine_Aminotransferase\nAspartate_Aminotransferase\nTotal_Protiens\nAlbumin\nAlbumin_and_Globulin_Ratio\n\n\n\n\nNo Disease\n19\n1.4\n0.8\n178\n13\n26\n8.0\n4.6\n1.30\n\n\nDisease\n12\n1.0\n0.2\n719\n157\n108\n7.2\n3.7\n1.00\n\n\nDisease\n60\n5.7\n2.8\n214\n412\n850\n7.3\n3.2\n0.78\n\n\nDisease\n42\n0.5\n0.1\n162\n155\n108\n8.1\n4.0\n0.90"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#example-supervised-regression",
+    "href": "slides/slides-01-intro.html#example-supervised-regression",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Example: Supervised regression",
+    "text": "Example: Supervised regression\nSuppose we want to predict housing prices given a number of attributes associated with houses. The target here is continuous and not discrete.\n\n\n\n\n\ntarget\nbedrooms\nbathrooms\nsqft_living\nsqft_lot\nfloors\nwaterfront\nview\ncondition\ngrade\nsqft_above\nsqft_basement\nyr_built\nyr_renovated\nzipcode\nlat\nlong\nsqft_living15\nsqft_lot15\n\n\n\n\n509000.0\n2\n1.50\n1930\n3521\n2.0\n0\n0\n3\n8\n1930\n0\n1989\n0\n98007\n47.6092\n-122.146\n1840\n3576\n\n\n675000.0\n5\n2.75\n2570\n12906\n2.0\n0\n0\n3\n8\n2570\n0\n1987\n0\n98075\n47.5814\n-122.050\n2580\n12927\n\n\n420000.0\n3\n1.00\n1150\n5120\n1.0\n0\n0\n4\n6\n800\n350\n1946\n0\n98116\n47.5588\n-122.392\n1220\n5120\n\n\n680000.0\n8\n2.75\n2530\n4800\n2.0\n0\n0\n4\n7\n1390\n1140\n1901\n0\n98112\n47.6241\n-122.305\n1540\n4800\n\n\n357823.0\n3\n1.50\n1240\n9196\n1.0\n0\n0\n3\n8\n1240\n0\n1968\n0\n98072\n47.7562\n-122.094\n1690\n10800"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#building-a-regression-model",
+    "href": "slides/slides-01-intro.html#building-a-regression-model",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Building a regression model",
+    "text": "Building a regression model\n\nfrom lightgbm.sklearn import LGBMRegressor\n\nX_train, y_train = train_df.drop(columns= [\"target\"]), train_df[\"target\"]\nX_test, y_test = test_df.drop(columns= [\"target\"]), train_df[\"target\"]\n\nmodel = LGBMRegressor()\nmodel.fit(X_train, y_train);"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#predicting-prices-of-unseen-houses",
+    "href": "slides/slides-01-intro.html#predicting-prices-of-unseen-houses",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Predicting prices of unseen houses",
+    "text": "Predicting prices of unseen houses\n\npred_df = pd.DataFrame(\n    {\"Predicted_target\": model.predict(X_test[0:4]).tolist()}\n)\ndf_concat = pd.concat([pred_df, X_test[0:4].reset_index(drop=True)], axis=1)\nHTML(df_concat.to_html(index=False))\n\n\n\n\nPredicted_target\nbedrooms\nbathrooms\nsqft_living\nsqft_lot\nfloors\nwaterfront\nview\ncondition\ngrade\nsqft_above\nsqft_basement\nyr_built\nyr_renovated\nzipcode\nlat\nlong\nsqft_living15\nsqft_lot15\n\n\n\n\n345831.740542\n4\n2.25\n2130\n8078\n1.0\n0\n0\n4\n7\n1380\n750\n1977\n0\n98055\n47.4482\n-122.209\n2300\n8112\n\n\n601042.018745\n3\n2.50\n2210\n7620\n2.0\n0\n0\n3\n8\n2210\n0\n1994\n0\n98052\n47.6938\n-122.130\n1920\n7440\n\n\n311310.186024\n4\n1.50\n1800\n9576\n1.0\n0\n0\n4\n7\n1800\n0\n1977\n0\n98045\n47.4664\n-121.747\n1370\n9576\n\n\n597555.592401\n3\n2.50\n1580\n1321\n2.0\n0\n2\n3\n8\n1080\n500\n2014\n0\n98107\n47.6688\n-122.402\n1530\n1357\n\n\n\n\n\nWe are predicting continuous values here as apposed to discrete values in disease vs. no disease example."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#example-text-classification",
+    "href": "slides/slides-01-intro.html#example-text-classification",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Example: Text classification",
+    "text": "Example: Text classification\n\nSuppose you are given some data with labeled spam and non-spam messages and you want to predict whether a new message is spam or not spam.\n\n\nCodeOutput\n\n\n\nsms_df = pd.read_csv(DATA_DIR + \"spam.csv\", encoding=\"latin-1\")\nsms_df = sms_df.drop(columns = [\"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"])\nsms_df = sms_df.rename(columns={\"v1\": \"target\", \"v2\": \"sms\"})\ntrain_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)\n\n\n\n\n\n\n\n\n\ntarget\nsms\n\n\n\n\nspam\nLookAtMe!: Thanks for your purchase of a video clip from LookAtMe!, you've been charged 35p. Think you can do better? Why not send a video in a MMSto 32323.\n\n\nham\nAight, I'll hit you up when I get some cash\n\n\nham\nDon no da:)whats you plan?\n\n\nham\nGoing to take your babe out ?\n\n\nham\nNo need lar. Jus testing e phone card. Dunno network not gd i thk. Me waiting 4 my sis 2 finish bathing so i can bathe. Dun disturb u liao u cleaning ur room."
   },
   {
     "objectID": "slides/slides-01-intro.html#lets-train-a-model",
     "href": "slides/slides-01-intro.html#lets-train-a-model",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Let’s train a model",
-    "text": "Let’s train a model\n\nThere are several packages that help us perform machine learning.\n\n\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\nclf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))\nclf.fit(X_train, y_train); # Training the model"
+    "text": "Let’s train a model\n\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\nclf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))\nclf.fit(X_train, y_train) # Training the model\n\nPipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),\n                ('logisticregression', LogisticRegression(max_iter=5000))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\nsteps \n[('countvectorizer', ...), ('logisticregression', ...)]\n\n\n\ntransform_input \nNone\n\n\n\nmemory \nNone\n\n\n\nverbose \nFalse\n\n\n\n\n            \n        \n    CountVectorizer?Documentation for CountVectorizer\n        \n            \n                Parameters\n                \n\n\n\n\ninput \n'content'\n\n\n\nencoding \n'utf-8'\n\n\n\ndecode_error \n'strict'\n\n\n\nstrip_accents \nNone\n\n\n\nlowercase \nTrue\n\n\n\npreprocessor \nNone\n\n\n\ntokenizer \nNone\n\n\n\nstop_words \nNone\n\n\n\ntoken_pattern \n'(?u)\\\\b\\\\w\\\\w+\\\\b'\n\n\n\nngram_range \n(1, ...)\n\n\n\nanalyzer \n'word'\n\n\n\nmax_df \n1.0\n\n\n\nmin_df \n1\n\n\n\nmax_features \n5000\n\n\n\nvocabulary \nNone\n\n\n\nbinary \nFalse\n\n\n\ndtype \n&lt;class 'numpy.int64'&gt;\n\n\n\n\n            \n        \n    LogisticRegression?Documentation for LogisticRegression\n        \n            \n                Parameters\n                \n\n\n\n\npenalty \n'l2'\n\n\n\ndual \nFalse\n\n\n\ntol \n0.0001\n\n\n\nC \n1.0\n\n\n\nfit_intercept \nTrue\n\n\n\nintercept_scaling \n1\n\n\n\nclass_weight \nNone\n\n\n\nrandom_state \nNone\n\n\n\nsolver \n'lbfgs'\n\n\n\nmax_iter \n5000\n\n\n\nmulti_class \n'deprecated'\n\n\n\nverbose \n0\n\n\n\nwarm_start \nFalse\n\n\n\nn_jobs \nNone\n\n\n\nl1_ratio \nNone"
   },
   {
     "objectID": "slides/slides-01-intro.html#unseen-messages",
@@ -350,32 +189,102 @@
     "text": "Predicting on unseen data\nThe model is accurately predicting labels for the unseen text messages above!\n\n\n\n\n\n\n\n \nsms\nspam_predictions\n\n\n\n\n3245\nFunny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens\nham\n\n\n944\nI sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one me the less expensive ones\nham\n\n\n1044\nWe know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p\nspam\n\n\n2484\nOnly if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.\nham"
   },
   {
-    "objectID": "slides/slides-01-intro.html#a-different-way-to-solve-problems",
-    "href": "slides/slides-01-intro.html#a-different-way-to-solve-problems",
+    "objectID": "slides/slides-01-intro.html#examplel-text-classification-with-llms",
+    "href": "slides/slides-01-intro.html#examplel-text-classification-with-llms",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "A different way to solve problems",
-    "text": "A different way to solve problems\nMachine learning uses computer programs to model data. It can be used to extract hidden patterns, make predictions in new situation, or generate novel content.\n\nA field of study that gives computers the ability to learn without being explicitly programmed.  – Arthur Samuel (1959)"
+    "section": "Examplel: Text classification with LLMs",
+    "text": "Examplel: Text classification with LLMs\n \n\nfrom transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer\n# Sentiment analysis pipeline\nanalyzer = pipeline(\"sentiment-analysis\", model='distilbert-base-uncased-finetuned-sst-2-english')\nanalyzer([\"I asked my model to predict my future, and it said '404: Life not found.'\",\n          '''Machine learning is just like cooking—sometimes you follow the recipe, \n            and other times you just hope for the best!.'''])\n\n[{'label': 'NEGATIVE', 'score': 0.995707631111145},\n {'label': 'POSITIVE', 'score': 0.9994770884513855}]"
   },
   {
-    "objectID": "slides/slides-01-intro.html#ml-vs.-traditional-programming",
-    "href": "slides/slides-01-intro.html#ml-vs.-traditional-programming",
+    "objectID": "slides/slides-01-intro.html#zero-shot-learning",
+    "href": "slides/slides-01-intro.html#zero-shot-learning",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "ML vs. traditional programming",
-    "text": "ML vs. traditional programming\n\nWith machine learning, you’re likely to\n\nSave time\nCustomize and scale products"
+    "section": "Zero-shot learning",
+    "text": "Zero-shot learning\n\n\n\nNow suppose you want to identify the emotion expressed in the text rather than just positive or negative.\n\n\n\n\n['im feeling rather rotten so im not very ambitious right now',\n 'im updating my blog because i feel shitty',\n 'i never make her separate from me because i don t ever want her to feel like i m ashamed with her',\n 'i left with my bouquet of red and yellow tulips under my arm feeling slightly more optimistic than when i arrived',\n 'i was feeling a little vain when i did this one',\n 'i cant walk into a shop anywhere where i do not feel uncomfortable',\n 'i felt anger when at the end of a telephone call',\n 'i explain why i clung to a relationship with a boy who was in many ways immature and uncommitted despite the excitement i should have been feeling for getting accepted into the masters program at the university of virginia',\n 'i like to have the same breathless feeling as a reader eager to see what will happen next',\n 'i jest i feel grumpy tired and pre menstrual which i probably am but then again its only been a week and im about as fit as a walrus on vacation for the summer']"
   },
   {
-    "objectID": "slides/slides-01-intro.html#prevalence-of-ml",
-    "href": "slides/slides-01-intro.html#prevalence-of-ml",
+    "objectID": "slides/slides-01-intro.html#zero-shot-learning-for-emotion-detection",
+    "href": "slides/slides-01-intro.html#zero-shot-learning-for-emotion-detection",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Prevalence of ML",
-    "text": "Prevalence of ML\nLet’s look at some examples."
+    "section": "Zero-shot learning for emotion detection",
+    "text": "Zero-shot learning for emotion detection\n\n\n\nfrom transformers import AutoTokenizer\nfrom transformers import pipeline \nimport torch\n\n#Load the pretrained model\nmodel_name = \"facebook/bart-large-mnli\"\nclassifier = pipeline('zero-shot-classification', model=model_name)\nexs = dataset[\"test\"][\"text\"][10:20]\ncandidate_labels = [\"sadness\", \"joy\", \"love\",\"anger\", \"fear\", \"surprise\"]\noutputs = classifier(exs, candidate_labels)"
   },
   {
-    "objectID": "slides/slides-01-intro.html#activity-for-what-type-of-problems-ml-is-appropriate-5-mins",
-    "href": "slides/slides-01-intro.html#activity-for-what-type-of-problems-ml-is-appropriate-5-mins",
+    "objectID": "slides/slides-01-intro.html#zero-shot-learning-for-emotion-detection-1",
+    "href": "slides/slides-01-intro.html#zero-shot-learning-for-emotion-detection-1",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Activity: For what type of problems ML is appropriate? (~5 mins)",
-    "text": "Activity: For what type of problems ML is appropriate? (~5 mins)\nDiscuss with your neighbour for which of the following problems you would use machine learning\n\nFinding a list of prime numbers up to a limit\nGiven an image, automatically identifying and labeling objects in the image\nFinding the distance between two nodes in a graph"
+    "section": "Zero-shot learning for emotion detection",
+    "text": "Zero-shot learning for emotion detection\n\n\n\n\n\n\n\n\n\n\n\n\nsequence\nlabels\nscores\n\n\n\n\n0\ni don t feel particularly agitated\n[surprise, anger, joy, sadness, fear, love]\n[0.360086590051651, 0.3019047975540161, 0.11901281774044037, 0.11381449550390244, 0.060391612350940704, 0.04478970915079117]\n\n\n1\ni feel beautifully emotional knowing that these women of whom i knew just a handful were holding me and my baba on our journey\n[joy, love, surprise, fear, sadness, anger]\n[0.36994314193725586, 0.2887154817581177, 0.25607964396476746, 0.04292308911681175, 0.03344891220331192, 0.008889704942703247]\n\n\n2\ni pay attention it deepens into a feeling of being invaded and helpless\n[fear, surprise, sadness, anger, joy, love]\n[0.34146907925605774, 0.3088078498840332, 0.25616830587387085, 0.07989830523729324, 0.007844790816307068, 0.005811698734760284]\n\n\n3\ni just feel extremely comfortable with the group of people that i dont even need to hide myself\n[joy, surprise, love, sadness, anger, fear]\n[0.3305220901966095, 0.29472312331199646, 0.15343144536018372, 0.07691436260938644, 0.07596738636493683, 0.06844153255224228]\n\n\n4\ni find myself in the odd position of feeling supportive of\n[surprise, joy, fear, love, sadness, anger]\n[0.8287988901138306, 0.04317942634224892, 0.039773669093847275, 0.031413134187459946, 0.031412459909915924, 0.025422409176826477]\n\n\n5\ni was feeling as heartbroken as im sure katniss was\n[sadness, surprise, fear, love, anger, joy]\n[0.7667969465255737, 0.1818471997976303, 0.025871198624372482, 0.011756820604205132, 0.008171578869223595, 0.005556156858801842]\n\n\n6\ni feel a little mellow today\n[surprise, joy, love, fear, sadness, anger]\n[0.49373722076416016, 0.26321911811828613, 0.113678477704525, 0.06402145326137543, 0.050955016165971756, 0.01438874565064907]\n\n\n7\ni feel like my only role now would be to tear your sails with my pessimism and discontent\n[sadness, anger, surprise, fear, joy, love]\n[0.6992796063423157, 0.20048746466636658, 0.06185894086956978, 0.03287427872419357, 0.00364686525426805, 0.0018528560176491737]\n\n\n8\ni feel just bcoz a fight we get mad to each other n u wanna make a publicity n let the world knows about our fight\n[anger, surprise, sadness, fear, joy, love]\n[0.6029903292655945, 0.19827111065387726, 0.10198860615491867, 0.08116946369409561, 0.01011708565056324, 0.005463303066790104]\n\n\n9\ni feel like reds and purples are just so rich and kind of perfect\n[joy, surprise, love, anger, fear, sadness]\n[0.3644145727157593, 0.3051210045814514, 0.19462504982948303, 0.055566269904375076, 0.05413524806499481, 0.026137862354516983]"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#example-predicting-labels-of-a-given-image",
+    "href": "slides/slides-01-intro.html#example-predicting-labels-of-a-given-image",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Example: Predicting labels of a given image",
+    "text": "Example: Predicting labels of a given image\n\nSuppose you have a bunch of animal images. You do not have any labels associated with them and you want to predict labels of these images.\nWe can use machine learning to predict labels of these images using a technique called transfer learning.\n\n\n\n\n\n\n\n\n\n\n\n                         Class  Probability score\n                     tiger cat              0.636\n              tabby, tabby cat              0.174\nPembroke, Pembroke Welsh corgi              0.081\n               lynx, catamount              0.011\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                     Class  Probability score\n         cheetah, chetah, Acinonyx jubatus              0.994\n                  leopard, Panthera pardus              0.005\njaguar, panther, Panthera onca, Felis onca              0.001\n       snow leopard, ounce, Panthera uncia              0.000\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                   Class  Probability score\n                                 macaque              0.885\npatas, hussar monkey, Erythrocebus patas              0.062\n      proboscis monkey, Nasalis larvatus              0.015\n                       titi, titi monkey              0.010\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                        Class  Probability score\nWalker hound, Walker foxhound              0.582\n             English foxhound              0.144\n                       beagle              0.068\n                  EntleBucher              0.059\n--------------------------------------------------------------\n\n\n\n:::"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#finding-groups-in-food-images",
+    "href": "slides/slides-01-intro.html#finding-groups-in-food-images",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Finding groups in food images",
+    "text": "Finding groups in food images"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#k-means-on-food-dataset",
+    "href": "slides/slides-01-intro.html#k-means-on-food-dataset",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "K-Means on food dataset",
+    "text": "K-Means on food dataset\n\n\n\ndensenet = models.densenet121(weights=\"DenseNet121_Weights.IMAGENET1K_V1\")\ndensenet.classifier = torch.nn.Identity()  # remove that last \"classification\" layer\n\n\nZ_food = get_features_unsup(densenet, food_inputs)\nk = 5\nkm = KMeans(n_clusters=k, n_init='auto', random_state=123)\nkm.fit(Z_food)\n\nKMeans(n_clusters=5, random_state=123)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.KMeans?Documentation for KMeansiFitted\n        \n            \n                Parameters\n                \n\n\n\n\nn_clusters \n5\n\n\n\ninit \n'k-means++'\n\n\n\nn_init \n'auto'\n\n\n\nmax_iter \n300\n\n\n\ntol \n0.0001\n\n\n\nverbose \n0\n\n\n\nrandom_state \n123\n\n\n\ncopy_x \nTrue\n\n\n\nalgorithm \n'lloyd'"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#examining-food-clusters",
+    "href": "slides/slides-01-intro.html#examining-food-clusters",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Examining food clusters",
+    "text": "Examining food clusters\n\n\n\n\nfor cluster in range(k):\n    get_cluster_images(km, Z_food, X_food, cluster, n_img=6)\n\n39\nImage indices:  [ 39 197  12  14 138 181]\n\n\n\n\n\n\n\n\n\n228\nImage indices:  [228  65 128  54 175 260]\n\n\n\n\n\n\n\n\n\n138\nImage indices:  [138  54 185 278  39  89]\n\n\n\n\n\n\n\n\n\n193\nImage indices:  [193  39 145 212 169 108]\n\n\n\n\n\n\n\n\n\n120\nImage indices:  [120 268 244  94  72  87]"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#example-finding-most-similar-items",
+    "href": "slides/slides-01-intro.html#example-finding-most-similar-items",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Example: Finding most similar items",
+    "text": "Example: Finding most similar items\n\nConsider the following titles and queries.\n\n\n# Corpus of existing paper titles or abstracts\ncorpus = [\n    \"Mapping eelgrass beds in British Columbia using remote sensing\",\n    \"Bayesian optimization for reaction discovery and yield improvement\",\n    \"RNA-seq analysis of microbiome interactions and infection susceptibility\",\n    \"Using YOLOv8 for automatic object detection in microscopy images\",\n    \"Anomaly detection in ocean temperature sensor data with machine learning\",\n    \"Embedding-based literature recommendation using scientific abstracts\"\n]\n\n# List of new queries to compare\nqueries = [\n    \"Predicting yield of chemical reactions using optimization techniques\",\n    \"Tracking changes in marine vegetation through drone imagery\",\n    \"Detecting patterns of infection from gene expression data\",\n    \"Literature discovery using sentence embeddings and neural search\",\n    \"Outlier detection in sensor measurements from ocean buoys\"\n]"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles",
+    "href": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Which queries are similar to which titles?",
+    "text": "Which queries are similar to which titles?\n\nfrom sentence_transformers import SentenceTransformer, util\nimport numpy as np\n\n# Load the MiniLM model\nmodel = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')\n\n# Encode corpus and queries\ncorpus_embeddings = model.encode(corpus, convert_to_tensor=True).cpu()\nquery_embeddings = model.encode(queries, convert_to_tensor=True).cpu()\n\n# Set number of top matches to show\ntop_k = 1"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles-1",
+    "href": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles-1",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Which queries are similar to which titles?",
+    "text": "Which queries are similar to which titles?\n\n\n\n\n🔍 Query 1: Predicting yield of chemical reactions using optimization techniques\n   ➤ Match 1: Bayesian optimization for reaction discovery and yield improvement\n     Cosine similarity: 0.7420\n\n🔍 Query 2: Tracking changes in marine vegetation through drone imagery\n   ➤ Match 1: Mapping eelgrass beds in British Columbia using remote sensing\n     Cosine similarity: 0.5305\n\n🔍 Query 3: Detecting patterns of infection from gene expression data\n   ➤ Match 1: RNA-seq analysis of microbiome interactions and infection susceptibility\n     Cosine similarity: 0.4292\n\n🔍 Query 4: Literature discovery using sentence embeddings and neural search\n   ➤ Match 1: Embedding-based literature recommendation using scientific abstracts\n     Cosine similarity: 0.5649\n\n🔍 Query 5: Outlier detection in sensor measurements from ocean buoys\n   ➤ Match 1: Anomaly detection in ocean temperature sensor data with machine learning\n     Cosine similarity: 0.6847"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#questions-for-you",
+    "href": "slides/slides-01-intro.html#questions-for-you",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "❓❓ Questions for you",
+    "text": "❓❓ Questions for you\niClicker cloud join link:\nSelect all that apply: Which problems are suitable for ML?\n\n\nChecking if a UBC email address ends with @student.ubc.ca before allowing login\n\n\nDeciding which students should be awarded a scholarship based on their personal essays\n\n\nPredicting which songs you’ll like based on your Spotify listening history\n\n\nDetecting plagiarism by checking if two essays are exactly identical\n\n\nAutomatically tagging photos of your friends on Instagram"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#summary-when-is-ml-suitable",
+    "href": "slides/slides-01-intro.html#summary-when-is-ml-suitable",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Summary: When is ML suitable?",
+    "text": "Summary: When is ML suitable?\n\n\n\n\n\n\n\nApproach\nBest Used When…\n\n\n\n\nMachine Learning\nThe dataset is large and complex, and the decision rules are unknown, fuzzy, or too complex to define explicitly\n\n\nRule-based System\nThe logic is clear and deterministic, and the rules or thresholds are known and stable\n\n\nHuman Expert\nThe problem involves ethics, creativity, emotion, or ambiguity that can’t be formalized easily"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#activity-2",
+    "href": "slides/slides-01-intro.html#activity-2",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Activity 2",
+    "text": "Activity 2\nThink of a problem you have come across in the past which could be solved using machine learning.\n\nWhat would be the input and output?\nHow do humans solve this now? Are there heuristics or rules?\nWhat kind of data do you have or could you collect?"
   },
   {
     "objectID": "slides/slides-01-intro.html#types-of-machine-learning",
@@ -399,46 +308,11 @@
     "text": "🤔 Eva’s questions\n\n\nAt this point, Eva is wondering about many questions.\n\nHow are we exactly “learning” whether a message is spam and ham?\nAre we expected to get correct predictions for all possible messages? How does it predict the label for a message it has not seen before?\n\nWhat if the model mis-labels an unseen example? For instance, what if the model incorrectly predicts a non-spam as a spam? What would be the consequences?\nHow do we measure the success or failure of spam identification?\nIf you want to use this model in the wild, how do you know how reliable it is?\n\nWould it be useful to know how confident the model is about the predictions rather than just a yes or a no?\n\nIt’s great to think about these questions right now. But Eva has to be patient. By the end of this course you’ll know answers to many of these questions!"
   },
   {
-    "objectID": "slides/slides-01-intro.html#predicting-labels-of-a-given-image",
-    "href": "slides/slides-01-intro.html#predicting-labels-of-a-given-image",
+    "objectID": "slides/slides-01-intro.html#break",
+    "href": "slides/slides-01-intro.html#break",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Predicting labels of a given image",
-    "text": "Predicting labels of a given image\n\nWe can also use machine learning to predict labels of given images using a technique called transfer learning.\n\n\n\n\n\n\n\n\n\n\n\n                         Class  Probability score\n                     tiger cat              0.636\n              tabby, tabby cat              0.174\nPembroke, Pembroke Welsh corgi              0.081\n               lynx, catamount              0.011\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                     Class  Probability score\n         cheetah, chetah, Acinonyx jubatus              0.994\n                  leopard, Panthera pardus              0.005\njaguar, panther, Panthera onca, Felis onca              0.001\n       snow leopard, ounce, Panthera uncia              0.000\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                   Class  Probability score\n                                 macaque              0.885\npatas, hussar monkey, Erythrocebus patas              0.062\n      proboscis monkey, Nasalis larvatus              0.015\n                       titi, titi monkey              0.010\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                        Class  Probability score\nWalker hound, Walker foxhound              0.582\n             English foxhound              0.144\n                       beagle              0.068\n                  EntleBucher              0.059\n--------------------------------------------------------------"
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#predicting-housing-prices",
-    "href": "slides/slides-01-intro.html#predicting-housing-prices",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Predicting housing prices",
-    "text": "Predicting housing prices\nSuppose we want to predict housing prices given a number of attributes associated with houses. The target here is continuous and not discrete.\n\n\n\n\n\ntarget\nbedrooms\nbathrooms\nsqft_living\nsqft_lot\nfloors\nwaterfront\nview\ncondition\ngrade\nsqft_above\nsqft_basement\nyr_built\nyr_renovated\nzipcode\nlat\nlong\nsqft_living15\nsqft_lot15\n\n\n\n\n509000.0\n2\n1.50\n1930\n3521\n2.0\n0\n0\n3\n8\n1930\n0\n1989\n0\n98007\n47.6092\n-122.146\n1840\n3576\n\n\n675000.0\n5\n2.75\n2570\n12906\n2.0\n0\n0\n3\n8\n2570\n0\n1987\n0\n98075\n47.5814\n-122.050\n2580\n12927\n\n\n420000.0\n3\n1.00\n1150\n5120\n1.0\n0\n0\n4\n6\n800\n350\n1946\n0\n98116\n47.5588\n-122.392\n1220\n5120\n\n\n680000.0\n8\n2.75\n2530\n4800\n2.0\n0\n0\n4\n7\n1390\n1140\n1901\n0\n98112\n47.6241\n-122.305\n1540\n4800\n\n\n357823.0\n3\n1.50\n1240\n9196\n1.0\n0\n0\n3\n8\n1240\n0\n1968\n0\n98072\n47.7562\n-122.094\n1690\n10800"
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#building-a-regression-model",
-    "href": "slides/slides-01-intro.html#building-a-regression-model",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Building a regression model",
-    "text": "Building a regression model\n\nfrom lightgbm.sklearn import LGBMRegressor\n\nX_train, y_train = train_df.drop(columns= [\"target\"]), train_df[\"target\"]\nX_test, y_test = test_df.drop(columns= [\"target\"]), train_df[\"target\"]\n\nmodel = LGBMRegressor()\nmodel.fit(X_train, y_train);\n\n[LightGBM] [Info] Auto-choosing row-wise multi-threading, the overhead of testing was 0.000636 seconds.\nYou can set `force_row_wise=true` to remove the overhead.\nAnd if memory is not enough, you can set `force_col_wise=true`.\n[LightGBM] [Info] Total Bins 2333\n[LightGBM] [Info] Number of data points in the train set: 17290, number of used features: 18\n[LightGBM] [Info] Start training from score 539762.702545"
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#predicting-prices-of-unseen-houses",
-    "href": "slides/slides-01-intro.html#predicting-prices-of-unseen-houses",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Predicting prices of unseen houses",
-    "text": "Predicting prices of unseen houses\n\n\n\n\n\nPredicted_target\nbedrooms\nbathrooms\nsqft_living\nsqft_lot\nfloors\nwaterfront\nview\ncondition\ngrade\nsqft_above\nsqft_basement\nyr_built\nyr_renovated\nzipcode\nlat\nlong\nsqft_living15\nsqft_lot15\n\n\n\n\n345831.740542\n4\n2.25\n2130\n8078\n1.0\n0\n0\n4\n7\n1380\n750\n1977\n0\n98055\n47.4482\n-122.209\n2300\n8112\n\n\n601042.018745\n3\n2.50\n2210\n7620\n2.0\n0\n0\n3\n8\n2210\n0\n1994\n0\n98052\n47.6938\n-122.130\n1920\n7440\n\n\n311310.186024\n4\n1.50\n1800\n9576\n1.0\n0\n0\n4\n7\n1800\n0\n1977\n0\n98045\n47.4664\n-121.747\n1370\n9576\n\n\n597555.592401\n3\n2.50\n1580\n1321\n2.0\n0\n2\n3\n8\n1080\n500\n2014\n0\n98107\n47.6688\n-122.402\n1530\n1357\n\n\n\n\n\nWe are predicting continuous values here as apposed to discrete values in spam vs. ham example."
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#machine-learning-workflow",
-    "href": "slides/slides-01-intro.html#machine-learning-workflow",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Machine learning workflow",
-    "text": "Machine learning workflow\nSupervised machine learning is quite flexible; it can be used on a variety of problems and different kinds of data. Here is a typical workflow of a supervised machine learning systems.\n\n\n\n\n\n\nWe will build machine learning pipelines in this course, focusing on some of the steps above."
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#questions-for-you",
-    "href": "slides/slides-01-intro.html#questions-for-you",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "❓❓ Questions for you",
-    "text": "❓❓ Questions for you\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are True (iClicker)\n\n\nPredicting spam is an example of machine learning.\n\n\nPredicting housing prices is not an example of machine learning.\n\n\nFor problems such as spelling correction, translation, face recognition, spam identification, if you are a domain expert, it’s usually faster and scalable to come up with a robust set of rules manually rather than building a machine learning model.\n\n\nIf you are asked to write a program to find all prime numbers up to a limit, it is better to implement one of the algorithms for doing so rather than using machine learning.\n\n\nGoogle News is likely be using machine learning to organize news."
+    "section": "Break",
+    "text": "Break"
   },
   {
     "objectID": "slides/slides-01-intro.html#surveys",
@@ -452,14 +326,14 @@
     "href": "slides/slides-01-intro.html#about-this-course",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "About this course",
-    "text": "About this course\n\n\n\n\n\n\nImportant\n\n\nCourse website: https://github.com/UBC-CS/cpsc330-2024W1 is the most important link. Please read everything on this GitHub page!\n\n\n\n\n\n\n\n\n\nImportant\n\n\nMake sure you go through the syllabus thoroughly and complete the syllabus quiz before Monday, Sept 19th at 11:59pm."
+    "text": "About this course\n\n\n\n\n\n\nImportant\n\n\nCourse website: https://github.com/UBC-CS/cpsc330-2025W1 is the most important link. Please read everything on this GitHub page!\n\n\n\n\n\n\n\n\n\nImportant\n\n\nMake sure you go through the syllabus thoroughly and complete the syllabus quiz before Monday, Sept 19th at 11:59pm."
   },
   {
     "objectID": "slides/slides-01-intro.html#cpsc-330-vs.-340",
     "href": "slides/slides-01-intro.html#cpsc-330-vs.-340",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "CPSC 330 vs. 340",
-    "text": "CPSC 330 vs. 340\nRead https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/330_vs_340.md which explains the difference between two courses.\nTLDR:\n\n340: how do ML models work?\n330: how do I use ML models?\nCPSC 340 has many prerequisites.\nCPSC 340 goes deeper but has a more narrow scope.\nI think CPSC 330 will be more useful if you just plan to apply basic ML."
+    "text": "CPSC 330 vs. 340\nRead https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md which explains the difference between two courses.\nTLDR:\n\n340: how do ML models work?\n330: how do I use ML models?\nCPSC 340 has many prerequisites.\nCPSC 340 goes deeper but has a more narrow scope.\nI think CPSC 330 will be more useful if you just plan to apply basic ML."
   },
   {
     "objectID": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",
@@ -480,7 +354,7 @@
     "href": "slides/slides-01-intro.html#home-work-assignments",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Home work assignments",
-    "text": "Home work assignments\n\nFirst homework assignment is due this coming Tuesday, September 10, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
+    "text": "Home work assignments\n\nFirst homework assignment is due this coming Tuesday, September 9, midnight. This is a relatively straightforward assignment on Python. If you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
   },
   {
     "objectID": "slides/slides-01-intro.html#exams",
@@ -494,7 +368,7 @@
     "href": "slides/slides-01-intro.html#course-calendar",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Course calendar",
-    "text": "Course calendar\nHere is our course Calendar. Make sure you check it on a regular basis:\nhttps://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2024W1/blob/main/docs/calendar.html"
+    "text": "Course calendar\nHere is our course Calendar. Make sure you check it on a regular basis:\nhttps://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html"
   },
   {
     "objectID": "slides/slides-01-intro.html#course-structure",
@@ -536,7 +410,7 @@
     "href": "slides/slides-01-intro.html#lecture-notes",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Lecture notes",
-    "text": "Lecture notes\n\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.\nA “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2024W1/tree/main/lectures/102-Varada-lectures"
+    "text": "Lecture notes\n\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.\nA “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures"
   },
   {
     "objectID": "slides/slides-01-intro.html#grades",
@@ -572,6 +446,174 @@
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Checklist for you before the next class",
     "text": "Checklist for you before the next class\n\nAre you able to access course Canvas shell?\nAre you able to access course Piazza?\nAre you able to access Gradescope? (If not, refer to the Gradescope Student Guide.)\nAre you able to access iClicker Cloud for this course?\nDid you follow the setup instructions here to create a course conda environment on your computer?\nDid you complete the “Getting to know you” survey on Canvas?\nDid you complete the anonymous restaurant survey on Qualtrics?\nAre you almost finished or at least started with homework 1?"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#announcements",
+    "href": "slides/slides-02-terminology-decision-trees.html#announcements",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Announcements",
+    "text": "Announcements\n\nThings due this week\n\nHomework 1 (hw1): Due Sept 10 11:59pm\n\nHomework 2 (hw2) has been released (Due: Sept 16, 11:59pm)\n\nThere is some autograding in this homework.\n\nYou can find the tentative due dates for all deliverables here.\nPlease monitor Piazza (especially pinned posts and instructor posts) for announcements.\nI’ll assume that you’ve watched the pre-lecture videos."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#recap-what-is-ml",
+    "href": "slides/slides-02-terminology-decision-trees.html#recap-what-is-ml",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Recap: What is ML?",
+    "text": "Recap: What is ML?\n\nML uses data to build models that find patterns, make predictions, or generate content.\nIt helps computers learn from data to make decisions.\nNo one model works for every situation."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#recap-supervised-learning",
+    "href": "slides/slides-02-terminology-decision-trees.html#recap-supervised-learning",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Recap: Supervised learning",
+    "text": "Recap: Supervised learning\n\nWe wish to find a model function f that relates X to y.\nWe use the model function to predict targets of new examples.\n\n\n\n\n\n\nIn the first part of this course, we’ll focus on supervised machine learning."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#framework",
+    "href": "slides/slides-02-terminology-decision-trees.html#framework",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Framework",
+    "text": "Framework\n\nThere are many frameworks to do do machine learning.\nWe’ll mainly be using scikit-learn framework."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#running-example",
+    "href": "slides/slides-02-terminology-decision-trees.html#running-example",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Running example",
+    "text": "Running example\nImagine you’re in the fortunate situation where, after graduating, you have a few job offers and need to decide which one to choose. You want to pick the job that will likely make you the happiest. To help with your decision, you collect data from like-minded people. Here are the first few rows of this toy dataset.\n\ntoy_happiness_df = pd.read_csv(DATA_DIR + 'toy_job_happiness.csv')\ntoy_happiness_df\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\nhappy?\n\n\n\n\n0\n0\n70000\n0\n1\nUnhappy\n\n\n1\n1\n60000\n0\n0\nUnhappy\n\n\n2\n1\n80000\n1\n0\nHappy\n\n\n3\n1\n110000\n0\n1\nHappy\n\n\n4\n1\n120000\n1\n0\nHappy\n\n\n5\n1\n150000\n1\n1\nHappy\n\n\n6\n0\n150000\n1\n0\nUnhappy"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#features-target-example",
+    "href": "slides/slides-02-terminology-decision-trees.html#features-target-example",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Features, target, example",
+    "text": "Features, target, example\n\nWhat are the features X?\n\nfeatures = inputs = predictors = explanatory variables = regressors = independent variables = covariates\n\nWhat’s the target y?\n\ntarget = output = outcome = response variable = dependent variable = labels\n\nCan you think of other relevant features for this problem?\nWhat is an example?"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#classification-vs.-regression",
+    "href": "slides/slides-02-terminology-decision-trees.html#classification-vs.-regression",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Classification vs. Regression",
+    "text": "Classification vs. Regression\n\nIs this a classification problem or a regression problem?\n\n\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\nhappy?\n\n\n\n\n0\n0\n70000\n0\n1\nUnhappy\n\n\n1\n1\n60000\n0\n0\nUnhappy\n\n\n2\n1\n80000\n1\n0\nHappy\n\n\n3\n1\n110000\n0\n1\nHappy\n\n\n4\n1\n120000\n1\n0\nHappy\n\n\n5\n1\n150000\n1\n1\nHappy\n\n\n6\n0\n150000\n1\n0\nUnhappy"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#prediction-vs.-inference",
+    "href": "slides/slides-02-terminology-decision-trees.html#prediction-vs.-inference",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Prediction vs. Inference",
+    "text": "Prediction vs. Inference\n\nInference is using the model to understand the relationship between the features and the target\n\nWhy certain factors influence happiness?\n\nPrediction is using the model to predict the target value for new examples based on learned patterns.\nOf course these goals are related, and in many situations we need both."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#training",
+    "href": "slides/slides-02-terminology-decision-trees.html#training",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Training",
+    "text": "Training\n\nIn supervised ML, the goal is to learn a function that maps input features (X) to a target (y).\nThe relationship between X and y is often complex, making it difficult to define mathematically.\nWe use algorithms to approximate this complex relationship between X and y.\nTraining is the process of applying an algorithm to learn the best function (or model) that maps X to y.\nIn this course, I’ll help you develop an intuition for how these models work and demonstrate how to use them in a machine learning pipeline."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#separating-x-and-y",
+    "href": "slides/slides-02-terminology-decision-trees.html#separating-x-and-y",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Separating X and y",
+    "text": "Separating X and y\n\nIn order to train a model we need to separate X and y from the dataframe.\n\n\nX = toy_happiness_df.drop(columns=[\"happy?\"]) # Extract the feature set by removing the target column \"happy?\"\ny = toy_happiness_df[\"happy?\"] # Extract the target variable \"happy?\""
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#baseline",
+    "href": "slides/slides-02-terminology-decision-trees.html#baseline",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Baseline",
+    "text": "Baseline\n\nLet’s try a simplest algorithm of predicting the most popular target!\n\n\nfrom sklearn.dummy import DummyClassifier\nmodel = DummyClassifier(strategy=\"most_frequent\") # Initialize the DummyClassifier to always predict the most frequent class\nmodel.fit(X, y) # Train the model on the feature set X and target variable y\ntoy_happiness_df['dummy_predictions'] = model.predict(X) # Add the predicted values as a new column in the dataframe\ntoy_happiness_df\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\nhappy?\ndummy_predictions\n\n\n\n\n0\n0\n70000\n0\n1\nUnhappy\nHappy\n\n\n1\n1\n60000\n0\n0\nUnhappy\nHappy\n\n\n2\n1\n80000\n1\n0\nHappy\nHappy\n\n\n3\n1\n110000\n0\n1\nHappy\nHappy\n\n\n4\n1\n120000\n1\n0\nHappy\nHappy\n\n\n5\n1\n150000\n1\n1\nHappy\nHappy\n\n\n6\n0\n150000\n1\n0\nUnhappy\nHappy"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#intuition",
+    "href": "slides/slides-02-terminology-decision-trees.html#intuition",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Intuition",
+    "text": "Intuition\n\nDecision trees find the “best” way to split data to make predictions.\nEach split is based on a question, like ‘Are the colleagues supportive?’\nThe goal is to group data by similar outcomes at each step.\nNow, let’s see a decision tree using sklearn."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#decision-tree-with-sklearn",
+    "href": "slides/slides-02-terminology-decision-trees.html#decision-tree-with-sklearn",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Decision tree with sklearn",
+    "text": "Decision tree with sklearn\nLet’s train a simple decision tree on our toy dataset.\n\nfrom sklearn.tree import DecisionTreeClassifier # import the classifier\nfrom sklearn.tree import plot_tree\n\nmodel = DecisionTreeClassifier(max_depth=2, random_state=1) # Create a class object\nmodel.fit(X, y)\nplot_tree(model, filled=True, feature_names = X.columns, class_names=[\"Happy\", \"Unhappy\"], impurity = False, fontsize=12);"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#prediction",
+    "href": "slides/slides-02-terminology-decision-trees.html#prediction",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Prediction",
+    "text": "Prediction\n\nGiven a new example, how does a decision tree predict the class of this example?\n\nWhat would be the prediction for the example below using the tree above?\n\nsupportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#prediction-with-sklearn",
+    "href": "slides/slides-02-terminology-decision-trees.html#prediction-with-sklearn",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Prediction with sklearn",
+    "text": "Prediction with sklearn\n\nWhat would be the prediction for the example below using the tree above?\n\nsupportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,\n\n\n\ntest_example = [[1, 60000, 0, 1]]\nprint(\"Model prediction: \", model.predict(test_example))\nplot_tree(model, filled=True, feature_names = X.columns, class_names = [\"Happy\", \"Unhappy\"], impurity = False, fontsize=9);\n\nModel prediction:  ['Unhappy']"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#training-high-level",
+    "href": "slides/slides-02-terminology-decision-trees.html#training-high-level",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Training (high level)",
+    "text": "Training (high level)\n\nHow many possible questions could we ask in this context?\n\n\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\n\n\n\n\n0\n0\n70000\n0\n1\n\n\n1\n1\n60000\n0\n0\n\n\n2\n1\n80000\n1\n0\n\n\n3\n1\n110000\n0\n1\n\n\n4\n1\n120000\n1\n0\n\n\n5\n1\n150000\n1\n1\n\n\n6\n0\n150000\n1\n0"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#training-high-level-1",
+    "href": "slides/slides-02-terminology-decision-trees.html#training-high-level-1",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Training (high level)",
+    "text": "Training (high level)\n\nDecision tree learning is a search process to find the “best” tree among many possible ones.\nWe evaluate questions using measures like information gain or the Gini index to find the most effective split.\nAt each step, we aim to split the data into groups with more certainty in their outcomes."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#parameters-vs.-hyperparameters",
+    "href": "slides/slides-02-terminology-decision-trees.html#parameters-vs.-hyperparameters",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Parameters vs. Hyperparameters",
+    "text": "Parameters vs. Hyperparameters\n\nParameters\n\nThe questions (features and thresholds) used to split the data at each node.\nExample: salary &lt;= 75000 at the root node\n\n\nHyperparameters\n\nSettings that control tree growth, like max_depth, which limits how deep the tree can go."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth1",
+    "href": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth1",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Decision boundary with max_depth=1",
+    "text": "Decision boundary with max_depth=1"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth2",
+    "href": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth2",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "Decision boundary with max_depth=2",
+    "text": "Decision boundary with max_depth=2"
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#iclicker-2.2-supervised-vs-unsupervised",
+    "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.2-supervised-vs-unsupervised",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "iClicker 2.2: Supervised vs unsupervised",
+    "text": "iClicker 2.2: Supervised vs unsupervised\nClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are examples of supervised machine learning\n\n\nFinding groups of similar properties in a real estate data set.\n\n\nPredicting whether someone will have a heart attack or not on the basis of demographic, diet, and clinical measurement.\n\n\nGrouping articles on different topics from different news sources (something like the Google News app).\n\n\nDetecting credit card fraud based on examples of fraudulent and non-fraudulent transactions.\n\n\nGiven some measure of employee performance, identify the key factors which are likely to influence their performance."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#iclicker-2.3-classification-vs.-regression",
+    "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.3-classification-vs.-regression",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "iClicker 2.3: Classification vs. Regression",
+    "text": "iClicker 2.3: Classification vs. Regression\nClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are examples of regression problems\n\n\nPredicting the price of a house based on features such as number of bedrooms and the year built.\n\n\nPredicting if a house will sell or not based on features like the price of the house, number of rooms, etc.\n\n\nPredicting percentage grade in CPSC 330 based on past grades.\n\n\nPredicting whether you should bicycle tomorrow or not based on the weather forecast.\n\n\nPredicting appropriate thermostat temperature based on the wind speed and the number of people in a room."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#iclicker-2.5-baselines-and-decision-trees",
+    "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.5-baselines-and-decision-trees",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "iClicker 2.5: Baselines and Decision trees",
+    "text": "iClicker 2.5: Baselines and Decision trees\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nChange in features (i.e., binarizing features above) would change DummyClassifier predictions.\n\n\npredict takes only X as argument whereas fit and score take both X and y as arguments.\n\n\nFor the decision tree algorithm to work, the feature values must be binary.\n\n\nThe prediction in a decision tree works by routing the example from the root to the leaf."
+  },
+  {
+    "objectID": "slides/slides-02-terminology-decision-trees.html#hw2-worksheet-portion",
+    "href": "slides/slides-02-terminology-decision-trees.html#hw2-worksheet-portion",
+    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "section": "HW2 Worksheet portion",
+    "text": "HW2 Worksheet portion"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#announcements",
@@ -2355,171 +2397,269 @@
     "text": "(iClicker) Exercise 6.2\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#announcements",
-    "href": "slides/slides-02-terminology-decision-trees.html#announcements",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
+    "objectID": "slides/slides-19-computer-vision.html#announcements",
+    "href": "slides/slides-19-computer-vision.html#announcements",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
     "section": "Announcements",
-    "text": "Announcements\n\nThings due this week\n\nHomework 1 (hw1): Due Sept 10 11:59pm\n\nHomework 2 (hw2) has been released (Due: Sept 16, 11:59pm)\n\nThere is some autograding in this homework.\n\nYou can find the tentative due dates for all deliverables here.\nPlease monitor Piazza (especially pinned posts and instructor posts) for announcements.\nI’ll assume that you’ve watched the pre-lecture videos."
+    "text": "Announcements\n\nHW7 was due yesterday\nHW8 has been released (due next week Monday)\n\nAlmost there! Hang in there 😊\n\nMidterm 2 grading is in progress."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#recap-what-is-ml",
-    "href": "slides/slides-02-terminology-decision-trees.html#recap-what-is-ml",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Recap: What is ML?",
-    "text": "Recap: What is ML?\n\nML uses data to build models that find patterns, make predictions, or generate content.\nIt helps computers learn from data to make decisions.\nNo one model works for every situation."
+    "objectID": "slides/slides-19-computer-vision.html#iclicker-19.1",
+    "href": "slides/slides-19-computer-vision.html#iclicker-19.1",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "iClicker 19.1",
+    "text": "iClicker 19.1\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nIt’s possible to use word2vec embedding representations for text classification instead of bag-of-words representation.\n\n\nThe topic model approach we used in the last lecture, Latent Dirichlet Allocation (LDA), is an unsupervised approach.\n\n\nIn an LDA topic model, the same word can be associated with two different topics with high probability.\n\n\nIn an LDA topic model, a document is a mixture of multiple topics.\n\n\nIf I train a topic model on a large collection of news articles with K = 10, I would get 10 topic labels (e.g., sports, culture, politics, finance) as output."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#recap-supervised-learning",
-    "href": "slides/slides-02-terminology-decision-trees.html#recap-supervised-learning",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Recap: Supervised learning",
-    "text": "Recap: Supervised learning\n\nWe wish to find a model function f that relates X to y.\nWe use the model function to predict targets of new examples.\n\n\n\n\n\n\nIn the first part of this course, we’ll focus on supervised machine learning."
+    "objectID": "slides/slides-19-computer-vision.html#multiclass-classification",
+    "href": "slides/slides-19-computer-vision.html#multiclass-classification",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Multiclass classification",
+    "text": "Multiclass classification\n\nSo far we have been talking about binary classification\nCan we use these classifiers when there are more than two classes?\n\n“ImageNet” computer vision competition, for example, has 1000 classes\n\nCan we use decision trees or KNNs for multi-class classification?\nWhat about logistic regression?"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#framework",
-    "href": "slides/slides-02-terminology-decision-trees.html#framework",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Framework",
-    "text": "Framework\n\nThere are many frameworks to do do machine learning.\nWe’ll mainly be using scikit-learn framework."
+    "objectID": "slides/slides-19-computer-vision.html#softmax-function-for-probabilities",
+    "href": "slides/slides-19-computer-vision.html#softmax-function-for-probabilities",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Softmax Function for Probabilities",
+    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#running-example",
-    "href": "slides/slides-02-terminology-decision-trees.html#running-example",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Running example",
-    "text": "Running example\nImagine you’re in the fortunate situation where, after graduating, you have a few job offers and need to decide which one to choose. You want to pick the job that will likely make you the happiest. To help with your decision, you collect data from like-minded people. Here are the first few rows of this toy dataset.\n\ntoy_happiness_df = pd.read_csv(DATA_DIR + 'toy_job_happiness.csv')\ntoy_happiness_df\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\nhappy?\n\n\n\n\n0\n0\n70000\n0\n1\nUnhappy\n\n\n1\n1\n60000\n0\n0\nUnhappy\n\n\n2\n1\n80000\n1\n0\nHappy\n\n\n3\n1\n110000\n0\n1\nHappy\n\n\n4\n1\n120000\n1\n0\nHappy\n\n\n5\n1\n150000\n1\n1\nHappy\n\n\n6\n0\n150000\n1\n0\nUnhappy"
+    "objectID": "slides/slides-19-computer-vision.html#making-predictions",
+    "href": "slides/slides-19-computer-vision.html#making-predictions",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Making Predictions",
+    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class () is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#features-target-example",
-    "href": "slides/slides-02-terminology-decision-trees.html#features-target-example",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Features, target, example",
-    "text": "Features, target, example\n\nWhat are the features X?\n\nfeatures = inputs = predictors = explanatory variables = regressors = independent variables = covariates\n\nWhat’s the target y?\n\ntarget = output = outcome = response variable = dependent variable = labels\n\nCan you think of other relevant features for this problem?\nWhat is an example?"
+    "objectID": "slides/slides-19-computer-vision.html#binary-vs-multinomial-logistic-regression",
+    "href": "slides/slides-19-computer-vision.html#binary-vs-multinomial-logistic-regression",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Binary vs multinomial logistic regression",
+    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., image classification)"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#classification-vs.-regression",
-    "href": "slides/slides-02-terminology-decision-trees.html#classification-vs.-regression",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Classification vs. Regression",
-    "text": "Classification vs. Regression\n\nIs this a classification problem or a regression problem?\n\n\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\nhappy?\n\n\n\n\n0\n0\n70000\n0\n1\nUnhappy\n\n\n1\n1\n60000\n0\n0\nUnhappy\n\n\n2\n1\n80000\n1\n0\nHappy\n\n\n3\n1\n110000\n0\n1\nHappy\n\n\n4\n1\n120000\n1\n0\nHappy\n\n\n5\n1\n150000\n1\n1\nHappy\n\n\n6\n0\n150000\n1\n0\nUnhappy"
+    "objectID": "slides/slides-19-computer-vision.html#image-classification",
+    "href": "slides/slides-19-computer-vision.html#image-classification",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Image classification",
+    "text": "Image classification\n\n\nHave you used search in Google Photos? You can search for “my photos of cat” and it will retrieve photos from your libraries containing cats. This can be done using image classification, which is treated as a supervised learning problem, where we define a set of target classes (objects to identify in images), and train a model to recognize them using labeled example photos."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#prediction-vs.-inference",
-    "href": "slides/slides-02-terminology-decision-trees.html#prediction-vs.-inference",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Prediction vs. Inference",
-    "text": "Prediction vs. Inference\n\nInference is using the model to understand the relationship between the features and the target\n\nWhy certain factors influence happiness?\n\nPrediction is using the model to predict the target value for new examples based on learned patterns.\nOf course these goals are related, and in many situations we need both."
+    "objectID": "slides/slides-19-computer-vision.html#image-classification-1",
+    "href": "slides/slides-19-computer-vision.html#image-classification-1",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Image classification",
+    "text": "Image classification\n\n\nImage classification is not an easy problem because of the variations in the location of the object, lighting, background, camera angle, camera focus etc."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#training",
-    "href": "slides/slides-02-terminology-decision-trees.html#training",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Training",
-    "text": "Training\n\nIn supervised ML, the goal is to learn a function that maps input features (X) to a target (y).\nThe relationship between X and y is often complex, making it difficult to define mathematically.\nWe use algorithms to approximate this complex relationship between X and y.\nTraining is the process of applying an algorithm to learn the best function (or model) that maps X to y.\nIn this course, I’ll help you develop an intuition for how these models work and demonstrate how to use them in a machine learning pipeline."
+    "objectID": "slides/slides-19-computer-vision.html#neural-networks",
+    "href": "slides/slides-19-computer-vision.html#neural-networks",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Neural networks",
+    "text": "Neural networks\n\n\n\nNeural networks are perfect for these types of problems where local structures are important.\nA significant advancement in image classification was the application of convolutional neural networks (ConvNets or CNNs) to this problem.\n\nImageNet Classification with Deep Convolutional Neural Networks\nAchieved a winning test error rate of 15.3%, compared to 26.2% achieved by the second-best entry in the ILSVRC-2012 competition.\n\nLet’s go over the basics of a neural network."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#separating-x-and-y",
-    "href": "slides/slides-02-terminology-decision-trees.html#separating-x-and-y",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Separating X and y",
-    "text": "Separating X and y\n\nIn order to train a model we need to separate X and y from the dataframe.\n\n\nX = toy_happiness_df.drop(columns=[\"happy?\"]) # Extract the feature set by removing the target column \"happy?\"\ny = toy_happiness_df[\"happy?\"] # Extract the target variable \"happy?\""
+    "objectID": "slides/slides-19-computer-vision.html#introduction-to-neural-networks",
+    "href": "slides/slides-19-computer-vision.html#introduction-to-neural-networks",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Introduction to neural networks",
+    "text": "Introduction to neural networks\n\n\n\nNeural networks can be viewed a generalization of linear models where we apply a series of transformations.\nHere is graphical representation of a logistic regression model.\nWe have 4 features: x[0], x[1], x[2], x[3]\n\n\n\n\n\n\ncluster_0\n\ninputs\n\n\ncluster_2\n\noutput\n\n\n\nx[0]\n\nx[0]\n\n\n\ny\n\ny\n\n\n\nx[0]-&gt;y\n\n\nw[0]\n\n\n\nx[1]\n\nx[1]\n\n\n\nx[1]-&gt;y\n\n\nw[1]\n\n\n\nx[2]\n\nx[2]\n\n\n\nx[2]-&gt;y\n\n\nw[2]\n\n\n\nx[3]\n\nx[3]\n\n\n\nx[3]-&gt;y\n\n\nw[3]"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#baseline",
-    "href": "slides/slides-02-terminology-decision-trees.html#baseline",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Baseline",
-    "text": "Baseline\n\nLet’s try a simplest algorithm of predicting the most popular target!\n\n\nfrom sklearn.dummy import DummyClassifier\nmodel = DummyClassifier(strategy=\"most_frequent\") # Initialize the DummyClassifier to always predict the most frequent class\nmodel.fit(X, y) # Train the model on the feature set X and target variable y\ntoy_happiness_df['dummy_predictions'] = model.predict(X) # Add the predicted values as a new column in the dataframe\ntoy_happiness_df\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\nhappy?\ndummy_predictions\n\n\n\n\n0\n0\n70000\n0\n1\nUnhappy\nHappy\n\n\n1\n1\n60000\n0\n0\nUnhappy\nHappy\n\n\n2\n1\n80000\n1\n0\nHappy\nHappy\n\n\n3\n1\n110000\n0\n1\nHappy\nHappy\n\n\n4\n1\n120000\n1\n0\nHappy\nHappy\n\n\n5\n1\n150000\n1\n1\nHappy\nHappy\n\n\n6\n0\n150000\n1\n0\nUnhappy\nHappy"
+    "objectID": "slides/slides-19-computer-vision.html#adding-a-layer-of-transformations",
+    "href": "slides/slides-19-computer-vision.html#adding-a-layer-of-transformations",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Adding a layer of transformations",
+    "text": "Adding a layer of transformations\n\n\n\nBelow we are adding one “layer” of transformations in between features and the target.\nWe are repeating the the process of computing the weighted sum multiple times.\n\nThe hidden units (e.g., h[1], h[2], …) represent the intermediate processing steps.\n\n\n\n\n\n\ncluster_0\n\ninputs\n\n\ncluster_1\n\nhidden layer\n\n\ncluster_2\n\noutput\n\n\n\nx[0]\n\nx[0]\n\n\n\nh0\n\nh[0]\n\n\n\nx[0]-&gt;h0\n\n\n\n\n\nh1\n\nh[1]\n\n\n\nx[0]-&gt;h1\n\n\n\n\n\nh2\n\nh[2]\n\n\n\nx[0]-&gt;h2\n\n\n\n\n\nx[1]\n\nx[1]\n\n\n\nx[1]-&gt;h0\n\n\n\n\n\nx[1]-&gt;h1\n\n\n\n\n\nx[1]-&gt;h2\n\n\n\n\n\nx[2]\n\nx[2]\n\n\n\nx[2]-&gt;h0\n\n\n\n\n\nx[2]-&gt;h1\n\n\n\n\n\nx[2]-&gt;h2\n\n\n\n\n\nx[3]\n\nx[3]\n\n\n\nx[3]-&gt;h0\n\n\n\n\n\nx[3]-&gt;h1\n\n\n\n\n\nx[3]-&gt;h2\n\n\n\n\n\ny\n\ny\n\n\n\nh0-&gt;y\n\n\n\n\n\nh1-&gt;y\n\n\n\n\n\nh2-&gt;y"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#intuition",
-    "href": "slides/slides-02-terminology-decision-trees.html#intuition",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Intuition",
-    "text": "Intuition\n\nDecision trees find the “best” way to split data to make predictions.\nEach split is based on a question, like ‘Are the colleagues supportive?’\nThe goal is to group data by similar outcomes at each step.\nNow, let’s see a decision tree using sklearn."
+    "objectID": "slides/slides-19-computer-vision.html#one-more-layer-of-transformations",
+    "href": "slides/slides-19-computer-vision.html#one-more-layer-of-transformations",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "One more layer of transformations",
+    "text": "One more layer of transformations\n\n\n\nNow we are adding one more layer of transformations.\n\n\n\n\n\n\ncluster_0\n\ninputs\n\n\ncluster_1\n\nhidden layer 1\n\n\ncluster_2\n\nhidden layer 2\n\n\ncluster_3\n\noutput\n\n\n\nx[0]\n\nx[0]\n\n\n\nh1[0]\n\nh1[0]\n\n\n\nx[0]-&gt;h1[0]\n\n\n\n\n\nh1[1]\n\nh1[1]\n\n\n\nx[0]-&gt;h1[1]\n\n\n\n\n\nh1[2]\n\nh1[2]\n\n\n\nx[0]-&gt;h1[2]\n\n\n\n\n\nx[1]\n\nx[1]\n\n\n\nx[1]-&gt;h1[0]\n\n\n\n\n\nx[1]-&gt;h1[1]\n\n\n\n\n\nx[1]-&gt;h1[2]\n\n\n\n\n\nx[2]\n\nx[2]\n\n\n\nx[2]-&gt;h1[0]\n\n\n\n\n\nx[2]-&gt;h1[1]\n\n\n\n\n\nx[2]-&gt;h1[2]\n\n\n\n\n\nx[3]\n\nx[3]\n\n\n\nx[3]-&gt;h1[0]\n\n\n\n\n\nx[3]-&gt;h1[1]\n\n\n\n\n\nx[3]-&gt;h1[2]\n\n\n\n\n\nh2[0]\n\nh2[0]\n\n\n\nh1[0]-&gt;h2[0]\n\n\n\n\n\nh2[1]\n\nh2[1]\n\n\n\nh1[0]-&gt;h2[1]\n\n\n\n\n\nh2[2]\n\nh2[2]\n\n\n\nh1[0]-&gt;h2[2]\n\n\n\n\n\nh1[1]-&gt;h2[0]\n\n\n\n\n\nh1[1]-&gt;h2[1]\n\n\n\n\n\nh1[1]-&gt;h2[2]\n\n\n\n\n\nh1[2]-&gt;h2[0]\n\n\n\n\n\nh1[2]-&gt;h2[1]\n\n\n\n\n\nh1[2]-&gt;h2[2]\n\n\n\n\n\ny\n\ny\n\n\n\nh2[0]-&gt;y\n\n\n\n\n\nh2[1]-&gt;y\n\n\n\n\n\nh2[2]-&gt;y"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#decision-tree-with-sklearn",
-    "href": "slides/slides-02-terminology-decision-trees.html#decision-tree-with-sklearn",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Decision tree with sklearn",
-    "text": "Decision tree with sklearn\nLet’s train a simple decision tree on our toy dataset.\n\nfrom sklearn.tree import DecisionTreeClassifier # import the classifier\nfrom sklearn.tree import plot_tree\n\nmodel = DecisionTreeClassifier(max_depth=2, random_state=1) # Create a class object\nmodel.fit(X, y)\nplot_tree(model, filled=True, feature_names = X.columns, class_names=[\"Happy\", \"Unhappy\"], impurity = False, fontsize=12);"
+    "objectID": "slides/slides-19-computer-vision.html#neural-networks-1",
+    "href": "slides/slides-19-computer-vision.html#neural-networks-1",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Neural networks",
+    "text": "Neural networks\n\n\n\nWith a neural net, you specify the number of features after each transformation.\n\nIn the above, it goes from 4 to 3 to 3 to 1.\n\nTo make them really powerful compared to the linear models, we apply a non-linear function to the weighted sum for each hidden node.\nNeural network = neural net\nDeep learning ~ using neural networks"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#prediction",
-    "href": "slides/slides-02-terminology-decision-trees.html#prediction",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Prediction",
-    "text": "Prediction\n\nGiven a new example, how does a decision tree predict the class of this example?\n\nWhat would be the prediction for the example below using the tree above?\n\nsupportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,"
+    "objectID": "slides/slides-19-computer-vision.html#why-neural-networks",
+    "href": "slides/slides-19-computer-vision.html#why-neural-networks",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Why neural networks?",
+    "text": "Why neural networks?\n\n\n\nThey can learn very complex functions.\n\nThe fundamental tradeoff is primarily controlled by the number of layers and layer sizes.\nMore layers / bigger layers –&gt; more complex model.\nYou can generally get a model that will not underfit.\n\nThey work really well for structured data:\n\n1D sequence, e.g. timeseries, language\n2D image\n3D image or video\n\nThey’ve had some incredible successes in the last 12 years.\nTransfer learning (coming later today) is really useful."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#prediction-with-sklearn",
-    "href": "slides/slides-02-terminology-decision-trees.html#prediction-with-sklearn",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Prediction with sklearn",
-    "text": "Prediction with sklearn\n\nWhat would be the prediction for the example below using the tree above?\n\nsupportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,\n\n\n\ntest_example = [[1, 60000, 0, 1]]\nprint(\"Model prediction: \", model.predict(test_example))\nplot_tree(model, filled=True, feature_names = X.columns, class_names = [\"Happy\", \"Unhappy\"], impurity = False, fontsize=9);\n\nModel prediction:  ['Unhappy']"
+    "objectID": "slides/slides-19-computer-vision.html#why-not-neural-networks",
+    "href": "slides/slides-19-computer-vision.html#why-not-neural-networks",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Why not neural networks?",
+    "text": "Why not neural networks?\n\n\n\nOften they require a lot of data.\nThey require a lot of compute time, and, to be faster, specialized hardware called GPUs.\nThey have huge numbers of hyperparameters\n\nThink of each layer having hyperparameters, plus some overall hyperparameters.\nBeing slow compounds this problem.\n\nThey are not interpretable.\nI don’t recommend training them on your own without further training\nGood news\n\nYou don’t have to train your models from scratch in order to use them.\nI’ll show you some ways to use neural networks without training them yourselves."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#training-high-level",
-    "href": "slides/slides-02-terminology-decision-trees.html#training-high-level",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Training (high level)",
-    "text": "Training (high level)\n\nHow many possible questions could we ask in this context?\n\n\n\n\n\n\n\n\n\n\nsupportive_colleagues\nsalary\nfree_coffee\nboss_vegan\n\n\n\n\n0\n0\n70000\n0\n1\n\n\n1\n1\n60000\n0\n0\n\n\n2\n1\n80000\n1\n0\n\n\n3\n1\n110000\n0\n1\n\n\n4\n1\n120000\n1\n0\n\n\n5\n1\n150000\n1\n1\n\n\n6\n0\n150000\n1\n0"
+    "objectID": "slides/slides-19-computer-vision.html#deep-learning-software",
+    "href": "slides/slides-19-computer-vision.html#deep-learning-software",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Deep learning software",
+    "text": "Deep learning software\n\n\nThe current big players are:\n\nPyTorch\nTensorFlow\n\nBoth are heavily used in industry. If interested, see comparison of deep learning software."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#training-high-level-1",
-    "href": "slides/slides-02-terminology-decision-trees.html#training-high-level-1",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Training (high level)",
-    "text": "Training (high level)\n\nDecision tree learning is a search process to find the “best” tree among many possible ones.\nWe evaluate questions using measures like information gain or the Gini index to find the most effective split.\nAt each step, we aim to split the data into groups with more certainty in their outcomes."
+    "objectID": "slides/slides-19-computer-vision.html#introduction-to-computer-vision",
+    "href": "slides/slides-19-computer-vision.html#introduction-to-computer-vision",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Introduction to computer vision",
+    "text": "Introduction to computer vision\n\n\n\nComputer vision refers to understanding images/videos, usually using ML/AI.\nIn the last decade this field has been dominated by deep learning. We will explore image classification and object detection."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#parameters-vs.-hyperparameters",
-    "href": "slides/slides-02-terminology-decision-trees.html#parameters-vs.-hyperparameters",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Parameters vs. Hyperparameters",
-    "text": "Parameters vs. Hyperparameters\n\nParameters\n\nThe questions (features and thresholds) used to split the data at each node.\nExample: salary &lt;= 75000 at the root node\n\n\nHyperparameters\n\nSettings that control tree growth, like max_depth, which limits how deep the tree can go."
+    "objectID": "slides/slides-19-computer-vision.html#introduction-to-computer-vision-1",
+    "href": "slides/slides-19-computer-vision.html#introduction-to-computer-vision-1",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Introduction to computer vision",
+    "text": "Introduction to computer vision\n\n\n\nimage classification: is this a cat or a dog?\nobject localization: where is the cat in this image?\nobject detection: What are the various objects in the image?\ninstance segmentation: What are the shapes of these various objects in the image?\nand much more…"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth1",
-    "href": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth1",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Decision boundary with max_depth=1",
-    "text": "Decision boundary with max_depth=1"
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models",
+    "text": "Pre-trained models\n\n\n\nIn practice, very few people train an entire CNN from scratch because it requires a large dataset, powerful computers, and a huge amount of human effort to train the model.\nInstead, a common practice is to download a pre-trained model and fine tune it for your task. This is called transfer learning.\nTransfer learning is one of the most common techniques used in the context of computer vision and natural language processing.\nIt refers to using a model already trained on one task as a starting point for learning to perform another task."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth2",
-    "href": "slides/slides-02-terminology-decision-trees.html#decision-boundary-with-max_depth2",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "Decision boundary with max_depth=2",
-    "text": "Decision boundary with max_depth=2"
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models out-of-the-box",
+    "text": "Pre-trained models out-of-the-box\n\n\n\n\n\nLet’s first apply one of these pre-trained models to our own problem right out of the box."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#iclicker-2.2-supervised-vs-unsupervised",
-    "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.2-supervised-vs-unsupervised",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "iClicker 2.2: Supervised vs unsupervised",
-    "text": "iClicker 2.2: Supervised vs unsupervised\nClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are examples of supervised machine learning\n\n\nFinding groups of similar properties in a real estate data set.\n\n\nPredicting whether someone will have a heart attack or not on the basis of demographic, diet, and clinical measurement.\n\n\nGrouping articles on different topics from different news sources (something like the Google News app).\n\n\nDetecting credit card fraud based on examples of fraudulent and non-fraudulent transactions.\n\n\nGiven some measure of employee performance, identify the key factors which are likely to influence their performance."
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-1",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-1",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models out-of-the-box",
+    "text": "Pre-trained models out-of-the-box\n\n\n\nWe can easily download famous models using the torchvision.models module. All models are available with pre-trained weights (based on ImageNet’s 224 x 224 images)\nWe used a pre-trained model vgg16 which is trained on the ImageNet data.\nWe preprocess the given image.\nWe get prediction from this pre-trained model on a given image along with prediction probabilities.\n\nFor a given image, this model will spit out one of the 1000 classes from ImageNet."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#iclicker-2.3-classification-vs.-regression",
-    "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.3-classification-vs.-regression",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "iClicker 2.3: Classification vs. Regression",
-    "text": "iClicker 2.3: Classification vs. Regression\nClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are examples of regression problems\n\n\nPredicting the price of a house based on features such as number of bedrooms and the year built.\n\n\nPredicting if a house will sell or not based on features like the price of the house, number of rooms, etc.\n\n\nPredicting percentage grade in CPSC 330 based on past grades.\n\n\nPredicting whether you should bicycle tomorrow or not based on the weather forecast.\n\n\nPredicting appropriate thermostat temperature based on the wind speed and the number of people in a room."
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-2",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-2",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models out-of-the-box",
+    "text": "Pre-trained models out-of-the-box\n\nLet’s predict labels with associated probabilities for unseen images\n\n\n\n\n\n\n\n\n\n\n\n                         Class  Probability score\n                     tiger cat              0.353\n              tabby, tabby cat              0.207\n               lynx, catamount              0.050\nPembroke, Pembroke Welsh corgi              0.046\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                     Class  Probability score\n         cheetah, chetah, Acinonyx jubatus              0.983\n                  leopard, Panthera pardus              0.012\njaguar, panther, Panthera onca, Felis onca              0.004\n       snow leopard, ounce, Panthera uncia              0.001\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                   Class  Probability score\n                                 macaque              0.714\npatas, hussar monkey, Erythrocebus patas              0.122\n      proboscis monkey, Nasalis larvatus              0.098\n                   guenon, guenon monkey              0.017\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                        Class  Probability score\nWalker hound, Walker foxhound              0.580\n             English foxhound              0.091\n                  EntleBucher              0.080\n                       beagle              0.065\n--------------------------------------------------------------"
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#iclicker-2.5-baselines-and-decision-trees",
-    "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.5-baselines-and-decision-trees",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "iClicker 2.5: Baselines and Decision trees",
-    "text": "iClicker 2.5: Baselines and Decision trees\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nChange in features (i.e., binarizing features above) would change DummyClassifier predictions.\n\n\npredict takes only X as argument whereas fit and score take both X and y as arguments.\n\n\nFor the decision tree algorithm to work, the feature values must be binary.\n\n\nThe prediction in a decision tree works by routing the example from the root to the leaf."
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-3",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-3",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models out-of-the-box",
+    "text": "Pre-trained models out-of-the-box\n\n\n\nWe got these predictions without “doing the ML ourselves”.\nWe are using pre-trained vgg16 model which is available in torchvision.\n\ntorchvision has many such pre-trained models available that have been very successful across a wide range of tasks: AlexNet, VGG, ResNet, Inception, MobileNet, etc.\n\nMany of these models have been pre-trained on famous datasets like ImageNet.\nSo if we use them out-of-the-box, they will give us one of the ImageNet classes as classification."
   },
   {
-    "objectID": "slides/slides-02-terminology-decision-trees.html#hw2-worksheet-portion",
-    "href": "slides/slides-02-terminology-decision-trees.html#hw2-worksheet-portion",
-    "title": "Lecture 2: Terminology, Baselines, Decision Trees",
-    "section": "HW2 Worksheet portion",
-    "text": "HW2 Worksheet portion"
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-4",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-4",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models out-of-the-box",
+    "text": "Pre-trained models out-of-the-box\n\n\n\nLet’s try some images which are unlikely to be there in ImageNet.\nIt’s not doing very well here because ImageNet doesn’t have proper classes for these images.\n\n\n\n\n\n\n\n\n\n\n\n         Class  Probability score\ncucumber, cuke              0.146\n         plate              0.117\n     guacamole              0.099\n  Granny Smith              0.091\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                      Class  Probability score\n                                        fig              0.637\n                                pomegranate              0.193\ngrocery store, grocery, food market, market              0.041\n                                      crate              0.023\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                                               Class  Probability score\n                                         toilet seat              0.171\n                                          safety pin              0.060\nbannister, banister, balustrade, balusters, handrail              0.039\n                                              bubble              0.035\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                  Class  Probability score\n                   vase              0.078\n                thimble              0.074\n             plate rack              0.049\nsaltshaker, salt shaker              0.047\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n                      Class  Probability score\n           pizza, pizza pie              0.998\nfrying pan, frypan, skillet              0.001\n                     potpie              0.000\n                French loaf              0.000\n--------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n              Class  Probability score\n     patio, terrace              0.213\n           fountain              0.164\nlakeside, lakeshore              0.097\n            sundial              0.088\n--------------------------------------------------------------"
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-5",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-out-of-the-box-5",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models out-of-the-box",
+    "text": "Pre-trained models out-of-the-box\n\n\n\nHere we are Pre-trained models out-of-the-box.\nCan we use pre-trained models for our own classification problem with our classes?\nYes!! We have two options here:\n\nAdd some extra layers to the pre-trained network to suit our particular task\nPass training data through the network and save the output to use as features for training some other model"
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models to extract features",
+    "text": "Pre-trained models to extract features\n\n\n\nLet’s use pre-trained models to extract features.\nWe will pass our specific data through a pre-trained network to get a feature vector for each example in the data.\nThe feature vector is usually extracted from the last layer, before the classification layer from the pre-trained network.\nYou can think of each layer a transformer applying some transformations on the input received to that later."
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-1",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-1",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models to extract features",
+    "text": "Pre-trained models to extract features\n\n\n\nOnce we extract these feature vectors for all images in our training data, we can train a machine learning classifier such as logistic regression or random forest.\nThis classifier will be trained on our classes using feature representations extracted from the pre-trained models.\n\nLet’s try this out.\nIt’s better to train such models with GPU. Since our dataset is quite small, we won’t have problems running it on a CPU."
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-2",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-2",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models to extract features",
+    "text": "Pre-trained models to extract features\n\n\nLet’s look at some sample images in the dataset."
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#dataset-statistics",
+    "href": "slides/slides-19-computer-vision.html#dataset-statistics",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Dataset statistics",
+    "text": "Dataset statistics\n\n\nHere is the stat of our toy dataset.\n\n\nClasses: ['beet_salad', 'chocolate_cake', 'edamame', 'french_fries', 'pizza', 'spring_rolls', 'sushi']\nClass count: 40, 38, 40\nSamples: 283\nFirst sample: ('data/food/train/beet_salad/104294.jpg', 0)"
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-3",
+    "href": "slides/slides-19-computer-vision.html#pre-trained-models-to-extract-features-3",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Pre-trained models to extract features",
+    "text": "Pre-trained models to extract features\n\n\n\nNow for each image in our dataset, we’ll extract a feature vector from a pre-trained model called densenet121, which is trained on the ImageNet dataset."
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#shape-of-the-feature-vector",
+    "href": "slides/slides-19-computer-vision.html#shape-of-the-feature-vector",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Shape of the feature vector",
+    "text": "Shape of the feature vector\n\n\n\nNow we have extracted feature vectors for all examples. What’s the shape of these features?\n\n\n\ntorch.Size([283, 1024])\n\n\n\nThe size of each feature vector is 1024 because the size of the last layer in densenet architecture is 1024.\n\n\nSource"
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#a-feature-vector-given-by-densenet",
+    "href": "slides/slides-19-computer-vision.html#a-feature-vector-given-by-densenet",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "A feature vector given by densenet",
+    "text": "A feature vector given by densenet\n \n\nLet’s examine the feature vectors.\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n...\n1014\n1015\n1016\n1017\n1018\n1019\n1020\n1021\n1022\n1023\n\n\n\n\n0\n0.000290\n0.003821\n0.005015\n0.001307\n0.052690\n0.063403\n0.000626\n0.001850\n0.256254\n0.000223\n...\n0.229935\n1.046375\n2.241259\n0.229641\n0.033674\n0.742792\n1.338698\n2.130880\n0.625475\n0.463088\n\n\n1\n0.000407\n0.005973\n0.003206\n0.001932\n0.090702\n0.438523\n0.001513\n0.003906\n0.166081\n0.000286\n...\n0.910680\n1.580815\n0.087191\n0.606904\n0.436106\n0.306456\n0.940102\n1.159818\n1.712705\n1.624753\n\n\n2\n0.000626\n0.005090\n0.002887\n0.001299\n0.091715\n0.548537\n0.000491\n0.003587\n0.266537\n0.000408\n...\n0.465152\n0.678276\n0.946387\n1.194697\n2.537747\n1.642383\n0.701200\n0.115620\n0.186433\n0.166605\n\n\n3\n0.000169\n0.006087\n0.002489\n0.002167\n0.087537\n0.623212\n0.000427\n0.000226\n0.460680\n0.000388\n...\n0.394083\n0.700158\n0.105200\n0.856323\n0.038457\n0.023948\n0.131838\n1.296370\n0.723323\n1.915215\n\n\n4\n0.000286\n0.005520\n0.001906\n0.001599\n0.186034\n0.850148\n0.000835\n0.003025\n0.036309\n0.000142\n...\n3.313760\n0.565744\n0.473564\n0.139446\n0.029283\n1.165938\n0.442319\n0.227593\n0.884266\n1.592698\n\n\n\n\n5 rows × 1024 columns\n\n\n\n\nThe features are hard to interpret but they have some important information about the images which can be useful for classification."
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#logistic-regression-with-the-extracted-features",
+    "href": "slides/slides-19-computer-vision.html#logistic-regression-with-the-extracted-features",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Logistic regression with the extracted features",
+    "text": "Logistic regression with the extracted features\n\n\n\nLet’s try out logistic regression on these extracted features.\n\n\n\nTraining score:  1.0\n\n\n\n\nValidation score:  0.835820895522388\n\n\n\nThis is great accuracy for so little data and little effort!!!"
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#sample-predictions",
+    "href": "slides/slides-19-computer-vision.html#sample-predictions",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Sample predictions",
+    "text": "Sample predictions\n\n\nLet’s examine some sample predictions on the validation set."
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#object-detection",
+    "href": "slides/slides-19-computer-vision.html#object-detection",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Object detection",
+    "text": "Object detection\n\n\n\nAnother useful task and tool to know is object detection using YOLO model.\nLet’s identify objects in a sample image using a pretrained model called YOLO8.\nList the objects present in this image."
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#object-detection-using-yolo",
+    "href": "slides/slides-19-computer-vision.html#object-detection-using-yolo",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Object detection using YOLO",
+    "text": "Object detection using YOLO\n\n\nLet’s try this out using a pre-trained model.\n\nfrom ultralytics import YOLO\nmodel = YOLO(\"yolov8n.pt\")  # pretrained YOLOv8n model\n\nyolo_input = \"data/yolo_test/3356700488_183566145b.jpg\"\nyolo_result = \"data/yolo_result.jpg\"\n# Run batched inference on a list of images\nresult = model(yolo_input)  # return a list of Results objects\nresult[0].save(filename=yolo_result)\n\nDownloading https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n.pt to 'yolov8n.pt'...\n\n\n\nimage 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 115.2ms\nSpeed: 1.5ms preprocess, 115.2ms inference, 7.9ms postprocess per image at shape (1, 3, 512, 640)\n\n\n'data/yolo_result.jpg'"
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#object-detection-output",
+    "href": "slides/slides-19-computer-vision.html#object-detection-output",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Object detection output",
+    "text": "Object detection output"
+  },
+  {
+    "objectID": "slides/slides-19-computer-vision.html#summary",
+    "href": "slides/slides-19-computer-vision.html#summary",
+    "title": "CPSC 330 Lecture 19: Introduction to deep learning and computer vision",
+    "section": "Summary",
+    "text": "Summary\n\n\n\nNeural networks are a flexible class of models.\n\nThey are particular powerful for structured input like images, videos, audio, etc.\nThey can be challenging to train and often require significant computational resources.\n\nThe good news is we can use pre-trained neural networks.\n\nThis saves us a huge amount of time/cost/effort/resources.\nWe can use these pre-trained networks directly or use them as feature transformers."
   }
 ]
