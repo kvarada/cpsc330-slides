@@ -319,7 +319,7 @@
     "href": "slides/slides-01-intro.html#cpsc-330-vs.-340",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "CPSC 330 vs. 340",
-    "text": "CPSC 330 vs. 340\nRead https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md which explains the difference between two courses.\nTLDR:\n\n340: how do ML models work?\n330: how do I use ML models?\nCPSC 340 has many prerequisites.\nCPSC 340 goes deeper but has a more narrow scope.\nI think CPSC 330 will be more useful if you just plan to apply basic ML."
+    "text": "CPSC 330 vs. 340\nRead 330_vs_340 which explains the difference between two courses.\nTLDR:\n\n340: how do ML models work?\n330: how do I use ML models?\nCPSC 340 has many prerequisites.\nCPSC 340 goes deeper but has a more narrow scope.\nI think CPSC 330 will be more useful if you just plan to apply basic ML."
   },
   {
     "objectID": "slides/slides-01-intro.html#course-calendar",
@@ -368,7 +368,7 @@
     "href": "slides/slides-01-intro.html#python-requirementsresources",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Python requirements/resources",
-    "text": "Python requirements/resources\nWe will primarily use Python in this course.\nHere is the basic Python knowledge you’ll need for the course:\n\nBasic Python programming\nNumpy\nPandas\nBasic matplotlib\nSparse matrices\n\nHomework 1 is all about Python.\n\n\n\n\n\n\nNote\n\n\nWe do not have time to teach all the Python we need but you can find some useful Python resources here."
+    "text": "Python requirements/resources\nWe will primarily use Python in this course.\nHere is the basic Python knowledge you’ll need for the course:\n\nBasic Python programming\nNumpy\nPandas\nBasic matplotlib\n\nHomework 1 is all about Python.\n\n\n\n\n\n\nNote\n\n\nWe do not have time to teach all the Python we need but you can find some useful Python resources here."
   },
   {
     "objectID": "slides/slides-01-intro.html#workload",
@@ -438,7 +438,7 @@
     "href": "slides/slides-01-intro.html#plagiarism",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Plagiarism",
-    "text": "Plagiarism\n\nRaise your hand if you’ve ever copied code from StackOverflow.\nCopying isn’t always wrong but not acknowledging it is.\nPlagiarism may lead to serious consequences"
+    "text": "Plagiarism\nRaise your hand if you’ve ever copied code from StackOverflow.\n\n\n\n\n\nCopying isn’t always wrong but not acknowledging it is.\nPlagiarism may lead to serious consequences"
   },
   {
     "objectID": "slides/slides-01-intro.html#using-generative-ai-in-this-course",
@@ -448,18 +448,18 @@
     "text": "Using generative AI in this course\nPlease read our full Generative AI usage policy.\nTL;DR: use AI to support, not substitute, your work. If you use a tool:\n\nCite it (tool name/version).\nAnnotate your use (what you asked it to do and how you incorporated/edited the output).\nBe able to explain and reproduce your work without the tool.\nDo not share sensitive content (e.g., assessments, private data).\nFollow group-work rules and be extra careful when collaborating.\nYou are responsible for any errors (“hallucinations”) the tool produces."
   },
   {
-    "objectID": "slides/slides-01-intro.html#optional-slides-on-llm-usage-during-your-learning",
-    "href": "slides/slides-01-intro.html#optional-slides-on-llm-usage-during-your-learning",
+    "objectID": "slides/slides-01-intro.html#optional-slides-on-llm-usage",
+    "href": "slides/slides-01-intro.html#optional-slides-on-llm-usage",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Optional slides on LLM usage during your learning",
-    "text": "Optional slides on LLM usage during your learning\nCheck out these slides I’ve put together for GenAI usage during your learning (https://docs.google.com/presentation/d/13IZMwnfC6YAeS6-bVF2S2CRYMSKZtTprMMaENuhkb04/edit?usp=sharing)"
+    "section": "(Optional) Slides on LLM usage",
+    "text": "(Optional) Slides on LLM usage\nCheck out these slides I’ve put together for GenAI usage during your learning journey."
   },
   {
     "objectID": "slides/slides-01-intro.html#who-to-contact-grading-concerns",
     "href": "slides/slides-01-intro.html#who-to-contact-grading-concerns",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Who to contact: Grading concerns?",
-    "text": "Who to contact: Grading concerns?\n\nGrading concerns: Start by opening a regrade request.\n\nIf not resolved reach out to your section instruction"
+    "text": "Who to contact: Grading concerns?\n\nStart by opening a regrade request.\n\nIf not resolved in two weeks, reach out to your section instructor"
   },
   {
     "objectID": "slides/slides-01-intro.html#who-to-contact-admin-stuffconcessions",
@@ -487,7 +487,7 @@
     "href": "slides/slides-01-intro.html#checklist-for-you-before-the-next-class",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Checklist for you before the next class",
-    "text": "Checklist for you before the next class\n\nAre you able to access course Canvas shell?\nAre you able to access course Piazza?\nAre you able to access Gradescope? (If not, refer to the Gradescope Student Guide.)\nAre you able to access iClicker Cloud for Section 102 for this course? Make sure to access it via Canvas.\nDid you follow the setup instructions here to create a course conda environment on your computer?\nDid you complete the “Getting to know you” survey on Canvas?\nDid you complete the anonymous restaurant survey on Qualtrics?\nAre you almost finished or at least started with homework 1?"
+    "text": "Checklist for you before the next class\n\nHave you read the syllabus and course policies carefully?\nAre you able to access course Canvas shell?\nAre you able to access course Piazza?\nAre you able to access Gradescope? (If not, refer to the Gradescope Student Guide.)\nAre you able to access iClicker Cloud for Section 102 for this course? Make sure to access it via Canvas.\nDid you follow the setup instructions here to create a course conda environment on your computer?\nDid you complete the “Getting to know you” survey on Canvas?\nDid you complete the anonymous restaurant survey on Qualtrics?\nAre you almost finished or at least started with homework 1?"
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#announcements",
