@@ -746,7 +746,16 @@ What does a typical week look like?
 
 # Course policies 
 
-## Attendance 
+## Attendance {.smaller}
+
+Raise your hand if you’ve ever
+
+- Learned something important just from overhearing a classmate’s question
+- Suddenly “got it” because of something the instructor said or showed that wasn’t written in the slides 💡
+- Made a good friend or professional connection just by showing up in a classroom 🤝
+- Felt more motivated when the room around you was engaged 
+
+Your presence and engagement matters!! Together we create energy that makes lectures valuable! 
 
 ## Grading scheme 
 
@@ -812,7 +821,7 @@ Raise your hand if you've ever copied code from StackOverflow.
 :::: {.columns}
 
 ::: {.column width="50%"}
-<img src="img/img/helpful-vs-harmful-paths">
+<img src="img/helpful-vs-harmful-paths">
 :::
 
 ::: {.column width="50%"}
