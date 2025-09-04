@@ -126,6 +126,8 @@ Discuss with you neighbour
 - What would you like to get out this course?
 - Are there any particular topics or aspects of this course that you are especially excited or anxious about? Why?
 
+# What is machine learning? 
+
 ## Which cat do you think is AI-generated? {.smaller}
 
 :::: {.columns}
@@ -149,9 +151,12 @@ Discuss with you neighbour
 
 
 ## What are AI, ML, DL? {.smaller}
-- **Artificial Intelligence (AI)**: Making computers act smart
+- **Artificial Intelligence (AI)**: Making computers act smart  
+  - Examples: [Deep Blue](https://www.ibm.com/history/deep-blue), early spell checkers
 - **Machine Learning (ML)**: Learning patterns from data
+  - Example: Spam filtering in Gmail 
 - **Deep Learning (DL)**: Using neural networks to learn complex patterns
+  - Examples: Face recognition in your phone, voice assistants
 
 ![](img/ai-ml-dl.png){.nostretch fig-align="center" width="700px"}
 
@@ -238,12 +243,16 @@ Discuss with you neighbour
 
 ::::
 
-## What is ML? 
+## What is ML?  
 
-- Learn patterns from examples (data)
-- Make predictions, identify patterns, generate content
-- ML systems **improve over time** with more data
-- No single model fits all problems
+- ML uses algorithms to learn patterns from data and build models.  
+- These models can:  
+  - Make predictions on new data  
+  - Support complex decisions  
+  - Generate new content  
+- ML systems can improve when trained on more data.  
+- There is no one-size-fits-all model. The right choice depends on the problem.  
+
 
 ## When to use ML? 
 
@@ -558,13 +567,16 @@ Think of a problem you have come across in the past which could be solved using 
 Here are some typical learning problems. 
 
 - **Supervised learning** ([Gmail spam filtering](https://support.google.com/a/answer/2368132?hl=en))
-    - Training a model from input data and its corresponding targets to predict targets for new examples.     
-- Unsupervised learning ([Google News](https://news.google.com/))
-    - Training a model to find patterns in a dataset, typically an unlabeled dataset.
+    - Training a model from input-output pairs (features and labeled targets) to make predictions on unseen data. 
+- **Unsupervised learning** ([Google News](https://news.google.com/))
+    - Training a model to discover hidden structure or patterns in unlabeled data (e.g., clustering, dimensionality reduction)
 - Reinforcement learning ([AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far))
-    - A family of algorithms for finding suitable actions to take in a given situation in order to maximize a reward. 
-- Recommendation systems ([Amazon item recommendation system](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf))
-    - Predict the "rating" or "preference" a user would give to an item.    
+    - A family of algorithms for finding suitable actions to take in a given situation in order to maximize a long-term reward.
+- Generative AI ([ChatGPT](https://chatgpt.com/))
+    - Training a model to generate new data resembling the training data (e.g., text, images, music). Modern generative AI systems often combine supervised, unsupervised, and reinforcement learning techniques. 
+- **Recommendation systems** ([Amazon item recommendation system](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf))
+    - Predict user ratings or preferences for items. 
+    - Typically combines supervised learning and unsupervised learning.     
 
 ## What is supervised learning? {.smaller}
 
@@ -628,7 +640,7 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/
 :::
 
 - There are still seats available in Section 103.
-- If you are on the waitlist and would like to try your chances, you should already have access to Canvas and Piazza.
+- If you are on the waitlist and would like to try your chances, you should already have access to Piazza and Gradescope.
 - **Please note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.**
 - If you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer.
 
@@ -641,17 +653,23 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/
 
 ## Tutorials 
 - Weekly tutorials will be run by the TAs. 
-- There is a small participation grade associated with attending tutorials. 
+- There is a small bonus grade associated with attending tutorials. 
 - Make use of this helpful resource. 
 
 ## Homework assignments
-- First homework assignment is due **this coming Tuesday**, September 9, midnight. This is a relatively straightforward assignment on Python. 
+- First homework assignment is due **this coming Tuesday, September 9, 11:59 PM**. This is a relatively straightforward assignment on Python. 
 - If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
 - You must do the first two homework assignments on your own.
 
 ## Exams 
 
-- We'll have two self-scheduled midterms and one final in Computer-based Testing Facility (CBTF). 
+Two midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).
+
+- Midterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.
+
+- Midterm 2: Includes some coding.
+
+- Final exam: A mix of question types covering the full course.
 
 ## Course calendar
 
@@ -680,13 +698,12 @@ Please read [this entire document about asking for help](https://github.com/UBC-
 **TLDR:** Be nice.
 :::
 
-
 ## Homework format: Jupyter notebooks {.smaller}
 
 - Our notes are created in a [Jupyter notebook](https://jupyter.org/), with file extension `.ipynb`.
 - Also, you will complete your homework assignments using Jupyter notebooks.
-- Confusingly, "Jupyter notebook" is also the original application that opens `.ipynb` files - but has since been replaced by **Jupyter lab**.
-  - I am using Jupyter lab, some things might not work with the Jupyter notebook application.
+- Confusingly, "Jupyter notebook" is also the original application that opens `.ipynb` files - but has since been replaced by **Jupyter Lab**.
+  - I am using Jupyter Lab, some things might not work with the Jupyter notebook application.
   - You can also open these files in Visual Studio Code.
 
 ## Jupyter notebooks 
@@ -716,13 +733,13 @@ x
   - But you need to launch the app properly to interact with the notebooks.
 
 ## Lecture notes {.smaller}
-
-- All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2024W1/README.html).
-- We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
-- A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
+- A draft version of lecture notes is available in [this Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html)
+- We A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
 - Each instructor will have slightly adapted versions of notes to present slides during lectures.  
 - You will find the link to these slides in our repository: 
 https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures
+- All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2024W1/README.html).
+- We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
 
 ## Grades
 
@@ -731,12 +748,16 @@ https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures
 
 # Setting up your computer for the course 
 
-## Recommended browser and tools
+# Tools Used in This Course
 
-- You can install Chrome [here](https://www.google.com/chrome/).
-- You can install Firefox [here](https://www.mozilla.org/en-US/firefox/new/). 
+We will use the following tools throughout the course:
 
-In this course, we will primarily be using `Python` , `git`, `GitHub`, `Canvas`, `Gradescope`, `Piazza`, and `PrairieLearn`. 
+- **Coding:** `Python`, with either `Jupyter Lab` or `VS Code`
+- **Version Control:** `git` and `GitHub`
+- **Assignment Submission:** `Gradescope`
+- **Discussion Forum:** `Piazza`
+- **Exams and Final Grades:** `PrairieLearn` and `Canvas`
+- **Recommended Browsers:** [Google Chrome](https://www.google.com/chrome/) or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/)
 
 ## Course `conda` environment
 
