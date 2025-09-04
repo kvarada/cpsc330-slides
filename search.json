@@ -60,7 +60,7 @@
     "href": "slides/slides-01-intro.html#what-are-ai-ml-dl",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "What are AI, ML, DL?",
-    "text": "What are AI, ML, DL?\n\nArtificial Intelligence (AI): Making computers act smart\nMachine Learning (ML): Learning patterns from data\nDeep Learning (DL): Using neural networks to learn complex patterns"
+    "text": "What are AI, ML, DL?\n\nArtificial Intelligence (AI): Making computers act smart\n\nExamples: Deep Blue, early spell checkers\n\nMachine Learning (ML): Learning patterns from data\n\nExample: Spam filtering in Gmail\n\nDeep Learning (DL): Using neural networks to learn complex patterns\n\nExamples: Face recognition in your phone, voice assistants"
   },
   {
     "objectID": "slides/slides-01-intro.html#lets-walk-through-an-example",
@@ -102,7 +102,7 @@
     "href": "slides/slides-01-intro.html#what-is-ml",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "What is ML?",
-    "text": "What is ML?\n\nLearn patterns from examples (data)\nMake predictions, identify patterns, generate content\nML systems improve over time with more data\nNo single model fits all problems"
+    "text": "What is ML?\n\nML uses algorithms to learn patterns from data and build models.\n\nThese models can:\n\nMake predictions on new data\n\nSupport complex decisions\n\nGenerate new content\n\n\nML systems can improve when trained on more data.\n\nThere is no one-size-fits-all model. The right choice depends on the problem."
   },
   {
     "objectID": "slides/slides-01-intro.html#when-to-use-ml",
@@ -270,7 +270,7 @@
     "href": "slides/slides-01-intro.html#types-of-machine-learning",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Types of machine learning",
-    "text": "Types of machine learning\nHere are some typical learning problems.\n\nSupervised learning (Gmail spam filtering)\n\nTraining a model from input data and its corresponding targets to predict targets for new examples.\n\n\nUnsupervised learning (Google News)\n\nTraining a model to find patterns in a dataset, typically an unlabeled dataset.\n\nReinforcement learning (AlphaGo)\n\nA family of algorithms for finding suitable actions to take in a given situation in order to maximize a reward.\n\nRecommendation systems (Amazon item recommendation system)\n\nPredict the “rating” or “preference” a user would give to an item."
+    "text": "Types of machine learning\nHere are some typical learning problems.\n\nSupervised learning (Gmail spam filtering)\n\nTraining a model from input-output pairs (features and labeled targets) to make predictions on unseen data.\n\nUnsupervised learning (Google News)\n\nTraining a model to discover hidden structure or patterns in unlabeled data (e.g., clustering, dimensionality reduction)\n\nReinforcement learning (AlphaGo)\n\nA family of algorithms for finding suitable actions to take in a given situation in order to maximize a long-term reward.\n\nGenerative AI (ChatGPT)\n\nTraining a model to generate new data resembling the training data (e.g., text, images, music). Modern generative AI systems often combine supervised, unsupervised, and reinforcement learning techniques.\n\nRecommendation systems (Amazon item recommendation system)\n\nPredict user ratings or preferences for items.\nTypically combines supervised learning and unsupervised learning."
   },
   {
     "objectID": "slides/slides-01-intro.html#what-is-supervised-learning",
@@ -319,7 +319,7 @@
     "href": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Registration, waitlist and prerequisites",
-    "text": "Registration, waitlist and prerequisites\n\n\n\n\n\n\nImportant\n\n\nPlease go through this document carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.\n\n\n\n\nThere are still seats available in Section 103.\nIf you are on the waitlist and would like to try your chances, you should already have access to Canvas and Piazza.\nPlease note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.\nIf you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer."
+    "text": "Registration, waitlist and prerequisites\n\n\n\n\n\n\nImportant\n\n\nPlease go through this document carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.\n\n\n\n\nThere are still seats available in Section 103.\nIf you are on the waitlist and would like to try your chances, you should already have access to Piazza and Gradescope.\nPlease note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.\nIf you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer."
   },
   {
     "objectID": "slides/slides-01-intro.html#lecture-format",
@@ -333,21 +333,21 @@
     "href": "slides/slides-01-intro.html#tutorials",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Tutorials",
-    "text": "Tutorials\n\nWeekly tutorials will be run by the TAs.\nThere is a small participation grade associated with attending tutorials.\nMake use of this helpful resource."
+    "text": "Tutorials\n\nWeekly tutorials will be run by the TAs.\nThere is a small bonus grade associated with attending tutorials.\nMake use of this helpful resource."
   },
   {
     "objectID": "slides/slides-01-intro.html#homework-assignments",
     "href": "slides/slides-01-intro.html#homework-assignments",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Homework assignments",
-    "text": "Homework assignments\n\nFirst homework assignment is due this coming Tuesday, September 9, midnight. This is a relatively straightforward assignment on Python.\nIf you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
+    "text": "Homework assignments\n\nFirst homework assignment is due this coming Tuesday, September 9, 11:59 PM. This is a relatively straightforward assignment on Python.\nIf you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
   },
   {
     "objectID": "slides/slides-01-intro.html#exams",
     "href": "slides/slides-01-intro.html#exams",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Exams",
-    "text": "Exams\n\nWe’ll have two self-scheduled midterms and one final in Computer-based Testing Facility (CBTF)."
+    "text": "Exams\nTwo midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).\n\nMidterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.\nMidterm 2: Includes some coding.\nFinal exam: A mix of question types covering the full course."
   },
   {
     "objectID": "slides/slides-01-intro.html#course-calendar",
@@ -375,7 +375,7 @@
     "href": "slides/slides-01-intro.html#homework-format-jupyter-notebooks",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Homework format: Jupyter notebooks",
-    "text": "Homework format: Jupyter notebooks\n\nOur notes are created in a Jupyter notebook, with file extension .ipynb.\nAlso, you will complete your homework assignments using Jupyter notebooks.\nConfusingly, “Jupyter notebook” is also the original application that opens .ipynb files - but has since been replaced by Jupyter lab.\n\nI am using Jupyter lab, some things might not work with the Jupyter notebook application.\nYou can also open these files in Visual Studio Code."
+    "text": "Homework format: Jupyter notebooks\n\nOur notes are created in a Jupyter notebook, with file extension .ipynb.\nAlso, you will complete your homework assignments using Jupyter notebooks.\nConfusingly, “Jupyter notebook” is also the original application that opens .ipynb files - but has since been replaced by Jupyter Lab.\n\nI am using Jupyter Lab, some things might not work with the Jupyter notebook application.\nYou can also open these files in Visual Studio Code."
   },
   {
     "objectID": "slides/slides-01-intro.html#jupyter-notebooks",
@@ -396,7 +396,7 @@
     "href": "slides/slides-01-intro.html#lecture-notes",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Lecture notes",
-    "text": "Lecture notes\n\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.\nA “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures"
+    "text": "Lecture notes\n\nA draft version of lecture notes is available in this Jupyter book\nWe A “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk."
   },
   {
     "objectID": "slides/slides-01-intro.html#grades",
@@ -404,13 +404,6 @@
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Grades",
     "text": "Grades\n\nThe grading breakdown is here.\nThe policy on challenging grades is here."
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#recommended-browser-and-tools",
-    "href": "slides/slides-01-intro.html#recommended-browser-and-tools",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Recommended browser and tools",
-    "text": "Recommended browser and tools\n\nYou can install Chrome here.\nYou can install Firefox here.\n\nIn this course, we will primarily be using Python , git, GitHub, Canvas, Gradescope, Piazza, and PrairieLearn."
   },
   {
     "objectID": "slides/slides-01-intro.html#course-conda-environment",
