@@ -74,7 +74,7 @@
     "href": "slides/slides-01-intro.html#image-classification",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Image classification",
-    "text": "Image classification\n\nImagine we want a system that can tell cats and foxes apart.\nHow might we do this with traditional programming? With ML?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage ID\nWhiskers Present\nEar Size\nFace Shape\nFur Color\nEye Shape\nLabel\n\n\n\n\n1\nYes\nSmall\nRound\nMixed\nRound\nCat\n\n\n2\nYes\nMedium\nRound\nBrown\nAlmond\nCat\n\n\n3\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n4\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n5\nYes\nSmall\nRound\nMixed\nRound\nCat\n\n\n6\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n7\nYes\nSmall\nRound\nGrey\nRound\nCat\n\n\n8\nYes\nSmall\nRound\nBlack\nRound\nCat\n\n\n9\nYes\nLarge\nPointed\nRed\nNarrow\nFox"
+    "text": "Image classification\n\nImagine we want a system that can tell cats and foxes apart.\nHow might we do this with traditional programming? With ML?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage ID\nWhiskers Present\nEar Size\nFace Shape\nFur Color\nEye Shape\nLabel\n\n\n\n\n1\nYes\nLarge\nRound\nMixed\nRound\nCat\n\n\n2\nYes\nMedium\nRound\nBrown\nAlmond\nCat\n\n\n3\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n4\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n5\nYes\nSmall\nRound\nMixed\nRound\nCat\n\n\n6\nYes\nLarge\nPointed\nRed\nNarrow\nFox\n\n\n7\nYes\nSmall\nRound\nGrey\nRound\nCat\n\n\n8\nYes\nSmall\nRound\nBlack\nRound\nCat\n\n\n9\nYes\nLarge\nPointed\nRed\nNarrow\nFox"
   },
   {
     "objectID": "slides/slides-01-intro.html#traditional-programming-example",
@@ -347,7 +347,7 @@
     "href": "slides/slides-01-intro.html#lecture-notes",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Lecture notes",
-    "text": "Lecture notes\n\nA draft version of lecture notes is available in this Jupyter book\nWe A “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk."
+    "text": "Lecture notes\n\nA draft version of lecture notes is available in this Jupyter book\nA “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://ubc-cs.github.io/cpsc330-2025W1/lectures/102-Varada-lectures/README.html\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk."
   },
   {
     "objectID": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",

@@ -179,7 +179,7 @@ Discuss with you neighbour
 
 | Image ID | Whiskers Present | Ear Size  | Face Shape | Fur Color  | Eye Shape   | Label |
 |----------|------------------|-----------|------------|------------|-------------|-------|
-| 1        | Yes              | Small     | Round      | Mixed      | Round       | Cat   |
+| 1        | Yes              | Large     | Round      | Mixed      | Round       | Cat   |
 | 2        | Yes              | Medium    | Round      | Brown      | Almond      | Cat   |
 | 3        | Yes              | Large     | Pointed    | Red        | Narrow      | Fox   |
 | 4        | Yes              | Large     | Pointed    | Red        | Narrow      | Fox   |
@@ -669,10 +669,10 @@ Here is our course Calendar. Make sure you check it on a regular basis:
 ## Lecture notes {.smaller}
 
 - A draft version of lecture notes is available in [this Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html)
-- We A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
+- A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
 - Each instructor will have slightly adapted versions of notes to present slides during lectures.  
 - You will find the link to these slides in our repository: 
-https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures
+https://ubc-cs.github.io/cpsc330-2025W1/lectures/102-Varada-lectures/README.html
 - All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2024W1/README.html).
 - We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
 
