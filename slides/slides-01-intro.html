@@ -762,7 +762,7 @@ Discuss with you neighbour</p>
 <ul>
 <li>We want to predict liver disease from tabular features:</li>
 </ul>
-<div id="0c583a6d" class="cell" data-execution_count="2">
+<div id="d45ce7f2" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -847,7 +847,7 @@ Discuss with you neighbour</p>
 </section>
 <section id="model-training" class="slide level2 center">
 <h2>Model training</h2>
-<div id="dd3a61c3" class="cell" data-execution_count="3">
+<div id="016c8824" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> lightgbm.sklearn <span class="im">import</span> LGBMClassifier</span>
 <span id="cb1-2"><a></a>model <span class="op">=</span> LGBMClassifier(random_state<span class="op">=</span><span class="dv">123</span>, verbose<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb1-3"><a></a>model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1492,7 +1492,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>Given features of new patients below we’ll use this model to predict whether these patients have the liver disease or not.</li>
 </ul>
-<div id="5c0ce99c" class="cell" data-execution_count="4">
+<div id="3b0120f8" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -1563,7 +1563,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>Let’s examine predictions</li>
 </ul>
-<div id="824bc753" class="cell" data-execution_count="5">
+<div id="066d6419" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>pred_df <span class="op">=</span> pd.DataFrame({<span class="st">"Predicted_target"</span>: model.predict(X_test).tolist()})</span>
 <span id="cb2-2"><a></a>df_concat <span class="op">=</span> pd.concat([pred_df, X_test.reset_index(drop<span class="op">=</span><span class="va">True</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb2-3"><a></a>HTML(df_concat.to_html(index<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1640,7 +1640,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="example-supervised-regression" class="slide level2 smaller center">
 <h2>Example: Supervised regression</h2>
 <p>Suppose we want to predict housing prices given a number of attributes associated with houses. The target here is <strong>continuous</strong> and not <strong>discrete</strong>.</p>
-<div id="83d95cb3" class="cell" data-execution_count="6">
+<div id="9ce2ba46" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -1779,7 +1779,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="building-a-regression-model" class="slide level2 center">
 <h2>Building a regression model</h2>
-<div id="a36f9f99" class="cell" data-execution_count="7">
+<div id="defbc06b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> lightgbm.sklearn <span class="im">import</span> LGBMRegressor</span>
 <span id="cb3-2"><a></a></span>
 <span id="cb3-3"><a></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span> [<span class="st">"target"</span>]), train_df[<span class="st">"target"</span>]</span>
@@ -1791,7 +1791,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="predicting-prices-of-unseen-houses" class="slide level2 smaller center">
 <h2>Predicting prices of unseen houses</h2>
-<div id="a795e575" class="cell" data-execution_count="8">
+<div id="4c04a0e6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>pred_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb4-2"><a></a>    {<span class="st">"Predicted_target"</span>: model.predict(X_test[<span class="dv">0</span>:<span class="dv">4</span>]).tolist()}</span>
 <span id="cb4-3"><a></a>)</span>
@@ -1927,7 +1927,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="32d731f6" class="cell" data-execution_count="9">
+<div id="e9bbbb0d" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>sms_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">"spam.csv"</span>, encoding<span class="op">=</span><span class="st">"latin-1"</span>)</span>
 <span id="cb5-2"><a></a>sms_df <span class="op">=</span> sms_df.drop(columns <span class="op">=</span> [<span class="st">"Unnamed: 2"</span>, <span class="st">"Unnamed: 3"</span>, <span class="st">"Unnamed: 4"</span>])</span>
 <span id="cb5-3"><a></a>sms_df <span class="op">=</span> sms_df.rename(columns<span class="op">=</span>{<span class="st">"v1"</span>: <span class="st">"target"</span>, <span class="st">"v2"</span>: <span class="st">"sms"</span>})</span>
@@ -1936,7 +1936,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 <div id="tabset-1-2">
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="03617fae" class="cell" data-execution_count="10">
+<div id="d80e02e2" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -1977,7 +1977,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="lets-train-a-model" class="slide level2 center">
 <h2>Let’s train a model</h2>
-<div id="b1efa142" class="cell" data-execution_count="11">
+<div id="84372717" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>X_train, y_train <span class="op">=</span> train_df[<span class="st">"sms"</span>], train_df[<span class="st">"target"</span>]</span>
 <span id="cb6-2"><a></a>X_test, y_test <span class="op">=</span> test_df[<span class="st">"sms"</span>], test_df[<span class="st">"target"</span>]</span>
 <span id="cb6-3"><a></a>clf <span class="op">=</span> make_pipeline(CountVectorizer(max_features<span class="op">=</span><span class="dv">5000</span>), LogisticRegression(max_iter<span class="op">=</span><span class="dv">5000</span>))</span>
@@ -2728,7 +2728,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>Now use the trained model to predict targets of unseen messages:</li>
 </ul>
-<div id="a6987b9b" class="cell" data-execution_count="12">
+<div id="41ca2a49" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <style scoped="">
@@ -2779,42 +2779,42 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="predicting-on-unseen-data" class="slide level2 smaller center">
 <h2>Predicting on unseen data</h2>
 <p><strong>The model is accurately predicting labels for the unseen text messages above!</strong></p>
-<div id="08f37495" class="cell" data-execution_count="13">
+<div id="fc0de030" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display" data-execution_count="13">
 <style type="text/css">
-#T_c2f9a_row0_col0, #T_c2f9a_row0_col1, #T_c2f9a_row1_col0, #T_c2f9a_row1_col1, #T_c2f9a_row2_col0, #T_c2f9a_row2_col1, #T_c2f9a_row3_col0, #T_c2f9a_row3_col1 {
+#T_0017e_row0_col0, #T_0017e_row0_col1, #T_0017e_row1_col0, #T_0017e_row1_col1, #T_0017e_row2_col0, #T_0017e_row2_col1, #T_0017e_row3_col0, #T_0017e_row3_col1 {
   text-align: left;
 }
 </style>
 
-<table id="T_c2f9a" class="caption-top" data-quarto-postprocess="true">
+<table id="T_0017e" class="caption-top" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_c2f9a_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">sms</th>
-<th id="T_c2f9a_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">spam_predictions</th>
+<th id="T_0017e_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">sms</th>
+<th id="T_0017e_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">spam_predictions</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_c2f9a_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">3245</td>
-<td id="T_c2f9a_row0_col0" class="data row0 col0">Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
-<td id="T_c2f9a_row0_col1" class="data row0 col1">ham</td>
+<td id="T_0017e_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">3245</td>
+<td id="T_0017e_row0_col0" class="data row0 col0">Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
+<td id="T_0017e_row0_col1" class="data row0 col1">ham</td>
 </tr>
 <tr class="even">
-<td id="T_c2f9a_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">944</td>
-<td id="T_c2f9a_row1_col0" class="data row1 col0">I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one me the less expensive ones</td>
-<td id="T_c2f9a_row1_col1" class="data row1 col1">ham</td>
+<td id="T_0017e_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">944</td>
+<td id="T_0017e_row1_col0" class="data row1 col0">I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one me the less expensive ones</td>
+<td id="T_0017e_row1_col1" class="data row1 col1">ham</td>
 </tr>
 <tr class="odd">
-<td id="T_c2f9a_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">1044</td>
-<td id="T_c2f9a_row2_col0" class="data row2 col0">We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
-<td id="T_c2f9a_row2_col1" class="data row2 col1">spam</td>
+<td id="T_0017e_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">1044</td>
+<td id="T_0017e_row2_col0" class="data row2 col0">We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
+<td id="T_0017e_row2_col1" class="data row2 col1">spam</td>
 </tr>
 <tr class="even">
-<td id="T_c2f9a_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">2484</td>
-<td id="T_c2f9a_row3_col0" class="data row3 col0">Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
-<td id="T_c2f9a_row3_col1" class="data row3 col1">ham</td>
+<td id="T_0017e_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">2484</td>
+<td id="T_0017e_row3_col0" class="data row3 col0">Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
+<td id="T_0017e_row3_col1" class="data row3 col1">ham</td>
 </tr>
 </tbody>
 </table>
@@ -2827,7 +2827,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>LLMs = Large Language Models</li>
 </ul>
-<div id="a5c059b8" class="cell" data-execution_count="14">
+<div id="9499f5ff" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline, AutoModelForTokenClassification, AutoTokenizer</span>
 <span id="cb7-2"><a></a><span class="co"># Sentiment analysis pipeline</span></span>
 <span id="cb7-3"><a></a>analyzer <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>, model<span class="op">=</span><span class="st">'distilbert-base-uncased-finetuned-sst-2-english'</span>)</span>
@@ -2848,7 +2848,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <li>Now suppose you want to identify the emotion expressed in the text rather than just positive or negative.</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="4ddc09bb" class="cell" data-execution_count="15">
+<div id="807e818b" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>['im feeling rather rotten so im not very ambitious right now',
  'im updating my blog because i feel shitty',
@@ -2868,7 +2868,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <h2>Zero-shot learning for emotion detection</h2>
 <p><br>
 </p>
-<div id="0671d740" class="cell" data-execution_count="16">
+<div id="f5ba7790" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
 <span id="cb10-2"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline </span>
 <span id="cb10-3"><a></a><span class="im">import</span> torch</span>
@@ -2886,7 +2886,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <p><br>
 </p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="26a04057" class="cell" data-execution_count="17">
+<div id="a0b5dcde" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 <style scoped="">
@@ -2993,7 +2993,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <li>We can use machine learning to predict labels of these images using a technique called <strong>transfer learning</strong>.</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="aa390bf6" class="cell" data-execution_count="18">
+<div id="898b6e58" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -3073,11 +3073,11 @@ Walker hound, Walker foxhound              0.582
 <h2>K-Means on food dataset</h2>
 <p><br>
 </p>
-<div id="39879333" class="cell" data-execution_count="20">
+<div id="4a54f471" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a>densenet <span class="op">=</span> models.densenet121(weights<span class="op">=</span><span class="st">"DenseNet121_Weights.IMAGENET1K_V1"</span>)</span>
 <span id="cb15-2"><a></a>densenet.classifier <span class="op">=</span> torch.nn.Identity()  <span class="co"># remove that last "classification" layer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ea153f4d" class="cell" data-execution_count="21">
+<div id="fb2862a1" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>Z_food <span class="op">=</span> get_features_unsup(densenet, food_inputs)</span>
 <span id="cb16-2"><a></a>k <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb16-3"><a></a>km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, n_init<span class="op">=</span><span class="st">'auto'</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
@@ -3668,7 +3668,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <p><br>
 </p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="6c5cac4c" class="cell" data-execution_count="22">
+<div id="324c2642" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="cf">for</span> cluster <span class="kw">in</span> <span class="bu">range</span>(k):</span>
 <span id="cb17-2"><a></a>    get_cluster_images(km, Z_food, X_food, cluster, n_img<span class="op">=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3798,27 +3798,11 @@ Image indices:  [120 268 244  94  72  87]</code></pre>
 <h2>Types of machine learning</h2>
 <p>Here are some typical learning problems.</p>
 <ul>
-<li><strong>Supervised learning</strong> (<a href="https://support.google.com/a/answer/2368132?hl=en">Gmail spam filtering</a>)
-<ul>
-<li>Training a model from input-output pairs (features and labeled targets) to make predictions on unseen data.</li>
-</ul></li>
-<li><strong>Unsupervised learning</strong> (<a href="https://news.google.com/">Google News</a>)
-<ul>
-<li>Training a model to discover hidden structure or patterns in unlabeled data (e.g., clustering, dimensionality reduction)</li>
-</ul></li>
-<li>Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a>)
-<ul>
-<li>A family of algorithms for finding suitable actions to take in a given situation in order to maximize a long-term reward.</li>
-</ul></li>
-<li>Generative AI (<a href="https://chatgpt.com/">ChatGPT</a>)
-<ul>
-<li>Training a model to generate new data resembling the training data (e.g., text, images, music). Modern generative AI systems often combine supervised, unsupervised, and reinforcement learning techniques.</li>
-</ul></li>
-<li><strong>Recommendation systems</strong> (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf">Amazon item recommendation system</a>)
-<ul>
-<li>Predict user ratings or preferences for items.</li>
-<li>Typically combines supervised learning and unsupervised learning.</li>
-</ul></li>
+<li><strong>Supervised learning</strong> (<a href="https://support.google.com/a/answer/2368132?hl=en">Gmail spam filtering</a>)</li>
+<li><strong>Unsupervised learning</strong> (<a href="https://news.google.com/">Google News</a>)</li>
+<li>Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a>)</li>
+<li>Generative AI (<a href="https://chatgpt.com/">ChatGPT</a>)</li>
+<li><strong>Recommendation systems</strong> (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf">Amazon item recommendation system</a>)</li>
 </ul>
 </section>
 <section id="what-is-supervised-learning" class="slide level2 smaller center">
@@ -3854,19 +3838,14 @@ Image indices:  [120 268 244  94  72  87]</code></pre>
 <section id="break" class="slide level2 center">
 <h2>Break</h2>
 
-<img data-src="img/eva-coffee.png" class="r-stretch"></section>
-<section id="surveys" class="slide level2 center">
-<h2>Surveys</h2>
-<ul>
-<li>Please complete the “Getting to know you” survey on Canvas.</li>
-<li>Also, please complete the anonymous restaurant survey on Qualtrics <a href="https://ubc.ca1.qualtrics.com/jfe/form/SV_73VuZiuwM1eDVrw">here</a>.
-<ul>
-<li>We will try to analyze this data set in the coming weeks.</li>
-</ul></li>
-</ul>
+<img data-src="img/eva-coffee.png" class="r-stretch"></section></section>
+<section>
+<section id="course-overview" class="title-slide slide level1 center">
+<h1>Course overview</h1>
+
 </section>
-<section id="about-this-course" class="slide level2 center">
-<h2>About this course</h2>
+<section id="course-website" class="slide level2 center">
+<h2>Course website</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -3894,79 +3873,29 @@ Image indices:  [120 268 244  94  72  87]</code></pre>
 </div>
 </div>
 </section>
-<section id="cpsc-330-vs.-340" class="slide level2 center">
-<h2>CPSC 330 vs.&nbsp;340</h2>
-<p>Read <a href="[https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md">https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md</a> which explains the difference between two courses.</p>
-<p><strong>TLDR:</strong></p>
+<section id="what-do-we-cover" class="slide level2 center">
+<h2>What do we cover</h2>
 <ul>
-<li>340: how do ML models work?</li>
-<li>330: how do I use ML models?</li>
-<li>CPSC 340 has many prerequisites.</li>
-<li>CPSC 340 goes deeper but has a more narrow scope.</li>
-<li>I think CPSC 330 will be more useful if you just plan to apply basic ML.</li>
-</ul>
-</section>
-<section id="registration-waitlist-and-prerequisites" class="slide level2 smaller center">
-<h2>Registration, waitlist and prerequisites</h2>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>Please go through <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/master/docs/course_info.md#registration">this document</a> carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.</p>
-</div>
-</div>
-</div>
-<ul>
-<li>There are still seats available in Section 103.</li>
-<li>If you are on the waitlist and would like to try your chances, you should already have access to Piazza and Gradescope.</li>
-<li><strong>Please note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.</strong></li>
-<li>If you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer.</li>
-</ul>
-</section>
-<section id="lecture-format" class="slide level2 center">
-<h2>Lecture format</h2>
-<ul>
-<li>In person lectures T/Th.</li>
-<li>Sometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.</li>
-<li>We will also try to work on some questions and exercises together during the class.</li>
-<li>All materials will be posted in this GitHub repository.</li>
-</ul>
-</section>
-<section id="tutorials" class="slide level2 center">
-<h2>Tutorials</h2>
-<ul>
-<li>Weekly tutorials will be run by the TAs.</li>
-<li>There is a small bonus grade associated with attending tutorials.</li>
-<li>Make use of this helpful resource.</li>
-</ul>
-</section>
-<section id="homework-assignments" class="slide level2 center">
-<h2>Homework assignments</h2>
-<ul>
-<li>First homework assignment is due <strong>this coming Tuesday, September 9, 11:59 PM</strong>. This is a relatively straightforward assignment on Python.</li>
-<li>If you struggle with this assignment then that could be a sign that you will struggle later on in the course.<br>
+<li>Designed for a <strong>diverse group of students</strong> (CS, Statistics, and beyond)<br>
 </li>
-<li>You must do the first two homework assignments on your own.</li>
-</ul>
-</section>
-<section id="exams" class="slide level2 center">
-<h2>Exams</h2>
-<p>Two midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).</p>
+<li><strong>Gentle introduction</strong> to machine learning, but also valuable for those with prior experience<br>
+</li>
+<li>Covers <strong>foundational concepts</strong> in ML and data science:
 <ul>
-<li><p>Midterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.</p></li>
-<li><p>Midterm 2: Includes some coding.</p></li>
-<li><p>Final exam: A mix of question types covering the full course.</p></li>
+<li>Data preprocessing, supervised learning, clustering<br>
+</li>
+<li>Recommendation systems, text processing<br>
+</li>
+<li>Intro to neural networks, time series, survival analysis<br>
+</li>
+</ul></li>
+<li>Emphasis on <strong>hands-on skills</strong>:
+<ul>
+<li>Model development, evaluation, interpretation<br>
+</li>
+<li>Ethical considerations and clear communication</li>
+</ul></li>
 </ul>
-</section>
-<section id="course-calendar" class="slide level2 center">
-<h2>Course calendar</h2>
-<p>Here is our course Calendar. Make sure you check it on a regular basis:</p>
-<p><a href="https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html">https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html</a></p>
 </section>
 <section id="course-structure" class="slide level2 smaller center">
 <h2>Course structure</h2>
@@ -3990,68 +3919,38 @@ Image indices:  [120 268 244  94  72  87]</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="code-of-conduct" class="slide level2 center">
-<h2>Code of conduct</h2>
+<section id="cpsc-330-vs.-340" class="slide level2 center">
+<h2>CPSC 330 vs.&nbsp;340</h2>
+<p>Read <a href="[https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md">https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md</a> which explains the difference between two courses.</p>
+<p><strong>TLDR:</strong></p>
 <ul>
-<li>Our main forum for getting help will be <a href="https://piazza.com/ubc.ca/winterterm12025/cpsc_v3301011021032025w1">Piazza</a>.</li>
-</ul>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>Please read <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/asking_for_help.md">this entire document about asking for help</a>. <strong>TLDR:</strong> Be nice.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="homework-format-jupyter-notebooks" class="slide level2 smaller center">
-<h2>Homework format: Jupyter notebooks</h2>
-<ul>
-<li>Our notes are created in a <a href="https://jupyter.org/">Jupyter notebook</a>, with file extension <code>.ipynb</code>.</li>
-<li>Also, you will complete your homework assignments using Jupyter notebooks.</li>
-<li>Confusingly, “Jupyter notebook” is also the original application that opens <code>.ipynb</code> files - but has since been replaced by <strong>Jupyter Lab</strong>.
-<ul>
-<li>I am using Jupyter Lab, some things might not work with the Jupyter notebook application.</li>
-<li>You can also open these files in Visual Studio Code.</li>
-</ul></li>
+<li>340: how do ML models work?</li>
+<li>330: how do I use ML models?</li>
+<li>CPSC 340 has many prerequisites.</li>
+<li>CPSC 340 goes deeper but has a more narrow scope.</li>
+<li>I think CPSC 330 will be more useful if you just plan to apply basic ML.</li>
 </ul>
 </section>
-<section id="jupyter-notebooks" class="slide level2 center">
-<h2>Jupyter notebooks</h2>
-<ul>
-<li>Notebooks contain a mix of code, code output, markdown-formatted text (including LaTeX equations), and more.</li>
-<li>When you open a Jupyter notebook in one of these apps, the document is “live”, meaning you can run the code.</li>
-</ul>
-<p>For example:</p>
-<div id="31c90219" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="047e1b01" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb25-2"><a></a>x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">9999</span></span>
-<span id="cb25-3"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>[9999, 2, 3]</code></pre>
-</div>
-</div>
+<section id="course-calendar" class="slide level2 center">
+<h2>Course calendar</h2>
+<p>Here is our course Calendar. Make sure you check it on a regular basis:</p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html">https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html</a></p>
 </section>
-<section id="jupyter" class="slide level2 center">
-<h2>Jupyter</h2>
+<section id="lecture-format" class="slide level2 center">
+<h2>Lecture format</h2>
 <ul>
-<li>By default, Jupyter prints out the result of the last line of code, so you don’t need as many <code>print</code> statements.</li>
-<li>In addition to the “live” notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g.&nbsp;<a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/01_intro.ipynb">this</a>.
+<li>In person lectures T/Th.</li>
+<li>Sometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.</li>
+<li>We will also try to work on some questions and exercises together during the class.</li>
+<li>All materials will be posted in this GitHub repository.</li>
+</ul>
+</section>
+<section id="tutorials" class="slide level2 center">
+<h2>Tutorials</h2>
 <ul>
-<li>This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.</li>
-<li>But you need to launch the app properly to interact with the notebooks.</li>
-</ul></li>
+<li><p>Weekly tutorials will be run by the TAs.</p></li>
+<li><p>There is a small bonus grade associated with attending tutorials.</p></li>
+<li><p>Make use of this helpful resource.</p></li>
 </ul>
 </section>
 <section id="lecture-notes" class="slide level2 smaller center">
@@ -4066,11 +3965,26 @@ Image indices:  [120 268 244  94  72  87]</code></pre>
 <li>We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.</li>
 </ul>
 </section>
-<section id="grades" class="slide level2 center">
-<h2>Grades</h2>
+<section id="registration-waitlist-and-prerequisites" class="slide level2 smaller center">
+<h2>Registration, waitlist and prerequisites</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Please go through <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/master/docs/course_info.md#registration">this document</a> carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.</p>
+</div>
+</div>
+</div>
 <ul>
-<li>The grading breakdown is <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/syllabus.md#grading-scheme">here</a>.</li>
-<li>The policy on challenging grades is <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/grades.md">here</a>.</li>
+<li>There are still seats available in Section 103.</li>
+<li>If you are on the waitlist and would like to try your chances, you should already have access to Piazza and Gradescope.</li>
+<li><strong>Please note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.</strong></li>
+<li>If you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer.</li>
 </ul>
 </section></section>
 <section id="setting-up-your-computer-for-the-course" class="title-slide slide level1 center">
@@ -4124,6 +4038,176 @@ Image indices:  [120 268 244  94  72  87]</code></pre>
 </div>
 </div>
 <p><br><br></p>
+</section>
+<section id="workload" class="slide level2 center">
+<h2>Workload</h2>
+<p>What does a typical week look like?</p>
+<ul>
+<li><p><strong>Before class:</strong> Watch pre-lecture videos or preview notes<br>
+</p></li>
+<li><p><strong>In class:</strong> Two 80-minute lectures with iClicker questions, activities, and live demos<br>
+</p></li>
+<li><p><strong>Support:</strong> Weekly tutorials and office hours</p></li>
+<li><p><strong>Practice:</strong> Weekly assignments (except exam weeks)</p></li>
+</ul>
+</section>
+<section id="tips-for-success" class="slide level2 center">
+<h2>Tips for success:</h2>
+<ul>
+<li><p>Attend lectures regularly and ask questions<br>
+</p></li>
+<li><p>Start homework early. Hands-on practice is essential</p></li>
+<li><p>Use Generative AI tools <strong>responsibly</strong>. No blind copy-pasting</p></li>
+<li><p>Always question your data, methods, and results — justify your choices</p></li>
+</ul>
+</section></section>
+<section>
+<section id="course-policies" class="title-slide slide level1 center">
+<h1>Course policies</h1>
+
+</section>
+<section id="attendance" class="slide level2 center">
+<h2>Attendance</h2>
+</section>
+<section id="grading-scheme" class="slide level2 center">
+<h2>Grading scheme</h2>
+<ul>
+<li><p>The grading breakdown is <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/syllabus.md#grading-scheme">here</a>.</p></li>
+<li><p>The policy on challenging grades is <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/grades.md">here</a>.</p></li>
+</ul>
+</section>
+<section id="exams" class="slide level2 center">
+<h2>Exams</h2>
+<p>Two midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).</p>
+<ul>
+<li><p>Midterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.</p></li>
+<li><p>Midterm 2: Includes some coding.</p></li>
+<li><p>Final exam: A mix of question types covering the full course.</p></li>
+</ul>
+</section>
+<section id="homework-assignmnts" class="slide level2 smaller center">
+<h2>Homework assignmnts</h2>
+<ul>
+<li>Our notes are created in a <a href="https://jupyter.org/">Jupyter notebook</a>, with file extension <code>.ipynb</code>.</li>
+<li>Also, you will complete your homework assignments using Jupyter notebooks.</li>
+<li>Confusingly, “Jupyter notebook” is also the original application that opens <code>.ipynb</code> files - but has since been replaced by <strong>Jupyter Lab</strong>.
+<ul>
+<li>I am using Jupyter Lab, some things might not work with the Jupyter notebook application.</li>
+<li>You can also open these files in Visual Studio Code.</li>
+</ul></li>
+</ul>
+</section>
+<section id="jupyter-notebooks" class="slide level2 center">
+<h2>Jupyter notebooks</h2>
+<ul>
+<li>Notebooks contain a mix of code, code output, markdown-formatted text (including LaTeX equations), and more.</li>
+<li>When you open a Jupyter notebook in one of these apps, the document is “live”, meaning you can run the code.</li>
+</ul>
+<p>For example:</p>
+<div id="93b09c17" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>2</code></pre>
+</div>
+</div>
+<div id="2a363a04" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb25-2"><a></a>x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">9999</span></span>
+<span id="cb25-3"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>[9999, 2, 3]</code></pre>
+</div>
+</div>
+</section>
+<section id="jupyter" class="slide level2 center">
+<h2>Jupyter</h2>
+<ul>
+<li>By default, Jupyter prints out the result of the last line of code, so you don’t need as many <code>print</code> statements.</li>
+<li>In addition to the “live” notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g.&nbsp;<a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/01_intro.ipynb">this</a>.
+<ul>
+<li>This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.</li>
+<li>But you need to launch the app properly to interact with the notebooks.</li>
+</ul></li>
+</ul>
+</section>
+<section id="important-note" class="slide level2 center">
+<h2>Important note</h2>
+<ul>
+<li>Note that your first homework assignment is due <strong>this coming Tuesday, September 9, 11:59 PM</strong>. This is a relatively straightforward assignment on Python.</li>
+<li>If you struggle with this assignment then that could be a sign that you will struggle later on in the course.<br>
+</li>
+<li>You must do the first two homework assignments on your own.</li>
+</ul>
+</section>
+<section id="plagiarism" class="slide level2 center">
+<h2>Plagiarism</h2>
+<ul>
+<li>Raise your hand if you’ve ever copied code from StackOverflow.</li>
+<li>Copying isn’t always wrong but not acknowledging it is.</li>
+<li>Plagiarism may lead to serious consequences</li>
+</ul>
+
+<img data-src="img/helpful-vs-harmful-paths.png" class="r-stretch"></section>
+<section id="using-generative-ai-in-this-course" class="slide level2 smaller center">
+<h2>Using generative AI in this course</h2>
+<p><strong>Please read our <a href="https://ubc-cs.github.io/cpsc330-2025W1/syllabus.html#use-of-generative-ai-in-the-course">full Generative AI usage policy</a>.</strong></p>
+<p>TL;DR: use AI to support, not substitute, your work. If you use a tool:</p>
+<ul>
+<li>Cite it (tool name/version).</li>
+<li>Annotate your use (what you asked it to do and how you incorporated/edited the output).</li>
+<li>Be able to explain and reproduce your work without the tool.</li>
+<li>Do not share sensitive content (e.g., assessments, private data).</li>
+<li>Follow group-work rules and be extra careful when collaborating.</li>
+<li>You are responsible for any errors (“hallucinations”) the tool produces.</li>
+</ul>
+</section>
+<section id="optional-slides-on-llm-usage-during-your-learning" class="slide level2 center">
+<h2>Optional slides on LLM usage during your learning</h2>
+<p>Check out these slides I’ve put together for GenAI usage during your learning (https://docs.google.com/presentation/d/13IZMwnfC6YAeS6-bVF2S2CRYMSKZtTprMMaENuhkb04/edit?usp=sharing)</p>
+</section>
+<section id="who-to-contact-grading-concerns" class="slide level2 center">
+<h2>Who to contact: Grading concerns?</h2>
+<ul>
+<li>Grading concerns: Start by opening a regrade request.<br>
+</li>
+<li>If not resolved reach out to your section instruction</li>
+</ul>
+</section>
+<section id="who-to-contact-admin-stuffconcessions" class="slide level2 center">
+<h2>Who to contact: admin stuff/concessions?</h2>
+<ul>
+<li>Read <a href="https://ubc-cs.github.io/cpsc330-2025W1/docs/faq.html">Frequently Asked Questions</a> before contacting.</li>
+<li>Contact our <a href="https://ubc-cs.github.io/cpsc330-2025W1/README.html#course-co-ordinator">course co-ordinator</a></li>
+</ul>
+</section>
+<section id="who-to-contact-questions-on-the-content" class="slide level2 center">
+<h2>Who to contact: Questions on the content?</h2>
+<ul>
+<li>Make sure to read <a href="https://ubc-cs.github.io/cpsc330-2025W1/docs/asking_for_help.html">our guide on asking for help</a> before reaching out.<br>
+</li>
+<li>Post your question on piazza.</li>
+<li>Make use of instructor and TA office hours and tutorials</li>
+<li>I am open to answering questions after class.</li>
+</ul>
+</section>
+<section id="code-of-conduct" class="slide level2 center">
+<h2>Code of conduct</h2>
+<ul>
+<li>Our main forum for getting help will be <a href="https://piazza.com/ubc.ca/winterterm12025/cpsc_v3301011021032025w1">Piazza</a>.</li>
+</ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Please read <a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/asking_for_help.md">this entire document about asking for help</a>. <strong>TLDR:</strong> Be respectful.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="checklist-for-you-before-the-next-class" class="slide level2 smaller center">
 <h2>Checklist for you before the next class</h2>

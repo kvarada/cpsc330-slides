@@ -567,16 +567,10 @@ Think of a problem you have come across in the past which could be solved using 
 Here are some typical learning problems. 
 
 - **Supervised learning** ([Gmail spam filtering](https://support.google.com/a/answer/2368132?hl=en))
-    - Training a model from input-output pairs (features and labeled targets) to make predictions on unseen data. 
 - **Unsupervised learning** ([Google News](https://news.google.com/))
-    - Training a model to discover hidden structure or patterns in unlabeled data (e.g., clustering, dimensionality reduction)
 - Reinforcement learning ([AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far))
-    - A family of algorithms for finding suitable actions to take in a given situation in order to maximize a long-term reward.
 - Generative AI ([ChatGPT](https://chatgpt.com/))
-    - Training a model to generate new data resembling the training data (e.g., text, images, music). Modern generative AI systems often combine supervised, unsupervised, and reinforcement learning techniques. 
 - **Recommendation systems** ([Amazon item recommendation system](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf))
-    - Predict user ratings or preferences for items. 
-    - Typically combines supervised learning and unsupervised learning.     
 
 ## What is supervised learning? {.smaller}
 
@@ -604,14 +598,9 @@ It's great to think about these questions right now. But Eva has to be patient. 
 
 ![](img/eva-coffee.png)
 
-## Surveys
+# Course overview
 
-- Please complete the "Getting to know you" survey on Canvas.
-- Also, please complete the anonymous restaurant survey on Qualtrics [here](https://ubc.ca1.qualtrics.com/jfe/form/SV_73VuZiuwM1eDVrw).
-  - We will try to analyze this data set in the coming weeks. 
-
-## About this course
-
+## Course website 
 ::: {.callout-important}
 Course website: [https://github.com/UBC-CS/cpsc330-2025W1](https://github.com/UBC-CS/cpsc330-2025W1) is the most important link. Please read everything on this GitHub page!
 :::
@@ -619,6 +608,30 @@ Course website: [https://github.com/UBC-CS/cpsc330-2025W1](https://github.com/UB
 ::: {.callout-important}
 Make sure you go through the syllabus thoroughly and complete the syllabus quiz before Sept 19th at 11:59pm. 
 :::
+
+## What do we cover 
+
+- Designed for a **diverse group of students** (CS, Statistics, and beyond)  
+- **Gentle introduction** to machine learning, but also valuable for those with prior experience  
+- Covers **foundational concepts** in ML and data science:  
+  - Data preprocessing, supervised learning, clustering  
+  - Recommendation systems, text processing  
+  - Intro to neural networks, time series, survival analysis  
+- Emphasis on **hands-on skills**:  
+  - Model development, evaluation, interpretation  
+  - Ethical considerations and clear communication  
+
+## Course structure {.smaller}
+
+- Introduction
+  - Week 1 
+- Part I: ML fundamentals, preprocessing, midterm 1
+  - Weeks 2, 3, 4, 5, 6, 7, 8
+- Part II: Unsupervised learning, transfer learning, common special cases, midterm 1
+  - Weeks 8, 9, 10, 11, 12
+- Part III: Communication and ethics
+  - ML skills are not beneficial if you can't use them responsibly and communicate your results. In this module we'll talk about these aspects. 
+  - Weeks 13, 14
 
 ## CPSC 330 vs. 340
 
@@ -633,6 +646,37 @@ which explains the difference between two courses.
 - CPSC 340 goes deeper but has a more narrow scope.
 - I think CPSC 330 will be more useful if you just plan to apply basic ML.
 
+## Course calendar
+
+Here is our course Calendar. Make sure you check it on a regular basis: 
+
+[https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html](https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html)
+
+
+## Lecture format
+
+- In person lectures T/Th.
+- Sometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.
+- We will also try to work on some questions and exercises together during the class. 
+- All materials will be posted in this GitHub repository. 
+
+## Tutorials 
+- Weekly tutorials will be run by the TAs. 
+
+- There is a small bonus grade associated with attending tutorials. 
+- Make use of this helpful resource. 
+
+
+## Lecture notes {.smaller}
+
+- A draft version of lecture notes is available in [this Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html)
+- We A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
+- Each instructor will have slightly adapted versions of notes to present slides during lectures.  
+- You will find the link to these slides in our repository: 
+https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures
+- All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2024W1/README.html).
+- We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
+
 ## Registration, waitlist and prerequisites {.smaller}
 
 ::: {.callout-important}
@@ -644,107 +688,6 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/
 - **Please note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.**
 - If you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer.
 
-## Lecture format
-
-- In person lectures T/Th.
-- Sometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.
-- We will also try to work on some questions and exercises together during the class. 
-- All materials will be posted in this GitHub repository. 
-
-## Tutorials 
-- Weekly tutorials will be run by the TAs. 
-- There is a small bonus grade associated with attending tutorials. 
-- Make use of this helpful resource. 
-
-## Homework assignments
-- First homework assignment is due **this coming Tuesday, September 9, 11:59 PM**. This is a relatively straightforward assignment on Python. 
-- If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
-- You must do the first two homework assignments on your own.
-
-## Exams 
-
-Two midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).
-
-- Midterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.
-
-- Midterm 2: Includes some coding.
-
-- Final exam: A mix of question types covering the full course.
-
-## Course calendar
-
-Here is our course Calendar. Make sure you check it on a regular basis: 
-
-[https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html](https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html)
-
-## Course structure {.smaller}
-
-- Introduction
-  - Week 1 
-- Part I: ML fundamentals, preprocessing, midterm 1
-  - Weeks 2, 3, 4, 5, 6, 7, 8
-- Part II: Unsupervised learning, transfer learning, common special cases, midterm 1
-  - Weeks 8, 9, 10, 11, 12
-- Part III: Communication and ethics
-  - ML skills are not beneficial if you can't use them responsibly and communicate your results. In this module we'll talk about these aspects. 
-  - Weeks 13, 14
-
-## Code of conduct
-
-- Our main forum for getting help will be [Piazza](https://piazza.com/ubc.ca/winterterm12025/cpsc_v3301011021032025w1).
-
-::: {.callout-important}
-Please read [this entire document about asking for help](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/asking_for_help.md).
-**TLDR:** Be nice.
-:::
-
-## Homework format: Jupyter notebooks {.smaller}
-
-- Our notes are created in a [Jupyter notebook](https://jupyter.org/), with file extension `.ipynb`.
-- Also, you will complete your homework assignments using Jupyter notebooks.
-- Confusingly, "Jupyter notebook" is also the original application that opens `.ipynb` files - but has since been replaced by **Jupyter Lab**.
-  - I am using Jupyter Lab, some things might not work with the Jupyter notebook application.
-  - You can also open these files in Visual Studio Code.
-
-## Jupyter notebooks 
-
-- Notebooks contain a mix of code, code output, markdown-formatted text (including LaTeX equations), and more.
-- When you open a Jupyter notebook in one of these apps, the document is “live”, meaning you can run the code.
-
-For example:
-
-```{python}
-#| echo: true
-1 + 1
-```
-
-```{python}
-#| echo: true
-x = [1, 2, 3]
-x[0] = 9999
-x
-```
-
-## Jupyter 
-
-- By default, Jupyter prints out the result of the last line of code, so you don't need as many `print` statements.
-- In addition to the "live" notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. [this](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/01_intro.ipynb).
-  - This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.
-  - But you need to launch the app properly to interact with the notebooks.
-
-## Lecture notes {.smaller}
-- A draft version of lecture notes is available in [this Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html)
-- We A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
-- Each instructor will have slightly adapted versions of notes to present slides during lectures.  
-- You will find the link to these slides in our repository: 
-https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures
-- All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2024W1/README.html).
-- We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
-
-## Grades
-
-- The grading breakdown is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/syllabus.md#grading-scheme). 
-- The policy on challenging grades is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/grades.md).
 
 # Setting up your computer for the course 
 
@@ -784,6 +727,131 @@ but you can find some useful Python resources [here](https://github.com/UBC-CS/c
 :::
 
 <br><br>
+
+## Workload 
+What does a typical week look like?
+
+- **Before class:** Watch pre-lecture videos or preview notes  
+- **In class:** Two 80-minute lectures with iClicker questions, activities, and live demos  
+- **Support:** Weekly tutorials and office hours  
+
+- **Practice:** Weekly assignments (except exam weeks)  
+
+## Tips for success:
+
+- Attend lectures regularly and ask questions  
+- Start homework early. Hands-on practice is essential  
+
+- Use Generative AI tools **responsibly**. No blind copy-pasting  
+
+- Always question your data, methods, and results — justify your choices  
+
+# Course policies 
+
+## Attendance 
+
+## Grading scheme 
+
+- The grading breakdown is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/syllabus.md#grading-scheme). 
+
+- The policy on challenging grades is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/grades.md).
+
+
+## Exams 
+
+Two midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).
+
+- Midterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.
+
+- Midterm 2: Includes some coding.
+
+- Final exam: A mix of question types covering the full course.
+
+## Homework assignmnts {.smaller}
+
+- Our notes are created in a [Jupyter notebook](https://jupyter.org/), with file extension `.ipynb`.
+- Also, you will complete your homework assignments using Jupyter notebooks.
+- Confusingly, "Jupyter notebook" is also the original application that opens `.ipynb` files - but has since been replaced by **Jupyter Lab**.
+  - I am using Jupyter Lab, some things might not work with the Jupyter notebook application.
+  - You can also open these files in Visual Studio Code.
+
+## Jupyter notebooks 
+
+- Notebooks contain a mix of code, code output, markdown-formatted text (including LaTeX equations), and more.
+- When you open a Jupyter notebook in one of these apps, the document is “live”, meaning you can run the code.
+
+For example:
+
+```{python}
+#| echo: true
+1 + 1
+```
+
+```{python}
+#| echo: true
+x = [1, 2, 3]
+x[0] = 9999
+x
+```
+
+## Jupyter 
+
+- By default, Jupyter prints out the result of the last line of code, so you don't need as many `print` statements.
+- In addition to the "live" notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. [this](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/01_intro.ipynb).
+  - This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.
+  - But you need to launch the app properly to interact with the notebooks.
+
+## Important note 
+- Note that your first homework assignment is due **this coming Tuesday, September 9, 11:59 PM**. This is a relatively straightforward assignment on Python. 
+- If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
+- You must do the first two homework assignments on your own.
+
+
+## Plagiarism 
+- Raise your hand if you've ever copied code from StackOverflow.
+- Copying isn't always wrong but not acknowledging it is. 
+- Plagiarism may lead to serious consequences
+
+![](img/helpful-vs-harmful-paths)
+
+## Using generative AI in this course {.smaller}
+**Please read our [full Generative AI usage policy](https://ubc-cs.github.io/cpsc330-2025W1/syllabus.html#use-of-generative-ai-in-the-course).**
+
+TL;DR: use AI to support, not substitute, your work. If you use a tool:
+
+- Cite it (tool name/version).
+- Annotate your use (what you asked it to do and how you incorporated/edited the output).
+- Be able to explain and reproduce your work without the tool.
+- Do not share sensitive content (e.g., assessments, private data).
+- Follow group-work rules and be extra careful when collaborating.
+- You are responsible for any errors (“hallucinations”) the tool produces.
+
+## Optional slides on LLM usage during your learning 
+
+Check out these slides I've put together for GenAI usage during your learning (https://docs.google.com/presentation/d/13IZMwnfC6YAeS6-bVF2S2CRYMSKZtTprMMaENuhkb04/edit?usp=sharing)
+
+## Who to contact: Grading concerns? 
+- Grading concerns: Start by opening a regrade request.   
+- If not resolved reach out to your section instruction 
+
+## Who to contact: admin stuff/concessions?
+- Read [Frequently Asked Questions](https://ubc-cs.github.io/cpsc330-2025W1/docs/faq.html) before contacting. 
+- Contact our [course co-ordinator](https://ubc-cs.github.io/cpsc330-2025W1/README.html#course-co-ordinator)
+
+## Who to contact: Questions on the content? 
+- Make sure to read [our guide on asking for help](https://ubc-cs.github.io/cpsc330-2025W1/docs/asking_for_help.html) before reaching out.  
+- Post your question on piazza.
+- Make use of instructor and TA office hours and tutorials 
+- I am open to answering questions after class.  
+
+## Code of conduct
+
+- Our main forum for getting help will be [Piazza](https://piazza.com/ubc.ca/winterterm12025/cpsc_v3301011021032025w1).
+
+::: {.callout-important}
+Please read [this entire document about asking for help](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/asking_for_help.md).
+**TLDR:** Be respectful.
+:::
 
 ## Checklist for you before the next class {.smaller}
 

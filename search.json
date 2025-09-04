@@ -270,7 +270,7 @@
     "href": "slides/slides-01-intro.html#types-of-machine-learning",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Types of machine learning",
-    "text": "Types of machine learning\nHere are some typical learning problems.\n\nSupervised learning (Gmail spam filtering)\n\nTraining a model from input-output pairs (features and labeled targets) to make predictions on unseen data.\n\nUnsupervised learning (Google News)\n\nTraining a model to discover hidden structure or patterns in unlabeled data (e.g., clustering, dimensionality reduction)\n\nReinforcement learning (AlphaGo)\n\nA family of algorithms for finding suitable actions to take in a given situation in order to maximize a long-term reward.\n\nGenerative AI (ChatGPT)\n\nTraining a model to generate new data resembling the training data (e.g., text, images, music). Modern generative AI systems often combine supervised, unsupervised, and reinforcement learning techniques.\n\nRecommendation systems (Amazon item recommendation system)\n\nPredict user ratings or preferences for items.\nTypically combines supervised learning and unsupervised learning."
+    "text": "Types of machine learning\nHere are some typical learning problems.\n\nSupervised learning (Gmail spam filtering)\nUnsupervised learning (Google News)\nReinforcement learning (AlphaGo)\nGenerative AI (ChatGPT)\nRecommendation systems (Amazon item recommendation system)"
   },
   {
     "objectID": "slides/slides-01-intro.html#what-is-supervised-learning",
@@ -294,18 +294,25 @@
     "text": "Break"
   },
   {
-    "objectID": "slides/slides-01-intro.html#surveys",
-    "href": "slides/slides-01-intro.html#surveys",
+    "objectID": "slides/slides-01-intro.html#course-website",
+    "href": "slides/slides-01-intro.html#course-website",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Surveys",
-    "text": "Surveys\n\nPlease complete the “Getting to know you” survey on Canvas.\nAlso, please complete the anonymous restaurant survey on Qualtrics here.\n\nWe will try to analyze this data set in the coming weeks."
+    "section": "Course website",
+    "text": "Course website\n\n\n\n\n\n\nImportant\n\n\nCourse website: https://github.com/UBC-CS/cpsc330-2025W1 is the most important link. Please read everything on this GitHub page!\n\n\n\n\n\n\n\n\n\nImportant\n\n\nMake sure you go through the syllabus thoroughly and complete the syllabus quiz before Sept 19th at 11:59pm."
   },
   {
-    "objectID": "slides/slides-01-intro.html#about-this-course",
-    "href": "slides/slides-01-intro.html#about-this-course",
+    "objectID": "slides/slides-01-intro.html#what-do-we-cover",
+    "href": "slides/slides-01-intro.html#what-do-we-cover",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "About this course",
-    "text": "About this course\n\n\n\n\n\n\nImportant\n\n\nCourse website: https://github.com/UBC-CS/cpsc330-2025W1 is the most important link. Please read everything on this GitHub page!\n\n\n\n\n\n\n\n\n\nImportant\n\n\nMake sure you go through the syllabus thoroughly and complete the syllabus quiz before Sept 19th at 11:59pm."
+    "section": "What do we cover",
+    "text": "What do we cover\n\nDesigned for a diverse group of students (CS, Statistics, and beyond)\n\nGentle introduction to machine learning, but also valuable for those with prior experience\n\nCovers foundational concepts in ML and data science:\n\nData preprocessing, supervised learning, clustering\n\nRecommendation systems, text processing\n\nIntro to neural networks, time series, survival analysis\n\n\nEmphasis on hands-on skills:\n\nModel development, evaluation, interpretation\n\nEthical considerations and clear communication"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#course-structure",
+    "href": "slides/slides-01-intro.html#course-structure",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Course structure",
+    "text": "Course structure\n\nIntroduction\n\nWeek 1\n\nPart I: ML fundamentals, preprocessing, midterm 1\n\nWeeks 2, 3, 4, 5, 6, 7, 8\n\nPart II: Unsupervised learning, transfer learning, common special cases, midterm 1\n\nWeeks 8, 9, 10, 11, 12\n\nPart III: Communication and ethics\n\nML skills are not beneficial if you can’t use them responsibly and communicate your results. In this module we’ll talk about these aspects.\nWeeks 13, 14"
   },
   {
     "objectID": "slides/slides-01-intro.html#cpsc-330-vs.-340",
@@ -315,11 +322,11 @@
     "text": "CPSC 330 vs. 340\nRead https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md which explains the difference between two courses.\nTLDR:\n\n340: how do ML models work?\n330: how do I use ML models?\nCPSC 340 has many prerequisites.\nCPSC 340 goes deeper but has a more narrow scope.\nI think CPSC 330 will be more useful if you just plan to apply basic ML."
   },
   {
-    "objectID": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",
-    "href": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",
+    "objectID": "slides/slides-01-intro.html#course-calendar",
+    "href": "slides/slides-01-intro.html#course-calendar",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Registration, waitlist and prerequisites",
-    "text": "Registration, waitlist and prerequisites\n\n\n\n\n\n\nImportant\n\n\nPlease go through this document carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.\n\n\n\n\nThere are still seats available in Section 103.\nIf you are on the waitlist and would like to try your chances, you should already have access to Piazza and Gradescope.\nPlease note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.\nIf you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer."
+    "section": "Course calendar",
+    "text": "Course calendar\nHere is our course Calendar. Make sure you check it on a regular basis:\nhttps://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html"
   },
   {
     "objectID": "slides/slides-01-intro.html#lecture-format",
@@ -336,11 +343,60 @@
     "text": "Tutorials\n\nWeekly tutorials will be run by the TAs.\nThere is a small bonus grade associated with attending tutorials.\nMake use of this helpful resource."
   },
   {
-    "objectID": "slides/slides-01-intro.html#homework-assignments",
-    "href": "slides/slides-01-intro.html#homework-assignments",
+    "objectID": "slides/slides-01-intro.html#lecture-notes",
+    "href": "slides/slides-01-intro.html#lecture-notes",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Homework assignments",
-    "text": "Homework assignments\n\nFirst homework assignment is due this coming Tuesday, September 9, 11:59 PM. This is a relatively straightforward assignment on Python.\nIf you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
+    "section": "Lecture notes",
+    "text": "Lecture notes\n\nA draft version of lecture notes is available in this Jupyter book\nWe A “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",
+    "href": "slides/slides-01-intro.html#registration-waitlist-and-prerequisites",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Registration, waitlist and prerequisites",
+    "text": "Registration, waitlist and prerequisites\n\n\n\n\n\n\nImportant\n\n\nPlease go through this document carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.\n\n\n\n\nThere are still seats available in Section 103.\nIf you are on the waitlist and would like to try your chances, you should already have access to Piazza and Gradescope.\nPlease note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.\nIf you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#course-conda-environment",
+    "href": "slides/slides-01-intro.html#course-conda-environment",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Course conda environment",
+    "text": "Course conda environment\n\nFollow the setup instructions here to create a course conda environment on your computer.\nIf you do not have your computer with you, you can partner up with someone and set up your own computer later."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#python-requirementsresources",
+    "href": "slides/slides-01-intro.html#python-requirementsresources",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Python requirements/resources",
+    "text": "Python requirements/resources\nWe will primarily use Python in this course.\nHere is the basic Python knowledge you’ll need for the course:\n\nBasic Python programming\nNumpy\nPandas\nBasic matplotlib\nSparse matrices\n\nHomework 1 is all about Python.\n\n\n\n\n\n\nNote\n\n\nWe do not have time to teach all the Python we need but you can find some useful Python resources here."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#workload",
+    "href": "slides/slides-01-intro.html#workload",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Workload",
+    "text": "Workload\nWhat does a typical week look like?\n\nBefore class: Watch pre-lecture videos or preview notes\n\nIn class: Two 80-minute lectures with iClicker questions, activities, and live demos\n\nSupport: Weekly tutorials and office hours\nPractice: Weekly assignments (except exam weeks)"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#tips-for-success",
+    "href": "slides/slides-01-intro.html#tips-for-success",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Tips for success:",
+    "text": "Tips for success:\n\nAttend lectures regularly and ask questions\n\nStart homework early. Hands-on practice is essential\nUse Generative AI tools responsibly. No blind copy-pasting\nAlways question your data, methods, and results — justify your choices"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#attendance",
+    "href": "slides/slides-01-intro.html#attendance",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Attendance",
+    "text": "Attendance"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#grading-scheme",
+    "href": "slides/slides-01-intro.html#grading-scheme",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Grading scheme",
+    "text": "Grading scheme\n\nThe grading breakdown is here.\nThe policy on challenging grades is here."
   },
   {
     "objectID": "slides/slides-01-intro.html#exams",
@@ -350,32 +406,11 @@
     "text": "Exams\nTwo midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).\n\nMidterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.\nMidterm 2: Includes some coding.\nFinal exam: A mix of question types covering the full course."
   },
   {
-    "objectID": "slides/slides-01-intro.html#course-calendar",
-    "href": "slides/slides-01-intro.html#course-calendar",
+    "objectID": "slides/slides-01-intro.html#homework-assignmnts",
+    "href": "slides/slides-01-intro.html#homework-assignmnts",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Course calendar",
-    "text": "Course calendar\nHere is our course Calendar. Make sure you check it on a regular basis:\nhttps://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html"
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#course-structure",
-    "href": "slides/slides-01-intro.html#course-structure",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Course structure",
-    "text": "Course structure\n\nIntroduction\n\nWeek 1\n\nPart I: ML fundamentals, preprocessing, midterm 1\n\nWeeks 2, 3, 4, 5, 6, 7, 8\n\nPart II: Unsupervised learning, transfer learning, common special cases, midterm 1\n\nWeeks 8, 9, 10, 11, 12\n\nPart III: Communication and ethics\n\nML skills are not beneficial if you can’t use them responsibly and communicate your results. In this module we’ll talk about these aspects.\nWeeks 13, 14"
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#code-of-conduct",
-    "href": "slides/slides-01-intro.html#code-of-conduct",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Code of conduct",
-    "text": "Code of conduct\n\nOur main forum for getting help will be Piazza.\n\n\n\n\n\n\n\nImportant\n\n\nPlease read this entire document about asking for help. TLDR: Be nice."
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#homework-format-jupyter-notebooks",
-    "href": "slides/slides-01-intro.html#homework-format-jupyter-notebooks",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Homework format: Jupyter notebooks",
-    "text": "Homework format: Jupyter notebooks\n\nOur notes are created in a Jupyter notebook, with file extension .ipynb.\nAlso, you will complete your homework assignments using Jupyter notebooks.\nConfusingly, “Jupyter notebook” is also the original application that opens .ipynb files - but has since been replaced by Jupyter Lab.\n\nI am using Jupyter Lab, some things might not work with the Jupyter notebook application.\nYou can also open these files in Visual Studio Code."
+    "section": "Homework assignmnts",
+    "text": "Homework assignmnts\n\nOur notes are created in a Jupyter notebook, with file extension .ipynb.\nAlso, you will complete your homework assignments using Jupyter notebooks.\nConfusingly, “Jupyter notebook” is also the original application that opens .ipynb files - but has since been replaced by Jupyter Lab.\n\nI am using Jupyter Lab, some things might not work with the Jupyter notebook application.\nYou can also open these files in Visual Studio Code."
   },
   {
     "objectID": "slides/slides-01-intro.html#jupyter-notebooks",
@@ -392,32 +427,60 @@
     "text": "Jupyter\n\nBy default, Jupyter prints out the result of the last line of code, so you don’t need as many print statements.\nIn addition to the “live” notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. this.\n\nThis can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.\nBut you need to launch the app properly to interact with the notebooks."
   },
   {
-    "objectID": "slides/slides-01-intro.html#lecture-notes",
-    "href": "slides/slides-01-intro.html#lecture-notes",
+    "objectID": "slides/slides-01-intro.html#important-note",
+    "href": "slides/slides-01-intro.html#important-note",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Lecture notes",
-    "text": "Lecture notes\n\nA draft version of lecture notes is available in this Jupyter book\nWe A “finalized” version will be pushed to GitHub and the Jupyter book right before each class.\nEach instructor will have slightly adapted versions of notes to present slides during lectures.\n\nYou will find the link to these slides in our repository: https://github.com/UBC-CS/cpsc330-2025W1/tree/main/lectures/102-Varada-lectures\nAll the lectures from last year are available here.\nWe cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk."
+    "section": "Important note",
+    "text": "Important note\n\nNote that your first homework assignment is due this coming Tuesday, September 9, 11:59 PM. This is a relatively straightforward assignment on Python.\nIf you struggle with this assignment then that could be a sign that you will struggle later on in the course.\n\nYou must do the first two homework assignments on your own."
   },
   {
-    "objectID": "slides/slides-01-intro.html#grades",
-    "href": "slides/slides-01-intro.html#grades",
+    "objectID": "slides/slides-01-intro.html#plagiarism",
+    "href": "slides/slides-01-intro.html#plagiarism",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Grades",
-    "text": "Grades\n\nThe grading breakdown is here.\nThe policy on challenging grades is here."
+    "section": "Plagiarism",
+    "text": "Plagiarism\n\nRaise your hand if you’ve ever copied code from StackOverflow.\nCopying isn’t always wrong but not acknowledging it is.\nPlagiarism may lead to serious consequences"
   },
   {
-    "objectID": "slides/slides-01-intro.html#course-conda-environment",
-    "href": "slides/slides-01-intro.html#course-conda-environment",
+    "objectID": "slides/slides-01-intro.html#using-generative-ai-in-this-course",
+    "href": "slides/slides-01-intro.html#using-generative-ai-in-this-course",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Course conda environment",
-    "text": "Course conda environment\n\nFollow the setup instructions here to create a course conda environment on your computer.\nIf you do not have your computer with you, you can partner up with someone and set up your own computer later."
+    "section": "Using generative AI in this course",
+    "text": "Using generative AI in this course\nPlease read our full Generative AI usage policy.\nTL;DR: use AI to support, not substitute, your work. If you use a tool:\n\nCite it (tool name/version).\nAnnotate your use (what you asked it to do and how you incorporated/edited the output).\nBe able to explain and reproduce your work without the tool.\nDo not share sensitive content (e.g., assessments, private data).\nFollow group-work rules and be extra careful when collaborating.\nYou are responsible for any errors (“hallucinations”) the tool produces."
   },
   {
-    "objectID": "slides/slides-01-intro.html#python-requirementsresources",
-    "href": "slides/slides-01-intro.html#python-requirementsresources",
+    "objectID": "slides/slides-01-intro.html#optional-slides-on-llm-usage-during-your-learning",
+    "href": "slides/slides-01-intro.html#optional-slides-on-llm-usage-during-your-learning",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Python requirements/resources",
-    "text": "Python requirements/resources\nWe will primarily use Python in this course.\nHere is the basic Python knowledge you’ll need for the course:\n\nBasic Python programming\nNumpy\nPandas\nBasic matplotlib\nSparse matrices\n\nHomework 1 is all about Python.\n\n\n\n\n\n\nNote\n\n\nWe do not have time to teach all the Python we need but you can find some useful Python resources here."
+    "section": "Optional slides on LLM usage during your learning",
+    "text": "Optional slides on LLM usage during your learning\nCheck out these slides I’ve put together for GenAI usage during your learning (https://docs.google.com/presentation/d/13IZMwnfC6YAeS6-bVF2S2CRYMSKZtTprMMaENuhkb04/edit?usp=sharing)"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#who-to-contact-grading-concerns",
+    "href": "slides/slides-01-intro.html#who-to-contact-grading-concerns",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Who to contact: Grading concerns?",
+    "text": "Who to contact: Grading concerns?\n\nGrading concerns: Start by opening a regrade request.\n\nIf not resolved reach out to your section instruction"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#who-to-contact-admin-stuffconcessions",
+    "href": "slides/slides-01-intro.html#who-to-contact-admin-stuffconcessions",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Who to contact: admin stuff/concessions?",
+    "text": "Who to contact: admin stuff/concessions?\n\nRead Frequently Asked Questions before contacting.\nContact our course co-ordinator"
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#who-to-contact-questions-on-the-content",
+    "href": "slides/slides-01-intro.html#who-to-contact-questions-on-the-content",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Who to contact: Questions on the content?",
+    "text": "Who to contact: Questions on the content?\n\nMake sure to read our guide on asking for help before reaching out.\n\nPost your question on piazza.\nMake use of instructor and TA office hours and tutorials\nI am open to answering questions after class."
+  },
+  {
+    "objectID": "slides/slides-01-intro.html#code-of-conduct",
+    "href": "slides/slides-01-intro.html#code-of-conduct",
+    "title": "Lecture 1: Introduction to CPSC 330",
+    "section": "Code of conduct",
+    "text": "Code of conduct\n\nOur main forum for getting help will be Piazza.\n\n\n\n\n\n\n\nImportant\n\n\nPlease read this entire document about asking for help. TLDR: Be respectful."
   },
   {
     "objectID": "slides/slides-01-intro.html#checklist-for-you-before-the-next-class",
