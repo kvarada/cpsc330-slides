@@ -821,7 +821,7 @@ Raise your hand if you've ever copied code from StackOverflow.
 :::: {.columns}
 
 ::: {.column width="50%"}
-<img src="img/helpful-vs-harmful-paths.png">
+<img src="img/helpful-vs-harmful-paths.png" height="500">
 :::
 
 ::: {.column width="50%"}
