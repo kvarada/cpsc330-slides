@@ -534,7 +534,7 @@ for cluster in range(k):
 
 # Interactive: Is ML appropriate?
 
-## ❓❓ Questions for you {.smaller}
+## ❓❓ Questions for you
 
 iClicker cloud join link: https://join.iclicker.com/FZMQ
 
@@ -562,7 +562,7 @@ Think of a problem you have come across in the past which could be solved using 
 - How do humans solve this now? Are there heuristics or rules?
 - What kind of data do you have or could you collect?
 
-## Types of machine learning {.smaller}
+## Types of machine learning
 
 Here are some typical learning problems. 
 
@@ -609,7 +609,7 @@ Course website: [https://github.com/UBC-CS/cpsc330-2025W1](https://github.com/UB
 Make sure you go through the syllabus thoroughly and complete the syllabus quiz before Sept 19th at 11:59pm. 
 :::
 
-## What do we cover 
+## What do we cover {.smaller}
 
 - Designed for a **diverse group of students** (CS, Statistics, and beyond)  
 - **Gentle introduction** to machine learning, but also valuable for those with prior experience  
@@ -635,8 +635,7 @@ Make sure you go through the syllabus thoroughly and complete the syllabus quiz 
 
 ## CPSC 330 vs. 340
 
-Read [https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md]([https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md)
-which explains the difference between two courses.  
+Read [330_vs_340](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md) which explains the difference between two courses.  
 
 **TLDR:**
 
@@ -691,7 +690,7 @@ Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/
 
 # Setting up your computer for the course 
 
-# Tools Used in This Course
+# Tools used in this course
 
 We will use the following tools throughout the course:
 
@@ -717,7 +716,6 @@ Here is the basic Python knowledge you'll need for the course:
 - Numpy
 - Pandas
 - Basic matplotlib
-- Sparse matrices
 
 Homework 1 is all about Python.
 
@@ -808,11 +806,20 @@ x
 
 
 ## Plagiarism 
-- Raise your hand if you've ever copied code from StackOverflow.
+
+Raise your hand if you've ever copied code from StackOverflow.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<img src="img/img/helpful-vs-harmful-paths">
+:::
+
+::: {.column width="50%"}
 - Copying isn't always wrong but not acknowledging it is. 
 - Plagiarism may lead to serious consequences
-
-![](img/helpful-vs-harmful-paths)
+:::
+::::
 
 ## Using generative AI in this course {.smaller}
 **Please read our [full Generative AI usage policy](https://ubc-cs.github.io/cpsc330-2025W1/syllabus.html#use-of-generative-ai-in-the-course).**
@@ -826,13 +833,15 @@ TL;DR: use AI to support, not substitute, your work. If you use a tool:
 - Follow group-work rules and be extra careful when collaborating.
 - You are responsible for any errors (“hallucinations”) the tool produces.
 
-## Optional slides on LLM usage during your learning 
+## (Optional) Slides on LLM usage
 
-Check out these slides I've put together for GenAI usage during your learning (https://docs.google.com/presentation/d/13IZMwnfC6YAeS6-bVF2S2CRYMSKZtTprMMaENuhkb04/edit?usp=sharing)
+Check out these slides I've put together for [GenAI usage during your learning journey](https://docs.google.com/presentation/d/13IZMwnfC6YAeS6-bVF2S2CRYMSKZtTprMMaENuhkb04/edit?usp=sharing
+).
+
 
 ## Who to contact: Grading concerns? 
-- Grading concerns: Start by opening a regrade request.   
-- If not resolved reach out to your section instruction 
+- Start by opening a regrade request.   
+- If not resolved in two weeks, reach out to your section instructor 
 
 ## Who to contact: admin stuff/concessions?
 - Read [Frequently Asked Questions](https://ubc-cs.github.io/cpsc330-2025W1/docs/faq.html) before contacting. 
@@ -855,6 +864,7 @@ Please read [this entire document about asking for help](https://github.com/UBC-
 
 ## Checklist for you before the next class {.smaller}
 
+- [ ] Have you read [the syllabus](https://ubc-cs.github.io/cpsc330-2025W1/syllabus.html) and course policies carefully? 
 - [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/170662) shell? 
 - [ ] Are you able to access [course Piazza](https://piazza.com/ubc.ca/winterterm12025/cpsc330/home)?
 - [ ] Are you able to access [Gradescope](https://www.gradescope.ca/courses/29785)? (If not, refer to the [Gradescope Student Guide](https://lthub.ubc.ca/guides/gradescope-student-guide/).)
