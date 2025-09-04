@@ -46,13 +46,20 @@ DATA_DIR = 'data/'
 
 ## 🎯 Learning Outcomes {.smaller}
 
-By the end of this module, you will be able to:
+By the end of this lesson, you will be able to:
 
-- Explain the difference between AI, ML, and DL 
+- Explain the difference between AI, ML, and DL
+
 - Describe what machine learning is and when it is appropriate to use ML-based solutions.
-- Identify different types of machine learning problems, such as classification, regression, clustering, and time series forecasting.
-- Recognize common data types in machine learning, including tabular, text, and image data.
+
+- Briefly describe supervised learning.
+
+- Differentiate between traditional programming and machine learning.
+
 - Evaluate whether a machine learning solution is suitable for your problem or whether a rule-based or human-expert solution is more appropriate.
+
+- Navigate the course materials and get familiar with the course syllabus and 
+policies.  
 
 ## CPSC 330 website
 \
@@ -105,7 +112,7 @@ Eva is among one of you. She has some experience in Python programming. She know
 
 ## Asking questions during class {.smaller}
 
-- You are welcome to ask questions by raising your hand.
+- You are encouraged to ask questions by raising your hand.
 - No question is a stupid question. 
 - Recommended reading as you begin your learning journey: [The Fear of Publicly Not Knowing](https://medium.com/bucknell-hci/the-fear-of-publicly-not-knowing-239e1b7a39f3)
 
@@ -141,7 +148,7 @@ Discuss with you neighbour
 - What clues did you use to decide?
 
 
-## What is AI, ML, DL? {.smaller}
+## What are AI, ML, DL? {.smaller}
 - **Artificial Intelligence (AI)**: Making computers act smart
 - **Machine Learning (ML)**: Learning patterns from data
 - **Deep Learning (DL)**: Using neural networks to learn complex patterns
@@ -391,6 +398,8 @@ pred_df.style.set_properties(**{"text-align": "left"})
 ## Examplel: Text classification with LLMs
 \ 
 
+- LLMs = Large Language Models
+
 ```{python}
 #| echo: true
 from transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer
@@ -514,71 +523,11 @@ for cluster in range(k):
 ```
 :::
 
-## Example: Finding most similar items
-
-- Consider the following titles and queries. 
-```{python}
-#| echo: true
-# Corpus of existing paper titles or abstracts
-corpus = [
-    "Mapping eelgrass beds in British Columbia using remote sensing",
-    "Bayesian optimization for reaction discovery and yield improvement",
-    "RNA-seq analysis of microbiome interactions and infection susceptibility",
-    "Using YOLOv8 for automatic object detection in microscopy images",
-    "Anomaly detection in ocean temperature sensor data with machine learning",
-    "Embedding-based literature recommendation using scientific abstracts"
-]
-
-# List of new queries to compare
-queries = [
-    "Predicting yield of chemical reactions using optimization techniques",
-    "Tracking changes in marine vegetation through drone imagery",
-    "Detecting patterns of infection from gene expression data",
-    "Literature discovery using sentence embeddings and neural search",
-    "Outlier detection in sensor measurements from ocean buoys"
-]
-```
-
-## Which queries are similar to which titles? 
-
-```{python}
-#| echo: true
-from sentence_transformers import SentenceTransformer, util
-import numpy as np
-
-# Load the MiniLM model
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-
-# Encode corpus and queries
-corpus_embeddings = model.encode(corpus, convert_to_tensor=True).cpu()
-query_embeddings = model.encode(queries, convert_to_tensor=True).cpu()
-
-# Set number of top matches to show
-top_k = 1
-```
-
-## Which queries are similar to which titles? 
-
-::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
-
-```{python}
-# Loop over queries and find top match(es)
-for idx, (query, query_embedding) in enumerate(zip(queries, query_embeddings)):
-    print(f"\n🔍 Query {idx+1}: {query}")
-    scores = util.cos_sim(query_embedding, corpus_embeddings)[0]
-    top_results = np.argpartition(-scores, range(top_k))[:top_k]
-
-    for rank, corpus_idx in enumerate(top_results):
-        print(f"   ➤ Match {rank+1}: {corpus[corpus_idx]}")
-        print(f"     Cosine similarity: {scores[corpus_idx]:.4f}")
-```
-:::
-
 # Interactive: Is ML appropriate?
 
 ## ❓❓ Questions for you {.smaller}
 
-iClicker cloud join link: 
+iClicker cloud join link: https://join.iclicker.com/FZMQ
 
 **Select all that apply: Which problems are suitable for ML?**
 
@@ -732,7 +681,7 @@ Please read [this entire document about asking for help](https://github.com/UBC-
 :::
 
 
-## Homework format: Jupyter notebooks
+## Homework format: Jupyter notebooks {.smaller}
 
 - Our notes are created in a [Jupyter notebook](https://jupyter.org/), with file extension `.ipynb`.
 - Also, you will complete your homework assignments using Jupyter notebooks.
@@ -794,7 +743,7 @@ In this course, we will primarily be using `Python` , `git`, `GitHub`, `Canvas`,
 - Follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html) to create a course `conda` environment on your computer. 
 - If you do not have your computer with you, you can partner up with someone and set up your own computer later.
 
-## Python requirements/resources
+## Python requirements/resources {.smaller}
 
 We will primarily use Python in this course.
 

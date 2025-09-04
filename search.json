@@ -4,7 +4,7 @@
     "href": "slides/slides-01-intro.html#learning-outcomes",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "🎯 Learning Outcomes",
-    "text": "🎯 Learning Outcomes\nBy the end of this module, you will be able to:\n\nExplain the difference between AI, ML, and DL\nDescribe what machine learning is and when it is appropriate to use ML-based solutions.\nIdentify different types of machine learning problems, such as classification, regression, clustering, and time series forecasting.\nRecognize common data types in machine learning, including tabular, text, and image data.\nEvaluate whether a machine learning solution is suitable for your problem or whether a rule-based or human-expert solution is more appropriate."
+    "text": "🎯 Learning Outcomes\nBy the end of this lesson, you will be able to:\n\nExplain the difference between AI, ML, and DL\nDescribe what machine learning is and when it is appropriate to use ML-based solutions.\nBriefly describe supervised learning.\nDifferentiate between traditional programming and machine learning.\nEvaluate whether a machine learning solution is suitable for your problem or whether a rule-based or human-expert solution is more appropriate.\nNavigate the course materials and get familiar with the course syllabus and policies."
   },
   {
     "objectID": "slides/slides-01-intro.html#cpsc-330-website",
@@ -39,7 +39,7 @@
     "href": "slides/slides-01-intro.html#asking-questions-during-class",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Asking questions during class",
-    "text": "Asking questions during class\n\nYou are welcome to ask questions by raising your hand.\nNo question is a stupid question.\nRecommended reading as you begin your learning journey: The Fear of Publicly Not Knowing\n\n\nWhat I quickly came to realize was that publicly not knowing wasn’t a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA."
+    "text": "Asking questions during class\n\nYou are encouraged to ask questions by raising your hand.\nNo question is a stupid question.\nRecommended reading as you begin your learning journey: The Fear of Publicly Not Knowing\n\n\nWhat I quickly came to realize was that publicly not knowing wasn’t a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA."
   },
   {
     "objectID": "slides/slides-01-intro.html#activity-1",
@@ -56,11 +56,11 @@
     "text": "Which cat do you think is AI-generated?\n\n\n\nSource\n\n\nA\nB\nBoth\nNone\n\n\n\nWhat clues did you use to decide?"
   },
   {
-    "objectID": "slides/slides-01-intro.html#what-is-ai-ml-dl",
-    "href": "slides/slides-01-intro.html#what-is-ai-ml-dl",
+    "objectID": "slides/slides-01-intro.html#what-are-ai-ml-dl",
+    "href": "slides/slides-01-intro.html#what-are-ai-ml-dl",
     "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "What is AI, ML, DL?",
-    "text": "What is AI, ML, DL?\n\nArtificial Intelligence (AI): Making computers act smart\nMachine Learning (ML): Learning patterns from data\nDeep Learning (DL): Using neural networks to learn complex patterns"
+    "section": "What are AI, ML, DL?",
+    "text": "What are AI, ML, DL?\n\nArtificial Intelligence (AI): Making computers act smart\nMachine Learning (ML): Learning patterns from data\nDeep Learning (DL): Using neural networks to learn complex patterns"
   },
   {
     "objectID": "slides/slides-01-intro.html#lets-walk-through-an-example",
@@ -193,7 +193,7 @@
     "href": "slides/slides-01-intro.html#examplel-text-classification-with-llms",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Examplel: Text classification with LLMs",
-    "text": "Examplel: Text classification with LLMs\n \n\nfrom transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer\n# Sentiment analysis pipeline\nanalyzer = pipeline(\"sentiment-analysis\", model='distilbert-base-uncased-finetuned-sst-2-english')\nanalyzer([\"I asked my model to predict my future, and it said '404: Life not found.'\",\n          '''Machine learning is just like cooking—sometimes you follow the recipe, \n            and other times you just hope for the best!.'''])\n\n[{'label': 'NEGATIVE', 'score': 0.995707631111145},\n {'label': 'POSITIVE', 'score': 0.9994770884513855}]"
+    "text": "Examplel: Text classification with LLMs\n \n\nLLMs = Large Language Models\n\n\nfrom transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer\n# Sentiment analysis pipeline\nanalyzer = pipeline(\"sentiment-analysis\", model='distilbert-base-uncased-finetuned-sst-2-english')\nanalyzer([\"I asked my model to predict my future, and it said '404: Life not found.'\",\n          '''Machine learning is just like cooking—sometimes you follow the recipe, \n            and other times you just hope for the best!.'''])\n\n[{'label': 'NEGATIVE', 'score': 0.995707631111145},\n {'label': 'POSITIVE', 'score': 0.9994770884513855}]"
   },
   {
     "objectID": "slides/slides-01-intro.html#zero-shot-learning",
@@ -245,32 +245,11 @@
     "text": "Examining food clusters\n\n\n\n\nfor cluster in range(k):\n    get_cluster_images(km, Z_food, X_food, cluster, n_img=6)\n\n39\nImage indices:  [ 39 197  12  14 138 181]\n\n\n\n\n\n\n\n\n\n228\nImage indices:  [228  65 128  54 175 260]\n\n\n\n\n\n\n\n\n\n138\nImage indices:  [138  54 185 278  39  89]\n\n\n\n\n\n\n\n\n\n193\nImage indices:  [193  39 145 212 169 108]\n\n\n\n\n\n\n\n\n\n120\nImage indices:  [120 268 244  94  72  87]"
   },
   {
-    "objectID": "slides/slides-01-intro.html#example-finding-most-similar-items",
-    "href": "slides/slides-01-intro.html#example-finding-most-similar-items",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Example: Finding most similar items",
-    "text": "Example: Finding most similar items\n\nConsider the following titles and queries.\n\n\n# Corpus of existing paper titles or abstracts\ncorpus = [\n    \"Mapping eelgrass beds in British Columbia using remote sensing\",\n    \"Bayesian optimization for reaction discovery and yield improvement\",\n    \"RNA-seq analysis of microbiome interactions and infection susceptibility\",\n    \"Using YOLOv8 for automatic object detection in microscopy images\",\n    \"Anomaly detection in ocean temperature sensor data with machine learning\",\n    \"Embedding-based literature recommendation using scientific abstracts\"\n]\n\n# List of new queries to compare\nqueries = [\n    \"Predicting yield of chemical reactions using optimization techniques\",\n    \"Tracking changes in marine vegetation through drone imagery\",\n    \"Detecting patterns of infection from gene expression data\",\n    \"Literature discovery using sentence embeddings and neural search\",\n    \"Outlier detection in sensor measurements from ocean buoys\"\n]"
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles",
-    "href": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Which queries are similar to which titles?",
-    "text": "Which queries are similar to which titles?\n\nfrom sentence_transformers import SentenceTransformer, util\nimport numpy as np\n\n# Load the MiniLM model\nmodel = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')\n\n# Encode corpus and queries\ncorpus_embeddings = model.encode(corpus, convert_to_tensor=True).cpu()\nquery_embeddings = model.encode(queries, convert_to_tensor=True).cpu()\n\n# Set number of top matches to show\ntop_k = 1"
-  },
-  {
-    "objectID": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles-1",
-    "href": "slides/slides-01-intro.html#which-queries-are-similar-to-which-titles-1",
-    "title": "Lecture 1: Introduction to CPSC 330",
-    "section": "Which queries are similar to which titles?",
-    "text": "Which queries are similar to which titles?\n\n\n\n\n🔍 Query 1: Predicting yield of chemical reactions using optimization techniques\n   ➤ Match 1: Bayesian optimization for reaction discovery and yield improvement\n     Cosine similarity: 0.7420\n\n🔍 Query 2: Tracking changes in marine vegetation through drone imagery\n   ➤ Match 1: Mapping eelgrass beds in British Columbia using remote sensing\n     Cosine similarity: 0.5305\n\n🔍 Query 3: Detecting patterns of infection from gene expression data\n   ➤ Match 1: RNA-seq analysis of microbiome interactions and infection susceptibility\n     Cosine similarity: 0.4292\n\n🔍 Query 4: Literature discovery using sentence embeddings and neural search\n   ➤ Match 1: Embedding-based literature recommendation using scientific abstracts\n     Cosine similarity: 0.5649\n\n🔍 Query 5: Outlier detection in sensor measurements from ocean buoys\n   ➤ Match 1: Anomaly detection in ocean temperature sensor data with machine learning\n     Cosine similarity: 0.6847"
-  },
-  {
     "objectID": "slides/slides-01-intro.html#questions-for-you",
     "href": "slides/slides-01-intro.html#questions-for-you",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "❓❓ Questions for you",
-    "text": "❓❓ Questions for you\niClicker cloud join link:\nSelect all that apply: Which problems are suitable for ML?\n\n\nChecking if a UBC email address ends with @student.ubc.ca before allowing login\n\n\nDeciding which students should be awarded a scholarship based on their personal essays\n\n\nPredicting which songs you’ll like based on your Spotify listening history\n\n\nDetecting plagiarism by checking if two essays are exactly identical\n\n\nAutomatically tagging photos of your friends on Instagram"
+    "text": "❓❓ Questions for you\niClicker cloud join link: https://join.iclicker.com/FZMQ\nSelect all that apply: Which problems are suitable for ML?\n\n\nChecking if a UBC email address ends with @student.ubc.ca before allowing login\n\n\nDeciding which students should be awarded a scholarship based on their personal essays\n\n\nPredicting which songs you’ll like based on your Spotify listening history\n\n\nDetecting plagiarism by checking if two essays are exactly identical\n\n\nAutomatically tagging photos of your friends on Instagram"
   },
   {
     "objectID": "slides/slides-01-intro.html#summary-when-is-ml-suitable",
