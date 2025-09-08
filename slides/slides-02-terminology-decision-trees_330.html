@@ -406,22 +406,18 @@ Varada Kolhatkar
 </div>
 
 </section>
-<section id="learning-outcomes" class="slide level2 smaller center">
-<h2>🎯 Learning Outcomes</h2>
-<p>By the end of this lesson, you will be able to:</p>
-</section>
 <section id="announcements" class="slide level2 center">
 <h2>Announcements</h2>
 <ul>
 <li>Things due this week
 <ul>
-<li>Homework 1 (hw1): Due Sept 09 11:59pm</li>
+<li>Homework 1 (hw1): Due Sept 10 11:59pm</li>
 </ul></li>
-<li>Homework 2 (hw2) has been released (Due: Sept 15, 11:59pm)
+<li>Homework 2 (hw2) has been released (Due: Sept 16, 11:59pm)
 <ul>
 <li>There is some autograding in this homework.</li>
 </ul></li>
-<li>You can find the tentative due dates for all deliverables <a href="https://ubc-cs.github.io/cpsc330-2025W1/README.html#deliverable-due-dates-tentative">here</a>.</li>
+<li>You can find the tentative due dates for all deliverables <a href="https://ubc-cs.github.io/cpsc330-2024W1/README.html#deliverable-due-dates-tentative">here</a>.</li>
 <li>Please monitor Piazza (especially pinned posts and instructor posts) for announcements.</li>
 <li>I’ll assume that you’ve watched the pre-lecture videos.</li>
 </ul>
@@ -432,39 +428,6 @@ Varada Kolhatkar
 <li>ML uses data to build models that find patterns, make predictions, or generate content.</li>
 <li>It helps computers learn from data to make decisions.</li>
 <li>No one model works for every situation.</li>
-</ul>
-</section>
-<section id="iclicker-2.1-ml-or-not" class="slide level2 smaller center">
-<h2>iClicker 2.1: ML or not</h2>
-<p><strong>Select all of the following statements which are suitable problems for machine learning.</strong></p>
-<ul>
-<li><ol type="A">
-<li>Identifying objects within digital images, such as facial recognition in security systems or categorizing images based on content.</li>
-</ol></li>
-<li><ol start="2" type="A">
-<li>Determining if individuals meet the necessary criteria for government or financial services based on strict guidelines.</li>
-</ol></li>
-<li><ol start="3" type="A">
-<li>Identifying unusual patterns that may indicate fraudulent transactions in banking and finance.</li>
-</ol></li>
-<li><ol start="4" type="A">
-<li>Automatically analyzing images from MRIs, CT scans, or X-rays to detect abnormalities like tumors or fractures.</li>
-</ol></li>
-<li><ol start="5" type="A">
-<li>Addressing mental health issues where human empathy, understanding, and adaptability are key.</li>
-</ol></li>
-</ul>
-</section>
-<section id="therapists-using-chatgpt-secretly" class="slide level2 center">
-<h2><a href="https://www.technologyreview.com/2025/09/02/1122871/therapists-using-chatgpt-secretly/">Therapists using ChatGPT secretly</a> 😔</h2>
-
-<img data-src="img/therapists-using-ChatGPT.png" class="r-stretch"></section>
-<section id="recap-when-is-ml-suitable" class="slide level2 center">
-<h2>Recap: When is ML suitable?</h2>
-<ul>
-<li>ML excels when the problem involve identifying complex patterns or relationships in large datasets that are difficult for humans to discern manually.</li>
-<li>Rule-based systems are suitable where clear and deterministic rules can be defined. Good for structured decision making.</li>
-<li>Human experts are good with problems which require deep contextual understanding, ethical judgment, creative input, or emotional intelligence.</li>
 </ul>
 </section>
 <section id="recap-supervised-learning" class="slide level2 center">
@@ -480,65 +443,13 @@ Varada Kolhatkar
 </div>
 <p>In the first part of this course, we’ll focus on supervised machine learning.</p>
 </section>
-<section id="iclicker-2.2-supervised-vs-unsupervised" class="slide level2 smaller center">
-<h2>iClicker 2.2: Supervised vs unsupervised</h2>
-<p>Clicker cloud join link:</p>
-<p>Select all of the following statements which are examples of supervised machine learning</p>
-<ul>
-<li><ol type="A">
-<li>Finding groups of similar properties in a real estate data set.</li>
-</ol></li>
-<li><ol start="2" type="A">
-<li>Predicting whether someone will have a heart attack or not on the basis of demographic, diet, and clinical measurement.</li>
-</ol></li>
-<li><ol start="3" type="A">
-<li>Grouping articles on different topics from different news sources (something like the Google News app).</li>
-</ol></li>
-<li><ol start="4" type="A">
-<li>Detecting credit card fraud based on examples of fraudulent and non-fraudulent transactions.</li>
-</ol></li>
-<li><ol start="5" type="A">
-<li>Given some measure of employee performance, identify the key factors which are likely to influence their performance.</li>
-</ol></li>
-</ul>
-</section>
-<section id="iclicker-2.3-classification-vs.-regression" class="slide level2 smaller center">
-<h2>iClicker 2.3: Classification vs.&nbsp;Regression</h2>
-<p>Clicker cloud join link:</p>
-<p>Select all of the following statements which are examples of regression problems</p>
-<ul>
-<li><ol type="A">
-<li>Predicting the price of a house based on features such as number of bedrooms and the year built.</li>
-</ol></li>
-<li><ol start="2" type="A">
-<li>Predicting if a house will sell or not based on features like the price of the house, number of rooms, etc.</li>
-</ol></li>
-<li><ol start="3" type="A">
-<li>Predicting percentage grade in CPSC 330 based on past grades.</li>
-</ol></li>
-<li><ol start="4" type="A">
-<li>Predicting whether you should bicycle tomorrow or not based on the weather forecast.</li>
-</ol></li>
-<li><ol start="5" type="A">
-<li>Predicting appropriate thermostat temperature based on the wind speed and the number of people in a room.</li>
-</ol></li>
-</ul>
-</section>
-<section id="todays-focus" class="slide level2 center">
-<h2>Today’s focus</h2>
-<ul>
-<li>ML Terminology</li>
-<li>Using sklearn to build a simple supervised ML model</li>
-<li>Intuition of Decision Trees</li>
-</ul>
-</section>
 <section id="framework" class="slide level2 center">
 <h2>Framework</h2>
 <ul>
 <li>There are many frameworks to do do machine learning.</li>
 <li>We’ll mainly be using <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code> framework</a>.</li>
 </ul>
-<div id="c0c79a7e" class="cell" data-execution_count="2">
+<div id="bb2324ec" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 
         <iframe width="1000" height="650" src="https://scikit-learn.org" frameborder="0" allowfullscreen=""></iframe>
@@ -546,17 +457,10 @@ Varada Kolhatkar
 </div>
 </div>
 </section>
-<section id="running-example" class="slide level2 smaller center">
+<section id="running-example" class="slide level2 center">
 <h2>Running example</h2>
-<p>Imagine you’re in the fortunate situation where, after graduating, you have a few job offers and need to decide which one to choose. You want to pick the job that will likely make you the happiest. To help with your decision, you collect data from like-minded people.</p>
-<ul>
-<li>Can you think of relevant features for this problem?</li>
-</ul>
-</section>
-<section id="toy-job-happinees-dataset" class="slide level2 center">
-<h2>Toy job happinees dataset</h2>
-<p>Here are the first few rows of a toy dataset.</p>
-<div id="d256394f" class="cell" data-execution_count="3">
+<p>Imagine you’re in the fortunate situation where, after graduating, you have a few job offers and need to decide which one to choose. You want to pick the job that will likely make you the happiest. To help with your decision, you collect data from like-minded people. Here are the first few rows of this toy dataset.</p>
+<div id="89979d8a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>toy_happiness_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">'toy_job_happiness.csv'</span>)</span>
 <span id="cb1-2"><a></a>toy_happiness_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -666,6 +570,7 @@ Varada Kolhatkar
 <ul>
 <li>target = output = outcome = response variable = dependent variable = labels</li>
 </ul></li>
+<li>Can you think of other relevant features for this problem?</li>
 <li>What is an example?</li>
 </ul>
 </section>
@@ -674,7 +579,7 @@ Varada Kolhatkar
 <ul>
 <li>Is this a <strong>classification</strong> problem or a <strong>regression</strong> problem?</li>
 </ul>
-<div id="cfe4b385" class="cell" data-execution_count="4">
+<div id="9288b88f" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <style scoped="">
@@ -766,26 +671,18 @@ Varada Kolhatkar
 </div>
 </div>
 </section>
-<section id="inference-vs.-prediction" class="slide level2 smaller center">
-<h2>Inference vs.&nbsp;Prediction</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
+<section id="prediction-vs.-inference" class="slide level2 center">
+<h2>Prediction vs.&nbsp;Inference</h2>
 <ul>
-<li><strong>Inference</strong> is about understanding <strong>why</strong> something happens.</li>
-<li>Goal: <strong>Understanding</strong> and <strong>quantifying</strong> the relationship between variables</li>
-<li>Involves estimating the parameters of the underlying distribution and testing hypotheses about these parameters</li>
-<li>Example: Why certain factors influence happiness?</li>
-</ul>
-</div><div class="column" style="width:40%;">
+<li><strong>Inference</strong> is using the model to understand the relationship between the features and the target
 <ul>
-<li><strong>Prediction</strong> is about determining <strong>what</strong> will happen.</li>
-<li>Goal: <strong>Accurately predicting the target</strong> without necessarily understanding the relationship between variables.</li>
-<li>Example: Whether you will be happy in a particular job or not</li>
+<li>Why certain factors influence happiness?</li>
+</ul></li>
+<li><strong>Prediction</strong> is using the model to predict the target value for new examples based on learned patterns.</li>
+<li>Of course these goals are related, and in many situations we need both.</li>
 </ul>
-</div></div>
-<p>Of course these goals are related, and in many situations we need both.</p>
 </section>
-<section id="training" class="slide level2 smaller center">
+<section id="training" class="slide level2 center">
 <h2>Training</h2>
 <ul>
 <li>In supervised ML, the goal is to learn a function that maps input features (<span class="math inline"><em>X</em></span>) to a target (<span class="math inline"><em>y</em></span>).</li>
@@ -800,7 +697,7 @@ Varada Kolhatkar
 <ul>
 <li>In order to train a model we need to separate <span class="math inline"><em>X</em></span> and <span class="math inline"><em>y</em></span> from the dataframe.</li>
 </ul>
-<div id="449768f7" class="cell" data-execution_count="5">
+<div id="c5e9e90f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>X <span class="op">=</span> toy_happiness_df.drop(columns<span class="op">=</span>[<span class="st">"happy?"</span>]) <span class="co"># Extract the feature set by removing the target column "happy?"</span></span>
 <span id="cb2-2"><a></a>y <span class="op">=</span> toy_happiness_df[<span class="st">"happy?"</span>] <span class="co"># Extract the target variable "happy?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -810,7 +707,7 @@ Varada Kolhatkar
 <ul>
 <li>Let’s try a simplest algorithm of predicting the most popular target!</li>
 </ul>
-<div id="4c761318" class="cell" data-execution_count="6">
+<div id="b4d055ab" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb3-2"><a></a>model <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>) <span class="co"># Initialize the DummyClassifier to always predict the most frequent class</span></span>
 <span id="cb3-3"><a></a>model.fit(X, y) <span class="co"># Train the model on the feature set X and target variable y</span></span>
@@ -926,16 +823,59 @@ Varada Kolhatkar
 <li>Decision trees find the “best” way to split data to make predictions.</li>
 <li>Each split is based on a question, like ‘Are the colleagues supportive?’</li>
 <li>The goal is to group data by similar outcomes at each step.</li>
+<li>Now, let’s see a decision tree using sklearn.</li>
 </ul>
 </section>
-<section id="decision-trees-intuition" class="slide level2 smaller center">
-<h2>Decision trees intuition</h2>
+<section id="decision-tree-with-sklearn" class="slide level2 center">
+<h2>Decision tree with <code>sklearn</code></h2>
+<p>Let’s train a simple decision tree on our toy dataset.</p>
+<div id="dc5a71c1" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier <span class="co"># import the classifier</span></span>
+<span id="cb4-2"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> plot_tree</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a>model <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">1</span>) <span class="co"># Create a class object</span></span>
+<span id="cb4-5"><a></a>model.fit(X, y)</span>
+<span id="cb4-6"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names<span class="op">=</span>[<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">12</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="slides-02-terminology-decision-trees_330_files/figure-revealjs/cell-8-output-1.png" class="r-stretch"></section>
+<section id="prediction" class="slide level2 center">
+<h2>Prediction</h2>
 <ul>
-<li>What would be the most effective question to ask in order to split the data in our toy example?</li>
+<li>Given a new example, how does a decision tree predict the class of this example?<br>
+</li>
+<li>What would be the prediction for the example below using the tree above?
+<ul>
+<li>supportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,</li>
+</ul></li>
+</ul>
+
+<img data-src="slides-02-terminology-decision-trees_330_files/figure-revealjs/cell-9-output-1.png" class="r-stretch"></section>
+<section id="prediction-with-sklearn" class="slide level2 center">
+<h2>Prediction with <code>sklearn</code></h2>
+<ul>
+<li>What would be the prediction for the example below using the tree above?
+<ul>
+<li>supportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,</li>
+</ul></li>
+</ul>
+<div id="4e1d8e25" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>test_example <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">60000</span>, <span class="dv">0</span>, <span class="dv">1</span>]]</span>
+<span id="cb5-2"><a></a><span class="bu">print</span>(<span class="st">"Model prediction: "</span>, model.predict(test_example))</span>
+<span id="cb5-3"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names <span class="op">=</span> [<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">9</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model prediction:  ['Unhappy']</code></pre>
+</div>
+
+</div>
+<img data-src="slides-02-terminology-decision-trees_330_files/figure-revealjs/cell-10-output-2.png" class="r-stretch"></section>
+<section id="training-high-level" class="slide level2 center">
+<h2>Training (high level)</h2>
+<ul>
 <li>How many possible questions could we ask in this context?</li>
 </ul>
-<div id="c6ffcca6" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div id="e9e15543" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -959,7 +899,6 @@ Varada Kolhatkar
 <th data-quarto-table-cell-role="th">salary</th>
 <th data-quarto-table-cell-role="th">free_coffee</th>
 <th data-quarto-table-cell-role="th">boss_vegan</th>
-<th data-quarto-table-cell-role="th">happy?</th>
 </tr>
 </thead>
 <tbody>
@@ -969,7 +908,6 @@ Varada Kolhatkar
 <td>70000</td>
 <td>0</td>
 <td>1</td>
-<td>Unhappy</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -977,7 +915,6 @@ Varada Kolhatkar
 <td>60000</td>
 <td>0</td>
 <td>0</td>
-<td>Unhappy</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -985,7 +922,6 @@ Varada Kolhatkar
 <td>80000</td>
 <td>1</td>
 <td>0</td>
-<td>Happy</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -993,7 +929,6 @@ Varada Kolhatkar
 <td>110000</td>
 <td>0</td>
 <td>1</td>
-<td>Happy</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -1001,7 +936,6 @@ Varada Kolhatkar
 <td>120000</td>
 <td>1</td>
 <td>0</td>
-<td>Happy</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
@@ -1009,7 +943,6 @@ Varada Kolhatkar
 <td>150000</td>
 <td>1</td>
 <td>1</td>
-<td>Happy</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
@@ -1017,7 +950,6 @@ Varada Kolhatkar
 <td>150000</td>
 <td>1</td>
 <td>0</td>
-<td>Unhappy</td>
 </tr>
 </tbody>
 </table>
@@ -1026,7 +958,7 @@ Varada Kolhatkar
 </div>
 </div>
 </section>
-<section id="training-high-level" class="slide level2 center">
+<section id="training-high-level-1" class="slide level2 center">
 <h2>Training (high level)</h2>
 <ul>
 <li>Decision tree learning is a search process to find the “best” tree among many possible ones.</li>
@@ -1034,49 +966,6 @@ Varada Kolhatkar
 <li>At each step, we aim to split the data into groups with more certainty in their outcomes.</li>
 </ul>
 </section>
-<section id="decision-tree-with-sklearn" class="slide level2 center">
-<h2>Decision tree with <code>sklearn</code></h2>
-<p>Let’s train a simple decision tree on our toy dataset using <code>sklearn</code></p>
-<div id="6bbc5a87" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier <span class="co"># import the classifier</span></span>
-<span id="cb4-2"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> plot_tree</span>
-<span id="cb4-3"><a></a></span>
-<span id="cb4-4"><a></a>model <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">1</span>) <span class="co"># Create a class object</span></span>
-<span id="cb4-5"><a></a>model.fit(X, y)</span>
-<span id="cb4-6"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names<span class="op">=</span>[<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">12</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-9-output-1.png" class="r-stretch"></section>
-<section id="prediction" class="slide level2 smaller center">
-<h2>Prediction</h2>
-<ul>
-<li>Given a new example, how does a decision tree predict the class of this example?<br>
-</li>
-<li>What would be the prediction for the example below using the tree above?
-<ul>
-<li>supportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,</li>
-</ul></li>
-</ul>
-
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-10-output-1.png" class="r-stretch"></section>
-<section id="prediction-with-sklearn" class="slide level2 smaller center">
-<h2>Prediction with <code>sklearn</code></h2>
-<ul>
-<li>What would be the prediction for the example below using the tree above?
-<ul>
-<li>supportive_colleagues = 1, salary = 60000, free_coffee = 0, vegan_boss = 1,</li>
-</ul></li>
-</ul>
-<div id="328bbc6f" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>test_example <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">60000</span>, <span class="dv">0</span>, <span class="dv">1</span>]]</span>
-<span id="cb5-2"><a></a><span class="bu">print</span>(<span class="st">"Model prediction: "</span>, model.predict(test_example))</span>
-<span id="cb5-3"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names <span class="op">=</span> [<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">9</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Model prediction:  ['Unhappy']</code></pre>
-</div>
-
-</div>
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-11-output-2.png" class="r-stretch"></section>
 <section id="parameters-vs.-hyperparameters" class="slide level2 center">
 <h2>Parameters vs.&nbsp;Hyperparameters</h2>
 <ul>
@@ -1095,14 +984,58 @@ Varada Kolhatkar
 <section id="decision-boundary-with-max_depth1" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=1</code></h2>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_330_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
 <section id="decision-boundary-with-max_depth2" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=2</code></h2>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-13-output-1.png" class="r-stretch"></section>
-<section id="iclicker-2.4-baselines-and-decision-trees" class="slide level2 smaller center">
-<h2>iClicker 2.4: Baselines and Decision trees</h2>
-<p>iClicker cloud join link:</p>
+<img data-src="slides-02-terminology-decision-trees_330_files/figure-revealjs/cell-13-output-1.png" class="r-stretch"></section>
+<section id="iclicker-2.2-supervised-vs-unsupervised" class="slide level2 center">
+<h2>iClicker 2.2: Supervised vs unsupervised</h2>
+<p>Clicker cloud join link: https://join.iclicker.com/VYFJ</p>
+<p>Select all of the following statements which are examples of supervised machine learning</p>
+<ul>
+<li><ol type="A">
+<li>Finding groups of similar properties in a real estate data set.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Predicting whether someone will have a heart attack or not on the basis of demographic, diet, and clinical measurement.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>Grouping articles on different topics from different news sources (something like the Google News app).</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Detecting credit card fraud based on examples of fraudulent and non-fraudulent transactions.</li>
+</ol></li>
+<li><ol start="5" type="A">
+<li>Given some measure of employee performance, identify the key factors which are likely to influence their performance.</li>
+</ol></li>
+</ul>
+</section>
+<section id="iclicker-2.3-classification-vs.-regression" class="slide level2 center">
+<h2>iClicker 2.3: Classification vs.&nbsp;Regression</h2>
+<p>Clicker cloud join link: https://join.iclicker.com/VYFJ</p>
+<p>Select all of the following statements which are examples of regression problems</p>
+<ul>
+<li><ol type="A">
+<li>Predicting the price of a house based on features such as number of bedrooms and the year built.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Predicting if a house will sell or not based on features like the price of the house, number of rooms, etc.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>Predicting percentage grade in CPSC 330 based on past grades.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Predicting whether you should bicycle tomorrow or not based on the weather forecast.</li>
+</ol></li>
+<li><ol start="5" type="A">
+<li>Predicting appropriate thermostat temperature based on the wind speed and the number of people in a room.</li>
+</ol></li>
+</ul>
+</section>
+<section id="iclicker-2.5-baselines-and-decision-trees" class="slide level2 center">
+<h2>iClicker 2.5: Baselines and Decision trees</h2>
+<p>iClicker cloud join link: https://join.iclicker.com/VYFJ</p>
 <p>Select all of the following statements which are TRUE.</p>
 <ul>
 <li><ol type="A">
@@ -1119,13 +1052,8 @@ Varada Kolhatkar
 </ol></li>
 </ul>
 </section>
-<section id="summary" class="slide level2 center">
-<h2>Summary</h2>
-<ul>
-<li>Terminology</li>
-<li><code>sklearn</code> basic steps</li>
-<li>Decision tree intuition</li>
-</ul>
+<section id="hw2-worksheet-portion" class="slide level2 center">
+<h2>HW2 Worksheet portion</h2>
 
 <div class="quarto-auto-generated-content">
 <p><img src="img/UBC-CS-logo.png" class="slide-logo"></p>
