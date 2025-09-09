@@ -265,7 +265,7 @@ pd.concat([X, y], axis=1)
 
 ## Which question is more effective? {.smaller}
 ::: panel-tabset
-### Visual
+### Visual {.smaller}
 
 ![](img/decision_tree_intuition.png)
 
