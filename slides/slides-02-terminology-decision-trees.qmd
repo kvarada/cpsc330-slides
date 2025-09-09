@@ -75,6 +75,8 @@ By the end of this lesson, you will be able to:
 
 ## iClicker 2.1: ML or not {.smaller}
 
+iClicker join link: https://join.iclicker.com/FZMQ
+
 **Select all of the following statements which are suitable problems for machine learning.**
 
 - (A) Identifying objects within digital images, such as facial recognition in security systems or categorizing images based on content.
@@ -361,7 +363,7 @@ plot_tree_decision_boundary_and_tree(
 
 ## iClicker 2.4: Baselines and Decision trees {.smaller}
 
-iClicker cloud join link: 
+iClicker cloud join link:  https://join.iclicker.com/FZMQ
 
 Select all of the following statements which are TRUE.
 

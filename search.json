@@ -2562,7 +2562,7 @@
     "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.1-ml-or-not",
     "title": "Lecture 2: Terminology, Baselines, Decision Trees",
     "section": "iClicker 2.1: ML or not",
-    "text": "iClicker 2.1: ML or not\nSelect all of the following statements which are suitable problems for machine learning.\n\n\nIdentifying objects within digital images, such as facial recognition in security systems or categorizing images based on content.\n\n\nDetermining if individuals meet the necessary criteria for government or financial services based on strict guidelines.\n\n\nIdentifying unusual patterns that may indicate fraudulent transactions in banking and finance.\n\n\nAutomatically analyzing images from MRIs, CT scans, or X-rays to detect abnormalities like tumors or fractures.\n\n\nAddressing mental health issues where human empathy, understanding, and adaptability are key."
+    "text": "iClicker 2.1: ML or not\niClicker join link: https://join.iclicker.com/FZMQ\nSelect all of the following statements which are suitable problems for machine learning.\n\n\nIdentifying objects within digital images, such as facial recognition in security systems or categorizing images based on content.\n\n\nDetermining if individuals meet the necessary criteria for government or financial services based on strict guidelines.\n\n\nIdentifying unusual patterns that may indicate fraudulent transactions in banking and finance.\n\n\nAutomatically analyzing images from MRIs, CT scans, or X-rays to detect abnormalities like tumors or fractures.\n\n\nAddressing mental health issues where human empathy, understanding, and adaptability are key."
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#therapists-using-chatgpt-secretly",
@@ -2758,7 +2758,7 @@
     "href": "slides/slides-02-terminology-decision-trees.html#iclicker-2.4-baselines-and-decision-trees",
     "title": "Lecture 2: Terminology, Baselines, Decision Trees",
     "section": "iClicker 2.4: Baselines and Decision trees",
-    "text": "iClicker 2.4: Baselines and Decision trees\niClicker cloud join link:\nSelect all of the following statements which are TRUE.\n\n\nChange in features (i.e., binarizing features above) would change DummyClassifier predictions.\n\n\npredict takes only X as argument whereas fit and score take both X and y as arguments.\n\n\nFor the decision tree algorithm to work, the feature values must be binary.\n\n\nThe prediction in a decision tree works by routing the example from the root to the leaf."
+    "text": "iClicker 2.4: Baselines and Decision trees\niClicker cloud join link: https://join.iclicker.com/FZMQ\nSelect all of the following statements which are TRUE.\n\n\nChange in features (i.e., binarizing features above) would change DummyClassifier predictions.\n\n\npredict takes only X as argument whereas fit and score take both X and y as arguments.\n\n\nFor the decision tree algorithm to work, the feature values must be binary.\n\n\nThe prediction in a decision tree works by routing the example from the root to the leaf."
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#summary",
