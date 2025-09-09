@@ -29,7 +29,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { line-height: 1.25; }
@@ -409,6 +408,13 @@ Varada Kolhatkar
 <section id="learning-outcomes" class="slide level2 smaller center">
 <h2>🎯 Learning Outcomes</h2>
 <p>By the end of this lesson, you will be able to:</p>
+<ul>
+<li><p>Define key machine learning terminology:<br>
+<em>features, targets, predictions, training, error, classification vs.&nbsp;regression, supervised vs.&nbsp;unsupervised learning, hyperparameters vs.&nbsp;parameters, baselines, decision boundaries</em></p></li>
+<li><p>Build a simple machine learning model in <strong>scikit-learn</strong>, explaining the <code>fit</code>–<code>predict</code> workflow and evaluating performance with the <code>score</code> method</p></li>
+<li><p>Describe at a high level how decision trees are trained (fitting) and how they make predictions</p></li>
+<li><p>Implement and visualize decision trees in scikit-learn using <code>DecisionTreeClassifier</code> and <code>DecisionTreeRegressor</code></p></li>
+</ul>
 </section>
 <section id="announcements" class="slide level2 center">
 <h2>Announcements</h2>
@@ -467,10 +473,10 @@ Varada Kolhatkar
 <li>Human experts are good with problems which require deep contextual understanding, ethical judgment, creative input, or emotional intelligence.</li>
 </ul>
 </section>
-<section id="recap-supervised-learning" class="slide level2 center">
+<section id="recap-supervised-learning" class="slide level2 smaller center">
 <h2>Recap: Supervised learning</h2>
 <ul>
-<li>We wish to find a model function <span class="math inline"><em>f</em></span> that relates <span class="math inline"><em>X</em></span> to <span class="math inline"><em>y</em></span>.</li>
+<li>We wish to find a model function <span class="math inline">\(f\)</span> that relates <span class="math inline">\(X\)</span> to <span class="math inline">\(y\)</span>.</li>
 <li>We use the model function to predict targets of new examples.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -479,6 +485,18 @@ Varada Kolhatkar
 </figure>
 </div>
 <p>In the first part of this course, we’ll focus on supervised machine learning.</p>
+</section>
+<section id="unsupervised-learning" class="slide level2 smaller center">
+<h2>Unsupervised learning</h2>
+<ul>
+<li>Training data consists of observations <span class="math inline">\(X\)</span> without any corresponding targets.</li>
+<li>Unsupervised learning could be used to group similar things together in <span class="math inline">\(X\)</span> or to find underlying structure in the data.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/unsup-learning.png" class="quarto-figure quarto-figure-center" width="700"></p>
+</figure>
+</div>
 </section>
 <section id="iclicker-2.2-supervised-vs-unsupervised" class="slide level2 smaller center">
 <h2>iClicker 2.2: Supervised vs unsupervised</h2>
@@ -538,7 +556,7 @@ Varada Kolhatkar
 <li>There are many frameworks to do do machine learning.</li>
 <li>We’ll mainly be using <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code> framework</a>.</li>
 </ul>
-<div id="c0c79a7e" class="cell" data-execution_count="2">
+<div id="3f82f047" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 
         <iframe width="1000" height="650" src="https://scikit-learn.org" frameborder="0" allowfullscreen=""></iframe>
@@ -556,7 +574,7 @@ Varada Kolhatkar
 <section id="toy-job-happinees-dataset" class="slide level2 center">
 <h2>Toy job happinees dataset</h2>
 <p>Here are the first few rows of a toy dataset.</p>
-<div id="d256394f" class="cell" data-execution_count="3">
+<div id="b066d506" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>toy_happiness_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">'toy_job_happiness.csv'</span>)</span>
 <span id="cb1-2"><a></a>toy_happiness_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -658,11 +676,11 @@ Varada Kolhatkar
 <section id="features-target-example" class="slide level2 center">
 <h2>Features, target, example</h2>
 <ul>
-<li>What are the <strong>features</strong> <span class="math inline"><em>X</em></span>?
+<li>What are the <strong>features</strong> <span class="math inline">\(X\)</span>?
 <ul>
 <li>features = inputs = predictors = explanatory variables = regressors = independent variables = covariates</li>
 </ul></li>
-<li>What’s the target <span class="math inline"><em>y</em></span>?
+<li>What’s the target <span class="math inline">\(y\)</span>?
 <ul>
 <li>target = output = outcome = response variable = dependent variable = labels</li>
 </ul></li>
@@ -674,7 +692,7 @@ Varada Kolhatkar
 <ul>
 <li>Is this a <strong>classification</strong> problem or a <strong>regression</strong> problem?</li>
 </ul>
-<div id="cfe4b385" class="cell" data-execution_count="4">
+<div id="24a7e1f0" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <style scoped="">
@@ -766,8 +784,8 @@ Varada Kolhatkar
 </div>
 </div>
 </section>
-<section id="inference-vs.-prediction" class="slide level2 smaller center">
-<h2>Inference vs.&nbsp;Prediction</h2>
+<section id="optional-inference-vs.-prediction" class="slide level2 smaller center">
+<h2>(Optional) Inference vs.&nbsp;Prediction</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
@@ -788,19 +806,32 @@ Varada Kolhatkar
 <section id="training" class="slide level2 smaller center">
 <h2>Training</h2>
 <ul>
-<li>In supervised ML, the goal is to learn a function that maps input features (<span class="math inline"><em>X</em></span>) to a target (<span class="math inline"><em>y</em></span>).</li>
-<li>The relationship between <span class="math inline"><em>X</em></span> and <span class="math inline"><em>y</em></span> is often complex, making it difficult to define mathematically.</li>
-<li>We use algorithms to approximate this complex relationship between <span class="math inline"><em>X</em></span> and <span class="math inline"><em>y</em></span>.</li>
-<li><strong>Training</strong> is the process of applying an algorithm to learn the best function (or model) that maps <span class="math inline"><em>X</em></span> to <span class="math inline"><em>y</em></span>.</li>
+<li>In supervised ML, the goal is to learn a function that maps input features (<span class="math inline">\(X\)</span>) to a target (<span class="math inline">\(y\)</span>).</li>
+<li>The relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(y\)</span> is often complex, making it difficult to define mathematically.</li>
+<li>We use algorithms to approximate this complex relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(y\)</span>.</li>
+<li><strong>Training</strong> is the process of applying an algorithm to learn the best function (or model) that maps <span class="math inline">\(X\)</span> to <span class="math inline">\(y\)</span>.</li>
 <li>In this course, I’ll help you develop an intuition for how these models work and demonstrate how to use them in a machine learning pipeline.</li>
 </ul>
 </section>
-<section id="separating-x-and-y" class="slide level2 center">
-<h2>Separating <span class="math inline"><em>X</em></span> and <span class="math inline"><em>y</em></span></h2>
+<section id="error-and-accuracy" class="slide level2 center">
+<h2>Error and Accuracy</h2>
 <ul>
-<li>In order to train a model we need to separate <span class="math inline"><em>X</em></span> and <span class="math inline"><em>y</em></span> from the dataframe.</li>
+<li>Machine learning models are <strong>not perfect</strong>—they will make mistakes.<br>
+</li>
+<li>To judge whether a model is <strong>useful</strong>, we need to track its performance.<br>
+</li>
+<li>For classification problems, the most common (and default in <code>sklearn</code>) metric is <strong>accuracy</strong>:</li>
 </ul>
-<div id="449768f7" class="cell" data-execution_count="5">
+<p><span class="math display">\[
+\text{Accuracy} = \frac{\text{Number of correct predictions}}{\text{Total number of examples}}
+\]</span></p>
+</section>
+<section id="separating-x-and-y" class="slide level2 center">
+<h2>Separating <span class="math inline">\(X\)</span> and <span class="math inline">\(y\)</span></h2>
+<ul>
+<li>In order to train a model we need to separate <span class="math inline">\(X\)</span> and <span class="math inline">\(y\)</span> from the dataframe.</li>
+</ul>
+<div id="c2506bfd" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>X <span class="op">=</span> toy_happiness_df.drop(columns<span class="op">=</span>[<span class="st">"happy?"</span>]) <span class="co"># Extract the feature set by removing the target column "happy?"</span></span>
 <span id="cb2-2"><a></a>y <span class="op">=</span> toy_happiness_df[<span class="st">"happy?"</span>] <span class="co"># Extract the target variable "happy?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -810,7 +841,7 @@ Varada Kolhatkar
 <ul>
 <li>Let’s try a simplest algorithm of predicting the most popular target!</li>
 </ul>
-<div id="4c761318" class="cell" data-execution_count="6">
+<div id="e5e63814" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb3-2"><a></a>model <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>) <span class="co"># Initialize the DummyClassifier to always predict the most frequent class</span></span>
 <span id="cb3-3"><a></a>model.fit(X, y) <span class="co"># Train the model on the feature set X and target variable y</span></span>
@@ -916,25 +947,15 @@ Varada Kolhatkar
 </div>
 </section></section>
 <section>
-<section id="decision-trees" class="title-slide slide level1 center">
-<h1>Decision trees</h1>
+<section id="decision-trees-intuition" class="title-slide slide level1 smaller center">
+<h1>Decision trees intuition</h1>
+<ul>
+<li>One intuitive way to build a model is by asking a series of <strong>yes/no questions</strong>, forming a tree.<br>
+</li>
+<li>Which question would help you best separate the <strong>happy</strong> and <strong>unhappy</strong> examples?</li>
+</ul>
 
-</section>
-<section id="intuition" class="slide level2 center">
-<h2>Intuition</h2>
-<ul>
-<li>Decision trees find the “best” way to split data to make predictions.</li>
-<li>Each split is based on a question, like ‘Are the colleagues supportive?’</li>
-<li>The goal is to group data by similar outcomes at each step.</li>
-</ul>
-</section>
-<section id="decision-trees-intuition" class="slide level2 smaller center">
-<h2>Decision trees intuition</h2>
-<ul>
-<li>What would be the most effective question to ask in order to split the data in our toy example?</li>
-<li>How many possible questions could we ask in this context?</li>
-</ul>
-<div id="c6ffcca6" class="cell" data-execution_count="7">
+<img data-src="img/happy_unhappy_faces.png" class="r-stretch"><div id="ee77488b" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <style scoped="">
@@ -1026,18 +1047,228 @@ Varada Kolhatkar
 </div>
 </div>
 </section>
-<section id="training-high-level" class="slide level2 center">
-<h2>Training (high level)</h2>
+<section id="which-question-is-more-effective" class="slide level2 smaller center">
+<h2>Which question is more effective?</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Visual</a></li><li><a href="#tabset-1-2">Data</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p><img data-src="img/decision_tree_intuition.png"></p>
+</div>
+<div id="tabset-1-2">
+<div id="3cd659bb" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">supportive_colleagues</th>
+<th data-quarto-table-cell-role="th">salary</th>
+<th data-quarto-table-cell-role="th">free_coffee</th>
+<th data-quarto-table-cell-role="th">boss_vegan</th>
+<th data-quarto-table-cell-role="th">happy?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0</td>
+<td>70000</td>
+<td>0</td>
+<td>1</td>
+<td>Unhappy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>60000</td>
+<td>0</td>
+<td>0</td>
+<td>Unhappy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1</td>
+<td>80000</td>
+<td>1</td>
+<td>0</td>
+<td>Happy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1</td>
+<td>110000</td>
+<td>0</td>
+<td>1</td>
+<td>Happy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1</td>
+<td>120000</td>
+<td>1</td>
+<td>0</td>
+<td>Happy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>1</td>
+<td>150000</td>
+<td>1</td>
+<td>1</td>
+<td>Happy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>0</td>
+<td>150000</td>
+<td>1</td>
+<td>0</td>
+<td>Unhappy</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-are-we-trying-to-learn" class="slide level2 smaller center">
+<h2>What are we trying to learn?</h2>
 <ul>
-<li>Decision tree learning is a search process to find the “best” tree among many possible ones.</li>
-<li>We evaluate questions using measures like <strong>information gain</strong> or the <strong>Gini index</strong> to find the most effective split.</li>
-<li>At each step, we aim to split the data into groups with more certainty in their outcomes.</li>
+<li>We want to learn which questions to ask and in what order.</li>
+<li>How many possible questions could we ask with these features?</li>
+</ul>
+<div id="426a6b0f" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">supportive_colleagues</th>
+<th data-quarto-table-cell-role="th">salary</th>
+<th data-quarto-table-cell-role="th">free_coffee</th>
+<th data-quarto-table-cell-role="th">boss_vegan</th>
+<th data-quarto-table-cell-role="th">happy?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0</td>
+<td>70000</td>
+<td>0</td>
+<td>1</td>
+<td>Unhappy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>60000</td>
+<td>0</td>
+<td>0</td>
+<td>Unhappy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1</td>
+<td>80000</td>
+<td>1</td>
+<td>0</td>
+<td>Happy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1</td>
+<td>110000</td>
+<td>0</td>
+<td>1</td>
+<td>Happy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1</td>
+<td>120000</td>
+<td>1</td>
+<td>0</td>
+<td>Happy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>1</td>
+<td>150000</td>
+<td>1</td>
+<td>1</td>
+<td>Happy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>0</td>
+<td>150000</td>
+<td>1</td>
+<td>0</td>
+<td>Unhappy</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree-training-high-level" class="slide level2 smaller center">
+<h2>Decision tree Training (high level)</h2>
+<ul>
+<li>Training a decision tree is a search process: we look for the “best” tree among many possible ones.</li>
+<li>There are different algorithms for learning trees.
+<ul>
+<li><a href="https://scikit-learn.org/stable/modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart">See here</a></li>
+</ul></li>
+<li>At each step, we evaluate candidate questions using measures such as:
+<ul>
+<li>Information gain</li>
+<li>Gini index</li>
+</ul></li>
+<li>The goal is to split the data into groups with greater certainty (more homogeneous outcomes).</li>
 </ul>
 </section>
 <section id="decision-tree-with-sklearn" class="slide level2 center">
 <h2>Decision tree with <code>sklearn</code></h2>
 <p>Let’s train a simple decision tree on our toy dataset using <code>sklearn</code></p>
-<div id="6bbc5a87" class="cell" data-execution_count="8">
+<div id="de3affc9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier <span class="co"># import the classifier</span></span>
 <span id="cb4-2"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> plot_tree</span>
 <span id="cb4-3"><a></a></span>
@@ -1046,7 +1277,7 @@ Varada Kolhatkar
 <span id="cb4-6"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names<span class="op">=</span>[<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">12</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-9-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-11-output-1.png" class="r-stretch"></section>
 <section id="prediction" class="slide level2 smaller center">
 <h2>Prediction</h2>
 <ul>
@@ -1058,7 +1289,7 @@ Varada Kolhatkar
 </ul></li>
 </ul>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-10-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
 <section id="prediction-with-sklearn" class="slide level2 smaller center">
 <h2>Prediction with <code>sklearn</code></h2>
 <ul>
@@ -1067,7 +1298,7 @@ Varada Kolhatkar
 <li>supportive_colleagues = 1, salary = 60000, free_coffee = 0, vegan_boss = 1,</li>
 </ul></li>
 </ul>
-<div id="328bbc6f" class="cell" data-execution_count="10">
+<div id="6f0f171d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>test_example <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">60000</span>, <span class="dv">0</span>, <span class="dv">1</span>]]</span>
 <span id="cb5-2"><a></a><span class="bu">print</span>(<span class="st">"Model prediction: "</span>, model.predict(test_example))</span>
 <span id="cb5-3"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names <span class="op">=</span> [<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">9</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1076,7 +1307,7 @@ Varada Kolhatkar
 </div>
 
 </div>
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-11-output-2.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-13-output-2.png" class="r-stretch"></section>
 <section id="parameters-vs.-hyperparameters" class="slide level2 center">
 <h2>Parameters vs.&nbsp;Hyperparameters</h2>
 <ul>
@@ -1092,14 +1323,23 @@ Varada Kolhatkar
 </ul></li>
 </ul>
 </section>
+<section id="decision-boundary" class="slide level2 center">
+<h2>Decision boundary</h2>
+<ul>
+<li>A decision boundary is the <strong>line, curve, or surface</strong> that separates classes.</li>
+<li>Points on one side <span class="math inline">\(\rightarrow\)</span> Model predicts Class Happy<br>
+</li>
+<li>Points on the other side <span class="math inline">\(\rightarrow\)</span> Model predicts Class Unhappy</li>
+</ul>
+</section>
 <section id="decision-boundary-with-max_depth1" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=1</code></h2>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-14-output-1.png" class="r-stretch"></section>
 <section id="decision-boundary-with-max_depth2" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=2</code></h2>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-13-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-15-output-1.png" class="r-stretch"></section>
 <section id="iclicker-2.4-baselines-and-decision-trees" class="slide level2 smaller center">
 <h2>iClicker 2.4: Baselines and Decision trees</h2>
 <p>iClicker cloud join link:</p>
@@ -1150,6 +1390,7 @@ Varada Kolhatkar
   <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -1316,9 +1557,27 @@ Varada Kolhatkar
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
+          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
