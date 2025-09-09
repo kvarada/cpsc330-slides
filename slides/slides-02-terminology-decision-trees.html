@@ -556,7 +556,7 @@ Varada Kolhatkar
 <li>There are many frameworks to do do machine learning.</li>
 <li>We’ll mainly be using <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code> framework</a>.</li>
 </ul>
-<div id="3f82f047" class="cell" data-execution_count="2">
+<div id="1d64bb58" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 
         <iframe width="1000" height="650" src="https://scikit-learn.org" frameborder="0" allowfullscreen=""></iframe>
@@ -571,10 +571,10 @@ Varada Kolhatkar
 <li>Can you think of relevant features for this problem?</li>
 </ul>
 </section>
-<section id="toy-job-happinees-dataset" class="slide level2 center">
+<section id="toy-job-happinees-dataset" class="slide level2 smaller center">
 <h2>Toy job happinees dataset</h2>
 <p>Here are the first few rows of a toy dataset.</p>
-<div id="b066d506" class="cell" data-execution_count="3">
+<div id="fdaa592a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>toy_happiness_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">'toy_job_happiness.csv'</span>)</span>
 <span id="cb1-2"><a></a>toy_happiness_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -675,6 +675,10 @@ Varada Kolhatkar
 </section>
 <section id="features-target-example" class="slide level2 center">
 <h2>Features, target, example</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Terminology</a></li><li><a href="#tabset-1-2">Data</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <ul>
 <li>What are the <strong>features</strong> <span class="math inline">\(X\)</span>?
 <ul>
@@ -686,14 +690,110 @@ Varada Kolhatkar
 </ul></li>
 <li>What is an example?</li>
 </ul>
+</div>
+<div id="tabset-1-2">
+<div id="657399c9" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">supportive_colleagues</th>
+<th data-quarto-table-cell-role="th">salary</th>
+<th data-quarto-table-cell-role="th">free_coffee</th>
+<th data-quarto-table-cell-role="th">boss_vegan</th>
+<th data-quarto-table-cell-role="th">happy?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0</td>
+<td>70000</td>
+<td>0</td>
+<td>1</td>
+<td>Unhappy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>60000</td>
+<td>0</td>
+<td>0</td>
+<td>Unhappy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1</td>
+<td>80000</td>
+<td>1</td>
+<td>0</td>
+<td>Happy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1</td>
+<td>110000</td>
+<td>0</td>
+<td>1</td>
+<td>Happy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1</td>
+<td>120000</td>
+<td>1</td>
+<td>0</td>
+<td>Happy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>1</td>
+<td>150000</td>
+<td>1</td>
+<td>1</td>
+<td>Happy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>0</td>
+<td>150000</td>
+<td>1</td>
+<td>0</td>
+<td>Unhappy</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="classification-vs.-regression" class="slide level2 center">
 <h2>Classification vs.&nbsp;Regression</h2>
 <ul>
 <li>Is this a <strong>classification</strong> problem or a <strong>regression</strong> problem?</li>
 </ul>
-<div id="24a7e1f0" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div id="14c0fb45" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -789,16 +889,23 @@ Varada Kolhatkar
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li><strong>Inference</strong> is about understanding <strong>why</strong> something happens.</li>
-<li>Goal: <strong>Understanding</strong> and <strong>quantifying</strong> the relationship between variables</li>
-<li>Involves estimating the parameters of the underlying distribution and testing hypotheses about these parameters</li>
-<li>Example: Why certain factors influence happiness?</li>
+<li><strong>Inference</strong> asks: <em>Why does something happen?</em><br>
+</li>
+<li>Goal: <strong>understand</strong> and <strong>quantify</strong> the relationship between variables<br>
+</li>
+<li>Often involves estimating model parameters and testing hypotheses<br>
+</li>
+<li>Example: <em>Which factors influence happiness, and by how much?</em><br>
+</li>
 </ul>
 </div><div class="column" style="width:40%;">
 <ul>
-<li><strong>Prediction</strong> is about determining <strong>what</strong> will happen.</li>
-<li>Goal: <strong>Accurately predicting the target</strong> without necessarily understanding the relationship between variables.</li>
-<li>Example: Whether you will be happy in a particular job or not</li>
+<li><strong>Prediction</strong> asks: <em>What will happen?</em><br>
+</li>
+<li>Goal: <strong>accurately predict the target</strong> without needing to fully explain the relationships<br>
+</li>
+<li>Example: <em>Will you be happy in a particular job?</em><br>
+</li>
 </ul>
 </div></div>
 <p>Of course these goals are related, and in many situations we need both.</p>
@@ -814,7 +921,7 @@ Varada Kolhatkar
 </ul>
 </section>
 <section id="error-and-accuracy" class="slide level2 center">
-<h2>Error and Accuracy</h2>
+<h2>Error and accuracy</h2>
 <ul>
 <li>Machine learning models are <strong>not perfect</strong>—they will make mistakes.<br>
 </li>
@@ -831,23 +938,23 @@ Varada Kolhatkar
 <ul>
 <li>In order to train a model we need to separate <span class="math inline">\(X\)</span> and <span class="math inline">\(y\)</span> from the dataframe.</li>
 </ul>
-<div id="c2506bfd" class="cell" data-execution_count="5">
+<div id="6ad7f4fc" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>X <span class="op">=</span> toy_happiness_df.drop(columns<span class="op">=</span>[<span class="st">"happy?"</span>]) <span class="co"># Extract the feature set by removing the target column "happy?"</span></span>
 <span id="cb2-2"><a></a>y <span class="op">=</span> toy_happiness_df[<span class="st">"happy?"</span>] <span class="co"># Extract the target variable "happy?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="baseline" class="slide level2 center">
+<section id="baseline" class="slide level2 smaller center">
 <h2>Baseline</h2>
 <ul>
 <li>Let’s try a simplest algorithm of predicting the most popular target!</li>
 </ul>
-<div id="e5e63814" class="cell" data-execution_count="6">
+<div id="3f3d9834" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb3-2"><a></a>model <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>) <span class="co"># Initialize the DummyClassifier to always predict the most frequent class</span></span>
 <span id="cb3-3"><a></a>model.fit(X, y) <span class="co"># Train the model on the feature set X and target variable y</span></span>
 <span id="cb3-4"><a></a>toy_happiness_df[<span class="st">'dummy_predictions'</span>] <span class="op">=</span> model.predict(X) <span class="co"># Add the predicted values as a new column in the dataframe</span></span>
 <span id="cb3-5"><a></a>toy_happiness_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -955,8 +1062,8 @@ Varada Kolhatkar
 <li>Which question would help you best separate the <strong>happy</strong> and <strong>unhappy</strong> examples?</li>
 </ul>
 
-<img data-src="img/happy_unhappy_faces.png" class="r-stretch"><div id="ee77488b" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display" data-execution_count="7">
+<img data-src="img/happy_unhappy_faces.png" class="r-stretch"><div id="9967ac52" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -1050,14 +1157,14 @@ Varada Kolhatkar
 <section id="which-question-is-more-effective" class="slide level2 smaller center">
 <h2>Which question is more effective?</h2>
 <div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Visual</a></li><li><a href="#tabset-1-2">Data</a></li></ul>
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Visual</a></li><li><a href="#tabset-2-2">Data</a></li></ul>
 <div class="tab-content">
-<div id="tabset-1-1">
+<div id="tabset-2-1">
 <p><img data-src="img/decision_tree_intuition.png"></p>
 </div>
-<div id="tabset-1-2">
-<div id="3cd659bb" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div id="tabset-2-2">
+<div id="582d87c8" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -1157,8 +1264,8 @@ Varada Kolhatkar
 <li>We want to learn which questions to ask and in what order.</li>
 <li>How many possible questions could we ask with these features?</li>
 </ul>
-<div id="426a6b0f" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div id="b5b694c4" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -1253,10 +1360,7 @@ Varada Kolhatkar
 <h2>Decision tree Training (high level)</h2>
 <ul>
 <li>Training a decision tree is a search process: we look for the “best” tree among many possible ones.</li>
-<li>There are different algorithms for learning trees.
-<ul>
-<li><a href="https://scikit-learn.org/stable/modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart">See here</a></li>
-</ul></li>
+<li>There are different algorithms for learning trees. <a href="https://scikit-learn.org/stable/modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart">Check this out.</a></li>
 <li>At each step, we evaluate candidate questions using measures such as:
 <ul>
 <li>Information gain</li>
@@ -1268,7 +1372,7 @@ Varada Kolhatkar
 <section id="decision-tree-with-sklearn" class="slide level2 center">
 <h2>Decision tree with <code>sklearn</code></h2>
 <p>Let’s train a simple decision tree on our toy dataset using <code>sklearn</code></p>
-<div id="de3affc9" class="cell" data-execution_count="10">
+<div id="d4dd9b35" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier <span class="co"># import the classifier</span></span>
 <span id="cb4-2"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> plot_tree</span>
 <span id="cb4-3"><a></a></span>
@@ -1277,7 +1381,7 @@ Varada Kolhatkar
 <span id="cb4-6"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names<span class="op">=</span>[<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">12</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-11-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
 <section id="prediction" class="slide level2 smaller center">
 <h2>Prediction</h2>
 <ul>
@@ -1289,7 +1393,7 @@ Varada Kolhatkar
 </ul></li>
 </ul>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-13-output-1.png" class="r-stretch"></section>
 <section id="prediction-with-sklearn" class="slide level2 smaller center">
 <h2>Prediction with <code>sklearn</code></h2>
 <ul>
@@ -1298,7 +1402,7 @@ Varada Kolhatkar
 <li>supportive_colleagues = 1, salary = 60000, free_coffee = 0, vegan_boss = 1,</li>
 </ul></li>
 </ul>
-<div id="6f0f171d" class="cell" data-execution_count="12">
+<div id="af27c4b1" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>test_example <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">60000</span>, <span class="dv">0</span>, <span class="dv">1</span>]]</span>
 <span id="cb5-2"><a></a><span class="bu">print</span>(<span class="st">"Model prediction: "</span>, model.predict(test_example))</span>
 <span id="cb5-3"><a></a>plot_tree(model, filled<span class="op">=</span><span class="va">True</span>, feature_names <span class="op">=</span> X.columns, class_names <span class="op">=</span> [<span class="st">"Happy"</span>, <span class="st">"Unhappy"</span>], impurity <span class="op">=</span> <span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">9</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1307,7 +1411,7 @@ Varada Kolhatkar
 </div>
 
 </div>
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-13-output-2.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-14-output-2.png" class="r-stretch"></section>
 <section id="parameters-vs.-hyperparameters" class="slide level2 center">
 <h2>Parameters vs.&nbsp;Hyperparameters</h2>
 <ul>
@@ -1335,11 +1439,11 @@ Varada Kolhatkar
 <section id="decision-boundary-with-max_depth1" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=1</code></h2>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-14-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-15-output-1.png" class="r-stretch"></section>
 <section id="decision-boundary-with-max_depth2" class="slide level2 center">
 <h2>Decision boundary with <code>max_depth=2</code></h2>
 
-<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-15-output-1.png" class="r-stretch"></section>
+<img data-src="slides-02-terminology-decision-trees_files/figure-revealjs/cell-16-output-1.png" class="r-stretch"></section>
 <section id="iclicker-2.4-baselines-and-decision-trees" class="slide level2 smaller center">
 <h2>iClicker 2.4: Baselines and Decision trees</h2>
 <p>iClicker cloud join link:</p>

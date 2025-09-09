@@ -159,7 +159,7 @@ Imagine you're in the fortunate situation where, after graduating, you have a fe
 
 - Can you think of relevant features for this problem? 
 
-## Toy job happinees dataset 
+## Toy job happinees dataset {.smaller}
 
 Here are the first few rows of a toy dataset.
 
@@ -172,11 +172,22 @@ toy_happiness_df
 # Terminology
 
 ## Features, target, example
+::: panel-tabset
+### Terminology 
+
 - What are the **features** $X$? 
   - features = inputs = predictors = explanatory variables = regressors = independent variables = covariates 
 - What's the target $y$?
   - target = output = outcome = response variable = dependent variable = labels 
 - What is an example?
+
+### Data {.smaller}
+
+```{python}
+toy_happiness_df
+```
+:::
+
 
 ## Classification vs. Regression
 - Is this a **classification** problem or a **regression** problem?  
@@ -189,16 +200,16 @@ toy_happiness_df
 
 :::: {.columns}
 ::: {.column width="60%"}
-- **Inference** is about understanding **why** something happens. 
-- Goal: **Understanding** and **quantifying** the relationship between variables 
-- Involves estimating the parameters of the underlying distribution and testing hypotheses about these parameters
-- Example: Why certain factors influence happiness? 
+- **Inference** asks: *Why does something happen?*  
+- Goal: **understand** and **quantify** the relationship between variables  
+- Often involves estimating model parameters and testing hypotheses  
+- Example: *Which factors influence happiness, and by how much?*  
 :::
 
 ::: {.column width="40%"}
-- **Prediction** is about determining **what** will happen. 
-- Goal: **Accurately predicting the target** without necessarily understanding the relationship between variables. 
-- Example: Whether you will be happy in a particular job or not 
+- **Prediction** asks: *What will happen?*  
+- Goal: **accurately predict the target** without needing to fully explain the relationships  
+- Example: *Will you be happy in a particular job?*  
 :::
 ::::
 
@@ -211,7 +222,7 @@ Of course these goals are related, and in many situations we need both.
 - **Training** is the process of applying an algorithm to learn the best function (or model) that maps $X$ to $y$. 
 - In this course, I'll help you develop an intuition for how these models work and demonstrate how to use them in a machine learning pipeline.
 
-## Error and Accuracy
+## Error and accuracy
 
 - Machine learning models are **not perfect**—they will make mistakes.  
 - To judge whether a model is **useful**, we need to track its performance.  
@@ -230,7 +241,7 @@ X = toy_happiness_df.drop(columns=["happy?"]) # Extract the feature set by remov
 y = toy_happiness_df["happy?"] # Extract the target variable "happy?"
 ```
 
-## Baseline
+## Baseline  {.smaller}
 - Let's try a simplest algorithm of predicting the most popular target! 
 
 ```{python}
@@ -277,8 +288,7 @@ pd.concat([X, y], axis=1)
 ## Decision tree Training (high level) {.smaller}
 
 - Training a decision tree is a search process: we look for the "best" tree among many possible ones.
-- There are different algorithms for learning trees. 
-  - [See here](https://scikit-learn.org/stable/modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart) 
+- There are different algorithms for learning trees. [Check this out.](https://scikit-learn.org/stable/modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart) 
 - At each step, we evaluate candidate questions using measures such as:
   - Information gain
   - Gini index
