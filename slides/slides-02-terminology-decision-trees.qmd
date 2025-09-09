@@ -169,7 +169,7 @@ toy_happiness_df = pd.read_csv(DATA_DIR + 'toy_job_happiness.csv')
 toy_happiness_df
 ```
 
-# Terminology
+# Terminology {.smaller}
 
 ## Features, target, example
 ::: panel-tabset
