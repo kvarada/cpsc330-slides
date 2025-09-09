@@ -6,7 +6,7 @@ description: Terminology, decision Trees
 
 format:
     revealjs:
-        html-math-method: plain
+        html-math-method: mathjax
         slide-number: true
         slide-level: 2
         theme:
@@ -16,6 +16,7 @@ format:
         resources:
           - data/
           - img/
+
 
 
 editor:
@@ -47,6 +48,14 @@ DATA_DIR = 'data/'
 
 By the end of this lesson, you will be able to:
 
+- Define key machine learning terminology:  
+  *features, targets, predictions, training, error, classification vs. regression, supervised vs. unsupervised learning, hyperparameters vs. parameters, baselines, decision boundaries*  
+
+- Build a simple machine learning model in **scikit-learn**, explaining the `fit`–`predict` workflow and evaluating performance with the `score` method  
+
+- Describe at a high level how decision trees are trained (fitting) and how they make predictions  
+
+- Implement and visualize decision trees in scikit-learn using `DecisionTreeClassifier` and `DecisionTreeRegressor`  
 
 ## Announcements 
 
@@ -85,7 +94,7 @@ By the end of this lesson, you will be able to:
 - Rule-based systems are suitable where clear and deterministic rules can be defined. Good for structured decision making. 
 - Human experts are good with problems which require deep contextual understanding, ethical judgment, creative input, or emotional intelligence.
 
-## Recap: Supervised learning
+## Recap: Supervised learning {.smaller}
 
 - We wish to find a model function $f$ that relates $X$ to $y$.
 - We use the model function to predict targets of new examples. 
@@ -93,6 +102,13 @@ By the end of this lesson, you will be able to:
 ![](img/sup-learning.png){.nostretch fig-align="center" width="700px"}
 
 In the first part of this course, we'll focus on supervised machine learning. 
+
+
+## Unsupervised learning {.smaller}
+- Training data consists of observations $X$ without any corresponding targets.
+- Unsupervised learning could be used to group similar things together in $X$ or to find underlying structure in the data.
+
+![](img/unsup-learning.png){.nostretch fig-align="center" width="700px"}
 
 ## iClicker 2.2: Supervised vs unsupervised {.smaller}
 
@@ -169,7 +185,7 @@ toy_happiness_df
 toy_happiness_df
 ```
 
-## Inference vs. Prediction {.smaller}
+## (Optional) Inference vs. Prediction {.smaller}
 
 :::: {.columns}
 ::: {.column width="60%"}
@@ -195,6 +211,16 @@ Of course these goals are related, and in many situations we need both.
 - **Training** is the process of applying an algorithm to learn the best function (or model) that maps $X$ to $y$. 
 - In this course, I'll help you develop an intuition for how these models work and demonstrate how to use them in a machine learning pipeline.
 
+## Error and Accuracy
+
+- Machine learning models are **not perfect**—they will make mistakes.  
+- To judge whether a model is **useful**, we need to track its performance.  
+- For classification problems, the most common (and default in `sklearn`) metric is **accuracy**:  
+
+$$
+\text{Accuracy} = \frac{\text{Number of correct predictions}}{\text{Total number of examples}}
+$$
+
 ## Separating $X$ and $y$
 
 - In order to train a model we need to separate $X$ and $y$ from the dataframe. 
@@ -216,25 +242,47 @@ toy_happiness_df['dummy_predictions'] = model.predict(X) # Add the predicted val
 toy_happiness_df
 ```
 
-# Decision trees 
+# Decision trees intuition {.smaller}
+- One intuitive way to build a model is by asking a series of **yes/no questions**, forming a tree.  
+- Which question would help you best separate the **happy** and **unhappy** examples?
 
-## Intuition
-- Decision trees find the "best" way to split data to make predictions.
-- Each split is based on a question, like 'Are the colleagues supportive?'
-- The goal is to group data by similar outcomes at each step.
+![](img/happy_unhappy_faces.png)
 
-## Decision trees intuition {.smaller}
-
-- What would be the most effective question to ask in order to split the data in our toy example? 
-- How many possible questions could we ask in this context?
 ```{python}
 pd.concat([X, y], axis=1)
 ```
 
-## Training (high level)
-- Decision tree learning is a search process to find the "best" tree among many possible ones.
-- We evaluate questions using measures like **information gain** or the **Gini index** to find the most effective split.
-- At each step, we aim to split the data into groups with more certainty in their outcomes.
+## Which question is more effective? {.smaller}
+::: panel-tabset
+### Visual
+
+![](img/decision_tree_intuition.png)
+
+### Data {.smaller}
+
+```{python}
+pd.concat([X, y], axis=1)
+```
+:::
+
+## What are we trying to learn? {.smaller}
+
+- We want to learn which questions to ask and in what order.
+- How many possible questions could we ask with these features?
+
+```{python}
+pd.concat([X, y], axis=1)
+```
+
+## Decision tree Training (high level) {.smaller}
+
+- Training a decision tree is a search process: we look for the "best" tree among many possible ones.
+- There are different algorithms for learning trees. 
+  - [See here](https://scikit-learn.org/stable/modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart) 
+- At each step, we evaluate candidate questions using measures such as:
+  - Information gain
+  - Gini index
+- The goal is to split the data into groups with greater certainty (more homogeneous outcomes).
 
 ## Decision tree with `sklearn`
 Let's train a simple decision tree on our toy dataset using `sklearn` 
@@ -274,6 +322,12 @@ plot_tree(model, filled=True, feature_names = X.columns, class_names = ["Happy",
   - Example: salary <= 75000 at the root node  
 - Hyperparameters
   - Settings that control tree growth, like `max_depth`, which limits how deep the tree can go.
+
+## Decision boundary
+
+- A decision boundary is the **line, curve, or surface** that separates classes.
+- Points on one side $\rightarrow$ Model predicts Class Happy  
+- Points on the other side $\rightarrow$ Model predicts Class Unhappy
 
 ## Decision boundary with `max_depth=1`
 ```{python}
