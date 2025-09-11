@@ -104,4 +104,4 @@ As you increase the model complexity, training score tends to go up and the gap 
 - Although our primary concern is the model's performance on the test data, this data should not influence the training process in any way.
 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_03-ml-fundamentals.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_03-ml-fundamentals.ipynb)
