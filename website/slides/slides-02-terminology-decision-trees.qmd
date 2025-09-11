@@ -112,7 +112,7 @@ In the first part of this course, we'll focus on supervised machine learning.
 
 ## iClicker 2.2: Supervised vs unsupervised {.smaller}
 
-Clicker cloud join link: 
+iClicker cloud join link: https://join.iclicker.com/FZMQ
 
 Select all of the following statements which are examples of supervised machine learning
 
@@ -125,7 +125,7 @@ Select all of the following statements which are examples of supervised machine 
 
 ## iClicker 2.3: Classification vs. Regression {.smaller}
 
-Clicker cloud join link: 
+iClicker cloud join link: https://join.iclicker.com/FZMQ
  
 Select all of the following statements which are examples of regression problems
 
@@ -351,7 +351,7 @@ plot_tree_decision_boundary_and_tree(
 
 ## iClicker 2.4: Baselines and Decision trees {.smaller}
 
-iClicker cloud join link: 
+iClicker cloud join link: https://join.iclicker.com/FZMQ
 
 Select all of the following statements which are TRUE.
 
