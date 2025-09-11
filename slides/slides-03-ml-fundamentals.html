@@ -348,26 +348,15 @@ Varada Kolhatkar
 <li>Advice on keeping up with the material
 <ul>
 <li>Practice!</li>
-<li>Make sure you run the lecture notes on your laptop and experiment with the code.</li>
 <li>Start early on homework assignments.</li>
 </ul></li>
 <li>If you are still on the waitlist, it’s your responsibility to keep up with the material and submit assignments.</li>
 <li>Last day to drop without a W standing: Sept 16, 2023</li>
 </ul>
 </section>
-<section id="recap" class="slide level2 center">
-<h2>Recap</h2>
-<ul>
-<li>Importance of generalization in supervised machine learning</li>
-<li>Data splitting as a way to approximate generalization error</li>
-<li>Train, test, validation, deployment data</li>
-<li>Overfitting, underfitting, the fundamental tradeoff, and the golden rule.</li>
-<li>Cross-validation</li>
-</ul>
-</section>
 <section id="iclicker-3.1" class="slide level2 center">
 <h2>iClicker 3.1</h2>
-<p>Clicker cloud join link: <strong>https://join.iclicker.com/VYFJ</strong></p>
+<p>Clicker cloud join link: https://join.iclicker.com/FZMQ</p>
 <p><strong>Select all of the following statements which are TRUE.</strong></p>
 <ul>
 <li><ol type="A">
@@ -389,7 +378,7 @@ Varada Kolhatkar
 </section>
 <section id="iclicker-3.2" class="slide level2 center">
 <h2>iClicker 3.2</h2>
-<p>Clicker cloud join link: <strong>https://join.iclicker.com/VYFJ</strong></p>
+<p>Clicker cloud join link: https://join.iclicker.com/FZMQ</p>
 <p><strong>Select all of the following statements which are TRUE.</strong></p>
 <ul>
 <li><ol type="A">
@@ -407,6 +396,88 @@ Varada Kolhatkar
 <li><ol start="5" type="A">
 <li>A decision stump on a complicated classification problem is likely to underfit.</li>
 </ol></li>
+</ul>
+</section>
+<section id="recap-from-videos" class="slide level2 center">
+<h2>Recap from videos</h2>
+<ul>
+<li>Why do we split the data? What are train/valid/test splits?</li>
+<li>What are the benefits of cross-validation?</li>
+<li>What is underfitting and overfitting?</li>
+<li>What’s the fundamental trade-off in supervised machine learning?</li>
+<li>What is the golden rule of machine learning?</li>
+</ul>
+</section>
+<section id="summary-of-train-validation-test-and-deployment-data" class="slide level2 center">
+<h2>Summary of train, validation, test, and deployment data</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th><code>fit</code></th>
+<th><code>score</code></th>
+<th><code>predict</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Train</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr class="even">
+<td>Validation</td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr class="odd">
+<td>Test</td>
+<td></td>
+<td>once</td>
+<td>once</td>
+</tr>
+<tr class="even">
+<td>Deployment</td>
+<td></td>
+<td></td>
+<td>✔️</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cross-validation" class="slide level2 center">
+<h2>Cross validation</h2>
+
+<img data-src="img/cross-validation.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="cross-validation-1" class="slide level2 center">
+<h2>Cross validation</h2>
+
+<img data-src="slides-03-ml-fundamentals_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
+<section id="overfitting-and-underfitting" class="slide level2 center">
+<h2>Overfitting and underfitting</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="img/underfit-overfit-google-developer.png"></p>
+<p><a href="https://developers.google.com/machine-learning/crash-course/overfitting/overfitting">Source</a></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>An <strong>overfit model</strong> matches the training set so closely that it fails to make correct predictions on new unseen data.<br>
+</li>
+<li>An <strong>underfit model</strong> is too simple and does not even make good predictions on the training data</li>
+</ul>
+</div></div>
+</section>
+<section id="recap-the-fundamental-tradeoff" class="slide level2 center">
+<h2>Recap: The fundamental tradeoff</h2>
+<p>As you increase the model complexity, training score tends to go up and the gap between train and validation scores tends to go up.</p>
+
+<img data-src="img/malp_0201.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="the-golden-rule" class="slide level2 center">
+<h2>The golden rule</h2>
+<ul>
+<li>Although our primary concern is the model’s performance on the test data, this data should not influence the training process in any way.</li>
 </ul>
 </section>
 <section id="class-demo" class="title-slide slide level1 center">
