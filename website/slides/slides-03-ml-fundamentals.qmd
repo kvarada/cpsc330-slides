@@ -21,22 +21,14 @@ format:
   - Group submissions are not allowed for this assignment.
 - Advice on keeping up with the material
   - Practice!
-  - Make sure you run the lecture notes on your laptop and experiment with the code. 
   - Start early on homework assignments.
-- If you are still on the waitlist, it’s your responsibility to keep up with the material and submit assignments.
+- If you are still on the waitlist, it's your responsibility to keep up with the material and submit assignments.
 - Last day to drop without a W standing: Sept 16, 2023
-
-## Recap 
-- Importance of generalization in supervised machine learning
-- Data splitting as a way to approximate generalization error
-- Train, test, validation, deployment data
-- Overfitting, underfitting, the fundamental tradeoff, and the golden rule.
-- Cross-validation
 
 
 ## iClicker 3.1
 
-Clicker cloud join link: **https://join.iclicker.com/VYFJ**
+Clicker cloud join link: https://join.iclicker.com/FZMQ
 
 **Select all of the following statements which are TRUE.**
 
@@ -49,7 +41,7 @@ Clicker cloud join link: **https://join.iclicker.com/VYFJ**
 
 ## iClicker 3.2
 
-Clicker cloud join link: **https://join.iclicker.com/VYFJ**
+Clicker cloud join link: https://join.iclicker.com/FZMQ
 
 **Select all of the following statements which are TRUE.**
 
@@ -58,6 +50,58 @@ Clicker cloud join link: **https://join.iclicker.com/VYFJ**
 - (C) If the mean train accuracy is much higher than the mean cross-validation accuracy it's likely to be a case of overfitting.
 - (D) The fundamental tradeoff of ML states that as training error goes down, validation error goes up.
 - (E) A decision stump on a complicated classification problem is likely to underfit.
+
+## Recap from videos 
+- Why do we split the data? What are train/valid/test splits? 
+- What are the benefits of cross-validation?
+- What is underfitting and overfitting? 
+- What’s the fundamental trade-off in supervised machine learning?
+- What is the golden rule of machine learning?
+
+## Summary of train, validation, test, and deployment data 
+
+|         | `fit` | `score` | `predict` |
+|----------|-------|---------|-----------|
+| Train    | ✔️      | ✔️      | ✔️         |
+| Validation |      | ✔️      | ✔️         |
+| Test    |       |  once   | once         |
+| Deployment    |       |       | ✔️         |
+
+## Cross validation
+
+![](img/cross-validation.png){fig-align="center"}
+
+## Cross validation
+```{python}
+import mglearn
+mglearn.plots.plot_cross_validation()
+```
+
+## Overfitting and underfitting 
+
+:::: {.columns}
+
+::: {.column width="60%"}
+![](img/underfit-overfit-google-developer.png)
+
+[Source](https://developers.google.com/machine-learning/crash-course/overfitting/overfitting)
+:::
+
+::: {.column width="40%"}
+- An **overfit model** matches the training set so closely that it fails to make correct predictions on new unseen data.  
+- An **underfit model** is too simple and does not even make good predictions on the training data 
+
+:::
+::::
+
+## Recap: The fundamental tradeoff
+
+As you increase the model complexity, training score tends to go up and the gap between train and validation scores tends to go up.  
+
+![](img/malp_0201.png){fig-align="center"}
+
+## The golden rule
+- Although our primary concern is the model's performance on the test data, this data should not influence the training process in any way.
 
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_03-ml-fundamentals.ipynb)
