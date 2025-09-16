@@ -1415,25 +1415,25 @@
     "text": "Announcements\n\nhw2 is due tonight.\nSyllabus quiz due date is September 19th, 11:59 pm.\nHomework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)\n\nYou can work in pairs for this assignment.\n\nIf you were on the waitlist, you should now know your course enrollment status.\nThe lecture notes here align with the content presented in the videos. Even though we do not cover all the content from these notebooks during lectures, it’s your responsibility to go through them on your own."
   },
   {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker",
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-1",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-1",
     "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Recap: iClicker",
-    "text": "Recap: iClicker\nWhich of the following scenarios do NOT necessarily imply overfitting?\n\n\nTraining accuracy is very high (0.98) while validation accuracy is much lower (0.60).\n\n\nIn a wildlife classifier, the model predicts “wolf” whenever there”s snow in the background, because all wolf photos were taken in snowy regions.\n\n\nThe decision boundary of a classifier is wiggly and highly irregular.\n\n\nTraining and validation accuracies are both approximately 0.88.\n\n\nA cancer detection model learns that “a ruler in the corner of the X-ray” means positive, because doctors tended to measure suspicious cases."
+    "section": "Recap: iClicker overfitting 1",
+    "text": "Recap: iClicker overfitting 1\nWhich of the following scenarios do NOT necessarily imply overfitting?\n\n\nTraining accuracy is very high (0.98) while validation accuracy is much lower (0.60).\n\n\nIn a wildlife classifier, the model predicts “wolf” whenever there”s snow in the background, because all wolf photos were taken in snowy regions.\n\n\nThe decision boundary of a classifier is wiggly and highly irregular.\n\n\nTraining and validation accuracies are both approximately 0.88.\n\n\nA cancer detection model learns that “a ruler in the corner of the X-ray” means positive, because doctors tended to measure suspicious cases."
   },
   {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-1",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-1",
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-2",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-2",
     "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Recap: iClicker",
-    "text": "Recap: iClicker\nWhich of the following statements about overfitting is true?\n\n\nOverfitting makes the model more accurate on both training and unseen data.\n\n\nOverfitting means the model captures noise or irrelevant details from the training data.\n\n\nOverfitting is desirable because it reduces both training and test error.\n\n\nIn real-world problems, models are always at risk of overfitting if not properly validated."
+    "section": "Recap: iClicker overfitting 2",
+    "text": "Recap: iClicker overfitting 2\nWhich of the following statements about overfitting is true?\n\n\nOverfitting makes the model more accurate on both training and unseen data.\n\n\nOverfitting means the model captures noise or irrelevant details from the training data.\n\n\nOverfitting is desirable because it reduces both training and test error.\n\n\nIn real-world problems, models are always at risk of overfitting if not properly validated."
   },
   {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-2",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-2",
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-underfitting",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-underfitting",
     "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Recap: iClicker",
-    "text": "Recap: iClicker\nHow might one address the issue of underfitting in a machine learning model.\n\n\nIntroduce more noise to the training data.\n\n\nRemove features that might be relevant to the prediction.\n\n\nIncrease the model’s complexity (e.g., more parameters, features, or deeper trees)\n\n\nUse a smaller dataset for training."
+    "section": "Recap: iClicker underfitting",
+    "text": "Recap: iClicker underfitting\nHow might one address the issue of underfitting in a machine learning model.\n\n\nIntroduce more noise to the training data.\n\n\nRemove features that might be relevant to the prediction.\n\n\nIncrease the model’s complexity (e.g., more parameters, features, or deeper trees)\n\n\nUse a smaller dataset for training."
   },
   {
     "objectID": "slides/slides-04-kNNs-SVM-RBF.html#the-fundamental-tradeoff",
@@ -1482,7 +1482,7 @@
     "href": "slides/slides-04-kNNs-SVM-RBF.html#svms-with-rbf-kernel",
     "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
     "section": "SVMs with RBF kernel",
-    "text": "SVMs with RBF kernel\n\nRBF Kernel: Radial Basis Function, a way to transform data into higher dimensions implicitly.\nStrengths\n\nEffective in high-dimensional and sparse data\nGood performance on non-linear problems.\n\nHyperparameters:\n\nC$: Regularization parameter (trade-off between correct classification of training examples and maximization of the decision margin).\n\\(\\gamma\\): Defines how far the influence of a single training example reaches."
+    "text": "SVMs with RBF kernel\n\nRBF Kernel: Radial Basis Function, a way to transform data into higher dimensions implicitly.\nStrengths\n\nEffective in high-dimensional and sparse data\nGood performance on non-linear problems.\n\nHyperparameters:\n\n\\(C\\): Regularization parameter (trade-off between correct classification of training examples and maximization of the decision margin).\ngamma (\\(\\gamma\\)): controls how fast the similarity decays with distance"
   },
   {
     "objectID": "slides/slides-04-kNNs-SVM-RBF.html#intuition-of-c-and-gamma-in-svm-rbf",

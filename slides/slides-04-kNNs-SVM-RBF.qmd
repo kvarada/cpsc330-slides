@@ -26,7 +26,7 @@ format:
 - The [lecture notes here](https://ubc-cs.github.io/cpsc330-2025W1/lectures/notes/01_intro.html) align with the content presented in the videos. Even though we do not cover all the content from these notebooks during lectures, it's your responsibility to go through them on your own.
 
 
-## Recap: iClicker 
+## Recap: iClicker overfitting 1
 
 Which of the following scenarios do **NOT necessarily imply overfitting**? 
 
@@ -36,7 +36,7 @@ Which of the following scenarios do **NOT necessarily imply overfitting**?
 - (D) Training and validation accuracies are both approximately 0.88. 
 - (E) A cancer detection model learns that "a ruler in the corner of the X-ray" means positive, because doctors tended to measure suspicious cases.
 
-## Recap: iClicker
+## Recap: iClicker overfitting 2
 
 Which of the following statements about **overfitting** is true? 
 
@@ -45,7 +45,7 @@ Which of the following statements about **overfitting** is true?
 - (C) Overfitting is desirable because it reduces both training and test error.
 - (D) In real-world problems, models are always at risk of overfitting if not properly validated.
 
-## Recap: iClicker  
+## Recap: iClicker underfitting
 
 How might one address the issue of **underfitting** in a machine learning model. 
 
@@ -114,8 +114,8 @@ How might one address the issue of **underfitting** in a machine learning model.
     - Effective in high-dimensional and sparse data
     - Good performance on non-linear problems.
 - Hyperparameters:
-    - C$: Regularization parameter (trade-off between correct classification of training examples and maximization of the decision margin).
-	- $\gamma$: Defines how far the influence of a single training example reaches.
+    - $C$: Regularization parameter (trade-off between correct classification of training examples and maximization of the decision margin).
+	- gamma ($\gamma$): controls how fast the similarity decays with distance
 
 ## Intuition of `C` and `gamma` in SVM RBF
 - `C` (Regularization): Controls the trade-off between perfect training accuracy and having a simpler decision boundary. 
