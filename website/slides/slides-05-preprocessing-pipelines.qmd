@@ -13,14 +13,40 @@ format:
     resources:
       - data/
       - img/  
+
+editor:
+  render-on-save: true
 ---
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+import sys
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from plotting_functions import *
+from unsupervised_learning_code import *
+from IPython.display import HTML, display
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+
+plt.rcParams["font.size"] = 16
+pd.set_option("display.max_colwidth", 200)
+%matplotlib inline
+
+DATA_DIR = 'data/' 
+```
+
 
 ## Announcements 
 
 - HW1 grades have been posted.
 - HW1 solutions have been posted on Canvas under Files tab. Please do not share them with anyone or do not post them anywhere.
 - Syllabus quiz due date is September 19th, 11:59 pm. 
-- Homework 3 (hw3) has been released (Due: Oct 1st, 11:59 pm)
+- Homework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)
   - You can work in pairs for this assignment. 
 
 ## Recap 
@@ -38,55 +64,6 @@ format:
 | **Handling of non-linearity**  |  |  | 
 | **Scalability**                |  |  | 
 
-
-## Recap
-
-| **Aspect**                     | **Decision Trees**                                        | **K-Nearest Neighbors (KNN)**                         | **Support Vector Machines (SVM) with RBF Kernel**      |
-|--------------------------------|-----------------------------------------------------------|-------------------------------------------------------|--------------------------------------------------------|
-| **Sensitivity to outliers**    |  |  | 
-| **Memory usage**               |  |  | 
-| **Training time**              |  |  | 
-| **Prediction time**            |  |  | 
-| **Multiclass support**         |  |  | 
-
-
-
-## (iClicker) Exercise 5.1
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
-
-Take a guess: In your machine learning project, how much time will you typically spend on data preparation and transformation?
-
-- (A) ~80% of the project time
-- (B) ~20% of the project time
-- (C) ~50% of the project time
-- (D) None. Most of the time will be spent on model building
-
-The question is adapted from [here](https://developers.google.com/machine-learning/crash-course/numerical-data).
-
-
-## (iClicker) Exercise 5.2
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
-
-Select all of the following statements which are TRUE.
-
-- (A) `StandardScaler` ensures a fixed range (i.e., minimum and maximum values) for the features.
-- (B) `StandardScaler` calculates mean and standard deviation for each feature separately.
-- (C) In general, it’s a good idea to apply scaling on numeric features before training $k$-NN or SVM RBF models.
-- (D) The transformed feature values might be hard to interpret for humans.
-- (E) After applying `SimpleImputer` The transformed data has a different shape than the original data.
-
-
-## (iClicker) Exercise 5.3
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
-
-Select all of the following statements which are TRUE.
-
-- (A) You can have scaling of numeric features, one-hot encoding of categorical features, and scikit-learn estimator within a single pipeline.
-- (B) Once you have a `scikit-learn` pipeline object with an estimator as the last step, you can call `fit`, `predict`, and `score` on it.
-- (C) You can carry out data splitting within `scikit-learn` pipeline.
-- (D) We have to be careful of the order we put each transformation and model in a pipeline.
-
-
 ## Preprocessing motivation: example 
 
 You’re trying to find a suitable date based on:
@@ -94,7 +71,7 @@ You’re trying to find a suitable date based on:
 - Age (closer to yours is better).
 - Number of Facebook Friends (closer to your social circle is ideal).
 
-## Preprocessing motivation: example 
+## Preprocessing motivation: example {.smaller}
 
 - You are 30 years old and have 250 Facebook friends.
 
@@ -111,6 +88,46 @@ Based on the distances, the two nearest neighbors (2-NN) are:
 - **Person B** (Distance: 50.09)
 
 What's the problem here? 
+
+## What is preprocessing? 
+
+- **Preprocessing** is about making the raw dataset ready for machine learning. 
+- Let's walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
+
+## (iClicker) Exercise 5.1
+
+Take a guess: In your machine learning project, how much time will you typically spend on data preparation and transformation?
+
+- (A) ~80% of the project time
+- (B) ~20% of the project time
+- (C) ~50% of the project time
+- (D) None. Most of the time will be spent on model building
+
+The question is adapted from [here](https://developers.google.com/machine-learning/crash-course/numerical-data).
+
+
+## (iClicker) Exercise 5.2
+
+Select all of the following statements which are TRUE.
+
+- (A) `StandardScaler` ensures a fixed range (i.e., minimum and maximum values) for the features.
+- (B) `StandardScaler` calculates mean and standard deviation for each feature separately.
+- (C) In general, it’s a good idea to apply scaling on numeric features before training $k$-NN or SVM RBF models.
+- (D) The transformed feature values might be hard to interpret for humans.
+- (E) After applying `SimpleImputer` The transformed data has a different shape than the original data.
+
+
+## (iClicker) Exercise 5.3
+
+Select all of the following statements which are TRUE.
+
+- (A) You can have scaling of numeric features, one-hot encoding of categorical features, and scikit-learn estimator within a single pipeline.
+- (B) Once you have a `scikit-learn` pipeline object with an estimator as the last step, you can call `fit`, `predict`, and `score` on it.
+- (C) You can carry out data splitting within `scikit-learn` pipeline.
+- (D) We have to be careful of the order we put each transformation and model in a pipeline.
+
 
 # Common transformations
 
@@ -247,6 +264,3 @@ pipeline = make_pipeline(StandardScaler(), KNeighborsClassifier())
 pipeline.fit(X_train, y_train)
 y_pred = pipeline.predict(X_test)
 ```
-
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
-

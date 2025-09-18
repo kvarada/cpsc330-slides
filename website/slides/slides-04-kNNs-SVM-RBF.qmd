@@ -129,32 +129,6 @@ How might one address the issue of **underfitting** in a machine learning model.
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_04-kNNs-SVMs.ipynb)
 
-## Preprocessing motivation: example 
-
-You’re trying to find a suitable date based on:
-
-- Age (closer to yours is better).
-- Number of Facebook Friends (closer to your social circle is ideal).
-
-## Preprocessing motivation: example {.smaller}
-
-- You are 30 years old and have 250 Facebook friends.
-
-| Person | Age | #FB Friends | Euclidean Distance Calculation  | Distance    |
-|--------|-----|-------------|---------------------------------|-------------|
-| A      | 25  | 400         | √(5² + 150²)                    | 150.08      |
-| B      | 27  | 300         | √(3² + 50²)                     | 50.09       |
-| C      | 30  | 500         | √(0² + 250²)                    | 250.00      |
-| D      | 60  | 250         | √(30² + 0²)                     | 30.00       |
-
-Based on the distances, the two nearest neighbors (2-NN) are:
-
-- **Person D** (Distance: 30.00)
-- **Person B** (Distance: 50.09)
-
-What's the problem here? 
-
-
 # Models
 ## Supervised models we have seen 
 
