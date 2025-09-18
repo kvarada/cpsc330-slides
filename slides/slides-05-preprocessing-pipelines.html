@@ -1225,7 +1225,7 @@ Varada Kolhatkar
 <li>HW1 grades have been posted.</li>
 <li>HW1 solutions have been posted on Canvas under Files tab. Please do not share them with anyone or do not post them anywhere.</li>
 <li>Syllabus quiz due date is September 19th, 11:59 pm.</li>
-<li>Homework 3 (hw3) has been released (Due: Oct 1st, 11:59 pm)
+<li>Homework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)
 <ul>
 <li>You can work in pairs for this assignment.</li>
 </ul></li>
@@ -1284,118 +1284,6 @@ Varada Kolhatkar
 </tbody>
 </table>
 </section>
-<section id="recap-2" class="slide level2 center">
-<h2>Recap</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 15%">
-<col style="width: 29%">
-<col style="width: 27%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Aspect</strong></th>
-<th><strong>Decision Trees</strong></th>
-<th><strong>K-Nearest Neighbors (KNN)</strong></th>
-<th><strong>Support Vector Machines (SVM) with RBF Kernel</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Sensitivity to outliers</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Memory usage</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Training time</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Prediction time</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Multiclass support</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="iclicker-exercise-5.1" class="slide level2 center">
-<h2>(iClicker) Exercise 5.1</h2>
-<p>iClicker cloud join link: <strong>https://join.iclicker.com/VYFJ</strong></p>
-<p>Take a guess: In your machine learning project, how much time will you typically spend on data preparation and transformation?</p>
-<ul>
-<li><ol type="A">
-<li>~80% of the project time</li>
-</ol></li>
-<li><ol start="2" type="A">
-<li>~20% of the project time</li>
-</ol></li>
-<li><ol start="3" type="A">
-<li>~50% of the project time</li>
-</ol></li>
-<li><ol start="4" type="A">
-<li>None. Most of the time will be spent on model building</li>
-</ol></li>
-</ul>
-<p>The question is adapted from <a href="https://developers.google.com/machine-learning/crash-course/numerical-data">here</a>.</p>
-</section>
-<section id="iclicker-exercise-5.2" class="slide level2 center">
-<h2>(iClicker) Exercise 5.2</h2>
-<p>iClicker cloud join link: <strong>https://join.iclicker.com/VYFJ</strong></p>
-<p>Select all of the following statements which are TRUE.</p>
-<ul>
-<li><ol type="A">
-<li><code>StandardScaler</code> ensures a fixed range (i.e., minimum and maximum values) for the features.</li>
-</ol></li>
-<li><ol start="2" type="A">
-<li><code>StandardScaler</code> calculates mean and standard deviation for each feature separately.</li>
-</ol></li>
-<li><ol start="3" type="A">
-<li>In general, it’s a good idea to apply scaling on numeric features before training <span class="math inline">\(k\)</span>-NN or SVM RBF models.</li>
-</ol></li>
-<li><ol start="4" type="A">
-<li>The transformed feature values might be hard to interpret for humans.</li>
-</ol></li>
-<li><ol start="5" type="A">
-<li>After applying <code>SimpleImputer</code> The transformed data has a different shape than the original data.</li>
-</ol></li>
-</ul>
-</section>
-<section id="iclicker-exercise-5.3" class="slide level2 center">
-<h2>(iClicker) Exercise 5.3</h2>
-<p>iClicker cloud join link: <strong>https://join.iclicker.com/VYFJ</strong></p>
-<p>Select all of the following statements which are TRUE.</p>
-<ul>
-<li><ol type="A">
-<li>You can have scaling of numeric features, one-hot encoding of categorical features, and scikit-learn estimator within a single pipeline.</li>
-</ol></li>
-<li><ol start="2" type="A">
-<li>Once you have a <code>scikit-learn</code> pipeline object with an estimator as the last step, you can call <code>fit</code>, <code>predict</code>, and <code>score</code> on it.</li>
-</ol></li>
-<li><ol start="3" type="A">
-<li>You can carry out data splitting within <code>scikit-learn</code> pipeline.</li>
-</ol></li>
-<li><ol start="4" type="A">
-<li>We have to be careful of the order we put each transformation and model in a pipeline.</li>
-</ol></li>
-</ul>
-</section>
 <section id="preprocessing-motivation-example" class="slide level2 center">
 <h2>Preprocessing motivation: example</h2>
 <p>You’re trying to find a suitable date based on:</p>
@@ -1404,7 +1292,7 @@ Varada Kolhatkar
 <li>Number of Facebook Friends (closer to your social circle is ideal).</li>
 </ul>
 </section>
-<section id="preprocessing-motivation-example-1" class="slide level2 center">
+<section id="preprocessing-motivation-example-1" class="slide level2 smaller center">
 <h2>Preprocessing motivation: example</h2>
 <ul>
 <li>You are 30 years old and have 250 Facebook friends.</li>
@@ -1464,6 +1352,76 @@ Varada Kolhatkar
 </ul>
 <p>What’s the problem here?</p>
 </section>
+<section id="what-is-preprocessing" class="slide level2 center">
+<h2>What is preprocessing?</h2>
+<ul>
+<li><strong>Preprocessing</strong> is about making the raw dataset ready for machine learning.</li>
+<li>Let’s walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.</li>
+</ul>
+</section>
+<section>
+<section id="class-demo" class="title-slide slide level1 center">
+<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb">Class demo</a></h1>
+
+</section>
+<section id="iclicker-exercise-5.1" class="slide level2 center">
+<h2>(iClicker) Exercise 5.1</h2>
+<p>Take a guess: In your machine learning project, how much time will you typically spend on data preparation and transformation?</p>
+<ul>
+<li><ol type="A">
+<li>~80% of the project time</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>~20% of the project time</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>~50% of the project time</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>None. Most of the time will be spent on model building</li>
+</ol></li>
+</ul>
+<p>The question is adapted from <a href="https://developers.google.com/machine-learning/crash-course/numerical-data">here</a>.</p>
+</section>
+<section id="iclicker-exercise-5.2" class="slide level2 center">
+<h2>(iClicker) Exercise 5.2</h2>
+<p>Select all of the following statements which are TRUE.</p>
+<ul>
+<li><ol type="A">
+<li><code>StandardScaler</code> ensures a fixed range (i.e., minimum and maximum values) for the features.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li><code>StandardScaler</code> calculates mean and standard deviation for each feature separately.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>In general, it’s a good idea to apply scaling on numeric features before training <span class="math inline">\(k\)</span>-NN or SVM RBF models.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>The transformed feature values might be hard to interpret for humans.</li>
+</ol></li>
+<li><ol start="5" type="A">
+<li>After applying <code>SimpleImputer</code> The transformed data has a different shape than the original data.</li>
+</ol></li>
+</ul>
+</section>
+<section id="iclicker-exercise-5.3" class="slide level2 center">
+<h2>(iClicker) Exercise 5.3</h2>
+<p>Select all of the following statements which are TRUE.</p>
+<ul>
+<li><ol type="A">
+<li>You can have scaling of numeric features, one-hot encoding of categorical features, and scikit-learn estimator within a single pipeline.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Once you have a <code>scikit-learn</code> pipeline object with an estimator as the last step, you can call <code>fit</code>, <code>predict</code>, and <code>score</code> on it.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>You can carry out data splitting within <code>scikit-learn</code> pipeline.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>We have to be careful of the order we put each transformation and model in a pipeline.</li>
+</ol></li>
+</ul>
+</section></section>
 <section>
 <section id="common-transformations" class="title-slide slide level1 center">
 <h1>Common transformations</h1>
@@ -1639,9 +1597,6 @@ Varada Kolhatkar
 <span id="cb6-6"><a></a></span>
 <span id="cb6-7"><a></a>pipeline.fit(X_train, y_train)</span>
 <span id="cb6-8"><a></a>y_pred <span class="op">=</span> pipeline.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section></section>
-<section id="class-demo" class="title-slide slide level1 center">
-<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb">Class demo</a></h1>
 
 <div class="quarto-auto-generated-content">
 <p><img role="img" src="data:image/png;base64,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" class="slide-logo"></p>
@@ -1649,7 +1604,7 @@ Varada Kolhatkar
 
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

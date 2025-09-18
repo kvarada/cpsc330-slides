@@ -1343,79 +1343,11 @@ Varada Kolhatkar
 <li>Key trade-off: Proper balance between <code>C</code> and <code>gamma</code> is crucial for avoiding overfitting or underfitting.</li>
 </ul>
 </section>
-<section>
 <section id="class-demo" class="title-slide slide level1 center">
 <h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_04-kNNs-SVMs.ipynb">Class demo</a></h1>
 
 </section>
-<section id="preprocessing-motivation-example" class="slide level2 center">
-<h2>Preprocessing motivation: example</h2>
-<p>You’re trying to find a suitable date based on:</p>
-<ul>
-<li>Age (closer to yours is better).</li>
-<li>Number of Facebook Friends (closer to your social circle is ideal).</li>
-</ul>
-</section>
-<section id="preprocessing-motivation-example-1" class="slide level2 smaller center">
-<h2>Preprocessing motivation: example</h2>
-<ul>
-<li>You are 30 years old and have 250 Facebook friends.</li>
-</ul>
-<table class="caption-top">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 6%">
-<col style="width: 18%">
-<col style="width: 45%">
-<col style="width: 18%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Person</th>
-<th>Age</th>
-<th>#FB Friends</th>
-<th>Euclidean Distance Calculation</th>
-<th>Distance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A</td>
-<td>25</td>
-<td>400</td>
-<td>√(5² + 150²)</td>
-<td>150.08</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td>27</td>
-<td>300</td>
-<td>√(3² + 50²)</td>
-<td>50.09</td>
-</tr>
-<tr class="odd">
-<td>C</td>
-<td>30</td>
-<td>500</td>
-<td>√(0² + 250²)</td>
-<td>250.00</td>
-</tr>
-<tr class="even">
-<td>D</td>
-<td>60</td>
-<td>250</td>
-<td>√(30² + 0²)</td>
-<td>30.00</td>
-</tr>
-</tbody>
-</table>
-<p>Based on the distances, the two nearest neighbors (2-NN) are:</p>
-<ul>
-<li><strong>Person D</strong> (Distance: 30.00)</li>
-<li><strong>Person B</strong> (Distance: 50.09)</li>
-</ul>
-<p>What’s the problem here?</p>
-</section></section>
+
 <section>
 <section id="models" class="title-slide slide level1 center">
 <h1>Models</h1>
