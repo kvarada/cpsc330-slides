@@ -993,7 +993,7 @@
     "href": "slides/slides-05-preprocessing-pipelines.html#preprocessing-motivation-example-1",
     "title": "Lecture 5: Preprocessing and sklearn pipelines",
     "section": "Preprocessing motivation: example",
-    "text": "Preprocessing motivation: example\n\nYou are 30 years old and have 250 Facebook friends.\n\n\n\n\n\n\n\n\n\n\n\nPerson\nAge\n#FB Friends\nEuclidean Distance Calculation\nDistance\n\n\n\n\nA\n25\n400\n\\(\\sqrt(5^2 + 150^2)\\)\n150.08\n\n\nB\n27\n300\n√(3² + 50²)\n50.09\n\n\nC\n30\n500\n√(0² + 250²)\n250.00\n\n\nD\n60\n250\n√(30² + 0²)\n30.00\n\n\n\nBased on the distances, the two nearest neighbors (2-NN) are:\n\nPerson D (Distance: 30.00)\nPerson B (Distance: 50.09)\n\nWhat’s the problem here?"
+    "text": "Preprocessing motivation: example\n\nYou are 30 years old and have 250 Facebook friends.\n\n\n\n\n\n\n\n\n\n\n\nPerson\nAge\n#FB Friends\nEuclidean Distance Calculation\nDistance\n\n\n\n\nA\n25\n400\n\\(\\sqrt{5^2 + 150^2}\\)\n150.08\n\n\nB\n27\n300\n\\(\\sqrt{3^2 + 50^2}\\)\n50.09\n\n\nC\n30\n500\n\\(\\sqrt{0^2 + 250^2}\\)\n250.00\n\n\nD\n60\n250\n\\(\\sqrt{30^2 + 0^2}\\)\n30.00\n\n\n\nBased on the distances, the two nearest neighbors (2-NN) are:\n\nPerson D (Distance: 30.00)\nPerson B (Distance: 50.09)\n\nWhat’s the problem here?"
   },
   {
     "objectID": "slides/slides-05-preprocessing-pipelines.html#what-is-preprocessing",

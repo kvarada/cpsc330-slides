@@ -63,10 +63,10 @@ You’re trying to find a suitable date based on:
 
 | Person | Age | #FB Friends | Euclidean Distance Calculation  | Distance    |
 |--------|-----|-------------|---------------------------------|-------------|
-| A      | 25  | 400         | $\sqrt(5^2 + 150^2)$                    | 150.08      |
-| B      | 27  | 300         | √(3² + 50²)                     | 50.09       |
-| C      | 30  | 500         | √(0² + 250²)                    | 250.00      |
-| D      | 60  | 250         | √(30² + 0²)                     | 30.00       |
+| A      | 25  | 400         | $\sqrt{5^2 + 150^2}$            | 150.08      |
+| B      | 27  | 300         |  $\sqrt{3^2 + 50^2}$            | 50.09       |
+| C      | 30  | 500         |  $\sqrt{0^2 + 250^2}$           | 250.00      |
+| D      | 60  | 250         |  $\sqrt{30^2 + 0^2}$            | 30.00       |
 
 Based on the distances, the two nearest neighbors (2-NN) are:
 
