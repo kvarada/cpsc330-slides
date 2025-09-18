@@ -662,7 +662,7 @@
     "href": "slides/slides-05-preprocessing-pipelines.html#announcements",
     "title": "Lecture 5: Preprocessing and sklearn pipelines",
     "section": "Announcements",
-    "text": "Announcements\n\nHW1 grades have been posted.\nHW1 solutions have been posted on Canvas under Files tab. Please do not share them with anyone or do not post them anywhere.\nSyllabus quiz due date is September 19th, 11:59 pm.\nHomework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)\n\nYou can work in pairs for this assignment."
+    "text": "Announcements\n\nHW1 grades will be posted soon.\nSyllabus quiz due date is September 19th, 11:59 pm.\nHomework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)\n\nYou can work in pairs for this assignment."
   },
   {
     "objectID": "slides/slides-05-preprocessing-pipelines.html#recap",
@@ -672,11 +672,18 @@
     "text": "Recap\n\nDecision trees: Split data into subsets based on feature values to create decision rules\n\\(k\\)-NNs: Classify based on the majority vote from \\(k\\) nearest neighbors\nSVM RBFs: Create a boundary using an RBF kernel to separate classes"
   },
   {
-    "objectID": "slides/slides-05-preprocessing-pipelines.html#recap-1",
-    "href": "slides/slides-05-preprocessing-pipelines.html#recap-1",
+    "objectID": "slides/slides-05-preprocessing-pipelines.html#iclicker-4.2",
+    "href": "slides/slides-05-preprocessing-pipelines.html#iclicker-4.2",
     "title": "Lecture 5: Preprocessing and sklearn pipelines",
-    "section": "Recap",
-    "text": "Recap\n\n\n\n\n\n\n\n\n\nAspect\nDecision Trees\nK-Nearest Neighbors (KNN)\nSupport Vector Machines (SVM) with RBF Kernel\n\n\n\n\nMain hyperparameters\nMax depth, min samples split\nNumber of neighbors (\\(k\\))\nC (regularization), Gamma (RBF kernel width)\n\n\nInterpretability\n\n\n\n\n\nHandling of non-linearity\n\n\n\n\n\nScalability"
+    "section": "iClicker 4.2",
+    "text": "iClicker 4.2\nSelect all of the following statements which are TRUE.\n\n\n\\(k\\)-NN may perform poorly in high-dimensional space (say, d &gt; 1000).\n\n\nIn sklearn’s SVC classifier, large values of gamma tend to result in higher training score but probably lower validation score.\n\n\nIf we increase both gamma and C, we can’t be certain if the model becomes more complex or less complex."
+  },
+  {
+    "objectID": "slides/slides-05-preprocessing-pipelines.html#comparison-of-models-activity",
+    "href": "slides/slides-05-preprocessing-pipelines.html#comparison-of-models-activity",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "section": "Comparison of models (activity)",
+    "text": "Comparison of models (activity)\n\n\n\n\n\n\n\n\n\nModel\nParameters and hyperparameters\nStrengths\nWeaknesses\n\n\n\n\nDecision Trees\n\n\n\n\n\nKNNs\n\n\n\n\n\nSVM RBF"
   },
   {
     "objectID": "slides/slides-05-preprocessing-pipelines.html#preprocessing-motivation-example",
@@ -697,7 +704,7 @@
     "href": "slides/slides-05-preprocessing-pipelines.html#what-is-preprocessing",
     "title": "Lecture 5: Preprocessing and sklearn pipelines",
     "section": "What is preprocessing?",
-    "text": "What is preprocessing?\n\nPreprocessing is about making the raw dataset ready for machine learning.\nLet’s walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo."
+    "text": "What is preprocessing?\n\nPreprocessing is about making the raw dataset ready for machine learning."
   },
   {
     "objectID": "slides/slides-05-preprocessing-pipelines.html#iclicker-exercise-5.1",
@@ -705,6 +712,13 @@
     "title": "Lecture 5: Preprocessing and sklearn pipelines",
     "section": "(iClicker) Exercise 5.1",
     "text": "(iClicker) Exercise 5.1\nTake a guess: In your machine learning project, how much time will you typically spend on data preparation and transformation?\n\n\n~80% of the project time\n\n\n~20% of the project time\n\n\n~50% of the project time\n\n\nNone. Most of the time will be spent on model building\n\n\nThe question is adapted from here."
+  },
+  {
+    "objectID": "slides/slides-05-preprocessing-pipelines.html#class-demo",
+    "href": "slides/slides-05-preprocessing-pipelines.html#class-demo",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "section": "Class demo",
+    "text": "Class demo\n\nLet’s walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo."
   },
   {
     "objectID": "slides/slides-05-preprocessing-pipelines.html#iclicker-exercise-5.2",

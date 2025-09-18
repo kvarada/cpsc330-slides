@@ -1222,8 +1222,7 @@ Varada Kolhatkar
 <section id="announcements" class="slide level2 center">
 <h2>Announcements</h2>
 <ul>
-<li>HW1 grades have been posted.</li>
-<li>HW1 solutions have been posted on Canvas under Files tab. Please do not share them with anyone or do not post them anywhere.</li>
+<li>HW1 grades will be posted soon.</li>
 <li>Syllabus quiz due date is September 19th, 11:59 pm.</li>
 <li>Homework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)
 <ul>
@@ -1239,44 +1238,53 @@ Varada Kolhatkar
 <li>SVM RBFs: Create a boundary using an RBF kernel to separate classes</li>
 </ul>
 </section>
-<section id="recap-1" class="slide level2 center">
-<h2>Recap</h2>
+<section id="iclicker-4.2" class="slide level2 center">
+<h2>iClicker 4.2</h2>
+<p><strong>Select all of the following statements which are TRUE.</strong></p>
+<ul>
+<li><ol type="A">
+<li><span class="math inline">\(k\)</span>-NN may perform poorly in high-dimensional space (say, <em>d</em> &gt; 1000).</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>In sklearn’s SVC classifier, large values of <code>gamma</code> tend to result in higher training score but probably lower validation score.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>If we increase both <code>gamma</code> and <code>C</code>, we can’t be certain if the model becomes more complex or less complex.</li>
+</ol></li>
+</ul>
+</section>
+<section id="comparison-of-models-activity" class="slide level2 center">
+<h2>Comparison of models (activity)</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 21%">
-<col style="width: 21%">
-<col style="width: 20%">
-<col style="width: 36%">
+<col style="width: 17%">
+<col style="width: 30%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Aspect</strong></th>
-<th><strong>Decision Trees</strong></th>
-<th><strong>K-Nearest Neighbors (KNN)</strong></th>
-<th><strong>Support Vector Machines (SVM) with RBF Kernel</strong></th>
+<th><strong>Model</strong></th>
+<th>Parameters and hyperparameters</th>
+<th><strong>Strengths</strong></th>
+<th><strong>Weaknesses</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Main hyperparameters</strong></td>
-<td>Max depth, min samples split</td>
-<td>Number of neighbors (<span class="math inline">\(k\)</span>)</td>
-<td>C (regularization), Gamma (RBF kernel width)</td>
+<td><strong>Decision Trees</strong></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td><strong>Interpretability</strong></td>
+<td><strong>KNNs</strong></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><strong>Handling of non-linearity</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Scalability</strong></td>
+<td><strong>SVM RBF</strong></td>
 <td></td>
 <td></td>
 <td></td>
@@ -1356,13 +1364,7 @@ Varada Kolhatkar
 <h2>What is preprocessing?</h2>
 <ul>
 <li><strong>Preprocessing</strong> is about making the raw dataset ready for machine learning.</li>
-<li>Let’s walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.</li>
 </ul>
-</section>
-<section>
-<section id="class-demo" class="title-slide slide level1 center">
-<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb">Class demo</a></h1>
-
 </section>
 <section id="iclicker-exercise-5.1" class="slide level2 center">
 <h2>(iClicker) Exercise 5.1</h2>
@@ -1382,6 +1384,17 @@ Varada Kolhatkar
 </ol></li>
 </ul>
 <p>The question is adapted from <a href="https://developers.google.com/machine-learning/crash-course/numerical-data">here</a>.</p>
+</section>
+<section id="class-demo" class="slide level2 center">
+<h2>Class demo</h2>
+<ul>
+<li>Let’s walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.</li>
+</ul>
+</section>
+<section>
+<section id="class-demo-1" class="title-slide slide level1 center">
+<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb">Class demo</a></h1>
+
 </section>
 <section id="iclicker-exercise-5.2" class="slide level2 center">
 <h2>(iClicker) Exercise 5.2</h2>

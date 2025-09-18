@@ -43,8 +43,7 @@ DATA_DIR = 'data/'
 
 ## Announcements 
 
-- HW1 grades have been posted.
-- HW1 solutions have been posted on Canvas under Files tab. Please do not share them with anyone or do not post them anywhere.
+- HW1 grades will be posted soon.
 - Syllabus quiz due date is September 19th, 11:59 pm. 
 - Homework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)
   - You can work in pairs for this assignment. 
@@ -55,14 +54,23 @@ DATA_DIR = 'data/'
 - $k$-NNs: Classify based on the majority vote from $k$ nearest neighbors
 - SVM RBFs: Create a boundary using an RBF kernel to separate classes
 
-## Recap
+## iClicker 4.2
 
-| **Aspect**                     | **Decision Trees**              | **K-Nearest Neighbors (KNN)** | **Support Vector Machines (SVM) with RBF Kernel**      |
-|--------------------------------|---------------------------------|-------------------------------|--------------------------------------------------------|
-| **Main hyperparameters**       | Max depth, min samples split    | Number of neighbors ($k$)     | C (regularization), Gamma (RBF kernel width)           |
-| **Interpretability**           |  |  | 
-| **Handling of non-linearity**  |  |  | 
-| **Scalability**                |  |  | 
+**Select all of the following statements which are TRUE.**
+
+- (A) $k$-NN may perform poorly in high-dimensional space (say, *d* > 1000). 
+- (B) In sklearn’s SVC classifier, large values of `gamma` tend to result in higher training score but probably lower validation score. 
+- (C) If we increase both `gamma` and `C`, we can't be certain if the model becomes more complex or less complex.
+
+## Comparison of models (activity)
+
+| **Model**        | Parameters and hyperparameters | **Strengths**  | **Weaknesses**     |
+|------------------|--------------------------------|---------------------------|---------------------------|
+| **Decision Trees**               |  |  |  |
+| **KNNs**              |  |  |  |
+| **SVM RBF**            |  |  |  |
+
+
 
 ## Preprocessing motivation: example 
 
@@ -92,9 +100,7 @@ What's the problem here?
 ## What is preprocessing? 
 
 - **Preprocessing** is about making the raw dataset ready for machine learning. 
-- Let's walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
 
 ## (iClicker) Exercise 5.1
 
@@ -106,6 +112,11 @@ Take a guess: In your machine learning project, how much time will you typically
 - (D) None. Most of the time will be spent on model building
 
 The question is adapted from [here](https://developers.google.com/machine-learning/crash-course/numerical-data).
+
+## Class demo 
+- Let's walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
 
 
 ## (iClicker) Exercise 5.2
@@ -264,3 +275,4 @@ pipeline = make_pipeline(StandardScaler(), KNeighborsClassifier())
 pipeline.fit(X_train, y_train)
 y_pred = pipeline.predict(X_test)
 ```
+
