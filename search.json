@@ -494,7 +494,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#announcements",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Announcements",
-    "text": "Announcements\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Sept 29th, 11:59 pm.\n\nIf you’ve started yet, start now.\nYou can work in pairs for this assignment."
+    "text": "Announcements\n\nHW grades have been returned.\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Sept 29th, 11:59 pm.\n\nIf you’ve started yet, start now.\nYou can work in pairs for this assignment."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#data",
@@ -609,15 +609,15 @@
     "text": "Ordinal encoding vs. One-hot encoding\n\nConsider weather feature and its four categories: Sunny (☀️), Cloudy (🌥️), Rainy (⛈️), Snowy (❄️)\nPredicting traffic volume: Using one-hot encoding would make sense here because the impact of different weather conditions on traffic volume does not necessarily follow a clear order and different weather conditions could have very distinct effects.\nPredicting severity of weather-related road incidents: An ordinal encoding might be more appropriate if you define your weather categories from least to most severe as this could correlate directly with the likelihood or severity of incidents."
   },
   {
-    "objectID": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder",
-    "href": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder",
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#how-to-deal-with-unseen-categories",
+    "href": "slides/slides-06-column-transformer-text-feats.html#how-to-deal-with-unseen-categories",
     "title": "Lecture 6: Column transformer and text features",
-    "section": "handle_unknown = \"ignore\" of OneHotEncoder",
-    "text": "handle_unknown = \"ignore\" of OneHotEncoder\n\nUse handle_unknown='ignore' with OneHotEncoder to safely ignore unseen categories during transform.\nIn each of the following scenarios, identify whether it’s a reasonable strategy or not.\n\nExample 1: Suppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like location, device_type, and product_category. During training, you have observed a set of categories for product_category, but in the future, new product categories might be added.\nExample 2: You’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea)."
+    "section": "How to deal with unseen categories?",
+    "text": "How to deal with unseen categories?\n\nIn sklearn we can use handle_unknown='ignore' with OneHotEncoder to safely ignore unseen categories during transform.\nIn each of the following scenarios, identify whether it’s a reasonable strategy or not.\n\nExample 1: Suppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like location, device_type, and product_category. During training, you have observed a set of categories for product_category, but in the future, new product categories might be added.\nExample 2: You’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea)."
   },
   {
-    "objectID": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder-1",
-    "href": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder-1",
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder",
+    "href": "slides/slides-06-column-transformer-text-feats.html#handle_unknown-ignore-of-onehotencoder",
     "title": "Lecture 6: Column transformer and text features",
     "section": "handle_unknown = \"ignore\" of OneHotEncoder",
     "text": "handle_unknown = \"ignore\" of OneHotEncoder\n\nReasonable use: When unseen categories are less likely to impact the model’s prediction accuracy (e.g., product categories in e-commerce), and you prefer to avoid breaking the model.\nNot-so-reasonable use: When unseen categories could provide critical new information that could significantly alter predictions (e.g., in medical diagnostics), ignoring them could result in a poor or dangerous outcome."

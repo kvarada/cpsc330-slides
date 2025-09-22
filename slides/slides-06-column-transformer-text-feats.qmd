@@ -17,6 +17,7 @@ format:
 
 ## Announcements 
 
+- HW grades have been returned. 
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
 - HW3 is due next week Tuesday, Sept 29th, 11:59 pm. 
@@ -235,8 +236,9 @@ cross_val_score(pipe_knn, X_train_toy, y_train_toy)
 - **Predicting traffic volume:** Using one-hot encoding would make sense here because the impact of different weather conditions on traffic volume does not necessarily follow a clear order and different weather conditions could have very distinct effects.
 - **Predicting severity of weather-related road incidents:** An ordinal encoding might be more appropriate if you define your weather categories from least to most severe as this could correlate directly with the likelihood or severity of incidents.
 
-## `handle_unknown = "ignore"` of `OneHotEncoder` 
-- Use `handle_unknown='ignore'` with `OneHotEncoder` to safely ignore unseen categories during transform.
+## How to deal with unseen categories? 
+
+- In `sklearn` we can use `handle_unknown='ignore'` with `OneHotEncoder` to safely ignore unseen categories during transform.
 - In each of the following scenarios, identify whether it's a reasonable strategy or not. 
   - Example 1: Suppose you are building a model to predict customer behavior (e.g., purchase likelihood) based on features like `location`, `device_type`, and `product_category`. During training, you have observed a set of categories for `product_category`, but in the future, new product categories might be added.
   - Example 2: You’re building a model to predict disease diagnosis based on symptoms, where each symptom is categorized (e.g., fever, headache, nausea).
