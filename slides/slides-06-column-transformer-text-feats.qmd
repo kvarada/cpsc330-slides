@@ -191,7 +191,6 @@ cross_val_score(pipe_knn, X_train_toy, y_train_toy)
 
 
 ## (iClicker) Exercise 6.1
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 
 **Select all of the following statements which are TRUE.**
 
@@ -285,11 +284,7 @@ text_pipeline = make_pipeline(
 )
 ```
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
-
-
 ## (iClicker) Exercise 6.2
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 
 Select all of the following statements which are TRUE.
 
