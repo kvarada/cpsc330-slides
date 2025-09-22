@@ -44,9 +44,9 @@ editor:
 
 | **Model**        | Parameters and hyperparameters | **Strengths**  | **Weaknesses**     |
 |------------------|--------------------------------|---------------------------|---------------------------|
-| **Decision Trees**               |  |  |  |
+| **Decision Trees**    |  |  |  |
 | **KNNs**              |  |  |  |
-| **SVM RBF**            |  |  |  |
+| **SVM RBF**           |  |  |  |
 
 
 
@@ -94,7 +94,7 @@ The question is adapted from [here](https://developers.google.com/machine-learni
 ## Class demo 
 - Let's walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
 
 
 ## (iClicker) Exercise 5.2

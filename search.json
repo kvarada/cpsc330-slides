@@ -494,7 +494,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#announcements",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Announcements",
-    "text": "Announcements\n\nLecture recordings for the first two weeks have been made available.\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Oct 1st, 11:59 pm.\n\nYou can work in pairs for this assignment."
+    "text": "Announcements\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Sept 29th, 11:59 pm.\n\nIf you’ve started yet, start now.\nYou can work in pairs for this assignment."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#data",
@@ -544,6 +544,13 @@
     "title": "Lecture 6: Column transformer and text features",
     "section": "Proper preprocessing",
     "text": "Proper preprocessing"
+  },
+  {
+    "objectID": "slides/slides-06-column-transformer-text-feats.html#avoiding-data-leakage",
+    "href": "slides/slides-06-column-transformer-text-feats.html#avoiding-data-leakage",
+    "title": "Lecture 6: Column transformer and text features",
+    "section": "Avoiding Data Leakage",
+    "text": "Avoiding Data Leakage\n\nIndependence from test data:\n\nWe want to ensure the training process remains completely independent of the test data.\n\nRole of the validation set\n\nUse the validation set exclusively for hyperparameter tuning. It should not contribute to the actual training of the model to prevent inadvertent data leakage.\n\nPreprocessing pitfalls\n\nIt’s a common mistake to violate the golden rule during preprocessing by using information from the validation or test datasets"
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#recap-sklearn-pipelines",
@@ -1190,7 +1197,7 @@
     "href": "slides/slides-07-linear-models.html#announcements",
     "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/m01ukubppof625/post/249\n\nChange of my office hours\n\nThursdays from 2 to 3 in my office ICCS 237\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Oct 1st, 11:59 pm.\n\nYou can work in pairs for this assignment."
+    "text": "Announcements\n\nImportant information about midterm 1\nChange of my office hours\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Sept 29th, 11:59 pm."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
@@ -1218,7 +1225,7 @@
     "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
     "title": "CPSC 330 Lecture 7: Linear models",
     "section": "(iClicker) Exercise 6.2",
-    "text": "(iClicker) Exercise 6.2\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
+    "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#linear-models",
@@ -1274,14 +1281,14 @@
     "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
     "title": "CPSC 330 Lecture 7: Linear models",
     "section": "(iClicker) Exercise 7.1",
-    "text": "(iClicker) Exercise 7.1\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
+    "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
     "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
     "title": "CPSC 330 Lecture 7: Linear models",
     "section": "(iClicker) Exercise 7.2",
-    "text": "(iClicker) Exercise 7.2\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
+    "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#learning-outcomes",

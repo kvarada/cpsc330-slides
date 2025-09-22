@@ -18,13 +18,10 @@ format:
 ## Announcements 
 
 - Important information about midterm 1
-  - https://piazza.com/class/m01ukubppof625/post/249
 - Change of my office hours
-  - Thursdays from 2 to 3 in my office ICCS 237
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
-- HW3 is due next week Tuesday, Oct 1st, 11:59 pm. 
-  - You can work in pairs for this assignment. 
+- HW3 is due next week Tuesday, Sept 29th, 11:59 pm. 
 
 
 ```{python}
@@ -75,7 +72,6 @@ text_pipeline = make_pipeline(
 ```
 
 ## (iClicker) Exercise 6.2
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 
 Select all of the following statements which are TRUE.
 
@@ -247,8 +243,6 @@ plt.show()
 
 ## (iClicker) Exercise 7.1
 
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
-
 Select all of the following statements which are TRUE.
 
 - (A) Increasing the hyperparameter `alpha` of `Ridge` is likely to decrease model complexity.
@@ -258,7 +252,6 @@ Select all of the following statements which are TRUE.
 
 
 ## (iClicker) Exercise 7.2
-iClicker cloud join link: **https://join.iclicker.com/VYFJ**
 
 Select all of the following statements which are TRUE.
 
@@ -267,4 +260,4 @@ Select all of the following statements which are TRUE.
 - (C) For linear classifier trained on $d$ features, the decision boundary is a $d-1$-dimensional hyperparlane.
 - (D) A linear model is likely to be uncertain about the data points close to the decision boundary.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_07_linear-models.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_07_linear-models.ipynb)
