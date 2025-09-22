@@ -17,10 +17,10 @@ format:
 
 ## Announcements 
 
-- Lecture recordings for the first two weeks have been made available. 
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
-- HW3 is due next week Tuesday, Oct 1st, 11:59 pm. 
+- HW3 is due next week Tuesday, Sept 29th, 11:59 pm. 
+  - If you've started yet, start now. 
   - You can work in pairs for this assignment. 
 
 ```{python}
@@ -147,6 +147,19 @@ plot_proper_processing("kNN")
 ```
 :::
 
+
+## Avoiding Data Leakage
+
+- **Independence from test data:**
+  - We want to ensure the training process remains completely independent of the test data.
+
+- **Role of the validation set**
+  - Use the validation set exclusively for hyperparameter tuning. It should not contribute to the actual training of the model to prevent inadvertent data leakage.
+
+- **Preprocessing pitfalls** 
+  - It's a common mistake to violate the golden rule during preprocessing by using information from the validation or test datasets
+
+
 ## Recap: `sklearn` Pipelines
 
 - Pipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow.
@@ -166,7 +179,7 @@ pipe_knn = make_pipeline(StandardScaler(), KNeighborsClassifier())
 cross_val_score(pipe_knn, X_train_toy, y_train_toy) 
 ```
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
 
 ## `sklearn`'s `ColumnTransformer` 
 
