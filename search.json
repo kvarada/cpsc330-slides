@@ -599,7 +599,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#alternative-methods-for-scaling",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Alternative methods for scaling",
-    "text": "Alternative methods for scaling\n\nStandardScaler\n\nGood choice when the column follows a normal distribution or a distribution somewhat like a normal distribution.\n\nMinMaxScaler: Transform each feature to a desired range. Appropriate when\n\nGood choice for features such as human age, where there is a fixed range of values and the feature is uniformly distributed across the range\n\nNormalizer: Works on rows rather than columns. Normalize examples individually to unit norm.\n\nGood choice for frequency-type data\n\nLog scaling\n\nGood choice for features such as ratings per movies (power law distribution; a few movies have lots of ratings but most movies have very few ratings)\n\n…"
+    "text": "Alternative methods for scaling\n\nStandardScaler\n\nGood choice when the column follows a normal distribution or a distribution somewhat like a normal distribution.\n\nMinMaxScaler: Transform each feature to a desired range. Appropriate when\n\nGood choice for features such as human age, where there is a fixed range of values and the feature is uniformly distributed across the range\n\nNormalizer: Works on rows rather than columns. Normalize examples individually to unit norm.\n\nGood choice for frequency-type data\n\nLog scaling\n\nGood choice for features following power law distribution (e.g., counts of followers, salary or income )\n\n…"
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#ordinal-encoding-vs.-one-hot-encoding",
