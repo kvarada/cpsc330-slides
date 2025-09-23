@@ -557,7 +557,7 @@
     "href": "slides/slides-06-column-transformer-text-feats.html#avoiding-data-leakage",
     "title": "Lecture 6: Column transformer and text features",
     "section": "Avoiding data leakage ✅",
-    "text": "Avoiding data leakage ✅\n\nEnsure the training process remains completely independent of the validation/test data.\n\nFit preprocessing steps only on the training data (e.g., imputer learns medians from training set).\n\nApply the same preprocessing steps to both training and validation/test data.\n\nUse the validation set only for hyperparameter tuning. It must not contribute to model training.\n\nUse sklearn pipelines to automatically handle preprocessing and modeling without breaking the golden rule."
+    "text": "Avoiding data leakage ✅\n\nEnsure the training process remains completely independent of the validation/test data.\nFit preprocessing steps only on the training data (e.g., imputer learns medians from training set).\nApply the same preprocessing steps to both training and validation/test data.\n\nUse the validation set only for hyperparameter tuning. It must not contribute to model training.\n\nUse sklearn pipelines to automatically handle preprocessing and modeling without breaking the golden rule."
   },
   {
     "objectID": "slides/slides-06-column-transformer-text-feats.html#recap-sklearn-pipelines",

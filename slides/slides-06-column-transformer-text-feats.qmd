@@ -160,7 +160,9 @@ plot_proper_processing("kNN")
 ## Avoiding data leakage ✅ 
 
 - Ensure the **training process remains completely independent of the validation/test data**.  
+
 - Fit preprocessing steps only on the training data (e.g., imputer learns medians from training set).  
+
 - Apply the same preprocessing steps to both training and validation/test data.    
 - Use the validation set only for hyperparameter tuning. It must not contribute to model training.  
 - Use **`sklearn` pipelines** to automatically handle preprocessing and modeling without breaking the golden rule.  
