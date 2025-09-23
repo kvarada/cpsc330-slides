@@ -148,22 +148,36 @@ plot_proper_processing("kNN")
 ```
 :::
 
+## Common scenarios of data leakage ⛔️
 
-## Avoiding Data Leakage
+- **Fitting preprocessing on validation or test data:** The preprocessing “learns” from data it shouldn’t see, giving your model unfair information.  
 
-- **Independence from test data:**
-  - We want to ensure the training process remains completely independent of the test data.
+- **Fitting preprocessing on the full dataset (train + validation/test): ** Even a small peek at validation/test data contaminates the training process.  
 
-- **Role of the validation set**
-  - Use the validation set exclusively for hyperparameter tuning. It should not contribute to the actual training of the model to prevent inadvertent data leakage.
+- **Fitting preprocessing before cross-validation: ** The preprocessing step has already “seen” all the data, so each validation fold is no longer truly unseen.  
 
-- **Preprocessing pitfalls** 
-  - It's a common mistake to violate the golden rule during preprocessing by using information from the validation or test datasets
+
+## Avoiding data leakage ✅ 
+
+- Ensure the **training process remains completely independent of the validation/test data**.  
+- Fit preprocessing steps only on the training data (e.g., imputer learns medians from training set).  
+- Apply the same preprocessing steps to both training and validation/test data.    
+- Use the validation set only for hyperparameter tuning. It must not contribute to model training.  
+- Use **`sklearn` pipelines** to automatically handle preprocessing and modeling without breaking the golden rule.  
+
+## Recap: `sklearn` Pipelines {.smaller}
+
+- Pipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow. 
+
+- If you build a pipeline with preprocessing + model, then during cross-validation:
+
+  - Each preprocessing step fits and transforms only on the training fold.
+  - The same preprocessing steps are then applied (transform only) to the validation fold.
+  - Finally, the model is trained on the preprocessed training data and evaluated on the preprocessed validation data.
 
 
 ## Recap: `sklearn` Pipelines
 
-- Pipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow.
 - Simplify the code and improves readability.
 - Reduce the risk of data leakage by ensuring proper transformation of the training and test sets.
 - Automatically apply transformations in sequence.
