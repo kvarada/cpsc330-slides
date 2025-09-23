@@ -17,7 +17,7 @@ format:
 
 ## Announcements 
 
-- HW grades have been returned. 
+- HW1 grades have been returned. 
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
 - HW3 is due next week Tuesday, Sept 29th, 11:59 pm. 
