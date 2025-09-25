@@ -207,7 +207,7 @@ plt.show()
 :::: {.columns}
 
 :::{.column width="55%"}
-![](img/lr-sentiment-analysis.png)
+![](img/lr-sentiment-analysis-ex.png)
 :::
 
 :::{.column width="45%"}
