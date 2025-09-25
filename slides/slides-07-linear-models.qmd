@@ -283,7 +283,7 @@ $P(y = j \mid x_i) = \frac{e^{w_j^\top x_i + b_j}}{\sum_{k=1}^{K} e^{w_k^\top x_
    For each class $j$, compute the probability $P(y = j \mid x_i)$ using the softmax function.
 
 2. **Select the Class with the Highest Probability**:  
-   The predicted class \(\hat{y}\) is:  
+   The predicted class $\hat{y}$ is:  
    $\hat{y} = \arg \max_{j \in \{1, \dots, K\}} P(y = j \mid x_i)$
 
 
@@ -307,7 +307,7 @@ So far, we have worked with various transformers and supervised machine learning
 1. the strengths, weaknesses, key hyperparameters of different machine learning models
 2. the pupose, use cases, and key considerations of various transformers 
 
-(This will serve as a handy reference for your upcoming quiz and beyond!)
+(This will serve as a handy reference for your upcoming exam and beyond!)
 
 ## Activity description {.smaller}
 
