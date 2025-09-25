@@ -1359,13 +1359,6 @@
     "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#recap-incorporating-text-features-in-a-machine-learning-pipeline",
-    "href": "slides/slides-07-linear-models.html#recap-incorporating-text-features-in-a-machine-learning-pipeline",
-    "title": "Lecture 7: Linear models",
-    "section": "Recap: Incorporating text features in a machine learning pipeline",
-    "text": "Recap: Incorporating text features in a machine learning pipeline\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.svm import SVC\nfrom sklearn.pipeline import make_pipeline\n\ntext_pipeline = make_pipeline(\n    CountVectorizer(),\n    SVC()\n)"
-  },
-  {
     "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
     "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
     "title": "Lecture 7: Linear models",
@@ -1377,7 +1370,7 @@
     "href": "slides/slides-07-linear-models.html#linear-models",
     "title": "Lecture 7: Linear models",
     "section": "Linear models",
-    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions\n\n\\(y_{hat} = w_1 \\times \\text{# hours studied} + w_0\\)"
+    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions: \\(y_{hat} = w_1 \\times \\text{\\# hours studied} + w_0\\)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
