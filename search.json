@@ -1340,154 +1340,154 @@
   {
     "objectID": "slides/slides-07-linear-models.html#announcements",
     "href": "slides/slides-07-linear-models.html#announcements",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Announcements",
     "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
     "href": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Recap: Dealing with text features",
     "text": "Recap: Dealing with text features\n\nPreprocessing text to fit into machine learning models using text vectorization.\nBag of words representation"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
     "href": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Recap: sklearn CountVectorizer",
     "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#recap-incorporating-text-features-in-a-machine-learning-pipeline",
     "href": "slides/slides-07-linear-models.html#recap-incorporating-text-features-in-a-machine-learning-pipeline",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Recap: Incorporating text features in a machine learning pipeline",
     "text": "Recap: Incorporating text features in a machine learning pipeline\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.svm import SVC\nfrom sklearn.pipeline import make_pipeline\n\ntext_pipeline = make_pipeline(\n    CountVectorizer(),\n    SVC()\n)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
     "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "(iClicker) Exercise 6.2",
     "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#linear-models",
     "href": "slides/slides-07-linear-models.html#linear-models",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Linear models",
     "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions\n\n\\[ y_{hat} = w_1 \\times \\text{# hours studied} + w_0\\]"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
     "href": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Ridge vs. LinearRegression",
     "text": "Ridge vs. LinearRegression\n\nOrdinary linear regression is sensitive to multicolinearity and overfitting\nMulticolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.\n\nLinear regression may produce large and unstable coefficients in such cases.\nRidge adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#when-to-use-what",
     "href": "slides/slides-07-linear-models.html#when-to-use-what",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "When to use what?",
     "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#logistic-regression",
     "href": "slides/slides-07-linear-models.html#logistic-regression",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Logistic regression",
     "text": "Logistic regression\n\nSuppose your target is binary: pass or fail\nLogistic regression is used for such binary classification tasks.\n\nLogistic regression predicts a probability that the given example belongs to a particular class.\nIt uses Sigmoid function to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.\nA threshold (usually 0.5) is applied to the predicted probability to decide the final class label."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
     "href": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Logistic regression: Decision boundary",
     "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
     "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Parametric vs. non-Parametric models (high-level)",
     "text": "Parametric vs. non-Parametric models (high-level)\n\nImagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.\nScenario 1: 100 features and 1,000 examples\nScenario 2: 100 features and 1 million examples"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
     "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Parametric vs. non-Parametric models (high-level)",
     "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
     "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "(iClicker) Exercise 7.1",
     "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
     "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "(iClicker) Exercise 7.2",
     "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
     "href": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Softmax Function for Probabilities",
     "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#making-predictions",
     "href": "slides/slides-07-linear-models.html#making-predictions",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Making Predictions",
     "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class () is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
     "href": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Binary vs multinomial logistic regression",
     "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#activity",
     "href": "slides/slides-07-linear-models.html#activity",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Activity",
     "text": "Activity\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming quiz and beyond!)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#activity-description",
     "href": "slides/slides-07-linear-models.html#activity-description",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Activity description",
     "text": "Activity description\n\nYour task is to engage in group discussions and fill in the designated row in this Google document.\nFor strengths and weaknesses, some things to consider are:\n\nconcerns about underfitting\nconcerns about overfitting\nspeed\nscalability for large data sets\n\ninterpretability\neffectiveness on sparse data\nease of use for multi-class classification\n\nability to represent uncertainty\ntime/space complexity\netc."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#estimators",
     "href": "slides/slides-07-linear-models.html#estimators",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Estimators",
     "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#transformers",
     "href": "slides/slides-07-linear-models.html#transformers",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Transformers",
     "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#coming-up",
     "href": "slides/slides-07-linear-models.html#coming-up",
-    "title": "DSCI 330 Lecture 8: Linear models",
+    "title": "Lecture 7: Linear models",
     "section": "Coming up",
     "text": "Coming up\nA few big questions remain: - How do we tune hyperparameters? - How do we choose our features? (feature selection, dimensionality reduction, regularization etc.) - How do we come up with new useful features (feature engineering) - How do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?) - How to deal with class imbalance? - What do we do if we do not have targets (unsupervised learning) - How to build models for more interesting data such as images, user preferences, or sequential data?)"
   },

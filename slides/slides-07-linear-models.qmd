@@ -1,15 +1,16 @@
 ---
-title: "DSCI 330 Lecture 8: Linear models"
+title: "Lecture 7: Linear models"
 author: "Varada Kolhatkar"
 description: "Linear regression, logistic regression"
 description-short: "Linear regression, logistic regression, prediction probabilities, sigmoid, interpretation of coefficients"
 format:
   revealjs:
+    html-math-method: mathjax
     embed-resources: true
     slide-number: true
     smaller: true
     center: true
-    logo: img/mds-hex-sticker.png
+    logo: img/UBC-CS-logo.png
     resources:
       - data/
       - img/  
