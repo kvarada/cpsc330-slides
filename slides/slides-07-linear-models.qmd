@@ -1,5 +1,5 @@
 ---
-title: "CPSC 330 Lecture 7: Linear models"
+title: "DSCI 571 Lecture 8: Linear models"
 author: "Varada Kolhatkar"
 description: "Linear regression, logistic regression"
 description-short: "Linear regression, logistic regression, prediction probabilities, sigmoid, interpretation of coefficients"
@@ -9,20 +9,11 @@ format:
     slide-number: true
     smaller: true
     center: true
-    logo: img/UBC-CS-logo.png
+    logo: img/mds-hex-sticker.png
     resources:
       - data/
       - img/  
 ---
-
-## Announcements 
-
-- Important information about midterm 1
-- Change of my office hours
-- Where to find slides? 
-  - https://kvarada.github.io/cpsc330-slides/lecture.html
-- HW3 is due next week Tuesday, Sept 29th, 11:59 pm. 
-
 
 ```{python}
 import os
@@ -44,6 +35,14 @@ from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 from sklearn.svm import SVC
 from sklearn.datasets import make_blobs, make_classification
 ```
+
+## Announcements 
+
+- Important information about midterm 1
+- Where to find slides? 
+  - https://kvarada.github.io/cpsc330-slides/lecture.html
+- HW3 is due next week Monday, Sept 29th, 11:59 pm. 
+
 
 ## Recap: Dealing with text features 
 - Preprocessing text to fit into machine learning models using text vectorization.
@@ -84,6 +83,7 @@ Select all of the following statements which are TRUE.
 pipe = (CountVectorizer(), SVC())
 cross_validate(pipe, X_train, y_train)
 ```
+
 
 ## Linear models 
 
@@ -135,7 +135,6 @@ plt.show()
   - $$ y_{hat} = w_1 \times \text{# hours studied} + w_0$$
 
 :::
-
 ::::
 
 ## `Ridge` vs. `LinearRegression`
@@ -209,6 +208,7 @@ plt.show()
 ```
 :::
 :::{.column width="40%"}
+- Sigmoid Function: $\hat{y} = \sigma(w^\top x_i + b) = \frac{1}{1 + e^{-(w^\top x_i + b)}}$
 - The decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5. 
 :::
 
@@ -241,7 +241,9 @@ plt.show()
 
 ::::
 
-## (iClicker) Exercise 7.1
+## (iClicker) Exercise 8.1
+
+iClicker cloud join link: **https://join.iclicker.com/YWOJ**
 
 Select all of the following statements which are TRUE.
 
@@ -251,7 +253,8 @@ Select all of the following statements which are TRUE.
 - (D) If you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term.
 
 
-## (iClicker) Exercise 7.2
+## (iClicker) Exercise 8.2
+iClicker cloud join link: **https://join.iclicker.com/YWOJ**
 
 Select all of the following statements which are TRUE.
 
@@ -260,4 +263,116 @@ Select all of the following statements which are TRUE.
 - (C) For linear classifier trained on $d$ features, the decision boundary is a $d-1$-dimensional hyperparlane.
 - (D) A linear model is likely to be uncertain about the data points close to the decision boundary.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_07_linear-models.ipynb)
+# [Class demo](https://github.ubc.ca/mds-2024-25/DSCI_571_sup-learn-1_students/tree/master/lectures/002-regressors-Varada-lectures/class_demos/demo_08_linear-models.ipynb)
+
+## Course evaluations (~10 minutes)
+
+- The online course evaluations are up, it'll be great if you can fill them in when you get a chance. 
+
+https://canvas.ubc.ca/courses/147081/external_tools/53187
+
+# Multinomial logistic regression
+
+## Softmax Function for Probabilities
+
+Given an input, the probability that it belongs to class $j \in \{1, 2, \dots, K\}$ is calculated using the **softmax function**:
+
+$P(y = j \mid x_i) = \frac{e^{w_j^\top x_i + b_j}}{\sum_{k=1}^{K} e^{w_k^\top x_i + b_k}}$
+
+- $x_i$ is the $i^{th}$ example 
+- $w_j$ is the weight vector for class $j$.
+- $b_j$ is the bias term for class $j$.
+- $K$ is the total number of classes.
+
+
+## Making Predictions
+
+1. **Compute Probabilities**:  
+   For each class $j$, compute the probability $P(y = j \mid x_i)$ using the softmax function.
+
+2. **Select the Class with the Highest Probability**:  
+   The predicted class \(\hat{y}\) is:  
+   $\hat{y} = \arg \max_{j \in \{1, \dots, K\}} P(y = j \mid x_i)$
+
+
+
+## Binary vs multinomial logistic regression 
+
+|   **Aspect**                       | **Binary Logistic Regression**              | **Multinomial Logistic Regression**  |
+|--------------------------|---------------------------------------------|--------------------------------------|
+| **Target variable**      | 2 classes (binary)                          | More than 2 classes (multi-class)    |
+| **Getting probabilities**  | Sigmoid                                   | Softmax                              |
+| parameters               | $d$ weights, one per feature and the bias term | $d$ weights and a bias term per class |  
+| **Output**               | Single probability                          | Probability distribution over classes |
+| **Use case**             | Binary classification (e.g., spam detection) | Multi-class classification (e.g., flower species) |
+
+
+## Activity 
+<hr>
+
+In this course, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of 
+
+1. the strengths, weaknesses, key hyperparameters of different machine learning models
+2. the pupose, use cases, and key considerations of various transformers 
+
+(This will serve as a handy reference for your upcoming quiz and beyond!)
+
+## Activity description {.smaller}
+
+- Your task is to engage in group discussions and fill in the designated row in [this Google document](https://docs.google.com/document/d/1Ri601SbKs5fqHFP4lVnBlqGNOyJdYMJY-HoPp1B0jR0/edit?usp=sharing).
+- For strengths and weaknesses, some things to consider are:
+  * concerns about underfitting
+  * concerns about overfitting
+  * speed
+  * scalability for large data sets  
+  * interpretability 
+  * effectiveness on sparse data
+  * ease of use for multi-class classification  
+  * ability to represent uncertainty
+  * time/space complexity 
+  * etc.
+
+
+## Estimators
+
+Fill in the following table with at least one entry per box.
+
+Model           |  Strengths | Weaknesses | Key hyperparameters |
+----------------|------------|------------|---------------------|
+decision tree   |            |            |                     |
+$k$-NN              |            |            |                     |
+RBF SVM                 |            |            |                     |
+naive Bayes         |            |            |                     |
+linear models                 |            |            |                     |
+
+
+## Transformers
+
+Transformation         |  Purpose   | Use cases  | Key consideration   |
+-----------------------|------------|------------|---------------------|
+  Imputation           |            |            |                     |
+  Scaling              |            |            |                     | 
+  One-hot encoding     |            |            |                     | 
+  Ordinal encoding     |            |            |                     | 
+  Discretization       |            |            |                     | 
+  Bag-of-words encoding|            |            |                     | 
+
+
+## Coming up {.smaller}
+
+A few big questions remain (more to come in 572, 573, 563, 575):
+
+- **How do we choose our features?** (feature selection, dimensionality reduction, regularization etc.)
+- **How do we come up with new useful features** (feature engineering)
+- **How do we choose between different models?** (different evaluation metrics, what happens if we're not happy with our test error?)
+- **How to deal with class imbalance?**
+- **What do we do if we do not have targets** (unsupervised learning)
+- **How to build models for more interesting data such as images, user preferences, or sequential data?)**
+
+## Final remarks 
+
+I hope you learned something useful from the course. You all are wonderful students and I had fun teaching this course ♥️! 
+
+![](img/eva-thank-you.png)
+
+FYI: If you didn't fill out course evaluations during class , it'll be great if you can fill them in when you get a chance. 
