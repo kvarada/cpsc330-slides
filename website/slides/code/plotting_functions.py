@@ -192,7 +192,6 @@ def make_bracket(s, xy, textxy, width, ax):
                         lw=2,), bbox=dict(boxstyle="square", fc="w"))
     annotation.arrow_patch.get_arrowstyle().widthB = width
 
-    
 def plot_improper_processing(estimator_name):
     # Adapted from https://github.com/amueller/mglearn/blob/106cf48ef03710ef1402813997746741aa6467da/mglearn/plot_improper_preprocessing.py#L12
     fig, axes = plt.subplots(2, 1, figsize=(15, 10))
