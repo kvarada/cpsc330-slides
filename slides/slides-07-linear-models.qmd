@@ -203,6 +203,22 @@ plt.show()
 
 ::::
 
+## Sentiment analysis example
+:::: {.columns}
+
+:::{.column width="55%"}
+![](img/lr-sentiment-analysis.png)
+:::
+
+:::{.column width="45%"}
+- Logistic regression learns **coefficients for each word** from training data.  
+- Positive coefficients $\rightarrow$ push prediction toward positive class.  
+- Negative coefficients $\rightarrow$ push prediction toward negative class.  
+- In this example, positive words (_fun_, _rewarding_) outweigh the negative word (_long_), so the overall sentiment is likely **positive**.  
+:::
+
+::::
+
 ## Parametric vs. non-Parametric models (high-level)
 - Imagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.
 - Scenario 1: 100 features and 1,000 examples

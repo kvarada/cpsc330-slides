@@ -1401,6 +1401,13 @@
     "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
   },
   {
+    "objectID": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "href": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "title": "Lecture 7: Linear models",
+    "section": "Sentiment analysis example",
+    "text": "Sentiment analysis example\n\n\n\n\n\nLogistic regression learns coefficients for each word from training data.\n\nPositive coefficients \\(\\rightarrow\\) push prediction toward positive class.\n\nNegative coefficients \\(\\rightarrow\\) push prediction toward negative class.\n\nIn this example, positive words (fun, rewarding) outweigh the negative word (long), so the overall sentiment is likely positive."
+  },
+  {
     "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
     "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
     "title": "Lecture 7: Linear models",
