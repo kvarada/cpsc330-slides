@@ -1377,7 +1377,7 @@
     "href": "slides/slides-07-linear-models.html#linear-models",
     "title": "Lecture 7: Linear models",
     "section": "Linear models",
-    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions\n\n\\[ y_{hat} = w_1 \\times \\text{# hours studied} + w_0\\]"
+    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions\n\n\\(y_{hat} = w_1 \\times \\text{# hours studied} + w_0\\)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",

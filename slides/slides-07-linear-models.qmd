@@ -134,7 +134,7 @@ plt.grid(True)
 plt.show()
 ```
 - Making predictions
-  - $$ y_{hat} = w_1 \times \text{# hours studied} + w_0$$
+  - $y_{hat} = w_1 \times \text{# hours studied} + w_0$
 
 :::
 ::::
@@ -352,11 +352,10 @@ Transformation         |  Purpose   | Use cases  | Key consideration   |
 
 A few big questions remain:
 
-- **How do we tune hyperparameters?**
-
-- **How do we choose our features?** (feature selection, dimensionality reduction, regularization etc.)
-- **How do we come up with new useful features** (feature engineering)
-- **How do we choose between different models?** (different evaluation metrics, what happens if we're not happy with our test error?)
-- **How to deal with class imbalance?**
-- **What do we do if we do not have targets** (unsupervised learning)
-- **How to build models for more interesting data such as images, user preferences, or sequential data?)**
+- How do we tune hyperparameters?
+- How do we choose our features? (feature selection, dimensionality reduction, regularization etc.)
+- How do we come up with new useful features (feature engineering)
+- How do we choose between different models? (different evaluation metrics, what happens if we're not happy with our test error?)
+- How to deal with class imbalance?
+- What do we do if we do not have targets (unsupervised learning)
+- How to build models for more interesting data such as images, user preferences, or sequential data?)
