@@ -1457,11 +1457,11 @@
     "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#activity",
-    "href": "slides/slides-07-linear-models.html#activity",
+    "objectID": "slides/slides-07-linear-models.html#activity-time-permitting",
+    "href": "slides/slides-07-linear-models.html#activity-time-permitting",
     "title": "Lecture 7: Linear models",
-    "section": "Activity",
-    "text": "Activity\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
+    "section": "Activity (time-permitting)",
+    "text": "Activity (time-permitting)\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#activity-description",
@@ -1489,7 +1489,7 @@
     "href": "slides/slides-07-linear-models.html#coming-up",
     "title": "Lecture 7: Linear models",
     "section": "Coming up",
-    "text": "Coming up\nA few big questions remain: - How do we tune hyperparameters? - How do we choose our features? (feature selection, dimensionality reduction, regularization etc.) - How do we come up with new useful features (feature engineering) - How do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?) - How to deal with class imbalance? - What do we do if we do not have targets (unsupervised learning) - How to build models for more interesting data such as images, user preferences, or sequential data?)"
+    "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#learning-outcomes",

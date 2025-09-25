@@ -299,7 +299,7 @@ $P(y = j \mid x_i) = \frac{e^{w_j^\top x_i + b_j}}{\sum_{k=1}^{K} e^{w_k^\top x_
 | **Use case**             | Binary classification (e.g., spam detection) | Multi-class classification (e.g., flower species) |
 
 
-## Activity 
+## Activity (time-permitting)
 <hr>
 
 So far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of 
@@ -311,7 +311,7 @@ So far, we have worked with various transformers and supervised machine learning
 
 ## Activity description {.smaller}
 
-- Your task is to engage in group discussions and fill in the designated row in [this Google document](https://docs.google.com/document/d/1Ri601SbKs5fqHFP4lVnBlqGNOyJdYMJY-HoPp1B0jR0/edit?usp=sharing).
+- Your task is to engage in group discussions and fill in the designated row in [this Google document](https://docs.google.com/document/d/1SpCQMn9uZojhiwgsjIoutryNmpbUcM3ez5g-4is2Cxc/edit?usp=sharing).
 - For strengths and weaknesses, some things to consider are:
   * concerns about underfitting
   * concerns about overfitting
@@ -351,7 +351,9 @@ Transformation         |  Purpose   | Use cases  | Key consideration   |
 ## Coming up {.smaller}
 
 A few big questions remain:
+
 - **How do we tune hyperparameters?**
+
 - **How do we choose our features?** (feature selection, dimensionality reduction, regularization etc.)
 - **How do we come up with new useful features** (feature engineering)
 - **How do we choose between different models?** (different evaluation metrics, what happens if we're not happy with our test error?)
