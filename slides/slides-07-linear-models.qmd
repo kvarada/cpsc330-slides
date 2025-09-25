@@ -39,6 +39,7 @@ from sklearn.datasets import make_blobs, make_classification
 ## Announcements 
 
 - Important information about midterm 1
+  - https://piazza.com/class/mekbcze4gyber/post/162
 - Where to find slides? 
   - https://kvarada.github.io/cpsc330-slides/lecture.html
 - HW3 is due next week Monday, Sept 29th, 11:59 pm. 
@@ -241,9 +242,7 @@ plt.show()
 
 ::::
 
-## (iClicker) Exercise 8.1
-
-iClicker cloud join link: **https://join.iclicker.com/YWOJ**
+## (iClicker) Exercise 7.1
 
 Select all of the following statements which are TRUE.
 
@@ -253,8 +252,7 @@ Select all of the following statements which are TRUE.
 - (D) If you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term.
 
 
-## (iClicker) Exercise 8.2
-iClicker cloud join link: **https://join.iclicker.com/YWOJ**
+## (iClicker) Exercise 7.2
 
 Select all of the following statements which are TRUE.
 
@@ -263,15 +261,8 @@ Select all of the following statements which are TRUE.
 - (C) For linear classifier trained on $d$ features, the decision boundary is a $d-1$-dimensional hyperparlane.
 - (D) A linear model is likely to be uncertain about the data points close to the decision boundary.
 
-# [Class demo](https://github.ubc.ca/mds-2024-25/DSCI_571_sup-learn-1_students/tree/master/lectures/002-regressors-Varada-lectures/class_demos/demo_08_linear-models.ipynb)
 
-## Course evaluations (~10 minutes)
-
-- The online course evaluations are up, it'll be great if you can fill them in when you get a chance. 
-
-https://canvas.ubc.ca/courses/147081/external_tools/53187
-
-# Multinomial logistic regression
+# (Optional) Multinomial logistic regression 
 
 ## Softmax Function for Probabilities
 
@@ -310,7 +301,7 @@ $P(y = j \mid x_i) = \frac{e^{w_j^\top x_i + b_j}}{\sum_{k=1}^{K} e^{w_k^\top x_
 ## Activity 
 <hr>
 
-In this course, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of 
+So far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of 
 
 1. the strengths, weaknesses, key hyperparameters of different machine learning models
 2. the pupose, use cases, and key considerations of various transformers 
@@ -342,7 +333,6 @@ Model           |  Strengths | Weaknesses | Key hyperparameters |
 decision tree   |            |            |                     |
 $k$-NN              |            |            |                     |
 RBF SVM                 |            |            |                     |
-naive Bayes         |            |            |                     |
 linear models                 |            |            |                     |
 
 
@@ -354,25 +344,16 @@ Transformation         |  Purpose   | Use cases  | Key consideration   |
   Scaling              |            |            |                     | 
   One-hot encoding     |            |            |                     | 
   Ordinal encoding     |            |            |                     | 
-  Discretization       |            |            |                     | 
   Bag-of-words encoding|            |            |                     | 
 
 
 ## Coming up {.smaller}
 
-A few big questions remain (more to come in 572, 573, 563, 575):
-
+A few big questions remain:
+- **How do we tune hyperparameters?**
 - **How do we choose our features?** (feature selection, dimensionality reduction, regularization etc.)
 - **How do we come up with new useful features** (feature engineering)
 - **How do we choose between different models?** (different evaluation metrics, what happens if we're not happy with our test error?)
 - **How to deal with class imbalance?**
 - **What do we do if we do not have targets** (unsupervised learning)
 - **How to build models for more interesting data such as images, user preferences, or sequential data?)**
-
-## Final remarks 
-
-I hope you learned something useful from the course. You all are wonderful students and I had fun teaching this course ♥️! 
-
-![](img/eva-thank-you.png)
-
-FYI: If you didn't fill out course evaluations during class , it'll be great if you can fill them in when you get a chance. 

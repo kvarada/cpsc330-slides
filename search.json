@@ -1342,7 +1342,7 @@
     "href": "slides/slides-07-linear-models.html#announcements",
     "title": "DSCI 330 Lecture 8: Linear models",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
@@ -1422,25 +1422,18 @@
     "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-8.1",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-8.1",
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
     "title": "DSCI 330 Lecture 8: Linear models",
-    "section": "(iClicker) Exercise 8.1",
-    "text": "(iClicker) Exercise 8.1\niClicker cloud join link: https://join.iclicker.com/YWOJ\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
+    "section": "(iClicker) Exercise 7.1",
+    "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-8.2",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-8.2",
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
     "title": "DSCI 330 Lecture 8: Linear models",
-    "section": "(iClicker) Exercise 8.2",
-    "text": "(iClicker) Exercise 8.2\niClicker cloud join link: https://join.iclicker.com/YWOJ\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#course-evaluations-10-minutes",
-    "href": "slides/slides-07-linear-models.html#course-evaluations-10-minutes",
-    "title": "DSCI 330 Lecture 8: Linear models",
-    "section": "Course evaluations (~10 minutes)",
-    "text": "Course evaluations (~10 minutes)\n\nThe online course evaluations are up, it’ll be great if you can fill them in when you get a chance.\n\nhttps://canvas.ubc.ca/courses/147081/external_tools/53187"
+    "section": "(iClicker) Exercise 7.2",
+    "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
   },
   {
     "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
@@ -1468,7 +1461,7 @@
     "href": "slides/slides-07-linear-models.html#activity",
     "title": "DSCI 330 Lecture 8: Linear models",
     "section": "Activity",
-    "text": "Activity\n\nIn this course, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming quiz and beyond!)"
+    "text": "Activity\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming quiz and beyond!)"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#activity-description",
@@ -1482,28 +1475,21 @@
     "href": "slides/slides-07-linear-models.html#estimators",
     "title": "DSCI 330 Lecture 8: Linear models",
     "section": "Estimators",
-    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nnaive Bayes\n\n\n\n\n\nlinear models"
+    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#transformers",
     "href": "slides/slides-07-linear-models.html#transformers",
     "title": "DSCI 330 Lecture 8: Linear models",
     "section": "Transformers",
-    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nDiscretization\n\n\n\n\n\nBag-of-words encoding"
+    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
   },
   {
     "objectID": "slides/slides-07-linear-models.html#coming-up",
     "href": "slides/slides-07-linear-models.html#coming-up",
     "title": "DSCI 330 Lecture 8: Linear models",
     "section": "Coming up",
-    "text": "Coming up\nA few big questions remain (more to come in 572, 573, 563, 575):\n\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#final-remarks",
-    "href": "slides/slides-07-linear-models.html#final-remarks",
-    "title": "DSCI 330 Lecture 8: Linear models",
-    "section": "Final remarks",
-    "text": "Final remarks\nI hope you learned something useful from the course. You all are wonderful students and I had fun teaching this course ♥️!\n\nFYI: If you didn’t fill out course evaluations during class , it’ll be great if you can fill them in when you get a chance."
+    "text": "Coming up\nA few big questions remain: - How do we tune hyperparameters? - How do we choose our features? (feature selection, dimensionality reduction, regularization etc.) - How do we come up with new useful features (feature engineering) - How do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?) - How to deal with class imbalance? - What do we do if we do not have targets (unsupervised learning) - How to build models for more interesting data such as images, user preferences, or sequential data?)"
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#learning-outcomes",
