@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A high-level introduction to KNNs and SVM RBFs">
+<meta name="description" content="Hyperparameter optimization and optimization bias">
 
-<title>Lecture 4: k-nearest neighbours and SVM RBFs – CPSC 330</title>
+<title>Lecture 8: Hyperparameter Optimization – CPSC 330</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,8 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./lecture-05.html" rel="next">
-<link href="./lecture-03.html" rel="prev">
+<link href="./lecture-07.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -146,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture-04.html">Lecture 4: <span class="math inline">\(k\)</span>-nearest neighbours and SVM RBFs</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture-08.html">Lecture 8: Hyperparameter Optimization</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -184,7 +183,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lecture-04.html" class="sidebar-item-text sidebar-link active">
+  <a href="./lecture-04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 4: <span class="math inline">\(k\)</span>-nearest neighbours and SVM RBFs</span></a>
   </div>
 </li>
@@ -208,7 +207,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lecture-08.html" class="sidebar-item-text sidebar-link">
+  <a href="./lecture-08.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 8: Hyperparameter Optimization</span></a>
   </div>
 </li>
@@ -223,12 +222,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 4: <span class="math inline">\(k\)</span>-nearest neighbours and SVM RBFs</h1>
+<h1 class="title">Lecture 8: Hyperparameter Optimization</h1>
 </div>
 
 <div>
   <div class="description">
-    A high-level introduction to KNNs and SVM RBFs
+    Hyperparameter optimization and optimization bias
   </div>
 </div>
 
@@ -247,21 +246,18 @@ window.Quarto = {
 
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
-    <p><a href="slides/slides-04-kNNs-SVM-RBF.html" target="_blank">View slides in full screen</a></p>
+    <p><a href="slides/slides-08-hyperparameter-optimization.html" target="_blank">View slides in full screen</a></p>
        <div class="ratio ratio-16x9">
-      <iframe class="slide-deck" src="slides/slides-04-kNNs-SVM-RBF.html" height="600px"></iframe>
+      <iframe class="slide-deck" src="slides/slides-08-hyperparameter-optimization.html" height="600px"></iframe>
     </div>
   
 </section>
 <section id="outline" class="level2">
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
 <ul>
-<li>Recap</li>
-<li>Similarity-based algorithms</li>
-<li><span class="math inline">\(k\)</span>-nearest neighbours intuitions</li>
-<li>Curse of dimensionality</li>
-<li>SVM with RBF kernel intuition</li>
-<li>Interpretation of <code>C</code> and <code>gamma</code> hyperparameters of SVM RBF</li>
+<li>Why hyperparameter optimization?</li>
+<li>Hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV</li>
+<li>Optimization bias</li>
 </ul>
 
 
@@ -690,14 +686,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./lecture-03.html" class="pagination-link" aria-label="Lecture 3: ML fundamentals">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lecture 3: ML fundamentals</span>
+      <a href="./lecture-07.html" class="pagination-link" aria-label="Lecture 7: Linear models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lecture 7: Linear models</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./lecture-05.html" class="pagination-link" aria-label="Lecture 5: Preprocessing and sklearn pipelines">
-        <span class="nav-page-text">Lecture 5: Preprocessing and sklearn pipelines</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
