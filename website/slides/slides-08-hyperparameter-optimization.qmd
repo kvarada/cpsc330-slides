@@ -8,7 +8,6 @@ format:
     html-math-method: mathjax
     embed-resources: true
     slide-number: true
-    smaller: true
     center: true
     logo: img/UBC-CS-logo.png
     resources:
@@ -36,7 +35,7 @@ DATA_DIR = 'data/'
 ## Focus on the breath! 
 
 ::: {.center}
-![](img/inukshuk.jpeg){width=70%}
+![](img/inukshuk.jpeg){height=80%}
 :::
 
 ## Check-in
@@ -44,7 +43,9 @@ DATA_DIR = 'data/'
 **How are you feeling today?**
 
 - (A) Things are more or less under control! 
+
 - (B) Excited about hyperparameter optimization! 
+
 - (C) Lost 😞
 - (D) Tired / Sleepy 😴
 - (E) Secretly thinking of lunch 🥗 
@@ -56,7 +57,7 @@ DATA_DIR = 'data/'
 - HW3 was due on Monday, Sept 29th 11:59 pm. 
 - HW4 has been released 
 
-## Recap: iClicker LR1
+## Recap: iClicker Logistic Regression 1 
 
 Which of the following are **True**?
 
@@ -66,7 +67,7 @@ Which of the following are **True**?
 - (D) The decision boundary in logistic regression is linear, even though the sigmoid is applied. 
 - (E) When the weighted sum is 0, $\hat{p}$ = 0.5.  
 
-## Recap: iClicker LR2
+## Recap: iClicker Logistic Regression 1
 
 Which of the following are **True**?
 
@@ -77,19 +78,18 @@ Which of the following are **True**?
 - (E) A larger `C` value allows larger coefficients and a more complex model.  
 
 
-## Recap: Logistic regression
+## Recap: Logistic regression {.smaller}
 - A **linear model used for binary classification** tasks. 
   - (Optional) There is am extension of logistic regression called multinomial logistic regression for multiclass classification.
 - Parameters: 
   - **Coefficients (Weights)**: The model learns a coefficient or a weight associated with each feature that represents its importance.
   - **Bias (Intercept)**: A constant term added to the linear combination of features and their coefficients.
 
-## Recap: Logistic regression 
+## Recap: Logistic regression {.smaller}
 - The model computes a weighted sum of the input features’ values, adjusted by their respective coefficients and the bias term.
 - This weighted sum is passed through a sigmoid function to transform it into a probability score, indicating the likelihood of the input belonging to the "positive" class.
 
 $$ \hat{p} = \sigma\left(\sum_{i=1}^d w_i x_i + b\right) $$
-
 
 - $P_{hat}$ is the predicted probability of the example belonging to the positive class. 
 - $w_i$ is the learned weight associated with feature $i$
