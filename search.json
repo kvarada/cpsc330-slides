@@ -123,7 +123,7 @@
     "href": "slides/slides-01-intro.html#model-training",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Model training",
-    "text": "Model training\n\nfrom lightgbm.sklearn import LGBMClassifier\nmodel = LGBMClassifier(random_state=123, verbose=-1)\nmodel.fit(X_train, y_train)\n\nLGBMClassifier(random_state=123, verbose=-1)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org. LGBMClassifieriFittedLGBMClassifier(random_state=123, verbose=-1)"
+    "text": "Model training\n\nfrom lightgbm.sklearn import LGBMClassifier\nmodel = LGBMClassifier(random_state=123, verbose=-1)\nmodel.fit(X_train, y_train)\n\nLGBMClassifier(random_state=123, verbose=-1)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LGBMClassifieriFitted\n        \n            \n                Parameters\n                \n\n\n\n\nboosting_type \n'gbdt'\n\n\n\nnum_leaves \n31\n\n\n\nmax_depth \n-1\n\n\n\nlearning_rate \n0.1\n\n\n\nn_estimators \n100\n\n\n\nsubsample_for_bin \n200000\n\n\n\nobjective \nNone\n\n\n\nclass_weight \nNone\n\n\n\nmin_split_gain \n0.0\n\n\n\nmin_child_weight \n0.001\n\n\n\nmin_child_samples \n20\n\n\n\nsubsample \n1.0\n\n\n\nsubsample_freq \n0\n\n\n\ncolsample_bytree \n1.0\n\n\n\nreg_alpha \n0.0\n\n\n\nreg_lambda \n0.0\n\n\n\nrandom_state \n123\n\n\n\nn_jobs \nNone\n\n\n\nimportance_type \n'split'\n\n\n\nverbose \n-1"
   },
   {
     "objectID": "slides/slides-01-intro.html#new-examples",
@@ -172,7 +172,7 @@
     "href": "slides/slides-01-intro.html#lets-train-a-model",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Let’s train a model",
-    "text": "Let’s train a model\n\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\nclf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))\nclf.fit(X_train, y_train) # Training the model\n\nPipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),\n                ('logisticregression', LogisticRegression(max_iter=5000))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  Pipeline?Documentation for PipelineiFittedPipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),\n                ('logisticregression', LogisticRegression(max_iter=5000))])  CountVectorizer?Documentation for CountVectorizerCountVectorizer(max_features=5000)  LogisticRegression?Documentation for LogisticRegressionLogisticRegression(max_iter=5000)"
+    "text": "Let’s train a model\n\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\nclf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))\nclf.fit(X_train, y_train) # Training the model\n\nPipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),\n                ('logisticregression', LogisticRegression(max_iter=5000))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\nsteps \n[('countvectorizer', ...), ('logisticregression', ...)]\n\n\n\ntransform_input \nNone\n\n\n\nmemory \nNone\n\n\n\nverbose \nFalse\n\n\n\n\n            \n        \n    CountVectorizer?Documentation for CountVectorizer\n        \n            \n                Parameters\n                \n\n\n\n\ninput \n'content'\n\n\n\nencoding \n'utf-8'\n\n\n\ndecode_error \n'strict'\n\n\n\nstrip_accents \nNone\n\n\n\nlowercase \nTrue\n\n\n\npreprocessor \nNone\n\n\n\ntokenizer \nNone\n\n\n\nstop_words \nNone\n\n\n\ntoken_pattern \n'(?u)\\\\b\\\\w\\\\w+\\\\b'\n\n\n\nngram_range \n(1, ...)\n\n\n\nanalyzer \n'word'\n\n\n\nmax_df \n1.0\n\n\n\nmin_df \n1\n\n\n\nmax_features \n5000\n\n\n\nvocabulary \nNone\n\n\n\nbinary \nFalse\n\n\n\ndtype \n&lt;class 'numpy.int64'&gt;\n\n\n\n\n            \n        \n    LogisticRegression?Documentation for LogisticRegression\n        \n            \n                Parameters\n                \n\n\n\n\npenalty \n'l2'\n\n\n\ndual \nFalse\n\n\n\ntol \n0.0001\n\n\n\nC \n1.0\n\n\n\nfit_intercept \nTrue\n\n\n\nintercept_scaling \n1\n\n\n\nclass_weight \nNone\n\n\n\nrandom_state \nNone\n\n\n\nsolver \n'lbfgs'\n\n\n\nmax_iter \n5000\n\n\n\nmulti_class \n'deprecated'\n\n\n\nverbose \n0\n\n\n\nwarm_start \nFalse\n\n\n\nn_jobs \nNone\n\n\n\nl1_ratio \nNone"
   },
   {
     "objectID": "slides/slides-01-intro.html#unseen-messages",
@@ -214,7 +214,7 @@
     "href": "slides/slides-01-intro.html#zero-shot-learning-for-emotion-detection-1",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Zero-shot learning for emotion detection",
-    "text": "Zero-shot learning for emotion detection\n\n\n\n\n\n\n\n\n\n\n\n\nsequence\nlabels\nscores\n\n\n\n\n0\ni don t feel particularly agitated\n[surprise, anger, joy, sadness, fear, love]\n[0.3600894808769226, 0.3018992841243744, 0.11901337653398514, 0.11381522566080093, 0.060392025858163834, 0.04479065164923668]\n\n\n1\ni feel beautifully emotional knowing that these women of whom i knew just a handful were holding me and my baba on our journey\n[joy, love, surprise, fear, sadness, anger]\n[0.3699415922164917, 0.2887157201766968, 0.25608018040657043, 0.04292364791035652, 0.0334492027759552, 0.008889684453606606]\n\n\n2\ni pay attention it deepens into a feeling of being invaded and helpless\n[fear, surprise, sadness, anger, joy, love]\n[0.3414682149887085, 0.308807909488678, 0.25616857409477234, 0.07989872992038727, 0.007844817824661732, 0.005811713170260191]\n\n\n3\ni just feel extremely comfortable with the group of people that i dont even need to hide myself\n[joy, surprise, love, sadness, anger, fear]\n[0.330521821975708, 0.29472413659095764, 0.15343177318572998, 0.07691384106874466, 0.07596709579229355, 0.06844125688076019]\n\n\n4\ni find myself in the odd position of feeling supportive of\n[surprise, joy, fear, love, sadness, anger]\n[0.8287973403930664, 0.043179724365472794, 0.039774090051651, 0.031413525342941284, 0.031412579119205475, 0.025422723963856697]\n\n\n5\ni was feeling as heartbroken as im sure katniss was\n[sadness, surprise, fear, love, anger, joy]\n[0.7667971849441528, 0.18184727430343628, 0.025871170684695244, 0.011756685562431812, 0.008171557448804379, 0.005556126125156879]\n\n\n6\ni feel a little mellow today\n[surprise, joy, love, fear, sadness, anger]\n[0.49373435974121094, 0.2632201910018921, 0.11367978155612946, 0.06402172893285751, 0.05095501244068146, 0.014388876967132092]\n\n\n7\ni feel like my only role now would be to tear your sails with my pessimism and discontent\n[sadness, anger, surprise, fear, joy, love]\n[0.6992793679237366, 0.20048710703849792, 0.061859212815761566, 0.03287450596690178, 0.003646905766800046, 0.0018528853543102741]\n\n\n8\ni feel just bcoz a fight we get mad to each other n u wanna make a publicity n let the world knows about our fight\n[anger, surprise, sadness, fear, joy, love]\n[0.6029902696609497, 0.19827134907245636, 0.10198818892240524, 0.0811697468161583, 0.01011709589511156, 0.005463308654725552]\n\n\n9\ni feel like reds and purples are just so rich and kind of perfect\n[joy, surprise, love, anger, fear, sadness]\n[0.36441487073898315, 0.305120587348938, 0.1946253925561905, 0.05556599050760269, 0.0541352778673172, 0.026137853041291237]"
+    "text": "Zero-shot learning for emotion detection\n\n\n\n\n\n\n\n\n\n\n\n\nsequence\nlabels\nscores\n\n\n\n\n0\ni don t feel particularly agitated\n[surprise, anger, joy, sadness, fear, love]\n[0.360086590051651, 0.3019047975540161, 0.11901281774044037, 0.11381449550390244, 0.060391612350940704, 0.04478970915079117]\n\n\n1\ni feel beautifully emotional knowing that these women of whom i knew just a handful were holding me and my baba on our journey\n[joy, love, surprise, fear, sadness, anger]\n[0.36994314193725586, 0.2887154817581177, 0.25607964396476746, 0.04292308911681175, 0.03344891220331192, 0.008889704942703247]\n\n\n2\ni pay attention it deepens into a feeling of being invaded and helpless\n[fear, surprise, sadness, anger, joy, love]\n[0.34146907925605774, 0.3088078498840332, 0.25616830587387085, 0.07989830523729324, 0.007844790816307068, 0.005811698734760284]\n\n\n3\ni just feel extremely comfortable with the group of people that i dont even need to hide myself\n[joy, surprise, love, sadness, anger, fear]\n[0.3305220901966095, 0.29472312331199646, 0.15343144536018372, 0.07691436260938644, 0.07596738636493683, 0.06844153255224228]\n\n\n4\ni find myself in the odd position of feeling supportive of\n[surprise, joy, fear, love, sadness, anger]\n[0.8287988901138306, 0.04317942634224892, 0.039773669093847275, 0.031413134187459946, 0.031412459909915924, 0.025422409176826477]\n\n\n5\ni was feeling as heartbroken as im sure katniss was\n[sadness, surprise, fear, love, anger, joy]\n[0.7667969465255737, 0.1818471997976303, 0.025871198624372482, 0.011756820604205132, 0.008171578869223595, 0.005556156858801842]\n\n\n6\ni feel a little mellow today\n[surprise, joy, love, fear, sadness, anger]\n[0.49373722076416016, 0.26321911811828613, 0.113678477704525, 0.06402145326137543, 0.050955016165971756, 0.01438874565064907]\n\n\n7\ni feel like my only role now would be to tear your sails with my pessimism and discontent\n[sadness, anger, surprise, fear, joy, love]\n[0.6992796063423157, 0.20048746466636658, 0.06185894086956978, 0.03287427872419357, 0.00364686525426805, 0.0018528560176491737]\n\n\n8\ni feel just bcoz a fight we get mad to each other n u wanna make a publicity n let the world knows about our fight\n[anger, surprise, sadness, fear, joy, love]\n[0.6029903292655945, 0.19827111065387726, 0.10198860615491867, 0.08116946369409561, 0.01011708565056324, 0.005463303066790104]\n\n\n9\ni feel like reds and purples are just so rich and kind of perfect\n[joy, surprise, love, anger, fear, sadness]\n[0.3644145727157593, 0.3051210045814514, 0.19462504982948303, 0.055566269904375076, 0.05413524806499481, 0.026137862354516983]"
   },
   {
     "objectID": "slides/slides-01-intro.html#example-predicting-labels-of-a-given-image",
@@ -235,14 +235,14 @@
     "href": "slides/slides-01-intro.html#k-means-on-food-dataset",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "K-Means on food dataset",
-    "text": "K-Means on food dataset\n\n\n\ndensenet = models.densenet121(weights=\"DenseNet121_Weights.IMAGENET1K_V1\")\ndensenet.classifier = torch.nn.Identity()  # remove that last \"classification\" layer\n\n\nZ_food = get_features_unsup(densenet, food_inputs)\nk = 5\nkm = KMeans(n_clusters=k, n_init='auto', random_state=123)\nkm.fit(Z_food)\n\nKMeans(n_clusters=5, random_state=123)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  KMeans?Documentation for KMeansiFittedKMeans(n_clusters=5, random_state=123)"
+    "text": "K-Means on food dataset\n\n\n\ndensenet = models.densenet121(weights=\"DenseNet121_Weights.IMAGENET1K_V1\")\ndensenet.classifier = torch.nn.Identity()  # remove that last \"classification\" layer\n\n\nZ_food = get_features_unsup(densenet, food_inputs)\nk = 5\nkm = KMeans(n_clusters=k, n_init='auto', random_state=123)\nkm.fit(Z_food)\n\nKMeans(n_clusters=5, random_state=123)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.KMeans?Documentation for KMeansiFitted\n        \n            \n                Parameters\n                \n\n\n\n\nn_clusters \n5\n\n\n\ninit \n'k-means++'\n\n\n\nn_init \n'auto'\n\n\n\nmax_iter \n300\n\n\n\ntol \n0.0001\n\n\n\nverbose \n0\n\n\n\nrandom_state \n123\n\n\n\ncopy_x \nTrue\n\n\n\nalgorithm \n'lloyd'"
   },
   {
     "objectID": "slides/slides-01-intro.html#examining-food-clusters",
     "href": "slides/slides-01-intro.html#examining-food-clusters",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Examining food clusters",
-    "text": "Examining food clusters\n\n\n\n\nfor cluster in range(k):\n    get_cluster_images(km, Z_food, X_food, cluster, n_img=6)\n\n174\nImage indices:  [174  52 125 226  17 195]\n\n\n\n\n\n\n\n\n\n17\nImage indices:  [ 17  25  72  54 174  36]\n\n\n\n\n\n\n\n\n\n50\nImage indices:  [ 50 217 204  30 149 224]\n\n\n\n\n\n\n\n\n\n81\nImage indices:  [ 81 206 189  35  71 165]\n\n\n\n\n\n\n\n\n\n11\nImage indices:  [ 11 225 170  58 268 145]"
+    "text": "Examining food clusters\n\n\n\n\nfor cluster in range(k):\n    get_cluster_images(km, Z_food, X_food, cluster, n_img=6)\n\n39\nImage indices:  [ 39 197  12  14 138 181]\n\n\n\n\n\n\n\n\n\n228\nImage indices:  [228  65 128  54 175 260]\n\n\n\n\n\n\n\n\n\n138\nImage indices:  [138  54 185 278  39  89]\n\n\n\n\n\n\n\n\n\n193\nImage indices:  [193  39 145 212 169 108]\n\n\n\n\n\n\n\n\n\n120\nImage indices:  [120 268 244  94  72  87]"
   },
   {
     "objectID": "slides/slides-01-intro.html#questions-for-you",
@@ -679,158 +679,228 @@
     "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#announcements",
-    "href": "slides/slides-07-linear-models.html#announcements",
-    "title": "Lecture 7: Linear models",
-    "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#recap-countvectorizer-input",
+    "href": "slides/slides-06-hyperparameter-optimization.html#recap-countvectorizer-input",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Recap: CountVectorizer input",
+    "text": "Recap: CountVectorizer input\n\nPrimarily designed to accept either a pandas.Series of text data or a 1D numpy array. It can also process a list of string data directly.\nUnlike many transformers that handle multiple features (DataFrame or 2D numpy array), CountVectorizer a single text column at a time.\nIf your dataset contains multiple text columns, you will need to instantiate separate CountVectorizer objects for each text feature.\nThis approach ensures that the unique vocabulary and tokenization processes are correctly applied to each specific text column without interference."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
-    "href": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-motivation",
+    "href": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-motivation",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Hyperparameter optimization motivation",
+    "text": "Hyperparameter optimization motivation"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#data",
+    "href": "slides/slides-06-hyperparameter-optimization.html#data",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Data",
+    "text": "Data\n\nsms_df = pd.read_csv(DATA_DIR + \"spam.csv\", encoding=\"latin-1\")\nsms_df = sms_df.drop(columns = [\"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"])\nsms_df = sms_df.rename(columns={\"v1\": \"target\", \"v2\": \"sms\"})\ntrain_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\ntrain_df.head(4)\n\n\n\n\n\n\n\n\ntarget\nsms\n\n\n\n\n3130\nspam\nLookAtMe!: Thanks for your purchase of a video...\n\n\n106\nham\nAight, I'll hit you up when I get some cash\n\n\n4697\nham\nDon no da:)whats you plan?\n\n\n856\nham\nGoing to take your babe out ?"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#model-building",
+    "href": "slides/slides-06-hyperparameter-optimization.html#model-building",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Model building",
+    "text": "Model building\n\nLet’s define a pipeline\n\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\n\nSuppose we want to try out different hyperparameter values.\n\n\nparameters = {\n    \"max_features\": [100, 200, 400],\n    \"gamma\": [0.01, 0.1, 1.0],\n    \"C\": [0.01, 0.1, 1.0],\n}"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-with-loops",
+    "href": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-with-loops",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Hyperparameter optimization with loops",
+    "text": "Hyperparameter optimization with loops\n\nDefine a parameter space.\nIterate through possible combinations.\nEvaluate model performance.\nWhat are some limitations of this approach?"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#sklearn-methods",
+    "href": "slides/slides-06-hyperparameter-optimization.html#sklearn-methods",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "sklearn methods",
+    "text": "sklearn methods\n\nsklearn provides two main methods for hyperparameter optimization\n\nGrid Search\nRandom Search"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#grid-search",
+    "href": "slides/slides-06-hyperparameter-optimization.html#grid-search",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Grid Search",
+    "text": "Grid Search\n\nCovers all possible combinations from the provided grid.\nCan be parallelized easily.\nIntegrates cross-validation."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#grid-search-example",
+    "href": "slides/slides-06-hyperparameter-optimization.html#grid-search-example",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Grid search example",
+    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\nnp.float64(0.9782606272997375)"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#random-search",
+    "href": "slides/slides-06-hyperparameter-optimization.html#random-search",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Random Search",
+    "text": "Random Search\n\nMore efficient than grid search when dealing with large hyperparameter spaces.\nSamples a given number of parameter settings from distributions."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#random-search-example",
+    "href": "slides/slides-06-hyperparameter-optimization.html#random-search-example",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Random search example",
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.9826484618002279)"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#pizza-baking-competition-example",
+    "href": "slides/slides-06-hyperparameter-optimization.html#pizza-baking-competition-example",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Pizza baking competition example",
+    "text": "Pizza baking competition example\nImagine that you participate in pizza baking competition.\n\n\nTraining phase: Collecting recipes and practicing\nValidation phase: Inviting a group of friends and getting feedback"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set",
+    "href": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Overfitting on the validation set",
+    "text": "Overfitting on the validation set\n\n\n\nYour friends love your pineapple pizza you hesitantly tried out.\nEncouraged by their enthusiasm, you decide to focus on perfecting this recipe, believing it to be a crowd-pleaser\n\n\n\nCompetition day!\n\nYou confidently present your perfected pineapple pizza, expecting it to be a hit\nThe judges are not impressed. They criticize the choice of pineapple, pointing out that it might not appeal to a general audience."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set-1",
+    "href": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set-1",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Overfitting on the validation set",
+    "text": "Overfitting on the validation set\n\nBy focusing solely on the positive feedback from your pineapple-loving friends, you’ve overfitted your pizza to their tastes. This group, however, was not representative of the broader preferences of the competition judges or the general public.\nThe pizza, while perfect for your validation group, failed to generalize across a broader range of tastes, leading to disappointing results in the competition where diverse preferences were expected."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#optimization-bias-1",
+    "href": "slides/slides-06-hyperparameter-optimization.html#optimization-bias-1",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Optimization bias",
+    "text": "Optimization bias\n\nWhy do we need separate validation and test datasets?"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#mitigating-optimization-bias.",
+    "href": "slides/slides-06-hyperparameter-optimization.html#mitigating-optimization-bias.",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Mitigating optimization bias.",
+    "text": "Mitigating optimization bias.\n\nCross-validation\nEnsembles\nRegularization and choosing a simpler model"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#iclicker-exercise-6.1",
+    "href": "slides/slides-06-hyperparameter-optimization.html#iclicker-exercise-6.1",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "(iClicker) Exercise 6.1",
+    "text": "(iClicker) Exercise 6.1\niClicker cloud join link: https://join.iclicker.com/YWOJ\nSelect all of the following statements which are TRUE.\n\n\nIf you get best results at the edges of your parameter grid, it might be a good idea to adjust the range of values in your parameter grid.\n\n\nGrid search is guaranteed to find the best hyperparameter values.\n\n\nIt is possible to get different hyperparameters in different runs of RandomizedSearchCV."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#questions-for-you",
+    "href": "slides/slides-06-hyperparameter-optimization.html#questions-for-you",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Questions for you",
+    "text": "Questions for you\n\nYou have a dataset and you give me 1/10th of it. The dataset given to me is rather small and so I split it into 96% train and 4% validation split. I carry out hyperparameter optimization using a single 4% validation split and report validation accuracy of 0.97. Would it classify the rest of the data with similar accuracy?\n\nProbably\nProbably not"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#questions-for-class-discussion",
+    "href": "slides/slides-06-hyperparameter-optimization.html#questions-for-class-discussion",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Questions for class discussion",
+    "text": "Questions for class discussion\n\nSuppose you have 10 hyperparameters, each with 4 possible values. If you run GridSearchCV with this parameter grid, how many cross-validation experiments will be carried out?\nSuppose you have 10 hyperparameters and each takes 4 values. If you run RandomizedSearchCV with this parameter grid with n_iter=20, how many cross-validation experiments will be carried out?"
+  },
+  {
+    "objectID": "slides/old-slides-07-linear-models.html#announcements",
+    "href": "slides/old-slides-07-linear-models.html#announcements",
+    "title": "CPSC 330 Lecture 7: Linear models",
+    "section": "Announcements",
+    "text": "Announcements\n\nImportant information about midterm 1\nChange of my office hours\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Tuesday, Sept 29th, 11:59 pm."
+  },
+  {
+    "objectID": "slides/old-slides-07-linear-models.html#recap-dealing-with-text-features",
+    "href": "slides/old-slides-07-linear-models.html#recap-dealing-with-text-features",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Recap: Dealing with text features",
     "text": "Recap: Dealing with text features\n\nPreprocessing text to fit into machine learning models using text vectorization.\nBag of words representation"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
-    "href": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "href": "slides/old-slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Recap: sklearn CountVectorizer",
     "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#recap-incorporating-text-features-in-a-machine-learning-pipeline",
+    "href": "slides/old-slides-07-linear-models.html#recap-incorporating-text-features-in-a-machine-learning-pipeline",
+    "title": "CPSC 330 Lecture 7: Linear models",
+    "section": "Recap: Incorporating text features in a machine learning pipeline",
+    "text": "Recap: Incorporating text features in a machine learning pipeline\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.svm import SVC\nfrom sklearn.pipeline import make_pipeline\n\ntext_pipeline = make_pipeline(\n    CountVectorizer(),\n    SVC()\n)"
+  },
+  {
+    "objectID": "slides/old-slides-07-linear-models.html#iclicker-exercise-6.2",
+    "href": "slides/old-slides-07-linear-models.html#iclicker-exercise-6.2",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "(iClicker) Exercise 6.2",
     "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#linear-models",
-    "href": "slides/slides-07-linear-models.html#linear-models",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#linear-models",
+    "href": "slides/old-slides-07-linear-models.html#linear-models",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Linear models",
-    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions: \\(y_{hat} = w_1 \\times \\text{\\# hours studied} + w_0\\)"
+    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions\n\n\\[ y_{hat} = w_1 \\times \\text{# hours studied} + w_0\\]"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
-    "href": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#ridge-vs.-linearregression",
+    "href": "slides/old-slides-07-linear-models.html#ridge-vs.-linearregression",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Ridge vs. LinearRegression",
     "text": "Ridge vs. LinearRegression\n\nOrdinary linear regression is sensitive to multicolinearity and overfitting\nMulticolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.\n\nLinear regression may produce large and unstable coefficients in such cases.\nRidge adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#when-to-use-what",
-    "href": "slides/slides-07-linear-models.html#when-to-use-what",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#when-to-use-what",
+    "href": "slides/old-slides-07-linear-models.html#when-to-use-what",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "When to use what?",
     "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#logistic-regression",
-    "href": "slides/slides-07-linear-models.html#logistic-regression",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#logistic-regression",
+    "href": "slides/old-slides-07-linear-models.html#logistic-regression",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Logistic regression",
     "text": "Logistic regression\n\nSuppose your target is binary: pass or fail\nLogistic regression is used for such binary classification tasks.\n\nLogistic regression predicts a probability that the given example belongs to a particular class.\nIt uses Sigmoid function to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.\nA threshold (usually 0.5) is applied to the predicted probability to decide the final class label."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
-    "href": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "href": "slides/old-slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Logistic regression: Decision boundary",
-    "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
+    "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#sentiment-analysis-example",
-    "href": "slides/slides-07-linear-models.html#sentiment-analysis-example",
-    "title": "Lecture 7: Linear models",
-    "section": "Sentiment analysis example",
-    "text": "Sentiment analysis example\n\n\n\n\n\nLogistic regression learns coefficients for each word from training data.\n\nPositive coefficients \\(\\rightarrow\\) push prediction toward positive class.\n\nNegative coefficients \\(\\rightarrow\\) push prediction toward negative class.\n\nIn this example, positive words (fun, rewarding) outweigh the negative word (long), so the overall sentiment is likely positive."
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
-    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "href": "slides/old-slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Parametric vs. non-Parametric models (high-level)",
     "text": "Parametric vs. non-Parametric models (high-level)\n\nImagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.\nScenario 1: 100 features and 1,000 examples\nScenario 2: 100 features and 1 million examples"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
-    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "href": "slides/old-slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "Parametric vs. non-Parametric models (high-level)",
     "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#iclicker-exercise-7.1",
+    "href": "slides/old-slides-07-linear-models.html#iclicker-exercise-7.1",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "(iClicker) Exercise 7.1",
     "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/old-slides-07-linear-models.html#iclicker-exercise-7.2",
+    "href": "slides/old-slides-07-linear-models.html#iclicker-exercise-7.2",
+    "title": "CPSC 330 Lecture 7: Linear models",
     "section": "(iClicker) Exercise 7.2",
     "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
-    "href": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
-    "title": "Lecture 7: Linear models",
-    "section": "Softmax Function for Probabilities",
-    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#making-predictions",
-    "href": "slides/slides-07-linear-models.html#making-predictions",
-    "title": "Lecture 7: Linear models",
-    "section": "Making Predictions",
-    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class \\(\\hat{y}\\) is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
-    "href": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
-    "title": "Lecture 7: Linear models",
-    "section": "Binary vs multinomial logistic regression",
-    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#activity-time-permitting",
-    "href": "slides/slides-07-linear-models.html#activity-time-permitting",
-    "title": "Lecture 7: Linear models",
-    "section": "Activity (time-permitting)",
-    "text": "Activity (time-permitting)\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#activity-description",
-    "href": "slides/slides-07-linear-models.html#activity-description",
-    "title": "Lecture 7: Linear models",
-    "section": "Activity description",
-    "text": "Activity description\n\nYour task is to engage in group discussions and fill in the designated row in this Google document.\nFor strengths and weaknesses, some things to consider are:\n\nconcerns about underfitting\nconcerns about overfitting\nspeed\nscalability for large data sets\n\ninterpretability\neffectiveness on sparse data\nease of use for multi-class classification\n\nability to represent uncertainty\ntime/space complexity\netc."
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#estimators",
-    "href": "slides/slides-07-linear-models.html#estimators",
-    "title": "Lecture 7: Linear models",
-    "section": "Estimators",
-    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#transformers",
-    "href": "slides/slides-07-linear-models.html#transformers",
-    "title": "Lecture 7: Linear models",
-    "section": "Transformers",
-    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#coming-up",
-    "href": "slides/slides-07-linear-models.html#coming-up",
-    "title": "Lecture 7: Linear models",
-    "section": "Coming up",
-    "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
   },
   {
     "objectID": "lecture-08.html",
@@ -1427,6 +1497,160 @@
     "text": "The golden rule\n\nAlthough our primary concern is the model’s performance on the test data, this data should not influence the training process in any way.\n\n\n\n Source: Image generated by ChatGPT 5\n\n\nTest data = final exam\n\nYou can practice all you want with training/validation data\nBut never peek at the test set before evaluation\nOtherwise, it’s like sneaking answers before the exam \\(\\rightarrow\\) not a real assessment of your learning."
   },
   {
+    "objectID": "slides/slides-07-linear-models.html#announcements",
+    "href": "slides/slides-07-linear-models.html#announcements",
+    "title": "Lecture 7: Linear models",
+    "section": "Announcements",
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
+    "href": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
+    "title": "Lecture 7: Linear models",
+    "section": "Recap: Dealing with text features",
+    "text": "Recap: Dealing with text features\n\nPreprocessing text to fit into machine learning models using text vectorization.\nBag of words representation"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "href": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "title": "Lecture 7: Linear models",
+    "section": "Recap: sklearn CountVectorizer",
+    "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 6.2",
+    "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#linear-models",
+    "href": "slides/slides-07-linear-models.html#linear-models",
+    "title": "Lecture 7: Linear models",
+    "section": "Linear models",
+    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions: \\(y_{hat} = w_1 \\times \\text{\\# hours studied} + w_0\\)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
+    "href": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
+    "title": "Lecture 7: Linear models",
+    "section": "Ridge vs. LinearRegression",
+    "text": "Ridge vs. LinearRegression\n\nOrdinary linear regression is sensitive to multicolinearity and overfitting\nMulticolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.\n\nLinear regression may produce large and unstable coefficients in such cases.\nRidge adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#when-to-use-what",
+    "href": "slides/slides-07-linear-models.html#when-to-use-what",
+    "title": "Lecture 7: Linear models",
+    "section": "When to use what?",
+    "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#logistic-regression",
+    "href": "slides/slides-07-linear-models.html#logistic-regression",
+    "title": "Lecture 7: Linear models",
+    "section": "Logistic regression",
+    "text": "Logistic regression\n\nSuppose your target is binary: pass or fail\nLogistic regression is used for such binary classification tasks.\n\nLogistic regression predicts a probability that the given example belongs to a particular class.\nIt uses Sigmoid function to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.\nA threshold (usually 0.5) is applied to the predicted probability to decide the final class label."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "href": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "title": "Lecture 7: Linear models",
+    "section": "Logistic regression: Decision boundary",
+    "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "href": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "title": "Lecture 7: Linear models",
+    "section": "Sentiment analysis example",
+    "text": "Sentiment analysis example\n\n\n\n\n\nLogistic regression learns coefficients for each word from training data.\n\nPositive coefficients \\(\\rightarrow\\) push prediction toward positive class.\n\nNegative coefficients \\(\\rightarrow\\) push prediction toward negative class.\n\nIn this example, positive words (fun, rewarding) outweigh the negative word (long), so the overall sentiment is likely positive."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "title": "Lecture 7: Linear models",
+    "section": "Parametric vs. non-Parametric models (high-level)",
+    "text": "Parametric vs. non-Parametric models (high-level)\n\nImagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.\nScenario 1: 100 features and 1,000 examples\nScenario 2: 100 features and 1 million examples"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "title": "Lecture 7: Linear models",
+    "section": "Parametric vs. non-Parametric models (high-level)",
+    "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 7.1",
+    "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 7.2",
+    "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
+    "href": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
+    "title": "Lecture 7: Linear models",
+    "section": "Softmax Function for Probabilities",
+    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#making-predictions",
+    "href": "slides/slides-07-linear-models.html#making-predictions",
+    "title": "Lecture 7: Linear models",
+    "section": "Making Predictions",
+    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class \\(\\hat{y}\\) is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
+    "href": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
+    "title": "Lecture 7: Linear models",
+    "section": "Binary vs multinomial logistic regression",
+    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#activity-time-permitting",
+    "href": "slides/slides-07-linear-models.html#activity-time-permitting",
+    "title": "Lecture 7: Linear models",
+    "section": "Activity (time-permitting)",
+    "text": "Activity (time-permitting)\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#activity-description",
+    "href": "slides/slides-07-linear-models.html#activity-description",
+    "title": "Lecture 7: Linear models",
+    "section": "Activity description",
+    "text": "Activity description\n\nYour task is to engage in group discussions and fill in the designated row in this Google document.\nFor strengths and weaknesses, some things to consider are:\n\nconcerns about underfitting\nconcerns about overfitting\nspeed\nscalability for large data sets\n\ninterpretability\neffectiveness on sparse data\nease of use for multi-class classification\n\nability to represent uncertainty\ntime/space complexity\netc."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#estimators",
+    "href": "slides/slides-07-linear-models.html#estimators",
+    "title": "Lecture 7: Linear models",
+    "section": "Estimators",
+    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#transformers",
+    "href": "slides/slides-07-linear-models.html#transformers",
+    "title": "Lecture 7: Linear models",
+    "section": "Transformers",
+    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#coming-up",
+    "href": "slides/slides-07-linear-models.html#coming-up",
+    "title": "Lecture 7: Linear models",
+    "section": "Coming up",
+    "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
+  },
+  {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#section",
     "href": "slides/slides-08-hyperparameter-optimization.html#section",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
@@ -1522,7 +1746,7 @@
     "href": "slides/slides-08-hyperparameter-optimization.html#grid-search-example",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Grid search example",
-    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\n0.9782606272997375"
+    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\nnp.float64(0.9782606272997375)"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#random-search",
@@ -1532,11 +1756,18 @@
     "text": "Random Search\n\nMore efficient than grid search when dealing with large hyperparameter spaces.\nSamples a given number of parameter settings from distributions."
   },
   {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#grandmas-recipe",
+    "href": "slides/slides-08-hyperparameter-optimization.html#grandmas-recipe",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Grandma’s Recipe",
+    "text": "Grandma’s Recipe\n\n\n\nGrandma’s recipe is missing: How much spice to add? 🌶\n\n\nSource: Image created using ChatGPT 5.0\n\n\nMethod 1: Grid Search\n\nTry 0.5 tsp, 1.0 tsp, 1.5 tsp, 2.0 tsp\n\n\nMethod 2: Random Search\n\nEach trial: pick a scoop of spice at random\n\nUniform(0,2) → all scoop sizes equally likely\n\nNormal(1, 0.5) → most scoops around 1 tsp, fewer at the extremes"
+  },
+  {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#random-search-example",
     "href": "slides/slides-08-hyperparameter-optimization.html#random-search-example",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Random search example",
-    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\n0.9814518520287443"
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.9844434759593476)"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#pizza-baking-competition-example",
