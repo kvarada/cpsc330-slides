@@ -32,11 +32,20 @@ from scipy.stats import expon, lognorm, loguniform, randint, uniform, norm, rand
 import mglearn
 DATA_DIR = 'data/' 
 ```
-## Focus on the breath! 
+##
 
-::: {.center}
-![](img/inukshuk.jpeg){height=80%}
+:::: {columns}
+
+::: {.column width="60%"}
+![](img/inukshuk.jpeg)
 :::
+
+::: {.column width="40%"}
+
+Focus on the breath!
+
+:::
+::::
 
 ## Check-in
 
