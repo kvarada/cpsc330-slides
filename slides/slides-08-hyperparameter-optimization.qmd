@@ -35,17 +35,19 @@ DATA_DIR = 'data/'
 ```
 ## Focus on the breath! 
 
-![](img/inukshuk.jpeg)
+::: {.center}
+![](img/inukshuk.jpeg){width=70%}
+:::
 
 ## Check-in
 
 **How are you feeling today?**
 
-- Things are under control! 
-- Excited about hyperparameter optimization! 
-- Lost 😞
-- Tired / Sleepy 😴
-- Secretly thinking of lunch 🍕  
+- (A) Things are more or less under control! 
+- (B) Excited about hyperparameter optimization! 
+- (C) Lost 😞
+- (D) Tired / Sleepy 😴
+- (E) Secretly thinking of lunch 🥗 
 
 ## Announcements 
 
