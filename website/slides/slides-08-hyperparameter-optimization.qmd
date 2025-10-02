@@ -16,14 +16,6 @@ format:
       - img/  
 ---
 
-## Announcements 
-
-- Important information about midterm 1
-  - https://piazza.com/class/mekbcze4gyber/post/162
-- HW3 was due on Monday, Sept 29th 11:59 pm. 
-- HW4 has been released 
-
-
 ```{python}
 import os
 import sys
@@ -41,6 +33,28 @@ from scipy.stats import expon, lognorm, loguniform, randint, uniform, norm, rand
 import mglearn
 DATA_DIR = 'data/' 
 ```
+## Focus on the breath! 
+
+::: {.center}
+![](img/inukshuk.jpeg){width=70%}
+:::
+
+## Check-in
+
+**How are you feeling today?**
+
+- (A) Things are more or less under control! 
+- (B) Excited about hyperparameter optimization! 
+- (C) Lost 😞
+- (D) Tired / Sleepy 😴
+- (E) Secretly thinking of lunch 🥗 
+
+## Announcements 
+
+- Important information about midterm 1
+  - https://piazza.com/class/mekbcze4gyber/post/162
+- HW3 was due on Monday, Sept 29th 11:59 pm. 
+- HW4 has been released 
 
 ## Recap: iClicker LR1
 
