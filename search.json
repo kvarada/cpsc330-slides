@@ -679,6 +679,132 @@
     "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#recap-countvectorizer-input",
+    "href": "slides/slides-06-hyperparameter-optimization.html#recap-countvectorizer-input",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Recap: CountVectorizer input",
+    "text": "Recap: CountVectorizer input\n\nPrimarily designed to accept either a pandas.Series of text data or a 1D numpy array. It can also process a list of string data directly.\nUnlike many transformers that handle multiple features (DataFrame or 2D numpy array), CountVectorizer a single text column at a time.\nIf your dataset contains multiple text columns, you will need to instantiate separate CountVectorizer objects for each text feature.\nThis approach ensures that the unique vocabulary and tokenization processes are correctly applied to each specific text column without interference."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-motivation",
+    "href": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-motivation",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Hyperparameter optimization motivation",
+    "text": "Hyperparameter optimization motivation"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#data",
+    "href": "slides/slides-06-hyperparameter-optimization.html#data",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Data",
+    "text": "Data\n\nsms_df = pd.read_csv(DATA_DIR + \"spam.csv\", encoding=\"latin-1\")\nsms_df = sms_df.drop(columns = [\"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"])\nsms_df = sms_df.rename(columns={\"v1\": \"target\", \"v2\": \"sms\"})\ntrain_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\ntrain_df.head(4)\n\n\n\n\n\n\n\n\ntarget\nsms\n\n\n\n\n3130\nspam\nLookAtMe!: Thanks for your purchase of a video...\n\n\n106\nham\nAight, I'll hit you up when I get some cash\n\n\n4697\nham\nDon no da:)whats you plan?\n\n\n856\nham\nGoing to take your babe out ?"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#model-building",
+    "href": "slides/slides-06-hyperparameter-optimization.html#model-building",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Model building",
+    "text": "Model building\n\nLet’s define a pipeline\n\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\n\nSuppose we want to try out different hyperparameter values.\n\n\nparameters = {\n    \"max_features\": [100, 200, 400],\n    \"gamma\": [0.01, 0.1, 1.0],\n    \"C\": [0.01, 0.1, 1.0],\n}"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-with-loops",
+    "href": "slides/slides-06-hyperparameter-optimization.html#hyperparameter-optimization-with-loops",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Hyperparameter optimization with loops",
+    "text": "Hyperparameter optimization with loops\n\nDefine a parameter space.\nIterate through possible combinations.\nEvaluate model performance.\nWhat are some limitations of this approach?"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#sklearn-methods",
+    "href": "slides/slides-06-hyperparameter-optimization.html#sklearn-methods",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "sklearn methods",
+    "text": "sklearn methods\n\nsklearn provides two main methods for hyperparameter optimization\n\nGrid Search\nRandom Search"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#grid-search",
+    "href": "slides/slides-06-hyperparameter-optimization.html#grid-search",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Grid Search",
+    "text": "Grid Search\n\nCovers all possible combinations from the provided grid.\nCan be parallelized easily.\nIntegrates cross-validation."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#grid-search-example",
+    "href": "slides/slides-06-hyperparameter-optimization.html#grid-search-example",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Grid search example",
+    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\nnp.float64(0.9782606272997375)"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#random-search",
+    "href": "slides/slides-06-hyperparameter-optimization.html#random-search",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Random Search",
+    "text": "Random Search\n\nMore efficient than grid search when dealing with large hyperparameter spaces.\nSamples a given number of parameter settings from distributions."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#random-search-example",
+    "href": "slides/slides-06-hyperparameter-optimization.html#random-search-example",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Random search example",
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.9826484618002279)"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#pizza-baking-competition-example",
+    "href": "slides/slides-06-hyperparameter-optimization.html#pizza-baking-competition-example",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Pizza baking competition example",
+    "text": "Pizza baking competition example\nImagine that you participate in pizza baking competition.\n\n\nTraining phase: Collecting recipes and practicing\nValidation phase: Inviting a group of friends and getting feedback"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set",
+    "href": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Overfitting on the validation set",
+    "text": "Overfitting on the validation set\n\n\n\nYour friends love your pineapple pizza you hesitantly tried out.\nEncouraged by their enthusiasm, you decide to focus on perfecting this recipe, believing it to be a crowd-pleaser\n\n\n\nCompetition day!\n\nYou confidently present your perfected pineapple pizza, expecting it to be a hit\nThe judges are not impressed. They criticize the choice of pineapple, pointing out that it might not appeal to a general audience."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set-1",
+    "href": "slides/slides-06-hyperparameter-optimization.html#overfitting-on-the-validation-set-1",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Overfitting on the validation set",
+    "text": "Overfitting on the validation set\n\nBy focusing solely on the positive feedback from your pineapple-loving friends, you’ve overfitted your pizza to their tastes. This group, however, was not representative of the broader preferences of the competition judges or the general public.\nThe pizza, while perfect for your validation group, failed to generalize across a broader range of tastes, leading to disappointing results in the competition where diverse preferences were expected."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#optimization-bias-1",
+    "href": "slides/slides-06-hyperparameter-optimization.html#optimization-bias-1",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Optimization bias",
+    "text": "Optimization bias\n\nWhy do we need separate validation and test datasets?"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#mitigating-optimization-bias.",
+    "href": "slides/slides-06-hyperparameter-optimization.html#mitigating-optimization-bias.",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Mitigating optimization bias.",
+    "text": "Mitigating optimization bias.\n\nCross-validation\nEnsembles\nRegularization and choosing a simpler model"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#iclicker-exercise-6.1",
+    "href": "slides/slides-06-hyperparameter-optimization.html#iclicker-exercise-6.1",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "(iClicker) Exercise 6.1",
+    "text": "(iClicker) Exercise 6.1\niClicker cloud join link: https://join.iclicker.com/YWOJ\nSelect all of the following statements which are TRUE.\n\n\nIf you get best results at the edges of your parameter grid, it might be a good idea to adjust the range of values in your parameter grid.\n\n\nGrid search is guaranteed to find the best hyperparameter values.\n\n\nIt is possible to get different hyperparameters in different runs of RandomizedSearchCV."
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#questions-for-you",
+    "href": "slides/slides-06-hyperparameter-optimization.html#questions-for-you",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Questions for you",
+    "text": "Questions for you\n\nYou have a dataset and you give me 1/10th of it. The dataset given to me is rather small and so I split it into 96% train and 4% validation split. I carry out hyperparameter optimization using a single 4% validation split and report validation accuracy of 0.97. Would it classify the rest of the data with similar accuracy?\n\nProbably\nProbably not"
+  },
+  {
+    "objectID": "slides/slides-06-hyperparameter-optimization.html#questions-for-class-discussion",
+    "href": "slides/slides-06-hyperparameter-optimization.html#questions-for-class-discussion",
+    "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
+    "section": "Questions for class discussion",
+    "text": "Questions for class discussion\n\nSuppose you have 10 hyperparameters, each with 4 possible values. If you run GridSearchCV with this parameter grid, how many cross-validation experiments will be carried out?\nSuppose you have 10 hyperparameters and each takes 4 values. If you run RandomizedSearchCV with this parameter grid with n_iter=20, how many cross-validation experiments will be carried out?"
+  },
+  {
     "objectID": "slides/old-slides-07-linear-models.html#announcements",
     "href": "slides/old-slides-07-linear-models.html#announcements",
     "title": "CPSC 330 Lecture 7: Linear models",
@@ -777,262 +903,135 @@
     "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
   },
   {
-    "objectID": "lecture-07.html",
-    "href": "lecture-07.html",
-    "title": "Lecture 7: Linear models",
+    "objectID": "lecture-08.html",
+    "href": "lecture-08.html",
+    "title": "Lecture 8: Hyperparameter Optimization",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 7: Linear models"
+      "Lecture 8: Hyperparameter Optimization"
     ]
   },
   {
-    "objectID": "lecture-07.html#slides",
-    "href": "lecture-07.html#slides",
-    "title": "Lecture 7: Linear models",
+    "objectID": "lecture-08.html#slides",
+    "href": "lecture-08.html#slides",
+    "title": "Lecture 8: Hyperparameter Optimization",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 7: Linear models"
+      "Lecture 8: Hyperparameter Optimization"
     ]
   },
   {
-    "objectID": "lecture-07.html#outline",
-    "href": "lecture-07.html#outline",
-    "title": "Lecture 7: Linear models",
+    "objectID": "lecture-08.html#outline",
+    "href": "lecture-08.html#outline",
+    "title": "Lecture 8: Hyperparameter Optimization",
     "section": "Outline",
-    "text": "Outline\n\nIntuition behind linear models\nLinear regression and logistic regression\nscikit-learn’s Ridge model\nPrediction probabilities\nInterpret model predictions using coefficients learned by a linear model\nParametric vs. non-parametric models",
+    "text": "Outline\n\nWhy hyperparameter optimization?\nHyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV\nOptimization bias",
     "crumbs": [
       "Lectures",
-      "Lecture 7: Linear models"
+      "Lecture 8: Hyperparameter Optimization"
     ]
   },
   {
-    "objectID": "lecture-05.html",
-    "href": "lecture-05.html",
-    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "objectID": "lecture-06.html",
+    "href": "lecture-06.html",
+    "title": "Lecture 6: sklearn column transformer and text fearutres",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 5: Preprocessing and sklearn pipelines"
+      "Lecture 6: `sklearn` column transformer and text fearutres"
     ]
   },
   {
-    "objectID": "lecture-05.html#slides",
-    "href": "lecture-05.html#slides",
-    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "objectID": "lecture-06.html#slides",
+    "href": "lecture-06.html#slides",
+    "title": "Lecture 6: sklearn column transformer and text fearutres",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 5: Preprocessing and sklearn pipelines"
+      "Lecture 6: `sklearn` column transformer and text fearutres"
     ]
   },
   {
-    "objectID": "lecture-05.html#outline",
-    "href": "lecture-05.html#outline",
-    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "objectID": "lecture-06.html#outline",
+    "href": "lecture-06.html#outline",
+    "title": "Lecture 6: sklearn column transformer and text fearutres",
     "section": "Outline",
-    "text": "Outline\n\nRecap\nPreprocessing motivation\nCommon transformations in sklearn\nsklearn transformers vs. Estimators\nThe golden rule in the feature transformations\nsklearn pipelines",
+    "text": "Outline\n\nRecap\nColumn transformer\nArguments of one-hot encoder\nsklearn CountVectorizer\nincorporating text features in the pipeline",
     "crumbs": [
       "Lectures",
-      "Lecture 5: Preprocessing and sklearn pipelines"
+      "Lecture 6: `sklearn` column transformer and text fearutres"
     ]
   },
   {
-    "objectID": "lecture-03.html",
-    "href": "lecture-03.html",
-    "title": "Lecture 3: ML fundamentals",
+    "objectID": "lecture-04.html",
+    "href": "lecture-04.html",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 3: ML fundamentals"
+      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
     ]
   },
   {
-    "objectID": "lecture-03.html#slides",
-    "href": "lecture-03.html#slides",
-    "title": "Lecture 3: ML fundamentals",
+    "objectID": "lecture-04.html#slides",
+    "href": "lecture-04.html#slides",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 3: ML fundamentals"
+      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
     ]
   },
   {
-    "objectID": "lecture-03.html#outline",
-    "href": "lecture-03.html#outline",
-    "title": "Lecture 3: ML fundamentals",
+    "objectID": "lecture-04.html#outline",
+    "href": "lecture-04.html#outline",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
     "section": "Outline",
-    "text": "Outline\n\nGeneralization, data splitting\nCross-validation\nOverfitting, underfitting, the fundamental tradeoff\nThe golden rule",
+    "text": "Outline\n\nRecap\nSimilarity-based algorithms\n\\(k\\)-nearest neighbours intuitions\nCurse of dimensionality\nSVM with RBF kernel intuition\nInterpretation of C and gamma hyperparameters of SVM RBF",
     "crumbs": [
       "Lectures",
-      "Lecture 3: ML fundamentals"
+      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
     ]
   },
   {
-    "objectID": "lecture-01.html",
-    "href": "lecture-01.html",
-    "title": "Lecture 1: Course introduction",
+    "objectID": "lecture-02.html",
+    "href": "lecture-02.html",
+    "title": "Lecture 2: Terminology, baselines, decision Trees",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 1: Course introduction"
+      "Lecture 2: Terminology, baselines, decision Trees"
     ]
   },
   {
-    "objectID": "lecture-01.html#slides",
-    "href": "lecture-01.html#slides",
-    "title": "Lecture 1: Course introduction",
+    "objectID": "lecture-02.html#slides",
+    "href": "lecture-02.html#slides",
+    "title": "Lecture 2: Terminology, baselines, decision Trees",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 1: Course introduction"
+      "Lecture 2: Terminology, baselines, decision Trees"
     ]
   },
   {
-    "objectID": "lecture-01.html#outline",
-    "href": "lecture-01.html#outline",
-    "title": "Lecture 1: Course introduction",
+    "objectID": "lecture-02.html#outline",
+    "href": "lecture-02.html#outline",
+    "title": "Lecture 2: Terminology, baselines, decision Trees",
     "section": "Outline",
-    "text": "Outline\n\nWhat is machine learning\nTypes of machine learning\nLearning to navigate through the course materials\nGetting familiar with the course policies",
+    "text": "Outline\n\nFeatures, target, examples, training\nParameters and hyperparameters\nDecision boundary\nClassification vs. regression\nInference vs. prediction\nAccuracy vs. error, baselines\nIntuition of decision trees",
     "crumbs": [
       "Lectures",
-      "Lecture 1: Course introduction"
-    ]
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#announcements",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#announcements",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Announcements",
-    "text": "Announcements\n\nhw2 is due tonight.\nSyllabus quiz due date is September 19th, 11:59 pm.\nHomework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)\n\nYou can work in pairs for this assignment.\n\nIf you were on the waitlist, you should now know your course enrollment status.\nThe lecture notes here align with the content presented in the videos. Even though we do not cover all the content from these notebooks during lectures, it’s your responsibility to go through them on your own."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-1",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-1",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Recap: iClicker overfitting 1",
-    "text": "Recap: iClicker overfitting 1\nWhich of the following scenarios do NOT necessarily imply overfitting?\n\n\nTraining accuracy is very high (0.98) while validation accuracy is much lower (0.60).\n\n\nIn a wildlife classifier, the model predicts “wolf” whenever there”s snow in the background, because all wolf photos were taken in snowy regions.\n\n\nThe decision boundary of a classifier is wiggly and highly irregular.\n\n\nTraining and validation accuracies are both approximately 0.88.\n\n\nA cancer detection model learns that “a ruler in the corner of the X-ray” means positive, because doctors tended to measure suspicious cases."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-2",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-2",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Recap: iClicker overfitting 2",
-    "text": "Recap: iClicker overfitting 2\nWhich of the following statements about overfitting is true?\n\n\nOverfitting makes the model more accurate on both training and unseen data.\n\n\nOverfitting means the model captures noise or irrelevant details from the training data.\n\n\nOverfitting is desirable because it reduces both training and test error.\n\n\nIn real-world problems, models are always at risk of overfitting if not properly validated."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-underfitting",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-underfitting",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Recap: iClicker underfitting",
-    "text": "Recap: iClicker underfitting\nHow might one address the issue of underfitting in a machine learning model.\n\n\nIntroduce more noise to the training data.\n\n\nRemove features that might be relevant to the prediction.\n\n\nIncrease the model’s complexity (e.g., more parameters, features, or deeper trees)\n\n\nUse a smaller dataset for training."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#the-fundamental-tradeoff",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#the-fundamental-tradeoff",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "The fundamental tradeoff",
-    "text": "The fundamental tradeoff\n\n\n\n\n\n\n\n\n\nAs you increase the model complexity, training score tends to go up and the gap between train and validation scores tends to go up.\n\nHow to pick a model?"
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.1",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.1",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "iClicker 4.1",
-    "text": "iClicker 4.1\nSelect all of the following statements which are TRUE.\n\n\nAnalogy-based models find examples from the test set that are most similar to the query example we are predicting.\n\n\nEuclidean distance will always have a non-negative value.\n\n\nWith \\(k\\)-NN, setting the hyperparameter \\(k\\) to larger values typically reduces training error.\n\n\nSimilar to decision trees, \\(k\\)-NNs finds a small set of good features.\n\n\nIn \\(k\\)-NN, with \\(k &gt; 1\\), the classification of the closest neighbour to the test example always contributes the most to the prediction."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.2",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.2",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "iClicker 4.2",
-    "text": "iClicker 4.2\nSelect all of the following statements which are TRUE.\n\n\n\\(k\\)-NN may perform poorly in high-dimensional space (say, d &gt; 1000).\n\n\nIn sklearn’s SVC classifier, large values of gamma tend to result in higher training score but probably lower validation score.\n\n\nIf we increase both gamma and C, we can’t be certain if the model becomes more complex or less complex."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#similarity-based-algorithms",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#similarity-based-algorithms",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Similarity-based algorithms",
-    "text": "Similarity-based algorithms\n\nUse similarity or distance metrics to predict targets.\nExamples: \\(k\\)-nearest neighbors, Support Vector Machines (SVMs) with RBF Kernel."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#k-nearest-neighbours",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#k-nearest-neighbours",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "\\(k\\)-nearest neighbours",
-    "text": "\\(k\\)-nearest neighbours\n\nClassifies an object based on the majority label among its \\(k\\) closest neighbors.\nMain hyperparameter: \\(k\\) or n_neighbors in sklearn\nDistance Metrics: Euclidean\nStrengths: simple and intuitive, can learn complex decision boundaries\nChallenges: Sensitive to the choice of distance metric and scaling (coming up)."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#curse-of-dimensionality",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#curse-of-dimensionality",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Curse of dimensionality",
-    "text": "Curse of dimensionality\n\nAs dimensionality increases, the volume of the space increases exponentially, making the data sparse.\nDistance metrics lose meaning\n\nAccidental similarity swamps out meaningful similarity\nAll points become almost equidistant.\n\nOverfitting becomes likely: Harder to generalize with high-dimensional data.\nHow to deal with this?\n\nDimensionality reduction (PCA) (not covered in this course)\nFeature selection techniques."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#svms-with-rbf-kernel",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#svms-with-rbf-kernel",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "SVMs with RBF kernel",
-    "text": "SVMs with RBF kernel\n\nRBF Kernel: Radial Basis Function, a way to transform data into higher dimensions implicitly.\nStrengths\n\nEffective in high-dimensional and sparse data\nGood performance on non-linear problems.\n\nHyperparameters:\n\n\\(C\\): Regularization parameter (trade-off between correct classification of training examples and maximization of the decision margin).\ngamma (\\(\\gamma\\)): controls how fast the similarity decays with distance"
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#intuition-of-c-and-gamma-in-svm-rbf",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#intuition-of-c-and-gamma-in-svm-rbf",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Intuition of C and gamma in SVM RBF",
-    "text": "Intuition of C and gamma in SVM RBF\n\nC (Regularization): Controls the trade-off between perfect training accuracy and having a simpler decision boundary.\n\nHigh C: Strict, complex boundary (overfitting risk).\nLow C: More errors allowed, smoother boundary (generalizes better).\n\nGamma (Kernel Width): Controls the influence of individual data points.\n\nHigh Gamma: Points have local impact, complex boundary.\nLow Gamma: Points affect broader areas, smoother boundary.\n\nKey trade-off: Proper balance between C and gamma is crucial for avoiding overfitting or underfitting."
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#supervised-models-we-have-seen",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#supervised-models-we-have-seen",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Supervised models we have seen",
-    "text": "Supervised models we have seen\n\nDecision trees: Split data into subsets based on feature values to create decision rules\n\\(k\\)-NNs: Classify based on the majority vote from \\(k\\) nearest neighbors\nSVM RBFs: Create a boundary using an RBF kernel to separate classes"
-  },
-  {
-    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#comparison-of-models-activity",
-    "href": "slides/slides-04-kNNs-SVM-RBF.html#comparison-of-models-activity",
-    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Comparison of models (activity)",
-    "text": "Comparison of models (activity)\n\n\n\n\n\n\n\n\n\nModel\nParameters and hyperparameters\nStrengths\nWeaknesses\n\n\n\n\nDecision Trees\n\n\n\n\n\nKNNs\n\n\n\n\n\nSVM RBF"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Welcome to CPSC330! Here, you’ll find slides for CPSC 330 Section 102. These slides are based on the notes present here.\n\nClass times 🕘 11 am to 12:20 pm\nWhere? 📍 HUGH DEMPSTER PAVILION (DMP) 310, 6245 Agronomy Rd, Vancouver, BC V6T 1Z4"
-  },
-  {
-    "objectID": "lecture.html",
-    "href": "lecture.html",
-    "title": "Overview",
-    "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Lectures",
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "lecture.html#schedule",
-    "href": "lecture.html#schedule",
-    "title": "Overview",
-    "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Lectures",
-      "Overview"
+      "Lecture 2: Terminology, baselines, decision Trees"
     ]
   },
   {
@@ -1169,102 +1168,262 @@
     "text": "sklearn Pipelines\n\nPipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow.\nSimplify the code and improves readability.\nReduce the risk of data leakage by ensuring proper transformation of the training and test sets.\nAutomatically apply transformations in sequence.\n\nExample:\nChaining a StandardScaler with a KNeighborsClassifier model.\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.neighbors import KNeighborsClassifier\n\npipeline = make_pipeline(StandardScaler(), KNeighborsClassifier())\n\npipeline.fit(X_train, y_train)\ny_pred = pipeline.predict(X_test)"
   },
   {
-    "objectID": "lecture-02.html",
-    "href": "lecture-02.html",
-    "title": "Lecture 2: Terminology, baselines, decision Trees",
+    "objectID": "lecture.html",
+    "href": "lecture.html",
+    "title": "Overview",
     "section": "",
-    "text": "View slides in full screen",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
-      "Lecture 2: Terminology, baselines, decision Trees"
+      "Overview"
     ]
   },
   {
-    "objectID": "lecture-02.html#slides",
-    "href": "lecture-02.html#slides",
-    "title": "Lecture 2: Terminology, baselines, decision Trees",
+    "objectID": "lecture.html#schedule",
+    "href": "lecture.html#schedule",
+    "title": "Overview",
     "section": "",
-    "text": "View slides in full screen",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
-      "Lecture 2: Terminology, baselines, decision Trees"
+      "Overview"
     ]
   },
   {
-    "objectID": "lecture-02.html#outline",
-    "href": "lecture-02.html#outline",
-    "title": "Lecture 2: Terminology, baselines, decision Trees",
-    "section": "Outline",
-    "text": "Outline\n\nFeatures, target, examples, training\nParameters and hyperparameters\nDecision boundary\nClassification vs. regression\nInference vs. prediction\nAccuracy vs. error, baselines\nIntuition of decision trees",
-    "crumbs": [
-      "Lectures",
-      "Lecture 2: Terminology, baselines, decision Trees"
-    ]
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Welcome to CPSC330! Here, you’ll find slides for CPSC 330 Section 102. These slides are based on the notes present here.\n\nClass times 🕘 11 am to 12:20 pm\nWhere? 📍 HUGH DEMPSTER PAVILION (DMP) 310, 6245 Agronomy Rd, Vancouver, BC V6T 1Z4"
   },
   {
-    "objectID": "lecture-04.html",
-    "href": "lecture-04.html",
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#announcements",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#announcements",
     "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "",
-    "text": "View slides in full screen",
-    "crumbs": [
-      "Lectures",
-      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
-    ]
+    "section": "Announcements",
+    "text": "Announcements\n\nhw2 is due tonight.\nSyllabus quiz due date is September 19th, 11:59 pm.\nHomework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)\n\nYou can work in pairs for this assignment.\n\nIf you were on the waitlist, you should now know your course enrollment status.\nThe lecture notes here align with the content presented in the videos. Even though we do not cover all the content from these notebooks during lectures, it’s your responsibility to go through them on your own."
   },
   {
-    "objectID": "lecture-04.html#slides",
-    "href": "lecture-04.html#slides",
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-1",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-1",
     "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "",
-    "text": "View slides in full screen",
-    "crumbs": [
-      "Lectures",
-      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
-    ]
+    "section": "Recap: iClicker overfitting 1",
+    "text": "Recap: iClicker overfitting 1\nWhich of the following scenarios do NOT necessarily imply overfitting?\n\n\nTraining accuracy is very high (0.98) while validation accuracy is much lower (0.60).\n\n\nIn a wildlife classifier, the model predicts “wolf” whenever there”s snow in the background, because all wolf photos were taken in snowy regions.\n\n\nThe decision boundary of a classifier is wiggly and highly irregular.\n\n\nTraining and validation accuracies are both approximately 0.88.\n\n\nA cancer detection model learns that “a ruler in the corner of the X-ray” means positive, because doctors tended to measure suspicious cases."
   },
   {
-    "objectID": "lecture-04.html#outline",
-    "href": "lecture-04.html#outline",
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-2",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-overfitting-2",
     "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
-    "section": "Outline",
-    "text": "Outline\n\nRecap\nSimilarity-based algorithms\n\\(k\\)-nearest neighbours intuitions\nCurse of dimensionality\nSVM with RBF kernel intuition\nInterpretation of C and gamma hyperparameters of SVM RBF",
-    "crumbs": [
-      "Lectures",
-      "Lecture 4: $k$-nearest neighbours and SVM RBFs"
-    ]
+    "section": "Recap: iClicker overfitting 2",
+    "text": "Recap: iClicker overfitting 2\nWhich of the following statements about overfitting is true?\n\n\nOverfitting makes the model more accurate on both training and unseen data.\n\n\nOverfitting means the model captures noise or irrelevant details from the training data.\n\n\nOverfitting is desirable because it reduces both training and test error.\n\n\nIn real-world problems, models are always at risk of overfitting if not properly validated."
   },
   {
-    "objectID": "lecture-06.html",
-    "href": "lecture-06.html",
-    "title": "Lecture 6: sklearn column transformer and text fearutres",
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-underfitting",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#recap-iclicker-underfitting",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "Recap: iClicker underfitting",
+    "text": "Recap: iClicker underfitting\nHow might one address the issue of underfitting in a machine learning model.\n\n\nIntroduce more noise to the training data.\n\n\nRemove features that might be relevant to the prediction.\n\n\nIncrease the model’s complexity (e.g., more parameters, features, or deeper trees)\n\n\nUse a smaller dataset for training."
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#the-fundamental-tradeoff",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#the-fundamental-tradeoff",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "The fundamental tradeoff",
+    "text": "The fundamental tradeoff\n\n\n\n\n\n\n\n\n\nAs you increase the model complexity, training score tends to go up and the gap between train and validation scores tends to go up.\n\nHow to pick a model?"
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.1",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.1",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "iClicker 4.1",
+    "text": "iClicker 4.1\nSelect all of the following statements which are TRUE.\n\n\nAnalogy-based models find examples from the test set that are most similar to the query example we are predicting.\n\n\nEuclidean distance will always have a non-negative value.\n\n\nWith \\(k\\)-NN, setting the hyperparameter \\(k\\) to larger values typically reduces training error.\n\n\nSimilar to decision trees, \\(k\\)-NNs finds a small set of good features.\n\n\nIn \\(k\\)-NN, with \\(k &gt; 1\\), the classification of the closest neighbour to the test example always contributes the most to the prediction."
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.2",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#iclicker-4.2",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "iClicker 4.2",
+    "text": "iClicker 4.2\nSelect all of the following statements which are TRUE.\n\n\n\\(k\\)-NN may perform poorly in high-dimensional space (say, d &gt; 1000).\n\n\nIn sklearn’s SVC classifier, large values of gamma tend to result in higher training score but probably lower validation score.\n\n\nIf we increase both gamma and C, we can’t be certain if the model becomes more complex or less complex."
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#similarity-based-algorithms",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#similarity-based-algorithms",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "Similarity-based algorithms",
+    "text": "Similarity-based algorithms\n\nUse similarity or distance metrics to predict targets.\nExamples: \\(k\\)-nearest neighbors, Support Vector Machines (SVMs) with RBF Kernel."
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#k-nearest-neighbours",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#k-nearest-neighbours",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "\\(k\\)-nearest neighbours",
+    "text": "\\(k\\)-nearest neighbours\n\nClassifies an object based on the majority label among its \\(k\\) closest neighbors.\nMain hyperparameter: \\(k\\) or n_neighbors in sklearn\nDistance Metrics: Euclidean\nStrengths: simple and intuitive, can learn complex decision boundaries\nChallenges: Sensitive to the choice of distance metric and scaling (coming up)."
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#curse-of-dimensionality",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#curse-of-dimensionality",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "Curse of dimensionality",
+    "text": "Curse of dimensionality\n\nAs dimensionality increases, the volume of the space increases exponentially, making the data sparse.\nDistance metrics lose meaning\n\nAccidental similarity swamps out meaningful similarity\nAll points become almost equidistant.\n\nOverfitting becomes likely: Harder to generalize with high-dimensional data.\nHow to deal with this?\n\nDimensionality reduction (PCA) (not covered in this course)\nFeature selection techniques."
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#svms-with-rbf-kernel",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#svms-with-rbf-kernel",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "SVMs with RBF kernel",
+    "text": "SVMs with RBF kernel\n\nRBF Kernel: Radial Basis Function, a way to transform data into higher dimensions implicitly.\nStrengths\n\nEffective in high-dimensional and sparse data\nGood performance on non-linear problems.\n\nHyperparameters:\n\n\\(C\\): Regularization parameter (trade-off between correct classification of training examples and maximization of the decision margin).\ngamma (\\(\\gamma\\)): controls how fast the similarity decays with distance"
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#intuition-of-c-and-gamma-in-svm-rbf",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#intuition-of-c-and-gamma-in-svm-rbf",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "Intuition of C and gamma in SVM RBF",
+    "text": "Intuition of C and gamma in SVM RBF\n\nC (Regularization): Controls the trade-off between perfect training accuracy and having a simpler decision boundary.\n\nHigh C: Strict, complex boundary (overfitting risk).\nLow C: More errors allowed, smoother boundary (generalizes better).\n\nGamma (Kernel Width): Controls the influence of individual data points.\n\nHigh Gamma: Points have local impact, complex boundary.\nLow Gamma: Points affect broader areas, smoother boundary.\n\nKey trade-off: Proper balance between C and gamma is crucial for avoiding overfitting or underfitting."
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#supervised-models-we-have-seen",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#supervised-models-we-have-seen",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "Supervised models we have seen",
+    "text": "Supervised models we have seen\n\nDecision trees: Split data into subsets based on feature values to create decision rules\n\\(k\\)-NNs: Classify based on the majority vote from \\(k\\) nearest neighbors\nSVM RBFs: Create a boundary using an RBF kernel to separate classes"
+  },
+  {
+    "objectID": "slides/slides-04-kNNs-SVM-RBF.html#comparison-of-models-activity",
+    "href": "slides/slides-04-kNNs-SVM-RBF.html#comparison-of-models-activity",
+    "title": "Lecture 4: \\(k\\)-nearest neighbours and SVM RBFs",
+    "section": "Comparison of models (activity)",
+    "text": "Comparison of models (activity)\n\n\n\n\n\n\n\n\n\nModel\nParameters and hyperparameters\nStrengths\nWeaknesses\n\n\n\n\nDecision Trees\n\n\n\n\n\nKNNs\n\n\n\n\n\nSVM RBF"
+  },
+  {
+    "objectID": "lecture-01.html",
+    "href": "lecture-01.html",
+    "title": "Lecture 1: Course introduction",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 6: `sklearn` column transformer and text fearutres"
+      "Lecture 1: Course introduction"
     ]
   },
   {
-    "objectID": "lecture-06.html#slides",
-    "href": "lecture-06.html#slides",
-    "title": "Lecture 6: sklearn column transformer and text fearutres",
+    "objectID": "lecture-01.html#slides",
+    "href": "lecture-01.html#slides",
+    "title": "Lecture 1: Course introduction",
     "section": "",
     "text": "View slides in full screen",
     "crumbs": [
       "Lectures",
-      "Lecture 6: `sklearn` column transformer and text fearutres"
+      "Lecture 1: Course introduction"
     ]
   },
   {
-    "objectID": "lecture-06.html#outline",
-    "href": "lecture-06.html#outline",
-    "title": "Lecture 6: sklearn column transformer and text fearutres",
+    "objectID": "lecture-01.html#outline",
+    "href": "lecture-01.html#outline",
+    "title": "Lecture 1: Course introduction",
     "section": "Outline",
-    "text": "Outline\n\nRecap\nColumn transformer\nArguments of one-hot encoder\nsklearn CountVectorizer\nincorporating text features in the pipeline",
+    "text": "Outline\n\nWhat is machine learning\nTypes of machine learning\nLearning to navigate through the course materials\nGetting familiar with the course policies",
     "crumbs": [
       "Lectures",
-      "Lecture 6: `sklearn` column transformer and text fearutres"
+      "Lecture 1: Course introduction"
+    ]
+  },
+  {
+    "objectID": "lecture-03.html",
+    "href": "lecture-03.html",
+    "title": "Lecture 3: ML fundamentals",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 3: ML fundamentals"
+    ]
+  },
+  {
+    "objectID": "lecture-03.html#slides",
+    "href": "lecture-03.html#slides",
+    "title": "Lecture 3: ML fundamentals",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 3: ML fundamentals"
+    ]
+  },
+  {
+    "objectID": "lecture-03.html#outline",
+    "href": "lecture-03.html#outline",
+    "title": "Lecture 3: ML fundamentals",
+    "section": "Outline",
+    "text": "Outline\n\nGeneralization, data splitting\nCross-validation\nOverfitting, underfitting, the fundamental tradeoff\nThe golden rule",
+    "crumbs": [
+      "Lectures",
+      "Lecture 3: ML fundamentals"
+    ]
+  },
+  {
+    "objectID": "lecture-05.html",
+    "href": "lecture-05.html",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 5: Preprocessing and sklearn pipelines"
+    ]
+  },
+  {
+    "objectID": "lecture-05.html#slides",
+    "href": "lecture-05.html#slides",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 5: Preprocessing and sklearn pipelines"
+    ]
+  },
+  {
+    "objectID": "lecture-05.html#outline",
+    "href": "lecture-05.html#outline",
+    "title": "Lecture 5: Preprocessing and sklearn pipelines",
+    "section": "Outline",
+    "text": "Outline\n\nRecap\nPreprocessing motivation\nCommon transformations in sklearn\nsklearn transformers vs. Estimators\nThe golden rule in the feature transformations\nsklearn pipelines",
+    "crumbs": [
+      "Lectures",
+      "Lecture 5: Preprocessing and sklearn pipelines"
+    ]
+  },
+  {
+    "objectID": "lecture-07.html",
+    "href": "lecture-07.html",
+    "title": "Lecture 7: Linear models",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 7: Linear models"
+    ]
+  },
+  {
+    "objectID": "lecture-07.html#slides",
+    "href": "lecture-07.html#slides",
+    "title": "Lecture 7: Linear models",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 7: Linear models"
+    ]
+  },
+  {
+    "objectID": "lecture-07.html#outline",
+    "href": "lecture-07.html#outline",
+    "title": "Lecture 7: Linear models",
+    "section": "Outline",
+    "text": "Outline\n\nIntuition behind linear models\nLinear regression and logistic regression\nscikit-learn’s Ridge model\nPrediction probabilities\nInterpret model predictions using coefficients learned by a linear model\nParametric vs. non-parametric models",
+    "crumbs": [
+      "Lectures",
+      "Lecture 7: Linear models"
     ]
   },
   {
@@ -1490,6 +1649,146 @@
     "title": "Lecture 7: Linear models",
     "section": "Coming up",
     "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#announcements",
+    "href": "slides/slides-08-hyperparameter-optimization.html#announcements",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Announcements",
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nHW3 was due on Monday, Sept 29th 11:59 pm.\nHW4 has been released"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Recap: Logistic regression",
+    "text": "Recap: Logistic regression\n\nA linear model used for binary classification tasks.\n\n(Optional) There is am extension of logistic regression called multinomial logistic regression for multiclass classification.\n\nParameters:\n\nCoefficients (Weights): The model learns a coefficient or a weight associated with each feature that represents its importance.\nBias (Intercept): A constant term added to the linear combination of features and their coefficients."
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-1",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-1",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Recap: Logistic regression",
+    "text": "Recap: Logistic regression\n\nThe model computes a weighted sum of the input features’ values, adjusted by their respective coefficients and the bias term.\nThis weighted sum is passed through a sigmoid function to transform it into a probability score, indicating the likelihood of the input belonging to the “positive” class.\n\n\\[ \\hat{p} = \\sigma\\left(\\sum_{i=1}^d w_i x_i + b\\right) \\]\n\n\\(P_{hat}\\) is the predicted probability of the example belonging to the positive class.\n\\(w_i\\) is the learned weight associated with feature \\(i\\)\n\\(x_i\\) is the value of the input feature \\(i\\)\n\\(b\\) is the bias term"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-2",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression-2",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Recap: Logistic regression",
+    "text": "Recap: Logistic regression\n\nFor a dataset with \\(d\\) features, the decision boundary that separates the classes is a \\(d-1\\) dimensional hyperplane.\n\nComplexity hyperparameter: C in sklearn.\n\nHigher C \\(\\rightarrow\\) more complex model meaning larger coefficients\nLower C \\(\\rightarrow\\) less complex model meaning smaller coefficients"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#data",
+    "href": "slides/slides-08-hyperparameter-optimization.html#data",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Data",
+    "text": "Data\n\nsms_df = pd.read_csv(DATA_DIR + \"spam.csv\", encoding=\"latin-1\")\nsms_df = sms_df.drop(columns = [\"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"])\nsms_df = sms_df.rename(columns={\"v1\": \"target\", \"v2\": \"sms\"})\ntrain_df, test_df = train_test_split(sms_df, test_size=0.10, random_state=42)\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\ntrain_df.head(4)\n\n\n\n\n\n\n\n\ntarget\nsms\n\n\n\n\n3130\nspam\nLookAtMe!: Thanks for your purchase of a video...\n\n\n106\nham\nAight, I'll hit you up when I get some cash\n\n\n4697\nham\nDon no da:)whats you plan?\n\n\n856\nham\nGoing to take your babe out ?"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#model-building",
+    "href": "slides/slides-08-hyperparameter-optimization.html#model-building",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Model building",
+    "text": "Model building\n\nLet’s define a pipeline\n\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\n\nSuppose we want to try out different hyperparameter values.\n\n\nparameters = {\n    \"max_features\": [100, 200, 400],\n    \"gamma\": [0.01, 0.1, 1.0],\n    \"C\": [0.01, 0.1, 1.0],\n}"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#hyperparameter-optimization-with-loops",
+    "href": "slides/slides-08-hyperparameter-optimization.html#hyperparameter-optimization-with-loops",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Hyperparameter optimization with loops",
+    "text": "Hyperparameter optimization with loops\n\nDefine a parameter space.\nIterate through possible combinations.\nEvaluate model performance.\nWhat are some limitations of this approach?"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#sklearn-methods",
+    "href": "slides/slides-08-hyperparameter-optimization.html#sklearn-methods",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "sklearn methods",
+    "text": "sklearn methods\n\nsklearn provides two main methods for hyperparameter optimization\n\nGrid Search\nRandom Search"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#grid-search",
+    "href": "slides/slides-08-hyperparameter-optimization.html#grid-search",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Grid Search",
+    "text": "Grid Search\n\nCovers all possible combinations from the provided grid.\nCan be parallelized easily.\nIntegrates cross-validation."
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#grid-search-example",
+    "href": "slides/slides-08-hyperparameter-optimization.html#grid-search-example",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Grid search example",
+    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\nnp.float64(0.9782606272997375)"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#random-search",
+    "href": "slides/slides-08-hyperparameter-optimization.html#random-search",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Random Search",
+    "text": "Random Search\n\nMore efficient than grid search when dealing with large hyperparameter spaces.\nSamples a given number of parameter settings from distributions."
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#random-search-example",
+    "href": "slides/slides-08-hyperparameter-optimization.html#random-search-example",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Random search example",
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.9824488610018249)"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#pizza-baking-competition-example",
+    "href": "slides/slides-08-hyperparameter-optimization.html#pizza-baking-competition-example",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Pizza baking competition example",
+    "text": "Pizza baking competition example\nImagine that you participate in pizza baking competition.\n\n\n\n\n\nTraining phase: Collecting recipes and practicing at home\n\nValidation phase: Inviting a group of friends for tasting and feedback\n\nTest phase (competition day): Serving the judges"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#overfitting-on-the-validation-set",
+    "href": "slides/slides-08-hyperparameter-optimization.html#overfitting-on-the-validation-set",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Overfitting on the validation set",
+    "text": "Overfitting on the validation set\n\n\n\nYour friends loved your pineapple pizza.\nYou fine-tune your recipe for the same group of friends, perfecting it for their tastes.\n\n\n\n\nOn the competition day, you confidently present your perfected pineapple pizza.\n\nJudges are not impressed: “This doesn’t appeal to a broad audience.”\n\n\n\nThis is similar to reusing the same validation set again and again to perfect the model for it!"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#lesson-overfitting-on-the-validation-set",
+    "href": "slides/slides-08-hyperparameter-optimization.html#lesson-overfitting-on-the-validation-set",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Lesson: Overfitting on the validation set",
+    "text": "Lesson: Overfitting on the validation set\n\nYou tailored your recipe too closely to your friends’ tastes.\n\nThey were not representative of the broader audience (the judges).\n\nThe pizza, while perfect for your validation group, failed to generalize.\n\nOver many iterations, the validation set no longer gives an unbiased estimate of performance.\n\nThat’s why we need a separate test set—like a group of tasters who never influenced your pizza."
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#optimization-bias-1",
+    "href": "slides/slides-08-hyperparameter-optimization.html#optimization-bias-1",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Optimization bias",
+    "text": "Optimization bias\n\nWhy do we need separate validation and test datasets?"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#mitigating-optimization-bias.",
+    "href": "slides/slides-08-hyperparameter-optimization.html#mitigating-optimization-bias.",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Mitigating optimization bias.",
+    "text": "Mitigating optimization bias.\n\nCross-validation\nEnsembles\nRegularization and choosing a simpler model"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#iclicker-exercise-8.1",
+    "href": "slides/slides-08-hyperparameter-optimization.html#iclicker-exercise-8.1",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "(iClicker) Exercise 8.1",
+    "text": "(iClicker) Exercise 8.1\nSelect all of the following statements which are TRUE.\n\n\nIf you get best results at the edges of your parameter grid, it might be a good idea to adjust the range of values in your parameter grid.\n\n\nGrid search is guaranteed to find the best hyperparameter values.\n\n\nIt is possible to get different hyperparameters in different runs of RandomizedSearchCV."
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#questions-for-you",
+    "href": "slides/slides-08-hyperparameter-optimization.html#questions-for-you",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Questions for you",
+    "text": "Questions for you\n\nYou have a dataset and you give me 1/10th of it. The dataset given to me is rather small and so I split it into 96% train and 4% validation split. I carry out hyperparameter optimization using a single 4% validation split and report validation accuracy of 0.97. Would it classify the rest of the data with similar accuracy?\n\nProbably\nProbably not"
+  },
+  {
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#questions-for-class-discussion",
+    "href": "slides/slides-08-hyperparameter-optimization.html#questions-for-class-discussion",
+    "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
+    "section": "Questions for class discussion",
+    "text": "Questions for class discussion\n\nSuppose you have 10 hyperparameters, each with 4 possible values. If you run GridSearchCV with this parameter grid, how many cross-validation experiments will be carried out?\nSuppose you have 10 hyperparameters and each takes 4 values. If you run RandomizedSearchCV with this parameter grid with n_iter=20, how many cross-validation experiments will be carried out?"
   },
   {
     "objectID": "slides/slides-02-terminology-decision-trees.html#learning-outcomes",
