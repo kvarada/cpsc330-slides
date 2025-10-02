@@ -1,0 +1,24 @@
+---
+title: "CPSC 330 Lecture 21: Survival analysis"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      embed-resources: true
+      slide-number: true
+      smaller: true
+      center: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+
+## Announcements
+
+- HW9 has been released (due Sec 5th)
+  - Almost there! Hang in there 😊
+- Midterm 2 grading is almost done. 
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_21-survival-analysis.ipynb) 
+

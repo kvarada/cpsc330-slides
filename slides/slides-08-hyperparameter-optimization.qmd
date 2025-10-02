@@ -42,6 +42,27 @@ import mglearn
 DATA_DIR = 'data/' 
 ```
 
+## Recap: iClicker LR1
+
+Which of the following are **True**?
+
+- (A) Logistic regression can be used for binary as well as multi-class classification tasks.  
+- (B) Logistic regression computes a weighted sum of features and applies the sigmoid function.  
+- (C) The sigmoid function ensures outputs between 0 and 1, interpreted as probabilities.  
+- (D) The decision boundary in logistic regression is linear, even though the sigmoid is applied. 
+- (E) When the weighted sum is 0, $\hat{p}$ = 0.5.  
+
+## Recap: iClicker LR2
+
+Which of the following are **True**?
+
+- (A) Logistic regression coefficients always have to be positive.  
+- (B) Larger coefficients (in absolute value) indicate stronger feature influence on the prediction.  
+- (C) For $d$ features, the decision boundary is a $d-1$ dimensional hyperplane.  
+- (D) In `sklearn`, very small `C` value shrinks coefficients, often leading to underfitting.  
+- (E) A larger `C` value allows larger coefficients and a more complex model.  
+
+
 ## Recap: Logistic regression
 - A **linear model used for binary classification** tasks. 
   - (Optional) There is am extension of logistic regression called multinomial logistic regression for multiclass classification.
@@ -68,7 +89,6 @@ separates the classes is a $d-1$ dimensional hyperplane.
 - Complexity hyperparameter: `C` in `sklearn`. 
   - Higher `C` $\rightarrow$ more complex model meaning larger coefficients
   - Lower `C` $\rightarrow$ less complex model meaning smaller coefficients
-
 
 ## Data
 
