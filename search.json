@@ -1448,18 +1448,18 @@
     "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nHW3 was due on Monday, Sept 29th 11:59 pm.\nHW4 has been released"
   },
   {
-    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-lr1",
-    "href": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-lr1",
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-logistic-regression-1",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-logistic-regression-1",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
-    "section": "Recap: iClicker LR1",
-    "text": "Recap: iClicker LR1\nWhich of the following are True?\n\n\nLogistic regression can be used for binary as well as multi-class classification tasks.\n\n\n\nLogistic regression computes a weighted sum of features and applies the sigmoid function.\n\n\n\nThe sigmoid function ensures outputs between 0 and 1, interpreted as probabilities.\n\n\n\nThe decision boundary in logistic regression is linear, even though the sigmoid is applied.\n\n\nWhen the weighted sum is 0, \\(\\hat{p}\\) = 0.5."
+    "section": "Recap: iClicker Logistic Regression 1",
+    "text": "Recap: iClicker Logistic Regression 1\nWhich of the following are True?\n\n\nLogistic regression can be used for binary as well as multi-class classification tasks.\n\n\n\nLogistic regression computes a weighted sum of features and applies the sigmoid function.\n\n\n\nThe sigmoid function ensures outputs between 0 and 1, interpreted as probabilities.\n\n\n\nThe decision boundary in logistic regression is linear, even though the sigmoid is applied.\n\n\nWhen the weighted sum is 0, \\(\\hat{p}\\) = 0.5."
   },
   {
-    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-lr2",
-    "href": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-lr2",
+    "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-logistic-regression-1-1",
+    "href": "slides/slides-08-hyperparameter-optimization.html#recap-iclicker-logistic-regression-1-1",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
-    "section": "Recap: iClicker LR2",
-    "text": "Recap: iClicker LR2\nWhich of the following are True?\n\n\nLogistic regression coefficients always have to be positive.\n\n\n\nLarger coefficients (in absolute value) indicate stronger feature influence on the prediction.\n\n\n\nFor \\(d\\) features, the decision boundary is a \\(d-1\\) dimensional hyperplane.\n\n\n\nIn sklearn, very small C value shrinks coefficients, often leading to underfitting.\n\n\n\nA larger C value allows larger coefficients and a more complex model."
+    "section": "Recap: iClicker Logistic Regression 1",
+    "text": "Recap: iClicker Logistic Regression 1\nWhich of the following are True?\n\n\nLogistic regression coefficients always have to be positive.\n\n\n\nLarger coefficients (in absolute value) indicate stronger feature influence on the prediction.\n\n\n\nFor \\(d\\) features, the decision boundary is a \\(d-1\\) dimensional hyperplane.\n\n\n\nIn sklearn, very small C value shrinks coefficients, often leading to underfitting.\n\n\n\nA larger C value allows larger coefficients and a more complex model."
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#recap-logistic-regression",
@@ -1536,7 +1536,7 @@
     "href": "slides/slides-08-hyperparameter-optimization.html#random-search-example",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Random search example",
-    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\n0.9802554412610472"
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\n0.9808534476411086"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#pizza-baking-competition-example",
@@ -1557,7 +1557,7 @@
     "href": "slides/slides-08-hyperparameter-optimization.html#lesson-overfitting-on-the-validation-set",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Lesson: Overfitting on the validation set",
-    "text": "Lesson: Overfitting on the validation set\n\nYou tailored your recipe too closely to your friends’ tastes.\n\nThey were not representative of the broader audience (the judges).\n\nThe pizza, while perfect for your validation group, failed to generalize.\n\nOver many iterations, the validation set no longer gives an unbiased estimate of performance.\n\nThat’s why we need a separate test set—like a group of tasters who never influenced your pizza."
+    "text": "Lesson: Overfitting on the validation set\n\nYou tailored your recipe too closely to your friends’ tastes.\n\nThey were not representative of the broader audience (the judges).\n\nThe pizza, while perfect for your validation group, failed to generalize.\n\nOver many iterations, the validation set no longer gives an unbiased estimate of performance.\n\nThat’s why we need a separate test set (like a group of tasters who never influenced your pizza)."
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#optimization-bias-1",
