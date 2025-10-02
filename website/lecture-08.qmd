@@ -1,0 +1,18 @@
+---
+title: "Lecture 8: Hyperparameter Optimization"
+description: "Hyperparameter optimization and optimization bias"
+description-short: "motivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias" 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-08-hyperparameter-optimization.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Why hyperparameter optimization?
+- Hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV
+- Optimization bias 

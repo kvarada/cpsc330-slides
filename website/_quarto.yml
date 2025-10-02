@@ -1,4 +1,4 @@
-project:  
+project:
   type: website
   preview:
     port: 12345
@@ -6,7 +6,7 @@ project:
     - "./*.qmd"
     - "slides/*.qmd"
     - "lab/*.qmd"
-    - "about/index.qmd"  
+    - "about/index.qmd"
   resources:
     - slides
 
@@ -17,7 +17,7 @@ website:
 
   repo-url: https://github.com/kvarada/cpsc330-slides/
   repo-subdir: website
-  
+
   navbar:
     title: "CPSC 330 Section 2"
     left:
@@ -25,9 +25,9 @@ website:
         text: Home
       - href: lecture.qmd
         text: Lectures
-  
+
   page-navigation: true
-  
+
   sidebar:
     - id: lecture
       contents:
@@ -37,30 +37,30 @@ website:
         - lecture-03.qmd
         - lecture-04.qmd
         - lecture-05.qmd
-        - lecture-06.qmd        
+        - lecture-06.qmd
         - lecture-07.qmd
-        - lecture-08.qmd        
-        # - lecture-09.qmd                
-        # - lecture-10.qmd        
-        # - lecture-11.qmd        
-        # - lecture-12.qmd        
-        # - lecture-13.qmd        
-        # - lecture-14.qmd                
+        - lecture-08.qmd
+        # - lecture-09.qmd
+        # - lecture-10.qmd
+        # - lecture-11.qmd
+        # - lecture-12.qmd
+        # - lecture-13.qmd
+        # - lecture-14.qmd
         # - lecture-15.qmd
-        # - lecture-16.qmd                
+        # - lecture-16.qmd
         # - lecture-17.qmd
         # - lecture-18.qmd
         # - lecture-19.qmd
         # - lecture-20.qmd
-        # - lecture-21.qmd        
+        # - lecture-21.qmd
         # - lecture-22.qmd
-        # - lecture-24.qmd        
+        # - lecture-24.qmd
 format:
   html:
     theme: [zephyr]
     toc: false
     lightbox: true
-          
+
 editor:
   render-on-save: true
 
