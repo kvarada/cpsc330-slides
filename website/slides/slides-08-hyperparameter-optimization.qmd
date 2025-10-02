@@ -257,7 +257,7 @@ This is similar to reusing the same validation set again and again to perfect th
 - They were **not representative** of the broader audience (the judges).  
 - The pizza, while perfect for your validation group, failed to **generalize**.  
 - Over many iterations, the validation set no longer gives an **unbiased estimate** of performance.  
-- That’s why we need a **separate test set**—like a group of tasters who never influenced your pizza.  
+- That's why we need a **separate test set** (like a group of tasters who never influenced your pizza).  
 
 ## Optimization bias
 - Why do we need separate validation and test datasets? 
@@ -288,5 +288,5 @@ Select all of the following statements which are TRUE.
 - Suppose you have 10 hyperparameters, each with 4 possible values. If you run `GridSearchCV` with this parameter grid, how many cross-validation experiments will be carried out? 
 - Suppose you have 10 hyperparameters and each takes 4 values. If you run `RandomizedSearchCV` with this parameter grid with `n_iter=20`, how many cross-validation experiments will be carried out? 
 
-# [Class Demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_08_hyperparameter-optimization.ipynb)
+# [Class Demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_08-hyperparameter-optimization.ipynb)
 
