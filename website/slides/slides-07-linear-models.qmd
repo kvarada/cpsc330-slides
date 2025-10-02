@@ -60,18 +60,6 @@ from sklearn.datasets import make_blobs, make_classification
   - `ngram_range`: Defines the range of n-grams to be extracted
   - `stop_words`: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc.
 
-## Recap: Incorporating text features in a machine learning pipeline
-```python
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.svm import SVC
-from sklearn.pipeline import make_pipeline
-
-text_pipeline = make_pipeline(
-    CountVectorizer(),
-    SVC()
-)
-```
-
 ## (iClicker) Exercise 6.2
 
 Select all of the following statements which are TRUE.
@@ -133,8 +121,7 @@ plt.legend()
 plt.grid(True)
 plt.show()
 ```
-- Making predictions
-  - $$ y_{hat} = w_1 \times \text{# hours studied} + w_0$$
+- Making predictions: $y_{hat} = w_1 \times \text{\# hours studied} + w_0$
 
 :::
 ::::
@@ -212,6 +199,22 @@ plt.show()
 :::{.column width="40%"}
 - Sigmoid Function: $\hat{y} = \sigma(w^\top x_i + b) = \frac{1}{1 + e^{-(w^\top x_i + b)}}$
 - The decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5. 
+:::
+
+::::
+
+## Sentiment analysis example
+:::: {.columns}
+
+:::{.column width="55%"}
+![](img/lr-sentiment-analysis-ex.png)
+:::
+
+:::{.column width="45%"}
+- Logistic regression learns **coefficients for each word** from training data.  
+- Positive coefficients $\rightarrow$ push prediction toward positive class.  
+- Negative coefficients $\rightarrow$ push prediction toward negative class.  
+- In this example, positive words (_fun_, _rewarding_) outweigh the negative word (_long_), so the overall sentiment is likely **positive**.  
 :::
 
 ::::
@@ -299,7 +302,7 @@ $P(y = j \mid x_i) = \frac{e^{w_j^\top x_i + b_j}}{\sum_{k=1}^{K} e^{w_k^\top x_
 | **Use case**             | Binary classification (e.g., spam detection) | Multi-class classification (e.g., flower species) |
 
 
-## Activity 
+## Activity (time-permitting)
 <hr>
 
 So far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of 
@@ -311,7 +314,7 @@ So far, we have worked with various transformers and supervised machine learning
 
 ## Activity description {.smaller}
 
-- Your task is to engage in group discussions and fill in the designated row in [this Google document](https://docs.google.com/document/d/1Ri601SbKs5fqHFP4lVnBlqGNOyJdYMJY-HoPp1B0jR0/edit?usp=sharing).
+- Your task is to engage in group discussions and fill in the designated row in [this Google document](https://docs.google.com/document/d/1SpCQMn9uZojhiwgsjIoutryNmpbUcM3ez5g-4is2Cxc/edit?usp=sharing).
 - For strengths and weaknesses, some things to consider are:
   * concerns about underfitting
   * concerns about overfitting
@@ -348,13 +351,14 @@ Transformation         |  Purpose   | Use cases  | Key consideration   |
   Bag-of-words encoding|            |            |                     | 
 
 
-## Coming up {.smaller}
+## Coming up
 
 A few big questions remain:
-- **How do we tune hyperparameters?**
-- **How do we choose our features?** (feature selection, dimensionality reduction, regularization etc.)
-- **How do we come up with new useful features** (feature engineering)
-- **How do we choose between different models?** (different evaluation metrics, what happens if we're not happy with our test error?)
-- **How to deal with class imbalance?**
-- **What do we do if we do not have targets** (unsupervised learning)
-- **How to build models for more interesting data such as images, user preferences, or sequential data?)**
+
+- How do we tune hyperparameters?
+- How do we choose our features? (feature selection, dimensionality reduction, regularization etc.)
+- How do we come up with new useful features (feature engineering)
+- How do we choose between different models? (different evaluation metrics, what happens if we're not happy with our test error?)
+- How to deal with class imbalance?
+- What do we do if we do not have targets (unsupervised learning)
+- How to build models for more interesting data such as images, user preferences, or sequential data?)
