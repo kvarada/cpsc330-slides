@@ -196,28 +196,6 @@ grid_search.best_score_
 
 ![](img/randomsearch_bergstra.png)
 
-## Grandma’s Recipe {.smaller}
-::: {columns}
-
-::: {.column width="50%"}
-- Grandma’s recipe is missing: *How much spice to add?* 🌶  
-
-![](img/grandmas-recipe-random-search.png)
-
-Source: Image created using ChatGPT 5.0
-:::
-
-::: {.column width="50%"} 
-
-- Method 1: Grid Search  
-  - Try 0.5 tsp, 1.0 tsp, 1.5 tsp, 2.0 tsp  
-- Method 2: Random Search  
-  - Each trial: pick a scoop of spice at random  
-    - **Uniform(0,2)** → all scoop sizes equally likely  
-    - **Normal(1, 0.5)** → most scoops around 1 tsp, fewer at the extremes  
-:::
-::::
-
 ## Random search example 
 
 ```{python}
