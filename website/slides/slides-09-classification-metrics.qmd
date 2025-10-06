@@ -1,0 +1,188 @@
+---
+title: "CPSC 330 Lecture 9: Classification Metrics" 
+author: "Varada Kolhatkar"
+description: "Metrics for classification"
+description-short: "confusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance" 
+format:
+  revealjs:
+    embed-resources: true
+    slide-number: true
+    smaller: true
+    center: true
+    logo: img/UBC-CS-logo.png
+    resources:
+      - data/
+      - img/  
+---
+
+## Announcements 
+
+- Important information about midterm 1
+  - https://piazza.com/class/mekbcze4gyber/post/162
+- HW4 was due on Monday, Oct 6th 11:59 pm. 
+- HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.  
+
+
+```{python}
+import os
+import sys
+import pandas as pd 
+import numpy as np
+from sklearn import datasets
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import CountVectorizer
+from scipy.stats import expon, lognorm, loguniform, randint, uniform, norm, randint
+%matplotlib inline
+import mglearn
+DATA_DIR = 'data/' 
+```
+
+## ML workflow 
+![](img/ml-workflow.png)
+
+## Accuracy
+- So far we have been measuring model performance using **Accuracy**. 
+- **Accuracy** is the proportion of all classifications that were correct, whether *positive* or *negative*. 
+$$Accuracy = \frac{\text{corrct classifications}}{\text{total classifications}}$$
+- However, in many real-world applications, the dataset is imbalanced or one kind of mistake is more costly than the other
+- In such cases, it's better to optimize for one of the other metrics instead.
+
+## Fraud Confusion matrix
+
+- Which types of errors would be most critical for the bank to address?
+
+![](img/fraud-confusion-matrix.png)
+
+## Fraud Confusion matrix
+:::: {.columns}
+:::{.column width="80%"}
+![](img/tp-fp-tn-fn-fraud.png)
+:::
+
+:::{.column width="20%"}
+- TN $\rightarrow$ True negatives 
+- FP $\rightarrow$ False positives 
+- FN $\rightarrow$ False negatives
+- TP $\rightarrow$ True positives 
+:::
+::::
+
+
+## Confusion matrix questions 
+
+Imagine a spam filter model where emails classified as spam are labeled 1 and non-spam emails are labeled 0. If a spam email is incorrectly classified as non-spam, what is this error called?
+
+- (A) A false positive
+- (B) A true positive
+- (C) A false negative
+- (D) A true negative
+
+## Confusion matrix questions
+
+In an intrusion detection system, intrusions are identified as 1 and non-intrusive activities as 0. If the system fails to identify an actual intrusion, wrongly categorizing it as non-intrusive, what is this type of error called?
+
+- (A) A false positive
+- (B) A true positive
+- (C) A false negative
+- (D) A true negative
+
+## Confusion matrix questions
+
+In a medical test for a disease, diseased states are labeled as 1 and healthy states as 0. If a healthy patient is incorrectly diagnosed with the disease, what is this error known as?
+
+- (A) A false positive
+- (B) A true positive
+- (C) A false negative
+- (D) A true negative
+
+
+## Precision, Recall, F1-Score
+![](img/precision-recall.png)
+![](img/fraud-precision-recall.png)
+
+## iClicker Exercise 9.1
+
+**Select all of the following statements which are TRUE.**
+
+- (A) In medical diagnosis, false positives are more damaging than false negatives (assume "positive" means the person has a disease, "negative" means they don't).
+- (B) In spam classification, false positives are more damaging than false negatives (assume "positive" means the email is spam, "negative" means they it's not).
+- (C) If method A gets a higher accuracy than method B, that means its precision is also higher.
+- (D) If method A gets a higher accuracy than method B, that means its recall is also higher.
+
+## Counter examples
+
+Method A - higher accuracy but lower precision
+
+| Negative | Positive
+| -------- |:-------------:|
+| 90      | 5|
+| 5      | 0|
+
+Method B - lower accuracy but higher precision
+
+| Negative | Positive
+| -------- |:-------------:|
+| 80      | 15|
+| 0      | 5|
+
+## Thresholding 
+
+- The above metrics assume a fixed threshold. 
+- We use thresholding to get the binary prediction. 
+- A typical threshold is 0.5.
+    - A prediction of 0.90 $\rightarrow$ a high likelihood that the transaction is fraudulent and we predict **fraud**
+    - A prediction of 0.20 $\rightarrow$ a low likelihood that the transaction is non-fraudulent and we predict **Non fraud**
+- **What happens if the predicted score is equal to the chosen threshold?**
+
+- [Play with classification thresholds](https://developers.google.com/machine-learning/crash-course/classification/thresholding)
+
+
+## iClicker Exercise 9.2
+
+**Select all of the following statements which are TRUE.**
+
+- (A) If we increase the classification threshold, both true and false positives are likely to decrease.
+- (B) If we increase the classification threshold, both true and false negatives are likely to decrease.
+- (C) Lowering the classification threshold generally increases the model’s recall.  
+- (D) Raising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives.
+
+
+## PR curve
+- Calculate precision and recall (TPR) at every possible threshold and graph them. 
+- Better choice for highly imbalanced datasets 
+
+![](img/pr-curve-example.png)
+
+
+## ROC curve 
+- Calculate the true positive rate (TPR) and false positive rate (FPR) at every possible thresholding and graph TPR over FPR. 
+- Good choice when the datasets are roughly balanced. 
+![](img/roc-curve-example.png)
+
+## AUC 
+- The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative.
+
+
+## ROC AUC questions
+
+Consider the points A, B, and C in the following diagram, each representing a threshold. Which threshold would you pick in each scenario?
+
+:::: {.columns}
+
+:::{.column width="50%"}
+![](img/auc_abc)
+:::
+
+:::{.column width="50%"}
+
+- (A) If false positives (false alarms) are highly costly
+- (B) If false positives are cheap and false negatives (missed true positives) highly costly
+- (C) If the costs are roughly equivalent
+:::
+::::
+
+[Source](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)

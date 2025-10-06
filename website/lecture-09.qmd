@@ -1,0 +1,23 @@
+---
+title: "Lecture 9: Classification metrics"
+description: "Metrics for classification"
+description-short: "confusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance" 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-09-classification-metrics.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Issues with using accuracy 
+- Components of a confusion matrix
+- Precision, recall, and f1-score and use them to evaluate different classifiers
+- Precision-recall curves
+- Average precision score
+- ROC curves and ROC AUC using scikit-learn
+- Dealing with class imbalance
+- Model performance on specific groups in a dataset.
