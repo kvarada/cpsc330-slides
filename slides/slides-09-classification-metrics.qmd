@@ -41,6 +41,7 @@ from sklearn.model_selection import cross_val_score, cross_validate, train_test_
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 %matplotlib inline
 from sklearn.dummy import DummyClassifier
 from sklearn.model_selection import cross_validate
@@ -72,8 +73,11 @@ cc_df = pd.read_csv(DATA_URL, encoding="latin-1")
 cc_df = cc_df[['Class', 'Time', 'Amount'] + cc_df.columns[cc_df.columns.str.startswith('V')].to_list()]
 
 train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
-X_train = train_df.drop(columns=["Class"])
-y_train = train_df["Class"]
+X_train_big, y_train_big = train_df.drop(columns=["Class", "Time"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class", "Time"]), test_df["Class"]
+X_train, X_valid, y_train, y_valid = train_test_split(
+    X_train_big, y_train_big, test_size=0.3, random_state=123
+)
 print(X_train.shape)
 train_df.head()
 ```
@@ -84,8 +88,7 @@ Let's try a DummyClassifier, which makes predictions without learning any patter
 ```{python}
 #| echo: true
 dummy = DummyClassifier()
-pd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()
-
+cross_val_score(dummy, X_train, y_train).mean()
 ```
 
 - The accuracy looks surprisingly high!
@@ -99,16 +102,32 @@ pd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).m
 - This is why accuracy can be misleading in imbalanced datasets.
 - We need metrics that differentiate types of errors.
 
-## Fraud Confusion matrix
+## `DummyClassifier`: Confusion matrix 
 
-Which types of errors would be most critical for the bank to address?
+Which types of errors would be most critical for the bank to address? Missing a fraud case or flagging a legitimate transaction as fraud?
 
-- Missing a fraud case?
+```{python}
+from sklearn.metrics import ConfusionMatrixDisplay  
 
-- Or flagging a legitimate transaction as fraud?
+dummy.fit(X_train, y_train)
+cm = ConfusionMatrixDisplay.from_estimator(
+    dummy, X_valid, y_valid, values_format="d", display_labels=["Non fraud", "Fraud"]
+)
+```
 
-![](img/fraud-confusion-matrix.png)
+## `LogisticRegression`: Confusion matrix
 
+Are we doing better with logistic regression? 
+
+```{python}
+from sklearn.metrics import ConfusionMatrixDisplay  
+pipe = make_pipeline(StandardScaler(), LogisticRegression())
+pipe.fit(X_train, y_train)
+cm = ConfusionMatrixDisplay.from_estimator(
+    pipe, X_valid, y_valid, values_format="d", display_labels=["Non fraud", "Fraud"]
+)
+
+```
 
 ## Understanding the confusion matrix
 :::: {.columns}
@@ -169,10 +188,6 @@ We'll start with three key ones:
 - **Recall**
 - **F1-score**
 
-- Precision
-- Recall
-- F1-score 
-
 ## Precision and recall 
 
 Let's revisit our fraud detection scenario. The circle below represents **all transactions predicted as fraud** by an **imaginary toy model** designed to detect fraudulent activity.
@@ -182,20 +197,18 @@ Let's revisit our fraud detection scenario. The circle below represents **all tr
 
 ## Intuition behind the two metrics
 
-- **Precision** answers:  
-  > *Of all the transactions predicted as fraud, how many were actually fraud?*  
-  High precision $\rightarrow$ few false alarms (low false positives).
+- **Precision** answers: *Of all the transactions predicted as fraud, how many were actually fraud?*  
+  - High precision $\rightarrow$ few false alarms (low false positives).
 
-- **Recall** answers:  
-  > *Of all the actual fraud cases, how many did the model catch?*  
-  High recall $\rightarrow$ few missed frauds (low false negatives).
+- **Recall** answers: *Of all the actual fraud cases, how many did the model catch?*  
+  - High recall $\rightarrow$ few missed frauds (low false negatives).
 
 ## Trade-off between precision and recall
 
 - Increasing **recall** often decreases **precision**, and vice versa.  
 - Example:  
-  - Predict *“fraud”* for every transaction $rightarrow$ perfect recall, terrible precision.  
-  - Predict *“fraud”* only when 100% sure $rightarrow$ high precision, low recall.
+  - Predict *“fraud”* for every transaction $\rightarrow$ perfect recall, terrible precision.  
+  - Predict *“fraud”* only when 100% sure $\rightarrow$ high precision, low recall.
 
 **The right balance depends on the application and cost of errors.**
 
@@ -245,17 +258,132 @@ Method B - lower accuracy but higher precision
 | 80      | 15|
 | 0      | 5|
 
-## Thresholding 
+## Takeaway
 
-- The above metrics assume a fixed threshold. 
-- We use thresholding to get the binary prediction. 
-- A typical threshold is 0.5.
-    - A prediction of 0.90 $\rightarrow$ a high likelihood that the transaction is fraudulent and we predict **fraud**
-    - A prediction of 0.20 $\rightarrow$ a low likelihood that the transaction is non-fraudulent and we predict **Non fraud**
-- **What happens if the predicted score is equal to the chosen threshold?**
+- **Accuracy** summarizes overall correctness but hides class-specific behaviour.  
+- You can have **high accuracy but poor precision or recall**,  
+  especially in **imbalanced datasets**.  
+- Always check **multiple metrics** before deciding which model is better.
 
+# Threshold-based classification
+
+## Predicting with logistic regression 
+
+:::: {.columns}
+:::{.column width="40%"}
+![](img/lr-threshold.png)
+:::
+:::{.column width="60%"}
+- Most classification models don't directly predict labels. They predict scores or probabilities.
+- To get a label (e.g., “spam” or “not spam”), we choose a threshold (often 0.5).
+If the threshold changes, predictions change, and so do the errors. 
+- What happens to precision and recall if we change the probability threshold? 
 - [Play with classification thresholds](https://developers.google.com/machine-learning/crash-course/classification/thresholding)
 
+::: 
+::::
+
+::: {.notes}
+- Decreasing the threshold:
+  - Increases the number of positive predictions
+  - Identify more examples as "fraud" examples
+  - More false positives, more true positives. 
+  - Recall would either stay the same or go up and precision is likely to go down (precision may increase if all the new examples after decreasing the threshold are TPs).
+- Increasing the threshold:
+  - Decreases the number of positive predictions
+  - Recall would go down or stay the same but precision is likely to go up (precision may go down if TP decrease but FP do not decrease).
+
+- Key question: How do we decide on the best threshold? It depends on the problem and trade-offs between false positives and false negatives.
+:::
+
+## PR curve
+- Calculate precision and recall (TPR) at every possible threshold and graph them. 
+- Top left $\rightarrow$ Threhold of 1 (strict model = high precision)
+- Bottom right $\rightarrow$ Threhold of 0 (linient model = high recall)
+
+```{python}
+from sklearn.metrics import PrecisionRecallDisplay
+
+PrecisionRecallDisplay.from_estimator(
+    pipe,
+    X_valid,
+    y_valid,
+);
+```
+
+::: {.notes}
+
+- We can look at all possible thresholds and plot the corresponding precision and recall! 
+
+- As we lower the threshold, the classifier predicts more positives:
+  - Recall increases because we capture more true positives.
+  - Precision usually decreases because some of the additional positives are false positives.
+
+- As we raise the threshold, the classifier predicts fewer positives:
+  - Precision increases because only the most confident predictions are positive.
+  - Recall decreases because we miss more true positives.
+
+- The curve shows the trade-offs between precision and recall across all thresholds.
+- Ideal performance: top-right corner (high precision and high recall).
+- Use cases like fraud detection often require focusing on areas of the curve that favor one metric over the other (e.g., high recall for safety-critical tasks).
+:::
+
+## PR curve different thresholds
+
+- Which of the red dots are reasonable trade offs? 
+
+![](img/pr-curve-different-thresholds.png)
+
+## Average Precision (AP) Score 
+
+- AP score summarizes the PR curve by calculating the area under the curve 
+
+```{python}
+from sklearn.svm import SVC
+num_iter = 1000 # change to 1000 
+
+pipe_svc = make_pipeline(StandardScaler(), SVC(max_iter=num_iter))
+pipe_svc.fit(X_train, y_train)
+pipe_lr = make_pipeline(StandardScaler(), LogisticRegression(max_iter=num_iter))
+pipe_lr.fit(X_train, y_train)
+
+_, ax = plt.subplots()
+
+PrecisionRecallDisplay.from_estimator(
+    pipe_lr,
+    X_valid,
+    y_valid,
+    name="LR",
+    ax=ax
+);
+PrecisionRecallDisplay.from_estimator(
+    pipe_svc,
+    X_valid,
+    y_valid,
+    name="SVC",
+    ax=ax
+);
+```
+## iClicker Exercise
+
+Choose the appropriate evaluation metric for the following scenarios: 
+
+**Scenario 1: Balance between precision and recall for a threshold.**
+
+**Scenario 2: Assess performance across all thresholds.**
+
+- (A) F1 for 1, AP for 2
+
+- (B) AP for 1, F1 Score for 2
+
+- (C) AP for both 
+
+- (D) F1 for both 
+
+::: {.notes}
+- F1 score is for a given threshold and measures the quality of `predict`.
+- AP score is a summary across thresholds and measures the quality of `predict_proba`.
+:::
 
 ## iClicker Exercise 9.2
 
@@ -265,13 +393,6 @@ Method B - lower accuracy but higher precision
 - (B) If we increase the classification threshold, both true and false negatives are likely to decrease.
 - (C) Lowering the classification threshold generally increases the model’s recall.  
 - (D) Raising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives.
-
-
-## PR curve
-- Calculate precision and recall (TPR) at every possible threshold and graph them. 
-- Better choice for highly imbalanced datasets 
-
-![](img/pr-curve-example.png)
 
 
 ## ROC curve 

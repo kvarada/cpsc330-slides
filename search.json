@@ -711,14 +711,14 @@
     "href": "slides/slides-09-classification-metrics.html#a-fraud-classification-example",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "A fraud classification example",
-    "text": "A fraud classification example\n\n\n(199364, 30)\n\n\n\n\n\n\n\n\n\nClass\nTime\nAmount\nV1\nV2\nV3\nV4\nV5\nV6\nV7\n...\nV19\nV20\nV21\nV22\nV23\nV24\nV25\nV26\nV27\nV28\n\n\n\n\n64454\n0\n51150.0\n1.00\n-3.538816\n3.481893\n-1.827130\n-0.573050\n2.644106\n-0.340988\n2.102135\n...\n-1.509991\n1.345904\n0.530978\n-0.860677\n-0.201810\n-1.719747\n0.729143\n-0.547993\n-0.023636\n-0.454966\n\n\n37906\n0\n39163.0\n18.49\n-0.363913\n0.853399\n1.648195\n1.118934\n0.100882\n0.423852\n0.472790\n...\n0.810267\n-0.192932\n0.687055\n-0.094586\n0.121531\n0.146830\n-0.944092\n-0.558564\n-0.186814\n-0.257103\n\n\n79378\n0\n57994.0\n23.74\n1.193021\n-0.136714\n0.622612\n0.780864\n-0.823511\n-0.706444\n-0.206073\n...\n0.258815\n-0.178761\n-0.310405\n-0.842028\n0.085477\n0.366005\n0.254443\n0.290002\n-0.036764\n0.015039\n\n\n245686\n0\n152859.0\n156.52\n1.604032\n-0.808208\n-1.594982\n0.200475\n0.502985\n0.832370\n-0.034071\n...\n-1.009429\n-0.040448\n0.519029\n1.429217\n-0.139322\n-1.293663\n0.037785\n0.061206\n0.005387\n-0.057296\n\n\n60943\n0\n49575.0\n57.50\n-2.669614\n-2.734385\n0.662450\n-0.059077\n3.346850\n-2.549682\n-1.430571\n...\n0.157993\n-0.430295\n-0.228329\n-0.370643\n-0.211544\n-0.300837\n-1.174590\n0.573818\n0.388023\n0.161782\n\n\n\n\n5 rows × 31 columns"
+    "text": "A fraud classification example\n\n\n(139554, 29)\n\n\n\n\n\n\n\n\n\nClass\nTime\nAmount\nV1\nV2\nV3\nV4\nV5\nV6\nV7\n...\nV19\nV20\nV21\nV22\nV23\nV24\nV25\nV26\nV27\nV28\n\n\n\n\n64454\n0\n51150.0\n1.00\n-3.538816\n3.481893\n-1.827130\n-0.573050\n2.644106\n-0.340988\n2.102135\n...\n-1.509991\n1.345904\n0.530978\n-0.860677\n-0.201810\n-1.719747\n0.729143\n-0.547993\n-0.023636\n-0.454966\n\n\n37906\n0\n39163.0\n18.49\n-0.363913\n0.853399\n1.648195\n1.118934\n0.100882\n0.423852\n0.472790\n...\n0.810267\n-0.192932\n0.687055\n-0.094586\n0.121531\n0.146830\n-0.944092\n-0.558564\n-0.186814\n-0.257103\n\n\n79378\n0\n57994.0\n23.74\n1.193021\n-0.136714\n0.622612\n0.780864\n-0.823511\n-0.706444\n-0.206073\n...\n0.258815\n-0.178761\n-0.310405\n-0.842028\n0.085477\n0.366005\n0.254443\n0.290002\n-0.036764\n0.015039\n\n\n245686\n0\n152859.0\n156.52\n1.604032\n-0.808208\n-1.594982\n0.200475\n0.502985\n0.832370\n-0.034071\n...\n-1.009429\n-0.040448\n0.519029\n1.429217\n-0.139322\n-1.293663\n0.037785\n0.061206\n0.005387\n-0.057296\n\n\n60943\n0\n49575.0\n57.50\n-2.669614\n-2.734385\n0.662450\n-0.059077\n3.346850\n-2.549682\n-1.430571\n...\n0.157993\n-0.430295\n-0.228329\n-0.370643\n-0.211544\n-0.300837\n-1.174590\n0.573818\n0.388023\n0.161782\n\n\n\n\n5 rows × 31 columns"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#dummyclassifier",
     "href": "slides/slides-09-classification-metrics.html#dummyclassifier",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "DummyClassifier",
-    "text": "DummyClassifier\nLet’s try a DummyClassifier, which makes predictions without learning any patterns.\n\ndummy = DummyClassifier()\npd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()\n\nfit_time       0.017052\nscore_time     0.002711\ntest_score     0.998300\ntrain_score    0.998300\ndtype: float64\n\n\n\nThe accuracy looks surprisingly high!\nShould we be happy with this model and deploy it?"
+    "text": "DummyClassifier\nLet’s try a DummyClassifier, which makes predictions without learning any patterns.\n\ndummy = DummyClassifier()\ncross_val_score(dummy, X_train, y_train).mean()\n\n0.9983017327649726\n\n\n\nThe accuracy looks surprisingly high!\nShould we be happy with this model and deploy it?"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#problem-class-imbalance",
@@ -728,11 +728,18 @@
     "text": "Problem: Class imbalance\n\nIn many real-world problems, some classes are much rarer than others.\nA model that always predicts “no fraud” could still achieve &gt;99% accuracy!\nThis is why accuracy can be misleading in imbalanced datasets.\nWe need metrics that differentiate types of errors."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
-    "href": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
+    "objectID": "slides/slides-09-classification-metrics.html#dummyclassifier-confusion-matrix",
+    "href": "slides/slides-09-classification-metrics.html#dummyclassifier-confusion-matrix",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Fraud Confusion matrix",
-    "text": "Fraud Confusion matrix\nWhich types of errors would be most critical for the bank to address?\n\nMissing a fraud case?\nOr flagging a legitimate transaction as fraud?"
+    "section": "DummyClassifier: Confusion matrix",
+    "text": "DummyClassifier: Confusion matrix\nWhich types of errors would be most critical for the bank to address? Missing a fraud case or flagging a legitimate transaction as fraud?"
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#logisticregression-confusion-matrix",
+    "href": "slides/slides-09-classification-metrics.html#logisticregression-confusion-matrix",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "LogisticRegression: Confusion matrix",
+    "text": "LogisticRegression: Confusion matrix\nAre we doing better with logistic regression?"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#understanding-the-confusion-matrix",
@@ -767,7 +774,7 @@
     "href": "slides/slides-09-classification-metrics.html#metrics-other-than-accuracy",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "Metrics other than accuracy",
-    "text": "Metrics other than accuracy\nNow that we understand the different types of errors, we can explore metrics that better capture model performance when accuracy falls short, especially for imbalanced datasets.\nWe’ll start with three key ones:\n\nPrecision\nRecall\nF1-score\nPrecision\nRecall\nF1-score"
+    "text": "Metrics other than accuracy\nNow that we understand the different types of errors, we can explore metrics that better capture model performance when accuracy falls short, especially for imbalanced datasets.\nWe’ll start with three key ones:\n\nPrecision\nRecall\nF1-score"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#precision-and-recall",
@@ -781,14 +788,14 @@
     "href": "slides/slides-09-classification-metrics.html#intuition-behind-the-two-metrics",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "Intuition behind the two metrics",
-    "text": "Intuition behind the two metrics\n\nPrecision answers:\n&gt; Of all the transactions predicted as fraud, how many were actually fraud?\nHigh precision \\(\\rightarrow\\) few false alarms (low false positives).\nRecall answers:\n&gt; Of all the actual fraud cases, how many did the model catch?\nHigh recall \\(\\rightarrow\\) few missed frauds (low false negatives)."
+    "text": "Intuition behind the two metrics\n\nPrecision answers: Of all the transactions predicted as fraud, how many were actually fraud?\n\nHigh precision \\(\\rightarrow\\) few false alarms (low false positives).\n\nRecall answers: Of all the actual fraud cases, how many did the model catch?\n\nHigh recall \\(\\rightarrow\\) few missed frauds (low false negatives)."
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#trade-off-between-precision-and-recall",
     "href": "slides/slides-09-classification-metrics.html#trade-off-between-precision-and-recall",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "Trade-off between precision and recall",
-    "text": "Trade-off between precision and recall\n\nIncreasing recall often decreases precision, and vice versa.\n\nExample:\n\nPredict “fraud” for every transaction \\(rightarrow\\) perfect recall, terrible precision.\n\nPredict “fraud” only when 100% sure \\(rightarrow\\) high precision, low recall.\n\n\nThe right balance depends on the application and cost of errors."
+    "text": "Trade-off between precision and recall\n\nIncreasing recall often decreases precision, and vice versa.\n\nExample:\n\nPredict “fraud” for every transaction \\(\\rightarrow\\) perfect recall, terrible precision.\n\nPredict “fraud” only when 100% sure \\(\\rightarrow\\) high precision, low recall.\n\n\nThe right balance depends on the application and cost of errors."
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#f1-score",
@@ -819,11 +826,46 @@
     "text": "Counter examples\nMethod A - higher accuracy but lower precision\n\n\n\nNegative\nPositive\n\n\n\n\n90\n5\n\n\n5\n0\n\n\n\nMethod B - lower accuracy but higher precision\n\n\n\nNegative\nPositive\n\n\n\n\n80\n15\n\n\n0\n5"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#thresholding",
-    "href": "slides/slides-09-classification-metrics.html#thresholding",
+    "objectID": "slides/slides-09-classification-metrics.html#takeaway",
+    "href": "slides/slides-09-classification-metrics.html#takeaway",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Thresholding",
-    "text": "Thresholding\n\nThe above metrics assume a fixed threshold.\nWe use thresholding to get the binary prediction.\nA typical threshold is 0.5.\n\nA prediction of 0.90 \\(\\rightarrow\\) a high likelihood that the transaction is fraudulent and we predict fraud\nA prediction of 0.20 \\(\\rightarrow\\) a low likelihood that the transaction is non-fraudulent and we predict Non fraud\n\nWhat happens if the predicted score is equal to the chosen threshold?\nPlay with classification thresholds"
+    "section": "Takeaway",
+    "text": "Takeaway\n\nAccuracy summarizes overall correctness but hides class-specific behaviour.\n\nYou can have high accuracy but poor precision or recall,\nespecially in imbalanced datasets.\n\nAlways check multiple metrics before deciding which model is better."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#predicting-with-logistic-regression",
+    "href": "slides/slides-09-classification-metrics.html#predicting-with-logistic-regression",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Predicting with logistic regression",
+    "text": "Predicting with logistic regression\n\n\n\n\n\nMost classification models don’t directly predict labels. They predict scores or probabilities.\nTo get a label (e.g., “spam” or “not spam”), we choose a threshold (often 0.5). If the threshold changes, predictions change, and so do the errors.\nWhat happens to precision and recall if we change the probability threshold?\nPlay with classification thresholds\n\n\n\n\nDecreasing the threshold:\n\nIncreases the number of positive predictions\nIdentify more examples as “fraud” examples\nMore false positives, more true positives.\nRecall would either stay the same or go up and precision is likely to go down (precision may increase if all the new examples after decreasing the threshold are TPs).\n\nIncreasing the threshold:\n\nDecreases the number of positive predictions\nRecall would go down or stay the same but precision is likely to go up (precision may go down if TP decrease but FP do not decrease).\n\nKey question: How do we decide on the best threshold? It depends on the problem and trade-offs between false positives and false negatives."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#pr-curve",
+    "href": "slides/slides-09-classification-metrics.html#pr-curve",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "PR curve",
+    "text": "PR curve\n\nCalculate precision and recall (TPR) at every possible threshold and graph them.\nTop left \\(\\rightarrow\\) Threhold of 1 (strict model = high precision)\nBottom right \\(\\rightarrow\\) Threhold of 0 (linient model = high recall)\n\n\n\n\n\n\n\n\n\n\n\n\nWe can look at all possible thresholds and plot the corresponding precision and recall!\nAs we lower the threshold, the classifier predicts more positives:\n\nRecall increases because we capture more true positives.\nPrecision usually decreases because some of the additional positives are false positives.\n\nAs we raise the threshold, the classifier predicts fewer positives:\n\nPrecision increases because only the most confident predictions are positive.\nRecall decreases because we miss more true positives.\n\nThe curve shows the trade-offs between precision and recall across all thresholds.\nIdeal performance: top-right corner (high precision and high recall).\nUse cases like fraud detection often require focusing on areas of the curve that favor one metric over the other (e.g., high recall for safety-critical tasks)."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#pr-curve-different-thresholds",
+    "href": "slides/slides-09-classification-metrics.html#pr-curve-different-thresholds",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "PR curve different thresholds",
+    "text": "PR curve different thresholds\n\nWhich of the red dots are reasonable trade offs?"
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#average-precision-ap-score",
+    "href": "slides/slides-09-classification-metrics.html#average-precision-ap-score",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Average Precision (AP) Score",
+    "text": "Average Precision (AP) Score\n\nAP score summarizes the PR curve by calculating the area under the curve"
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise",
+    "href": "slides/slides-09-classification-metrics.html#iclicker-exercise",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "iClicker Exercise",
+    "text": "iClicker Exercise\nChoose the appropriate evaluation metric for the following scenarios:\nScenario 1: Balance between precision and recall for a threshold.\nScenario 2: Assess performance across all thresholds.\n\n\nF1 for 1, AP for 2\n\n\nAP for 1, F1 Score for 2\n\n\nAP for both\n\n\nF1 for both\n\n\n\n\nF1 score is for a given threshold and measures the quality of predict.\nAP score is a summary across thresholds and measures the quality of predict_proba."
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.2",
@@ -831,13 +873,6 @@
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "iClicker Exercise 9.2",
     "text": "iClicker Exercise 9.2\nSelect all of the following statements which are TRUE.\n\n\nIf we increase the classification threshold, both true and false positives are likely to decrease.\n\n\nIf we increase the classification threshold, both true and false negatives are likely to decrease.\n\n\nLowering the classification threshold generally increases the model’s recall.\n\n\n\nRaising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives."
-  },
-  {
-    "objectID": "slides/slides-09-classification-metrics.html#pr-curve",
-    "href": "slides/slides-09-classification-metrics.html#pr-curve",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "PR curve",
-    "text": "PR curve\n\nCalculate precision and recall (TPR) at every possible threshold and graph them.\nBetter choice for highly imbalanced datasets"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#roc-curve",
