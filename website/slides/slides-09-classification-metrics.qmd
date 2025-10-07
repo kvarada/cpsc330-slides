@@ -364,18 +364,21 @@ PrecisionRecallDisplay.from_estimator(
     ax=ax
 );
 ```
-## Exercise: choose the appropriate evaluation metric
+## iClicker Exercise
 
-- Scenario 1: Balance between precision and recall for a threshold.
-- Scenario 2: Assess performance across all thresholds.
+Choose the appropriate evaluation metric for the following scenarios: 
 
-**A.** F1 for 1, AP for 2
+**Scenario 1:** Balance between precision and recall for a threshold.**
 
-**B.** AP for 1, F1 Score for 2
+**Scenario 2:** Assess performance across all thresholds.**
 
-**C.** AP for both 
+- (A) F1 for 1, AP for 2
 
-**D.** F1 for both 
+- (B) AP for 1, F1 Score for 2
+
+- (C) AP for both 
+
+- (D) F1 for both 
 
 ::: {.notes}
 - F1 score is for a given threshold and measures the quality of `predict`.
