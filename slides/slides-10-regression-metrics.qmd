@@ -5,6 +5,7 @@ description: "Metrics for Regression"
 description-short: "Ridge, " 
 format:
   revealjs:
+    html-math-method: mathjax
     embed-resources: true
     slide-number: true
     smaller: true
@@ -16,12 +17,6 @@ format:
 ---
 
 ## Announcements 
-
-- Important information about midterm 1
-  - https://piazza.com/class/m01ukubppof625/post/249
-  - **Good news for you: You'll have access to our course notes in the midterm!**
-- Note the change in the [lecture schedule](https://ubc-cs.github.io/cpsc330-2024W1/README.html#lecture-schedule-tentative).   
-- HW5 will be released today. It's a project-type assignment and you get till Oct 28th to work on it.  
 
 ## Recap: Confusion matrix
 :::: {.columns}

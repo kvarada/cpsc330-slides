@@ -679,158 +679,158 @@
     "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#announcements",
-    "href": "slides/slides-07-linear-models.html#announcements",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/slides-09-classification-metrics.html#focus-on-the-breath",
+    "href": "slides/slides-09-classification-metrics.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Focus on the breath!",
+    "text": "Focus on the breath!"
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#announcements",
+    "href": "slides/slides-09-classification-metrics.html#announcements",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\nGood news for you: You’ll have access to our course notes in the midterm!\n\nHW4 was due on Monday, Oct 6th 11:59 pm.\nHW5 has been released. It’s a project-type assignment and you get till Oct 27th to work on it."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
-    "href": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
-    "title": "Lecture 7: Linear models",
-    "section": "Recap: Dealing with text features",
-    "text": "Recap: Dealing with text features\n\nPreprocessing text to fit into machine learning models using text vectorization.\nBag of words representation"
+    "objectID": "slides/slides-09-classification-metrics.html#ml-workflow",
+    "href": "slides/slides-09-classification-metrics.html#ml-workflow",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "ML workflow",
+    "text": "ML workflow"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
-    "href": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
-    "title": "Lecture 7: Linear models",
-    "section": "Recap: sklearn CountVectorizer",
-    "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
+    "objectID": "slides/slides-09-classification-metrics.html#accuracy",
+    "href": "slides/slides-09-classification-metrics.html#accuracy",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Accuracy",
+    "text": "Accuracy\n\nSo far, we’ve been measuring model performance using Accuracy.\n\nAccuracy is the proportion of all predictions that were correct — whether positive or negative.\n\n\\[\n\\text{Accuracy} = \\frac{\\text{correct classifications}}{\\text{total classifications}}\n\\]\n\nBut is accuracy always the right metric to evaluate a model? 🤔"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
-    "title": "Lecture 7: Linear models",
-    "section": "(iClicker) Exercise 6.2",
-    "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
+    "objectID": "slides/slides-09-classification-metrics.html#a-fraud-classification-example",
+    "href": "slides/slides-09-classification-metrics.html#a-fraud-classification-example",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "A fraud classification example",
+    "text": "A fraud classification example\n\n\n\n\n\n\n\n\n\nClass\nTime\nAmount\nV1\nV2\nV3\nV4\nV5\nV6\nV7\n...\nV19\nV20\nV21\nV22\nV23\nV24\nV25\nV26\nV27\nV28\n\n\n\n\n64454\n0\n51150.0\n1.00\n-3.538816\n3.481893\n-1.827130\n-0.573050\n2.644106\n-0.340988\n2.102135\n...\n-1.509991\n1.345904\n0.530978\n-0.860677\n-0.201810\n-1.719747\n0.729143\n-0.547993\n-0.023636\n-0.454966\n\n\n37906\n0\n39163.0\n18.49\n-0.363913\n0.853399\n1.648195\n1.118934\n0.100882\n0.423852\n0.472790\n...\n0.810267\n-0.192932\n0.687055\n-0.094586\n0.121531\n0.146830\n-0.944092\n-0.558564\n-0.186814\n-0.257103\n\n\n79378\n0\n57994.0\n23.74\n1.193021\n-0.136714\n0.622612\n0.780864\n-0.823511\n-0.706444\n-0.206073\n...\n0.258815\n-0.178761\n-0.310405\n-0.842028\n0.085477\n0.366005\n0.254443\n0.290002\n-0.036764\n0.015039\n\n\n245686\n0\n152859.0\n156.52\n1.604032\n-0.808208\n-1.594982\n0.200475\n0.502985\n0.832370\n-0.034071\n...\n-1.009429\n-0.040448\n0.519029\n1.429217\n-0.139322\n-1.293663\n0.037785\n0.061206\n0.005387\n-0.057296\n\n\n60943\n0\n49575.0\n57.50\n-2.669614\n-2.734385\n0.662450\n-0.059077\n3.346850\n-2.549682\n-1.430571\n...\n0.157993\n-0.430295\n-0.228329\n-0.370643\n-0.211544\n-0.300837\n-1.174590\n0.573818\n0.388023\n0.161782\n\n\n\n\n5 rows × 31 columns"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#linear-models",
-    "href": "slides/slides-07-linear-models.html#linear-models",
-    "title": "Lecture 7: Linear models",
-    "section": "Linear models",
-    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions: \\(y_{hat} = w_1 \\times \\text{\\# hours studied} + w_0\\)"
+    "objectID": "slides/slides-09-classification-metrics.html#dummyclassifier",
+    "href": "slides/slides-09-classification-metrics.html#dummyclassifier",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "DummyClassifier",
+    "text": "DummyClassifier\nLet’s try a DummyClassifier, which makes predictions without learning any patterns.\n\ndummy = DummyClassifier()\npd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()\n\nfit_time       0.018004\nscore_time     0.003109\ntest_score     0.998300\ntrain_score    0.998300\ndtype: float64\n\n\n\nThe accuracy looks surprisingly high!\nShould we be happy with this model and deploy it?"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
-    "href": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
-    "title": "Lecture 7: Linear models",
-    "section": "Ridge vs. LinearRegression",
-    "text": "Ridge vs. LinearRegression\n\nOrdinary linear regression is sensitive to multicolinearity and overfitting\nMulticolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.\n\nLinear regression may produce large and unstable coefficients in such cases.\nRidge adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients."
+    "objectID": "slides/slides-09-classification-metrics.html#problem-class-imbalance",
+    "href": "slides/slides-09-classification-metrics.html#problem-class-imbalance",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Problem: Class imbalance",
+    "text": "Problem: Class imbalance\n\nIn many real-world problems, some classes are much rarer than others.\nA model that always predicts “no fraud” could still achieve &gt;99% accuracy!\nThis is why accuracy can be misleading in imbalanced datasets.\nWe need metrics that differentiate types of errors."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#when-to-use-what",
-    "href": "slides/slides-07-linear-models.html#when-to-use-what",
-    "title": "Lecture 7: Linear models",
-    "section": "When to use what?",
-    "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
+    "objectID": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
+    "href": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Fraud Confusion matrix",
+    "text": "Fraud Confusion matrix\nWhich types of errors would be most critical for the bank to address?\n\nMissing a fraud case?\nOr flagging a legitimate transaction as fraud?"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#logistic-regression",
-    "href": "slides/slides-07-linear-models.html#logistic-regression",
-    "title": "Lecture 7: Linear models",
-    "section": "Logistic regression",
-    "text": "Logistic regression\n\nSuppose your target is binary: pass or fail\nLogistic regression is used for such binary classification tasks.\n\nLogistic regression predicts a probability that the given example belongs to a particular class.\nIt uses Sigmoid function to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.\nA threshold (usually 0.5) is applied to the predicted probability to decide the final class label."
+    "objectID": "slides/slides-09-classification-metrics.html#understanding-the-confusion-matrix",
+    "href": "slides/slides-09-classification-metrics.html#understanding-the-confusion-matrix",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Understanding the confusion matrix",
+    "text": "Understanding the confusion matrix\n\n\n\n\n\nTN \\(\\rightarrow\\) True negatives\nFP \\(\\rightarrow\\) False positives\nFN \\(\\rightarrow\\) False negatives\nTP \\(\\rightarrow\\) True positives"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
-    "href": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
-    "title": "Lecture 7: Linear models",
-    "section": "Logistic regression: Decision boundary",
-    "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
+    "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions",
+    "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Confusion matrix questions",
+    "text": "Confusion matrix questions\nImagine a spam filter model where emails labeled 1 = spam, 0 = not spam. If a spam email is incorrectly classified as not spam, what kind of error is this?\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#sentiment-analysis-example",
-    "href": "slides/slides-07-linear-models.html#sentiment-analysis-example",
-    "title": "Lecture 7: Linear models",
-    "section": "Sentiment analysis example",
-    "text": "Sentiment analysis example\n\n\n\n\n\nLogistic regression learns coefficients for each word from training data.\n\nPositive coefficients \\(\\rightarrow\\) push prediction toward positive class.\n\nNegative coefficients \\(\\rightarrow\\) push prediction toward negative class.\n\nIn this example, positive words (fun, rewarding) outweigh the negative word (long), so the overall sentiment is likely positive."
+    "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-1",
+    "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-1",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Confusion matrix questions",
+    "text": "Confusion matrix questions\nIn an intrusion detection system, 1 = intrusion, 0 = safe. If the system misses an actual intrusion and classifies it as safe, this is a:\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
-    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
-    "title": "Lecture 7: Linear models",
-    "section": "Parametric vs. non-Parametric models (high-level)",
-    "text": "Parametric vs. non-Parametric models (high-level)\n\nImagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.\nScenario 1: 100 features and 1,000 examples\nScenario 2: 100 features and 1 million examples"
+    "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-2",
+    "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-2",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Confusion matrix questions",
+    "text": "Confusion matrix questions\nIn a medical test for a disease, 1 = diseased, 0 = healthy. If a healthy patient is incorrectly diagnosed as diseased, that’s a:\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
-    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
-    "title": "Lecture 7: Linear models",
-    "section": "Parametric vs. non-Parametric models (high-level)",
-    "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
+    "objectID": "slides/slides-09-classification-metrics.html#section",
+    "href": "slides/slides-09-classification-metrics.html#section",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "",
+    "text": "Now that we understand the different types of errors, we can explore metrics that better capture model performance when accuracy falls short."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
-    "title": "Lecture 7: Linear models",
-    "section": "(iClicker) Exercise 7.1",
-    "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
+    "objectID": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
+    "href": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Precision, Recall, F1-Score",
+    "text": "Precision, Recall, F1-Score"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
-    "title": "Lecture 7: Linear models",
-    "section": "(iClicker) Exercise 7.2",
-    "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
+    "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.1",
+    "href": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.1",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "iClicker Exercise 9.1",
+    "text": "iClicker Exercise 9.1\nSelect all of the following statements which are TRUE.\n\n\nIn medical diagnosis, false positives are more damaging than false negatives (assume “positive” means the person has a disease, “negative” means they don’t).\n\n\nIn spam classification, false positives are more damaging than false negatives (assume “positive” means the email is spam, “negative” means they it’s not).\n\n\nIf method A gets a higher accuracy than method B, that means its precision is also higher.\n\n\nIf method A gets a higher accuracy than method B, that means its recall is also higher."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
-    "href": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
-    "title": "Lecture 7: Linear models",
-    "section": "Softmax Function for Probabilities",
-    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
+    "objectID": "slides/slides-09-classification-metrics.html#counter-examples",
+    "href": "slides/slides-09-classification-metrics.html#counter-examples",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Counter examples",
+    "text": "Counter examples\nMethod A - higher accuracy but lower precision\n\n\n\nNegative\nPositive\n\n\n\n\n90\n5\n\n\n5\n0\n\n\n\nMethod B - lower accuracy but higher precision\n\n\n\nNegative\nPositive\n\n\n\n\n80\n15\n\n\n0\n5"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#making-predictions",
-    "href": "slides/slides-07-linear-models.html#making-predictions",
-    "title": "Lecture 7: Linear models",
-    "section": "Making Predictions",
-    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class \\(\\hat{y}\\) is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
+    "objectID": "slides/slides-09-classification-metrics.html#thresholding",
+    "href": "slides/slides-09-classification-metrics.html#thresholding",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Thresholding",
+    "text": "Thresholding\n\nThe above metrics assume a fixed threshold.\nWe use thresholding to get the binary prediction.\nA typical threshold is 0.5.\n\nA prediction of 0.90 \\(\\rightarrow\\) a high likelihood that the transaction is fraudulent and we predict fraud\nA prediction of 0.20 \\(\\rightarrow\\) a low likelihood that the transaction is non-fraudulent and we predict Non fraud\n\nWhat happens if the predicted score is equal to the chosen threshold?\nPlay with classification thresholds"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
-    "href": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
-    "title": "Lecture 7: Linear models",
-    "section": "Binary vs multinomial logistic regression",
-    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
+    "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.2",
+    "href": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.2",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "iClicker Exercise 9.2",
+    "text": "iClicker Exercise 9.2\nSelect all of the following statements which are TRUE.\n\n\nIf we increase the classification threshold, both true and false positives are likely to decrease.\n\n\nIf we increase the classification threshold, both true and false negatives are likely to decrease.\n\n\nLowering the classification threshold generally increases the model’s recall.\n\n\n\nRaising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#activity-time-permitting",
-    "href": "slides/slides-07-linear-models.html#activity-time-permitting",
-    "title": "Lecture 7: Linear models",
-    "section": "Activity (time-permitting)",
-    "text": "Activity (time-permitting)\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
+    "objectID": "slides/slides-09-classification-metrics.html#pr-curve",
+    "href": "slides/slides-09-classification-metrics.html#pr-curve",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "PR curve",
+    "text": "PR curve\n\nCalculate precision and recall (TPR) at every possible threshold and graph them.\nBetter choice for highly imbalanced datasets"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#activity-description",
-    "href": "slides/slides-07-linear-models.html#activity-description",
-    "title": "Lecture 7: Linear models",
-    "section": "Activity description",
-    "text": "Activity description\n\nYour task is to engage in group discussions and fill in the designated row in this Google document.\nFor strengths and weaknesses, some things to consider are:\n\nconcerns about underfitting\nconcerns about overfitting\nspeed\nscalability for large data sets\n\ninterpretability\neffectiveness on sparse data\nease of use for multi-class classification\n\nability to represent uncertainty\ntime/space complexity\netc."
+    "objectID": "slides/slides-09-classification-metrics.html#roc-curve",
+    "href": "slides/slides-09-classification-metrics.html#roc-curve",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "ROC curve",
+    "text": "ROC curve\n\nCalculate the true positive rate (TPR) and false positive rate (FPR) at every possible thresholding and graph TPR over FPR.\nGood choice when the datasets are roughly balanced."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#estimators",
-    "href": "slides/slides-07-linear-models.html#estimators",
-    "title": "Lecture 7: Linear models",
-    "section": "Estimators",
-    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
+    "objectID": "slides/slides-09-classification-metrics.html#auc",
+    "href": "slides/slides-09-classification-metrics.html#auc",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "AUC",
+    "text": "AUC\n\nThe area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#transformers",
-    "href": "slides/slides-07-linear-models.html#transformers",
-    "title": "Lecture 7: Linear models",
-    "section": "Transformers",
-    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#coming-up",
-    "href": "slides/slides-07-linear-models.html#coming-up",
-    "title": "Lecture 7: Linear models",
-    "section": "Coming up",
-    "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
+    "objectID": "slides/slides-09-classification-metrics.html#roc-auc-questions",
+    "href": "slides/slides-09-classification-metrics.html#roc-auc-questions",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "ROC AUC questions",
+    "text": "ROC AUC questions\nConsider the points A, B, and C in the following diagram, each representing a threshold. Which threshold would you pick in each scenario?\n\n\n\n\n\n\nIf false positives (false alarms) are highly costly\n\n\nIf false positives are cheap and false negatives (missed true positives) highly costly\n\n\nIf the costs are roughly equivalent\n\n\n\nSource"
   },
   {
     "objectID": "slides/slides-03-ml-fundamentals.html#announcements",
@@ -1332,7 +1332,7 @@
     "href": "slides/slides-10-regression-metrics.html#announcements",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/m01ukubppof625/post/249\nGood news for you: You’ll have access to our course notes in the midterm!\n\nNote the change in the lecture schedule.\n\nHW5 will be released today. It’s a project-type assignment and you get till Oct 28th to work on it."
+    "text": "Announcements"
   },
   {
     "objectID": "slides/slides-10-regression-metrics.html#recap-confusion-matrix",
@@ -1605,123 +1605,158 @@
     ]
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#announcements",
-    "href": "slides/slides-09-classification-metrics.html#announcements",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "objectID": "slides/slides-07-linear-models.html#announcements",
+    "href": "slides/slides-07-linear-models.html#announcements",
+    "title": "Lecture 7: Linear models",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nHW4 was due on Monday, Oct 6th 11:59 pm.\nHW5 has been released. It’s a project-type assignment and you get till Oct 27th to work on it."
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#ml-workflow",
-    "href": "slides/slides-09-classification-metrics.html#ml-workflow",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "ML workflow",
-    "text": "ML workflow"
+    "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
+    "href": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
+    "title": "Lecture 7: Linear models",
+    "section": "Recap: Dealing with text features",
+    "text": "Recap: Dealing with text features\n\nPreprocessing text to fit into machine learning models using text vectorization.\nBag of words representation"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#accuracy",
-    "href": "slides/slides-09-classification-metrics.html#accuracy",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Accuracy",
-    "text": "Accuracy\n\nSo far we have been measuring model performance using Accuracy.\nAccuracy is the proportion of all classifications that were correct, whether positive or negative. \\[Accuracy = \\frac{\\text{corrct classifications}}{\\text{total classifications}}\\]\nHowever, in many real-world applications, the dataset is imbalanced or one kind of mistake is more costly than the other\nIn such cases, it’s better to optimize for one of the other metrics instead."
+    "objectID": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "href": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "title": "Lecture 7: Linear models",
+    "section": "Recap: sklearn CountVectorizer",
+    "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
-    "href": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Fraud Confusion matrix",
-    "text": "Fraud Confusion matrix\n\nWhich types of errors would be most critical for the bank to address?"
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 6.2",
+    "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix-1",
-    "href": "slides/slides-09-classification-metrics.html#fraud-confusion-matrix-1",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Fraud Confusion matrix",
-    "text": "Fraud Confusion matrix\n\n\n\n\n\nTN \\(\\rightarrow\\) True negatives\nFP \\(\\rightarrow\\) False positives\nFN \\(\\rightarrow\\) False negatives\nTP \\(\\rightarrow\\) True positives"
+    "objectID": "slides/slides-07-linear-models.html#linear-models",
+    "href": "slides/slides-07-linear-models.html#linear-models",
+    "title": "Lecture 7: Linear models",
+    "section": "Linear models",
+    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions: \\(y_{hat} = w_1 \\times \\text{\\# hours studied} + w_0\\)"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions",
-    "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Confusion matrix questions",
-    "text": "Confusion matrix questions\nImagine a spam filter model where emails classified as spam are labeled 1 and non-spam emails are labeled 0. If a spam email is incorrectly classified as non-spam, what is this error called?\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
+    "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
+    "href": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
+    "title": "Lecture 7: Linear models",
+    "section": "Ridge vs. LinearRegression",
+    "text": "Ridge vs. LinearRegression\n\nOrdinary linear regression is sensitive to multicolinearity and overfitting\nMulticolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.\n\nLinear regression may produce large and unstable coefficients in such cases.\nRidge adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-1",
-    "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-1",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Confusion matrix questions",
-    "text": "Confusion matrix questions\nIn an intrusion detection system, intrusions are identified as 1 and non-intrusive activities as 0. If the system fails to identify an actual intrusion, wrongly categorizing it as non-intrusive, what is this type of error called?\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
+    "objectID": "slides/slides-07-linear-models.html#when-to-use-what",
+    "href": "slides/slides-07-linear-models.html#when-to-use-what",
+    "title": "Lecture 7: Linear models",
+    "section": "When to use what?",
+    "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-2",
-    "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-2",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Confusion matrix questions",
-    "text": "Confusion matrix questions\nIn a medical test for a disease, diseased states are labeled as 1 and healthy states as 0. If a healthy patient is incorrectly diagnosed with the disease, what is this error known as?\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
+    "objectID": "slides/slides-07-linear-models.html#logistic-regression",
+    "href": "slides/slides-07-linear-models.html#logistic-regression",
+    "title": "Lecture 7: Linear models",
+    "section": "Logistic regression",
+    "text": "Logistic regression\n\nSuppose your target is binary: pass or fail\nLogistic regression is used for such binary classification tasks.\n\nLogistic regression predicts a probability that the given example belongs to a particular class.\nIt uses Sigmoid function to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.\nA threshold (usually 0.5) is applied to the predicted probability to decide the final class label."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
-    "href": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Precision, Recall, F1-Score",
-    "text": "Precision, Recall, F1-Score"
+    "objectID": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "href": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "title": "Lecture 7: Linear models",
+    "section": "Logistic regression: Decision boundary",
+    "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.1",
-    "href": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.1",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "iClicker Exercise 9.1",
-    "text": "iClicker Exercise 9.1\nSelect all of the following statements which are TRUE.\n\n\nIn medical diagnosis, false positives are more damaging than false negatives (assume “positive” means the person has a disease, “negative” means they don’t).\n\n\nIn spam classification, false positives are more damaging than false negatives (assume “positive” means the email is spam, “negative” means they it’s not).\n\n\nIf method A gets a higher accuracy than method B, that means its precision is also higher.\n\n\nIf method A gets a higher accuracy than method B, that means its recall is also higher."
+    "objectID": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "href": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "title": "Lecture 7: Linear models",
+    "section": "Sentiment analysis example",
+    "text": "Sentiment analysis example\n\n\n\n\n\nLogistic regression learns coefficients for each word from training data.\n\nPositive coefficients \\(\\rightarrow\\) push prediction toward positive class.\n\nNegative coefficients \\(\\rightarrow\\) push prediction toward negative class.\n\nIn this example, positive words (fun, rewarding) outweigh the negative word (long), so the overall sentiment is likely positive."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#counter-examples",
-    "href": "slides/slides-09-classification-metrics.html#counter-examples",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Counter examples",
-    "text": "Counter examples\nMethod A - higher accuracy but lower precision\n\n\n\nNegative\nPositive\n\n\n\n\n90\n5\n\n\n5\n0\n\n\n\nMethod B - lower accuracy but higher precision\n\n\n\nNegative\nPositive\n\n\n\n\n80\n15\n\n\n0\n5"
+    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "title": "Lecture 7: Linear models",
+    "section": "Parametric vs. non-Parametric models (high-level)",
+    "text": "Parametric vs. non-Parametric models (high-level)\n\nImagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.\nScenario 1: 100 features and 1,000 examples\nScenario 2: 100 features and 1 million examples"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#thresholding",
-    "href": "slides/slides-09-classification-metrics.html#thresholding",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Thresholding",
-    "text": "Thresholding\n\nThe above metrics assume a fixed threshold.\nWe use thresholding to get the binary prediction.\nA typical threshold is 0.5.\n\nA prediction of 0.90 \\(\\rightarrow\\) a high likelihood that the transaction is fraudulent and we predict fraud\nA prediction of 0.20 \\(\\rightarrow\\) a low likelihood that the transaction is non-fraudulent and we predict Non fraud\n\nWhat happens if the predicted score is equal to the chosen threshold?\nPlay with classification thresholds"
+    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "title": "Lecture 7: Linear models",
+    "section": "Parametric vs. non-Parametric models (high-level)",
+    "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.2",
-    "href": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.2",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "iClicker Exercise 9.2",
-    "text": "iClicker Exercise 9.2\nSelect all of the following statements which are TRUE.\n\n\nIf we increase the classification threshold, both true and false positives are likely to decrease.\n\n\nIf we increase the classification threshold, both true and false negatives are likely to decrease.\n\n\nLowering the classification threshold generally increases the model’s recall.\n\n\n\nRaising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives."
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 7.1",
+    "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#pr-curve",
-    "href": "slides/slides-09-classification-metrics.html#pr-curve",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "PR curve",
-    "text": "PR curve\n\nCalculate precision and recall (TPR) at every possible threshold and graph them.\nBetter choice for highly imbalanced datasets"
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 7.2",
+    "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#roc-curve",
-    "href": "slides/slides-09-classification-metrics.html#roc-curve",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "ROC curve",
-    "text": "ROC curve\n\nCalculate the true positive rate (TPR) and false positive rate (FPR) at every possible thresholding and graph TPR over FPR.\nGood choice when the datasets are roughly balanced."
+    "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
+    "href": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
+    "title": "Lecture 7: Linear models",
+    "section": "Softmax Function for Probabilities",
+    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#auc",
-    "href": "slides/slides-09-classification-metrics.html#auc",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "AUC",
-    "text": "AUC\n\nThe area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative."
+    "objectID": "slides/slides-07-linear-models.html#making-predictions",
+    "href": "slides/slides-07-linear-models.html#making-predictions",
+    "title": "Lecture 7: Linear models",
+    "section": "Making Predictions",
+    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class \\(\\hat{y}\\) is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#roc-auc-questions",
-    "href": "slides/slides-09-classification-metrics.html#roc-auc-questions",
-    "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "ROC AUC questions",
-    "text": "ROC AUC questions\nConsider the points A, B, and C in the following diagram, each representing a threshold. Which threshold would you pick in each scenario?\n\n\n\n\n\n\nIf false positives (false alarms) are highly costly\n\n\nIf false positives are cheap and false negatives (missed true positives) highly costly\n\n\nIf the costs are roughly equivalent\n\n\n\nSource"
+    "objectID": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
+    "href": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
+    "title": "Lecture 7: Linear models",
+    "section": "Binary vs multinomial logistic regression",
+    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#activity-time-permitting",
+    "href": "slides/slides-07-linear-models.html#activity-time-permitting",
+    "title": "Lecture 7: Linear models",
+    "section": "Activity (time-permitting)",
+    "text": "Activity (time-permitting)\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#activity-description",
+    "href": "slides/slides-07-linear-models.html#activity-description",
+    "title": "Lecture 7: Linear models",
+    "section": "Activity description",
+    "text": "Activity description\n\nYour task is to engage in group discussions and fill in the designated row in this Google document.\nFor strengths and weaknesses, some things to consider are:\n\nconcerns about underfitting\nconcerns about overfitting\nspeed\nscalability for large data sets\n\ninterpretability\neffectiveness on sparse data\nease of use for multi-class classification\n\nability to represent uncertainty\ntime/space complexity\netc."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#estimators",
+    "href": "slides/slides-07-linear-models.html#estimators",
+    "title": "Lecture 7: Linear models",
+    "section": "Estimators",
+    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#transformers",
+    "href": "slides/slides-07-linear-models.html#transformers",
+    "title": "Lecture 7: Linear models",
+    "section": "Transformers",
+    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#coming-up",
+    "href": "slides/slides-07-linear-models.html#coming-up",
+    "title": "Lecture 7: Linear models",
+    "section": "Coming up",
+    "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#section",

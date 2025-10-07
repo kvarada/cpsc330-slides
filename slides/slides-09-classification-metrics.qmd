@@ -5,6 +5,7 @@ description: "Metrics for classification"
 description-short: "confusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance" 
 format:
   revealjs:
+    html-math-method: mathjax
     embed-resources: true
     slide-number: true
     smaller: true
@@ -15,10 +16,16 @@ format:
       - img/  
 ---
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="600px"}
+
+
 ## Announcements 
 
 - Important information about midterm 1
   - https://piazza.com/class/mekbcze4gyber/post/162
+  - **Good news for you: You'll have access to our course notes in the midterm!**
 - HW4 was due on Monday, Oct 6th 11:59 pm. 
 - HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.  
 
@@ -34,9 +41,9 @@ from sklearn.model_selection import cross_val_score, cross_validate, train_test_
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import CountVectorizer
-from scipy.stats import expon, lognorm, loguniform, randint, uniform, norm, randint
 %matplotlib inline
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import cross_validate
 import mglearn
 DATA_DIR = 'data/' 
 ```
@@ -45,19 +52,68 @@ DATA_DIR = 'data/'
 ![](img/ml-workflow.png)
 
 ## Accuracy
-- So far we have been measuring model performance using **Accuracy**. 
-- **Accuracy** is the proportion of all classifications that were correct, whether *positive* or *negative*. 
-$$Accuracy = \frac{\text{corrct classifications}}{\text{total classifications}}$$
-- However, in many real-world applications, the dataset is imbalanced or one kind of mistake is more costly than the other
-- In such cases, it's better to optimize for one of the other metrics instead.
+
+- So far, we’ve been measuring model performance using **Accuracy**.  
+- **Accuracy** is the proportion of all predictions that were correct — whether *positive* or *negative*.  
+
+$$
+\text{Accuracy} = \frac{\text{correct classifications}}{\text{total classifications}}
+$$
+
+- But is **accuracy** always the right metric to evaluate a model? 🤔  
+
+## A fraud classification example
+```{python}
+# This dataset will be loaded using a URL instead of a CSV file
+DATA_URL = "https://github.com/firasm/bits/raw/refs/heads/master/creditcard.csv"
+
+cc_df = pd.read_csv(DATA_URL, encoding="latin-1")
+# Sorting columns so it is easier to read
+cc_df = cc_df[['Class', 'Time', 'Amount'] + cc_df.columns[cc_df.columns.str.startswith('V')].to_list()]
+
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+
+train_df
+
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+X_train = train_df.drop(columns=["Class"])
+y_train = train_df["Class"]
+train_df.head()
+```
+
+## `DummyClassifier`
+Let's try a DummyClassifier, which makes predictions without learning any patterns.
+
+```{python}
+#| echo: true
+dummy = DummyClassifier()
+pd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()
+
+```
+
+- The accuracy looks surprisingly high!
+- Should we be happy with this model and deploy it?
+
+## Problem: Class imbalance 
+
+- In many real-world problems, some classes are much rarer than others.
+
+- A model that always predicts "no fraud" could still achieve >99% accuracy!
+- This is why accuracy can be misleading in imbalanced datasets.
+- We need metrics that differentiate types of errors.
 
 ## Fraud Confusion matrix
 
-- Which types of errors would be most critical for the bank to address?
+Which types of errors would be most critical for the bank to address?
+
+- Missing a fraud case?
+
+- Or flagging a legitimate transaction as fraud?
 
 ![](img/fraud-confusion-matrix.png)
 
-## Fraud Confusion matrix
+
+## Understanding the confusion matrix
 :::: {.columns}
 :::{.column width="80%"}
 ![](img/tp-fp-tn-fn-fraud.png)
@@ -71,10 +127,11 @@ $$Accuracy = \frac{\text{corrct classifications}}{\text{total classifications}}$
 :::
 ::::
 
+# Practice: confusion matrix terminology
 
 ## Confusion matrix questions 
 
-Imagine a spam filter model where emails classified as spam are labeled 1 and non-spam emails are labeled 0. If a spam email is incorrectly classified as non-spam, what is this error called?
+Imagine a spam filter model where emails labeled **1 = spam, 0 = not spam**. If a spam email is incorrectly classified as not spam, what kind of error is this?
 
 - (A) A false positive
 - (B) A true positive
@@ -83,7 +140,7 @@ Imagine a spam filter model where emails classified as spam are labeled 1 and no
 
 ## Confusion matrix questions
 
-In an intrusion detection system, intrusions are identified as 1 and non-intrusive activities as 0. If the system fails to identify an actual intrusion, wrongly categorizing it as non-intrusive, what is this type of error called?
+In an intrusion detection system, 1 = intrusion, 0 = safe. If the system misses an actual intrusion and classifies it as safe, this is a:
 
 - (A) A false positive
 - (B) A true positive
@@ -92,17 +149,20 @@ In an intrusion detection system, intrusions are identified as 1 and non-intrusi
 
 ## Confusion matrix questions
 
-In a medical test for a disease, diseased states are labeled as 1 and healthy states as 0. If a healthy patient is incorrectly diagnosed with the disease, what is this error known as?
+In a medical test for a disease, 1 = diseased, 0 = healthy. If a healthy patient is incorrectly diagnosed as diseased, that's a:
 
 - (A) A false positive
 - (B) A true positive
 - (C) A false negative
 - (D) A true negative
 
+## 
+
+Now that we understand the different types of errors, we can explore metrics that better capture model performance when accuracy falls short.
 
 ## Precision, Recall, F1-Score
-![](img/precision-recall.png)
-![](img/fraud-precision-recall.png)
+![](img/precision-recall.png){.nostretch fig-align="center" width="600px"}
+![](img/fraud-precision-recall.png){.nostretch fig-align="center" width="600px"}
 
 ## iClicker Exercise 9.1
 
