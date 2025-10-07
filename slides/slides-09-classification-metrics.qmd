@@ -72,12 +72,9 @@ cc_df = pd.read_csv(DATA_URL, encoding="latin-1")
 cc_df = cc_df[['Class', 'Time', 'Amount'] + cc_df.columns[cc_df.columns.str.startswith('V')].to_list()]
 
 train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
-
-train_df
-
-train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
 X_train = train_df.drop(columns=["Class"])
 y_train = train_df["Class"]
+print(X_train.shape)
 train_df.head()
 ```
 
@@ -131,7 +128,9 @@ Which types of errors would be most critical for the bank to address?
 
 ## Confusion matrix questions 
 
-Imagine a spam filter model where emails labeled **1 = spam, 0 = not spam**. If a spam email is incorrectly classified as not spam, what kind of error is this?
+Imagine a spam filter model where emails labeled **1 = spam, 0 = not spam**. 
+
+If a spam email is incorrectly classified as not spam, what kind of error is this?
 
 - (A) A false positive
 - (B) A true positive
@@ -140,7 +139,9 @@ Imagine a spam filter model where emails labeled **1 = spam, 0 = not spam**. If 
 
 ## Confusion matrix questions
 
-In an intrusion detection system, 1 = intrusion, 0 = safe. If the system misses an actual intrusion and classifies it as safe, this is a:
+In an intrusion detection system, **1 = intrusion, 0 = safe**. 
+
+If the system misses an actual intrusion and classifies it as safe, this is a:
 
 - (A) A false positive
 - (B) A true positive
@@ -149,20 +150,75 @@ In an intrusion detection system, 1 = intrusion, 0 = safe. If the system misses 
 
 ## Confusion matrix questions
 
-In a medical test for a disease, 1 = diseased, 0 = healthy. If a healthy patient is incorrectly diagnosed as diseased, that's a:
+In a medical test for a disease, **1 = diseased, 0 = healthy**. 
+
+If a healthy patient is incorrectly diagnosed as diseased, that's a:
 
 - (A) A false positive
 - (B) A true positive
 - (C) A false negative
 - (D) A true negative
 
-## 
+## Metrics other than accuracy 
 
-Now that we understand the different types of errors, we can explore metrics that better capture model performance when accuracy falls short.
+Now that we understand the different types of errors, we can explore metrics that better capture model performance when **accuracy falls short**, especially for **imbalanced datasets**.
 
-## Precision, Recall, F1-Score
+We'll start with three key ones:
+
+- **Precision**
+- **Recall**
+- **F1-score**
+
+- Precision
+- Recall
+- F1-score 
+
+## Precision and recall 
+
+Let's revisit our fraud detection scenario. The circle below represents **all transactions predicted as fraud** by an **imaginary toy model** designed to detect fraudulent activity.
+
 ![](img/precision-recall.png){.nostretch fig-align="center" width="600px"}
 ![](img/fraud-precision-recall.png){.nostretch fig-align="center" width="600px"}
+
+## Intuition behind the two metrics
+
+- **Precision** answers:  
+  > *Of all the transactions predicted as fraud, how many were actually fraud?*  
+  High precision $\rightarrow$ few false alarms (low false positives).
+
+- **Recall** answers:  
+  > *Of all the actual fraud cases, how many did the model catch?*  
+  High recall $\rightarrow$ few missed frauds (low false negatives).
+
+## Trade-off between precision and recall
+
+- Increasing **recall** often decreases **precision**, and vice versa.  
+- Example:  
+  - Predict *“fraud”* for every transaction $rightarrow$ perfect recall, terrible precision.  
+  - Predict *“fraud”* only when 100% sure $rightarrow$ high precision, low recall.
+
+**The right balance depends on the application and cost of errors.**
+
+## F1-score
+
+- Sometimes, we want a **single metric** that balances precision and recall.  
+- The **F1-score** is the **harmonic mean** of the two:
+
+$$
+F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+$$
+
+- High **F1** means both precision and recall are strong.  
+- Useful when we care about both false positives **and** false negatives.
+
+## Summary
+
+| Metric | What it measures | High value means |
+|:--------|:----------------|:------------------|
+| **Accuracy** | Overall correctness | Model gets most predictions right |
+| **Precision** | Quality of positive predictions | Few false alarms |
+| **Recall** | Quantity of true positives caught | Few missed positives |
+| **F1-score** | Balance of precision & recall | Both precision and recall are high |
 
 ## iClicker Exercise 9.1
 

@@ -711,14 +711,14 @@
     "href": "slides/slides-09-classification-metrics.html#a-fraud-classification-example",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "A fraud classification example",
-    "text": "A fraud classification example\n\n\n\n\n\n\n\n\n\nClass\nTime\nAmount\nV1\nV2\nV3\nV4\nV5\nV6\nV7\n...\nV19\nV20\nV21\nV22\nV23\nV24\nV25\nV26\nV27\nV28\n\n\n\n\n64454\n0\n51150.0\n1.00\n-3.538816\n3.481893\n-1.827130\n-0.573050\n2.644106\n-0.340988\n2.102135\n...\n-1.509991\n1.345904\n0.530978\n-0.860677\n-0.201810\n-1.719747\n0.729143\n-0.547993\n-0.023636\n-0.454966\n\n\n37906\n0\n39163.0\n18.49\n-0.363913\n0.853399\n1.648195\n1.118934\n0.100882\n0.423852\n0.472790\n...\n0.810267\n-0.192932\n0.687055\n-0.094586\n0.121531\n0.146830\n-0.944092\n-0.558564\n-0.186814\n-0.257103\n\n\n79378\n0\n57994.0\n23.74\n1.193021\n-0.136714\n0.622612\n0.780864\n-0.823511\n-0.706444\n-0.206073\n...\n0.258815\n-0.178761\n-0.310405\n-0.842028\n0.085477\n0.366005\n0.254443\n0.290002\n-0.036764\n0.015039\n\n\n245686\n0\n152859.0\n156.52\n1.604032\n-0.808208\n-1.594982\n0.200475\n0.502985\n0.832370\n-0.034071\n...\n-1.009429\n-0.040448\n0.519029\n1.429217\n-0.139322\n-1.293663\n0.037785\n0.061206\n0.005387\n-0.057296\n\n\n60943\n0\n49575.0\n57.50\n-2.669614\n-2.734385\n0.662450\n-0.059077\n3.346850\n-2.549682\n-1.430571\n...\n0.157993\n-0.430295\n-0.228329\n-0.370643\n-0.211544\n-0.300837\n-1.174590\n0.573818\n0.388023\n0.161782\n\n\n\n\n5 rows × 31 columns"
+    "text": "A fraud classification example\n\n\n(199364, 30)\n\n\n\n\n\n\n\n\n\nClass\nTime\nAmount\nV1\nV2\nV3\nV4\nV5\nV6\nV7\n...\nV19\nV20\nV21\nV22\nV23\nV24\nV25\nV26\nV27\nV28\n\n\n\n\n64454\n0\n51150.0\n1.00\n-3.538816\n3.481893\n-1.827130\n-0.573050\n2.644106\n-0.340988\n2.102135\n...\n-1.509991\n1.345904\n0.530978\n-0.860677\n-0.201810\n-1.719747\n0.729143\n-0.547993\n-0.023636\n-0.454966\n\n\n37906\n0\n39163.0\n18.49\n-0.363913\n0.853399\n1.648195\n1.118934\n0.100882\n0.423852\n0.472790\n...\n0.810267\n-0.192932\n0.687055\n-0.094586\n0.121531\n0.146830\n-0.944092\n-0.558564\n-0.186814\n-0.257103\n\n\n79378\n0\n57994.0\n23.74\n1.193021\n-0.136714\n0.622612\n0.780864\n-0.823511\n-0.706444\n-0.206073\n...\n0.258815\n-0.178761\n-0.310405\n-0.842028\n0.085477\n0.366005\n0.254443\n0.290002\n-0.036764\n0.015039\n\n\n245686\n0\n152859.0\n156.52\n1.604032\n-0.808208\n-1.594982\n0.200475\n0.502985\n0.832370\n-0.034071\n...\n-1.009429\n-0.040448\n0.519029\n1.429217\n-0.139322\n-1.293663\n0.037785\n0.061206\n0.005387\n-0.057296\n\n\n60943\n0\n49575.0\n57.50\n-2.669614\n-2.734385\n0.662450\n-0.059077\n3.346850\n-2.549682\n-1.430571\n...\n0.157993\n-0.430295\n-0.228329\n-0.370643\n-0.211544\n-0.300837\n-1.174590\n0.573818\n0.388023\n0.161782\n\n\n\n\n5 rows × 31 columns"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#dummyclassifier",
     "href": "slides/slides-09-classification-metrics.html#dummyclassifier",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "DummyClassifier",
-    "text": "DummyClassifier\nLet’s try a DummyClassifier, which makes predictions without learning any patterns.\n\ndummy = DummyClassifier()\npd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()\n\nfit_time       0.018004\nscore_time     0.003109\ntest_score     0.998300\ntrain_score    0.998300\ndtype: float64\n\n\n\nThe accuracy looks surprisingly high!\nShould we be happy with this model and deploy it?"
+    "text": "DummyClassifier\nLet’s try a DummyClassifier, which makes predictions without learning any patterns.\n\ndummy = DummyClassifier()\npd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()\n\nfit_time       0.017052\nscore_time     0.002711\ntest_score     0.998300\ntrain_score    0.998300\ndtype: float64\n\n\n\nThe accuracy looks surprisingly high!\nShould we be happy with this model and deploy it?"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#problem-class-imbalance",
@@ -746,35 +746,63 @@
     "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "Confusion matrix questions",
-    "text": "Confusion matrix questions\nImagine a spam filter model where emails labeled 1 = spam, 0 = not spam. If a spam email is incorrectly classified as not spam, what kind of error is this?\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
+    "text": "Confusion matrix questions\nImagine a spam filter model where emails labeled 1 = spam, 0 = not spam.\nIf a spam email is incorrectly classified as not spam, what kind of error is this?\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-1",
     "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-1",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "Confusion matrix questions",
-    "text": "Confusion matrix questions\nIn an intrusion detection system, 1 = intrusion, 0 = safe. If the system misses an actual intrusion and classifies it as safe, this is a:\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
+    "text": "Confusion matrix questions\nIn an intrusion detection system, 1 = intrusion, 0 = safe.\nIf the system misses an actual intrusion and classifies it as safe, this is a:\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-2",
     "href": "slides/slides-09-classification-metrics.html#confusion-matrix-questions-2",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "Confusion matrix questions",
-    "text": "Confusion matrix questions\nIn a medical test for a disease, 1 = diseased, 0 = healthy. If a healthy patient is incorrectly diagnosed as diseased, that’s a:\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
+    "text": "Confusion matrix questions\nIn a medical test for a disease, 1 = diseased, 0 = healthy.\nIf a healthy patient is incorrectly diagnosed as diseased, that’s a:\n\n\nA false positive\n\n\nA true positive\n\n\nA false negative\n\n\nA true negative"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#section",
-    "href": "slides/slides-09-classification-metrics.html#section",
+    "objectID": "slides/slides-09-classification-metrics.html#metrics-other-than-accuracy",
+    "href": "slides/slides-09-classification-metrics.html#metrics-other-than-accuracy",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "",
-    "text": "Now that we understand the different types of errors, we can explore metrics that better capture model performance when accuracy falls short."
+    "section": "Metrics other than accuracy",
+    "text": "Metrics other than accuracy\nNow that we understand the different types of errors, we can explore metrics that better capture model performance when accuracy falls short, especially for imbalanced datasets.\nWe’ll start with three key ones:\n\nPrecision\nRecall\nF1-score\nPrecision\nRecall\nF1-score"
   },
   {
-    "objectID": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
-    "href": "slides/slides-09-classification-metrics.html#precision-recall-f1-score",
+    "objectID": "slides/slides-09-classification-metrics.html#precision-and-recall",
+    "href": "slides/slides-09-classification-metrics.html#precision-and-recall",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
-    "section": "Precision, Recall, F1-Score",
-    "text": "Precision, Recall, F1-Score"
+    "section": "Precision and recall",
+    "text": "Precision and recall\nLet’s revisit our fraud detection scenario. The circle below represents all transactions predicted as fraud by an imaginary toy model designed to detect fraudulent activity."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#intuition-behind-the-two-metrics",
+    "href": "slides/slides-09-classification-metrics.html#intuition-behind-the-two-metrics",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Intuition behind the two metrics",
+    "text": "Intuition behind the two metrics\n\nPrecision answers:\n&gt; Of all the transactions predicted as fraud, how many were actually fraud?\nHigh precision \\(\\rightarrow\\) few false alarms (low false positives).\nRecall answers:\n&gt; Of all the actual fraud cases, how many did the model catch?\nHigh recall \\(\\rightarrow\\) few missed frauds (low false negatives)."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#trade-off-between-precision-and-recall",
+    "href": "slides/slides-09-classification-metrics.html#trade-off-between-precision-and-recall",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Trade-off between precision and recall",
+    "text": "Trade-off between precision and recall\n\nIncreasing recall often decreases precision, and vice versa.\n\nExample:\n\nPredict “fraud” for every transaction \\(rightarrow\\) perfect recall, terrible precision.\n\nPredict “fraud” only when 100% sure \\(rightarrow\\) high precision, low recall.\n\n\nThe right balance depends on the application and cost of errors."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#f1-score",
+    "href": "slides/slides-09-classification-metrics.html#f1-score",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "F1-score",
+    "text": "F1-score\n\nSometimes, we want a single metric that balances precision and recall.\n\nThe F1-score is the harmonic mean of the two:\n\n\\[\nF1 = 2 \\times \\frac{\\text{Precision} \\times \\text{Recall}}{\\text{Precision} + \\text{Recall}}\n\\]\n\nHigh F1 means both precision and recall are strong.\n\nUseful when we care about both false positives and false negatives."
+  },
+  {
+    "objectID": "slides/slides-09-classification-metrics.html#summary",
+    "href": "slides/slides-09-classification-metrics.html#summary",
+    "title": "CPSC 330 Lecture 9: Classification Metrics",
+    "section": "Summary",
+    "text": "Summary\n\n\n\n\n\n\n\n\nMetric\nWhat it measures\nHigh value means\n\n\n\n\nAccuracy\nOverall correctness\nModel gets most predictions right\n\n\nPrecision\nQuality of positive predictions\nFew false alarms\n\n\nRecall\nQuantity of true positives caught\nFew missed positives\n\n\nF1-score\nBalance of precision & recall\nBoth precision and recall are high"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#iclicker-exercise-9.1",
