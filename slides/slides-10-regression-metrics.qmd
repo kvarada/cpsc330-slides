@@ -127,8 +127,6 @@ $$ FPR  = \frac{FP}{FP + TN}$$
 
 ## iClicker Exercise 10.1
 
-**iClicker cloud join link: https://join.iclicker.com/VYFJ**
-
 **Select all of the following statements which are TRUE.**
 
 - (A) Price per square foot would be a good feature to add in our `X`. 
@@ -137,8 +135,6 @@ $$ FPR  = \frac{FP}{FP + TN}$$
 
 
 ## iClicker Exercise 10.2
-
-**iClicker cloud join link: https://join.iclicker.com/VYFJ**
 
 **Select all of the following statements which are TRUE.**
 
