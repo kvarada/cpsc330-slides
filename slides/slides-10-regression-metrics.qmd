@@ -185,11 +185,13 @@ plt.show()
   - Higher `alpha`: Simpler model, smaller coefficients.
   - Lower `alpha`: Complex model, larger coefficients.
 
-## Regression metrics: MSE, RMSE, MAPE
+## Regression metrics: MSE, RMSE, MAPE, r2_score
 
 - **Mean Squared Error (MSE)**: Average of the squares of the errors.
 - **Root Mean Squared Error (RMSE)**: Square root of MSE, same units as the target variable.
+- **r2** measures how much of the variation in the target variable your model can explain.-
 - **Mean Absolute Percentage Error (MAPE)**: Average of the absolute percentage errors.
+
 
 ## Applying log transformation to the targets
 

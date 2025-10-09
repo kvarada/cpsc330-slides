@@ -1036,11 +1036,11 @@
     "text": "alpha hyperparameter\n\nRole of alpha:\n\nControls model complexity\nHigher alpha: Simpler model, smaller coefficients.\nLower alpha: Complex model, larger coefficients."
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape",
-    "href": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape",
+    "objectID": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape-r2_score",
+    "href": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape-r2_score",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Regression metrics: MSE, RMSE, MAPE",
-    "text": "Regression metrics: MSE, RMSE, MAPE\n\nMean Squared Error (MSE): Average of the squares of the errors.\nRoot Mean Squared Error (RMSE): Square root of MSE, same units as the target variable.\nMean Absolute Percentage Error (MAPE): Average of the absolute percentage errors."
+    "section": "Regression metrics: MSE, RMSE, MAPE, r2_score",
+    "text": "Regression metrics: MSE, RMSE, MAPE, r2_score\n\nMean Squared Error (MSE): Average of the squares of the errors.\nRoot Mean Squared Error (RMSE): Square root of MSE, same units as the target variable.\nr2 measures how much of the variation in the target variable your model can explain.-\nMean Absolute Percentage Error (MAPE): Average of the absolute percentage errors."
   },
   {
     "objectID": "slides/slides-10-regression-metrics.html#applying-log-transformation-to-the-targets",
