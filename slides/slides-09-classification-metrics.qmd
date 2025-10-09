@@ -410,7 +410,7 @@ Choose the appropriate evaluation metric for the following scenarios:
 ## ROC Curve 
 
 - Compute the **True Positive Rate (TPR)** and **False Positive Rate (FPR)** at **every possible threshold**, and plot **TPR** vs **FPR**.  
-- Shows how the model's **sensitivity** changes as we vary the classification threshold.  
+- How well does the model separate positive and negative classes in terms of predicted probability?
 - A good choice when the dataset is **reasonably balanced** or **not extremely imbalanced** (e.g., fraud detection, disease diagnosis).  
 
 ## ROC Curve example 
@@ -442,3 +442,10 @@ Consider the points A, B, and C in the following diagram, each representing a th
 ::::
 
 [Source](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)
+
+## What did we learn? 
+- Why accuracy is not always a good metric?
+- Confusion matrix
+- Precision, recall, & f1-score
+- Precision-recall curves & average precision
+- Receiver Operator Characteristic (ROC) curves & AUC
