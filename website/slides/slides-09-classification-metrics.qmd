@@ -96,6 +96,11 @@ cross_val_score(dummy, X_train, y_train).mean()
 
 ## Problem: Class imbalance 
 
+```{python}
+#| echo: true
+y_train.value_counts()
+```
+
 - In many real-world problems, some classes are much rarer than others.
 
 - A model that always predicts "no fraud" could still achieve >99% accuracy!
@@ -197,10 +202,10 @@ Let's revisit our fraud detection scenario. The circle below represents **all tr
 
 ## Intuition behind the two metrics
 
-- **Precision** answers: *Of all the transactions predicted as fraud, how many were actually fraud?*  
+- **Precision**: *Of all the transactions predicted as fraud, how many were actually fraud?*  
   - High precision $\rightarrow$ few false alarms (low false positives).
 
-- **Recall** answers: *Of all the actual fraud cases, how many did the model catch?*  
+- **Recall**: *Of all the actual fraud cases, how many did the model catch?*  
   - High recall $\rightarrow$ few missed frauds (low false negatives).
 
 ## Trade-off between precision and recall
@@ -275,7 +280,7 @@ Method B - lower accuracy but higher precision
 :::
 :::{.column width="60%"}
 - Most classification models don't directly predict labels. They predict scores or probabilities.
-- To get a label (e.g., “spam” or “not spam”), we choose a threshold (often 0.5).
+- To get a label (e.g., "fraud" or “non fraud"), we choose a threshold (often 0.5).
 If the threshold changes, predictions change, and so do the errors. 
 - What happens to precision and recall if we change the probability threshold? 
 - [Play with classification thresholds](https://developers.google.com/machine-learning/crash-course/classification/thresholding)
@@ -298,8 +303,8 @@ If the threshold changes, predictions change, and so do the errors.
 
 ## PR curve
 - Calculate precision and recall (TPR) at every possible threshold and graph them. 
-- Top left $\rightarrow$ Threhold of 1 (strict model = high precision)
-- Bottom right $\rightarrow$ Threhold of 0 (linient model = high recall)
+- Top left $\rightarrow$ Very high threshold (strict model = high precision)
+- Bottom right $\rightarrow$ Very low threshold (linient model = high recall)
 
 ```{python}
 from sklearn.metrics import PrecisionRecallDisplay
@@ -336,8 +341,12 @@ PrecisionRecallDisplay.from_estimator(
 
 ## Average Precision (AP) Score 
 
+:::: {.columns}
+:::{.column width="60%"}
 - AP score summarizes the PR curve by calculating the area under the curve 
-
+- It measures the ranking ability of a model; how well it assigns higher probabilities to positive examples than to negative ones, regardless of the specific threshold.
+:::
+:::{.column width="40%"}
 ```{python}
 from sklearn.svm import SVC
 num_iter = 1000 # change to 1000 
@@ -364,13 +373,16 @@ PrecisionRecallDisplay.from_estimator(
     ax=ax
 );
 ```
+:::
+::::
+
 ## iClicker Exercise
 
 Choose the appropriate evaluation metric for the following scenarios: 
 
-**Scenario 1:** Balance between precision and recall for a threshold.**
+**Scenario 1:** Balance between precision and recall for a threshold.
 
-**Scenario 2:** Assess performance across all thresholds.**
+**Scenario 2:** Assess performance across all thresholds.
 
 - (A) F1 for 1, AP for 2
 
@@ -395,14 +407,21 @@ Choose the appropriate evaluation metric for the following scenarios:
 - (D) Raising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives.
 
 
-## ROC curve 
-- Calculate the true positive rate (TPR) and false positive rate (FPR) at every possible thresholding and graph TPR over FPR. 
-- Good choice when the datasets are roughly balanced. 
+## ROC Curve 
+
+- Compute the **True Positive Rate (TPR)** and **False Positive Rate (FPR)** at **every possible threshold**, and plot **TPR** vs **FPR**.  
+- How well does the model separate positive and negative classes in terms of predicted probability?
+- A good choice when the dataset is **reasonably balanced** or **not extremely imbalanced** (e.g., fraud detection, disease diagnosis).  
+
+## ROC Curve example 
+
+- **Bottom-left** $\rightarrow$ very high threshold (almost everything predicted negative: low recall, low FPR).  
+- **Top-right**  $\rightarrow$ very low threshold (almost everything predicted positive: high recall, high FPR).  
+
 ![](img/roc-curve-example.png)
 
 ## AUC 
 - The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative.
-
 
 ## ROC AUC questions
 
@@ -423,3 +442,10 @@ Consider the points A, B, and C in the following diagram, each representing a th
 ::::
 
 [Source](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)
+
+## What did we learn? 
+- Why accuracy is not always a good metric?
+- Confusion matrix
+- Precision, recall, & f1-score
+- Precision-recall curves & average precision
+- Receiver Operator Characteristic (ROC) curves & AUC

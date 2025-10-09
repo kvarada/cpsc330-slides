@@ -16,37 +16,61 @@ format:
       - img/  
 ---
 
+
+```{python}
+import os
+import sys
+import pandas as pd 
+import numpy as np
+from sklearn import datasets
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+%matplotlib inline
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import cross_validate
+from sklearn.metrics import ConfusionMatrixDisplay 
+import mglearn
+plt.rcParams.update({'font.size': 14})
+DATA_DIR = 'data/' 
+```
+
 ## Announcements 
 
-## Recap: Confusion matrix
-:::: {.columns}
-:::{.column width="80%"}
-![](img/tp-fp-tn-fn-fraud.png)
-:::
+- Important information about midterm 1
+  - https://piazza.com/class/mekbcze4gyber/post/162
+  - **Good news for you: You'll have access to our course notes in the midterm!**
+- HW4 was due on Monday, Oct 6th 11:59 pm. 
+- HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.  
 
-:::{.column width="20%"}
-- TN $\rightarrow$ True negatives 
-- FP $\rightarrow$ False positives 
-- FN $\rightarrow$ False negatives
-- TP $\rightarrow$ True positives 
-:::
-::::
 
-## Recap: Precision, Recall, F1-Score
-:::: {.columns}
-:::{.column width="70%"}
-![](img/fraud-precision-recall.png)
-:::
-:::{.column width="30%"}
-$$ f1 = 2 \times \frac{ precision \times recall}{precision + recall}$$
-:::
-::::
+## Focus on the breath!
 
-## Recap: PR curve
-- Calculate precision and recall (TPR) at every possible threshold and graph them. 
-- Better choice for highly imbalanced datasets because it focuses on the performance of the positive class. 
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-![](img/pr-curve-example.png)
+# Recap 
+
+## Which metric fits best? {.smaller}
+
+| Scenario | Data Imbalance | Main Concern | Best Metric(s) / Curve |
+|-----------|----------------|---------------|------------------------|
+| **Email Spam Detection** | 10% spam | Avoid false positives| |
+| **Disease Screening** | 1 in 10,000 | Avoid false negatives | |
+| **Credit Card Fraud** | 0.1% fraud | Focus on rare positive class | |
+| **Customer Churn** | 20% churn | Balance FP & FN | |
+| **Sentiment Analysis** | 50/50 balanced | Overall correctness | |
+| **Face Recognition** | Balanced pairs | Trade-off FP vs FN | |
+
+## Summary: Choosing the right metric {.smaller}
+
+| Metric / Plot | When to Use | Why |
+|---------|----------|----------|
+| **Precision, Recall, F1** | When you care about *specific error types* (FP vs FN) or a *fixed threshold*. | Focus on particular tradeoffs. |
+| **PR Curve & AP Score** | When the dataset is **highly imbalanced** (rare positives). | Ignores TNs; focuses on positives. |
+| **ROC Curve & AUC** | When classes are **moderately imbalanced**. | Measures ranking ability across thresholds. |
 
 
 ## Questions for you 
@@ -56,24 +80,16 @@ $$ f1 = 2 \times \frac{ precision \times recall}{precision + recall}$$
 
 ![](img/pr-curve-which-model.png)
 
-## Recap: ROC curve 
-- Calculate the true positive rate (TPR) and false positive rate (FPR) ($\frac{FP}{FP + TN}$) at every possible thresholding and graph TPR over FPR. 
-- Good choice when the datasets are roughly balanced. 
-![](img/roc-example.png)
-![](img/roc-curve-example.png)
-
-## Recap: ROC Curve 
-- Not a great choice when there is an extreme imbalance because FPR can remain relatively low even if the number of false positives is high, simply because the number of negatives is very large.  
-$$ FPR  = \frac{FP}{FP + TN}$$ 
-- The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative.
-
-## Questions for you {.smaller}
+## ROC of a baseline model
 :::: {.columns}
-:::{.column width="60%"}
+:::{.column width="50%"}
 ![](img/roc-baseline.png) 
 :::
-:::{.column width="40%"}
-- What's the AUC of a baseline model? 
+:::{.column width="50%"}
+**AUC–ROC** measures the probability that a randomly chosen **positive example** receives a **higher score** than a randomly chosen **negative example**.  
+
+- **Perfect model:** (AUC = 1.0). Always ranks positives above negatives.  
+- **Random model** (AUC = 0.5): No discriminative ability (equivalent to random guessing).  
 :::
 ::::
 
@@ -96,9 +112,68 @@ $$ FPR  = \frac{FP}{FP + TN}$$
 - `class weight="balanced"` (preferred method for this course)
 - SMOTE
 
-# [Classification metrics class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_09-classification-metrics.ipynb)
+## Handling imbalance by chaning class weights
 
-# [Regression metrics class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_10-regression-metrics.ipynb)
+- We can specify class_weight="balanced" to give more importance to rare examples during training.
+
+```{python}
+# This dataset will be loaded using a URL instead of a CSV file
+DATA_URL = "https://github.com/firasm/bits/raw/refs/heads/master/creditcard.csv"
+
+cc_df = pd.read_csv(DATA_URL, encoding="latin-1")
+# Sorting columns so it is easier to read
+cc_df = cc_df[['Class', 'Time', 'Amount'] + cc_df.columns[cc_df.columns.str.startswith('V')].to_list()]
+
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+X_train_big, y_train_big = train_df.drop(columns=["Class", "Time"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class", "Time"]), test_df["Class"]
+X_train, X_valid, y_train, y_valid = train_test_split(
+    X_train_big, y_train_big, test_size=0.3, random_state=123
+)
+pipe_lr = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))
+pipe_lr.fit(X_train, y_train)
+
+pipe_lr_balanced = make_pipeline(
+    StandardScaler(), LogisticRegression(max_iter=1000, class_weight="balanced")
+)
+pipe_lr_balanced.fit(X_train, y_train)
+
+fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+ConfusionMatrixDisplay.from_estimator(
+    pipe_lr,
+    X_valid,
+    y_valid,
+    values_format="d",
+    ax=ax[0],
+    display_labels=["Non fraud", "Fraud"],
+    colorbar=False
+)
+ax[0].set_title("LR")
+
+ConfusionMatrixDisplay.from_estimator(
+    pipe_lr_balanced,
+    X_valid,
+    y_valid,
+    values_format="d",
+    ax=ax[1], 
+    display_labels=["Non fraud", "Fraud"],
+    colorbar=False
+)
+ax[1].set_title("balanced")
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.notes}
+- This sets the weights so that the classes are "equal".
+- We have reduced false negatives but we have many more false positives now ...
+  - Decreases false negatives, which improves recall.
+  - Increases false positives, which might lower precision.
+:::
+
+# [Regression metrics class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_10-regression-metrics.ipynb)
 
 ## Ridge and RidgeCV
 - **Ridge Regression**: `alpha` hyperparameter controls model complexity.
@@ -110,11 +185,13 @@ $$ FPR  = \frac{FP}{FP + TN}$$
   - Higher `alpha`: Simpler model, smaller coefficients.
   - Lower `alpha`: Complex model, larger coefficients.
 
-## Regression metrics: MSE, RMSE, MAPE
+## Regression metrics: MSE, RMSE, MAPE, r2_score
 
 - **Mean Squared Error (MSE)**: Average of the squares of the errors.
 - **Root Mean Squared Error (RMSE)**: Square root of MSE, same units as the target variable.
+- **r2** measures how much of the variation in the target variable your model can explain.-
 - **Mean Absolute Percentage Error (MAPE)**: Average of the absolute percentage errors.
+
 
 ## Applying log transformation to the targets
 
