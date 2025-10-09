@@ -201,7 +201,6 @@ plt.show()
 - `TransformedTargetRegressor`
   - Wraps a regression model and applies a transformation to the target values.
 
-
 ## iClicker Exercise 10.1
 
 **Select all of the following statements which are TRUE.**
@@ -220,3 +219,22 @@ plt.show()
 - (C) RMSE is always going to be non-negative.
 - (D) MSE does not directly provide the information about whether the model is underpredicting or overpredicting.
 - (E) We can pass multiple scoring metrics to `GridSearchCV` or `RandomizedSearchCV` for regression as well as classification problems. 
+
+## Which metric fits the scenario? {.smaller}
+
+| Scenario | What matters most? | Best metric(s)? |
+|-----------|-------------------|----------|
+| Predicting **house prices** ranging from \$60K–\$800K.  | A \$30K error is huge for a \$60K house but small for a \$500K house. |  |
+| Predicting **exam scores** (0–100).  | You want an interpretable measure of average error in **points**. |  |
+| Predicting **energy consumption** in a large industrial system. | Large errors are very costly and should be penalized heavily. |  |
+| Predicting **insurance claim amounts**. | You want to compare how well different models explain the variation in claims. |  |
+
+
+### Which metric fits the scenario? 
+
+- **For interpretability:** prefer RMSE or MAPE
+- **When you want to discourage large error:** MSE is common as a loss because it's smooth and differentiable.  
+- **For fair comparison:** r2 provides a normalized score similar to accuracy in classification.  
+- **For imbalanced scales:** MAPE helps when proportional error matters more than absolute error.
+
+
