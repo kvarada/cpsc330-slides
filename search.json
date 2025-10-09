@@ -959,6 +959,13 @@
     "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
   },
   {
+    "objectID": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
+    "href": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Focus on the breath!",
+    "text": "Focus on the breath!"
+  },
+  {
     "objectID": "slides/slides-10-regression-metrics.html#announcements",
     "href": "slides/slides-10-regression-metrics.html#announcements",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
@@ -966,11 +973,11 @@
     "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\nGood news for you: You’ll have access to our course notes in the midterm!\n\nHW4 was due on Monday, Oct 6th 11:59 pm.\nHW5 has been released. It’s a project-type assignment and you get till Oct 27th to work on it."
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
-    "href": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
+    "objectID": "slides/slides-10-regression-metrics.html#iclicker-oh",
+    "href": "slides/slides-10-regression-metrics.html#iclicker-oh",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Focus on the breath!",
-    "text": "Focus on the breath!"
+    "section": "iClicker OH",
+    "text": "iClicker OH\nI’m planning to hold an in-person midterm review office hour. Which time works best for you?\n\n\nFriday, October 10th 2pm\n\n\nTuesday, October 14th 2pm\n\n\nTuesday, October 14th 4pm"
   },
   {
     "objectID": "slides/slides-10-regression-metrics.html#which-metric-fits-best",

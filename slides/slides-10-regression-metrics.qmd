@@ -38,20 +38,25 @@ plt.rcParams.update({'font.size': 14})
 DATA_DIR = 'data/' 
 ```
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
 ## Announcements 
 
 - Important information about midterm 1
   - https://piazza.com/class/mekbcze4gyber/post/162
   - **Good news for you: You'll have access to our course notes in the midterm!**
 - HW4 was due on Monday, Oct 6th 11:59 pm. 
-- HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.  
+- HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.   
 
+## iClicker OH 
+I'm planning to hold an in-person midterm review office hour. Which time works best for you?
 
-## Focus on the breath!
+- (A) Friday, October 10th 2pm 
+- (B) Tuesday, October 14th 2pm 
+- (C) Tuesday, October 14th 4pm 
 
-![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
-
-# Recap 
 
 ## Which metric fits best? {.smaller}
 
