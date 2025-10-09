@@ -230,7 +230,7 @@ plt.show()
 | Predicting **insurance claim amounts**. | You want to compare how well different models explain the variation in claims. |  |
 
 
-### Which metric fits the scenario? 
+## Which metric fits the scenario? 
 
 - **For interpretability:** prefer RMSE or MAPE
 - **When you want to discourage large error:** MSE is common as a loss because it's smooth and differentiable.  
