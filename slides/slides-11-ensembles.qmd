@@ -209,6 +209,67 @@ Ensembles improve performance when the individual models are both **competent** 
 > _“More recently, gradient boosting machines (GBMs) have become a Swiss army knife in many a Kaggler’s toolbelt.”_  
 > — Sebastian Raschka, Joshua Patterson, & Corey Nolet (2020)
 
+# Averaging and Stacking
+
+Goal: Ccombining diverse models for better generalization
+
+## Averaging (Voting)
+
+- Combines predictions from **multiple base models**
+- Works for both **classification** and **regression**
+- Improves stability and performance by averaging over models
+- Random forst is a type of averaging classifier 
+
+## Types of Voting
+
+:::: {.columns}
+:::{.column width="50%"}
+
+**Hard Voting**  
+
+- Each model votes for a class label  
+- Final prediction = **majority vote**  
+
+:::
+
+:::{.column width="50%"}
+
+**Soft Voting**  
+
+- Averages the **predicted probabilities** from each model  
+- Final prediction = class with **highest average probability**  
+- Usually performs better
+
+:::
+::::
+
+## Stacking
+
+- Goes one step beyond averaging
+- Instead of simple averaging, trains a meta-model to learn how to best combine base models' predictions
+
+## How stacking works
+
+- Train several base models on the training data
+- Collect their predictions on a validation set
+- Train a meta-model on those predictions to learn the optimal combination
+- Final prediction = output of the meta-model
+
+## Stacking 
+
+:::: {.columns}
+:::{.column width="50%"}
+
+![](img/stacking.png)
+
+[Source](https://sebastianraschka.com/pdf/lecture-notes/stat451fs20/07-ensembles__slides.pdf)
+:::
+
+:::{.column width="50%"}
+![](img/stacking-cv.png)
+
+:::
+::::
 
 # [Ensembles class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_11-ensembles.ipynb)
 

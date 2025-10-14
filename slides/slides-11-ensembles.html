@@ -621,6 +621,67 @@ Each split considers only a random subset of features → further reduces correl
 — Sebastian Raschka, Joshua Patterson, &amp; Corey Nolet (2020)</p>
 </blockquote>
 </section></section>
+<section>
+<section id="averaging-and-stacking" class="title-slide slide level1 center">
+<h1>Averaging and Stacking</h1>
+<p>Goal: Ccombining diverse models for better generalization</p>
+</section>
+<section id="averaging-voting" class="slide level2 center">
+<h2>Averaging (Voting)</h2>
+<ul>
+<li>Combines predictions from <strong>multiple base models</strong></li>
+<li>Works for both <strong>classification</strong> and <strong>regression</strong></li>
+<li>Improves stability and performance by averaging over models</li>
+<li>Random forst is a type of averaging classifier</li>
+</ul>
+</section>
+<section id="types-of-voting" class="slide level2 center">
+<h2>Types of Voting</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Hard Voting</strong></p>
+<ul>
+<li>Each model votes for a class label<br>
+</li>
+<li>Final prediction = <strong>majority vote</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Soft Voting</strong></p>
+<ul>
+<li>Averages the <strong>predicted probabilities</strong> from each model<br>
+</li>
+<li>Final prediction = class with <strong>highest average probability</strong><br>
+</li>
+<li>Usually performs better</li>
+</ul>
+</div></div>
+</section>
+<section id="stacking" class="slide level2 center">
+<h2>Stacking</h2>
+<ul>
+<li>Goes one step beyond averaging</li>
+<li>Instead of simple averaging, trains a meta-model to learn how to best combine base models’ predictions</li>
+</ul>
+</section>
+<section id="how-stacking-works" class="slide level2 center">
+<h2>How stacking works</h2>
+<ul>
+<li>Train several base models on the training data</li>
+<li>Collect their predictions on a validation set</li>
+<li>Train a meta-model on those predictions to learn the optimal combination</li>
+<li>Final prediction = output of the meta-model</li>
+</ul>
+</section>
+<section id="stacking-1" class="slide level2 center">
+<h2>Stacking</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/stacking.png"></p>
+<p><a href="https://sebastianraschka.com/pdf/lecture-notes/stat451fs20/07-ensembles__slides.pdf">Source</a></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/stacking-cv.png"></p>
+</div></div>
+</section></section>
 <section id="ensembles-class-demo" class="title-slide slide level1 center">
 <h1><a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_11-ensembles.ipynb">Ensembles class demo</a></h1>
 

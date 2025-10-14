@@ -1683,6 +1683,41 @@
     "text": "Most commonly used boosting models\n\nXGBoost: extremely optimized and widely adopted in industry\n\nLightGBM: faster training with large datasets\n\nCatBoost: handles categorical features efficiently\n\n\n“More recently, gradient boosting machines (GBMs) have become a Swiss army knife in many a Kaggler’s toolbelt.”\n— Sebastian Raschka, Joshua Patterson, & Corey Nolet (2020)"
   },
   {
+    "objectID": "slides/slides-11-ensembles.html#averaging-voting",
+    "href": "slides/slides-11-ensembles.html#averaging-voting",
+    "title": "CPSC 330 Lecture 11: Ensembles",
+    "section": "Averaging (Voting)",
+    "text": "Averaging (Voting)\n\nCombines predictions from multiple base models\nWorks for both classification and regression\nImproves stability and performance by averaging over models\nRandom forst is a type of averaging classifier"
+  },
+  {
+    "objectID": "slides/slides-11-ensembles.html#types-of-voting",
+    "href": "slides/slides-11-ensembles.html#types-of-voting",
+    "title": "CPSC 330 Lecture 11: Ensembles",
+    "section": "Types of Voting",
+    "text": "Types of Voting\n\n\nHard Voting\n\nEach model votes for a class label\n\nFinal prediction = majority vote\n\n\nSoft Voting\n\nAverages the predicted probabilities from each model\n\nFinal prediction = class with highest average probability\n\nUsually performs better"
+  },
+  {
+    "objectID": "slides/slides-11-ensembles.html#stacking",
+    "href": "slides/slides-11-ensembles.html#stacking",
+    "title": "CPSC 330 Lecture 11: Ensembles",
+    "section": "Stacking",
+    "text": "Stacking\n\nGoes one step beyond averaging\nInstead of simple averaging, trains a meta-model to learn how to best combine base models’ predictions"
+  },
+  {
+    "objectID": "slides/slides-11-ensembles.html#how-stacking-works",
+    "href": "slides/slides-11-ensembles.html#how-stacking-works",
+    "title": "CPSC 330 Lecture 11: Ensembles",
+    "section": "How stacking works",
+    "text": "How stacking works\n\nTrain several base models on the training data\nCollect their predictions on a validation set\nTrain a meta-model on those predictions to learn the optimal combination\nFinal prediction = output of the meta-model"
+  },
+  {
+    "objectID": "slides/slides-11-ensembles.html#stacking-1",
+    "href": "slides/slides-11-ensembles.html#stacking-1",
+    "title": "CPSC 330 Lecture 11: Ensembles",
+    "section": "Stacking",
+    "text": "Stacking\n\n\n\nSource"
+  },
+  {
     "objectID": "lecture-02.html",
     "href": "lecture-02.html",
     "title": "Lecture 2: Terminology, baselines, decision Trees",
