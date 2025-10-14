@@ -38,20 +38,25 @@ plt.rcParams.update({'font.size': 14})
 DATA_DIR = 'data/' 
 ```
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
 ## Announcements 
 
 - Important information about midterm 1
   - https://piazza.com/class/mekbcze4gyber/post/162
   - **Good news for you: You'll have access to our course notes in the midterm!**
 - HW4 was due on Monday, Oct 6th 11:59 pm. 
-- HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.  
+- HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.   
 
+## iClicker OH 
+I'm planning to hold an in-person midterm review office hour. Which time works best for you?
 
-## Focus on the breath!
+- (A) Friday, October 10th 2pm 
+- (B) Tuesday, October 14th 2pm 
+- (C) Tuesday, October 14th 4pm 
 
-![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
-
-# Recap 
 
 ## Which metric fits best? {.smaller}
 
@@ -201,7 +206,6 @@ plt.show()
 - `TransformedTargetRegressor`
   - Wraps a regression model and applies a transformation to the target values.
 
-
 ## iClicker Exercise 10.1
 
 **Select all of the following statements which are TRUE.**
@@ -215,8 +219,27 @@ plt.show()
 
 **Select all of the following statements which are TRUE.**
 
-- (A) We can use still use precision and recall for regression problems but now we have other metrics we can use as well.
+- (A) We can still use precision and recall for regression problems but now we have other metrics we can use as well.
 - (B) In `sklearn` for regression problems, using `r2_score()` and `.score()` (with default values) will produce the same results.
 - (C) RMSE is always going to be non-negative.
 - (D) MSE does not directly provide the information about whether the model is underpredicting or overpredicting.
 - (E) We can pass multiple scoring metrics to `GridSearchCV` or `RandomizedSearchCV` for regression as well as classification problems. 
+
+## Which metric fits the scenario? {.smaller}
+
+| Scenario | What matters most? | Best metric(s)? |
+|-----------|-------------------|----------|
+| Predicting **house prices** ranging from \$60K–\$800K.  | A \$30K error is huge for a \$60K house but small for a \$500K house. |  |
+| Predicting **exam scores** (0–100).  | You want an interpretable measure of average error in **points**. |  |
+| Predicting **energy consumption** in a large industrial system. | Large errors are very costly and should be penalized heavily. |  |
+| Predicting **insurance claim amounts**. | You want to compare how well different models explain the variation in claims. |  |
+
+
+## Which metric fits the scenario? 
+
+- **For interpretability:** prefer RMSE or MAPE
+- **When you want to discourage large error:** MSE is common
+- **For fair comparison:** r2 provides a normalized score similar to accuracy in classification.  
+- **For imbalanced scales:** MAPE helps when proportional error matters more than absolute error.
+
+
