@@ -1,0 +1,174 @@
+---
+title: 'CPSC 330 Lecture 11: Ensembles'
+description: "Random forsts, gradient boosting, averaging, stacking" 
+description-short: "Random forsts, gradient boosting, averaging, stacking" 
+
+format:
+    revealjs:
+        html-math-method: mathjax
+        slide-number: true
+        slide-level: 2
+        theme:
+          - slides.scss
+        center: true
+        logo: img/UBC-CS-logo.png
+        resources:
+          - data/
+          - img/
+
+editor:
+  render-on-save: true
+---
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements 
+- Midterm 1 window starts tomorrow!! 
+- Midterm OH: Tuesday, Oct 14th 2pm to 3pm **ORCH 4018**
+- During midterm: 
+  - Piazza will be turned off. 
+  - No tutorials and office hours.  
+
+## iClicker Exercise 11.0
+
+Which of the following scenarios has worked effectively for you in the past?
+
+- (A) Working independently on a project/assignment.
+- (B) Working with like-minded people.
+- (C) Teaming up with a diverse group offering varied perspectives and skills.
+
+## [The Wisdom of Crowds](http://wisdomofcrowds.blogspot.com/2009/12/introduction-part-i.html)
+
+Groups can often make better decisions than individuals, especially when group members are diverse enough. 
+
+![](img/wisdom_of_crowds.jpg){.nostretch fig-align="center" width="300px"}
+
+
+## Ensembles key idea {.smaller}
+
+:::: {.columns}
+:::{.column width="50%"}
+
+![](img/ensembles-key-idea.png)
+
+[Source](https://sebastianraschka.com/pdf/lecture-notes/stat451fs20/07-ensembles__slides.pdf)
+:::
+
+:::{.column width="50%"}
+- Combine predictions from multiple models for a more accurate and stable result
+- Classification: either take majority class or average predicted probabilities
+- Regression: Average (mean or median) predictions
+- Averaging reduces individual model errors, making the ensemble more robust than any single model
+:::
+::::
+
+## Ensembles
+
+- Ensemble methods are **widely used in industry** and dominate **machine learning competitions** (e.g., Kaggle).  
+- In this course, we'll explore  
+- **Tree-based ensembles:**  
+    - Random Forests  
+    - Gradient Boosted Trees (at a high level)
+    
+- **Ways to combine models:**  
+    - **Averaging:** combine model outputs directly  
+    - **Stacking:** use one model to learn how to combine others  
+
+## When do ensembles help?
+
+In which of these scenarios does an ensemble improve performance? 
+
+![](img/expertise-diversity.png){.nostretch fig-align="center" width="800px"}
+
+[Source](DSCI 573 notes)
+
+## When do ensembles help?
+
+Ensembles improve performance when the individual models are both **competent** (have expertise) and **make different kinds of errors** (are diverse).  
+
+
+## Diversity
+
+- Ensembles work best when their models make **different types of mistakes**.  
+- If all models make the same errors, averaging won't help.  
+- We can **encourage diversity** by:
+  - Introducing randomness (e.g., bootstrapped samples and random feature subsets (*Random Forests*))
+  - Sequentially focusing on previous errors (e.g., *Gradient Boosting*)  
+
+## Expertise
+
+- Diversity alone is not enough. Individual models should still have **some predictive skill**.  
+- If each model performs poorly (worse than random), the ensemble can't recover.  
+- Best ensembles strike a **balance** between:
+  - **Diversity:** models disagree in useful ways  
+  - **Expertise:** each model performs better than chance
+
+# Random forest 
+
+## What can we randomize between trees?
+![](img/tree-example.png)
+
+## Two sources of randomness in random forests
+
+- **Bootstrap sampling of data**  
+  Each tree is trained on a slightly different dataset → decorrelates trees.
+- **Random subset of features at each split**  
+  Each split considers only a random subset of features → further reduces correlation.
+
+
+## Bootstrap sample {.smaller}
+- Ensures trees **see different versions of the data**  
+- Creates **diversity** while preserving **similar overall structure**
+
+:::: {.columns}
+:::{.column width="50%"}
+
+![](img/bootstrap-sample-rf1.png)
+
+[Source](https://sebastianraschka.com/pdf/lecture-notes/stat451fs20/07-ensembles__slides.pdf)
+:::
+
+:::{.column width="50%"}
+![](img/bootstrap-sample-rf2.png)
+
+:::
+::::
+
+
+## Random subset of features at each split
+
+- The second source of randomness comes from **selecting a different subset of features at every split**  
+- Each tree now explores different parts of the feature space  
+- 🤔 But why not pick one subset per tree instead?
+
+## Why use a new subset at each split? {.smaller}
+
+| Strategy | Diversity | Expertise | Issue |
+|-----------|------------|------------|--------|
+| One subset per tree | Very high | Often low | May miss important features |
+| New subset per split | Moderate | High | Stronger, less correlated trees |
+
+- Using a new subset per split strikes a **balance** between diversity and strength  
+- Prevents trees from becoming too weak while still keeping them different
+
+> "Random selection of features at each node gives substantial additional accuracy gains over bagging alone."  
+> — *Breiman (2001)*
+
+## Interim summary
+- Random Forests reduce overfitting by **decorrelating trees**
+- Two ingredients make this happen: Random data (bootstrapping) and random features (per split)  
+- Together, they build a strong yet diverse ensemble
+
+# Gradient boosting 
+
+
+
+# [Ensembles class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-ensembles.ipynb)
+
+
+
+ 
+
+

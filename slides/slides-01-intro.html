@@ -8,7 +8,7 @@
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.57">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Varada Kolhatkar">
   <title>CPSC 330 – Lecture 1: Introduction to CPSC 330</title>
@@ -762,7 +762,7 @@ Discuss with you neighbour</p>
 <ul>
 <li>We want to predict liver disease from tabular features:</li>
 </ul>
-<div id="db04db53" class="cell" data-execution_count="2">
+<div id="1c4d59a5" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -847,15 +847,14 @@ Discuss with you neighbour</p>
 </section>
 <section id="model-training" class="slide level2 center">
 <h2>Model training</h2>
-<div id="55357e22" class="cell" data-execution_count="3">
+<div id="a0087dd8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> lightgbm.sklearn <span class="im">import</span> LGBMClassifier</span>
 <span id="cb1-2"><a></a>model <span class="op">=</span> LGBMClassifier(random_state<span class="op">=</span><span class="dv">123</span>, verbose<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb1-3"><a></a>model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: #000;
-  --sklearn-color-text-muted: #666;
+  --sklearn-color-text: black;
   --sklearn-color-line: gray;
   /* Definition of color scheme for unfitted estimators */
   --sklearn-color-unfitted-level-0: #fff5e6;
@@ -1000,21 +999,12 @@ clickable and can be expanded/collapsed.
 /* Toggleable label */
 #sk-container-id-1 label.sk-toggleable__label {
   cursor: pointer;
-  display: flex;
+  display: block;
   width: 100%;
   margin-bottom: 0;
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
-  align-items: start;
-  justify-content: space-between;
-  gap: 0.5em;
-}
-
-#sk-container-id-1 label.sk-toggleable__label .caption {
-  font-size: 0.6rem;
-  font-weight: lighter;
-  color: var(--sklearn-color-text-muted);
 }
 
 #sk-container-id-1 label.sk-toggleable__label-arrow:before {
@@ -1032,7 +1022,9 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-1 div.sk-toggleable__content {
-  display: none;
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -1058,9 +1050,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  display: block;
-  width: 100%;
-  overflow: visible;
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
 }
 
 #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -1165,8 +1157,7 @@ a:visited.sk-estimator-doc-link {
   height: 1em;
   width: 1em;
   text-decoration: none !important;
-  margin-left: 0.5em;
-  text-align: center;
+  margin-left: 1ex;
   /* unfitted */
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
   color: var(--sklearn-color-unfitted-level-1);
@@ -1265,225 +1256,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-
-.estimator-table summary {
-    padding: .5rem;
-    font-family: monospace;
-    cursor: pointer;
-}
-
-.estimator-table details[open] {
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
-    padding-bottom: 0.3rem;
-}
-
-.estimator-table .parameters-table {
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.estimator-table .parameters-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.estimator-table .parameters-table tr:nth-child(even) {
-    background-color: #f6f6f6;
-}
-
-.estimator-table .parameters-table tr:hover {
-    background-color: #e0e0e0;
-}
-
-.estimator-table table td {
-    border: 1px solid rgba(106, 105, 104, 0.232);
-}
-
-.user-set td {
-    color:rgb(255, 94, 0);
-    text-align: left;
-}
-
-.user-set td.value pre {
-    color:rgb(255, 94, 0) !important;
-    background-color: transparent !important;
-}
-
-.default td {
-    color: black;
-    text-align: left;
-}
-
-.user-set td i,
-.default td i {
-    color: black;
-}
-
-.copy-paste-icon {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
-    background-repeat: no-repeat;
-    background-size: 14px 14px;
-    background-position: 0;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-}
-</a></style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LGBMClassifier(random_state=123, verbose=-1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LGBMClassifier</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">boosting_type&nbsp;</td>
-<td class="value">'gbdt'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">num_leaves&nbsp;</td>
-<td class="value">31</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">max_depth&nbsp;</td>
-<td class="value">-1</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">learning_rate&nbsp;</td>
-<td class="value">0.1</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">n_estimators&nbsp;</td>
-<td class="value">100</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">subsample_for_bin&nbsp;</td>
-<td class="value">200000</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">objective&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">class_weight&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">min_split_gain&nbsp;</td>
-<td class="value">0.0</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">min_child_weight&nbsp;</td>
-<td class="value">0.001</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">min_child_samples&nbsp;</td>
-<td class="value">20</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">subsample&nbsp;</td>
-<td class="value">1.0</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">subsample_freq&nbsp;</td>
-<td class="value">0</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">colsample_bytree&nbsp;</td>
-<td class="value">1.0</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">reg_alpha&nbsp;</td>
-<td class="value">0.0</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">reg_lambda&nbsp;</td>
-<td class="value">0.0</td>
-</tr>
-<tr class="odd user-set">
-<td><em></em></td>
-<td class="param">random_state&nbsp;</td>
-<td class="value">123</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">n_jobs&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">importance_type&nbsp;</td>
-<td class="value">'split'</td>
-</tr>
-<tr class="even user-set">
-<td><em></em></td>
-<td class="param">verbose&nbsp;</td>
-<td class="value">-1</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div></div></div><script>function copyToClipboard(text, element) {
-    // Get the parameter prefix from the closest toggleable content
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
-
-    const originalStyle = element.style;
-    const computedStyle = window.getComputedStyle(element);
-    const originalWidth = computedStyle.width;
-    const originalHTML = element.innerHTML.replace('Copied!', '');
-
-    navigator.clipboard.writeText(fullParamName)
-        .then(() => {
-            element.style.width = originalWidth;
-            element.style.color = 'green';
-            element.innerHTML = "Copied!";
-
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Failed to copy:', err);
-            element.style.color = 'red';
-            element.innerHTML = "Failed!";
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        });
-    return false;
-}
-
-document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const paramName = element.parentElement.nextElementSibling.textContent.trim();
-    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
-
-    element.setAttribute('title', fullParamName);
-});
-</script>
+</a></style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LGBMClassifier(random_state=123, verbose=-1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;LGBMClassifier<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>LGBMClassifier(random_state=123, verbose=-1)</pre></div> </div></div></div></div>
 </div>
 </div>
 </section>
@@ -1492,7 +1265,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>Given features of new patients below we’ll use this model to predict whether these patients have the liver disease or not.</li>
 </ul>
-<div id="d9c14365" class="cell" data-execution_count="4">
+<div id="375d1747" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -1563,7 +1336,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>Let’s examine predictions</li>
 </ul>
-<div id="792220aa" class="cell" data-execution_count="5">
+<div id="18f74c31" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>pred_df <span class="op">=</span> pd.DataFrame({<span class="st">"Predicted_target"</span>: model.predict(X_test).tolist()})</span>
 <span id="cb2-2"><a></a>df_concat <span class="op">=</span> pd.concat([pred_df, X_test.reset_index(drop<span class="op">=</span><span class="va">True</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb2-3"><a></a>HTML(df_concat.to_html(index<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1640,7 +1413,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="example-supervised-regression" class="slide level2 smaller center">
 <h2>Example: Supervised regression</h2>
 <p>Suppose we want to predict housing prices given a number of attributes associated with houses. The target here is <strong>continuous</strong> and not <strong>discrete</strong>.</p>
-<div id="3c1b61c2" class="cell" data-execution_count="6">
+<div id="fbd22756" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -1779,7 +1552,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="building-a-regression-model" class="slide level2 center">
 <h2>Building a regression model</h2>
-<div id="45ec659f" class="cell" data-execution_count="7">
+<div id="12adad08" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> lightgbm.sklearn <span class="im">import</span> LGBMRegressor</span>
 <span id="cb3-2"><a></a></span>
 <span id="cb3-3"><a></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span> [<span class="st">"target"</span>]), train_df[<span class="st">"target"</span>]</span>
@@ -1791,7 +1564,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="predicting-prices-of-unseen-houses" class="slide level2 smaller center">
 <h2>Predicting prices of unseen houses</h2>
-<div id="ccb9f611" class="cell" data-execution_count="8">
+<div id="fcc7a782" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>pred_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb4-2"><a></a>    {<span class="st">"Predicted_target"</span>: model.predict(X_test[<span class="dv">0</span>:<span class="dv">4</span>]).tolist()}</span>
 <span id="cb4-3"><a></a>)</span>
@@ -1927,7 +1700,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="2615d9bd" class="cell" data-execution_count="9">
+<div id="08b1a996" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>sms_df <span class="op">=</span> pd.read_csv(DATA_DIR <span class="op">+</span> <span class="st">"spam.csv"</span>, encoding<span class="op">=</span><span class="st">"latin-1"</span>)</span>
 <span id="cb5-2"><a></a>sms_df <span class="op">=</span> sms_df.drop(columns <span class="op">=</span> [<span class="st">"Unnamed: 2"</span>, <span class="st">"Unnamed: 3"</span>, <span class="st">"Unnamed: 4"</span>])</span>
 <span id="cb5-3"><a></a>sms_df <span class="op">=</span> sms_df.rename(columns<span class="op">=</span>{<span class="st">"v1"</span>: <span class="st">"target"</span>, <span class="st">"v2"</span>: <span class="st">"sms"</span>})</span>
@@ -1936,7 +1709,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 <div id="tabset-1-2">
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="a306a7ad" class="cell" data-execution_count="10">
+<div id="63ad46de" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -1977,7 +1750,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="lets-train-a-model" class="slide level2 center">
 <h2>Let’s train a model</h2>
-<div id="8df5a7d0" class="cell" data-execution_count="11">
+<div id="45033fe4" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>X_train, y_train <span class="op">=</span> train_df[<span class="st">"sms"</span>], train_df[<span class="st">"target"</span>]</span>
 <span id="cb6-2"><a></a>X_test, y_test <span class="op">=</span> test_df[<span class="st">"sms"</span>], test_df[<span class="st">"target"</span>]</span>
 <span id="cb6-3"><a></a>clf <span class="op">=</span> make_pipeline(CountVectorizer(max_features<span class="op">=</span><span class="dv">5000</span>), LogisticRegression(max_iter<span class="op">=</span><span class="dv">5000</span>))</span>
@@ -1985,8 +1758,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <div class="cell-output cell-output-display" data-execution_count="11">
 <style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: #000;
-  --sklearn-color-text-muted: #666;
+  --sklearn-color-text: black;
   --sklearn-color-line: gray;
   /* Definition of color scheme for unfitted estimators */
   --sklearn-color-unfitted-level-0: #fff5e6;
@@ -2131,21 +1903,12 @@ clickable and can be expanded/collapsed.
 /* Toggleable label */
 #sk-container-id-2 label.sk-toggleable__label {
   cursor: pointer;
-  display: flex;
+  display: block;
   width: 100%;
   margin-bottom: 0;
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
-  align-items: start;
-  justify-content: space-between;
-  gap: 0.5em;
-}
-
-#sk-container-id-2 label.sk-toggleable__label .caption {
-  font-size: 0.6rem;
-  font-weight: lighter;
-  color: var(--sklearn-color-text-muted);
 }
 
 #sk-container-id-2 label.sk-toggleable__label-arrow:before {
@@ -2163,7 +1926,9 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-2 div.sk-toggleable__content {
-  display: none;
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -2189,9 +1954,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  display: block;
-  width: 100%;
-  overflow: visible;
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
 }
 
 #sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -2296,8 +2061,7 @@ a:visited.sk-estimator-doc-link {
   height: 1em;
   width: 1em;
   text-decoration: none !important;
-  margin-left: 0.5em;
-  text-align: center;
+  margin-left: 1ex;
   /* unfitted */
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
   color: var(--sklearn-color-unfitted-level-1);
@@ -2396,330 +2160,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-
-.estimator-table summary {
-    padding: .5rem;
-    font-family: monospace;
-    cursor: pointer;
-}
-
-.estimator-table details[open] {
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
-    padding-bottom: 0.3rem;
-}
-
-.estimator-table .parameters-table {
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.estimator-table .parameters-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.estimator-table .parameters-table tr:nth-child(even) {
-    background-color: #f6f6f6;
-}
-
-.estimator-table .parameters-table tr:hover {
-    background-color: #e0e0e0;
-}
-
-.estimator-table table td {
-    border: 1px solid rgba(106, 105, 104, 0.232);
-}
-
-.user-set td {
-    color:rgb(255, 94, 0);
-    text-align: left;
-}
-
-.user-set td.value pre {
-    color:rgb(255, 94, 0) !important;
-    background-color: transparent !important;
-}
-
-.default td {
-    color: black;
-    text-align: left;
-}
-
-.user-set td i,
-.default td i {
-    color: black;
-}
-
-.copy-paste-icon {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
-    background-repeat: no-repeat;
-    background-size: 14px 14px;
-    background-position: 0;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-}
 </a></style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),
-                ('logisticregression', LogisticRegression(max_iter=5000))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="odd user-set">
-<td><em></em></td>
-<td class="param">steps&nbsp;</td>
-<td class="value">[('countvectorizer', ...), ('logisticregression', ...)]</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">transform_input&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">memory&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">verbose&nbsp;</td>
-<td class="value">False</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>CountVectorizer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">?<span>Documentation for CountVectorizer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="countvectorizer__">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">input&nbsp;</td>
-<td class="value">'content'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">encoding&nbsp;</td>
-<td class="value">'utf-8'</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">decode_error&nbsp;</td>
-<td class="value">'strict'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">strip_accents&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">lowercase&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">preprocessor&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">tokenizer&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">stop_words&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">token_pattern&nbsp;</td>
-<td class="value">'(?u)\\b\\w\\w+\\b'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">ngram_range&nbsp;</td>
-<td class="value">(1, ...)</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">analyzer&nbsp;</td>
-<td class="value">'word'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">max_df&nbsp;</td>
-<td class="value">1.0</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">min_df&nbsp;</td>
-<td class="value">1</td>
-</tr>
-<tr class="even user-set">
-<td><em></em></td>
-<td class="param">max_features&nbsp;</td>
-<td class="value">5000</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">vocabulary&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">binary&nbsp;</td>
-<td class="value">False</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">dtype&nbsp;</td>
-<td class="value">&lt;class 'numpy.int64'&gt;</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="logisticregression__">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">penalty&nbsp;</td>
-<td class="value">'l2'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">dual&nbsp;</td>
-<td class="value">False</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">tol&nbsp;</td>
-<td class="value">0.0001</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">C&nbsp;</td>
-<td class="value">1.0</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">fit_intercept&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">intercept_scaling&nbsp;</td>
-<td class="value">1</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">class_weight&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">random_state&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">solver&nbsp;</td>
-<td class="value">'lbfgs'</td>
-</tr>
-<tr class="even user-set">
-<td><em></em></td>
-<td class="param">max_iter&nbsp;</td>
-<td class="value">5000</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">multi_class&nbsp;</td>
-<td class="value">'deprecated'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">verbose&nbsp;</td>
-<td class="value">0</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">warm_start&nbsp;</td>
-<td class="value">False</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">n_jobs&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">l1_ratio&nbsp;</td>
-<td class="value">None</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div></div></div></div></div><script>function copyToClipboard(text, element) {
-    // Get the parameter prefix from the closest toggleable content
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
-
-    const originalStyle = element.style;
-    const computedStyle = window.getComputedStyle(element);
-    const originalWidth = computedStyle.width;
-    const originalHTML = element.innerHTML.replace('Copied!', '');
-
-    navigator.clipboard.writeText(fullParamName)
-        .then(() => {
-            element.style.width = originalWidth;
-            element.style.color = 'green';
-            element.innerHTML = "Copied!";
-
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Failed to copy:', err);
-            element.style.color = 'red';
-            element.innerHTML = "Failed!";
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        });
-    return false;
-}
-
-document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const paramName = element.parentElement.nextElementSibling.textContent.trim();
-    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
-
-    element.setAttribute('title', fullParamName);
-});
-</script>
+                ('logisticregression', LogisticRegression(max_iter=5000))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),
+                ('logisticregression', LogisticRegression(max_iter=5000))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;CountVectorizer<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">?<span>Documentation for CountVectorizer</span></a></label><div class="sk-toggleable__content fitted"><pre>CountVectorizer(max_features=5000)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=5000)</pre></div> </div></div></div></div></div></div>
 </div>
 </div>
 </section>
@@ -2728,7 +2171,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>Now use the trained model to predict targets of unseen messages:</li>
 </ul>
-<div id="2d68775d" class="cell" data-execution_count="12">
+<div id="20ac8df0" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <style scoped="">
@@ -2779,42 +2222,42 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="predicting-on-unseen-data" class="slide level2 smaller center">
 <h2>Predicting on unseen data</h2>
 <p><strong>The model is accurately predicting labels for the unseen text messages above!</strong></p>
-<div id="e8fd16d4" class="cell" data-execution_count="13">
+<div id="5a17ec5b" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display" data-execution_count="13">
 <style type="text/css">
-#T_36c83_row0_col0, #T_36c83_row0_col1, #T_36c83_row1_col0, #T_36c83_row1_col1, #T_36c83_row2_col0, #T_36c83_row2_col1, #T_36c83_row3_col0, #T_36c83_row3_col1 {
+#T_ab920_row0_col0, #T_ab920_row0_col1, #T_ab920_row1_col0, #T_ab920_row1_col1, #T_ab920_row2_col0, #T_ab920_row2_col1, #T_ab920_row3_col0, #T_ab920_row3_col1 {
   text-align: left;
 }
 </style>
 
-<table id="T_36c83" class="caption-top" data-quarto-postprocess="true">
+<table id="T_ab920" class="caption-top" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_36c83_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">sms</th>
-<th id="T_36c83_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">spam_predictions</th>
+<th id="T_ab920_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">sms</th>
+<th id="T_ab920_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">spam_predictions</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_36c83_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">3245</td>
-<td id="T_36c83_row0_col0" class="data row0 col0">Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
-<td id="T_36c83_row0_col1" class="data row0 col1">ham</td>
+<td id="T_ab920_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">3245</td>
+<td id="T_ab920_row0_col0" class="data row0 col0">Funny fact Nobody teaches volcanoes 2 erupt, tsunamis 2 arise, hurricanes 2 sway aroundn no 1 teaches hw 2 choose a wife Natural disasters just happens</td>
+<td id="T_ab920_row0_col1" class="data row0 col1">ham</td>
 </tr>
 <tr class="even">
-<td id="T_36c83_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">944</td>
-<td id="T_36c83_row1_col0" class="data row1 col0">I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one me the less expensive ones</td>
-<td id="T_36c83_row1_col1" class="data row1 col1">ham</td>
+<td id="T_ab920_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">944</td>
+<td id="T_ab920_row1_col0" class="data row1 col0">I sent my scores to sophas and i had to do secondary application for a few schools. I think if you are thinking of applying, do a research on cost also. Contact joke ogunrinde, her school is one me the less expensive ones</td>
+<td id="T_ab920_row1_col1" class="data row1 col1">ham</td>
 </tr>
 <tr class="odd">
-<td id="T_36c83_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">1044</td>
-<td id="T_36c83_row2_col0" class="data row2 col0">We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
-<td id="T_36c83_row2_col1" class="data row2 col1">spam</td>
+<td id="T_ab920_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">1044</td>
+<td id="T_ab920_row2_col0" class="data row2 col0">We know someone who you know that fancies you. Call 09058097218 to find out who. POBox 6, LS15HB 150p</td>
+<td id="T_ab920_row2_col1" class="data row2 col1">spam</td>
 </tr>
 <tr class="even">
-<td id="T_36c83_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">2484</td>
-<td id="T_36c83_row3_col0" class="data row3 col0">Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
-<td id="T_36c83_row3_col1" class="data row3 col1">ham</td>
+<td id="T_ab920_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">2484</td>
+<td id="T_ab920_row3_col0" class="data row3 col0">Only if you promise your getting out as SOON as you can. And you'll text me in the morning to let me know you made it in ok.</td>
+<td id="T_ab920_row3_col1" class="data row3 col1">ham</td>
 </tr>
 </tbody>
 </table>
@@ -2827,7 +2270,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <ul>
 <li>LLMs = Large Language Models</li>
 </ul>
-<div id="3156905d" class="cell" data-execution_count="14">
+<div id="8f43a7ae" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline, AutoModelForTokenClassification, AutoTokenizer</span>
 <span id="cb7-2"><a></a><span class="co"># Sentiment analysis pipeline</span></span>
 <span id="cb7-3"><a></a>analyzer <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>, model<span class="op">=</span><span class="st">'distilbert-base-uncased-finetuned-sst-2-english'</span>)</span>
@@ -2848,7 +2291,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <li>Now suppose you want to identify the emotion expressed in the text rather than just positive or negative.</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="327ac62e" class="cell" data-execution_count="15">
+<div id="dd146604" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>['im feeling rather rotten so im not very ambitious right now',
  'im updating my blog because i feel shitty',
@@ -2868,7 +2311,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <h2>Zero-shot learning for emotion detection</h2>
 <p><br>
 </p>
-<div id="3625f809" class="cell" data-execution_count="16">
+<div id="9e708d22" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
 <span id="cb10-2"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline </span>
 <span id="cb10-3"><a></a><span class="im">import</span> torch</span>
@@ -2886,7 +2329,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <p><br>
 </p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="351ae50a" class="cell" data-execution_count="17">
+<div id="6d8fb967" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 <style scoped="">
@@ -2917,61 +2360,61 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <td data-quarto-table-cell-role="th">0</td>
 <td>i don t feel particularly agitated</td>
 <td>[surprise, anger, joy, sadness, fear, love]</td>
-<td>[0.3600878417491913, 0.3019028306007385, 0.11901311576366425, 0.11381475627422333, 0.060391537845134735, 0.04478989914059639]</td>
+<td>[0.3600894808769226, 0.3018992841243744, 0.11901337653398514, 0.11381522566080093, 0.060392025858163834, 0.04479065164923668]</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>i feel beautifully emotional knowing that these women of whom i knew just a handful were holding me and my baba on our journey</td>
 <td>[joy, love, surprise, fear, sadness, anger]</td>
-<td>[0.36994311213493347, 0.28871551156044006, 0.25607970356941223, 0.04292311519384384, 0.03344893828034401, 0.008889686316251755]</td>
+<td>[0.3699415922164917, 0.2887157201766968, 0.25608018040657043, 0.04292364791035652, 0.0334492027759552, 0.008889684453606606]</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>i pay attention it deepens into a feeling of being invaded and helpless</td>
 <td>[fear, surprise, sadness, anger, joy, love]</td>
-<td>[0.3414697051048279, 0.3088077902793884, 0.25616782903671265, 0.07989819347858429, 0.007844815962016582, 0.005811681505292654]</td>
+<td>[0.3414682149887085, 0.308807909488678, 0.25616857409477234, 0.07989872992038727, 0.007844817824661732, 0.005811713170260191]</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>i just feel extremely comfortable with the group of people that i dont even need to hide myself</td>
 <td>[joy, surprise, love, sadness, anger, fear]</td>
-<td>[0.33052313327789307, 0.2947230041027069, 0.15343120694160461, 0.0769142434000969, 0.07596743106842041, 0.06844092905521393]</td>
+<td>[0.330521821975708, 0.29472413659095764, 0.15343177318572998, 0.07691384106874466, 0.07596709579229355, 0.06844125688076019]</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>i find myself in the odd position of feeling supportive of</td>
 <td>[surprise, joy, fear, love, sadness, anger]</td>
-<td>[0.8287989497184753, 0.0431794710457325, 0.03977375477552414, 0.03141302987933159, 0.03141230717301369, 0.025422487407922745]</td>
+<td>[0.8287973403930664, 0.043179724365472794, 0.039774090051651, 0.031413525342941284, 0.031412579119205475, 0.025422723963856697]</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>i was feeling as heartbroken as im sure katniss was</td>
 <td>[sadness, surprise, fear, love, anger, joy]</td>
-<td>[0.7667977213859558, 0.1818464994430542, 0.025871247053146362, 0.01175675168633461, 0.008171566762030125, 0.005556134041398764]</td>
+<td>[0.7667971849441528, 0.18184727430343628, 0.025871170684695244, 0.011756685562431812, 0.008171557448804379, 0.005556126125156879]</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
 <td>i feel a little mellow today</td>
 <td>[surprise, joy, love, fear, sadness, anger]</td>
-<td>[0.4937359094619751, 0.2632196545600891, 0.11367890238761902, 0.06402157247066498, 0.05095512419939041, 0.014388807117938995]</td>
+<td>[0.49373435974121094, 0.2632201910018921, 0.11367978155612946, 0.06402172893285751, 0.05095501244068146, 0.014388876967132092]</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
 <td>i feel like my only role now would be to tear your sails with my pessimism and discontent</td>
 <td>[sadness, anger, surprise, fear, joy, love]</td>
-<td>[0.6992810368537903, 0.20048701763153076, 0.06185832992196083, 0.032874055206775665, 0.0036468510515987873, 0.0018528478685766459]</td>
+<td>[0.6992793679237366, 0.20048710703849792, 0.061859212815761566, 0.03287450596690178, 0.003646905766800046, 0.0018528853543102741]</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
 <td>i feel just bcoz a fight we get mad to each other n u wanna make a publicity n let the world knows about our fight</td>
 <td>[anger, surprise, sadness, fear, joy, love]</td>
-<td>[0.6029909253120422, 0.19827117025852203, 0.10198791325092316, 0.08116964250802994, 0.010117068886756897, 0.005463309586048126]</td>
+<td>[0.6029902696609497, 0.19827134907245636, 0.10198818892240524, 0.0811697468161583, 0.01011709589511156, 0.005463308654725552]</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
 <td>i feel like reds and purples are just so rich and kind of perfect</td>
 <td>[joy, surprise, love, anger, fear, sadness]</td>
-<td>[0.36441490054130554, 0.3051193952560425, 0.1946256458759308, 0.05556650087237358, 0.05413544923067093, 0.026138072833418846]</td>
+<td>[0.36441487073898315, 0.305120587348938, 0.1946253925561905, 0.05556599050760269, 0.0541352778673172, 0.026137853041291237]</td>
 </tr>
 </tbody>
 </table>
@@ -2993,11 +2436,11 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <li>We can use machine learning to predict labels of these images using a technique called <strong>transfer learning</strong>.</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="eb43aab8" class="cell" data-execution_count="18">
+<div id="654a595a" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-1.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-1.png" width="578" height="427"></p>
 </figure>
 </div>
 </div>
@@ -3012,7 +2455,7 @@ Pembroke, Pembroke Welsh corgi              0.081
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-3.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-3.png" width="354" height="427"></p>
 </figure>
 </div>
 </div>
@@ -3027,7 +2470,7 @@ jaguar, panther, Panthera onca, Felis onca              0.001
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-5.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-5.png" width="329" height="427"></p>
 </figure>
 </div>
 </div>
@@ -3042,7 +2485,7 @@ patas, hussar monkey, Erythrocebus patas              0.062
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-7.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-19-output-7.png" width="315" height="427"></p>
 </figure>
 </div>
 </div>
@@ -3067,17 +2510,25 @@ Walker hound, Walker foxhound              0.582
 <h2>Finding groups in food images</h2>
 <p><br>
 </p>
-
-<img data-src="slides-01-intro_files/figure-revealjs/cell-20-output-1.png" class="r-stretch"></section>
+<div id="2c8d1159" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-20-output-1.png" width="763" height="326"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="k-means-on-food-dataset" class="slide level2 center">
 <h2>K-Means on food dataset</h2>
 <p><br>
 </p>
-<div id="c5242991" class="cell" data-execution_count="20">
+<div id="bc1abc12" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a>densenet <span class="op">=</span> models.densenet121(weights<span class="op">=</span><span class="st">"DenseNet121_Weights.IMAGENET1K_V1"</span>)</span>
 <span id="cb15-2"><a></a>densenet.classifier <span class="op">=</span> torch.nn.Identity()  <span class="co"># remove that last "classification" layer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b86dec7a" class="cell" data-execution_count="21">
+<div id="8bed7e0a" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>Z_food <span class="op">=</span> get_features_unsup(densenet, food_inputs)</span>
 <span id="cb16-2"><a></a>k <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb16-3"><a></a>km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, n_init<span class="op">=</span><span class="st">'auto'</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
@@ -3085,8 +2536,7 @@ Walker hound, Walker foxhound              0.582
 <div class="cell-output cell-output-display" data-execution_count="21">
 <style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: #000;
-  --sklearn-color-text-muted: #666;
+  --sklearn-color-text: black;
   --sklearn-color-line: gray;
   /* Definition of color scheme for unfitted estimators */
   --sklearn-color-unfitted-level-0: #fff5e6;
@@ -3231,21 +2681,12 @@ clickable and can be expanded/collapsed.
 /* Toggleable label */
 #sk-container-id-3 label.sk-toggleable__label {
   cursor: pointer;
-  display: flex;
+  display: block;
   width: 100%;
   margin-bottom: 0;
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
-  align-items: start;
-  justify-content: space-between;
-  gap: 0.5em;
-}
-
-#sk-container-id-3 label.sk-toggleable__label .caption {
-  font-size: 0.6rem;
-  font-weight: lighter;
-  color: var(--sklearn-color-text-muted);
 }
 
 #sk-container-id-3 label.sk-toggleable__label-arrow:before {
@@ -3263,7 +2704,9 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-3 div.sk-toggleable__content {
-  display: none;
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -3289,9 +2732,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  display: block;
-  width: 100%;
-  overflow: visible;
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
 }
 
 #sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -3396,8 +2839,7 @@ a:visited.sk-estimator-doc-link {
   height: 1em;
   width: 1em;
   text-decoration: none !important;
-  margin-left: 0.5em;
-  text-align: center;
+  margin-left: 1ex;
   /* unfitted */
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
   color: var(--sklearn-color-unfitted-level-1);
@@ -3496,170 +2938,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-
-.estimator-table summary {
-    padding: .5rem;
-    font-family: monospace;
-    cursor: pointer;
-}
-
-.estimator-table details[open] {
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
-    padding-bottom: 0.3rem;
-}
-
-.estimator-table .parameters-table {
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.estimator-table .parameters-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.estimator-table .parameters-table tr:nth-child(even) {
-    background-color: #f6f6f6;
-}
-
-.estimator-table .parameters-table tr:hover {
-    background-color: #e0e0e0;
-}
-
-.estimator-table table td {
-    border: 1px solid rgba(106, 105, 104, 0.232);
-}
-
-.user-set td {
-    color:rgb(255, 94, 0);
-    text-align: left;
-}
-
-.user-set td.value pre {
-    color:rgb(255, 94, 0) !important;
-    background-color: transparent !important;
-}
-
-.default td {
-    color: black;
-    text-align: left;
-}
-
-.user-set td i,
-.default td i {
-    color: black;
-}
-
-.copy-paste-icon {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
-    background-repeat: no-repeat;
-    background-size: 14px 14px;
-    background-position: 0;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-}
-</a></style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=5, random_state=123)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" checked=""><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>KMeans</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="odd user-set">
-<td><em></em></td>
-<td class="param">n_clusters&nbsp;</td>
-<td class="value">5</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">init&nbsp;</td>
-<td class="value">'k-means++'</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">n_init&nbsp;</td>
-<td class="value">'auto'</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">max_iter&nbsp;</td>
-<td class="value">300</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">tol&nbsp;</td>
-<td class="value">0.0001</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">verbose&nbsp;</td>
-<td class="value">0</td>
-</tr>
-<tr class="odd user-set">
-<td><em></em></td>
-<td class="param">random_state&nbsp;</td>
-<td class="value">123</td>
-</tr>
-<tr class="even default">
-<td><em></em></td>
-<td class="param">copy_x&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="odd default">
-<td><em></em></td>
-<td class="param">algorithm&nbsp;</td>
-<td class="value">'lloyd'</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div></div></div><script>function copyToClipboard(text, element) {
-    // Get the parameter prefix from the closest toggleable content
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
-
-    const originalStyle = element.style;
-    const computedStyle = window.getComputedStyle(element);
-    const originalWidth = computedStyle.width;
-    const originalHTML = element.innerHTML.replace('Copied!', '');
-
-    navigator.clipboard.writeText(fullParamName)
-        .then(() => {
-            element.style.width = originalWidth;
-            element.style.color = 'green';
-            element.innerHTML = "Copied!";
-
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Failed to copy:', err);
-            element.style.color = 'red';
-            element.innerHTML = "Failed!";
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        });
-    return false;
-}
-
-document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const paramName = element.parentElement.nextElementSibling.textContent.trim();
-    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
-
-    element.setAttribute('title', fullParamName);
-});
-</script>
+</a></style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=5, random_state=123)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" checked=""><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=5, random_state=123)</pre></div> </div></div></div></div>
 </div>
 </div>
 </section>
@@ -3668,61 +2947,61 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <p><br>
 </p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="79cd5f95" class="cell" data-execution_count="22">
+<div id="8e1a002b" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="cf">for</span> cluster <span class="kw">in</span> <span class="bu">range</span>(k):</span>
 <span id="cb17-2"><a></a>    get_cluster_images(km, Z_food, X_food, cluster, n_img<span class="op">=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>39
-Image indices:  [ 39 197  12  14 138 181]</code></pre>
+<pre><code>174
+Image indices:  [174  52 125 226  17 195]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-2.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-2.png" width="821" height="137"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>228
-Image indices:  [228  65 128  54 175 260]</code></pre>
+<pre><code>17
+Image indices:  [ 17  25  72  54 174  36]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-4.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-4.png" width="821" height="137"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>138
-Image indices:  [138  54 185 278  39  89]</code></pre>
+<pre><code>50
+Image indices:  [ 50 217 204  30 149 224]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-6.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-6.png" width="821" height="137"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>193
-Image indices:  [193  39 145 212 169 108]</code></pre>
+<pre><code>81
+Image indices:  [ 81 206 189  35  71 165]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-8.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-8.png" width="821" height="137"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>120
-Image indices:  [120 268 244  94  72  87]</code></pre>
+<pre><code>11
+Image indices:  [ 11 225 170  58 268 145]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-10.png"></p>
+<p><img data-src="slides-01-intro_files/figure-revealjs/cell-23-output-10.png" width="821" height="137"></p>
 </figure>
 </div>
 </div>
@@ -4111,13 +3390,13 @@ Image indices:  [120 268 244  94  72  87]</code></pre>
 <li>When you open a Jupyter notebook in one of these apps, the document is “live”, meaning you can run the code.</li>
 </ul>
 <p>For example:</p>
-<div id="17ded650" class="cell" data-execution_count="23">
+<div id="de123710" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>2</code></pre>
 </div>
 </div>
-<div id="9edcca70" class="cell" data-execution_count="24">
+<div id="5e5a3b1e" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb25-2"><a></a>x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">9999</span></span>
 <span id="cb25-3"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
