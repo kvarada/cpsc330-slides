@@ -1687,7 +1687,7 @@
     "href": "slides/slides-11-ensembles.html#averaging-voting",
     "title": "CPSC 330 Lecture 11: Ensembles",
     "section": "Averaging (Voting)",
-    "text": "Averaging (Voting)\n\nCombines predictions from multiple base models\nWorks for both classification and regression\nImproves stability and performance by averaging over models\nRandom forst is a type of averaging classifier"
+    "text": "Averaging (Voting)\n\nCombines predictions from multiple base models\nWorks for both classification and regression\nImproves stability and performance by averaging over models\nRandom forest is a type of averaging classifier"
   },
   {
     "objectID": "slides/slides-11-ensembles.html#types-of-voting",

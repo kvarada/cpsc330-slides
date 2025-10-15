@@ -211,14 +211,14 @@ Ensembles improve performance when the individual models are both **competent** 
 
 # Averaging and Stacking
 
-Goal: Ccombining diverse models for better generalization
+Goal: Combining diverse models for better generalization
 
 ## Averaging (Voting)
 
 - Combines predictions from **multiple base models**
 - Works for both **classification** and **regression**
 - Improves stability and performance by averaging over models
-- Random forst is a type of averaging classifier 
+- Random forest is a type of averaging classifier 
 
 ## Types of Voting
 
