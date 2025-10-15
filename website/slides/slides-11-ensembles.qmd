@@ -139,9 +139,21 @@ Ensembles improve performance when the individual models are both **competent** 
 
 ## Random subset of features at each split
 
-- The second source of randomness comes from **selecting a different subset of features at every split**  
+:::: {.columns}
+:::{.column width="50%"}
+
+![](img/random-feature-subset.png)
+
+[Source](https://sebastianraschka.com/pdf/lecture-notes/stat451fs20/07-ensembles__slides.pdf)
+:::
+
+:::{.column width="50%"}
+
+- Select a different subset of features at every split
 - Each tree now explores different parts of the feature space  
 - 🤔 But why not pick one subset per tree instead?
+:::
+::::
 
 ## Why use a new subset at each split? {.smaller}
 
@@ -161,11 +173,105 @@ Ensembles improve performance when the individual models are both **competent** 
 - Two ingredients make this happen: Random data (bootstrapping) and random features (per split)  
 - Together, they build a strong yet diverse ensemble
 
-# Gradient boosting 
+## iClicker Exercise 11.1 {.smaller}
+
+**Select the most accurate option below.**
+
+- (A) Every tree in a random forest uses a different bootstrap sample of the training set.
+- (B) To train a tree in a random forest, we first randomly select a subset of features. The tree is then restricted to only using those features.
+- (C) The `n_estimators` hyperparameter of random forests should be tuned to get a better performance on the validation or test data.  
+- (D) In random forests we build trees in a sequential fashion, where the current tree is dependent upon the previous tree.  
+- (E) Let classifiers A, B, and C have training errors of 10%, 20%, and 30%, respectively. Then, the best possible training error from averaging A, B and C is 10%.
 
 
+# Gradient boosting (high level)
 
-# [Ensembles class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-ensembles.ipynb)
+## From random forests to boosting
+
+- In **random forests**, we build trees **independently** and **average** their predictions  
+  - reduces **overfitting** by combining diverse models  
+- In **boosting**, we build trees **sequentially**  
+  - each new tree **learns from the mistakes** of the previous ones  
+  - reduces **underfitting** by making the model smarter over time    
+
+## Why it works
+
+- **Sequential correction:** each tree improves on what's left of the error  
+- **Bias reduction:** starts simple and **adds complexity gradually**  
+- **Controlled learning:** small trees and a learning rate prevent overfitting  
+
+## Most commonly used boosting models 
+
+- **XGBoost:** extremely optimized and widely adopted in industry  
+- **LightGBM:** faster training with large datasets  
+- **CatBoost:** handles categorical features efficiently  
+
+> _“More recently, gradient boosting machines (GBMs) have become a Swiss army knife in many a Kaggler’s toolbelt.”_  
+> — Sebastian Raschka, Joshua Patterson, & Corey Nolet (2020)
+
+# Averaging and Stacking
+
+Goal: Combining diverse models for better generalization
+
+## Averaging (Voting)
+
+- Combines predictions from **multiple base models**
+- Works for both **classification** and **regression**
+- Improves stability and performance by averaging over models
+- Random forst is a type of averaging classifier 
+
+## Types of Voting
+
+:::: {.columns}
+:::{.column width="50%"}
+
+**Hard Voting**  
+
+- Each model votes for a class label  
+- Final prediction = **majority vote**  
+
+:::
+
+:::{.column width="50%"}
+
+**Soft Voting**  
+
+- Averages the **predicted probabilities** from each model  
+- Final prediction = class with **highest average probability**  
+- Usually performs better
+
+:::
+::::
+
+## Stacking
+
+- Goes one step beyond averaging
+- Instead of simple averaging, trains a meta-model to learn how to best combine base models' predictions
+
+## How stacking works
+
+- Train several base models on the training data
+- Collect their predictions on a validation set
+- Train a meta-model on those predictions to learn the optimal combination
+- Final prediction = output of the meta-model
+
+## Stacking 
+
+:::: {.columns}
+:::{.column width="50%"}
+
+![](img/stacking.png)
+
+[Source](https://sebastianraschka.com/pdf/lecture-notes/stat451fs20/07-ensembles__slides.pdf)
+:::
+
+:::{.column width="50%"}
+![](img/stacking-cv.png)
+
+:::
+::::
+
+# [Ensembles class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_11-ensembles.ipynb)
 
 
 
