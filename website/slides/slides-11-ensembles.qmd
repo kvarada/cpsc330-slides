@@ -218,7 +218,7 @@ Goal: Combining diverse models for better generalization
 - Combines predictions from **multiple base models**
 - Works for both **classification** and **regression**
 - Improves stability and performance by averaging over models
-- Random forst is a type of averaging classifier 
+- Random forest is a type of averaging classifier 
 
 ## Types of Voting
 
