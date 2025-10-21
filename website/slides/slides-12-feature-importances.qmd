@@ -1,0 +1,98 @@
+---
+title: 'CPSC 330 Lecture 12: Feature importances'
+description: feature importances, interpreting ordinal, categorical, and numeric features, SHAP  
+
+format:
+    revealjs:
+        html-math-method: plain
+        slide-number: true
+        slide-level: 2
+        theme:
+          - slides.scss
+        center: true
+        logo: img/UBC-CS-logo.png
+        resources:
+          - data/
+          - img/
+
+editor:
+  render-on-save: true
+---
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements 
+
+- HW4 grades are released 
+- HW5 is due next week Monday. Make use of office hours and tutorials this week.   
+- Midterm grading in progress. We should be able to return the score later this week. 
+
+## iClicker
+
+How did you feel about the exam last week?
+
+- (A) I felt well-prepared and it went smoothly
+- (B) I think it went okay. We'll see when grades come back
+- (C) I struggled and didn't feel fully prepared
+- (D) I noticed some gaps between what we practiced and what appeared on the exam
+- (E) It was a stressful experience for me 😔
+
+## Scenario 1: Which model would you pick 
+
+Predicting whether a patient is likely to develop diabetes based on features such as age, blood pressure, glucose levels, and BMI. You have two models:
+
+- LGBM which results in 0.9 f1 score 
+- Logistic regression which results in 0.84 f1 score
+
+
+## Scenario 2: Which model would you pick? Why?
+
+Predicting whether a user will purchase a product next based on their browsing history, previous purchases, and click behavior. You have two models:
+
+- LGBM which results in 0.9 F1 score
+- Logistic regression which results in 0.84 F1 score
+
+
+## Transparency
+
+- In many domains understanding the relationship between features and predictions is critical for trust and regulatory compliance. 
+
+### Feature importances 
+- How does the output depend upon the input? 
+- How do the predictions change as a function of a particular feature?
+
+# How to get feature importances? 
+
+## Correlations
+:::: {.columns}
+
+::: {.column width="60%"}
+![](img/feat_corr.png)
+:::
+
+::: {.column width="40%"}
+- What are some limitations of correlations? 
+:::
+::::
+
+## Interepreting coefficients {.smaller}
+- Linear models are interpretable because you get coefficients associated with different features. 
+- Each coefficient represents the estimated impact of a feature on the target variable, assuming all other features are held constant.
+- In a `Ridge` model, 
+  - A positive coefficient indicates that as the feature's value increases, the predicted value also increases.
+	- A negative coefficient indicates that an increase in the feature's value leads to a decrease in the predicted value.
+
+## Interepreting coefficients 
+- When we have different types of preprocessed features, what challenges you might face in interpreting them? 
+  - Ordinally encoded features
+  - One-hot encoded features
+  - Scaled numeric features
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb)
+
+
+ 
+
+
