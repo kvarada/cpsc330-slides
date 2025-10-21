@@ -1760,25 +1760,25 @@
     "text": "iClicker\nHow did you feel about the exam last week?\n\n\nI felt well-prepared and it went smoothly\n\n\nI think it went okay. We’ll see when grades come back\n\n\nI struggled and didn’t feel fully prepared\n\n\nI noticed some gaps between what we practiced and what appeared on the exam\n\n\nIt was a stressful experience for me 😔"
   },
   {
-    "objectID": "slides/slides-12-feature-importances.html#scenario-1-which-model-would-you-pick",
-    "href": "slides/slides-12-feature-importances.html#scenario-1-which-model-would-you-pick",
+    "objectID": "slides/slides-12-feature-importances.html#scenario-1-which-model-would-you-pick-why",
+    "href": "slides/slides-12-feature-importances.html#scenario-1-which-model-would-you-pick-why",
     "title": "CPSC 330 Lecture 12: Feature importances",
-    "section": "Scenario 1: Which model would you pick",
-    "text": "Scenario 1: Which model would you pick\nPredicting whether a patient is likely to develop diabetes based on features such as age, blood pressure, glucose levels, and BMI. You have two models:\n\nLGBM which results in 0.9 f1 score\nLogistic regression which results in 0.84 f1 score"
+    "section": "Scenario 1: Which model would you pick? Why?",
+    "text": "Scenario 1: Which model would you pick? Why?\nPredicting whether a patient is likely to develop diabetes based on features such as age, blood pressure, glucose levels, and BMI. You have two models:\n\nLGBM which results in 0.9 f1 score\nLogistic regression which results in 0.84 f1 score"
   },
   {
     "objectID": "slides/slides-12-feature-importances.html#scenario-2-which-model-would-you-pick-why",
     "href": "slides/slides-12-feature-importances.html#scenario-2-which-model-would-you-pick-why",
     "title": "CPSC 330 Lecture 12: Feature importances",
     "section": "Scenario 2: Which model would you pick? Why?",
-    "text": "Scenario 2: Which model would you pick? Why?\nPredicting whether a user will purchase a product next based on their browsing history, previous purchases, and click behavior. You have two models:\n\nLGBM which results in 0.9 F1 score\nLogistic regression which results in 0.84 F1 score"
+    "text": "Scenario 2: Which model would you pick? Why?\nYou’re building a model to predict whether a user will make their next purchase based on their browsing history, past purchases, and click behaviour. You have two candidate models:\n\nLGBM which results in 0.9 F1 score\nLogistic regression which results in 0.84 F1 score"
   },
   {
     "objectID": "slides/slides-12-feature-importances.html#transparency",
     "href": "slides/slides-12-feature-importances.html#transparency",
     "title": "CPSC 330 Lecture 12: Feature importances",
     "section": "Transparency",
-    "text": "Transparency\n\nIn many domains understanding the relationship between features and predictions is critical for trust and regulatory compliance.\n\nFeature importances\n\nHow does the output depend upon the input?\nHow do the predictions change as a function of a particular feature?"
+    "text": "Transparency\n\nIn many domains understanding the relationship between features and predictions is critical for trust and regulatory compliance.\n\nFeature importances\n\nHow does the output depend upon the input?\nHow do the predictions change as a function of a particular feature?\nHow can we quantify and visualize feature importances?"
   },
   {
     "objectID": "slides/slides-12-feature-importances.html#correlations",
