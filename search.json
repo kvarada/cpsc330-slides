@@ -1778,7 +1778,14 @@
     "href": "slides/slides-12-feature-importances.html#transparency",
     "title": "CPSC 330 Lecture 12: Feature importances",
     "section": "Transparency",
-    "text": "Transparency\n\nIn many domains understanding the relationship between features and predictions is critical for trust and regulatory compliance.\n\nFeature importances\n\nHow does the output depend upon the input?\nHow do the predictions change as a function of a particular feature?\nHow can we quantify and visualize feature importances?"
+    "text": "Transparency\nIn many domains understanding the relationship between features and predictions is critical for trust and regulatory compliance."
+  },
+  {
+    "objectID": "slides/slides-12-feature-importances.html#feature-importances",
+    "href": "slides/slides-12-feature-importances.html#feature-importances",
+    "title": "CPSC 330 Lecture 12: Feature importances",
+    "section": "Feature importances",
+    "text": "Feature importances\n\nHow does the output depend upon the input?\nHow do the predictions change as a function of a particular feature?\nHow can we quantify and visualize feature importances?"
   },
   {
     "objectID": "slides/slides-12-feature-importances.html#correlations",

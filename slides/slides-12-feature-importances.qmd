@@ -57,9 +57,10 @@ You're building a model to predict whether a user will make their next purchase 
 
 ## Transparency
 
-- In many domains understanding the relationship between features and predictions is critical for trust and regulatory compliance. 
+In many domains understanding the relationship between features and predictions is critical for trust and regulatory compliance. 
 
-### Feature importances 
+## Feature importances 
+
 - How does the output depend upon the input? 
 - How do the predictions change as a function of a particular feature?
 - How can we quantify and visualize feature importances? 
