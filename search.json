@@ -746,7 +746,7 @@
     "href": "slides/slides-06-hyperparameter-optimization.html#random-search-example",
     "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
     "section": "Random search example",
-    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.9836456697770959)"
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.982648262796441)"
   },
   {
     "objectID": "slides/slides-06-hyperparameter-optimization.html#pizza-baking-competition-example",
@@ -1234,11 +1234,39 @@
     "text": "Announcements\n\nHW5 is due next week Monday. Make use of office hours and tutorials this week."
   },
   {
-    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-14.0",
-    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-14.0",
+    "objectID": "slides/slides-13-feature-engineering-selection.html#why-bother-about-model-transparancey",
+    "href": "slides/slides-13-feature-engineering-selection.html#why-bother-about-model-transparancey",
     "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
-    "section": "iClicker Exercise 14.0",
-    "text": "iClicker Exercise 14.0\niClicker cloud join link: https://join.iclicker.com/VYFJ\nSuppose you are working on a machine learning project. If you have to prioritize one of the following in your project which of the following would it be?\n\nThe quality and size of the data\nMost recent deep neural network model\nMost recent optimization algorithm"
+    "section": "Why bother about model transparancey?",
+    "text": "Why bother about model transparancey?"
+  },
+  {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#shap-intuition",
+    "href": "slides/slides-13-feature-engineering-selection.html#shap-intuition",
+    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "section": "SHAP intuition",
+    "text": "SHAP intuition\n\nThink of the model as a “black box” that outputs predictions.\nSHAP asks: If we treat each feature as a player contributing to the final prediction, how much credit does each one deserve?\nTo answer this fairly, SHAP looks at all possible combinations of features and averages their marginal contributions.\nA marginal contribution is how much the prediction changes when you add that feature to a subset of other features."
+  },
+  {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#shap",
+    "href": "slides/slides-13-feature-engineering-selection.html#shap",
+    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "section": "SHAP",
+    "text": "SHAP"
+  },
+  {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
+    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
+    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "section": "iClicker Exercise SHAP",
+    "text": "iClicker Exercise SHAP\n\n\nSHAP values are model parameters learned during training.\n\n\nCoefficients in a linear model and SHAP values both quantify how much each feature contributes to a prediction, but coefficients are global while SHAP values are local.\n\n\nSHAP values can only be computed for tree-based models.\n\n\nA waterfall plot shows how each feature’s SHAP value cumulatively contributes to a single prediction.\n\n\nSHAP provides the same explanation for all examples in the dataset."
+  },
+  {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.0",
+    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.0",
+    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "section": "iClicker Exercise 13.0",
+    "text": "iClicker Exercise 13.0\nSuppose you are working on a machine learning project. If you have to prioritize one of the following in your project which of the following would it be?\n\n\nThe quality and size of the data\n\n\nMost recent deep neural network model\n\n\nMost recent optimization algorithm"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#discussion-question",
@@ -1294,14 +1322,21 @@
     "href": "slides/slides-13-feature-engineering-selection.html#the-best-features-may-be-dependent-on-the-model-you-use",
     "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
     "section": "The best features may be dependent on the model you use",
-    "text": "The best features may be dependent on the model you use\n\nExamples:\n\nFor counting-based methods like decision trees separate relevant groups of variable values\n\nDiscretization makes sense\n\nFor distance-based methods like KNN, we want different class labels to be “far”.\n\nStandardization\n\nFor regression-based methods like linear regression, we want targets to have a linear dependency on features. # Class demo"
+    "text": "The best features may be dependent on the model you use\n\nExamples:\n\nFor counting-based methods like decision trees separate relevant groups of variable values\n\nDiscretization makes sense\n\nFor distance-based methods like KNN, we want different class labels to be “far”.\n\nStandardization\n\nFor regression-based methods like linear regression, we want targets to have a linear dependency on features."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#domain-specific-transformations",
     "href": "slides/slides-13-feature-engineering-selection.html#domain-specific-transformations",
     "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
     "section": "Domain-specific transformations",
-    "text": "Domain-specific transformations\nIn some domains there are natural transformations to do: - Spectrograms (sound data) - Wavelets (image data) - Convolutions\n\nSource"
+    "text": "Domain-specific transformations\nIn some domains there are natural transformations to do: - Spectrograms (sound data) - Convolutions (image data)\n\nSource"
+  },
+  {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.2",
+    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.2",
+    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "section": "(iClicker) Exercise 13.2",
+    "text": "(iClicker) Exercise 13.2\nSelect all of the following statements which are TRUE.\n\n\nSimple association-based feature selection approaches do not take into account the interaction between features.\n\n\nYou can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).\n\n\nThe order of features removed given by rfe.ranking_ is the same as the order of original feature importances given by the model."
   },
   {
     "objectID": "slides/slides-11-ensembles.html#focus-on-the-breath",

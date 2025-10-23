@@ -339,19 +339,71 @@
 </ul>
 </section>
 <section>
+<section id="model-transparency" class="title-slide slide level1 center">
+<h1>Model Transparency</h1>
+
+</section>
+<section id="why-bother-about-model-transparancey" class="slide level2 center">
+<h2>Why bother about model transparancey?</h2>
+
+<img data-src="img/shap_example.png" class="r-stretch"></section>
+<section id="shap-intuition" class="slide level2 center">
+<h2>SHAP intuition</h2>
+<ul>
+<li>Think of the model as a “black box” that outputs predictions.</li>
+<li>SHAP asks: If we treat each feature as a player contributing to the final prediction, how much credit does each one deserve?</li>
+<li>To answer this fairly, SHAP looks at all possible combinations of features and averages their marginal contributions.</li>
+<li>A marginal contribution is how much the prediction changes when you add that feature to a subset of other features.</li>
+</ul>
+</section>
+<section id="shap" class="slide level2 center">
+<h2>SHAP</h2>
+
+<img data-src="img/shap-explanation-example.png" class="r-stretch"></section></section>
+<section>
+<section id="class-demo" class="title-slide slide level1 center">
+<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb">Class demo</a></h1>
+
+</section>
+<section id="iclicker-exercise-shap" class="slide level2 smaller center">
+<h2>iClicker Exercise SHAP</h2>
+<ul>
+<li><ol type="A">
+<li>SHAP values are model parameters learned during training.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Coefficients in a linear model and SHAP values both quantify how much each feature contributes to a prediction, but coefficients are global while SHAP values are local.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>SHAP values can only be computed for tree-based models.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>A waterfall plot shows how each feature’s SHAP value cumulatively contributes to a single prediction.</li>
+</ol></li>
+<li><ol start="5" type="A">
+<li>SHAP provides the same explanation for all examples in the dataset.</li>
+</ol></li>
+</ul>
+</section></section>
+<section>
 <section id="feature-engineering-motivation" class="title-slide slide level1 center">
 <h1>Feature engineering motivation</h1>
 
 </section>
-<section id="iclicker-exercise-14.0" class="slide level2 center">
-<h2>iClicker Exercise 14.0</h2>
-<p><strong>iClicker cloud join link: https://join.iclicker.com/VYFJ</strong></p>
+<section id="iclicker-exercise-13.0" class="slide level2 center">
+<h2>iClicker Exercise 13.0</h2>
 <p>Suppose you are working on a machine learning project. If you have to prioritize one of the following in your project which of the following would it be?</p>
-<ol type="A">
+<ul>
+<li><ol type="A">
 <li>The quality and size of the data</li>
+</ol></li>
+<li><ol start="2" type="A">
 <li>Most recent deep neural network model</li>
+</ol></li>
+<li><ol start="3" type="A">
 <li>Most recent optimization algorithm</li>
-</ol>
+</ol></li>
+</ul>
 </section>
 <section id="discussion-question" class="slide level2 center">
 <h2>Discussion question</h2>
@@ -430,22 +482,23 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 <ul>
 <li>Standardization</li>
 </ul></li>
-<li>For regression-based methods like linear regression, we want targets to have a linear dependency on features. # <a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb">Class demo</a></li>
+<li>For regression-based methods like linear regression, we want targets to have a linear dependency on features.</li>
 </ul></li>
 </ul>
 </section>
 <section id="domain-specific-transformations" class="slide level2 center">
 <h2>Domain-specific transformations</h2>
-<p>In some domains there are natural transformations to do: - Spectrograms (sound data) - Wavelets (image data) - Convolutions</p>
+<p>In some domains there are natural transformations to do: - Spectrograms (sound data) - Convolutions (image data)</p>
 
 <img data-src="img/spectogram.png" class="r-stretch"><p><a href="https://en.wikipedia.org/wiki/Spectrogram">Source</a></p>
 </section></section>
 <section>
-<section id="demo-of-feature-engineering-and-selection" class="title-slide slide level1 center">
-<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb">Demo of feature engineering and selection</a></h1>
-
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+<p><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb">Demo of feature engineering and selection</a></p>
 </section>
-<h3 id="iclicker-exercise-14.1">(iClicker) Exercise 14.1</h3>
+<section id="iclicker-exercise-13.2" class="slide level2 center">
+<h2>(iClicker) Exercise 13.2</h2>
 <p><strong>Select all of the following statements which are TRUE.</strong></p>
 <ul>
 <li><ol type="A">
@@ -464,7 +517,8 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 <div class="footer footer-default">
 
 </div>
-</div></section>
+</div>
+</section></section>
     </div>
   </div>
 
