@@ -1,5 +1,5 @@
 ---
-title: 'CPSC 330 Lecture 13: Feature Engineering and Selection'
+title: 'CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection'
 description: "feature engineering, feature crosses, model-based selection, RFE"
 
 
@@ -24,20 +24,54 @@ editor:
 
 - HW5 is due next week Monday. Make use of office hours and tutorials this week.   
 
+
+## iClicker Exercise SHAP {.smaller}
+
+- (A) If a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high. 
+- (B) Feature importance tells us how the model’s predictions change when a particular feature changes.
+- (C) In linear models, a positive coefficient indicates that as the feature increases, the prediction increases.
+- (D) In tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.
+- (E) In permutation importance, if shuffling the education feature causes a large drop in the model's performance, it indicates that the model heavily relies on that feature for its predictions.
+
+# Model Transparency
+
+## Why bother about model transparancey? 
+
+![](img/shap_example.png)
+
+## SHAP intuition 
+- Think of the model as a "black box" that outputs predictions.
+- SHAP asks: If we treat each feature as a player contributing to the final prediction, how much credit does each one deserve?
+- To answer this fairly, SHAP looks at all possible combinations of features and averages their marginal contributions.
+- A marginal contribution is how much the prediction changes when you add that feature to a subset of other features.
+
+## SHAP 
+
+![](img/shap-explanation-example.png)
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb)
+
+
+## iClicker Exercise SHAP {.smaller}
+- (A) SHAP values are model parameters learned during training.
+- (B) Coefficients in a linear model and SHAP values both quantify how much each feature contributes to a prediction, but coefficients are global while SHAP values are local.
+- (C) SHAP values can only be computed for tree-based models.
+- (D) A waterfall plot shows how each feature's SHAP value cumulatively contributes to a single prediction.
+- (E) SHAP provides the same explanation for all examples in the dataset.
+
 # Feature engineering motivation 
 
-## iClicker Exercise 14.0
-
-**iClicker cloud join link: https://join.iclicker.com/VYFJ**
+## iClicker Exercise 13.0
 
 Suppose you are working on a machine learning project. If you have to prioritize one of the following in your project which of the following would it be?
 
-(A) The quality and size of the data
-(B) Most recent deep neural network model
-(C) Most recent optimization algorithm
+- (A) The quality and size of the data
+- (B) Most recent deep neural network model
+- (C) Most recent optimization algorithm
 
 
 ## Discussion question
+
 - Suppose we want to predict whether a flight will arrive on time or be delayed. We have a dataset with the following information about flights:
     - Departure Time
     - Expected Duration of Flight (in minutes)
@@ -99,25 +133,22 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
     - For distance-based methods like KNN, we want different class labels to be "far".
         - Standardization 
     - For regression-based methods like linear regression, we want targets to have a linear dependency on features.
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb)
-
 
 ## Domain-specific transformations
 
 In some domains there are natural transformations to do:
 - Spectrograms (sound data)
-- Wavelets (image data)
-- Convolutions 
+- Convolutions (image data)
 
 ![](img/spectogram.png)
 
 [Source](https://en.wikipedia.org/wiki/Spectrogram) 
 
-# [Demo of feature engineering and selection](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb)
+# 
+[Demo of feature engineering and selection](https://github.com/UBC-CS/cpsc330-202451/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb)
 
 
-
-### (iClicker) Exercise 14.1 
+## (iClicker) Exercise 13.2
 
 **Select all of the following statements which are TRUE.**
 
