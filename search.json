@@ -1234,11 +1234,11 @@
     "text": "Announcements\n\nHW5 is due next week Monday. Make use of office hours and tutorials this week."
   },
   {
-    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
-    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
+    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise",
+    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise",
     "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
-    "section": "iClicker Exercise SHAP",
-    "text": "iClicker Exercise SHAP\n\n\nIf a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high.\n\n\nFeature importance tells us how the model’s predictions change when a particular feature changes.\n\n\nIn linear models, a positive coefficient indicates that as the feature increases, the prediction increases.\n\n\nIn tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.\n\n\nIn permutation importance, if shuffling the education feature causes a large drop in the model’s performance, it indicates that the model heavily relies on that feature for its predictions."
+    "section": "iClicker Exercise",
+    "text": "iClicker Exercise\n\n\nIf a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high.\n\n\nFeature importance tells us how the model’s predictions change when a particular feature changes.\n\n\nIn linear models, a positive coefficient indicates that as the feature increases, the prediction increases.\n\n\nIn tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.\n\n\nIn permutation importance, if shuffling the education feature causes a large drop in the model’s performance, it indicates that the model heavily relies on that feature for its predictions."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#why-bother-about-model-transparancey",
@@ -1262,8 +1262,8 @@
     "text": "SHAP"
   },
   {
-    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap-1",
-    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap-1",
+    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
+    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
     "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "iClicker Exercise SHAP",
     "text": "iClicker Exercise SHAP\n\n\nSHAP values are model parameters learned during training.\n\n\nCoefficients in a linear model and SHAP values both quantify how much each feature contributes to a prediction, but coefficients are global while SHAP values are local.\n\n\nSHAP values can only be computed for tree-based models.\n\n\nA waterfall plot shows how each feature’s SHAP value cumulatively contributes to a single prediction.\n\n\nSHAP provides the same explanation for all examples in the dataset."
@@ -1336,7 +1336,7 @@
     "href": "slides/slides-13-feature-engineering-selection.html#domain-specific-transformations",
     "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Domain-specific transformations",
-    "text": "Domain-specific transformations\nIn some domains there are natural transformations to do: - Spectrograms (sound data) - Convolutions (image data)\n\nSource"
+    "text": "Domain-specific transformations\nIn some domains there are natural transformations to do:\n\nSpectrograms (sound data)\nConvolutions (image data)\n\n\nSource"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.2",

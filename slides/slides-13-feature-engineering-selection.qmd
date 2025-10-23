@@ -25,13 +25,13 @@ editor:
 - HW5 is due next week Monday. Make use of office hours and tutorials this week.   
 
 
-## iClicker Exercise SHAP {.smaller}
+## iClicker Exercise {.smaller}
 
 - (A) If a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high. 
 - (B) Feature importance tells us how the model’s predictions change when a particular feature changes.
 - (C) In linear models, a positive coefficient indicates that as the feature increases, the prediction increases.
 - (D) In tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.
-- (E) In permutation importance, if shuffling the education feature causes a large drop in the model's performance, it indicates that the model heavily relies on that feature for its predictions.
+- (E) In permutation importance, if shuffling the _education_ feature causes a large drop in the model's performance, it indicates that the model heavily relies on that feature for its predictions.
 
 # Model Transparency
 
@@ -137,6 +137,7 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 ## Domain-specific transformations
 
 In some domains there are natural transformations to do:
+
 - Spectrograms (sound data)
 - Convolutions (image data)
 
