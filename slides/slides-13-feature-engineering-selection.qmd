@@ -149,10 +149,22 @@ In some domains there are natural transformations to do:
 [Demo of feature engineering and selection](https://github.com/UBC-CS/cpsc330-202451/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb)
 
 
+## Feature selection pipeline
+
+![](img/feat-selection-pipeline.png)
+
+##  Two useful methods 
+
+- Model-based selection
+    - Use a supervised machine learning model to judge the importance of each feature.
+    - Keep only the most important once.
+- Recursive feature elimination 
+    - Build a series of models
+    - At each iteration, discard the least important feature according to the model. 
+
 ## (iClicker) Exercise 13.2
 
 **Select all of the following statements which are TRUE.**
 
-- (A) Simple association-based feature selection approaches do not take into account the interaction between features.
-- (B) You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).
-- (C) The order of features removed given by `rfe.ranking_` is the same as the order of original feature importances given by the model.  
+- (A) You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).
+- (B) The order of features removed given by `rfe.ranking_` is the same as the order of original feature importances given by the model.  

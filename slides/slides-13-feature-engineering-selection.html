@@ -521,17 +521,33 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 <h1></h1>
 <p><a href="https://github.com/UBC-CS/cpsc330-202451/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb">Demo of feature engineering and selection</a></p>
 </section>
+<section id="feature-selection-pipeline" class="slide level2 center">
+<h2>Feature selection pipeline</h2>
+
+<img data-src="img/feat-selection-pipeline.png" class="r-stretch"></section>
+<section id="two-useful-methods" class="slide level2 center">
+<h2>Two useful methods</h2>
+<ul>
+<li>Model-based selection
+<ul>
+<li>Use a supervised machine learning model to judge the importance of each feature.</li>
+<li>Keep only the most important once.</li>
+</ul></li>
+<li>Recursive feature elimination
+<ul>
+<li>Build a series of models</li>
+<li>At each iteration, discard the least important feature according to the model.</li>
+</ul></li>
+</ul>
+</section>
 <section id="iclicker-exercise-13.2" class="slide level2 center">
 <h2>(iClicker) Exercise 13.2</h2>
 <p><strong>Select all of the following statements which are TRUE.</strong></p>
 <ul>
 <li><ol type="A">
-<li>Simple association-based feature selection approaches do not take into account the interaction between features.</li>
-</ol></li>
-<li><ol start="2" type="A">
 <li>You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).</li>
 </ol></li>
-<li><ol start="3" type="A">
+<li><ol start="2" type="A">
 <li>The order of features removed given by <code>rfe.ranking_</code> is the same as the order of original feature importances given by the model.</li>
 </ol></li>
 </ul>

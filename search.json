@@ -1339,11 +1339,25 @@
     "text": "Domain-specific transformations\nIn some domains there are natural transformations to do:\n\nSpectrograms (sound data)\nConvolutions (image data)\n\n\nSource"
   },
   {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#feature-selection-pipeline",
+    "href": "slides/slides-13-feature-engineering-selection.html#feature-selection-pipeline",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
+    "section": "Feature selection pipeline",
+    "text": "Feature selection pipeline"
+  },
+  {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#two-useful-methods",
+    "href": "slides/slides-13-feature-engineering-selection.html#two-useful-methods",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
+    "section": "Two useful methods",
+    "text": "Two useful methods\n\nModel-based selection\n\nUse a supervised machine learning model to judge the importance of each feature.\nKeep only the most important once.\n\nRecursive feature elimination\n\nBuild a series of models\nAt each iteration, discard the least important feature according to the model."
+  },
+  {
     "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.2",
     "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.2",
     "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "(iClicker) Exercise 13.2",
-    "text": "(iClicker) Exercise 13.2\nSelect all of the following statements which are TRUE.\n\n\nSimple association-based feature selection approaches do not take into account the interaction between features.\n\n\nYou can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).\n\n\nThe order of features removed given by rfe.ranking_ is the same as the order of original feature importances given by the model."
+    "text": "(iClicker) Exercise 13.2\nSelect all of the following statements which are TRUE.\n\n\nYou can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).\n\n\nThe order of features removed given by rfe.ranking_ is the same as the order of original feature importances given by the model."
   },
   {
     "objectID": "slides/slides-11-ensembles.html#focus-on-the-breath",
