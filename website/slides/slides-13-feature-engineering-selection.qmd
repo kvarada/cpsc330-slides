@@ -25,13 +25,13 @@ editor:
 - HW5 is due next week Monday. Make use of office hours and tutorials this week.   
 
 
-## iClicker Exercise SHAP {.smaller}
+## iClicker Exercise {.smaller}
 
 - (A) If a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high. 
 - (B) Feature importance tells us how the model’s predictions change when a particular feature changes.
 - (C) In linear models, a positive coefficient indicates that as the feature increases, the prediction increases.
 - (D) In tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.
-- (E) In permutation importance, if shuffling the education feature causes a large drop in the model's performance, it indicates that the model heavily relies on that feature for its predictions.
+- (E) In permutation importance, if shuffling the _education_ feature causes a large drop in the model's performance, it indicates that the model heavily relies on that feature for its predictions.
 
 # Model Transparency
 
@@ -137,6 +137,7 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 ## Domain-specific transformations
 
 In some domains there are natural transformations to do:
+
 - Spectrograms (sound data)
 - Convolutions (image data)
 
@@ -148,10 +149,22 @@ In some domains there are natural transformations to do:
 [Demo of feature engineering and selection](https://github.com/UBC-CS/cpsc330-202451/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb)
 
 
+## Feature selection pipeline
+
+![](img/feat-selection-pipeline.png)
+
+##  Two useful methods 
+
+- Model-based selection
+    - Use a supervised machine learning model to judge the importance of each feature.
+    - Keep only the most important once.
+- Recursive feature elimination 
+    - Build a series of models
+    - At each iteration, discard the least important feature according to the model. 
+
 ## (iClicker) Exercise 13.2
 
 **Select all of the following statements which are TRUE.**
 
-- (A) Simple association-based feature selection approaches do not take into account the interaction between features.
-- (B) You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).
-- (C) The order of features removed given by `rfe.ranking_` is the same as the order of original feature importances given by the model.  
+- (A) You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).
+- (B) The order of features removed given by `rfe.ranking_` is the same as the order of original feature importances given by the model.  
