@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.57">
 
-  <title>CPSC 330 – CPSC 330 Lecture 13: Feature Engineering and Selection</title>
+  <title>CPSC 330 – CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -326,7 +326,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">CPSC 330 Lecture 13: Feature Engineering and Selection</h1>
+  <h1 class="title">CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection</h1>
 
 <div class="quarto-title-authors">
 </div>
@@ -336,6 +336,26 @@
 <h2>Announcements</h2>
 <ul>
 <li>HW5 is due next week Monday. Make use of office hours and tutorials this week.</li>
+</ul>
+</section>
+<section id="iclicker-exercise-shap" class="slide level2 smaller center">
+<h2>iClicker Exercise SHAP</h2>
+<ul>
+<li><ol type="A">
+<li>If a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Feature importance tells us how the model’s predictions change when a particular feature changes.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>In linear models, a positive coefficient indicates that as the feature increases, the prediction increases.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>In tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.</li>
+</ol></li>
+<li><ol start="5" type="A">
+<li>In permutation importance, if shuffling the education feature causes a large drop in the model’s performance, it indicates that the model heavily relies on that feature for its predictions.</li>
+</ol></li>
 </ul>
 </section>
 <section>
@@ -362,10 +382,10 @@
 <img data-src="img/shap-explanation-example.png" class="r-stretch"></section></section>
 <section>
 <section id="class-demo" class="title-slide slide level1 center">
-<h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb">Class demo</a></h1>
+<h1><a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb">Class demo</a></h1>
 
 </section>
-<section id="iclicker-exercise-shap" class="slide level2 smaller center">
+<section id="iclicker-exercise-shap-1" class="slide level2 smaller center">
 <h2>iClicker Exercise SHAP</h2>
 <ul>
 <li><ol type="A">
@@ -495,7 +515,7 @@ Coming up with features is difficult, time-consuming, requires expert knowledge.
 <section>
 <section id="section" class="title-slide slide level1 center">
 <h1></h1>
-<p><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb">Demo of feature engineering and selection</a></p>
+<p><a href="https://github.com/UBC-CS/cpsc330-202451/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb">Demo of feature engineering and selection</a></p>
 </section>
 <section id="iclicker-exercise-13.2" class="slide level2 center">
 <h2>(iClicker) Exercise 13.2</h2>

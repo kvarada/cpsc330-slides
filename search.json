@@ -1229,112 +1229,119 @@
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#announcements",
     "href": "slides/slides-13-feature-engineering-selection.html#announcements",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Announcements",
     "text": "Announcements\n\nHW5 is due next week Monday. Make use of office hours and tutorials this week."
   },
   {
+    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
+    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
+    "section": "iClicker Exercise SHAP",
+    "text": "iClicker Exercise SHAP\n\n\nIf a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high.\n\n\nFeature importance tells us how the model’s predictions change when a particular feature changes.\n\n\nIn linear models, a positive coefficient indicates that as the feature increases, the prediction increases.\n\n\nIn tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.\n\n\nIn permutation importance, if shuffling the education feature causes a large drop in the model’s performance, it indicates that the model heavily relies on that feature for its predictions."
+  },
+  {
     "objectID": "slides/slides-13-feature-engineering-selection.html#why-bother-about-model-transparancey",
     "href": "slides/slides-13-feature-engineering-selection.html#why-bother-about-model-transparancey",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Why bother about model transparancey?",
     "text": "Why bother about model transparancey?"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#shap-intuition",
     "href": "slides/slides-13-feature-engineering-selection.html#shap-intuition",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "SHAP intuition",
     "text": "SHAP intuition\n\nThink of the model as a “black box” that outputs predictions.\nSHAP asks: If we treat each feature as a player contributing to the final prediction, how much credit does each one deserve?\nTo answer this fairly, SHAP looks at all possible combinations of features and averages their marginal contributions.\nA marginal contribution is how much the prediction changes when you add that feature to a subset of other features."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#shap",
     "href": "slides/slides-13-feature-engineering-selection.html#shap",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "SHAP",
     "text": "SHAP"
   },
   {
-    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
-    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap-1",
+    "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-shap-1",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "iClicker Exercise SHAP",
     "text": "iClicker Exercise SHAP\n\n\nSHAP values are model parameters learned during training.\n\n\nCoefficients in a linear model and SHAP values both quantify how much each feature contributes to a prediction, but coefficients are global while SHAP values are local.\n\n\nSHAP values can only be computed for tree-based models.\n\n\nA waterfall plot shows how each feature’s SHAP value cumulatively contributes to a single prediction.\n\n\nSHAP provides the same explanation for all examples in the dataset."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.0",
     "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.0",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "iClicker Exercise 13.0",
     "text": "iClicker Exercise 13.0\nSuppose you are working on a machine learning project. If you have to prioritize one of the following in your project which of the following would it be?\n\n\nThe quality and size of the data\n\n\nMost recent deep neural network model\n\n\nMost recent optimization algorithm"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#discussion-question",
     "href": "slides/slides-13-feature-engineering-selection.html#discussion-question",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Discussion question",
     "text": "Discussion question\n\nSuppose we want to predict whether a flight will arrive on time or be delayed. We have a dataset with the following information about flights:\n\nDeparture Time\nExpected Duration of Flight (in minutes)\n\n\nUpon analyzing the data, you notice a pattern: flights tend to be delayed more often during the evening rush hours. What feature could be valuable to add for this prediction task?"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#garbage-in-garbage-out.",
     "href": "slides/slides-13-feature-engineering-selection.html#garbage-in-garbage-out.",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Garbage in, garbage out.",
     "text": "Garbage in, garbage out.\n\nModel building is interesting. But in your machine learning projects, you’ll be spending more than half of your time on data preparation, feature engineering, and transformations.\nThe quality of the data is important. Your model is only as good as your data."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#activity-measuring-quality-of-the-data",
     "href": "slides/slides-13-feature-engineering-selection.html#activity-measuring-quality-of-the-data",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Activity: Measuring quality of the data",
     "text": "Activity: Measuring quality of the data\n\nDiscuss some attributes of good- and bad-quality data"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#what-is-feature-engineering",
     "href": "slides/slides-13-feature-engineering-selection.html#what-is-feature-engineering",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "What is feature engineering?",
     "text": "What is feature engineering?\n\nBetter features: more flexibility, higher score, we can get by with simple and more interpretable models.\nIf your features, i.e., representation is bad, whatever fancier model you build is not going to help.\n\n\nFeature engineering is the process of transforming raw data into features that better represent the underlying problem to the predictive models, resulting in improved model accuracy on unseen data. - Jason Brownlee"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#some-quotes-on-feature-engineering",
     "href": "slides/slides-13-feature-engineering-selection.html#some-quotes-on-feature-engineering",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Some quotes on feature engineering",
     "text": "Some quotes on feature engineering\nA quote by Pedro Domingos A Few Useful Things to Know About Machine Learning\n\n… At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#some-quotes-on-feature-engineering-1",
     "href": "slides/slides-13-feature-engineering-selection.html#some-quotes-on-feature-engineering-1",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Some quotes on feature engineering",
     "text": "Some quotes on feature engineering\nA quote by Andrew Ng, Machine Learning and AI via Brain simulations\n\nComing up with features is difficult, time-consuming, requires expert knowledge. “Applied machine learning” is basically feature engineering."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#better-features-usually-help-more-than-a-better-model",
     "href": "slides/slides-13-feature-engineering-selection.html#better-features-usually-help-more-than-a-better-model",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Better features usually help more than a better model",
     "text": "Better features usually help more than a better model\n\nGood features would ideally:\n\ncapture most important aspects of the problem\nallow learning with few examples\ngeneralize to new scenarios.\n\nThere is a trade-off between simple and expressive features:\n\nWith simple features overfitting risk is low, but scores might be low.\nWith complicated features scores can be high, but so is overfitting risk."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#the-best-features-may-be-dependent-on-the-model-you-use",
     "href": "slides/slides-13-feature-engineering-selection.html#the-best-features-may-be-dependent-on-the-model-you-use",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "The best features may be dependent on the model you use",
     "text": "The best features may be dependent on the model you use\n\nExamples:\n\nFor counting-based methods like decision trees separate relevant groups of variable values\n\nDiscretization makes sense\n\nFor distance-based methods like KNN, we want different class labels to be “far”.\n\nStandardization\n\nFor regression-based methods like linear regression, we want targets to have a linear dependency on features."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#domain-specific-transformations",
     "href": "slides/slides-13-feature-engineering-selection.html#domain-specific-transformations",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "Domain-specific transformations",
     "text": "Domain-specific transformations\nIn some domains there are natural transformations to do: - Spectrograms (sound data) - Convolutions (image data)\n\nSource"
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.2",
     "href": "slides/slides-13-feature-engineering-selection.html#iclicker-exercise-13.2",
-    "title": "CPSC 330 Lecture 13: Feature Engineering and Selection",
+    "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",
     "section": "(iClicker) Exercise 13.2",
     "text": "(iClicker) Exercise 13.2\nSelect all of the following statements which are TRUE.\n\n\nSimple association-based feature selection approaches do not take into account the interaction between features.\n\n\nYou can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).\n\n\nThe order of features removed given by rfe.ranking_ is the same as the order of original feature importances given by the model."
   },
