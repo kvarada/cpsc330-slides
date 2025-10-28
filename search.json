@@ -2208,14 +2208,14 @@
     "href": "slides/slides-14-k-means.html#initialization",
     "title": "CPSC 330 Lecture 14: K-Means",
     "section": "Initialization",
-    "text": "Initialization\nLet’s pretend you are data points scattered across a 2D feature space. Maybe your coordinates come from your seat location and your height!\nIn K-Means, we start with random initial cluster centers. Who would like to be cluster centers?"
+    "text": "Initialization\nIn K-Means, we start with random initial cluster centers. Who would like to be cluster centers?\n\n\n\n\nLet’s pretend you are data points scattered across a 2D feature space."
   },
   {
     "objectID": "slides/slides-14-k-means.html#cluster-assignment",
     "href": "slides/slides-14-k-means.html#cluster-assignment",
     "title": "CPSC 330 Lecture 14: K-Means",
     "section": "Cluster assignment",
-    "text": "Cluster assignment\nLook around and decide which cluster center is closest to you, just by eyeballing distance in the room."
+    "text": "Cluster assignment\nWhich cluster do you belong to?\n\n\n\n\nLook around and decide which cluster center is closest to you, just by eyeballing distance in the room."
   },
   {
     "objectID": "slides/slides-14-k-means.html#recompute-cluster-centers",
@@ -2250,7 +2250,7 @@
     "href": "slides/slides-14-k-means.html#k-means-pros-and-cons",
     "title": "CPSC 330 Lecture 14: K-Means",
     "section": "K-Means pros and cons",
-    "text": "K-Means pros and cons\n\nAdvantages:\n\nSimple and efficient for large datasets.\nWorks well with spherical clusters.\n\nLimitations:\n\nNeeds pre-defined K.\nSensitive to outliers and initial centroid placement."
+    "text": "K-Means pros and cons\n\nAdvantages:\n\nSimple and efficient for large datasets.\nWorks well with spherical clusters.\n\nLimitations:\n\nNeeds pre-defined \\(k\\).\nSensitive to outliers and initial centroid placement."
   },
   {
     "objectID": "slides/slides-14-k-means.html#iclicker-exercise-14.1",
@@ -2267,18 +2267,32 @@
     "text": "iClicker Exercise 14.2\nSelect all of the following statements which are True\n\n\nK-Means is sensitive to initialization and the solution may change depending upon the initialization.\n\n\nK-means terminates when the number of clusters does not increase between iterations.\n\n\nK-means terminates when the centroid locations do not change between iterations.\n\n\nK-Means is guaranteed to find the optimal solution."
   },
   {
+    "objectID": "slides/slides-14-k-means.html#how-many-clusters",
+    "href": "slides/slides-14-k-means.html#how-many-clusters",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "How many clusters?",
+    "text": "How many clusters?\n\nClustering is not about perfect scores, but insight.\nTypically we do not want too few or way too many clusters.\nThere’s no single “correct” value of \\(k\\) – only useful ones that make sense for your problem.\nSome preferred values may exist (e.g., based on domain knowledge).\nThe goal is to find interpretable, meaningful clusters. So pick \\(k\\) that helps tell a useful story about your data.\nWe typically go with quantitative and qualitative approaches."
+  },
+  {
+    "objectID": "slides/slides-14-k-means.html#section",
+    "href": "slides/slides-14-k-means.html#section",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "",
+    "text": "Quantitative methods\n\nThe Elbow plot\n\nPlot inertia vs. K\n\nLook for the “elbow” — diminishing returns\n\n\nSilhouette score\n\nMeasures cluster cohesion and separation\n\nHigher score: better-defined clusters\n\n\n\nQualitative methods\n\nManually inspect clusters:\n\nDo they make sense?\nAre they interpretable and actionable?\n\nThe ultimate goal:\nHuman-understandable themes for real-world decisions.\nThere’s no escape from manual interpretation!"
+  },
+  {
     "objectID": "slides/slides-14-k-means.html#the-elbow-method",
     "href": "slides/slides-14-k-means.html#the-elbow-method",
     "title": "CPSC 330 Lecture 14: K-Means",
     "section": "The Elbow method",
-    "text": "The Elbow method\n\nPurpose: Identify the optimal number of clusters (K).\nHow it Works:\n\nPlot intra-cluster distances for different values of K.\nLook for the “elbow” point where the intra-cluster reduction slows.\n\nInterpretation:\n\nThe point of diminishing returns suggests a good K."
+    "text": "The Elbow method\n\nPurpose: Identify the optimal number of clusters \\(k\\).\nHow it Works:\n\nPlot intra-cluster distances for different values of \\(k\\).\nLook for the “elbow” point where the intra-cluster reduction slows.\n\nInterpretation:\n\nThe point of diminishing returns suggests a good \\(k\\)."
   },
   {
     "objectID": "slides/slides-14-k-means.html#the-elbow-method-example",
     "href": "slides/slides-14-k-means.html#the-elbow-method-example",
     "title": "CPSC 330 Lecture 14: K-Means",
     "section": "The Elbow method example",
-    "text": "The Elbow method example"
+    "text": "The Elbow method example\n\n\n\n\nWhat would be the intracluster distance when\n\n\\(k=1\\)\n\\(k=\\) # number of data points?"
   },
   {
     "objectID": "slides/slides-14-k-means.html#the-silhouette-method",

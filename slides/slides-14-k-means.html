@@ -446,12 +446,23 @@
 </section>
 <section id="initialization" class="slide level2 center">
 <h2>Initialization</h2>
-<p>Let’s pretend you are data points scattered across a 2D feature space. Maybe your coordinates come from your seat location and your height!</p>
 <p>In K-Means, we start with random initial cluster centers. Who would like to be cluster centers?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/cluster-centers.png"></p>
+</div><div class="column" style="width:50%;">
+<p>Let’s pretend you are data points scattered across a 2D feature space.</p>
+</div></div>
 </section>
 <section id="cluster-assignment" class="slide level2 center">
 <h2>Cluster assignment</h2>
+<p>Which cluster do you belong to?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/cluster-assignment.png"></p>
+</div><div class="column" style="width:50%;">
 <p>Look around and decide which cluster center is closest to you, just by eyeballing distance in the room.</p>
+</div></div>
 </section>
 <section id="recompute-cluster-centers" class="slide level2 center">
 <h2>Recompute cluster centers</h2>
@@ -487,7 +498,7 @@
 </ul></li>
 <li><strong>Limitations</strong>:
 <ul>
-<li>Needs pre-defined K.</li>
+<li>Needs pre-defined <span class="math inline">\(k\)</span>.</li>
 <li>Sensitive to outliers and initial centroid placement.</li>
 </ul></li>
 </ul>
@@ -529,29 +540,84 @@
 </ul>
 </section></section>
 <section>
-<section id="choosing-k" class="title-slide slide level1 center">
-<h1>Choosing k</h1>
+<section id="choosing-k-the-number-of-clusters" class="title-slide slide level1 center">
+<h1>Choosing <span class="math inline">\(k\)</span> (the number of clusters)</h1>
 
+</section>
+<section id="how-many-clusters" class="slide level2 smaller center">
+<h2>How many clusters?</h2>
+<ul>
+<li>Clustering is not about perfect scores, but <strong>insight</strong>.</li>
+<li>Typically we do not want too few or way too many clusters.</li>
+<li>There’s no single <strong>“correct” value of <span class="math inline">\(k\)</span></strong> – only <em>useful</em> ones that make sense for your problem.</li>
+<li>Some <strong>preferred</strong> values may exist (e.g., based on domain knowledge).</li>
+<li>The goal is to find <strong>interpretable, meaningful</strong> clusters. So pick <span class="math inline">\(k\)</span> that helps tell a <strong>useful story</strong> about your data.</li>
+<li>We typically go with <strong>quantitative</strong> and <strong>qualitative</strong> approaches.</li>
+</ul>
+</section>
+<section id="section" class="slide level2 smaller center">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="quantitative-methods">Quantitative methods</h3>
+<ul>
+<li><strong>The Elbow plot</strong>
+<ul>
+<li>Plot inertia vs.&nbsp;K<br>
+</li>
+<li>Look for the “elbow” — diminishing returns<br>
+</li>
+</ul></li>
+<li><strong>Silhouette score</strong>
+<ul>
+<li>Measures cluster cohesion and separation<br>
+</li>
+<li>Higher score: better-defined clusters</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="qualitative-methods">Qualitative methods</h3>
+<ul>
+<li><strong>Manually inspect</strong> clusters:
+<ul>
+<li>Do they make sense?</li>
+<li>Are they interpretable and actionable?</li>
+</ul></li>
+<li>The ultimate goal:<br>
+<strong>Human-understandable themes</strong> for real-world decisions.</li>
+<li>There’s <em>no escape</em> from manual interpretation!</li>
+</ul>
+</div></div>
 </section>
 <section id="the-elbow-method" class="slide level2 center">
 <h2>The Elbow method</h2>
 <ul>
-<li><strong>Purpose</strong>: Identify the optimal number of clusters (K).</li>
+<li><strong>Purpose</strong>: Identify the optimal number of clusters <span class="math inline">\(k\)</span>.</li>
 <li><strong>How it Works</strong>:
 <ul>
-<li>Plot intra-cluster distances for different values of K.</li>
+<li>Plot intra-cluster distances for different values of <span class="math inline">\(k\)</span>.</li>
 <li>Look for the “elbow” point where the intra-cluster reduction slows.</li>
 </ul></li>
 <li><strong>Interpretation</strong>:
 <ul>
-<li>The point of diminishing returns suggests a good K.</li>
+<li>The point of diminishing returns suggests a good <span class="math inline">\(k\)</span>.</li>
 </ul></li>
 </ul>
 </section>
 <section id="the-elbow-method-example" class="slide level2 center">
 <h2>The Elbow method example</h2>
-
-<img data-src="img/elbow-plot.png" class="r-stretch"></section>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="img/elbow-plot.png"></p>
+</div><div class="column" style="width:40%;">
+<p>What would be the intracluster distance when</p>
+<ul>
+<li><span class="math inline">\(k=1\)</span></li>
+<li><span class="math inline">\(k=\)</span> # number of data points?<br>
+</li>
+</ul>
+</div></div>
+</section>
 <section id="the-silhouette-method" class="slide level2 smaller center">
 <h2>The Silhouette method</h2>
 <ul>
