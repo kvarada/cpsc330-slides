@@ -66,6 +66,7 @@ editor:
 - If you want to build a machine learning model to cluster such images how would you represent such images?
 - Write your answers here: https://docs.google.com/document/d/12GXA9Efi_19WiRnCi8FiOmdpxM-I_wq2nz97LjvXILg/edit?usp=sharing
 
+
 ## The "perfect" spaghetti sauce
 
 Suppose you are a hypothetical spaghetti sauce company and you're asked to create the "perfect" spaghetti sauce which makes all your customers happy. The truth is humans are diverse and there is no "perfect" spaghetti sauce. There are "perfect" spaghetti sauces that cater to different tastes! 
@@ -104,6 +105,8 @@ In K-Means, we start with random initial cluster centers. Who would like to be c
 :::: {.columns}
 ::: {.column width="50%"}
 ![](img/cluster-centers.png)
+
+Source: Image created by ChatGPT 5.0
 :::
 
 ::: {.column width="50%"}
@@ -118,6 +121,8 @@ Which cluster do you belong to?
 :::: {.columns}
 ::: {.column width="50%"}
 ![](img/cluster-assignment.png)
+
+Source: Image created by ChatGPT 5.0
 :::
 
 ::: {.column width="50%"}
