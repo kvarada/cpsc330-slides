@@ -2134,6 +2134,13 @@
     "text": "Interepreting coefficients\n\nWhen we have different types of preprocessed features, what challenges you might face in interpreting them?\n\nOrdinally encoded features\nOne-hot encoded features\nScaled numeric features"
   },
   {
+    "objectID": "slides/slides-14-k-means.html#focus-on-the-breath",
+    "href": "slides/slides-14-k-means.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "Focus on the breath!",
+    "text": "Focus on the breath!"
+  },
+  {
     "objectID": "slides/slides-14-k-means.html#announcements",
     "href": "slides/slides-14-k-means.html#announcements",
     "title": "CPSC 330 Lecture 14: K-Means",
@@ -2165,8 +2172,8 @@
     "objectID": "slides/slides-14-k-means.html#clustering-activity",
     "href": "slides/slides-14-k-means.html#clustering-activity",
     "title": "CPSC 330 Lecture 14: K-Means",
-    "section": "Clustering Activity",
-    "text": "Clustering Activity\n\n\nCategorize the food items in the image and write your categories. Do you think there is one correct way to cluster these images? Why or why not?\nIf you want to build a machine learning model to cluster such images how would you represent such images?\nWrite your answers here: https://shorturl.at/JrI8v"
+    "section": "Clustering activity",
+    "text": "Clustering activity\n\n\nCategorize the food items in the image and write your categories. Do you think there is one correct way to cluster these images? Why or why not?\nIf you want to build a machine learning model to cluster such images how would you represent such images?\nWrite your answers here: https://docs.google.com/document/d/12GXA9Efi_19WiRnCi8FiOmdpxM-I_wq2nz97LjvXILg/edit?usp=sharing"
   },
   {
     "objectID": "slides/slides-14-k-means.html#the-perfect-spaghetti-sauce",
@@ -2193,8 +2200,8 @@
     "objectID": "slides/slides-14-k-means.html#k-means-clustering",
     "href": "slides/slides-14-k-means.html#k-means-clustering",
     "title": "CPSC 330 Lecture 14: K-Means",
-    "section": "K-means Clustering",
-    "text": "K-means Clustering\n\nAlgorithm Steps:\n\nSelect K initial centroids.\nAssign each data point to the nearest centroid.\nRecalculate centroids based on assigned points.\nRepeat until centroids stabilize or reach a maximum number of iterations."
+    "section": "K-Means Clustering",
+    "text": "K-Means Clustering\n\nAlgorithm Steps:\n\nSelect K initial centroids.\nAssign each data point to the nearest centroid.\nRecalculate centroids based on assigned points.\nRepeat until centroids stabilize or reach a maximum number of iterations."
   },
   {
     "objectID": "slides/slides-14-k-means.html#k-means-example",
@@ -2228,8 +2235,8 @@
     "objectID": "slides/slides-14-k-means.html#the-elbow-method",
     "href": "slides/slides-14-k-means.html#the-elbow-method",
     "title": "CPSC 330 Lecture 14: K-Means",
-    "section": "The Elbow Method",
-    "text": "The Elbow Method\n\nPurpose: Identify the optimal number of clusters (K).\nHow it Works:\n\nPlot intra-cluster distances for different values of K.\nLook for the “elbow” point where the intra-cluster reduction slows.\n\nInterpretation:\n\nThe point of diminishing returns suggests a good K."
+    "section": "The Elbow method",
+    "text": "The Elbow method\n\nPurpose: Identify the optimal number of clusters (K).\nHow it Works:\n\nPlot intra-cluster distances for different values of K.\nLook for the “elbow” point where the intra-cluster reduction slows.\n\nInterpretation:\n\nThe point of diminishing returns suggests a good K."
   },
   {
     "objectID": "slides/slides-14-k-means.html#the-elbow-method-example",
