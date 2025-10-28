@@ -2197,11 +2197,46 @@
     "text": "The “perfect” spaghetti sauce\n\nIf one “perfect” authentic sauce satisfies 60%, of the people on average, creating several tailored sauce clusters could increase average happiness to between 75% to 78%.\nCan we apply this concept of clustering and tailoring solutions to specific groups in machine learning?"
   },
   {
-    "objectID": "slides/slides-14-k-means.html#k-means-clustering",
-    "href": "slides/slides-14-k-means.html#k-means-clustering",
+    "objectID": "slides/slides-14-k-means.html#k-means-clustering-algorithm",
+    "href": "slides/slides-14-k-means.html#k-means-clustering-algorithm",
     "title": "CPSC 330 Lecture 14: K-Means",
-    "section": "K-Means Clustering",
-    "text": "K-Means Clustering\n\nAlgorithm Steps:\n\nSelect K initial centroids.\nAssign each data point to the nearest centroid.\nRecalculate centroids based on assigned points.\nRepeat until centroids stabilize or reach a maximum number of iterations."
+    "section": "K-Means clustering algorithm",
+    "text": "K-Means clustering algorithm\n\nSelect K initial centroids.\nAssign each data point to the nearest centroid.\nRecalculate centroids based on assigned points.\nRepeat until centroids stabilize or reach a maximum number of iterations."
+  },
+  {
+    "objectID": "slides/slides-14-k-means.html#initialization",
+    "href": "slides/slides-14-k-means.html#initialization",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "Initialization",
+    "text": "Initialization\nLet’s pretend you are data points scattered across a 2D feature space. Maybe your coordinates come from your seat location and your height!\nIn K-Means, we start with random initial cluster centers. Who would like to be cluster centers?"
+  },
+  {
+    "objectID": "slides/slides-14-k-means.html#cluster-assignment",
+    "href": "slides/slides-14-k-means.html#cluster-assignment",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "Cluster assignment",
+    "text": "Cluster assignment\nLook around and decide which cluster center is closest to you, just by eyeballing distance in the room."
+  },
+  {
+    "objectID": "slides/slides-14-k-means.html#recompute-cluster-centers",
+    "href": "slides/slides-14-k-means.html#recompute-cluster-centers",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "Recompute cluster centers",
+    "text": "Recompute cluster centers\n\nNow each cluster needs to find its new mean location. Let’s compute new centroids!\nFor each cluster, identify the “average” position of your members. For example, pick someone roughly in the middle or calculate the average row/column number.\nMove your old “cluster center” to these new locations."
+  },
+  {
+    "objectID": "slides/slides-14-k-means.html#repeat-cluster-assignment",
+    "href": "slides/slides-14-k-means.html#repeat-cluster-assignment",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "Repeat cluster assignment",
+    "text": "Repeat cluster assignment\nNow that cluster centers have moved, you may need to switch clusters! Check again: which center are you closest to now?"
+  },
+  {
+    "objectID": "slides/slides-14-k-means.html#discussion-questions",
+    "href": "slides/slides-14-k-means.html#discussion-questions",
+    "title": "CPSC 330 Lecture 14: K-Means",
+    "section": "Discussion questions",
+    "text": "Discussion questions\n\nDid anyone switch clusters in the second round?\nWhen do you think K-Means stops?\nCould we end up in a different final clustering if we started with different centers?"
   },
   {
     "objectID": "slides/slides-14-k-means.html#k-means-example",

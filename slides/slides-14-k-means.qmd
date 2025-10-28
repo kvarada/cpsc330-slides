@@ -90,12 +90,42 @@ Reference: [Malcolm Gladwell’s Ted talk](https://www.ted.com/talks/malcolm_gla
 
 # K-Means 
 
-## K-Means Clustering
-- **Algorithm Steps**:
-  1. Select K initial centroids.
-  2. Assign each data point to the nearest centroid.
-  3. Recalculate centroids based on assigned points.
-  4. Repeat until centroids stabilize or reach a maximum number of iterations.
+## K-Means clustering algorithm 
+1. Select K initial centroids.
+2. Assign each data point to the nearest centroid.
+3. Recalculate centroids based on assigned points.
+4. Repeat until centroids stabilize or reach a maximum number of iterations.
+
+# K-Means activity
+
+## Initialization
+
+Let's pretend you are data points scattered across a 2D feature space. Maybe your coordinates come from your seat location and your height!
+
+In K-Means, we start with random initial cluster centers. Who would like to be cluster centers? 
+
+## Cluster assignment 
+
+Look around and decide which cluster center is closest to you, just by eyeballing distance in the room.
+
+## Recompute cluster centers 
+
+- Now each cluster needs to find its new mean location. Let’s compute new centroids!
+
+- For each cluster, identify the "average" position of your members. For example, pick someone roughly in the middle or calculate the average row/column number.
+
+- Move your old “cluster center” to these new locations.
+
+## Repeat cluster assignment 
+
+Now that cluster centers have moved, you may need to switch clusters! Check again: which center are you closest to now?
+
+## Discussion questions
+
+- Did anyone switch clusters in the second round?
+
+- When do you think K-Means stops? 
+- Could we end up in a different final clustering if we started with different centers?
 
 ## K-Means example 
 ![](img/k-means.png)

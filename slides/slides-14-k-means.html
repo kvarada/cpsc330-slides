@@ -430,16 +430,47 @@
 <h1>K-Means</h1>
 
 </section>
-<section id="k-means-clustering" class="slide level2 center">
-<h2>K-Means Clustering</h2>
-<ul>
-<li><strong>Algorithm Steps</strong>:
+<section id="k-means-clustering-algorithm" class="slide level2 center">
+<h2>K-Means clustering algorithm</h2>
 <ol type="1">
 <li>Select K initial centroids.</li>
 <li>Assign each data point to the nearest centroid.</li>
 <li>Recalculate centroids based on assigned points.</li>
 <li>Repeat until centroids stabilize or reach a maximum number of iterations.</li>
-</ol></li>
+</ol>
+</section></section>
+<section>
+<section id="k-means-activity" class="title-slide slide level1 center">
+<h1>K-Means activity</h1>
+
+</section>
+<section id="initialization" class="slide level2 center">
+<h2>Initialization</h2>
+<p>Let’s pretend you are data points scattered across a 2D feature space. Maybe your coordinates come from your seat location and your height!</p>
+<p>In K-Means, we start with random initial cluster centers. Who would like to be cluster centers?</p>
+</section>
+<section id="cluster-assignment" class="slide level2 center">
+<h2>Cluster assignment</h2>
+<p>Look around and decide which cluster center is closest to you, just by eyeballing distance in the room.</p>
+</section>
+<section id="recompute-cluster-centers" class="slide level2 center">
+<h2>Recompute cluster centers</h2>
+<ul>
+<li><p>Now each cluster needs to find its new mean location. Let’s compute new centroids!</p></li>
+<li><p>For each cluster, identify the “average” position of your members. For example, pick someone roughly in the middle or calculate the average row/column number.</p></li>
+<li><p>Move your old “cluster center” to these new locations.</p></li>
+</ul>
+</section>
+<section id="repeat-cluster-assignment" class="slide level2 center">
+<h2>Repeat cluster assignment</h2>
+<p>Now that cluster centers have moved, you may need to switch clusters! Check again: which center are you closest to now?</p>
+</section>
+<section id="discussion-questions" class="slide level2 center">
+<h2>Discussion questions</h2>
+<ul>
+<li><p>Did anyone switch clusters in the second round?</p></li>
+<li><p>When do you think K-Means stops?</p></li>
+<li><p>Could we end up in a different final clustering if we started with different centers?</p></li>
 </ul>
 </section>
 <section id="k-means-example" class="slide level2 center">
