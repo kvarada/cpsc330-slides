@@ -99,14 +99,31 @@ Reference: [Malcolm Gladwell’s Ted talk](https://www.ted.com/talks/malcolm_gla
 # K-Means activity
 
 ## Initialization
-
-Let's pretend you are data points scattered across a 2D feature space. Maybe your coordinates come from your seat location and your height!
-
 In K-Means, we start with random initial cluster centers. Who would like to be cluster centers? 
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/cluster-centers.png)
+:::
+
+::: {.column width="50%"}
+Let's pretend you are data points scattered across a 2D feature space. 
+:::
+::: 
 
 ## Cluster assignment 
 
+Which cluster do you belong to? 
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/cluster-assignment.png)
+:::
+
+::: {.column width="50%"}
 Look around and decide which cluster center is closest to you, just by eyeballing distance in the room.
+:::
+::: 
 
 ## Recompute cluster centers 
 
@@ -136,7 +153,7 @@ Now that cluster centers have moved, you may need to switch clusters! Check agai
   - Works well with spherical clusters.
 
 - **Limitations**:
-  - Needs pre-defined K.
+  - Needs pre-defined $k$.
   - Sensitive to outliers and initial centroid placement.
 
 ## iClicker Exercise 14.1 
@@ -158,22 +175,72 @@ Select all of the following statements which are **True**
 - (D) K-Means is guaranteed to find the optimal solution. 
 
 
-# Choosing k
+# Choosing $k$ (the number of clusters) 
+
+## How many clusters? {.smaller}
+- Clustering is not about perfect scores, but **insight**.
+- Typically we do not want too few or way too many clusters. 
+- There's no single **"correct" value of $k$** -- only *useful* ones that make sense for your problem.
+- Some **preferred** values may exist (e.g., based on domain knowledge).
+- The goal is to find **interpretable, meaningful** clusters. So pick $k$ that helps tell a **useful story** about your data.
+- We typically go with **quantitative** and **qualitative** approaches.
+
+## {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### Quantitative methods
+
+- **The Elbow plot**  
+   - Plot inertia vs. K  
+   - Look for the "elbow" — diminishing returns  
+- **Silhouette score**  
+   - Measures cluster cohesion and separation  
+   - Higher score: better-defined clusters
+:::
+
+::: {.column width="50%"}
+
+### Qualitative methods
+
+- **Manually inspect** clusters:
+  - Do they make sense?
+  - Are they interpretable and actionable?
+- The ultimate goal:  
+  **Human-understandable themes** for real-world decisions.
+- There's *no escape* from manual interpretation!
+:::
+::::
 
 ## The Elbow method
 
-- **Purpose**: Identify the optimal number of clusters (K).
+- **Purpose**: Identify the optimal number of clusters $k$.
 - **How it Works**:
-  - Plot intra-cluster distances for different values of K.
+  - Plot intra-cluster distances for different values of $k$.
   - Look for the "elbow" point where the intra-cluster reduction slows.
 
 - **Interpretation**:
-  - The point of diminishing returns suggests a good K.
+  - The point of diminishing returns suggests a good $k$.
 
 ## The Elbow method example
-![](img/elbow-plot)
+:::: {.columns}
+
+::: {.column width="60%"}
+![](img/elbow-plot.png)
+:::
+::: {.column width="40%"}
+
+What would be the intracluster distance when 
+
+- $k=1$ 
+- $k=$ \# number of data points?  
+::: 
+::::
 
 ## The Silhouette method {.smaller}
+
 - **Silhouette Score**: Measures how well data points fit within their cluster.
   - $s(i) = \frac{b(i) - a(i)}{\max (a(i), b(i))}$
     - $a(i)$: Mean distance to other points in the same cluster.
