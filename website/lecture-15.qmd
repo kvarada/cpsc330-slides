@@ -1,0 +1,18 @@
+---
+title: "Lecture 15: DBSCAN and hierarchical"
+description: "Limitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods"
+description-short: "Limitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods"
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-15-DBSCAN-hierarchical.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+- Limitations of K-Means
+- DBSCAN
+- Hierarchical clustering, dendrograms
+- Comparing and contrasting different clustering methods

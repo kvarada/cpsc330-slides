@@ -1,0 +1,20 @@
+---
+title: "Lecture 16: Recommender systems"
+description: ""
+description-short: ""
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-16-recommender-systems.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+- The problem of recommender systems
+- The utility metrics
+- Baselines
+- KNN Imputer
+- Content-based recommendation systems
+- Beyond error rate in recommendation systems 

@@ -1,0 +1,20 @@
+---
+title: "Lecture 14: K Means"
+description: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
+description-short: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-14-k-means.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+- Unsupervised paradigm. 
+- Motivation and potential applications of clustering. 
+- K-Means algorithm
+- Pros and cons of K-Means
+- The Elbow plot and Silhouette plots for a given dataset. 
+- Importance of input data representation in clustering. 
