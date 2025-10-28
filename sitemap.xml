@@ -9,16 +9,24 @@
     <lastmod>2025-09-24T19:29:28.481Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-06-hyperparameter-optimization.html</loc>
-    <lastmod>2025-10-22T00:51:26.237Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-08-hyperparameter-optimization.html</loc>
+    <lastmod>2025-10-07T16:23:57.648Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-07-linear-models.html</loc>
-    <lastmod>2025-09-25T15:29:10.983Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-09-classification-metrics.html</loc>
+    <lastmod>2025-10-09T14:47:52.134Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-03-ml-fundamentals.html</loc>
-    <lastmod>2025-09-11T21:56:35.544Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-10-regression-metrics.html</loc>
+    <lastmod>2025-10-14T17:00:45.174Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/lecture-16.html</loc>
+    <lastmod>2025-10-28T03:56:24.097Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/lecture-14.html</loc>
+    <lastmod>2025-10-28T03:56:16.425Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-12.html</loc>
@@ -45,6 +53,10 @@
     <lastmod>2025-09-01T05:08:03.924Z</lastmod>
   </url>
   <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-16-recommender-systems.html</loc>
+    <lastmod>2025-10-28T04:06:56.500Z</lastmod>
+  </url>
+  <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-13-feature-engineering-selection.html</loc>
     <lastmod>2025-10-23T17:41:21.723Z</lastmod>
   </url>
@@ -62,7 +74,7 @@
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture.html</loc>
-    <lastmod>2025-09-25T13:15:14.989Z</lastmod>
+    <lastmod>2025-10-28T03:53:18.605Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-05-preprocessing-pipelines.html</loc>
@@ -71,6 +83,10 @@
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-12-feature-importances.html</loc>
     <lastmod>2025-10-23T15:28:29.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-14-k-means.html</loc>
+    <lastmod>2025-10-28T04:07:33.067Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-01.html</loc>
@@ -90,7 +106,7 @@
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-09.html</loc>
-    <lastmod>2024-10-03T15:18:07.137Z</lastmod>
+    <lastmod>2025-10-28T03:52:11.696Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-11.html</loc>
@@ -101,16 +117,24 @@
     <lastmod>2025-10-21T14:30:58.733Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-10-regression-metrics.html</loc>
-    <lastmod>2025-10-14T17:00:45.174Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/lecture-15.html</loc>
+    <lastmod>2025-10-28T03:56:20.555Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-09-classification-metrics.html</loc>
-    <lastmod>2025-10-09T14:47:52.134Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-03-ml-fundamentals.html</loc>
+    <lastmod>2025-09-11T21:56:35.544Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-08-hyperparameter-optimization.html</loc>
-    <lastmod>2025-10-07T16:23:57.648Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-07-linear-models.html</loc>
+    <lastmod>2025-09-25T15:29:10.983Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-06-hyperparameter-optimization.html</loc>
+    <lastmod>2025-10-22T00:51:26.237Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-15-DBSCAN-hierarchical.html</loc>
+    <lastmod>2025-10-28T04:06:59.916Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-02-terminology-decision-trees.html</loc>
