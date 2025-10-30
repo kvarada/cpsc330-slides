@@ -563,8 +563,8 @@
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#dbscan-analogy",
     "href": "slides/slides-15-DBSCAN-hierarchical.html#dbscan-analogy",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
-    "section": "DBSCAN Analogy",
-    "text": "DBSCAN Analogy\n\n\n\n\n\n\n\n\n\n\n\n\nConsider DBSCAN in a social context:\n\nSocial butterflies (🦋): Core points\nFriends of social butterflies who are not social butterflies: Border points\nLone wolves (🐺): Noise points"
+    "section": "DBSCAN analogy",
+    "text": "DBSCAN analogy\n\n\n\n\n\n\n\n\n\n\n\n\nConsider DBSCAN in a social context:\n\nSocial butterflies (🦋): Core points\nFriends of social butterflies who are not social butterflies: Border points\nLone wolves (🐺): Noise points"
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#dbscan-algorithm",
@@ -578,28 +578,28 @@
     "href": "slides/slides-15-DBSCAN-hierarchical.html#human-dbscan-activity",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
     "section": "🧩 Human DBSCAN activity",
-    "text": "🧩 Human DBSCAN activity\nGoal\nExperience how ε (eps) and min_samples affect what counts as a cluster."
+    "text": "🧩 Human DBSCAN activity\nGoal\nExperience how \\(\\epsilon\\) (eps) and min_samples affect what counts as a cluster."
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#setup",
     "href": "slides/slides-15-DBSCAN-hierarchical.html#setup",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
     "section": "Setup",
-    "text": "Setup\n\nEach student = one data point\nDistance = arm’s length (~1 m)\nEach gets a sticky note to mark cluster ID and a marker (colour)\nStart from a random student: check whos within \\(\\epsilon\\)"
+    "text": "Setup\n\nEach student = one data point\nDistance (eps) = arm’s length (~1 m)\nEach gets a sticky note to mark cluster ID and a marker (colour)\nStart from a random student: check whos within \\(\\epsilon\\)"
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#two-parallel-runs",
     "href": "slides/slides-15-DBSCAN-hierarchical.html#two-parallel-runs",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
     "section": "Two parallel runs",
-    "text": "Two parallel runs\n\n\n\n\n\n\n\n\n\nSide of Class\nε (eps)\nmin_samples\nExpected Outcome\n\n\n\n\nLeft side\n~1 m (arm’s length)\n5\nModerate clusters; most nearby students form groups. Some isolated ones become noise points.\n\n\nRight side\n~1 m (arm’s length)\n15\nFew or no clusters; the density requirement is high. Many noise points."
+    "text": "Two parallel runs\n\n\n\n\n\n\n\n\n\nSide of Class\n\\(\\epsilon\\) (eps)\nmin_samples\nExpected Outcome\n\n\n\n\nLeft side\n~1 m (arm’s length)\n5\nModerate clusters; Some isolated ones become noise points.\n\n\nRight side\n~1 m (arm’s length)\n15\nFew or no clusters; the density requirement is high. Many noise points."
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#how-to-play",
     "href": "slides/slides-15-DBSCAN-hierarchical.html#how-to-play",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
-    "section": "How to Play",
-    "text": "How to Play\n\nPick a starting student.\nCount how many of your neighbours are within \\(\\epsilon\\) distance.\nIf you have ≥ min_samples, you are a core point \\(\\rightarrow\\) start spreading your colour.\nNeighbours who receive a colour but aren’t core are border points.\nStudents who never receive a colour are noise points."
+    "section": "How to play",
+    "text": "How to play\n\nPick a starting student.\nCount how many of your neighbours are within \\(\\epsilon\\) distance.\nIf you have ≥ min_samples, you are a core point \\(\\rightarrow\\) start spreading your colour.\nNeighbours who receive a colour but aren’t core are border points.\nStudents who never receive a colour are noise points."
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#after-the-activity",
