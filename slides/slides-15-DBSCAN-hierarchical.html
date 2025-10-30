@@ -396,17 +396,28 @@
 </div>
 
 </section>
-<section id="happy-halloween" class="slide level2 center">
-<h2>Happy Halloween</h2>
-
-<img data-src="img/eva-halloween.png" class="r-stretch"></section>
-<section id="announcements" class="slide level2 center">
+<section id="focus-on-the-breath" class="slide level2 center">
+<h2>Focus on the breath!</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/inukshuk.jpeg" class="quarto-figure quarto-figure-center" width="500"></p>
+</figure>
+</div>
+</section>
+<section id="announcements" class="slide level2 smaller center">
 <h2>Announcements</h2>
 <ul>
 <li>HW6 is due next week Monday
 <ul>
-<li>Computationally intensive</li>
-<li>You need to install many packages</li>
+<li>This one is computationally intensive — you’ll need to install several packages to get it running.
+<ul>
+<li>Make sure all images and outputs are rendered when you submit on Gradescope.</li>
+<li>The .ipynb file might be too large to render directly on Gradescope, so please export it to WebPDF and upload both the .ipynb and the .pdf files.</li>
+</ul></li>
+</ul></li>
+<li>Midterm 2
+<ul>
+<li>Check out this piazza post: https://piazza.com/class/mekbcze4gyber/post/423#</li>
 </ul></li>
 </ul>
 </section>
@@ -476,7 +487,7 @@
 <li><strong>D</strong>ensity-<strong>B</strong>ased <strong>S</strong>patial <strong>C</strong>lustering of <strong>A</strong>pplications with <strong>N</strong>oise</li>
 <li>A density-based clustering algorithm</li>
 </ul>
-<div id="379057ea" class="cell" data-execution_count="5">
+<div id="cb9ae308" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>X, y <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">200</span>, noise<span class="op">=</span><span class="fl">0.08</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb1-2"><a></a>dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb1-3"><a></a>dbscan.fit(X)</span>
@@ -496,7 +507,7 @@
 <h2>DBSCAN Analogy</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div id="6650768f" class="cell" data-execution_count="6">
+<div id="161fb0cc" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -531,6 +542,12 @@
 </ul>
 </div></div>
 </section>
+<section id="how-to-tune-eps-and-min_samples" class="slide level2 center">
+<h2>How to tune <code>eps</code> and <code>min_samples</code>?</h2>
+<ul>
+<li>Can you use <code>GridSearchCV</code> and <code>RandomizedSearchCV</code>?</li>
+</ul>
+</section>
 <section id="dbscan-failure-cases" class="slide level2 smaller center">
 <h2>DBSCAN: failure cases</h2>
 <ul>
@@ -538,7 +555,7 @@
 </li>
 <li>K-Means performs better compared to DBSCAN. But it has the benefit of knowing the value of <span class="math inline">\(K\)</span> in advance.</li>
 </ul>
-<div id="1a43c631" class="cell" data-execution_count="7">
+<div id="b58f85b9" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]</code></pre>
 </div>
@@ -553,7 +570,7 @@
 <h2>Dendrogram</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div id="9b3904f6" class="cell" data-execution_count="9">
+<div id="2b14cd60" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -579,7 +596,7 @@
 </section>
 <section id="flat-clusters-1" class="slide level2 center">
 <h2>Flat clusters</h2>
-<div id="fa6196e1" class="cell" data-execution_count="10">
+<div id="bbcc46bb" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> fcluster</span>
 <span id="cb3-2"><a></a><span class="co"># flattening the dendrogram based on maximum number of clusters. </span></span>
 <span id="cb3-3"><a></a>hier_labels1 <span class="op">=</span> fcluster(linkage_array, <span class="dv">3</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
@@ -604,7 +621,7 @@
 <section id="example-single-linkage" class="slide level2 smaller center">
 <h2>Example: Single linkage</h2>
 <p>Suppose you want to go from 3 clusters to 2 clusters. Which clusters would you merge?</p>
-<div id="d6b7091a" class="cell" data-execution_count="11">
+<div id="0f8b7b70" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>X_orig, y <span class="op">=</span> make_blobs(random_state<span class="op">=</span><span class="dv">0</span>, n_samples<span class="op">=</span><span class="dv">11</span>)</span>
 <span id="cb4-2"><a></a>X <span class="op">=</span> StandardScaler().fit_transform(X_orig)</span>
 <span id="cb4-3"><a></a>linkage_array <span class="op">=</span> single(X)</span>
@@ -615,7 +632,7 @@
 <img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
 <section id="example-single-linkage-1" class="slide level2 smaller center">
 <h2>Example: Single linkage</h2>
-<div id="d616f0b1" class="cell" data-execution_count="12">
+<div id="f118d3fd" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>hier_labels <span class="op">=</span> fcluster(linkage_array, <span class="dv">2</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
 <span id="cb5-2"><a></a>plot_dendrogram_clusters(X, linkage_array, hier_labels, title<span class="op">=</span><span class="st">"maxclust 2"</span>, color_threshold<span class="op">=</span><span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
@@ -632,7 +649,7 @@
 <li>Hierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.</li>
 </ol></li>
 <li><ol start="3" type="A">
-<li>In all the clustering methods we have seen (K-Means, GMMs, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.</li>
+<li>In all the clustering methods we have seen (K-Means, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.</li>
 </ol></li>
 <li><ol start="4" type="A">
 <li>To get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.</li>
@@ -703,8 +720,14 @@
 <li>Scenario 3: Clustering furniture items for inventory management and customer recommendations</li>
 </ul>
 </section></section>
+<section>
 <section id="class-demo" class="title-slide slide level1 center">
 <h1><a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb">Class demo</a></h1>
+
+</section>
+<section id="happy-halloween" class="slide level2 center">
+<h2>Happy Halloween</h2>
+<p><img data-src="img/eva-halloween.png"></p>
 
 <div class="quarto-auto-generated-content">
 <p><img src="img/UBC-CS-logo.png" class="slide-logo"></p>
@@ -712,7 +735,7 @@
 
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

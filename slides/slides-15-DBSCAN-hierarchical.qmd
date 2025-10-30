@@ -18,15 +18,19 @@ editor:
   render-on-save: true
 ---
 
-## Happy Halloween
+## Focus on the breath!
 
-![](img/eva-halloween.png)
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-## Announcements 
+## Announcements {.smaller}
 
 - HW6 is due next week Monday
-  - Computationally intensive 
-  - You need to install many packages 
+  - This one is computationally intensive — you’ll need to install several packages to get it running.
+	- Make sure all images and outputs are rendered when you submit on Gradescope.
+	- The .ipynb file might be too large to render directly on Gradescope, so please export it to WebPDF and upload both the .ipynb and the .pdf files.
+
+- Midterm 2
+  - Check out this piazza post: https://piazza.com/class/mekbcze4gyber/post/423#
 
 ## Imports 
 
@@ -174,6 +178,10 @@ Consider DBSCAN in a social context:
 :::
 ::::
 
+## How to tune `eps` and `min_samples`?
+
+- Can you use `GridSearchCV` and `RandomizedSearchCV`?
+
 ## DBSCAN: failure cases {.smaller}
 
 - Let's consider this dataset with three clusters of varying densities.  
@@ -265,7 +273,7 @@ plot_dendrogram_clusters(X, linkage_array, hier_labels, title="maxclust 2", colo
 
 - (A) In hierarchical clustering we do not have to worry about initialization.
 - (B) Hierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.
-- (C) In all the clustering methods we have seen (K-Means, GMMs, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.
+- (C) In all the clustering methods we have seen (K-Means, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.
 - (D) To get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.
 - (E) If you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest.
 
@@ -292,3 +300,8 @@ Which clustering method would you use in each of the scenarios below? Why? How w
 
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb)
+
+
+## Happy Halloween
+
+![](img/eva-halloween.png)

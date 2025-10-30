@@ -490,18 +490,18 @@
     "text": "Checklist for you before the next class\n\nHave you read the syllabus and course policies carefully?\nAre you able to access course Canvas shell?\nAre you able to access course Piazza?\nAre you able to access Gradescope? (If not, refer to the Gradescope Student Guide.)\nAre you able to access iClicker Cloud for Section 102 for this course? Make sure to access it via Canvas.\nDid you follow the setup instructions here to create a course conda environment on your computer?\nDid you complete the “Getting to know you” survey on Canvas?\nDid you complete the anonymous restaurant survey on Qualtrics?\nAre you almost finished or at least started with homework 1?"
   },
   {
-    "objectID": "slides/slides-15-DBSCAN-hierarchical.html#happy-halloween",
-    "href": "slides/slides-15-DBSCAN-hierarchical.html#happy-halloween",
+    "objectID": "slides/slides-15-DBSCAN-hierarchical.html#focus-on-the-breath",
+    "href": "slides/slides-15-DBSCAN-hierarchical.html#focus-on-the-breath",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
-    "section": "Happy Halloween",
-    "text": "Happy Halloween"
+    "section": "Focus on the breath!",
+    "text": "Focus on the breath!"
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#announcements",
     "href": "slides/slides-15-DBSCAN-hierarchical.html#announcements",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
     "section": "Announcements",
-    "text": "Announcements\n\nHW6 is due next week Monday\n\nComputationally intensive\nYou need to install many packages"
+    "text": "Announcements\n\nHW6 is due next week Monday\n\nThis one is computationally intensive — you’ll need to install several packages to get it running.\n\nMake sure all images and outputs are rendered when you submit on Gradescope.\nThe .ipynb file might be too large to render directly on Gradescope, so please export it to WebPDF and upload both the .ipynb and the .pdf files.\n\n\nMidterm 2\n\nCheck out this piazza post: https://piazza.com/class/mekbcze4gyber/post/423#"
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#imports",
@@ -574,6 +574,13 @@
     "text": "DBSCAN algorithm\n\n\n\n\n\nPick a point \\(p\\) at random.\nCheck whether \\(p\\) is a “core” point or not.\nIf \\(p\\) is a core point, give it a colour (label).\nSpread the colour of \\(p\\) to all of its neighbours.\nCheck if any of the neighbours that received the colour is a core point, if yes, spread the colour to its neighbors as well.\nOnce there are no more core points left to spread the colour, pick a new unlabeled point \\(p\\) and repeat the process."
   },
   {
+    "objectID": "slides/slides-15-DBSCAN-hierarchical.html#how-to-tune-eps-and-min_samples",
+    "href": "slides/slides-15-DBSCAN-hierarchical.html#how-to-tune-eps-and-min_samples",
+    "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
+    "section": "How to tune eps and min_samples?",
+    "text": "How to tune eps and min_samples?\n\nCan you use GridSearchCV and RandomizedSearchCV?"
+  },
+  {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#dbscan-failure-cases",
     "href": "slides/slides-15-DBSCAN-hierarchical.html#dbscan-failure-cases",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
@@ -634,7 +641,7 @@
     "href": "slides/slides-15-DBSCAN-hierarchical.html#iclicker-exercise-15.2",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
     "section": "iClicker Exercise 15.2",
-    "text": "iClicker Exercise 15.2\nSelect all of the following statements which are True\n\n\nIn hierarchical clustering we do not have to worry about initialization.\n\n\nHierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.\n\n\nIn all the clustering methods we have seen (K-Means, GMMs, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.\n\n\nTo get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.\n\n\nIf you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest."
+    "text": "iClicker Exercise 15.2\nSelect all of the following statements which are True\n\n\nIn hierarchical clustering we do not have to worry about initialization.\n\n\nHierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.\n\n\nIn all the clustering methods we have seen (K-Means, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.\n\n\nTo get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.\n\n\nIf you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest."
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#activity",
@@ -649,6 +656,13 @@
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
     "section": "Discussion question",
     "text": "Discussion question\nWhich clustering method would you use in each of the scenarios below? Why? How would you represent the data in each case?\n\nScenario 1: Customer segmentation in retail\nScenario 2: An environmental study aiming to identify clusters of a rare plant species\nScenario 3: Clustering furniture items for inventory management and customer recommendations"
+  },
+  {
+    "objectID": "slides/slides-15-DBSCAN-hierarchical.html#happy-halloween",
+    "href": "slides/slides-15-DBSCAN-hierarchical.html#happy-halloween",
+    "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
+    "section": "Happy Halloween",
+    "text": "Happy Halloween"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#section",
