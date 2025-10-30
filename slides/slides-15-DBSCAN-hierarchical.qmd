@@ -259,7 +259,7 @@ hier_labels = fcluster(linkage_array, 2, criterion="maxclust")
 plot_dendrogram_clusters(X, linkage_array, hier_labels, title="maxclust 2", color_threshold=1.0)
 ```
 
-## iClicker Exercise 2.3 {.smaller}
+## iClicker Exercise 15.2 {.smaller}
 
 **Select all of the following statements which are True**
 
@@ -291,4 +291,4 @@ Which clustering method would you use in each of the scenarios below? Why? How w
 - Scenario 3: Clustering furniture items for inventory management and customer recommendations
 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb)

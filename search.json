@@ -630,11 +630,11 @@
     "text": "Example: Single linkage\n\nhier_labels = fcluster(linkage_array, 2, criterion=\"maxclust\") \nplot_dendrogram_clusters(X, linkage_array, hier_labels, title=\"maxclust 2\", color_threshold=1.0)"
   },
   {
-    "objectID": "slides/slides-15-DBSCAN-hierarchical.html#iclicker-exercise-2.3",
-    "href": "slides/slides-15-DBSCAN-hierarchical.html#iclicker-exercise-2.3",
+    "objectID": "slides/slides-15-DBSCAN-hierarchical.html#iclicker-exercise-15.2",
+    "href": "slides/slides-15-DBSCAN-hierarchical.html#iclicker-exercise-15.2",
     "title": "CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering",
-    "section": "iClicker Exercise 2.3",
-    "text": "iClicker Exercise 2.3\nSelect all of the following statements which are True\n\n\nIn hierarchical clustering we do not have to worry about initialization.\n\n\nHierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.\n\n\nIn all the clustering methods we have seen (K-Means, GMMs, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.\n\n\nTo get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.\n\n\nIf you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest."
+    "section": "iClicker Exercise 15.2",
+    "text": "iClicker Exercise 15.2\nSelect all of the following statements which are True\n\n\nIn hierarchical clustering we do not have to worry about initialization.\n\n\nHierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.\n\n\nIn all the clustering methods we have seen (K-Means, GMMs, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.\n\n\nTo get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.\n\n\nIf you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest."
   },
   {
     "objectID": "slides/slides-15-DBSCAN-hierarchical.html#activity",
