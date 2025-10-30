@@ -27,6 +27,10 @@ from scipy.cluster.hierarchy import (
 )
 from scipy.spatial.distance import cdist
 
+from sklearn.preprocessing import StandardScaler
+
+
+
 import plotly.express as px
 import plotly.graph_objs as go
 import plotly.offline as pyo
@@ -1320,6 +1324,49 @@ def plot_kmeans_gmm(X, k):
     ax[2].set_ylabel("Feature 1")        
     discrete_scatter(X[:, 0], X[:, 1], gmm.predict(X), markers='o', ax=ax[2])
 
+
+
+def plot_dbscan_core_border_noise_points(X, eps=0.5, min_samples = 5):
+
+    X = StandardScaler().fit_transform(X)
+
+    # Apply DBSCAN
+    dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+    labels = dbscan.fit_predict(X)
+
+    # Identify core, border, and noise points
+    core_samples_mask = np.zeros_like(labels, dtype=bool)
+    core_samples_mask[dbscan.core_sample_indices_] = True
+    unique_labels = set(labels)
+
+    # Define colors
+    colors = plt.cm.Spectral(np.linspace(0, 1, len(unique_labels)))
+    core_color_map = {label: colors[i] for i, label in enumerate(unique_labels) if label != -1}
+
+    # Plot data points
+    plt.figure(figsize=(6, 6))
+
+    for i, label in enumerate(labels):
+        if label == -1:  # Noise
+            plt.scatter(X[i, 0], X[i, 1], color='red', s=50, marker='x', alpha=0.8)
+        elif core_samples_mask[i]:  # Core points
+            plt.scatter(X[i, 0], X[i, 1], color=core_color_map[label], s=100, edgecolors='black', linewidth=1.2)
+        else:  # Border points
+            plt.scatter(X[i, 0], X[i, 1], color=core_color_map[label], s=30, edgecolors='gray', linewidth=1)
+
+    # Create a proper legend
+    legend_elements = [
+        plt.Line2D([0], [0], marker='o', color='w', markersize=10, markerfacecolor='brown', markeredgecolor='black', label='Core Points'),
+        plt.Line2D([0], [0], marker='o', color='w', markersize=6, markerfacecolor='brown', markeredgecolor='gray', label='Border Points'),
+        plt.Line2D([0], [0], marker='x', color='red', markersize=10, label='Noise Points')
+    ]
+
+    plt.legend(handles=legend_elements, loc='upper left', fontsize=12)
+    plt.title("DBSCAN: Core, Border, and Noise Points\n eps=0.5, min_samples=5", fontsize=14)
+    plt.xlabel("Feature 1", fontsize=12)
+    plt.ylabel("Feature 2", fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.show()
 
 def plot_dbscan_with_labels(X, fig, eps=1.0, min_samples = 2, font_size=14):
     model = DBSCAN(eps=eps, min_samples=min_samples) 

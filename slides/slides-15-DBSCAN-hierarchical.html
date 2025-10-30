@@ -414,15 +414,15 @@
 <h2>Imports</h2>
 
 <img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
-<section id="iclicker-exercise-15.1" class="slide level2 center">
+<section id="iclicker-exercise-15.1" class="slide level2 smaller center">
 <h2>iClicker Exercise 15.1</h2>
 <p><strong>Select all of the following statements which are TRUE.</strong></p>
 <ul>
 <li><ol type="A">
-<li>Similar to K-nearest neighbours, K-Means is a non parametric model.</li>
+<li>With <span class="math inline">\(n\)</span> examples, <span class="math inline">\(k\)</span> clusters, and <span class="math inline">\(d\)</span> features, K-Means learns <span class="math inline">\(k\)</span> cluster centers, each <span class="math inline">\(d\)</span>-dimensional.</li>
 </ol></li>
 <li><ol start="2" type="A">
-<li>The meaning of <span class="math inline">\(K\)</span> in K-nearest neighbours and K-Means clustering is very similar.</li>
+<li>The meaning of <span class="math inline">\(k\)</span> in K-nearest neighbours and K-Means clustering is very similar.</li>
 </ol></li>
 <li><ol start="3" type="A">
 <li>Scaling of input features is crucial in clustering.<br>
@@ -470,13 +470,13 @@
 <h1>Can we do better?</h1>
 
 </section>
-<section id="dbscan" class="slide level2 center">
+<section id="dbscan" class="slide level2 smaller center">
 <h2>DBSCAN</h2>
 <ul>
 <li><strong>D</strong>ensity-<strong>B</strong>ased <strong>S</strong>patial <strong>C</strong>lustering of <strong>A</strong>pplications with <strong>N</strong>oise</li>
 <li>A density-based clustering algorithm</li>
 </ul>
-<div id="0d966220" class="cell" data-execution_count="5">
+<div id="dd58ef61" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>X, y <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">200</span>, noise<span class="op">=</span><span class="fl">0.08</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb1-2"><a></a>dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb1-3"><a></a>dbscan.fit(X)</span>
@@ -484,15 +484,19 @@
 
 </div>
 <img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-6-output-1.png" class="r-stretch"></section>
-<section id="how-does-it-work" class="slide level2 center">
-<h2>How does it work?</h2>
-
-<img data-src="img/DBSCAN_search.gif" class="r-stretch"></section>
-<section id="dbscan-analogy" class="slide level2 center">
+<section id="two-main-hyperparameters" class="slide level2 center">
+<h2>Two main hyperparameters</h2>
+<p>In order to identify dense regions, we need two hyperparameters:</p>
+<ul>
+<li><code>eps</code>: determines what it means for points to be “close”</li>
+<li><code>min_samples</code>: determines the number of <strong>neighbouring points</strong> we require to consider in order for a point to be part of a cluster</li>
+</ul>
+</section>
+<section id="dbscan-analogy" class="slide level2 smaller center">
 <h2>DBSCAN Analogy</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div id="39009491" class="cell" data-execution_count="6">
+<div id="bf46f01b" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -511,12 +515,21 @@
 </ul>
 </div></div>
 </section>
-<section id="two-main-hyperparameters" class="slide level2 center">
-<h2>Two main hyperparameters</h2>
+<section id="dbscan-algorithm" class="slide level2 smaller center">
+<h2><strong>DBSCAN algorithm</strong></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/DBSCAN_search.gif"></p>
+</div><div class="column" style="width:50%;">
 <ul>
-<li><code>eps</code>: determines what it means for points to be “close”</li>
-<li><code>min_samples</code>: determines the number of <strong>neighboring points</strong> we require to consider in order for a point to be part of a cluster</li>
+<li>Pick a point <span class="math inline">\(p\)</span> at random.</li>
+<li>Check whether <span class="math inline">\(p\)</span> is a “core” point or not.</li>
+<li>If <span class="math inline">\(p\)</span> is a core point, give it a colour (label).</li>
+<li>Spread the colour of <span class="math inline">\(p\)</span> to all of its neighbours.</li>
+<li>Check if any of the neighbours that received the colour is a core point, if yes, spread the colour to its neighbors as well.</li>
+<li>Once there are no more core points left to spread the colour, pick a new unlabeled point <span class="math inline">\(p\)</span> and repeat the process.</li>
 </ul>
+</div></div>
 </section>
 <section id="dbscan-failure-cases" class="slide level2 smaller center">
 <h2>DBSCAN: failure cases</h2>
@@ -525,7 +538,7 @@
 </li>
 <li>K-Means performs better compared to DBSCAN. But it has the benefit of knowing the value of <span class="math inline">\(K\)</span> in advance.</li>
 </ul>
-<div id="65417219" class="cell" data-execution_count="7">
+<div id="9926eb4e" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]</code></pre>
 </div>
@@ -540,7 +553,7 @@
 <h2>Dendrogram</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div id="dd3f5754" class="cell" data-execution_count="9">
+<div id="05eca63f" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -566,7 +579,7 @@
 </section>
 <section id="flat-clusters-1" class="slide level2 center">
 <h2>Flat clusters</h2>
-<div id="e12a736d" class="cell" data-execution_count="10">
+<div id="6f313f78" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> fcluster</span>
 <span id="cb3-2"><a></a><span class="co"># flattening the dendrogram based on maximum number of clusters. </span></span>
 <span id="cb3-3"><a></a>hier_labels1 <span class="op">=</span> fcluster(linkage_array, <span class="dv">3</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
@@ -588,11 +601,50 @@
 </ul></li>
 </ul>
 </section>
+<section id="example-single-linkage" class="slide level2 smaller center">
+<h2>Example: Single linkage</h2>
+<p>Suppose you want to go from 3 clusters to 2 clusters. Which clusters would you merge?</p>
+<div id="28751540" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>X_orig, y <span class="op">=</span> make_blobs(random_state<span class="op">=</span><span class="dv">0</span>, n_samples<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-2"><a></a>X <span class="op">=</span> StandardScaler().fit_transform(X_orig)</span>
+<span id="cb4-3"><a></a>linkage_array <span class="op">=</span> single(X)</span>
+<span id="cb4-4"><a></a>hier_labels <span class="op">=</span> fcluster(linkage_array, <span class="dv">3</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
+<span id="cb4-5"><a></a>plot_dendrogram_clusters(X, linkage_array, hier_labels, title<span class="op">=</span><span class="st">"maxclust 3"</span>, color_threshold<span class="op">=</span><span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
+<section id="example-single-linkage-1" class="slide level2 smaller center">
+<h2>Example: Single linkage</h2>
+<div id="6cf61f4a" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>hier_labels <span class="op">=</span> fcluster(linkage_array, <span class="dv">2</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
+<span id="cb5-2"><a></a>plot_dendrogram_clusters(X, linkage_array, hier_labels, title<span class="op">=</span><span class="st">"maxclust 2"</span>, color_threshold<span class="op">=</span><span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-13-output-1.png" class="r-stretch"></section>
+<section id="iclicker-exercise-2.3" class="slide level2 smaller center">
+<h2>iClicker Exercise 2.3</h2>
+<p><strong>Select all of the following statements which are True</strong></p>
+<ul>
+<li><ol type="A">
+<li>In hierarchical clustering we do not have to worry about initialization.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Hierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>In all the clustering methods we have seen (K-Means, GMMs, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>To get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.</li>
+</ol></li>
+<li><ol start="5" type="A">
+<li>If you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest.</li>
+</ol></li>
+</ul>
+</section>
 <section id="activity" class="slide level2 center">
 <h2>Activity</h2>
-<ul>
-<li>Fill in the table below in this Google doc: https://shorturl.at/3yOdg</li>
-</ul>
+<p>Discuss the following</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 12%">
@@ -634,13 +686,22 @@
 <td></td>
 </tr>
 <tr class="odd">
-<td><strong>Examples</strong></td>
+<td><strong>Distance metric</strong></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="discussion-question" class="slide level2 center">
+<h2>Discussion question</h2>
+<p>Which clustering method would you use in each of the scenarios below? Why? How would you represent the data in each case?</p>
+<ul>
+<li>Scenario 1: Customer segmentation in retail</li>
+<li>Scenario 2: An environmental study aiming to identify clusters of a rare plant species</li>
+<li>Scenario 3: Clustering furniture items for inventory management and customer recommendations</li>
+</ul>
 </section></section>
 <section id="class-demo" class="title-slide slide level1 center">
 <h1><a href="https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb">Class demo</a></h1>
