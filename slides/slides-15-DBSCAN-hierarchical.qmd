@@ -178,6 +178,38 @@ Consider DBSCAN in a social context:
 :::
 ::::
 
+## 🧩 Human DBSCAN activity
+
+### Goal
+Experience how **ε (eps)** and **min_samples** affect what counts as a cluster.
+
+
+## Setup
+- Each student = one **data point**
+- Distance = **arm’s length (~1 m)**
+- Each gets a **sticky note** to mark cluster ID and a **marker** (colour)
+- Start from a random student: check whos within $\epsilon$
+
+
+## Two parallel runs
+
+| Side of Class | ε (eps) | min_samples | Expected Outcome |
+|:---------------|:--------|:-------------|:-----------------|
+| **Left side**  | ~1 m (arm’s length) | 5 | Moderate clusters; most nearby students form groups. Some isolated ones become **noise points**. |
+| **Right side** | ~1 m (arm’s length) | 15 | Few or no clusters; the density requirement is high. Many **noise points**. |
+
+## How to Play
+1. Pick a **starting student**.
+2. Count how many of your neighbours are within $\epsilon$ distance.
+3. If you have **≥ min_samples**, you are a **core point** $\rightarrow$ start spreading your colour.
+4. Neighbours who receive a colour but aren't core are **border points**.
+5. Students who never receive a colour are **noise points**.
+
+## After the activity
+- Which side formed **more clusters**?
+- What happened when **min_samples** was too high?
+- Why doesn't DBSCAN need to know the number of clusters $k$?
+
 ## How to tune `eps` and `min_samples`?
 
 - Can you use `GridSearchCV` and `RandomizedSearchCV`?
