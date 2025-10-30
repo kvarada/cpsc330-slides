@@ -18,15 +18,19 @@ editor:
   render-on-save: true
 ---
 
-## Happy Halloween
+## Focus on the breath!
 
-![](img/eva-halloween.png)
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-## Announcements 
+## Announcements {.smaller}
 
 - HW6 is due next week Monday
-  - Computationally intensive 
-  - You need to install many packages 
+  - This one is computationally intensive — you’ll need to install several packages to get it running.
+	- Make sure all images and outputs are rendered when you submit on Gradescope.
+	- The .ipynb file might be too large to render directly on Gradescope, so please export it to WebPDF and upload both the .ipynb and the .pdf files.
+
+- Midterm 2
+  - Check out this piazza post: https://piazza.com/class/mekbcze4gyber/post/423#
 
 ## Imports 
 
@@ -67,12 +71,12 @@ plt.rcParams["figure.figsize"] = (5, 4)
 pd.set_option("display.max_colwidth", 0)
 ```
 
-## iClicker Exercise 15.1 
+## iClicker Exercise 15.1 {.smaller}
 
 **Select all of the following statements which are TRUE.**
 
-- (A) Similar to K-nearest neighbours, K-Means is a non parametric model.
-- (B) The meaning of $K$ in K-nearest neighbours and K-Means clustering is very similar. 
+- (A) With $n$ examples, $k$ clusters, and $d$ features, K-Means learns $k$ cluster centers, each $d$-dimensional. 
+- (B) The meaning of $k$ in K-nearest neighbours and K-Means clustering is very similar. 
 - (C) Scaling of input features is crucial in clustering.  
 - (D) In clustering, it's almost always a good idea to find equal-sized clusters. 
 
@@ -115,7 +119,7 @@ plot_kmeans(X, 2)
 
 # Can we do better? 
 
-## DBSCAN
+## DBSCAN {.smaller}
 
 - **D**ensity-**B**ased **S**patial **C**lustering of **A**pplications with **N**oise
 - A density-based clustering algorithm
@@ -128,15 +132,23 @@ dbscan.fit(X)
 plot_original_clustered(X, dbscan, dbscan.labels_)
 ```
 
-## How does it work?
-![](img/DBSCAN_search.gif)
+## Two main hyperparameters
 
-## DBSCAN Analogy
+In order to identify dense regions, we need two hyperparameters: 
+
+- `eps`: determines what it means for points to be "close"
+- `min_samples`: determines the number of **neighbouring points** we require to consider in order for a point to be part of a cluster
+
+
+## DBSCAN Analogy {.smaller}
 :::: {.columns}
 ::: {.column width="60%"}
+
 ```{python}
-X, y = make_blobs(random_state=0, n_samples=12)
-discrete_scatter(X[:, 0], X[:, 1]);
+# Generate synthetic data
+centers = [[1, 1], [-1, -1], [1, -1]]
+X, labels_true = make_blobs(n_samples=100, centers=centers, cluster_std=0.4, random_state=0)
+plot_dbscan_core_border_noise_points(X)
 ```
 :::
 ::: {.column width="40%"}
@@ -148,9 +160,27 @@ Consider DBSCAN in a social context:
 :::
 ::::
 
-## Two main hyperparameters
-- `eps`: determines what it means for points to be "close"
-- `min_samples`: determines the number of **neighboring points** we require to consider in order for a point to be part of a cluster
+
+## **DBSCAN algorithm** {.smaller}
+::: {.columns}
+::: {.column width="50%"}
+
+![](img/DBSCAN_search.gif)
+:::
+::: {.column width="50%"}
+
+- Pick a point $p$ at random.
+- Check whether $p$ is a "core" point or not. 
+- If $p$ is a core point, give it a colour (label). 
+- Spread the colour of $p$ to all of its neighbours.
+- Check if any of the neighbours that received the colour is a core point, if yes, spread the colour to its neighbors as well.
+- Once there are no more core points left to spread the colour, pick a new unlabeled point $p$ and repeat the process.
+:::
+::::
+
+## How to tune `eps` and `min_samples`?
+
+- Can you use `GridSearchCV` and `RandomizedSearchCV`?
 
 ## DBSCAN: failure cases {.smaller}
 
@@ -216,9 +246,41 @@ plot_dendrogram_clusters(X, linkage_array, hier_labels1, title="flattened with m
     - Average linkage $\rightarrow$ smallest average distance between all pairs of points in the clusters
     - Ward linkage $\rightarrow$ smallest increase in within-cluster variance, leads to equally sized clusters
 
+## Example: Single linkage {.smaller}
+
+Suppose you want to go from 3 clusters to 2 clusters. Which clusters would you merge? 
+
+```{python}
+#| echo: true
+X_orig, y = make_blobs(random_state=0, n_samples=11)
+X = StandardScaler().fit_transform(X_orig)
+linkage_array = single(X)
+hier_labels = fcluster(linkage_array, 3, criterion="maxclust") 
+plot_dendrogram_clusters(X, linkage_array, hier_labels, title="maxclust 3", color_threshold=1.0)
+```
+
+##  Example: Single linkage {.smaller}
+
+```{python}
+#| echo: true
+hier_labels = fcluster(linkage_array, 2, criterion="maxclust") 
+plot_dendrogram_clusters(X, linkage_array, hier_labels, title="maxclust 2", color_threshold=1.0)
+```
+
+## iClicker Exercise 15.2 {.smaller}
+
+**Select all of the following statements which are True**
+
+- (A) In hierarchical clustering we do not have to worry about initialization.
+- (B) Hierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.
+- (C) In all the clustering methods we have seen (K-Means, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.
+- (D) To get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.
+- (E) If you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest.
+
+
 ## Activity
 
-- Fill in the table below in this Google doc: https://shorturl.at/3yOdg
+Discuss the following
 
 | **Clustering Method**  | **KMeans**                                           | **DBSCAN**                                          | **Hierarchical Clustering**                            |
 |------------------------|------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------|
@@ -226,7 +288,20 @@ plot_dendrogram_clusters(X, linkage_array, hier_labels1, title="flattened with m
 | **Hyperparameters**    | | |
 | **Shape of clusters**  | | |
 | **Handling noise**     | | | 
-| **Examples**           | | |
+| **Distance metric**    | | |
+
+## Discussion question 
+
+Which clustering method would you use in each of the scenarios below? Why? How would you represent the data in each case?
+
+- Scenario 1: Customer segmentation in retail
+- Scenario 2: An environmental study aiming to identify clusters of a rare plant species
+- Scenario 3: Clustering furniture items for inventory management and customer recommendations
 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb)
+
+
+## Happy Halloween
+
+![](img/eva-halloween.png)
