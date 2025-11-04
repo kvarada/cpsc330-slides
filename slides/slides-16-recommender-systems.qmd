@@ -18,13 +18,20 @@ editor:
   render-on-save: true
 ---
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
 ## Announcements
 
+- HW6 was due yesterday. 
 - No classes or OH during the midterm break.
-- Midterm 2 coming up next week
+- Midterm 2 coming up next week! 
+- If you find the breathing exercises helpful, you’re very welcome to join our weekly meditation sessions.
+  - 🕑 When? **Every Wednesdays at 2 PM**
+  - 📍 Where? **ICCS 146** 
 
-## iClicker Exercise 
+## iClicker question 💡 
 
 What percentage of watch time on YouTube do you think comes from recommendations?
 
@@ -33,12 +40,143 @@ What percentage of watch time on YouTube do you think comes from recommendations
 - (C) 20%
 - (D) 90%
 
-This question is based on [this source](https://developers.google.com/machine-learning/recommendation/overview). The statistics might have changed now. 
+Based on [Google Developers (2022)](https://developers.google.com/machine-learning/recommendation/overview). The number may have changed since then!
+
+## What is a recommendation system? 
+
+A recommendation system suggests products, services, or content that a user is likely to consume or enjoy.
+
+## Example: Recommender systems
+
+- A user visits Amazon to shop.
+- Amazon knows:
+  - what the user viewed or purchased before
+  - what similar users bought
+- **The goal:** recommend items that maximize user engagement or sales.
+- There's no single "right" label. The goal is to model user behaviour.
+
+## Why should we care? 
+:::: {.columns}
+
+::: {.column width="50%"}
+![](img/reco-examples.png)
+:::
+
+::: {.column width="50%"}
+- Recommendations shape almost everything we buy or watch.
+- Central to the success of companies like Amazon, Netflix, YouTube, and Spotify.
+:::
+::::
+
+## Why recommendation systems? {.smaller}
+
+- They help users navigate information overload.
+- Without them, finding the right item would require sifting through thousands of options.
+- Recommendations reduce effort and improve user experience.
+
+![](img/info-overload.png){.nostretch fig-align="center" width="500px"}
+
+## The other side: Filter bubbles 
+- Recommenders often amplify what users already like or what similar users like.
+- This can create filter bubbles, limiting exposure to diverse content.
+- Probably harmless in shopping, but can have **serious consequences in domains like news, politics, or science, where diverse viewpoints matter**.
+
+# Data and problem setup 
+
+## What data do we need?
+
+To build a recommender, we typically use:
+
+- User–item interactions (ratings, clicks, views, purchases)
+- Item or user features (e.g., genre, price, age)
+- Historical data (purchase or viewing history)
+
+## Problem formulation
+
+- We have $N$ users and $M$ items.
+- Observed data = interactions:
+	- Movie ratings (Netflix)
+	- Song plays (Spotify)
+	- Product purchases (Amazon)
+
+**Goal**: predict unobserved interactions.
+
+## The utility matrix
+- Rows = users, columns = items
+- Each entry $y_{ij}$ = user $i$'s interaction (e.g., rating) with item $j$
+
+![](img/utility_matrix.png)
+
+<!-- <img src="img/utility_matrix.png" alt="" height="900" width="900">  -->
 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_17-recommendation-systems.ipynb)
+## Sparsity
+- The utility matrix is mostly empty.
+- Each user interacts with only a small fraction of all items.
+- Examples:
+  - Netflix users rate only a few shows out of thousands.
+  - Amazon shoppers review only a handful of products.
 
-## iClicker Exercise 16.1 {.smaller}
+## What do we predict?
+
+We aim to fill in the missing entries. In other words, predict ratings or preferences the user hasn't expressed yet.
+
+![](img/utility_matrix.png)
+
+## Rating prediction $\neq$ regression 
+::: {.columns}
+
+::: {.column width="50%"}
+
+### Regression
+
+$$
+\begin{bmatrix} 
+\checkmark & \checkmark & \checkmark  & \checkmark & \checkmark\\
+\checkmark & \checkmark & \checkmark  & \checkmark & \checkmark\\
+\checkmark & \checkmark & \checkmark  & \checkmark & \checkmark\\
+\checkmark & \checkmark & \checkmark  & \checkmark & ?\\
+\checkmark & \checkmark & \checkmark  & \checkmark & ?\\
+\checkmark & \checkmark & \checkmark  & \checkmark & ?\\
+\end{bmatrix}
+$$
+:::
+
+::: {.column width="50%"}
+
+### Rating prediction
+
+$$
+\begin{bmatrix} 
+? & ? & \checkmark  & ? & \checkmark\\
+\checkmark & ? & ?  & ? & ?\\
+? & \checkmark & \checkmark  & ? & \checkmark\\
+? & ? & ?  & ? & ?\\
+? & ? & ? & \checkmark & ?\\
+? & \checkmark & \checkmark  & ? & \checkmark
+\end{bmatrix}
+$$
+:::
+::::
+
+## Main approaches {.smaller}
+
+- Collaborative filtering
+    - "Unsupervised" learning 
+    - We only have labels $y_{ij}$ (rating of user $i$ for item $j$). 
+    - We learn latent features.  
+- **Content-based recommenders** (today's focus)
+    - Supervised learning
+    - Extract features $x_i$ of users and/or items building a model to predict rating $y_i$ given $x_i$. 
+    - Apply model to predict for new users/items. 
+- Hybrid 
+    - Combining collaborative filtering with content-based filtering
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_16-recommendation-systems.ipynb)
+
+
+
+## iClicker Exercise {.smaller}
 Select all of the following statements which are **True** 
 
 - (A) In the context of recommendation systems, the shapes of validation utility matrix and train utility matrix are the same. 

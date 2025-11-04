@@ -1489,25 +1489,116 @@
     ]
   },
   {
+    "objectID": "slides/slides-16-recommender-systems.html#focus-on-the-breath",
+    "href": "slides/slides-16-recommender-systems.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Focus on the breath!",
+    "text": "Focus on the breath!"
+  },
+  {
     "objectID": "slides/slides-16-recommender-systems.html#announcements",
     "href": "slides/slides-16-recommender-systems.html#announcements",
     "title": "CPSC 330 Lecture 16: Recommendation systems",
     "section": "Announcements",
-    "text": "Announcements\n\nNo classes or OH during the midterm break.\nMidterm 2 coming up next week"
+    "text": "Announcements\n\nHW6 was due yesterday.\nNo classes or OH during the midterm break.\nMidterm 2 coming up next week!\nIf you find the breathing exercises helpful, you’re very welcome to join our weekly meditation sessions.\n\n🕑 When? Every Wednesdays at 2 PM\n📍 Where? ICCS 146"
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#iclicker-question",
+    "href": "slides/slides-16-recommender-systems.html#iclicker-question",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "iClicker question 💡",
+    "text": "iClicker question 💡\nWhat percentage of watch time on YouTube do you think comes from recommendations?\n\n\n50%\n\n\n60%\n\n\n20%\n\n\n90%\n\n\nBased on Google Developers (2022). The number may have changed since then!"
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#what-is-a-recommendation-system",
+    "href": "slides/slides-16-recommender-systems.html#what-is-a-recommendation-system",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "What is a recommendation system?",
+    "text": "What is a recommendation system?\nA recommendation system suggests products, services, or content that a user is likely to consume or enjoy."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#example-recommender-systems",
+    "href": "slides/slides-16-recommender-systems.html#example-recommender-systems",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Example: Recommender systems",
+    "text": "Example: Recommender systems\n\nA user visits Amazon to shop.\nAmazon knows:\n\nwhat the user viewed or purchased before\nwhat similar users bought\n\nThe goal: recommend items that maximize user engagement or sales.\nThere’s no single “right” label. The goal is to model user behaviour."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#why-should-we-care",
+    "href": "slides/slides-16-recommender-systems.html#why-should-we-care",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Why should we care?",
+    "text": "Why should we care?\n\n\n\n\n\nRecommendations shape almost everything we buy or watch.\nCentral to the success of companies like Amazon, Netflix, YouTube, and Spotify."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#why-recommendation-systems",
+    "href": "slides/slides-16-recommender-systems.html#why-recommendation-systems",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Why recommendation systems?",
+    "text": "Why recommendation systems?\n\nThey help users navigate information overload.\nWithout them, finding the right item would require sifting through thousands of options.\nRecommendations reduce effort and improve user experience."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#the-other-side-filter-bubbles",
+    "href": "slides/slides-16-recommender-systems.html#the-other-side-filter-bubbles",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "The other side: Filter bubbles",
+    "text": "The other side: Filter bubbles\n\nRecommenders often amplify what users already like or what similar users like.\nThis can create filter bubbles, limiting exposure to diverse content.\nProbably harmless in shopping, but can have serious consequences in domains like news, politics, or science, where diverse viewpoints matter."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#what-data-do-we-need",
+    "href": "slides/slides-16-recommender-systems.html#what-data-do-we-need",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "What data do we need?",
+    "text": "What data do we need?\nTo build a recommender, we typically use:\n\nUser–item interactions (ratings, clicks, views, purchases)\nItem or user features (e.g., genre, price, age)\nHistorical data (purchase or viewing history)"
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#problem-formulation",
+    "href": "slides/slides-16-recommender-systems.html#problem-formulation",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Problem formulation",
+    "text": "Problem formulation\n\nWe have \\(N\\) users and \\(M\\) items.\nObserved data = interactions:\n\nMovie ratings (Netflix)\nSong plays (Spotify)\nProduct purchases (Amazon)\n\n\nGoal: predict unobserved interactions."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#the-utility-matrix",
+    "href": "slides/slides-16-recommender-systems.html#the-utility-matrix",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "The utility matrix",
+    "text": "The utility matrix\n\nRows = users, columns = items\nEach entry \\(y_{ij}\\) = user \\(i\\)’s interaction (e.g., rating) with item \\(j\\)"
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#sparsity",
+    "href": "slides/slides-16-recommender-systems.html#sparsity",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Sparsity",
+    "text": "Sparsity\n\nThe utility matrix is mostly empty.\nEach user interacts with only a small fraction of all items.\nExamples:\n\nNetflix users rate only a few shows out of thousands.\nAmazon shoppers review only a handful of products."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#what-do-we-predict",
+    "href": "slides/slides-16-recommender-systems.html#what-do-we-predict",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "What do we predict?",
+    "text": "What do we predict?\nWe aim to fill in the missing entries. In other words, predict ratings or preferences the user hasn’t expressed yet."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#rating-prediction-neq-regression",
+    "href": "slides/slides-16-recommender-systems.html#rating-prediction-neq-regression",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Rating prediction \\(\\neq\\) regression",
+    "text": "Rating prediction \\(\\neq\\) regression\n\n\nRegression\n\\[\n\\begin{bmatrix}\n\\checkmark & \\checkmark & \\checkmark  & \\checkmark & \\checkmark\\\\\n\\checkmark & \\checkmark & \\checkmark  & \\checkmark & \\checkmark\\\\\n\\checkmark & \\checkmark & \\checkmark  & \\checkmark & \\checkmark\\\\\n\\checkmark & \\checkmark & \\checkmark  & \\checkmark & ?\\\\\n\\checkmark & \\checkmark & \\checkmark  & \\checkmark & ?\\\\\n\\checkmark & \\checkmark & \\checkmark  & \\checkmark & ?\\\\\n\\end{bmatrix}\n\\]\n\nRating prediction\n\\[\n\\begin{bmatrix}\n? & ? & \\checkmark  & ? & \\checkmark\\\\\n\\checkmark & ? & ?  & ? & ?\\\\\n? & \\checkmark & \\checkmark  & ? & \\checkmark\\\\\n? & ? & ?  & ? & ?\\\\\n? & ? & ? & \\checkmark & ?\\\\\n? & \\checkmark & \\checkmark  & ? & \\checkmark\n\\end{bmatrix}\n\\]"
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#main-approaches",
+    "href": "slides/slides-16-recommender-systems.html#main-approaches",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Main approaches",
+    "text": "Main approaches\n\nCollaborative filtering\n\n“Unsupervised” learning\nWe only have labels \\(y_{ij}\\) (rating of user \\(i\\) for item \\(j\\)).\nWe learn latent features.\n\n\nContent-based recommenders (today’s focus)\n\nSupervised learning\nExtract features \\(x_i\\) of users and/or items building a model to predict rating \\(y_i\\) given \\(x_i\\).\nApply model to predict for new users/items.\n\nHybrid\n\nCombining collaborative filtering with content-based filtering"
   },
   {
     "objectID": "slides/slides-16-recommender-systems.html#iclicker-exercise",
     "href": "slides/slides-16-recommender-systems.html#iclicker-exercise",
     "title": "CPSC 330 Lecture 16: Recommendation systems",
     "section": "iClicker Exercise",
-    "text": "iClicker Exercise\nWhat percentage of watch time on YouTube do you think comes from recommendations?\n\n\n50%\n\n\n60%\n\n\n20%\n\n\n90%\n\n\nThis question is based on this source. The statistics might have changed now."
-  },
-  {
-    "objectID": "slides/slides-16-recommender-systems.html#iclicker-exercise-16.1",
-    "href": "slides/slides-16-recommender-systems.html#iclicker-exercise-16.1",
-    "title": "CPSC 330 Lecture 16: Recommendation systems",
-    "section": "iClicker Exercise 16.1",
-    "text": "iClicker Exercise 16.1\nSelect all of the following statements which are True\n\n\nIn the context of recommendation systems, the shapes of validation utility matrix and train utility matrix are the same.\n\n\nRMSE perfectly captures what we want to measure in the context of recommendation systems.\n\n\nIt would be reasonable to impute missing values in the utility matrix by taking the average of the ratings given to an item by similar users.\n\n\n\nIn KNN type imputation, if a user has not rated any items yet, a reasonable strategy would be recommending them the most popular item."
+    "text": "iClicker Exercise\nSelect all of the following statements which are True\n\n\nIn the context of recommendation systems, the shapes of validation utility matrix and train utility matrix are the same.\n\n\nRMSE perfectly captures what we want to measure in the context of recommendation systems.\n\n\nIt would be reasonable to impute missing values in the utility matrix by taking the average of the ratings given to an item by similar users.\n\n\n\nIn KNN type imputation, if a user has not rated any items yet, a reasonable strategy would be recommending them the most popular item."
   },
   {
     "objectID": "slides/slides-16-recommender-systems.html#iclicker-exercise-16.2",

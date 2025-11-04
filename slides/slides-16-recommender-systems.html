@@ -331,15 +331,29 @@
 </div>
 
 </section>
+<section id="focus-on-the-breath" class="slide level2 center">
+<h2>Focus on the breath!</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/inukshuk.jpeg" class="quarto-figure quarto-figure-center" width="500"></p>
+</figure>
+</div>
+</section>
 <section id="announcements" class="slide level2 center">
 <h2>Announcements</h2>
 <ul>
+<li>HW6 was due yesterday.</li>
 <li>No classes or OH during the midterm break.</li>
-<li>Midterm 2 coming up next week</li>
+<li>Midterm 2 coming up next week!</li>
+<li>If you find the breathing exercises helpful, you’re very welcome to join our weekly meditation sessions.
+<ul>
+<li>🕑 When? <strong>Every Wednesdays at 2 PM</strong></li>
+<li>📍 Where? <strong>ICCS 146</strong></li>
+</ul></li>
 </ul>
 </section>
-<section id="iclicker-exercise" class="slide level2 center">
-<h2>iClicker Exercise</h2>
+<section id="iclicker-question" class="slide level2 center">
+<h2>iClicker question 💡</h2>
 <p>What percentage of watch time on YouTube do you think comes from recommendations?</p>
 <ul>
 <li><ol type="A">
@@ -355,15 +369,169 @@
 <li>90%</li>
 </ol></li>
 </ul>
-<p>This question is based on <a href="https://developers.google.com/machine-learning/recommendation/overview">this source</a>. The statistics might have changed now.</p>
+<p>Based on <a href="https://developers.google.com/machine-learning/recommendation/overview">Google Developers (2022)</a>. The number may have changed since then!</p>
+</section>
+<section id="what-is-a-recommendation-system" class="slide level2 center">
+<h2>What is a recommendation system?</h2>
+<p>A recommendation system suggests products, services, or content that a user is likely to consume or enjoy.</p>
+</section>
+<section id="example-recommender-systems" class="slide level2 center">
+<h2>Example: Recommender systems</h2>
+<ul>
+<li>A user visits Amazon to shop.</li>
+<li>Amazon knows:
+<ul>
+<li>what the user viewed or purchased before</li>
+<li>what similar users bought</li>
+</ul></li>
+<li><strong>The goal:</strong> recommend items that maximize user engagement or sales.</li>
+<li>There’s no single “right” label. The goal is to model user behaviour.</li>
+</ul>
+</section>
+<section id="why-should-we-care" class="slide level2 center">
+<h2>Why should we care?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/reco-examples.png"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Recommendations shape almost everything we buy or watch.</li>
+<li>Central to the success of companies like Amazon, Netflix, YouTube, and Spotify.</li>
+</ul>
+</div></div>
+</section>
+<section id="why-recommendation-systems" class="slide level2 smaller center">
+<h2>Why recommendation systems?</h2>
+<ul>
+<li>They help users navigate information overload.</li>
+<li>Without them, finding the right item would require sifting through thousands of options.</li>
+<li>Recommendations reduce effort and improve user experience.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/info-overload.png" class="quarto-figure quarto-figure-center" width="500"></p>
+</figure>
+</div>
+</section>
+<section id="the-other-side-filter-bubbles" class="slide level2 center">
+<h2>The other side: Filter bubbles</h2>
+<ul>
+<li>Recommenders often amplify what users already like or what similar users like.</li>
+<li>This can create filter bubbles, limiting exposure to diverse content.</li>
+<li>Probably harmless in shopping, but can have <strong>serious consequences in domains like news, politics, or science, where diverse viewpoints matter</strong>.</li>
+</ul>
 </section>
 <section>
-<section id="class-demo" class="title-slide slide level1 center">
-<h1><a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_17-recommendation-systems.ipynb">Class demo</a></h1>
+<section id="data-and-problem-setup" class="title-slide slide level1 center">
+<h1>Data and problem setup</h1>
 
 </section>
-<section id="iclicker-exercise-16.1" class="slide level2 smaller center">
-<h2>iClicker Exercise 16.1</h2>
+<section id="what-data-do-we-need" class="slide level2 center">
+<h2>What data do we need?</h2>
+<p>To build a recommender, we typically use:</p>
+<ul>
+<li>User–item interactions (ratings, clicks, views, purchases)</li>
+<li>Item or user features (e.g., genre, price, age)</li>
+<li>Historical data (purchase or viewing history)</li>
+</ul>
+</section>
+<section id="problem-formulation" class="slide level2 center">
+<h2>Problem formulation</h2>
+<ul>
+<li>We have <span class="math inline">\(N\)</span> users and <span class="math inline">\(M\)</span> items.</li>
+<li>Observed data = interactions:
+<ul>
+<li>Movie ratings (Netflix)</li>
+<li>Song plays (Spotify)</li>
+<li>Product purchases (Amazon)</li>
+</ul></li>
+</ul>
+<p><strong>Goal</strong>: predict unobserved interactions.</p>
+</section>
+<section id="the-utility-matrix" class="slide level2 center">
+<h2>The utility matrix</h2>
+<ul>
+<li>Rows = users, columns = items</li>
+<li>Each entry <span class="math inline">\(y_{ij}\)</span> = user <span class="math inline">\(i\)</span>’s interaction (e.g., rating) with item <span class="math inline">\(j\)</span></li>
+</ul>
+
+<!-- <img src="img/utility_matrix.png" alt="" height="900" width="900">  -->
+<img data-src="img/utility_matrix.png" class="r-stretch"></section>
+<section id="sparsity" class="slide level2 center">
+<h2>Sparsity</h2>
+<ul>
+<li>The utility matrix is mostly empty.</li>
+<li>Each user interacts with only a small fraction of all items.</li>
+<li>Examples:
+<ul>
+<li>Netflix users rate only a few shows out of thousands.</li>
+<li>Amazon shoppers review only a handful of products.</li>
+</ul></li>
+</ul>
+</section>
+<section id="what-do-we-predict" class="slide level2 center">
+<h2>What do we predict?</h2>
+<p>We aim to fill in the missing entries. In other words, predict ratings or preferences the user hasn’t expressed yet.</p>
+
+<img data-src="img/utility_matrix.png" class="r-stretch"></section>
+<section id="rating-prediction-neq-regression" class="slide level2 center">
+<h2>Rating prediction <span class="math inline">\(\neq\)</span> regression</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="regression">Regression</h3>
+<p><span class="math display">\[
+\begin{bmatrix}
+\checkmark &amp; \checkmark &amp; \checkmark  &amp; \checkmark &amp; \checkmark\\
+\checkmark &amp; \checkmark &amp; \checkmark  &amp; \checkmark &amp; \checkmark\\
+\checkmark &amp; \checkmark &amp; \checkmark  &amp; \checkmark &amp; \checkmark\\
+\checkmark &amp; \checkmark &amp; \checkmark  &amp; \checkmark &amp; ?\\
+\checkmark &amp; \checkmark &amp; \checkmark  &amp; \checkmark &amp; ?\\
+\checkmark &amp; \checkmark &amp; \checkmark  &amp; \checkmark &amp; ?\\
+\end{bmatrix}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<h3 id="rating-prediction">Rating prediction</h3>
+<p><span class="math display">\[
+\begin{bmatrix}
+? &amp; ? &amp; \checkmark  &amp; ? &amp; \checkmark\\
+\checkmark &amp; ? &amp; ?  &amp; ? &amp; ?\\
+? &amp; \checkmark &amp; \checkmark  &amp; ? &amp; \checkmark\\
+? &amp; ? &amp; ?  &amp; ? &amp; ?\\
+? &amp; ? &amp; ? &amp; \checkmark &amp; ?\\
+? &amp; \checkmark &amp; \checkmark  &amp; ? &amp; \checkmark
+\end{bmatrix}
+\]</span></p>
+</div></div>
+</section>
+<section id="main-approaches" class="slide level2 smaller center">
+<h2>Main approaches</h2>
+<ul>
+<li>Collaborative filtering
+<ul>
+<li>“Unsupervised” learning</li>
+<li>We only have labels <span class="math inline">\(y_{ij}\)</span> (rating of user <span class="math inline">\(i\)</span> for item <span class="math inline">\(j\)</span>).</li>
+<li>We learn latent features.<br>
+</li>
+</ul></li>
+<li><strong>Content-based recommenders</strong> (today’s focus)
+<ul>
+<li>Supervised learning</li>
+<li>Extract features <span class="math inline">\(x_i\)</span> of users and/or items building a model to predict rating <span class="math inline">\(y_i\)</span> given <span class="math inline">\(x_i\)</span>.</li>
+<li>Apply model to predict for new users/items.</li>
+</ul></li>
+<li>Hybrid
+<ul>
+<li>Combining collaborative filtering with content-based filtering</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="class-demo" class="title-slide slide level1 center">
+<h1><a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_16-recommendation-systems.ipynb">Class demo</a></h1>
+
+</section>
+<section id="iclicker-exercise" class="slide level2 smaller center">
+<h2>iClicker Exercise</h2>
 <p>Select all of the following statements which are <strong>True</strong></p>
 <ul>
 <li><ol type="A">
