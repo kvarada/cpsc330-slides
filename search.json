@@ -1629,6 +1629,20 @@
     "text": "iClicker Exercise\nSelect all of the following statements which are True\n\nIn content-based filtering we leverage available item features in addition to similarity between users.\nIn content-based filtering you represent each user in terms of known features of items.\nIn the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.\nIn content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won’t be able to calculate RMSE for the validation utility matrix."
   },
   {
+    "objectID": "slides/slides-16-recommender-systems.html#baseline-approaches",
+    "href": "slides/slides-16-recommender-systems.html#baseline-approaches",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Baseline approaches",
+    "text": "Baseline approaches\n\nGlobal average baseline\nPer-user average baseline\nPer-item average baseline\nAverage of 2 and 3\n\nTake an average of per-user and per-item averages.\n\n\\(k\\)-Nearest Neighbours imputation"
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#content-based-filtering",
+    "href": "slides/slides-16-recommender-systems.html#content-based-filtering",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Content-based filtering",
+    "text": "Content-based filtering\n\n\n\n\n\niClicker\nSelect all of the following statements which are True\n\n\nIn content-based filtering we leverage available item features in addition to similarity between users.\n\n\nIn content-based filtering you represent each user in terms of known features of items.\n\n\nIn the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.\n\n\nIn content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won’t be able to calculate RMSE for the validation utility matrix."
+  },
+  {
     "objectID": "slides/slides-13-feature-engineering-selection.html#announcements",
     "href": "slides/slides-13-feature-engineering-selection.html#announcements",
     "title": "CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection",

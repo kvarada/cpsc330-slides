@@ -602,6 +602,43 @@
 <li>In the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.</li>
 <li>In content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won’t be able to calculate RMSE for the validation utility matrix.</li>
 </ol>
+</section>
+<section id="baseline-approaches" class="slide level2 center">
+<h2>Baseline approaches</h2>
+<ul>
+<li>Global average baseline</li>
+<li>Per-user average baseline</li>
+<li>Per-item average baseline</li>
+<li>Average of 2 and 3
+<ul>
+<li>Take an average of per-user and per-item averages.</li>
+</ul></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html"><span class="math inline">\(k\)</span>-Nearest Neighbours imputation</a></li>
+</ul>
+</section>
+<section id="content-based-filtering" class="slide level2 center">
+<h2>Content-based filtering</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/content-based-filtering.png" class="nostretch quarto-figure quarto-figure-center" width="900"></p>
+</figure>
+</div>
+<h3 class="smaller" id="iclicker">iClicker</h3>
+<p>Select all of the following statements which are <strong>True</strong></p>
+<ul>
+<li><ol type="A">
+<li>In content-based filtering we leverage available item features in addition to similarity between users.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>In content-based filtering you represent each user in terms of <strong>known</strong> features of items.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>In the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>In content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won’t be able to calculate RMSE for the validation utility matrix.</li>
+</ol></li>
+</ul>
 <p><br><br><br><br></p>
 
 <div class="quarto-auto-generated-content">

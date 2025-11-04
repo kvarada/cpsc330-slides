@@ -220,4 +220,27 @@ Select all of the following statements which are **True**
 (C) In the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.
 (D) In content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won't be able to calculate RMSE for the validation utility matrix.
 
+## Baseline approaches 
+
+- Global average baseline
+- Per-user average baseline
+- Per-item average baseline
+- Average of 2 and 3
+    - Take an average of per-user and per-item averages. 
+- [$k$-Nearest Neighbours imputation](https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html)    
+
+## Content-based filtering 
+
+![](img/content-based-filtering.png){.nostretch fig-align="center" width="900px"}
+
+
+### iClicker {.smaller}
+
+Select all of the following statements which are **True** 
+
+- (A) In content-based filtering we leverage available item features in addition to similarity between users.
+- (B) In content-based filtering you represent each user in terms of **known** features of items.
+- (C) In the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie. 
+- (D) In content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won't be able to calculate RMSE for the validation utility matrix.
+
 <br><br><br><br>
