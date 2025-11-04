@@ -74,7 +74,7 @@ A recommendation system suggests products, services, or content that a user is l
 - Without them, finding the right item would require sifting through thousands of options.
 - Recommendations reduce effort and improve user experience.
 
-![](img/info-overload.png){.nostretch fig-align="center" width="500px"}
+![](img/info-overload.png){.nostretch fig-align="center" width="400px"}
 
 ## The other side: Filter bubbles 
 - Recommenders often amplify what users already like or what similar users like.
@@ -172,8 +172,34 @@ $$
 - Hybrid 
     - Combining collaborative filtering with content-based filtering
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_16-recommendation-systems.ipynb)
 
+# Evaluating Recommender Systems
+
+## How do we evaluate recommendations?
+
+- Is there a **single correct answer** for what should be recommended or what rating should be predicted?  
+  - **Not really!**
+- Still, we need ways to **compare different methods** and measure their usefulness.
+
+## Why evaluation matters? 
+
+- We'll experiment with different ways to **fill in missing entries** in the utility matrix.  
+- Even though recommendations are subjective, we still need **quantitative metrics** to judge:
+  - How well do our predictions match real user behavior?  
+  - Which model performs better?
+
+## RMSE for rating prediction {.smaller}
+
+- RMSE, which measures how close predicted ratings are to actual ratings, is one of the commonly used metric to evaluate recommendation systems  
+- In **2006**, Netflix launched the **Netflix Prize** competition.  
+- They released a dataset of **100 million movie ratings** and offered **$1 million** to the first team that improved Netflix’s existing algorithm by **at least 10% in RMSE** on a held-out test set.
+
+![](img/netflix.png){.nostretch fig-align="center" width="400px"}
+
+[Source: Netflix Tech Blog](https://netflixtechblog.com/netflix-recommendations-beyond-the-5-stars-part-1-55838468f429)
+
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_16-recommendation-systems.ipynb)
 
 
 ## iClicker Exercise {.smaller}
@@ -185,7 +211,7 @@ Select all of the following statements which are **True**
 - (D) In KNN type imputation, if a user has not rated any items yet, a reasonable strategy would be recommending them the most popular item. 
 
 
-## iClicker Exercise 16.2 {.smaller}
+## iClicker Exercise {.smaller}
 
 Select all of the following statements which are **True**
 

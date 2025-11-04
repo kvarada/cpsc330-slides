@@ -409,7 +409,7 @@
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="img/info-overload.png" class="quarto-figure quarto-figure-center" width="500"></p>
+<p><img data-src="img/info-overload.png" class="quarto-figure quarto-figure-center" width="400"></p>
 </figure>
 </div>
 </section>
@@ -526,6 +526,50 @@
 </ul>
 </section></section>
 <section>
+<section id="evaluating-recommender-systems" class="title-slide slide level1 center">
+<h1>Evaluating Recommender Systems</h1>
+
+</section>
+<section id="how-do-we-evaluate-recommendations" class="slide level2 center">
+<h2>How do we evaluate recommendations?</h2>
+<ul>
+<li>Is there a <strong>single correct answer</strong> for what should be recommended or what rating should be predicted?
+<ul>
+<li><strong>Not really!</strong></li>
+</ul></li>
+<li>Still, we need ways to <strong>compare different methods</strong> and measure their usefulness.</li>
+</ul>
+</section>
+<section id="why-evaluation-matters" class="slide level2 center">
+<h2>Why evaluation matters?</h2>
+<ul>
+<li>We’ll experiment with different ways to <strong>fill in missing entries</strong> in the utility matrix.<br>
+</li>
+<li>Even though recommendations are subjective, we still need <strong>quantitative metrics</strong> to judge:
+<ul>
+<li>How well do our predictions match real user behavior?<br>
+</li>
+<li>Which model performs better?</li>
+</ul></li>
+</ul>
+</section>
+<section id="rmse-for-rating-prediction" class="slide level2 smaller center">
+<h2>RMSE for rating prediction</h2>
+<ul>
+<li>RMSE, which measures how close predicted ratings are to actual ratings, is one of the commonly used metric to evaluate recommendation systems<br>
+</li>
+<li>In <strong>2006</strong>, Netflix launched the <strong>Netflix Prize</strong> competition.<br>
+</li>
+<li>They released a dataset of <strong>100 million movie ratings</strong> and offered <strong>$1 million</strong> to the first team that improved Netflix’s existing algorithm by <strong>at least 10% in RMSE</strong> on a held-out test set.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/netflix.png" class="quarto-figure quarto-figure-center" width="400"></p>
+</figure>
+</div>
+<p><a href="https://netflixtechblog.com/netflix-recommendations-beyond-the-5-stars-part-1-55838468f429">Source: Netflix Tech Blog</a></p>
+</section></section>
+<section>
 <section id="class-demo" class="title-slide slide level1 center">
 <h1><a href="https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_16-recommendation-systems.ipynb">Class demo</a></h1>
 
@@ -549,8 +593,8 @@
 </ol></li>
 </ul>
 </section>
-<section id="iclicker-exercise-16.2" class="slide level2 smaller center">
-<h2>iClicker Exercise 16.2</h2>
+<section id="iclicker-exercise-1" class="slide level2 smaller center">
+<h2>iClicker Exercise</h2>
 <p>Select all of the following statements which are <strong>True</strong></p>
 <ol type="A">
 <li>In content-based filtering we leverage available item features in addition to similarity between users.</li>

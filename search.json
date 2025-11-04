@@ -1594,6 +1594,27 @@
     "text": "Main approaches\n\nCollaborative filtering\n\n“Unsupervised” learning\nWe only have labels \\(y_{ij}\\) (rating of user \\(i\\) for item \\(j\\)).\nWe learn latent features.\n\n\nContent-based recommenders (today’s focus)\n\nSupervised learning\nExtract features \\(x_i\\) of users and/or items building a model to predict rating \\(y_i\\) given \\(x_i\\).\nApply model to predict for new users/items.\n\nHybrid\n\nCombining collaborative filtering with content-based filtering"
   },
   {
+    "objectID": "slides/slides-16-recommender-systems.html#how-do-we-evaluate-recommendations",
+    "href": "slides/slides-16-recommender-systems.html#how-do-we-evaluate-recommendations",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "How do we evaluate recommendations?",
+    "text": "How do we evaluate recommendations?\n\nIs there a single correct answer for what should be recommended or what rating should be predicted?\n\nNot really!\n\nStill, we need ways to compare different methods and measure their usefulness."
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#why-evaluation-matters",
+    "href": "slides/slides-16-recommender-systems.html#why-evaluation-matters",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "Why evaluation matters?",
+    "text": "Why evaluation matters?\n\nWe’ll experiment with different ways to fill in missing entries in the utility matrix.\n\nEven though recommendations are subjective, we still need quantitative metrics to judge:\n\nHow well do our predictions match real user behavior?\n\nWhich model performs better?"
+  },
+  {
+    "objectID": "slides/slides-16-recommender-systems.html#rmse-for-rating-prediction",
+    "href": "slides/slides-16-recommender-systems.html#rmse-for-rating-prediction",
+    "title": "CPSC 330 Lecture 16: Recommendation systems",
+    "section": "RMSE for rating prediction",
+    "text": "RMSE for rating prediction\n\nRMSE, which measures how close predicted ratings are to actual ratings, is one of the commonly used metric to evaluate recommendation systems\n\nIn 2006, Netflix launched the Netflix Prize competition.\n\nThey released a dataset of 100 million movie ratings and offered $1 million to the first team that improved Netflix’s existing algorithm by at least 10% in RMSE on a held-out test set.\n\n\n\n\n\n\nSource: Netflix Tech Blog"
+  },
+  {
     "objectID": "slides/slides-16-recommender-systems.html#iclicker-exercise",
     "href": "slides/slides-16-recommender-systems.html#iclicker-exercise",
     "title": "CPSC 330 Lecture 16: Recommendation systems",
@@ -1601,11 +1622,11 @@
     "text": "iClicker Exercise\nSelect all of the following statements which are True\n\n\nIn the context of recommendation systems, the shapes of validation utility matrix and train utility matrix are the same.\n\n\nRMSE perfectly captures what we want to measure in the context of recommendation systems.\n\n\nIt would be reasonable to impute missing values in the utility matrix by taking the average of the ratings given to an item by similar users.\n\n\n\nIn KNN type imputation, if a user has not rated any items yet, a reasonable strategy would be recommending them the most popular item."
   },
   {
-    "objectID": "slides/slides-16-recommender-systems.html#iclicker-exercise-16.2",
-    "href": "slides/slides-16-recommender-systems.html#iclicker-exercise-16.2",
+    "objectID": "slides/slides-16-recommender-systems.html#iclicker-exercise-1",
+    "href": "slides/slides-16-recommender-systems.html#iclicker-exercise-1",
     "title": "CPSC 330 Lecture 16: Recommendation systems",
-    "section": "iClicker Exercise 16.2",
-    "text": "iClicker Exercise 16.2\nSelect all of the following statements which are True\n\nIn content-based filtering we leverage available item features in addition to similarity between users.\nIn content-based filtering you represent each user in terms of known features of items.\nIn the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.\nIn content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won’t be able to calculate RMSE for the validation utility matrix."
+    "section": "iClicker Exercise",
+    "text": "iClicker Exercise\nSelect all of the following statements which are True\n\nIn content-based filtering we leverage available item features in addition to similarity between users.\nIn content-based filtering you represent each user in terms of known features of items.\nIn the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.\nIn content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won’t be able to calculate RMSE for the validation utility matrix."
   },
   {
     "objectID": "slides/slides-13-feature-engineering-selection.html#announcements",
