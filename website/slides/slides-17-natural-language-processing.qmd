@@ -1,0 +1,162 @@
+---
+title: 'CPSC 330 Lecture 17: Introduction to Natural Language Processing'
+description: "Topic modeling, word embeddings, intro to LLMs"
+format:
+    revealjs:
+        html-math-method: mathjax
+        slide-number: true
+        slide-level: 2
+        theme:
+          - slides.scss
+        center: true
+        logo: img/UBC-CS-logo.png
+        resources:
+          - data/
+          - img/
+
+editor:
+  render-on-save: true
+---
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements
+
+- No classes next week.
+- Midterm 2 coming up next week. 
+- Do you need OH to get ready for the midterm? If yes, I can hold OH on Monday. 
+
+
+## iClicker question 
+
+Do you need office hours to help you prepare for the midterm?
+
+- (A) Monday at 2 PM works well for me
+- (B) Monday at 4 PM works well for me
+- (C) No, I don't need office hours
+
+
+## 
+```{python}
+import os
+import re
+import string
+import sys
+import time
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+
+from plotting_functions_unsup import *
+
+import IPython
+import numpy as np
+import numpy.random as npr
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+
+DATA_DIR = os.path.join(os.path.abspath("./"), "data/")
+```
+
+## Recap {.smaller}
+::: {.columns}
+
+::: {.column width="50%"}
+
+_Imagine that you recently watched **Minimalism: A Documentary About the Important Things (2015)** and rated it highly._
+
+```{python}
+from IPython.display import YouTubeVideo
+video_id = "0Co1Iptd4p4"
+YouTubeVideo(video_id, width=500, height=450)
+```
+:::
+
+::: {.column width="50%"}
+Suppose a recommendation system suggests items based on item similarity. Which movie would be recommended to you?
+
+- A) 🎬 Avatar: The Way of Water (2022) (Highly popular sci-fi movie with themes of nature and connection.)
+
+- B) 🎬 The Art of Effortless Living (2021) (A lesser-known documentary about mindfulness and simple living.)
+:::
+::::
+
+## Similarity metrics {.smaller}
+- Similarity based on Euclidean distance
+
+$$distance(vec1, vec2) = \sqrt{\sum_{i =1}^{n} (vec1_i - vec2_i)^2}$$ 
+
+- Dot product similarity: 
+
+$$similarity_{dot product}(vec1,vec2) = vec1.vec2$$
+
+- Cosine similarity: normalized version of dot product. 
+
+$$similarity_{cosine}(vec1,vec2) = \frac{vec1.vec2}{\left\lVert vec1\right\rVert_2 \left\lVert vec2\right\rVert_2}$$
+
+
+## Which metric in what context? {.smaller}
+
+::: {.columns}
+
+::: {.column width="50%"}
+Given a query vector "Query" in the picture below and the three item vectors, determine the ranking of the items for the three similarity measures below: 
+
+<img src="img/distance-metrics.png" alt="" height="400" width="500"> 
+:::
+::: {.column width="50%"}
+- **Example: Similarity based on Euclidean distance: item B > item C > item A**
+  
+- Similarity based on dot product:   
+  
+- Cosine similarity: ? 
+
+<br><br>
+
+Adapted from [here](https://developers.google.com/machine-learning/recommendation/overview/candidate-generation).
+:::
+::::
+
+
+<br><br><br><br>
+
+
+## What is NLP?
+
+- **Natural Language Processing (NLP)** is a field at the intersection of **computer science, linguistics, and artificial intelligence**.  
+- It focuses on enabling computers to understand, interpret, and generate human language.
+
+## Examples of NLP applications
+
+![](img/annotation-image.png)
+
+## Key challenges in NLP
+
+- **Ambiguity**: words can have multiple meanings and meaning depends on previous words/sentences
+  - I had toast with _jam_ vs We got stuck in a traffic _jam_.
+  - If the **baby** does not thrive on raw **milk**, boil **it**.  
+- **Structure**: syntax and grammar vary widely
+  - Time flies like an arrow vs Fruit flies like a banana.   
+- **World knowledge**: understanding beyond text
+  - Olive oil: oil **made from** olives 
+  - Baby oil: oil **made for** babies 
+
+## Goal of this lecture
+
+NLP is a broad field. In this lecture I'll give you a high-level introduction to 
+
+- Topic Modeling
+- Word embeddings 
+- Language models and large language models 
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_17-natural-language-processing.ipynb)
+
+## Reflection
+
+- Where do you see NLP being used in your field?
+- What are the risks of relying too heavily on automated language systems?
+
+<br><br><br><br>
