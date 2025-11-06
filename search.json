@@ -1138,7 +1138,7 @@
     "href": "slides/slides-17-natural-language-processing.html#which-metric-in-what-context",
     "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
     "section": "Which metric in what context?",
-    "text": "Which metric in what context?\n\n\nGiven a query vector “Query” in the picture below and the three item vectors, determine the ranking of the items for the three similarity measures below:\n\n\n\nExample: Similarity based on Euclidean distance: item B &gt; item C &gt; item A\nSimilarity based on dot product:\nCosine similarity: ?\n\n\nAdapted from here."
+    "text": "Which metric in what context?\n\n\nGiven a query vector “Query” in the picture below and the three item vectors, determine the ranking of the items for the three similarity measures below:\n\n\n\nExample: Similarity based on Euclidean distance: item B &gt; item C &gt; item A \nSimilarity based on dot product: ?\n\n- Cosine similarity: ?\n\nAdapted from here."
   },
   {
     "objectID": "slides/slides-17-natural-language-processing.html#what-is-nlp",
@@ -1167,13 +1167,6 @@
     "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
     "section": "Goal of this lecture",
     "text": "Goal of this lecture\nNLP is a broad field. In this lecture I’ll give you a high-level introduction to\n\nTopic Modeling\nWord embeddings\nLanguage models and large language models"
-  },
-  {
-    "objectID": "slides/slides-17-natural-language-processing.html#reflection",
-    "href": "slides/slides-17-natural-language-processing.html#reflection",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "Reflection",
-    "text": "Reflection\n\nWhere do you see NLP being used in your field?\nWhat are the risks of relying too heavily on automated language systems?"
   },
   {
     "objectID": "slides/slides-03-ml-fundamentals.html#announcements",

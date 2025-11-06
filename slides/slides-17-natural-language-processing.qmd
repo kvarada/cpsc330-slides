@@ -108,11 +108,11 @@ Given a query vector "Query" in the picture below and the three item vectors, de
 <img src="img/distance-metrics.png" alt="" height="400" width="500"> 
 :::
 ::: {.column width="50%"}
-- **Example: Similarity based on Euclidean distance: item B > item C > item A**
+- Example: Similarity based on Euclidean distance: item B > item C > item A
+<br><br>
+- **Similarity based on dot product: ?**
   
-- Similarity based on dot product:   
-  
-- Cosine similarity: ? 
+**- Cosine similarity: ?** 
 
 <br><br>
 
@@ -153,10 +153,5 @@ NLP is a broad field. In this lecture I'll give you a high-level introduction to
 - Language models and large language models 
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_17-natural-language-processing.ipynb)
-
-## Reflection
-
-- Where do you see NLP being used in your field?
-- What are the risks of relying too heavily on automated language systems?
 
 <br><br><br><br>
