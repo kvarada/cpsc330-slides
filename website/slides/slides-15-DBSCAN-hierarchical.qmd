@@ -80,11 +80,12 @@ pd.set_option("display.max_colwidth", 0)
 - (C) Scaling of input features is crucial in clustering.  
 - (D) In clustering, it's almost always a good idea to find equal-sized clusters. 
 
-# K-means Limitations {.smaller}
+# K-means limitations {.smaller}
 
 ## Shape of clusters
 - Good for spherical clusters of more or less equal sizes 
-![](img/kmeans_boundaries.png)
+
+![](img/kmeans_boundaries.png){.nostretch fig-align="center" width="500px"}
 
 ## K-Means: failure case 1
 
@@ -140,7 +141,7 @@ In order to identify dense regions, we need two hyperparameters:
 - `min_samples`: determines the number of **neighbouring points** we require to consider in order for a point to be part of a cluster
 
 
-## DBSCAN Analogy {.smaller}
+## DBSCAN analogy {.smaller}
 :::: {.columns}
 ::: {.column width="60%"}
 
@@ -177,6 +178,39 @@ Consider DBSCAN in a social context:
 - Once there are no more core points left to spread the colour, pick a new unlabeled point $p$ and repeat the process.
 :::
 ::::
+
+## 🧩 Human DBSCAN activity
+
+### Goal
+Experience how **$\epsilon$ (eps)** and **min_samples** affect what counts as a cluster.
+
+
+## Setup
+
+- Each student = one **data point**
+- Distance (eps) = **arm’s length (~1 m)**
+- Each gets a **sticky note** to mark cluster ID and a **marker** (colour)
+- Start from a random student: check whos within $\epsilon$
+
+
+## Two parallel runs
+
+| Side of Class | $\epsilon$ (eps) | min_samples | Expected Outcome |
+|:---------------|:--------|:-------------|:-----------------|
+| **Left side**  | ~1 m (arm’s length) | 5 | Moderate clusters; Some isolated ones become **noise points**. |
+| **Right side** | ~1 m (arm’s length) | 15 | Few or no clusters; the density requirement is high. Many **noise points**. |
+
+## How to play
+1. Pick a **starting student**.
+2. Count how many of your neighbours are within $\epsilon$ distance.
+3. If you have **≥ min_samples**, you are a **core point** $\rightarrow$ start spreading your colour.
+4. Neighbours who receive a colour but aren't core are **border points**.
+5. Students who never receive a colour are **noise points**.
+
+## After the activity
+- Which side formed **more clusters**?
+- What happened when **min_samples** was too high?
+- Why doesn't DBSCAN need to know the number of clusters $k$?
 
 ## How to tune `eps` and `min_samples`?
 
