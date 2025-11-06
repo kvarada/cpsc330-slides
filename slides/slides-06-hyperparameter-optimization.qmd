@@ -9,7 +9,7 @@ format:
     slide-number: true
     smaller: true
     center: true
-    logo: img/mds-hex-sticker.png
+    logo: img/UBC-CS-logo.png
     resources:
       - data/
       - img/  
