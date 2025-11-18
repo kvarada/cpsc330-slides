@@ -29,6 +29,10 @@ import matplotlib.image as mpimg
 %matplotlib inline
 ```
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
 ## Announcements
 
 - HW7 was due yesterday 
