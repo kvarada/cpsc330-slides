@@ -477,20 +477,83 @@ Varada Kolhatkar
 </ul>
 <p><strong>Goal: assign each example to exactly one of <span class="math inline">\(K\)</span> possible classes.</strong></p>
 </section>
-<section id="how-to-handle-multiple-classes" class="slide level2 center">
+<section id="how-to-handle-multiple-classes" class="slide level2 smaller center">
 <h2>How to handle multiple classes?</h2>
 <p>Consider this dataset with multiple classes.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a></span>
-<span id="cb1-2"><a></a>train_df[<span class="st">"target"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a>target</span>
-<span id="cb1-5"><a></a>affection           <span class="fl">0.342571</span></span>
-<span id="cb1-6"><a></a>achievement         <span class="fl">0.300799</span></span>
-<span id="cb1-7"><a></a>bonding             <span class="fl">0.127238</span></span>
-<span id="cb1-8"><a></a>enjoy_the_moment    <span class="fl">0.105694</span></span>
-<span id="cb1-9"><a></a>leisure             <span class="fl">0.090927</span></span>
-<span id="cb1-10"><a></a>nature              <span class="fl">0.018307</span></span>
-<span id="cb1-11"><a></a>exercise            <span class="fl">0.014463</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a5ac61cc" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">original_hm</th>
+<th data-quarto-table-cell-role="th">target</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Meeting up with my nephew and niece at my brot...</td>
+<td>affection</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>The prospect of weekend coming as it is Friday...</td>
+<td>leisure</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>We bought a new rug for our family room.</td>
+<td>achievement</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>We got a big federal and state tax refund. I w...</td>
+<td>achievement</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>I'm leaving work an hour early today!</td>
+<td>enjoy_the_moment</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="section" class="slide level2 center">
+<h2></h2>
+<div id="6ced738c" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>hdb_df[<span class="st">"target"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>target
+affection           0.3415
+achievement         0.3043
+bonding             0.1240
+enjoy_the_moment    0.1036
+leisure             0.0933
+nature              0.0182
+exercise            0.0151
+Name: proportion, dtype: float64</code></pre>
+</div>
+</div>
 <ul>
 <li>❓ Can we use Decision Trees or KNNs for multiclass classification without any significant modifications?</li>
 </ul>
@@ -705,11 +768,11 @@ The predicted class <span class="math inline">\(\hat{y}\)</span> is:<br>
 <h2>A graphical view of a linear model</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<div id="979fd33e" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="4d0ef8d0" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-3-output-1.svg"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-5-output-1.svg"></p>
 </figure>
 </div>
 </div>
@@ -735,7 +798,7 @@ The predicted class <span class="math inline">\(\hat{y}\)</span> is:<br>
 <li>The <strong>hidden units</strong> (e.g., h[1], h[2], …) represent the intermediate processing steps.</li>
 </ul>
 
-<img data-src="slides-18-computer-vision_files/figure-revealjs/cell-4-output-1.svg" class="r-stretch"></section>
+<img data-src="slides-18-computer-vision_files/figure-revealjs/cell-6-output-1.svg" class="r-stretch"></section>
 <section id="one-more-layer-of-transformations" class="slide level2 center">
 <h2>One more layer of transformations</h2>
 <p><br>
@@ -744,7 +807,7 @@ The predicted class <span class="math inline">\(\hat{y}\)</span> is:<br>
 <li>Now we are adding one more layer of transformations.</li>
 </ul>
 
-<img data-src="slides-18-computer-vision_files/figure-revealjs/cell-5-output-1.svg" class="r-stretch"></section>
+<img data-src="slides-18-computer-vision_files/figure-revealjs/cell-7-output-1.svg" class="r-stretch"></section>
 <section id="neural-networks-1" class="slide level2 smaller center">
 <h2>Neural networks</h2>
 <p><br>
@@ -933,11 +996,11 @@ Feed the input through the network to calculate the predicted output using the c
 <li>Let’s predict labels with associated probabilities for unseen images</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="fbe301e4" class="cell" data-execution_count="5">
+<div id="b647e8bf" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-6-output-1.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-8-output-1.png"></p>
 </figure>
 </div>
 </div>
@@ -952,7 +1015,7 @@ Pembroke, Pembroke Welsh corgi              0.046
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-6-output-3.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-8-output-3.png"></p>
 </figure>
 </div>
 </div>
@@ -967,7 +1030,7 @@ jaguar, panther, Panthera onca, Felis onca              0.004
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-6-output-5.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-8-output-5.png"></p>
 </figure>
 </div>
 </div>
@@ -982,7 +1045,7 @@ patas, hussar monkey, Erythrocebus patas              0.122
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-6-output-7.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-8-output-7.png"></p>
 </figure>
 </div>
 </div>
@@ -1020,11 +1083,11 @@ Walker hound, Walker foxhound              0.580
 <li>It’s not doing very well here because ImageNet doesn’t have proper classes for these images.</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="54505367" class="cell" data-execution_count="6">
+<div id="e0602add" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-7-output-1.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-9-output-1.png"></p>
 </figure>
 </div>
 </div>
@@ -1039,7 +1102,7 @@ cucumber, cuke              0.146
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-7-output-3.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-9-output-3.png"></p>
 </figure>
 </div>
 </div>
@@ -1054,7 +1117,7 @@ grocery store, grocery, food market, market              0.041
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-7-output-5.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-9-output-5.png"></p>
 </figure>
 </div>
 </div>
@@ -1069,7 +1132,7 @@ bannister, banister, balustrade, balusters, handrail              0.039
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-7-output-7.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-9-output-7.png"></p>
 </figure>
 </div>
 </div>
@@ -1084,7 +1147,7 @@ saltshaker, salt shaker              0.047
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-7-output-9.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-9-output-9.png"></p>
 </figure>
 </div>
 </div>
@@ -1099,7 +1162,7 @@ frying pan, frypan, skillet              0.001
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-7-output-11.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-9-output-11.png"></p>
 </figure>
 </div>
 </div>
@@ -1162,11 +1225,11 @@ lakeside, lakeshore              0.097
 </p>
 <p>Let’s look at some sample images in the dataset.</p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="58e66a16" class="cell" data-execution_count="7">
+<div id="6fe2279c" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-8-output-1.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-10-output-1.png"></p>
 </figure>
 </div>
 </div>
@@ -1178,7 +1241,7 @@ lakeside, lakeshore              0.097
 <p><br>
 </p>
 <p>Here is the stat of our toy dataset.</p>
-<div id="f0bd73e5" class="cell" data-execution_count="8">
+<div id="6d48f493" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>Classes: ['beet_salad', 'chocolate_cake', 'edamame', 'french_fries', 'pizza', 'spring_rolls', 'sushi']
 Class count: 40, 38, 40
@@ -1202,8 +1265,8 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <ul>
 <li>Now we have extracted feature vectors for all examples. What’s the shape of these features?</li>
 </ul>
-<div id="9133b4a3" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="188bf334" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>torch.Size([283, 1024])</code></pre>
 </div>
 </div>
@@ -1223,8 +1286,8 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <ul>
 <li>Let’s examine the feature vectors.</li>
 </ul>
-<div id="541acdb9" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="5236545e" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -1406,12 +1469,12 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <ul>
 <li>Let’s try out logistic regression on these extracted features.</li>
 </ul>
-<div id="cd14e8e9" class="cell" data-execution_count="12">
+<div id="9bb82e2f" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-stdout">
 <pre><code>Training score:  1.0</code></pre>
 </div>
 </div>
-<div id="14b1891e" class="cell" data-execution_count="13">
+<div id="732ab4f4" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-stdout">
 <pre><code>Validation score:  0.835820895522388</code></pre>
 </div>
@@ -1426,11 +1489,11 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 </p>
 <p>Let’s examine some sample predictions on the validation set.</p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="0de3f1f2" class="cell" data-execution_count="14">
+<div id="9cb87b8d" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-15-output-1.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-17-output-1.png"></p>
 </figure>
 </div>
 </div>
@@ -1457,21 +1520,21 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <p><br>
 </p>
 <p>Let’s try this out using a pre-trained model.</p>
-<div id="92d51047" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a><span class="im">from</span> ultralytics <span class="im">import</span> YOLO</span>
-<span id="cb16-2"><a></a>model <span class="op">=</span> YOLO(<span class="st">"yolov8n.pt"</span>)  <span class="co"># pretrained YOLOv8n model</span></span>
-<span id="cb16-3"><a></a></span>
-<span id="cb16-4"><a></a>yolo_input <span class="op">=</span> <span class="st">"data/yolo_test/3356700488_183566145b.jpg"</span></span>
-<span id="cb16-5"><a></a>yolo_result <span class="op">=</span> <span class="st">"data/yolo_result.jpg"</span></span>
-<span id="cb16-6"><a></a><span class="co"># Run batched inference on a list of images</span></span>
-<span id="cb16-7"><a></a>result <span class="op">=</span> model(yolo_input)  <span class="co"># return a list of Results objects</span></span>
-<span id="cb16-8"><a></a>result[<span class="dv">0</span>].save(filename<span class="op">=</span>yolo_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="83395842" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="im">from</span> ultralytics <span class="im">import</span> YOLO</span>
+<span id="cb17-2"><a></a>model <span class="op">=</span> YOLO(<span class="st">"yolov8n.pt"</span>)  <span class="co"># pretrained YOLOv8n model</span></span>
+<span id="cb17-3"><a></a></span>
+<span id="cb17-4"><a></a>yolo_input <span class="op">=</span> <span class="st">"data/yolo_test/3356700488_183566145b.jpg"</span></span>
+<span id="cb17-5"><a></a>yolo_result <span class="op">=</span> <span class="st">"data/yolo_result.jpg"</span></span>
+<span id="cb17-6"><a></a><span class="co"># Run batched inference on a list of images</span></span>
+<span id="cb17-7"><a></a>result <span class="op">=</span> model(yolo_input)  <span class="co"># return a list of Results objects</span></span>
+<span id="cb17-8"><a></a>result[<span class="dv">0</span>].save(filename<span class="op">=</span>yolo_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-image 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 61.9ms
-Speed: 2.4ms preprocess, 61.9ms inference, 7.8ms postprocess per image at shape (1, 3, 512, 640)</code></pre>
+image 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 72.1ms
+Speed: 3.0ms preprocess, 72.1ms inference, 12.3ms postprocess per image at shape (1, 3, 512, 640)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>'data/yolo_result.jpg'</code></pre>
 </div>
 </div>
@@ -1481,11 +1544,11 @@ Speed: 2.4ms preprocess, 61.9ms inference, 7.8ms postprocess per image at shape 
 <p><br>
 </p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="626ff733" class="cell" data-execution_count="16">
+<div id="9869fb18" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-17-output-1.png"></p>
+<p><img data-src="slides-18-computer-vision_files/figure-revealjs/cell-19-output-1.png"></p>
 </figure>
 </div>
 </div>

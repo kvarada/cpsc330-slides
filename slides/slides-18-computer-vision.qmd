@@ -68,22 +68,20 @@ import matplotlib.image as mpimg
 
 **Goal: assign each example to exactly one of $K$ possible classes.**
 
-## How to handle multiple classes? 
+## How to handle multiple classes? {.smaller}
 
 Consider this dataset with multiple classes. 
 
-```python
+```{python} 
+hdb_df = pd.read_csv("data/cleaned_hm_10K_subset.csv")
+hdb_df.head()
+```
 
-train_df["target"].value_counts(normalize=True)
+## 
 
-target
-affection           0.342571
-achievement         0.300799
-bonding             0.127238
-enjoy_the_moment    0.105694
-leisure             0.090927
-nature              0.018307
-exercise            0.014463
+```{python}
+#| echo: true
+hdb_df["target"].value_counts(normalize=True)
 ```
 
 - ❓ Can we use Decision Trees or KNNs for multiclass classification without any significant modifications?
