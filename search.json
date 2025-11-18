@@ -1320,21 +1320,33 @@
     "href": "lecture-18.html",
     "title": "Lecture 18: Introduction to computer vision",
     "section": "",
-    "text": "View slides in full screen"
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 18: Introduction to computer vision"
+    ]
   },
   {
     "objectID": "lecture-18.html#slides",
     "href": "lecture-18.html#slides",
     "title": "Lecture 18: Introduction to computer vision",
     "section": "",
-    "text": "View slides in full screen"
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 18: Introduction to computer vision"
+    ]
   },
   {
     "objectID": "lecture-18.html#outline",
     "href": "lecture-18.html#outline",
     "title": "Lecture 18: Introduction to computer vision",
     "section": "Outline",
-    "text": "Outline\n\nMulticlass classification\nIntroduction to deep learning\nTransfer learning"
+    "text": "Outline\n\nMulticlass classification\nIntroduction to deep learning\nTransfer learning",
+    "crumbs": [
+      "Lectures",
+      "Lecture 18: Introduction to computer vision"
+    ]
   },
   {
     "objectID": "lecture-16.html",
@@ -2850,21 +2862,33 @@
     "href": "lecture-17.html",
     "title": "Lecture 17: Natural Language Processing",
     "section": "",
-    "text": "View slides in full screen"
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 17: Natural Language Processing"
+    ]
   },
   {
     "objectID": "lecture-17.html#slides",
     "href": "lecture-17.html#slides",
     "title": "Lecture 17: Natural Language Processing",
     "section": "",
-    "text": "View slides in full screen"
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 17: Natural Language Processing"
+    ]
   },
   {
     "objectID": "lecture-17.html#outline",
     "href": "lecture-17.html#outline",
     "title": "Lecture 17: Natural Language Processing",
     "section": "Outline",
-    "text": "Outline\n\nWord embeddings\nTopic modeling\nText preprocessing"
+    "text": "Outline\n\nWord embeddings\nTopic modeling\nText preprocessing",
+    "crumbs": [
+      "Lectures",
+      "Lecture 17: Natural Language Processing"
+    ]
   },
   {
     "objectID": "slides/slides-03-ml-fundamentals.html#announcements",
