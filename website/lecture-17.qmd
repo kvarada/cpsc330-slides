@@ -1,0 +1,17 @@
+---
+title: "Lecture 17: Natural Language Processing"
+description: ""
+description-short: ""
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-17-natural-language-processing.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+- Word embeddings
+- Topic modeling
+- Text preprocessing
