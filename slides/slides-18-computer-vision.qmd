@@ -191,7 +191,7 @@ Neural Networks](https://dl.acm.org/doi/10.1145/3065386)
 ## A graphical view of a linear model
 :::: {.columns}
 
-:::{.column width="30%"}
+:::{.column width="20%"}
 ```{python}
 import mglearn
 
@@ -199,7 +199,7 @@ mglearn.plots.plot_logistic_regression_graph()
 ```
 :::
 
-:::{.column width="70%"}
+:::{.column width="80%"}
 - Remember this graphical view of linear models? 
 - We have 4 features: x[0], x[1], x[2], x[3]
 - The output is calculated as $y = x[0]w[0] + x[1]w[1] + x[2]w[2] + x[3]w[3]$
@@ -208,7 +208,7 @@ mglearn.plots.plot_logistic_regression_graph()
 ::::
 
 
-## Introduction to neural networks
+## Introduction to neural networks {.smaller}
 \
 
 - Neural networks can be viewed a generalization of linear models where we apply a series of transformations.

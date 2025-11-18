@@ -480,7 +480,7 @@ Varada Kolhatkar
 <section id="how-to-handle-multiple-classes" class="slide level2 smaller center">
 <h2>How to handle multiple classes?</h2>
 <p>Consider this dataset with multiple classes.</p>
-<div id="a5ac61cc" class="cell" data-execution_count="2">
+<div id="22f97493" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 <style scoped="">
@@ -540,7 +540,7 @@ Varada Kolhatkar
 </section>
 <section id="section" class="slide level2 center">
 <h2></h2>
-<div id="6ced738c" class="cell" data-execution_count="3">
+<div id="408ae795" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>hdb_df[<span class="st">"target"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>target
@@ -767,8 +767,8 @@ The predicted class <span class="math inline">\(\hat{y}\)</span> is:<br>
 <section id="a-graphical-view-of-a-linear-model" class="slide level2 center">
 <h2>A graphical view of a linear model</h2>
 <div class="columns">
-<div class="column" style="width:30%;">
-<div id="4d0ef8d0" class="cell" data-execution_count="4">
+<div class="column" style="width:20%;">
+<div id="a9227584" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure>
@@ -777,7 +777,7 @@ The predicted class <span class="math inline">\(\hat{y}\)</span> is:<br>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:70%;">
+</div><div class="column" style="width:80%;">
 <ul>
 <li>Remember this graphical view of linear models?</li>
 <li>We have 4 features: x[0], x[1], x[2], x[3]</li>
@@ -786,7 +786,7 @@ The predicted class <span class="math inline">\(\hat{y}\)</span> is:<br>
 </ul>
 </div></div>
 </section>
-<section id="introduction-to-neural-networks" class="slide level2 center">
+<section id="introduction-to-neural-networks" class="slide level2 smaller center">
 <h2>Introduction to neural networks</h2>
 <p><br>
 </p>
@@ -996,7 +996,7 @@ Feed the input through the network to calculate the predicted output using the c
 <li>Let’s predict labels with associated probabilities for unseen images</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="b647e8bf" class="cell" data-execution_count="7">
+<div id="3e297cef" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1083,7 +1083,7 @@ Walker hound, Walker foxhound              0.580
 <li>It’s not doing very well here because ImageNet doesn’t have proper classes for these images.</li>
 </ul>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="e0602add" class="cell" data-execution_count="8">
+<div id="7d8b87e4" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1225,7 +1225,7 @@ lakeside, lakeshore              0.097
 </p>
 <p>Let’s look at some sample images in the dataset.</p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="6fe2279c" class="cell" data-execution_count="9">
+<div id="e5c210db" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1241,7 +1241,7 @@ lakeside, lakeshore              0.097
 <p><br>
 </p>
 <p>Here is the stat of our toy dataset.</p>
-<div id="6d48f493" class="cell" data-execution_count="10">
+<div id="1f050b15" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>Classes: ['beet_salad', 'chocolate_cake', 'edamame', 'french_fries', 'pizza', 'spring_rolls', 'sushi']
 Class count: 40, 38, 40
@@ -1265,7 +1265,7 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <ul>
 <li>Now we have extracted feature vectors for all examples. What’s the shape of these features?</li>
 </ul>
-<div id="188bf334" class="cell" data-execution_count="12">
+<div id="7fd3d7e6" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>torch.Size([283, 1024])</code></pre>
 </div>
@@ -1286,7 +1286,7 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <ul>
 <li>Let’s examine the feature vectors.</li>
 </ul>
-<div id="5236545e" class="cell" data-execution_count="13">
+<div id="e71df2c8" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <style scoped="">
@@ -1469,12 +1469,12 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <ul>
 <li>Let’s try out logistic regression on these extracted features.</li>
 </ul>
-<div id="9bb82e2f" class="cell" data-execution_count="14">
+<div id="9852add6" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-stdout">
 <pre><code>Training score:  1.0</code></pre>
 </div>
 </div>
-<div id="732ab4f4" class="cell" data-execution_count="15">
+<div id="8e6c843f" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-stdout">
 <pre><code>Validation score:  0.835820895522388</code></pre>
 </div>
@@ -1489,7 +1489,7 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 </p>
 <p>Let’s examine some sample predictions on the validation set.</p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="9cb87b8d" class="cell" data-execution_count="16">
+<div id="b3d657e5" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1520,7 +1520,7 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <p><br>
 </p>
 <p>Let’s try this out using a pre-trained model.</p>
-<div id="83395842" class="cell" data-execution_count="17">
+<div id="ad4d338b" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="im">from</span> ultralytics <span class="im">import</span> YOLO</span>
 <span id="cb17-2"><a></a>model <span class="op">=</span> YOLO(<span class="st">"yolov8n.pt"</span>)  <span class="co"># pretrained YOLOv8n model</span></span>
 <span id="cb17-3"><a></a></span>
@@ -1531,8 +1531,8 @@ First sample: ('data/food/train/beet_salad/104294.jpg', 0)</code></pre>
 <span id="cb17-8"><a></a>result[<span class="dv">0</span>].save(filename<span class="op">=</span>yolo_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-image 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 72.1ms
-Speed: 3.0ms preprocess, 72.1ms inference, 12.3ms postprocess per image at shape (1, 3, 512, 640)</code></pre>
+image 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 55.6ms
+Speed: 2.6ms preprocess, 55.6ms inference, 3.4ms postprocess per image at shape (1, 3, 512, 640)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>'data/yolo_result.jpg'</code></pre>
@@ -1544,7 +1544,7 @@ Speed: 3.0ms preprocess, 72.1ms inference, 12.3ms postprocess per image at shape
 <p><br>
 </p>
 <div class="scroll-container" style="overflow-y: scroll; height: 400px;">
-<div id="9869fb18" class="cell" data-execution_count="18">
+<div id="3303cb4b" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
