@@ -1,0 +1,29 @@
+---
+title: "CPSC 330 Lecture 19: Time series"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      html-math-method: mathjax    
+      embed-resources: true
+      slide-number: true
+      smaller: true
+      center: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+
+## Announcements
+
+- HW8 has been released (due next week Monday)
+  - Almost there! Hang in there 😊
+- Midterm 2 grading is in progress. 
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20_time-series.ipynb) 
+
