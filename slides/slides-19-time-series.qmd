@@ -1,0 +1,296 @@
+---
+title: "CPSC 330 Lecture 19: Time series"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      html-math-method: mathjax    
+      embed-resources: true
+      slide-number: true
+      center: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+```{python}
+import matplotlib.pyplot as plt
+import os, sys
+import numpy as np
+import pandas as pd
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from time_series_code import *
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import (
+    TimeSeriesSplit,
+    cross_val_score,
+    cross_validate,
+    train_test_split,
+)
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
+
+from datetime import datetime
+
+DATA_DIR = os.path.join(os.path.abspath(".."), "data/")
+```
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements
+
+- HW8 has been released (due next week Monday)
+  - Almost there! You’ve got this! 😊
+- Midterm 2 grading is in progress. 
+
+## Recap: iClicker questions {.smaller}
+- (A) In multinomial logistic regression, the model learns a separate weight vector and bias for each class.
+- (B) Neural networks are powerful models, so it's usually a good idea to start with them on any new machine learning problem.
+- (C) The main reason we add hidden layers is to allow the model to learn increasingly complex representations.
+- (D) Convolutional neural networks (CNNs) use filters that slide over the image to detect local patterns.
+- (E) Using a pre-trained network as a feature extractor typically requires less data than training a deep network from scratch.
+
+## Today's lecture goals
+- What is time series? 
+- How do we know a problem is a time series problem?
+- Why do standard ML models struggle with time-dependent data?
+- How can we adapt ML models to handle time series?
+
+## What type of model would be appropriate? {.smaller}
+
+| Scenario |  Model/Method |
+|-------------------------------------------------------|-------|
+| You have user–item ratings (e.g., movie ratings) and want to predict missing ratings. | ? |
+| You have a collection of documents without any labels and want to group them into themes. | ? |
+| You want to classify the emotion of a set of text messages, but you do not have any labeled data. | ? |
+| You have a small dataset with ~500 images containing pictures and names of 20 different Computer Science faculty members from UBC. Your goal is to develop a reasonably accurate multi-class classification model for this task.| ? |
+
+## Loan default prediction (tabular data) {.smaller}
+
+You work for a financial institution and have a dataset where each row represents a customer applying for a loan. What type of model would you use? 
+
+| customer_id | income_k | credit_utilization | late_payments | employment_length | employment_type | home_ownership | loan_purpose        | default |
+|-------------|----------|--------------------|---------------|-------------------|-----------------|----------------|---------------------|---------|
+| 1           | 95       | 22                 | 0             | 9                 | salaried        | mortgage       | home_improvement    | 0       |
+| 2           | 45       | 78                 | 3             | 2                 | contract        | rent           | debt_consolidation  | 1       |
+| 3           | 120      | 30                 | 1             | 7                 | salaried        | own            | car                 | 0       |
+| 4           | 60       | 65                 | 2             | 3                 | self_employed   | rent           | debt_consolidation  | 1       |
+| 5           | 85       | 40                 | 0             | 10                | salaried        | mortgage       | education           | 0       |
+| 6           | 55       | 90                 | 4             | 1                 | contract        | rent           | debt_consolidation  | 1       |
+| 7           | 130      | 28                 | 0             | 6                 | salaried        | own            | car                 | 0       |
+| 8           | 40       | 82                 | 2             | 1                 | self_employed   | rent           | debt_consolidation  | 1       |
+
+- Rows are independent $\rightarrow$ order does not matter $\rightarrow$ time does not matter
+
+## citibike dataset
+
+- You have bike rental counts every three hours for one station in New York City over a month. You want to predict demand for the **next** three-hour period.  
+
+:::: {.columns}
+
+:::{.column width="40%"}
+```{python}
+import mglearn
+
+citibike = mglearn.datasets.load_citibike()
+citibike.head(20)
+```
+:::
+
+:::{.column width="60%"}
+![](img/citibike.jpg)
+:::
+::::
+
+## citibike data
+
+:::: {.columns}
+
+:::{.column width="40%"}
+```{python}
+import mglearn
+
+citibike = mglearn.datasets.load_citibike()
+citibike.head(20)
+```
+:::
+
+:::{.column width="60%"}
+- Only feature: datetime (e.g., 2015-08-01 00:00:00)
+- The data is collected at regular intervals (every three hours) 
+- Target: rentals in the next 3-hour period (e.g., 9 rentals between 2015-08-01 06:00:00 and 2015-08-01 09:00:00) 
+- Goal: Given past rental counts, predict the number of rentals at a specific future time.
+:::
+::::
+
+**Using only the tools in your current toolbox, what model would you choose, and what challenges might you run into?**
+
+
+
+## Why different treatement?
+
+:::: {.columns}
+
+:::{.column width="40%"}
+```{python}
+import mglearn
+
+citibike = mglearn.datasets.load_citibike()
+citibike.head(20)
+```
+:::
+:::{.column width="60%"}
+- This type of data is distinctive because it is inherently sequential, with an intrinsic order based on time.
+- The number of bikes available at a station at one point in time is often related to the number of bikes at earlier times. 
+- This is a **time-series forecasting** problem.
+:::
+::::
+
+ML models do not have a built-in concept of time. We have to give it to them.
+
+## citibike data visualization
+
+```{python}
+print("Start date:", citibike.index.min())
+print("End date:", citibike.index.max())
+
+plt.figure(figsize=(12, 5))
+xticks = pd.date_range(start=citibike.index.min(), end=citibike.index.max(), freq="D")
+plt.xticks(xticks, xticks.strftime("%a %m-%d"), rotation=90, ha="left")
+plt.plot(citibike, linewidth=1)
+plt.xlabel("Date")
+plt.ylabel("Rentals");
+plt.title("Number of bike rentals over time for a selected bike station");
+```
+
+- Do you see any daily patterns? Weekly patterns? Noise? 
+
+## ⛔️ Incorrect data splitting
+
+```{python}
+#| echo: true
+train_df, test_df = train_test_split(citibike, test_size=0.2, random_state=123)
+print('Train largest date: ', train_df.index.max())
+print('Test smallest date: ', test_df.index.min())
+```
+```{python}
+plt.figure(figsize=(10, 3))
+train_df_sort = train_df.sort_index()
+test_df_sort = test_df.sort_index()
+
+plt.plot(train_df_sort, "b", label="train")
+plt.plot(test_df_sort, "r", label="test")
+plt.xticks(rotation="vertical")
+plt.legend();
+```
+
+⛔️ We should never train on the future to predict the past!
+
+## ✅ Correct data splitting
+
+In time series, the simplest split is: 
+
+- earlier data $\rightarrow$ training
+- later data $\rightarrow$ testing.
+
+```{python}
+#| echo: true
+
+n_train = 184
+train_df = citibike[:184]
+test_df = citibike[184:]
+```
+```{python}
+
+plt.figure(figsize=(12, 4))
+train_df_sort = train_df.sort_index()
+test_df_sort = test_df.sort_index()
+
+plt.plot(train_df_sort, "b", label="train")
+plt.plot(test_df_sort, "r", label="test")
+plt.xticks(rotation="vertical")
+plt.legend();
+```
+
+
+
+# Feature engineering for time series 
+
+## Motivation 
+
+- In this toy data, we just have a single feature: the date time feature. 
+- Note that ML models do not have a built-in concept of time. We have to give it to them.
+- We will explore different ways to extract informative features from time.
+
+## POSIX time feature
+- Let's start with our worst but simplest encoding. 
+- A common way that dates are stored on computers is using POSIX time, which is the number of seconds since January 1970 00:00:00 (this is beginning of Unix time). 
+- Let's start with encoding feature as a single integer representing this POSIX time. 
+
+```{python}
+#| echo: true
+# convert to POSIX time by dividing by 10**9
+X = (
+    citibike.index.astype("int64").values.reshape(-1, 1) // 10**9
+)  # convert to POSIX time by dividing by 10**9
+y = citibike.values
+X[:10]
+```
+
+## Random forest on posix features 
+
+
+```{python}
+#| echo: true
+regressor = RandomForestRegressor(n_estimators=100, random_state=0)
+eval_on_features(X, y, regressor, xticks, feat_names="POSIX time")
+```
+
+- The predictions on the training data and training score are pretty good 
+- But for the test data, a constant line is predicted ...
+- What's going on?
+
+## Trees cannot extrapolate! {.smaller}
+- Tree-based models (Decision Trees, Random Forests, Gradient Boosted Trees) only make predictions within the range of values they've seen during training.
+- They are excellent interpolators but terrible extrapolators because 
+  - Trees partition the feature space into fixed regions and predictions inside each region are averages of training labels.
+  - If your future timestamps are larger than the ones in the training set trees cannot "see beyond" the training range and they will flatline or behave unpredictably.
+
+This is exactly what happens with POSIX time encoded as a single numeric feature! 
+
+
+## Extracting date and time information
+
+- Note that our index is of this special type: [`DateTimeIndex`](https://pandas.pydata.org/docs/reference/api/pandas.DatetimeIndex.html). We can extract all kinds of interesting information from it.   
+
+```{python}
+#| echo: true
+print(citibike.index[0])
+print(citibike.index[0].month_name())
+print(citibike.index[0].dayofweek)
+print(citibike.index[0].hour)
+```
+
+## 
+- We noted before that the time of the day and day of the week seem quite important. 
+- Let's start with these two features. 
+
+```{python}
+#| echo: true
+X_hour = citibike.index.hour.values.reshape(-1, 1)
+X_hour[:10]
+regressor = RandomForestRegressor(n_estimators=100, random_state=0)
+eval_on_features(X_hour, y, regressor, xticks, feat_names="Hour of the day")
+```
+
+The scores are better when we add time of the day feature! 
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20_time-series.ipynb) 
+
+
