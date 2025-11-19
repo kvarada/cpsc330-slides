@@ -6,7 +6,6 @@ format:
       html-math-method: mathjax    
       embed-resources: true
       slide-number: true
-      smaller: true
       center: true
       logo: img/UBC-CS-logo.png
       resources:
@@ -14,10 +13,35 @@ format:
         - img/        
 ---
 
+```{python}
+import matplotlib.pyplot as plt
+import os, sys
+import numpy as np
+import pandas as pd
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from time_series_code import *
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import (
+    TimeSeriesSplit,
+    cross_val_score,
+    cross_validate,
+    train_test_split,
+)
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
+
+from datetime import datetime
+
+DATA_DIR = os.path.join(os.path.abspath(".."), "data/")
+```
+
 ## Focus on the breath!
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
-
 
 ## Announcements
 
@@ -25,5 +49,161 @@ format:
   - Almost there! Hang in there 😊
 - Midterm 2 grading is in progress. 
 
+## Recap: iClicker questions {.smaller}
+- (A) In multinomial logistic regression, the model learns a separate weight vector and bias for each class.
+- (B) Neural networks are powerful models, so it's usually a good idea to start with them on any new machine learning problem.
+- (C) The main reason we add hidden layers is to allow the model to learn increasingly complex representations.
+- (D) Convolutional neural networks (CNNs) use filters that slide over the image to detect local patterns.
+- (E) Using a pre-trained network as a feature extractor typically requires less data than training a deep network from scratch.
+
+## Today's lecture goals
+- What is time series? 
+- How to identify whether the given problem is a time series problem?   
+- 
+
+## What type of model would be appropriate? {.smaller}
+
+| Scenario |  Model/Method |
+|-------------------------------------------------------|-------|
+| You have a standard tabular dataset with numeric and categorical features, and you want a strong model. | ? |
+| You have user–item ratings (e.g., movie ratings) and want to predict missing ratings. | ? |
+| You have a collection of documents without any labels and want to group them into themes. | ? |
+| You want to classify the emotion of a set of text messages, but you do not have any labeled data. | ? |
+| You want to classify images of UBC CS professors into the correct person. | ? |
+
+## citibike dataset
+
+- You have bike rental counts every three hours for one station in New York City over a month. You want to predict demand for the **next** three-hour period.  
+
+:::: {.columns}
+
+:::{.column width="40%"}
+```{python}
+import mglearn
+
+citibike = mglearn.datasets.load_citibike()
+citibike.head(20)
+```
+:::
+
+:::{.column width="60%"}
+![](img/citibike.jpg)
+:::
+::::
+
+## citibike data
+
+:::: {.columns}
+
+:::{.column width="40%"}
+```{python}
+import mglearn
+
+citibike = mglearn.datasets.load_citibike()
+citibike.head(20)
+```
+:::
+
+:::{.column width="60%"}
+- The only feature we have is the date time feature: 2015-08-01 00:00:00
+- The data is collected at regular intervals (every three hours) 
+- The target is the number of rentals in the next 3 hours (9 rentals between 2015-08-01 06:00:00 and 2015-08-01 09:00:00)  
+:::
+::::
+
+**Using only the tools in your current toolbox, what model would you choose, and what challenges might you run into?**
+
+
+
+## Why different treatement?
+
+:::: {.columns}
+
+:::{.column width="40%"}
+```{python}
+import mglearn
+
+citibike = mglearn.datasets.load_citibike()
+citibike.head(20)
+```
+:::
+:::{.column width="60%"}
+- This type of data is distinctive because it is inherently sequential, with an intrinsic order based on time.
+- The number of bikes available at a station at one point in time is often related to the number of bikes at earlier times. 
+- This is a **time-series forecasting** problem.
+:::
+::::
+
+## citibike data visualization
+
+```{python}
+print("Start date:", citibike.index.min())
+print("End date:", citibike.index.max())
+
+plt.figure(figsize=(12, 4))
+xticks = pd.date_range(start=citibike.index.min(), end=citibike.index.max(), freq="D")
+plt.xticks(xticks, xticks.strftime("%a %m-%d"), rotation=90, ha="left")
+plt.plot(citibike, linewidth=1)
+plt.xlabel("Date")
+plt.ylabel("Rentals");
+plt.title("Number of bike rentals over time for a selected bike station");
+```
+
+## ⛔️ Incorrect data splitting
+
+```{python}
+#| echo: true
+train_df, test_df = train_test_split(citibike, test_size=0.2, random_state=123)
+print('Train largest date: ', train_df.index.max())
+print('Test smallest date: ', test_df.index.min())
+```
+```{python}
+plt.figure(figsize=(10, 3))
+train_df_sort = train_df.sort_index()
+test_df_sort = test_df.sort_index()
+
+plt.plot(train_df_sort, "b", label="train")
+plt.plot(test_df_sort, "r", label="test")
+plt.xticks(rotation="vertical")
+plt.legend();
+```
+
+- So, we are training on data that came after our test data!
+- ⛔️ If we want to forecast, **we aren't allowed to know what happened in the future**!
+
+## ✅ Proper data splitting
+
+```{python}
+#| echo: true
+
+n_train = 184
+train_df = citibike[:184]
+test_df = citibike[184:]
+```
+```{python}
+
+plt.figure(figsize=(12, 4))
+train_df_sort = train_df.sort_index()
+test_df_sort = test_df.sort_index()
+
+plt.plot(train_df_sort, "b", label="train")
+plt.plot(test_df_sort, "r", label="test")
+plt.xticks(rotation="vertical")
+plt.legend();
+```
+
+# Feature engineering for time series 
+
+## POSIX time feature
+
+```{python}
+X = (
+    citibike.index.astype("int64").values.reshape(-1, 1) // 10 ** 9
+)  # convert to POSIX time by dividing by 10**9
+y = citibike.values
+
+```
+
 # [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20_time-series.ipynb) 
+
 
