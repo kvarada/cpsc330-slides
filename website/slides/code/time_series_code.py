@@ -14,7 +14,6 @@ from sklearn.model_selection import (
     cross_validate,
     train_test_split,
 )
-from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 
 plt.rcParams["font.size"] = 12
@@ -25,15 +24,26 @@ DATA_DIR = os.path.join(os.path.abspath(".."), "data/")
 # Code credit: Adapted from 
 # https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/
 
-def eval_on_features(features, target, regressor, n_train=184, sales_data=False, 
-                     ylabel='Rentals', 
-                     feat_names="Default", 
-                     impute=True):
+# Code credit: Adapted from
+# https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/
+
+
+def eval_on_features(
+    features,
+    target,
+    regressor,
+    xticks = None,
+    n_train=184,
+    sales_data=False,
+    ylabel="Rentals",
+    feat_names="Default",
+    impute=True,
+):
     """
     Evaluate a regression model on a given set of features and target.
 
-    This function splits the data into training and test sets, fits the 
-    regression model to the training data, and then evaluates and plots 
+    This function splits the data into training and test sets, fits the
+    regression model to the training data, and then evaluates and plots
     the performance of the model on both the training and test datasets.
 
     Parameters:
@@ -70,7 +80,7 @@ def eval_on_features(features, target, regressor, n_train=184, sales_data=False,
         simp = SimpleImputer()
         X_train = simp.fit_transform(X_train)
         X_test = simp.transform(X_test)
-    
+
     # Fit the model on the training data
     regressor.fit(X_train, y_train)
 
@@ -85,15 +95,22 @@ def eval_on_features(features, target, regressor, n_train=184, sales_data=False,
     # Plotting
     plt.figure(figsize=(10, 3))
 
-    # If not sales data, adjust x-ticks for dates (assumes datetime format)
-    if not sales_data: 
-        plt.xticks(range(0, len(X), 8), xticks.strftime("%a %m-%d"), rotation=90, ha="left")
+    # # If not sales data, adjust x-ticks for dates (assumes datetime format)
+    if not sales_data:
+        plt.xticks(
+            range(0, len(features), 8),
+            xticks.strftime("%a %m-%d"),
+            rotation=90,
+            ha="left",
+        )
 
     # Plot training and test data, along with predictions
     plt.plot(range(n_train), y_train, label="train")
     plt.plot(range(n_train, len(y_test) + n_train), y_test, "-", label="test")
     plt.plot(range(n_train), y_pred_train, "--", label="prediction train")
-    plt.plot(range(n_train, len(y_test) + n_train), y_pred, "--", label="prediction test")
+    plt.plot(
+        range(n_train, len(y_test) + n_train), y_pred, "--", label="prediction test"
+    )
 
     # Set plot title, labels, and legend
     title = regressor.__class__.__name__ + "\n Features= " + feat_names
