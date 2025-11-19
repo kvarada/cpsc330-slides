@@ -29,6 +29,10 @@ import matplotlib.image as mpimg
 %matplotlib inline
 ```
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
 ## Announcements
 
 - HW7 was due yesterday 
@@ -68,22 +72,20 @@ import matplotlib.image as mpimg
 
 **Goal: assign each example to exactly one of $K$ possible classes.**
 
-## How to handle multiple classes? 
+## How to handle multiple classes? {.smaller}
 
 Consider this dataset with multiple classes. 
 
-```python
+```{python} 
+hdb_df = pd.read_csv("data/cleaned_hm_10K_subset.csv")
+hdb_df.head()
+```
 
-train_df["target"].value_counts(normalize=True)
+## 
 
-target
-affection           0.342571
-achievement         0.300799
-bonding             0.127238
-enjoy_the_moment    0.105694
-leisure             0.090927
-nature              0.018307
-exercise            0.014463
+```{python}
+#| echo: true
+hdb_df["target"].value_counts(normalize=True)
 ```
 
 - ❓ Can we use Decision Trees or KNNs for multiclass classification without any significant modifications?
@@ -193,7 +195,7 @@ Neural Networks](https://dl.acm.org/doi/10.1145/3065386)
 ## A graphical view of a linear model
 :::: {.columns}
 
-:::{.column width="30%"}
+:::{.column width="20%"}
 ```{python}
 import mglearn
 
@@ -201,7 +203,7 @@ mglearn.plots.plot_logistic_regression_graph()
 ```
 :::
 
-:::{.column width="70%"}
+:::{.column width="80%"}
 - Remember this graphical view of linear models? 
 - We have 4 features: x[0], x[1], x[2], x[3]
 - The output is calculated as $y = x[0]w[0] + x[1]w[1] + x[2]w[2] + x[3]w[3]$
@@ -210,7 +212,7 @@ mglearn.plots.plot_logistic_regression_graph()
 ::::
 
 
-## Introduction to neural networks
+## Introduction to neural networks {.smaller}
 \
 
 - Neural networks can be viewed a generalization of linear models where we apply a series of transformations.
@@ -327,7 +329,7 @@ Both are heavily used in industry. If interested, see [comparison of deep learni
 
 ## Filters 
 
-- Uses filters that "slide" over the input to detect local patterns.
+- CNNs use filters that "slide" over the input to detect local patterns.
 
 ![](img/cnn-4.png)
 
@@ -341,17 +343,7 @@ Both are heavily used in industry. If interested, see [comparison of deep learni
 
 ![](img/cnn_big_picture.png)
 
----
-
-## Combining CNN and NN {.smaller}
-
-- Sometimes you'll want to combine different types of data in a single network
-- The most common case is combining tabular data with image data, for example, using both real estate data and images of a house to predict its sale price:
-
-![](img/multi-input.png)
-
-Source: "[House](https://www.flickr.com/photos/68089229@N06/17458373552)" by [oatsy40](https://www.flickr.com/photos/68089229@N06), "[House in Vancouver](https://www.flickr.com/photos/17573364@N00/433449690)" by [pnwra](https://www.flickr.com/photos/17573364@N00), "[House](https://www.flickr.com/photos/21098413@N04/5405425139)" by [noona11](https://www.flickr.com/photos/21098413@N04) all licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/?ref=ccsearch&atype=rich).
-
+[source](https://developers.google.com/machine-learning/practica/image-classification/convolutional-neural-networks)
 
 ## Pre-trained models {.smaller}
 \

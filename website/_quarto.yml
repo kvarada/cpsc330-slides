@@ -48,8 +48,8 @@ website:
         - lecture-14.qmd
         - lecture-15.qmd
         - lecture-16.qmd
-        # - lecture-17.qmd
-        # - lecture-18.qmd
+        - lecture-17.qmd
+        - lecture-18.qmd
         # - lecture-19.qmd
         # - lecture-20.qmd
         # - lecture-21.qmd
