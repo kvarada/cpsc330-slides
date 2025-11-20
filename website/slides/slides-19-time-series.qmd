@@ -6,7 +6,6 @@ format:
       html-math-method: mathjax    
       embed-resources: true
       slide-number: true
-      center: true
       logo: img/UBC-CS-logo.png
       resources:
         - data/
@@ -89,7 +88,7 @@ You work for a financial institution and have a dataset where each row represent
 
 ## citibike dataset
 
-- You have bike rental counts every three hours for one station in New York City over a month. You want to predict demand for the **next** three-hour period.  
+You have bike rental counts every three hours for one station in New York City over a month. You want to predict demand for the **next** three-hour period.  
 
 :::: {.columns}
 
@@ -107,7 +106,7 @@ citibike.head(20)
 :::
 ::::
 
-## citibike data
+## citibike data {.smaller}
 
 :::: {.columns}
 
@@ -153,10 +152,8 @@ citibike.head(20)
 
 The ML models we've used so far **do not have a built-in concept of time**. There are **two broad strategies** for modeling time series:
 
-- Use models designed for sequential data which explicitly capture temporal dependencies (e.g., Hidden Markov Models, Recurrent Neural Networks, transformer architectures  
-- Use tabular ML models with engineered temporal features (e.g., Linear models, Random Forests, Gradient Boosted Trees)  
-  - Requires creating features that capture temporal information. 
-  - This allows us to reuse the familiar models in our toolbox.
+- Use models designed for sequential data which explicitly capture temporal dependencies (e.g., Hidden Markov Models, Transformer architectures etc.) 
+- Use tabular ML models with engineered temporal features (e.g., Linear models, Random Forests, Gradient Boosted Trees)    
 
 ## citibike data visualization
 
@@ -469,12 +466,8 @@ for train, test in tscv.split(X_toy):
 # Forecasting further into the future 
 
 ## Problem
-```{python}
-#| echo: true
-citibike.index.max()
-```
 - So far, our lag features let us predict 3 hours ahead. 
-- What if we want to predict 15 hours in the future? In other words, what if we want to predict number of rentals for the next three hours at time 2015-09-01 12:00:00?  
+- What if we want to predict 15 hours in the future? 
 - Problem: We do not yet know the rental counts for the required lag timestamps:
     - 2015-09-01 00:00:00
     - 2015-09-01 03:00:00
@@ -531,9 +524,9 @@ retail_df.plot(x="date", y="sales", figsize=(10, 5));
 - How can we encode this information in the model?
 
 
-## 
+## Days since feature 
 
-- One idea is to create a feature such as "Days_since"
+One idea is to create a feature such as "Days_since"
 
 ```{python}
 def lag_df(df, lag, cols):
