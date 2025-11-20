@@ -287,11 +287,18 @@
     "text": "(Optional) Approach 3: Multi-output models (joint forecasting)\n\nTrain one model that predicts several future steps at once, e.g.:\ny = [rentals_in_3h, rentals_in_6h, rentals_in_9h, ...]\nThese models learn relationships across future time steps.\nNote: Multi-output forecasting is powerful, but outside the scope of CPSC 330."
   },
   {
+    "objectID": "slides/slides-19-time-series.html#seasonality",
+    "href": "slides/slides-19-time-series.html#seasonality",
+    "title": "CPSC 330 Lecture 19: Time series",
+    "section": "Seasonality",
+    "text": "Seasonality\nSeasonality refers to a repeating pattern that occurs at regular, predictable intervals.\n\nExample 1: Bike rentals tend to peak at the same hours each day (daily seasonality).\n\nExample 2: Retail sales consistently spike before the December holidays (annual seasonality).\nRecognizing seasonality helps a model anticipate recurring patterns rather than mistake them for noise.\nWe can capture seasonality by adding features such as: rush_hour, is_weekend, and is_holiday"
+  },
+  {
     "objectID": "slides/slides-19-time-series.html#trends",
     "href": "slides/slides-19-time-series.html#trends",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Trends",
-    "text": "Trends\nLet’s consider another time series dataset, Retail Sales of Clothing and Clothing Accessory Stores dataset.\n\n\n\n\n\n\n\n\n\n\nIt looks like there’s a trend here; the sales are going up over time.\nHow can we encode this information in the model?"
+    "text": "Trends\nLet’s consider another time series dataset, Retail Sales of Clothing and Clothing Accessory Stores dataset.\n\n\n\n\n\n\n\n\n\n\nIt looks like there’s a clear trend; retail sales gradually increase over time.\nA trend is a long-term upward or downward movement in a time series.\n\nQuestion: How might we encode this trend information so our models can use it?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#days-since-feature",
