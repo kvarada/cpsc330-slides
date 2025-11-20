@@ -593,5 +593,82 @@ retail_train_5_date = retail_train_5_date.assign(
 retail_train_5_date.head(10)
 ```
 
+# Types of time series 
+
+## Univariate time series: Bike rentals
+
+A **univariate time series** tracks *one* variable over time. Here, we only measure the number of bike rentals at each timestamp.
+
+| starttime            | rentals |
+|----------------------|---------|
+| 2015-08-26 12:00:00  |   30    |
+| 2015-08-12 09:00:00  |   10    |
+| 2015-08-19 03:00:00  |    2    |
+| 2015-08-07 12:00:00  |   22    |
+| 2015-08-03 09:00:00  |    9    |
+
+
+## Multivariate time series: Bike rentals with weather + traffic {.smaller}
+
+A **multivariate time series** records several variables at each timestamp.  
+Here, we track bike rentals along with weather and local traffic conditions.
+
+| datetime            | rentals | temp_C | humidity | wind_kmh | traffic_level |
+|---------------------|---------|--------|----------|----------|----------------|
+| 2015-08-01 09:00    |   12    |   18   |    65    |    10    |       2        |
+| 2015-08-01 12:00    |   28    |   22   |    55    |     8    |       3        |
+| 2015-08-01 15:00    |   35    |   24   |    50    |    12    |       4        |
+| 2015-08-01 18:00    |   30    |   21    |    60    |    20    |       3        |
+| 2015-08-02 09:00    |   10    |   17   |    70    |    15    |       1        |
+
+## Hierarchical time series: Bike sales across cities and stores {.smaller}
+
+Consists of multiple variables from multiple observations, nested within the larger group categories, recorded sequentially over time (e.g., bike sales from multiple stores over time)
+
+:::: {.columns}
+:::{.column width="60%"}
+
+| city      | store_id | date        | bike_sales |
+|-----------|----------|-------------|------------|
+| Vancouver | S1       | 2024-01-01  |     12     |
+| Vancouver | S1       | 2024-01-02  |     15     |
+| Vancouver | S2       | 2024-01-01  |      9     |
+| Vancouver | S2       | 2024-01-02  |     11     |
+| Victoria | M1       | 2024-01-01  |      7     |
+| Victoria | M1       | 2024-01-02  |      8     |
+| Victoria | M2       | 2024-01-01  |     14     |
+| Victoria | M2       | 2024-01-02  |     13     |
+
+:::
+:::{.column width="40%"}
+
+```
+Company
+ ├── Vancouver
+ │    ├── S1 time series
+ │    └── S2 time series
+ └── Victoria
+      ├── M1 time series
+      └── M2 time series
+```
+:::
+::::
+
+
 # [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_19_time-series.ipynb) 
+
+
+## What did we learn today? {.smaller}
+
+- **Time series** data has an inherent order. 
+- Correct **train/test splitting** must respect time (no shuffling!).
+- **Modeling considerations:**
+  - ML models can handle time series *if we engineer meaningful temporal features*.
+  - **Linear models** struggle with cyclic numeric features unless encoded properly.
+  - **Tree-based models** cannot extrapolate beyond the training range.
+- Forecasting further ahead with iterative forecasting 
+- **Seasonality** = repeating patterns (daily, weekly, annual). 
+- **Trends** = long-term upward/downward movement
+
+**The key to successful time-series modeling: Choose the right features + choose the right model for the temporal structure.**
 
