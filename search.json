@@ -14,53 +14,60 @@
     "text": "Announcements\n\nHW8 has been released (due next week Monday)\n\nAlmost there! You’ve got this! 😊\n\nMidterm 2 grading is in progress."
   },
   {
+    "objectID": "slides/slides-19-time-series.html#lecture-learning-objectives",
+    "href": "slides/slides-19-time-series.html#lecture-learning-objectives",
+    "title": "CPSC 330 Lecture 19: Time series",
+    "section": "Lecture learning objectives 🎯",
+    "text": "Lecture learning objectives 🎯\n\nRecognize when a problem is a time series problem and what makes time-ordered data unique.\nApply proper train/test splits for time series.\nEngineer key time-based features\nUnderstand strategies for multi-step forecasting\nDescribe trend and its impact on time series behavior"
+  },
+  {
     "objectID": "slides/slides-19-time-series.html#recap-iclicker-questions",
     "href": "slides/slides-19-time-series.html#recap-iclicker-questions",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Recap: iClicker questions",
-    "text": "Recap: iClicker questions\n\n\nIn multinomial logistic regression, the model learns a separate weight vector and bias for each class.\n\n\nNeural networks are powerful models, so it’s usually a good idea to start with them on any new machine learning problem.\n\n\nThe main reason we add hidden layers is to allow the model to learn increasingly complex representations.\n\n\nConvolutional neural networks (CNNs) use filters that slide over the image to detect local patterns.\n\n\nUsing a pre-trained network as a feature extractor typically requires less data than training a deep network from scratch."
+    "text": "Recap: iClicker questions\nSelect all of the following statements which are TRUE.\n\n\nIn multinomial logistic regression, the model learns a separate weight vector and bias for each class.\n\n\nNeural networks are powerful models, so it’s usually a good idea to start with them on any new machine learning problem.\n\n\nThe main reason we add hidden layers is to allow the model to learn increasingly complex representations.\n\n\nConvolutional neural networks (CNNs) use filters that slide over the image to detect local patterns.\n\n\nUsing a pre-trained network as a feature extractor typically requires less data than training a deep network from scratch."
   },
   {
-    "objectID": "slides/slides-19-time-series.html#todays-lecture-goals",
-    "href": "slides/slides-19-time-series.html#todays-lecture-goals",
+    "objectID": "slides/slides-19-time-series.html#recap-what-type-of-model-would-be-appropriate",
+    "href": "slides/slides-19-time-series.html#recap-what-type-of-model-would-be-appropriate",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Today’s lecture goals",
-    "text": "Today’s lecture goals\n\nWhat is time series?\nHow do we know a problem is a time series problem?\nWhy do standard ML models struggle with time-dependent data?\nHow can we adapt ML models to handle time series?"
-  },
-  {
-    "objectID": "slides/slides-19-time-series.html#what-type-of-model-would-be-appropriate",
-    "href": "slides/slides-19-time-series.html#what-type-of-model-would-be-appropriate",
-    "title": "CPSC 330 Lecture 19: Time series",
-    "section": "What type of model would be appropriate?",
-    "text": "What type of model would be appropriate?\n\n\n\n\n\n\n\nScenario\nModel/Method\n\n\n\n\nYou have user–item ratings (e.g., movie ratings) and want to predict missing ratings.\n?\n\n\nYou have a collection of documents without any labels and want to group them into themes.\n?\n\n\nYou want to classify the emotion of a set of text messages, but you do not have any labeled data.\n?\n\n\nYou have a small dataset with ~500 images containing pictures and names of 20 different Computer Science faculty members from UBC. Your goal is to develop a reasonably accurate multi-class classification model for this task.\n?"
+    "section": "Recap: What type of model would be appropriate?",
+    "text": "Recap: What type of model would be appropriate?\n\n\n\n\n\n\n\nScenario\nModel/Method\n\n\n\n\nYou have user–item ratings (e.g., movie ratings) and want to predict missing ratings.\n?\n\n\nYou have a collection of documents without any labels and want to group them into themes.\n?\n\n\nYou want to classify the emotion of a set of text messages, but you do not have any labeled data.\n?\n\n\nYou have a small dataset with ~500 images containing pictures and names of 20 different Computer Science faculty members from UBC. Your goal is to develop a reasonably accurate multi-class classification model for this task.\n?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#loan-default-prediction-tabular-data",
     "href": "slides/slides-19-time-series.html#loan-default-prediction-tabular-data",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Loan default prediction (tabular data)",
-    "text": "Loan default prediction (tabular data)\nYou work for a financial institution and have a dataset where each row represents a customer applying for a loan. What type of model would you use?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncustomer_id\nincome_k\ncredit_utilization\nlate_payments\nemployment_length\nemployment_type\nhome_ownership\nloan_purpose\ndefault\n\n\n\n\n1\n95\n22\n0\n9\nsalaried\nmortgage\nhome_improvement\n0\n\n\n2\n45\n78\n3\n2\ncontract\nrent\ndebt_consolidation\n1\n\n\n3\n120\n30\n1\n7\nsalaried\nown\ncar\n0\n\n\n4\n60\n65\n2\n3\nself_employed\nrent\ndebt_consolidation\n1\n\n\n5\n85\n40\n0\n10\nsalaried\nmortgage\neducation\n0\n\n\n6\n55\n90\n4\n1\ncontract\nrent\ndebt_consolidation\n1\n\n\n7\n130\n28\n0\n6\nsalaried\nown\ncar\n0\n\n\n8\n40\n82\n2\n1\nself_employed\nrent\ndebt_consolidation\n1\n\n\n\n\nRows are independent \\(\\rightarrow\\) order does not matter \\(\\rightarrow\\) time does not matter"
+    "text": "Loan default prediction (tabular data)\nYou work for a financial institution and have a dataset where each row represents a customer applying for a loan. What type of model would you use?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncustomer_id\nincome_k\ncredit_utilization\nlate_payments\nemployment_length\nemployment_type\nhome_ownership\nloan_purpose\ndefault\n\n\n\n\n1\n95\n22\n0\n9\nsalaried\nmortgage\nhome_improvement\n0\n\n\n2\n45\n78\n3\n2\ncontract\nrent\ndebt_consolidation\n1\n\n\n3\n120\n30\n1\n7\nsalaried\nown\ncar\n0\n\n\n4\n60\n65\n2\n3\nself_employed\nrent\ndebt_consolidation\n1\n\n\n5\n85\n40\n0\n10\nsalaried\nmortgage\neducation\n0\n\n\n6\n55\n90\n4\n1\ncontract\nrent\ndebt_consolidation\n1\n\n\n7\n130\n28\n0\n6\nsalaried\nown\ncar\n0\n\n\n8\n40\n82\n2\n1\nself_employed\nrent\ndebt_consolidation\n1\n\n\n\nRows are independent \\(\\rightarrow\\) order does not matter \\(\\rightarrow\\) time does not matter"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#citibike-dataset",
-    "href": "slides/slides-19-time-series.html#citibike-dataset",
+    "objectID": "slides/slides-19-time-series.html#predict-demand-for-bike-rentals",
+    "href": "slides/slides-19-time-series.html#predict-demand-for-bike-rentals",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "citibike dataset",
-    "text": "citibike dataset\nYou have bike rental counts every three hours for one station in New York City over a month. You want to predict demand for the next three-hour period.\n\n\n\n\nstarttime\n2015-08-01 00:00:00     3\n2015-08-01 03:00:00     0\n2015-08-01 06:00:00     9\n2015-08-01 09:00:00    41\n2015-08-01 12:00:00    39\n2015-08-01 15:00:00    27\n2015-08-01 18:00:00    12\n2015-08-01 21:00:00     4\n2015-08-02 00:00:00     3\n2015-08-02 03:00:00     4\n2015-08-02 06:00:00     6\n2015-08-02 09:00:00    30\n2015-08-02 12:00:00    46\n2015-08-02 15:00:00    27\n2015-08-02 18:00:00    28\n2015-08-02 21:00:00     6\n2015-08-03 00:00:00     3\n2015-08-03 03:00:00     2\n2015-08-03 06:00:00    21\n2015-08-03 09:00:00     9\nFreq: 3h, Name: one, dtype: int64"
+    "section": "Predict demand for bike rentals",
+    "text": "Predict demand for bike rentals\nSuppose you want to predict the bike rental demand for the next three-hour period at a station in New York City.\n\n\n\n\nWhat features might help us make an accurate prediction?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#citibike-data",
     "href": "slides/slides-19-time-series.html#citibike-data",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "citibike data",
-    "text": "citibike data\n\n\n\n\nstarttime\n2015-08-01 00:00:00     3\n2015-08-01 03:00:00     0\n2015-08-01 06:00:00     9\n2015-08-01 09:00:00    41\n2015-08-01 12:00:00    39\n2015-08-01 15:00:00    27\n2015-08-01 18:00:00    12\n2015-08-01 21:00:00     4\n2015-08-02 00:00:00     3\n2015-08-02 03:00:00     4\n2015-08-02 06:00:00     6\n2015-08-02 09:00:00    30\n2015-08-02 12:00:00    46\n2015-08-02 15:00:00    27\n2015-08-02 18:00:00    28\n2015-08-02 21:00:00     6\n2015-08-03 00:00:00     3\n2015-08-03 03:00:00     2\n2015-08-03 06:00:00    21\n2015-08-03 09:00:00     9\nFreq: 3h, Name: one, dtype: int64\n\n\n\n\nOnly feature: datetime (e.g., 2015-08-01 00:00:00)\nThe data is collected at regular intervals (every three hours)\nTarget: rentals in the next 3-hour period (e.g., 9 rentals between 2015-08-01 06:00:00 and 2015-08-01 09:00:00)\nGoal: Given past rental counts, predict the number of rentals at a specific future time.\n\n\nUsing only the tools in your current toolbox, what model would you choose, and what challenges might you run into?"
+    "text": "citibike data\n\n\n\n\nstarttime\n2015-08-01 00:00:00     3\n2015-08-01 03:00:00     0\n2015-08-01 06:00:00     9\n2015-08-01 09:00:00    41\n2015-08-01 12:00:00    39\n2015-08-01 15:00:00    27\n2015-08-01 18:00:00    12\n2015-08-01 21:00:00     4\n2015-08-02 00:00:00     3\n2015-08-02 03:00:00     4\n2015-08-02 06:00:00     6\n2015-08-02 09:00:00    30\n2015-08-02 12:00:00    46\n2015-08-02 15:00:00    27\n2015-08-02 18:00:00    28\n2015-08-02 21:00:00     6\n2015-08-03 00:00:00     3\n2015-08-03 03:00:00     2\n2015-08-03 06:00:00    21\n2015-08-03 09:00:00     9\nFreq: 3h, Name: one, dtype: int64\n\n\n\n\nOnly feature: datetime\nThe data is collected at regular intervals (every three hours)\nTarget: rentals in the next 3-hour period\nGoal: Given past rental counts, predict the number of rentals at a specific future time.\n\n\nUsing only the tools in your current toolbox, what model would you choose, and what challenges might you run into?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#why-different-treatement",
     "href": "slides/slides-19-time-series.html#why-different-treatement",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Why different treatement?",
-    "text": "Why different treatement?\n\n\n\n\nstarttime\n2015-08-01 00:00:00     3\n2015-08-01 03:00:00     0\n2015-08-01 06:00:00     9\n2015-08-01 09:00:00    41\n2015-08-01 12:00:00    39\n2015-08-01 15:00:00    27\n2015-08-01 18:00:00    12\n2015-08-01 21:00:00     4\n2015-08-02 00:00:00     3\n2015-08-02 03:00:00     4\n2015-08-02 06:00:00     6\n2015-08-02 09:00:00    30\n2015-08-02 12:00:00    46\n2015-08-02 15:00:00    27\n2015-08-02 18:00:00    28\n2015-08-02 21:00:00     6\n2015-08-03 00:00:00     3\n2015-08-03 03:00:00     2\n2015-08-03 06:00:00    21\n2015-08-03 09:00:00     9\nFreq: 3h, Name: one, dtype: int64\n\n\n\n\nThis type of data is distinctive because it is inherently sequential, with an intrinsic order based on time.\nThe number of bikes available at a station at one point in time is often related to the number of bikes at earlier times.\nThis is a time-series forecasting problem."
+    "text": "Why different treatement?\n\n\n\n\nstarttime\n2015-08-01 00:00:00     3\n2015-08-01 03:00:00     0\n2015-08-01 06:00:00     9\n2015-08-01 09:00:00    41\n2015-08-01 12:00:00    39\n2015-08-01 15:00:00    27\n2015-08-01 18:00:00    12\n2015-08-01 21:00:00     4\n2015-08-02 00:00:00     3\n2015-08-02 03:00:00     4\n2015-08-02 06:00:00     6\n2015-08-02 09:00:00    30\n2015-08-02 12:00:00    46\n2015-08-02 15:00:00    27\n2015-08-02 18:00:00    28\n2015-08-02 21:00:00     6\n2015-08-03 00:00:00     3\n2015-08-03 03:00:00     2\n2015-08-03 06:00:00    21\n2015-08-03 09:00:00     9\nFreq: 3h, Name: one, dtype: int64\n\n\n\n\nThis type of data is distinctive because it is inherently sequential.\nThe number of bikes available at a station at one point in time is often related to the number of bikes at earlier times.\nThis is a time-series forecasting problem."
+  },
+  {
+    "objectID": "slides/slides-19-time-series.html#todays-lecture",
+    "href": "slides/slides-19-time-series.html#todays-lecture",
+    "title": "CPSC 330 Lecture 19: Time series",
+    "section": "Today’s lecture",
+    "text": "Today’s lecture\n\nWhat is time series?\nHow do we know a problem is a time series problem?\nWhy do standard ML models struggle with time-dependent data?\nHow can we adapt ML models to handle time series?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#models-for-time-series",
@@ -74,7 +81,7 @@
     "href": "slides/slides-19-time-series.html#citibike-data-visualization",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "citibike data visualization",
-    "text": "citibike data visualization\n\n\nStart date: 2015-08-01 00:00:00\nEnd date: 2015-08-31 21:00:00\n\n\n\n\n\n\n\n\n\n\nDo you see any daily patterns? Weekly patterns? Noise?"
+    "text": "citibike data visualization\n\n\nStart date: 2015-08-01 00:00:00, End date: 2015-08-31 21:00:00\n\n\n\n\n\n\n\n\n\nDo you see any daily patterns? Weekly patterns? Noise?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#incorrect-data-splitting",
@@ -88,7 +95,7 @@
     "href": "slides/slides-19-time-series.html#correct-data-splitting",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "✅ Correct data splitting",
-    "text": "✅ Correct data splitting\nIn time series, the simplest split is:\n\nearlier data \\(\\rightarrow\\) training and later data \\(\\rightarrow\\) testing\n\n\n# Example split\nn_train = 184\ntrain_df = citibike[:184]\ntest_df = citibike[184:]"
+    "text": "✅ Correct data splitting\nIn time series, the simplest split is: earlier data \\(\\rightarrow\\) training and later data \\(\\rightarrow\\) testing. For example:\n\nn_train = 184 \ntrain_df = citibike[:184] \ntest_df = citibike[184:]"
   },
   {
     "objectID": "slides/slides-19-time-series.html#motivation",
@@ -102,21 +109,21 @@
     "href": "slides/slides-19-time-series.html#posix-time-feature",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "POSIX time feature",
-    "text": "POSIX time feature\n\nLet’s start with our worst but simplest encoding.\nA common way that dates are stored on computers is using POSIX time, which is the number of seconds since January 1970 00:00:00 (this is beginning of Unix time).\nLet’s start with encoding feature as a single integer representing this POSIX time.\n\n\n# convert to POSIX time by dividing by 10**9\nX = (\n    citibike.index.astype(\"int64\").values.reshape(-1, 1) // 10**9\n)  # convert to POSIX time by dividing by 10**9\ny = citibike.values\nX[:10]\n\narray([[1438387200],\n       [1438398000],\n       [1438408800],\n       [1438419600],\n       [1438430400],\n       [1438441200],\n       [1438452000],\n       [1438462800],\n       [1438473600],\n       [1438484400]])"
+    "text": "POSIX time feature\n\nLet’s start with a simplest encoding.\nA common way that dates are stored on computers is using POSIX time, which is the number of seconds since January 1970 00:00:00 (this is beginning of Unix time).\nLet’s start with encoding feature as a single integer representing this POSIX time.\n\n\n# convert to POSIX time by dividing by 10**9\nX = (\n    citibike.index.astype(\"int64\").values.reshape(-1, 1) // 10**9\n)  # convert to POSIX time by dividing by 10**9\ny = citibike.values\nX[:10]\n\narray([[1438387200],\n       [1438398000],\n       [1438408800],\n       [1438419600],\n       [1438430400],\n       [1438441200],\n       [1438452000],\n       [1438462800],\n       [1438473600],\n       [1438484400]])"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#random-forest-on-posix-features",
-    "href": "slides/slides-19-time-series.html#random-forest-on-posix-features",
+    "objectID": "slides/slides-19-time-series.html#rf-on-posix-features",
+    "href": "slides/slides-19-time-series.html#rf-on-posix-features",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Random forest on posix features",
-    "text": "Random forest on posix features\n\nregressor = RandomForestRegressor(n_estimators=100, random_state=0)\neval_on_features(X, y, regressor, xticks, feat_names=\"POSIX time\")\n\nTrain-set R^2: 0.85\nTest-set R^2: -0.04\n\n\n\n\n\n\n\n\n\n\nThe predictions on the training data and training score are pretty good\nBut for the test data, a constant line is predicted …\nWhat’s going on?"
+    "section": "RF on posix features",
+    "text": "RF on posix features\n\n\nTrain-set R^2: 0.85\nTest-set R^2: -0.04\n\n\n\n\n\n\n\n\n\n\nThe predictions on the training data and training score are pretty good\nBut for the test data, a constant line is predicted …\nWhat’s going on?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#trees-cannot-extrapolate",
     "href": "slides/slides-19-time-series.html#trees-cannot-extrapolate",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Trees cannot extrapolate!",
-    "text": "Trees cannot extrapolate!\n\nTree-based models (Decision Trees, Random Forests, Gradient Boosted Trees) only make predictions within the range of values they’ve seen during training.\nThey are excellent interpolators but terrible extrapolators because\n\nTrees partition the feature space into fixed regions and predictions inside each region are averages of training labels.\nIf your future timestamps are larger than the ones in the training set trees cannot “see beyond” the training range and they will flatline or behave unpredictably.\n\n\nThis is exactly what happens with POSIX time encoded as a single numeric feature!"
+    "text": "Trees cannot extrapolate!\n\nTree-based models only make predictions within the range of values they’ve seen during training.\nTrees partition the feature space into fixed regions and predictions inside each region are averages of training labels.\nIf your future timestamps are larger than the ones in the training set trees cannot “see beyond” the training range and they will flatline or behave unpredictably.\n\nThis is exactly what happens with POSIX time encoded as a single numeric feature!"
   },
   {
     "objectID": "slides/slides-19-time-series.html#extracting-date-and-time-information",
@@ -126,53 +133,53 @@
     "text": "Extracting date and time information\n\nNote that our index is of this special type: DateTimeIndex. We can extract all kinds of interesting information from it.\n\n\nprint(citibike.index[0])\nprint(citibike.index[0].month_name())\nprint(citibike.index[0].dayofweek)\nprint(citibike.index[0].hour)\n\n2015-08-01 00:00:00\nAugust\n5\n0"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#time-of-the-day",
-    "href": "slides/slides-19-time-series.html#time-of-the-day",
+    "objectID": "slides/slides-19-time-series.html#hour-of-day",
+    "href": "slides/slides-19-time-series.html#hour-of-day",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Time of the day",
-    "text": "Time of the day\n\nWe noted before that the time of the day and day of the week seem quite important.\nLet’s start with time of the day.\n\n\nX_hour = citibike.index.hour.values.reshape(-1, 1)\nX_hour[:10]\n\narray([[ 0],\n       [ 3],\n       [ 6],\n       [ 9],\n       [12],\n       [15],\n       [18],\n       [21],\n       [ 0],\n       [ 3]], dtype=int32)"
+    "section": "Hour of day",
+    "text": "Hour of day\n\nWe noted before that the hour of day and day of week seem quite important.\nLet’s start with hour of day.\n\n\nX_hour = citibike.index.hour.values.reshape(-1, 1)\nX_hour[:10]\n\narray([[ 0],\n       [ 3],\n       [ 6],\n       [ 9],\n       [12],\n       [15],\n       [18],\n       [21],\n       [ 0],\n       [ 3]], dtype=int32)"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#random-forest-with-time-of-the-day",
-    "href": "slides/slides-19-time-series.html#random-forest-with-time-of-the-day",
+    "objectID": "slides/slides-19-time-series.html#rf-with-hour-of-day",
+    "href": "slides/slides-19-time-series.html#rf-with-hour-of-day",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Random forest with time of the day",
-    "text": "Random forest with time of the day\n\nregressor = RandomForestRegressor(n_estimators=100, random_state=0)\neval_on_features(X_hour, y, regressor, xticks, feat_names=\"Hour of the day\")\n\nTrain-set R^2: 0.50\nTest-set R^2: 0.60\n\n\n\n\n\n\n\n\n\nThe scores are better when we add time of the day feature!"
+    "section": "RF with hour of day",
+    "text": "RF with hour of day\n\nregressor = RandomForestRegressor(n_estimators=100, random_state=0)\neval_on_features(X_hour, y, regressor,  xtick_labels, feat_names=\"Hour of the day\")\n\nTrain-set R^2: 0.50\nTest-set R^2: 0.60\n\n\n\n\n\n\n\n\n\nThe scores are better when we add hour of day feature!"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#time-of-the-day-day-of-the-week",
-    "href": "slides/slides-19-time-series.html#time-of-the-day-day-of-the-week",
+    "objectID": "slides/slides-19-time-series.html#hour-of-day-day-of-week",
+    "href": "slides/slides-19-time-series.html#hour-of-day-day-of-week",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Time of the day + Day of the week",
-    "text": "Time of the day + Day of the week\nNow let’s add day of the week along with time of the day.\n\nX_hour_week = np.hstack(\n    [\n        citibike.index.dayofweek.values.reshape(-1, 1),\n        citibike.index.hour.values.reshape(-1, 1),\n    ]\n)\nX_hour_week\n\narray([[ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21]], dtype=int32)"
+    "section": "hour of day + day of week",
+    "text": "hour of day + day of week\nNow let’s add day of week along with hour of day.\n\nX_hour_week = np.hstack(\n    [\n        citibike.index.dayofweek.values.reshape(-1, 1),\n        citibike.index.hour.values.reshape(-1, 1),\n    ]\n)\nX_hour_week\n\narray([[ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21],\n       [ 1,  0],\n       [ 1,  3],\n       [ 1,  6],\n       [ 1,  9],\n       [ 1, 12],\n       [ 1, 15],\n       [ 1, 18],\n       [ 1, 21],\n       [ 2,  0],\n       [ 2,  3],\n       [ 2,  6],\n       [ 2,  9],\n       [ 2, 12],\n       [ 2, 15],\n       [ 2, 18],\n       [ 2, 21],\n       [ 3,  0],\n       [ 3,  3],\n       [ 3,  6],\n       [ 3,  9],\n       [ 3, 12],\n       [ 3, 15],\n       [ 3, 18],\n       [ 3, 21],\n       [ 4,  0],\n       [ 4,  3],\n       [ 4,  6],\n       [ 4,  9],\n       [ 4, 12],\n       [ 4, 15],\n       [ 4, 18],\n       [ 4, 21],\n       [ 5,  0],\n       [ 5,  3],\n       [ 5,  6],\n       [ 5,  9],\n       [ 5, 12],\n       [ 5, 15],\n       [ 5, 18],\n       [ 5, 21],\n       [ 6,  0],\n       [ 6,  3],\n       [ 6,  6],\n       [ 6,  9],\n       [ 6, 12],\n       [ 6, 15],\n       [ 6, 18],\n       [ 6, 21],\n       [ 0,  0],\n       [ 0,  3],\n       [ 0,  6],\n       [ 0,  9],\n       [ 0, 12],\n       [ 0, 15],\n       [ 0, 18],\n       [ 0, 21]], dtype=int32)"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#random-forest-with-time-of-the-day-day-of-the-week",
-    "href": "slides/slides-19-time-series.html#random-forest-with-time-of-the-day-day-of-the-week",
+    "objectID": "slides/slides-19-time-series.html#rf-with-hour-of-day-day-of-week",
+    "href": "slides/slides-19-time-series.html#rf-with-hour-of-day-day-of-week",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Random forest with Time of the day + Day of the week",
-    "text": "Random forest with Time of the day + Day of the week\n\neval_on_features(X_hour_week, y, regressor, xticks, feat_names = \"hour of day + day of week\")\n\nTrain-set R^2: 0.89\nTest-set R^2: 0.84\n\n\n\n\n\n\n\n\n\nThe time of the day and day of the week features are clearly helping."
+    "section": "RF with hour of day + day of week",
+    "text": "RF with hour of day + day of week\n\neval_on_features(X_hour_week, y, regressor,  xtick_labels, feat_names = \"hour of day + day of week\")\n\nTrain-set R^2: 0.89\nTest-set R^2: 0.84\n\n\n\n\n\n\n\n\n\nThe time of the day and day of the week features are clearly helping."
   },
   {
-    "objectID": "slides/slides-19-time-series.html#linear-model",
-    "href": "slides/slides-19-time-series.html#linear-model",
+    "objectID": "slides/slides-19-time-series.html#ridge-with-hour-of-day-day-of-week",
+    "href": "slides/slides-19-time-series.html#ridge-with-hour-of-day-day-of-week",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Linear model",
-    "text": "Linear model\nLet’s try an interpretable linear model Ridge with these features.\n\n\nTrain-set R^2: 0.16\nTest-set R^2: 0.13\n\n\n\n\n\n\n\n\n\n\nWhy is Ridge performing poorly on the training data as well as test data?"
+    "section": "Ridge with Hour of day + Day of week",
+    "text": "Ridge with Hour of day + Day of week\n\n\nTrain-set R^2: 0.16\nTest-set R^2: 0.13\n\n\n\n\n\n\n\n\n\nWhy is Ridge performing poorly on the training data as well as test data?"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#encoding-time-and-day-with-ohe",
-    "href": "slides/slides-19-time-series.html#encoding-time-and-day-with-ohe",
+    "objectID": "slides/slides-19-time-series.html#encoding-hour-and-day-with-ohe",
+    "href": "slides/slides-19-time-series.html#encoding-hour-and-day-with-ohe",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Encoding time and day with OHE",
-    "text": "Encoding time and day with OHE\n\nenc = OneHotEncoder()\nX_hour_week_onehot = enc.fit_transform(X_hour_week).toarray()\nhour = [\"%02d:00\" % i for i in range(0, 24, 3)]\nday = [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\", \"Sat\", \"Sun\"]\nfeatures = day + hour\npd.DataFrame(X_hour_week_onehot, columns=features).head(6)\n\n\n\n\n\n\n\n\nMon\nTue\nWed\nThu\nFri\nSat\nSun\n00:00\n03:00\n06:00\n09:00\n12:00\n15:00\n18:00\n21:00\n\n\n\n\n0\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n1\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n2\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n3\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n\n\n4\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n\n\n5\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0"
+    "section": "Encoding hour and day with OHE",
+    "text": "Encoding hour and day with OHE\n\nenc = OneHotEncoder()\nX_hour_week_onehot = enc.fit_transform(X_hour_week).toarray()\nhour = [\"%02d:00\" % i for i in range(0, 24, 3)]\nday = [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\", \"Sat\", \"Sun\"]\nfeatures = day + hour\npd.DataFrame(X_hour_week_onehot, columns=features).head(6)\n\n\n\n\n\n\n\n\nMon\nTue\nWed\nThu\nFri\nSat\nSun\n00:00\n03:00\n06:00\n09:00\n12:00\n15:00\n18:00\n21:00\n\n\n\n\n0\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n1\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n2\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n3\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n\n\n4\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n\n\n5\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#linear-model-with-ohe-day-and-time",
-    "href": "slides/slides-19-time-series.html#linear-model-with-ohe-day-and-time",
+    "objectID": "slides/slides-19-time-series.html#ridge-with-hour-of-day-ohe-day-of-week-ohe",
+    "href": "slides/slides-19-time-series.html#ridge-with-hour-of-day-ohe-day-of-week-ohe",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Linear model with OHE day and time",
-    "text": "Linear model with OHE day and time\nLet’s try an interpretable linear model Ridge with these features.\n\neval_on_features(X_hour_week_onehot, y, Ridge(), xticks, feat_names=\"hour of day OHE + day of week OHE\")\n\nTrain-set R^2: 0.53\nTest-set R^2: 0.62\n\n\n\n\n\n\n\n\n\n\nThe scores are a bit better!\nCan we improve them further?"
+    "section": "Ridge with hour of day OHE + day of week OHE",
+    "text": "Ridge with hour of day OHE + day of week OHE\n\n\n\n\nTrain-set R^2: 0.53\nTest-set R^2: 0.62\n\n\n\n\n\n\n\n\n\n\n\nThe scores are a bit better!\nCan we improve them further?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#add-interaction-features",
@@ -182,32 +189,32 @@
     "text": "Add interaction features\n\n\n\n\n\n\n\n\n\nMon\nTue\nWed\nThu\nFri\nSat\nTue 00:00\nTue 03:00\nTue 06:00\nTue 09:00\nTue 18:00\n\n\n\n\n0\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n1\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n2\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n3\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n4\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n5\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#linear-model-with-ohe-day-and-time-interaction-feats",
-    "href": "slides/slides-19-time-series.html#linear-model-with-ohe-day-and-time-interaction-feats",
+    "objectID": "slides/slides-19-time-series.html#ridge-with-hour-of-day-ohe-day-of-week-ohe-interaction-features",
+    "href": "slides/slides-19-time-series.html#ridge-with-hour-of-day-ohe-day-of-week-ohe-interaction-features",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Linear model with OHE day and time + interaction feats",
-    "text": "Linear model with OHE day and time + interaction feats\n\n\nTrain-set R^2: 0.87\nTest-set R^2: 0.85\n\n\n\n\n\n\n\n\n\nThe scores are much better now!!"
+    "section": "Ridge with hour of day OHE + day of week OHE + interaction features",
+    "text": "Ridge with hour of day OHE + day of week OHE + interaction features\n\n\nTrain-set R^2: 0.87\nTest-set R^2: 0.85\n\n\n\n\n\n\n\n\n\nThe scores are much better now!!"
   },
   {
     "objectID": "slides/slides-19-time-series.html#interpretation",
     "href": "slides/slides-19-time-series.html#interpretation",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Interpretation",
-    "text": "Interpretation\nSince we are using a linear model, we can examine the coefficients learned by Ridge.\n\n\n\n\n\n\n\n\n\nCoefficient\n\n\n\n\nSat 09:00\n15.196739\n\n\nWed 06:00\n15.005809\n\n\nSat 12:00\n13.437684\n\n\nSun 12:00\n13.362009\n\n\nThu 06:00\n10.907595\n\n\n...\n...\n\n\nSat 21:00\n-6.085150\n\n\n00:00\n-11.693898\n\n\n03:00\n-12.111220\n\n\nSat 06:00\n-13.757591\n\n\nSun 06:00\n-18.033267\n\n\n\n\n71 rows × 1 columns\n\n\n\nDo these coefficients make sense?"
+    "text": "Interpretation\nSince we are using a linear model, we can examine the coefficients learned by Ridge.\n\n\n\n\n\n\n\n\n\n\n\nCoefficient\n\n\n\n\nSat 09:00\n15.196739\n\n\nWed 06:00\n15.005809\n\n\nSat 12:00\n13.437684\n\n\nSun 12:00\n13.362009\n\n\nThu 06:00\n10.907595\n\n\n...\n...\n\n\nSat 21:00\n-6.085150\n\n\n00:00\n-11.693898\n\n\n03:00\n-12.111220\n\n\nSat 06:00\n-13.757591\n\n\nSun 06:00\n-18.033267\n\n\n\n\n71 rows × 1 columns\n\n\n\n\nDo these coefficients make sense?"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#interim-summary",
-    "href": "slides/slides-19-time-series.html#interim-summary",
+    "objectID": "slides/slides-19-time-series.html#iclicker-19.2",
+    "href": "slides/slides-19-time-series.html#iclicker-19.2",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Interim summary",
-    "text": "Interim summary\n\nSuccess in time-series analysis heavily relies on the appropriate choice of models and features.\nTree-based models cannot extrapolate; caution is needed when using them with linear integer features.\nLinear models struggle with cyclic patterns in numeric features (e.g., numerically encoded time of the day feature) because these patterns are inherently non-linear.\nApplying one-hot encoding on such features transforms cyclic temporal features into a format where their impact on the target variable can be independently and linearly modeled, enabling linear models to effectively capture and use these cyclic patterns."
+    "section": "iClicker 19.2",
+    "text": "iClicker 19.2\nSelect all of the following statements which are TRUE.\n\n\nOne-hot encoding the hour of day allows linear models to treat each hour as a separate category and capture cyclic patterns effectively.\n\n\nSuccess in time-series modeling often depends more on choosing the right features and right encoding for the given model.\n\n\nTree-based models are good at predicting values beyond the range of the training set because they can extrapolate trends."
   },
   {
     "objectID": "slides/slides-19-time-series.html#lag-based-features",
     "href": "slides/slides-19-time-series.html#lag-based-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Lag-based features",
-    "text": "Lag-based features\n\n\n\n\n\n\n\n\n\n\n\nn_rentals\n\n\nstarttime\n\n\n\n\n\n2015-08-01 00:00:00\n3\n\n\n2015-08-01 03:00:00\n0\n\n\n2015-08-01 06:00:00\n9\n\n\n2015-08-01 09:00:00\n41\n\n\n2015-08-01 12:00:00\n39\n\n\n2015-08-01 15:00:00\n27\n\n\n2015-08-01 18:00:00\n12\n\n\n2015-08-01 21:00:00\n4\n\n\n2015-08-02 00:00:00\n3\n\n\n2015-08-02 03:00:00\n4\n\n\n\n\n\n\n\n\n\nIn time series data there is temporal dependence; observations close in time tend to be correlated.\nCurrently we’re using current time to predict the number of bike rentals in the next three hours.\nBut, what if the number of bike rentals is also related to bike rentals three hours ago or 6 hours ago and so on?\n\n\nSuch features are called lagged features."
+    "text": "Lag-based features\n\n\n\n\n\n\n\n\n\n\n\nn_rentals\n\n\nstarttime\n\n\n\n\n\n2015-08-01 00:00:00\n3\n\n\n2015-08-01 03:00:00\n0\n\n\n2015-08-01 06:00:00\n9\n\n\n2015-08-01 09:00:00\n41\n\n\n2015-08-01 12:00:00\n39\n\n\n2015-08-01 15:00:00\n27\n\n\n2015-08-01 18:00:00\n12\n\n\n2015-08-01 21:00:00\n4\n\n\n2015-08-02 00:00:00\n3\n\n\n2015-08-02 03:00:00\n4\n\n\n\n\n\n\n\n\n\nIn time series data there is temporal dependence; observations close in time tend to be correlated.\nCurrently we’re using current time to predict the number of bike rentals in the next three hours.\nBut, what if the number of bike rentals is also related to bike rentals three hours ago or 6 hours ago and so on?\nSuch features are called lagged features."
   },
   {
     "objectID": "slides/slides-19-time-series.html#creating-lag-features",
@@ -217,25 +224,32 @@
     "text": "Creating lag features\n\ndef create_lag_df(df, lag, cols):\n    return df.assign(\n        **{f\"{col}-{n}\": df[col].shift(n) for n in range(1, lag + 1) for col in cols}\n    )\nrentals_lag5 = create_lag_df(rentals_df, 5, ['n_rentals'] )\nrentals_lag5.head(8)\n\n\n\n\n\n\n\n\nn_rentals\nn_rentals-1\nn_rentals-2\nn_rentals-3\nn_rentals-4\nn_rentals-5\n\n\nstarttime\n\n\n\n\n\n\n\n\n\n\n2015-08-01 00:00:00\n3\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n2015-08-01 03:00:00\n0\n3.0\nNaN\nNaN\nNaN\nNaN\n\n\n2015-08-01 06:00:00\n9\n0.0\n3.0\nNaN\nNaN\nNaN\n\n\n2015-08-01 09:00:00\n41\n9.0\n0.0\n3.0\nNaN\nNaN\n\n\n2015-08-01 12:00:00\n39\n41.0\n9.0\n0.0\n3.0\nNaN\n\n\n2015-08-01 15:00:00\n27\n39.0\n41.0\n9.0\n0.0\n3.0\n\n\n2015-08-01 18:00:00\n12\n27.0\n39.0\n41.0\n9.0\n0.0\n\n\n2015-08-01 21:00:00\n4\n12.0\n27.0\n39.0\n41.0\n9.0"
   },
   {
-    "objectID": "slides/slides-19-time-series.html#linear-model-with-lag-features",
-    "href": "slides/slides-19-time-series.html#linear-model-with-lag-features",
+    "objectID": "slides/slides-19-time-series.html#ridge-with-lag-features",
+    "href": "slides/slides-19-time-series.html#ridge-with-lag-features",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Linear model with lag features",
-    "text": "Linear model with lag features\n\n\nTrain-set R^2: 0.25\nTest-set R^2: 0.37"
+    "section": "Ridge with lag features",
+    "text": "Ridge with lag features\n\n\nTrain-set R^2: 0.25\nTest-set R^2: 0.37\n\n\n\n\n\n\n\n\n\nThe model is performing poorly."
   },
   {
     "objectID": "slides/slides-19-time-series.html#random-forest-with-lag-features",
     "href": "slides/slides-19-time-series.html#random-forest-with-lag-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Random Forest with lag features",
-    "text": "Random Forest with lag features\n\n\nTrain-set R^2: 0.94\nTest-set R^2: 0.69"
+    "text": "Random Forest with lag features\n\n\nTrain-set R^2: 0.94\nTest-set R^2: 0.69\n\n\n\n\n\n\n\n\n\nBetter than the linear model but worse than our best model."
   },
   {
-    "objectID": "slides/slides-19-time-series.html#random-forest-with-time-and-day-lag-features",
-    "href": "slides/slides-19-time-series.html#random-forest-with-time-and-day-lag-features",
+    "objectID": "slides/slides-19-time-series.html#ridge-with-all-features",
+    "href": "slides/slides-19-time-series.html#ridge-with-all-features",
     "title": "CPSC 330 Lecture 19: Time series",
-    "section": "Random Forest with time and day + lag features",
-    "text": "Random Forest with time and day + lag features\n\n\nTrain-set R^2: 0.95\nTest-set R^2: 0.78"
+    "section": "Ridge with all features",
+    "text": "Ridge with all features\n\n\nTrain-set R^2: 0.87\nTest-set R^2: 0.84\n\n\n\n\n\n\n\n\n\nGood scores. But lag features don’t seem to help much in this case."
+  },
+  {
+    "objectID": "slides/slides-19-time-series.html#rf-with-all-features",
+    "href": "slides/slides-19-time-series.html#rf-with-all-features",
+    "title": "CPSC 330 Lecture 19: Time series",
+    "section": "RF with all features",
+    "text": "RF with all features\n\n\nTrain-set R^2: 0.96\nTest-set R^2: 0.78\n\n\n\n\n\n\n\n\n\nLag features seem to make things a bit worse in this case."
   },
   {
     "objectID": "slides/slides-19-time-series.html#cross-validation-with-time-series",
@@ -256,7 +270,7 @@
     "href": "slides/slides-19-time-series.html#approach-1-iterative-forecasting",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Approach 1: Iterative forecasting",
-    "text": "Approach 1: Iterative forecasting\n\nTrain one model that predicts 3 hours ahead.\nAt prediction time, move forward step by step, using your own predictions as future lag inputs.\n\nExample:\n\nPredict rentals at 00:00 on 2015-09-01.\nUse that prediction as the lag to predict rentals at 03:00.\nUse both predictions to predict rentals at 06:00.\nContinue until you reach 12:00.\n\nThis method works, but errors accumulate as we step forward. The longer the horizon, the more uncertainty grows."
+    "text": "Approach 1: Iterative forecasting\nTrain one model that predicts 3 hours ahead. At prediction time, move forward step by step, using your own predictions as future lag inputs.\nExample:\n\nPredict rentals at 00:00 on 2015-09-01.\nUse that prediction as the lag to predict rentals at 03:00.\nUse both predictions to predict rentals at 06:00.\nContinue until you reach 12:00.\n\nThis method works, but errors accumulate as we step forward. The longer the horizon, the more uncertainty grows."
   },
   {
     "objectID": "slides/slides-19-time-series.html#approach-2-direct-forecasting-multiple-horizons",
