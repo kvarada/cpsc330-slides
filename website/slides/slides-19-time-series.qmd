@@ -593,7 +593,7 @@ retail_train_5_date = retail_train_5_date.assign(
 retail_train_5_date.head(10)
 ```
 
-# Types of time series: 
+# Types of time series 
 
 ## Univariate time series: Bike rentals
 
@@ -666,8 +666,9 @@ Company
   - ML models can handle time series *if we engineer meaningful temporal features*.
   - **Linear models** struggle with cyclic numeric features unless encoded properly.
   - **Tree-based models** cannot extrapolate beyond the training range.
-- Forecasting further ahead
+- Forecasting further ahead with iterative forecasting 
 - **Seasonality** = repeating patterns (daily, weekly, annual). 
 - **Trends** = long-term upward/downward movement
-- The key to successful time-series modeling: Choose the right features + choose the right model for the temporal structure.
+
+**The key to successful time-series modeling: Choose the right features + choose the right model for the temporal structure.**
 
