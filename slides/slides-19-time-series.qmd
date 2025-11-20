@@ -24,7 +24,8 @@ from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, Ridge
+
 from sklearn.model_selection import (
     TimeSeriesSplit,
     cross_val_score,
@@ -35,8 +36,6 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 
 from datetime import datetime
-
-DATA_DIR = os.path.join(os.path.abspath(".."), "data/")
 ```
 
 ## Focus on the breath!
@@ -71,12 +70,12 @@ DATA_DIR = os.path.join(os.path.abspath(".."), "data/")
 | You want to classify the emotion of a set of text messages, but you do not have any labeled data. | ? |
 | You have a small dataset with ~500 images containing pictures and names of 20 different Computer Science faculty members from UBC. Your goal is to develop a reasonably accurate multi-class classification model for this task.| ? |
 
-## Loan default prediction (tabular data) {.smaller}
+## Loan default prediction (tabular data) {.scrollable}
 
 You work for a financial institution and have a dataset where each row represents a customer applying for a loan. What type of model would you use? 
 
 | customer_id | income_k | credit_utilization | late_payments | employment_length | employment_type | home_ownership | loan_purpose        | default |
-|-------------|----------|--------------------|---------------|-------------------|-----------------|----------------|---------------------|---------|
+|----|---|---|---|---|---|---|---|---|
 | 1           | 95       | 22                 | 0             | 9                 | salaried        | mortgage       | home_improvement    | 0       |
 | 2           | 45       | 78                 | 3             | 2                 | contract        | rent           | debt_consolidation  | 1       |
 | 3           | 120      | 30                 | 1             | 7                 | salaried        | own            | car                 | 0       |
@@ -131,8 +130,6 @@ citibike.head(20)
 
 **Using only the tools in your current toolbox, what model would you choose, and what challenges might you run into?**
 
-
-
 ## Why different treatement?
 
 :::: {.columns}
@@ -152,7 +149,14 @@ citibike.head(20)
 :::
 ::::
 
-ML models do not have a built-in concept of time. We have to give it to them.
+## Models for time series
+
+The ML models we've used so far **do not have a built-in concept of time**. There are **two broad strategies** for modeling time series:
+
+- Use models designed for sequential data which explicitly capture temporal dependencies (e.g., Hidden Markov Models, Recurrent Neural Networks, transformer architectures  
+- Use tabular ML models with engineered temporal features (e.g., Linear models, Random Forests, Gradient Boosted Trees)  
+  - Requires creating features that capture temporal information. 
+  - This allows us to reuse the familiar models in our toolbox.
 
 ## citibike data visualization
 
@@ -196,12 +200,11 @@ plt.legend();
 
 In time series, the simplest split is: 
 
-- earlier data $\rightarrow$ training
-- later data $\rightarrow$ testing.
+- earlier data $\rightarrow$ training and later data $\rightarrow$ testing
 
 ```{python}
 #| echo: true
-
+# Example split
 n_train = 184
 train_df = citibike[:184]
 test_df = citibike[184:]
@@ -217,9 +220,6 @@ plt.plot(test_df_sort, "r", label="test")
 plt.xticks(rotation="vertical")
 plt.legend();
 ```
-
-
-
 # Feature engineering for time series 
 
 ## Motivation 
@@ -277,20 +277,282 @@ print(citibike.index[0].dayofweek)
 print(citibike.index[0].hour)
 ```
 
-## 
+## Time of the day 
 - We noted before that the time of the day and day of the week seem quite important. 
-- Let's start with these two features. 
+- Let's start with time of the day. 
 
 ```{python}
 #| echo: true
 X_hour = citibike.index.hour.values.reshape(-1, 1)
 X_hour[:10]
+```
+
+## Random forest with time of the day
+
+```{python}
+#| echo: true
 regressor = RandomForestRegressor(n_estimators=100, random_state=0)
 eval_on_features(X_hour, y, regressor, xticks, feat_names="Hour of the day")
 ```
 
 The scores are better when we add time of the day feature! 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20_time-series.ipynb) 
+## Time of the day + Day of the week 
+Now let's add day of the week along with time of the day. 
+```{python}
+#| echo: true
+X_hour_week = np.hstack(
+    [
+        citibike.index.dayofweek.values.reshape(-1, 1),
+        citibike.index.hour.values.reshape(-1, 1),
+    ]
+)
+X_hour_week
+```
+## Random forest with Time of the day + Day of the week 
+```{python}
+#| echo: true
+eval_on_features(X_hour_week, y, regressor, xticks, feat_names = "hour of day + day of week")
+```
 
+The time of the day and day of the week features are clearly helping. 
+
+## Linear model 
+Let's try an interpretable linear model `Ridge` with these features. 
+
+```{python}
+lr = Ridge();
+eval_on_features(X_hour_week, y, lr, xticks, feat_names = "hour of day + day of week")
+
+```
+- Why is `Ridge` performing poorly on the training data as well as test data?
+
+## Encoding time and day with OHE 
+
+```{python}
+#| echo: true
+enc = OneHotEncoder()
+X_hour_week_onehot = enc.fit_transform(X_hour_week).toarray()
+hour = ["%02d:00" % i for i in range(0, 24, 3)]
+day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+features = day + hour
+pd.DataFrame(X_hour_week_onehot, columns=features).head(6)
+```
+
+## Linear model with OHE day and time 
+Let's try an interpretable linear model `Ridge` with these features. 
+
+```{python}
+#| echo: true 
+eval_on_features(X_hour_week_onehot, y, Ridge(), xticks, feat_names="hour of day OHE + day of week OHE")
+```
+
+- The scores are a bit better! 
+- Can we improve them further? 
+
+
+## Add interaction features 
+```{python }
+from sklearn.preprocessing import PolynomialFeatures
+
+poly_transformer = PolynomialFeatures(
+    interaction_only=True, include_bias=False
+)
+X_hour_week_onehot_poly = poly_transformer.fit_transform(X_hour_week_onehot)
+hour = ["%02d:00" % i for i in range(0, 24, 3)]
+day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+features = day + hour
+features_poly = poly_transformer.get_feature_names_out(features)
+df_hour_week_ohe_poly = pd.DataFrame(X_hour_week_onehot_poly, columns = features_poly)
+df_hour_week_ohe_poly.iloc[:, [0, 1, 2, 3, 4, 5, 34, 35, 36, 37, 40]].head(6)
+```
+
+## Linear model with OHE day and time + interaction feats
+```{python}
+eval_on_features(X_hour_week_onehot_poly, y, lr, xticks, feat_names = "hour of day OHE + day of week OHE + interaction feats")
+```
+The scores are much better now!! 
+
+## Interpretation 
+
+Since we are using a linear model, we can examine the coefficients learned by `Ridge`. 
+
+```{python}
+features_nonzero = np.array(features_poly)[lr.coef_ != 0]
+coef_nonzero = lr.coef_[lr.coef_ != 0]
+pd.DataFrame(coef_nonzero, index=features_nonzero, columns=["Coefficient"]).sort_values(
+    "Coefficient", ascending=False
+)
+```
+ 
+**Do these coefficients make sense?**
+
+
+## Interim summary {.smaller}
+
+- Success in time-series analysis heavily relies on the appropriate choice of models and features.
+- Tree-based models cannot extrapolate; caution is needed when using them with linear integer features.
+- Linear models struggle with cyclic patterns in numeric features (e.g., numerically encoded time of the day feature) because these patterns are inherently non-linear.
+- Applying one-hot encoding on such features transforms cyclic temporal features into a format where their impact on the target variable can be independently and linearly modeled, enabling linear models to effectively capture and use these cyclic patterns. 
+
+## Lag-based features
+
+:::: {.columns}
+
+:::{.column width="40%"}
+```{python}
+rentals_df = pd.DataFrame(citibike)
+rentals_df = rentals_df.rename(columns={"one":"n_rentals"})
+rentals_df.head(10)
+```
+:::
+
+:::{.column width="60%"}
+- In time series data there is temporal dependence; observations close in time tend to be correlated.
+- Currently we're using current time to predict the number of bike rentals in the next three hours.
+- But, what if the number of bike rentals is also related to bike rentals three hours ago or 6 hours ago and so on?
+:::
+:::: 
+
+Such features are called lagged features.
+
+## Creating lag features
+
+```{python}
+#| echo: true
+def create_lag_df(df, lag, cols):
+    return df.assign(
+        **{f"{col}-{n}": df[col].shift(n) for n in range(1, lag + 1) for col in cols}
+    )
+rentals_lag5 = create_lag_df(rentals_df, 5, ['n_rentals'] )
+rentals_lag5.head(8)
+```
+
+## Linear model with lag features
+
+```{python}
+X_lag_features = rentals_lag5.drop(columns = ['n_rentals']).to_numpy()
+eval_on_features(X_lag_features, y, lr, xticks, feat_names="Lag features", impute="yes")
+```
+
+
+## Random Forest with lag features
+
+```{python}
+imp = SimpleImputer()
+X_lag_features_imp = imp.fit_transform(X_lag_features)
+eval_on_features(X_lag_features_imp, y, regressor, xticks, feat_names="Lag features")
+```
+
+## Random Forest with time and day + lag features
+```{python}
+X_hour_week_onehot_poly_lag = np.hstack([X_hour_week_onehot_poly, X_lag_features])
+eval_on_features(X_hour_week_onehot_poly_lag, y, regressor, xticks, feat_names = "hour of day OHE + day of week OHE + interaction feats + Lag feats")
+```
+
+## Cross-validation with time series
+
+- We can't do regular cross-validation if we don't want to be predicting the past.
+
+- There is [`TimeSeriesSplit`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html) for time series data. 
+
+```{python}
+from sklearn.model_selection import TimeSeriesSplit
+# Code from sklearn documentation
+X_toy = np.array([[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]])
+y_toy = np.array([1, 2, 3, 4, 5, 6])
+tscv = TimeSeriesSplit(n_splits=3)
+for train, test in tscv.split(X_toy):
+    print("%s %s" % (train, test))
+```
+
+# Forecasting further into the future 
+
+## Problem
+```{python}
+#| echo: true
+citibike.index.max()
+```
+- So far, our lag features let us predict 3 hours ahead. 
+- What if we want to predict 15 hours in the future? In other words, what if we want to predict number of rentals for the next three hours at time 2015-09-01 12:00:00?  
+- Problem: We do not yet know the rental counts for the required lag timestamps:
+    - 2015-09-01 00:00:00
+    - 2015-09-01 03:00:00
+    - 2015-09-01 06:00:00
+    - 2015-09-01 09:00:00
+- Without those values, our lag features break 😢
+
+## Approach 1: Iterative forecasting
+
+- Train one model that predicts 3 hours ahead.
+- At prediction time, move forward step by step, using your own predictions as future lag inputs.
+
+**Example:**
+
+- Predict rentals at 00:00 on 2015-09-01.
+- Use that prediction as the lag to predict rentals at 03:00.
+- Use both predictions to predict rentals at 06:00.
+- Continue until you reach 12:00.
+
+This method works, but errors accumulate as we step forward. The longer the horizon, the more uncertainty grows. 
+
+## Approach 2: Direct forecasting (multiple horizons)
+
+- Train separate models for each horizon:
+  - Model 1 $\rightarrow$ predict 3 hours ahead
+  - Model 2 $\rightarrow$ predict 6 hours ahead
+  - Model 3 $\rightarrow$ predict 9 hours ahead
+
+Each model uses lag features that match the required horizon.
+
+
+## (Optional) Approach 3: Multi-output models (joint forecasting)
+
+- Train one model that predicts several future steps at once, e.g.:
+
+  ```y = [rentals_in_3h, rentals_in_6h, rentals_in_9h, ...]```
+
+- These models learn relationships across future time steps.
+- Note: Multi-output forecasting is powerful, but outside the scope of CPSC 330.
+
+# Seasonality and trends 
+
+
+## Trends 
+Let's consider another time series dataset, [Retail Sales of Clothing and Clothing Accessory Stores dataset](https://fred.stlouisfed.org/series/MRTSSM448USN). 
+
+```{python}
+retail_df = pd.read_csv("data/MRTSSM448USN.csv", parse_dates=["DATE"])
+retail_df.columns = ["date", "sales"]
+retail_df.plot(x="date", y="sales", figsize=(10, 5));
+```
+
+- It looks like there's a **trend** here; the sales are going up over time. 
+- How can we encode this information in the model?
+
+
+## 
+
+- One idea is to create a feature such as "Days_since"
+
+```{python}
+def lag_df(df, lag, cols):
+    return df.assign(
+        **{f"{col}-{n}": df[col].shift(n) for n in range(1, lag + 1) for col in cols}
+    )
+retail_lag_5 = lag_df(retail_df, 5, ["sales"])
+retail_train_5 = retail_lag_5.query("date <= 20160101")
+retail_test_5 = retail_lag_5.query("date >  20160101")
+retail_train_5_date = retail_lag_5.query("date <= 20160101")
+first_day_retail = retail_train_5_date["date"].min()
+
+retail_train_5_date = retail_train_5_date.assign(
+    Days_since=retail_train_5_date["date"].apply(lambda x: (x - first_day_retail).days)
+)
+retail_train_5_date.head(10)
+```
+
+
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20_time-series.ipynb) 
 

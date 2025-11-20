@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-01-intro.html</loc>
-    <lastmod>2025-09-08T00:04:42.998Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-19-time-series.html</loc>
+    <lastmod>2025-11-20T05:03:28.348Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-02-terminology-decision-trees.html</loc>
-    <lastmod>2025-09-11T14:03:26.021Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-18-computer-vision.html</loc>
+    <lastmod>2025-11-19T02:29:08.056Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-15-DBSCAN-hierarchical.html</loc>
@@ -157,11 +157,11 @@
     <lastmod>2025-10-02T14:03:06.920Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-19-time-series.html</loc>
-    <lastmod>2025-11-19T16:57:32.260Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-02-terminology-decision-trees.html</loc>
+    <lastmod>2025-09-11T14:03:26.021Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-18-computer-vision.html</loc>
-    <lastmod>2025-11-19T02:29:08.056Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-01-intro.html</loc>
+    <lastmod>2025-09-08T00:04:42.998Z</lastmod>
   </url>
 </urlset>
