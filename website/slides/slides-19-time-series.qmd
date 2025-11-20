@@ -546,7 +546,20 @@ Each model uses lag features that match the required horizon.
 
 # Seasonality and trends 
 
+**Time series often show recognizable patterns over time**, which we want our models to capture.
+
+## Seasonality
+
+**Seasonality** refers to a **repeating pattern** that occurs at regular, predictable intervals.
+
+- **Example 1:** Bike rentals tend to peak at the same hours each day (daily seasonality).  
+- **Example 2:** Retail sales consistently spike before the December holidays (annual seasonality).
+- Recognizing seasonality helps a model **anticipate recurring patterns** rather than mistake them for noise.
+- We can capture seasonality by adding features such as: `rush_hour`, `is_weekend`, and `is_holiday`
+
+
 ## Trends {.smaller}
+
 Let's consider another time series dataset, [Retail Sales of Clothing and Clothing Accessory Stores dataset](https://fred.stlouisfed.org/series/MRTSSM448USN). 
 
 ```{python}
@@ -554,9 +567,10 @@ retail_df = pd.read_csv("data/MRTSSM448USN.csv", parse_dates=["DATE"])
 retail_df.columns = ["date", "sales"]
 retail_df.plot(x="date", y="sales", figsize=(8, 4));
 ```
+- It looks like there's a clear trend; retail sales gradually increase over time.
+- A **trend** is a long-term upward or downward movement in a time series.
 
-- It looks like there's a **trend** here; the sales are going up over time. 
-- How can we encode this information in the model?
+Question: How might we encode this trend information so our models can use it?
 
 ## Days since feature {.scrollable .smaller}
 
@@ -579,5 +593,5 @@ retail_train_5_date = retail_train_5_date.assign(
 retail_train_5_date.head(10)
 ```
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2024W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20_time-series.ipynb) 
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_19_time-series.ipynb) 
 
