@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-19-time-series.html</loc>
-    <lastmod>2025-11-20T17:34:54.803Z</lastmod>
+    <lastmod>2025-11-25T14:07:14.817Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-18-computer-vision.html</loc>
@@ -21,12 +21,16 @@
     <lastmod>2025-10-14T13:12:02.451Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-17-natural-language-processing.html</loc>
-    <lastmod>2025-11-19T02:29:08.056Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-07-linear-models.html</loc>
+    <lastmod>2025-10-02T14:03:06.920Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-03-ml-fundamentals.html</loc>
-    <lastmod>2025-09-15T22:18:35.309Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-10-regression-metrics.html</loc>
+    <lastmod>2025-10-28T03:42:49.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/lecture-20.html</loc>
+    <lastmod>2025-11-25T14:07:14.813Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-18.html</loc>
@@ -141,12 +145,16 @@
     <lastmod>2025-11-19T02:35:33.433Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-10-regression-metrics.html</loc>
-    <lastmod>2025-10-28T03:42:49.139Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-03-ml-fundamentals.html</loc>
+    <lastmod>2025-09-15T22:18:35.309Z</lastmod>
   </url>
   <url>
-    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-07-linear-models.html</loc>
-    <lastmod>2025-10-02T14:03:06.920Z</lastmod>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-17-natural-language-processing.html</loc>
+    <lastmod>2025-11-19T02:29:08.056Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-20-survival-analysis.html</loc>
+    <lastmod>2025-11-25T15:35:26.051Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-06-hyperparameter-optimization.html</loc>

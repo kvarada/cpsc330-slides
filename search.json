@@ -298,7 +298,7 @@
     "href": "slides/slides-19-time-series.html#trends",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Trends",
-    "text": "Trends\nLet’s consider another time series dataset, Retail Sales of Clothing and Clothing Accessory Stores dataset.\n\n\n\n\n\n\n\n\n\n\nIt looks like there’s a clear trend; retail sales gradually increase over time.\nA trend is a long-term upward or downward movement in a time series.\n\nQuestion: How might we encode this trend information so our models can use it?"
+    "text": "Trends\nLet’s consider another time series dataset, Retail Sales of Clothing and Clothing Accessory Stores dataset.\n\n\n\n\n\n\n\n\n\nIt looks like there’s a clear trend; retail sales gradually increase over time. A trend is a long-term upward or downward movement in a time series.\nQuestion: How might we encode this trend information so our models can use it?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#days-since-feature",
@@ -1302,144 +1302,317 @@
     "text": "What did we learn?\n\nWhy accuracy is not always a good metric?\nConfusion matrix\nPrecision, recall, & f1-score\nPrecision-recall curves & average precision\nReceiver Operator Characteristic (ROC) curves & AUC"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#focus-on-the-breath",
-    "href": "slides/slides-17-natural-language-processing.html#focus-on-the-breath",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "objectID": "slides/slides-07-linear-models.html#announcements",
+    "href": "slides/slides-07-linear-models.html#announcements",
+    "title": "Lecture 7: Linear models",
+    "section": "Announcements",
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
+    "href": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
+    "title": "Lecture 7: Linear models",
+    "section": "Recap: Dealing with text features",
+    "text": "Recap: Dealing with text features\n\nPreprocessing text to fit into machine learning models using text vectorization.\nBag of words representation"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "href": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
+    "title": "Lecture 7: Linear models",
+    "section": "Recap: sklearn CountVectorizer",
+    "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 6.2",
+    "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#linear-models",
+    "href": "slides/slides-07-linear-models.html#linear-models",
+    "title": "Lecture 7: Linear models",
+    "section": "Linear models",
+    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions: \\(y_{hat} = w_1 \\times \\text{\\# hours studied} + w_0\\)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
+    "href": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
+    "title": "Lecture 7: Linear models",
+    "section": "Ridge vs. LinearRegression",
+    "text": "Ridge vs. LinearRegression\n\nOrdinary linear regression is sensitive to multicolinearity and overfitting\nMulticolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.\n\nLinear regression may produce large and unstable coefficients in such cases.\nRidge adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#when-to-use-what",
+    "href": "slides/slides-07-linear-models.html#when-to-use-what",
+    "title": "Lecture 7: Linear models",
+    "section": "When to use what?",
+    "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#logistic-regression",
+    "href": "slides/slides-07-linear-models.html#logistic-regression",
+    "title": "Lecture 7: Linear models",
+    "section": "Logistic regression",
+    "text": "Logistic regression\n\nSuppose your target is binary: pass or fail\nLogistic regression is used for such binary classification tasks.\n\nLogistic regression predicts a probability that the given example belongs to a particular class.\nIt uses Sigmoid function to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.\nA threshold (usually 0.5) is applied to the predicted probability to decide the final class label."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "href": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
+    "title": "Lecture 7: Linear models",
+    "section": "Logistic regression: Decision boundary",
+    "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "href": "slides/slides-07-linear-models.html#sentiment-analysis-example",
+    "title": "Lecture 7: Linear models",
+    "section": "Sentiment analysis example",
+    "text": "Sentiment analysis example\n\n\n\n\n\nLogistic regression learns coefficients for each word from training data.\n\nPositive coefficients \\(\\rightarrow\\) push prediction toward positive class.\n\nNegative coefficients \\(\\rightarrow\\) push prediction toward negative class.\n\nIn this example, positive words (fun, rewarding) outweigh the negative word (long), so the overall sentiment is likely positive."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
+    "title": "Lecture 7: Linear models",
+    "section": "Parametric vs. non-Parametric models (high-level)",
+    "text": "Parametric vs. non-Parametric models (high-level)\n\nImagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.\nScenario 1: 100 features and 1,000 examples\nScenario 2: 100 features and 1 million examples"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
+    "title": "Lecture 7: Linear models",
+    "section": "Parametric vs. non-Parametric models (high-level)",
+    "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 7.1",
+    "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
+    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
+    "title": "Lecture 7: Linear models",
+    "section": "(iClicker) Exercise 7.2",
+    "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
+    "href": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
+    "title": "Lecture 7: Linear models",
+    "section": "Softmax Function for Probabilities",
+    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#making-predictions",
+    "href": "slides/slides-07-linear-models.html#making-predictions",
+    "title": "Lecture 7: Linear models",
+    "section": "Making Predictions",
+    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class \\(\\hat{y}\\) is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
+    "href": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
+    "title": "Lecture 7: Linear models",
+    "section": "Binary vs multinomial logistic regression",
+    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#activity-time-permitting",
+    "href": "slides/slides-07-linear-models.html#activity-time-permitting",
+    "title": "Lecture 7: Linear models",
+    "section": "Activity (time-permitting)",
+    "text": "Activity (time-permitting)\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#activity-description",
+    "href": "slides/slides-07-linear-models.html#activity-description",
+    "title": "Lecture 7: Linear models",
+    "section": "Activity description",
+    "text": "Activity description\n\nYour task is to engage in group discussions and fill in the designated row in this Google document.\nFor strengths and weaknesses, some things to consider are:\n\nconcerns about underfitting\nconcerns about overfitting\nspeed\nscalability for large data sets\n\ninterpretability\neffectiveness on sparse data\nease of use for multi-class classification\n\nability to represent uncertainty\ntime/space complexity\netc."
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#estimators",
+    "href": "slides/slides-07-linear-models.html#estimators",
+    "title": "Lecture 7: Linear models",
+    "section": "Estimators",
+    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#transformers",
+    "href": "slides/slides-07-linear-models.html#transformers",
+    "title": "Lecture 7: Linear models",
+    "section": "Transformers",
+    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
+  },
+  {
+    "objectID": "slides/slides-07-linear-models.html#coming-up",
+    "href": "slides/slides-07-linear-models.html#coming-up",
+    "title": "Lecture 7: Linear models",
+    "section": "Coming up",
+    "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
+  },
+  {
+    "objectID": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
+    "href": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
     "section": "Focus on the breath!",
     "text": "Focus on the breath!"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#announcements",
-    "href": "slides/slides-17-natural-language-processing.html#announcements",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "objectID": "slides/slides-10-regression-metrics.html#announcements",
+    "href": "slides/slides-10-regression-metrics.html#announcements",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
     "section": "Announcements",
-    "text": "Announcements\n\nNo classes next week.\nMidterm 2 coming up next week.\nDo you need OH to get ready for the midterm? If yes, I can hold OH on Monday."
+    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\nGood news for you: You’ll have access to our course notes in the midterm!\n\nHW4 was due on Monday, Oct 6th 11:59 pm.\nHW5 has been released. It’s a project-type assignment and you get till Oct 27th to work on it."
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#iclicker-question",
-    "href": "slides/slides-17-natural-language-processing.html#iclicker-question",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "iClicker question",
-    "text": "iClicker question\nDo you need office hours to help you prepare for the midterm?\n\n\nMonday at 2 PM works well for me\n\n\nMonday at 4 PM works well for me\n\n\nNo, I don’t need office hours"
+    "objectID": "slides/slides-10-regression-metrics.html#iclicker-oh",
+    "href": "slides/slides-10-regression-metrics.html#iclicker-oh",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "iClicker OH",
+    "text": "iClicker OH\nI’m planning to hold an in-person midterm review office hour. Which time works best for you?\n\n\nFriday, October 10th 2pm\n\n\nTuesday, October 14th 2pm\n\n\nTuesday, October 14th 4pm"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#recap",
-    "href": "slides/slides-17-natural-language-processing.html#recap",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "Recap",
-    "text": "Recap\n\n\nImagine that you recently watched Minimalism: A Documentary About the Important Things (2015) and rated it highly.\n\n\n\n        \n        \n\n\n\nSuppose a recommendation system suggests items based on item similarity. Which movie would be recommended to you?\n\n\n🎬 Avatar: The Way of Water (2022) (Highly popular sci-fi movie with themes of nature and connection.)\n\n\n🎬 The Art of Effortless Living (2021) (A lesser-known documentary about mindfulness and simple living.)"
+    "objectID": "slides/slides-10-regression-metrics.html#which-metric-fits-best",
+    "href": "slides/slides-10-regression-metrics.html#which-metric-fits-best",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Which metric fits best?",
+    "text": "Which metric fits best?\n\n\n\nScenario\nData Imbalance\nMain Concern\nBest Metric(s) / Curve\n\n\n\n\nEmail Spam Detection\n10% spam\nAvoid false positives\n\n\n\nDisease Screening\n1 in 10,000\nAvoid false negatives\n\n\n\nCredit Card Fraud\n0.1% fraud\nFocus on rare positive class\n\n\n\nCustomer Churn\n20% churn\nBalance FP & FN\n\n\n\nSentiment Analysis\n50/50 balanced\nOverall correctness\n\n\n\nFace Recognition\nBalanced pairs\nTrade-off FP vs FN"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#similarity-metrics",
-    "href": "slides/slides-17-natural-language-processing.html#similarity-metrics",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "Similarity metrics",
-    "text": "Similarity metrics\n\nSimilarity based on Euclidean distance\n\n\\[distance(vec1, vec2) = \\sqrt{\\sum_{i =1}^{n} (vec1_i - vec2_i)^2}\\]\n\nDot product similarity:\n\n\\[similarity_{dot product}(vec1,vec2) = vec1.vec2\\]\n\nCosine similarity: normalized version of dot product.\n\n\\[similarity_{cosine}(vec1,vec2) = \\frac{vec1.vec2}{\\left\\lVert vec1\\right\\rVert_2 \\left\\lVert vec2\\right\\rVert_2}\\]"
+    "objectID": "slides/slides-10-regression-metrics.html#summary-choosing-the-right-metric",
+    "href": "slides/slides-10-regression-metrics.html#summary-choosing-the-right-metric",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Summary: Choosing the right metric",
+    "text": "Summary: Choosing the right metric\n\n\n\n\n\n\n\n\nMetric / Plot\nWhen to Use\nWhy\n\n\n\n\nPrecision, Recall, F1\nWhen you care about specific error types (FP vs FN) or a fixed threshold.\nFocus on particular tradeoffs.\n\n\nPR Curve & AP Score\nWhen the dataset is highly imbalanced (rare positives).\nIgnores TNs; focuses on positives.\n\n\nROC Curve & AUC\nWhen classes are moderately imbalanced.\nMeasures ranking ability across thresholds."
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#which-metric-in-what-context",
-    "href": "slides/slides-17-natural-language-processing.html#which-metric-in-what-context",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "Which metric in what context?",
-    "text": "Which metric in what context?\n\n\nGiven a query vector “Query” in the picture below and the three item vectors, determine the ranking of the items for the three similarity measures below:\n\n\n\nExample: Similarity based on Euclidean distance: item B &gt; item C &gt; item A \nSimilarity based on dot product: ?\n\n- Cosine similarity: ?\n\nAdapted from here."
+    "objectID": "slides/slides-10-regression-metrics.html#questions-for-you",
+    "href": "slides/slides-10-regression-metrics.html#questions-for-you",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Questions for you",
+    "text": "Questions for you\n\nWhat’s the difference between the average precision (AP) score and F1-score?\nWhich model would you pick?"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#what-is-nlp",
-    "href": "slides/slides-17-natural-language-processing.html#what-is-nlp",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "What is NLP?",
-    "text": "What is NLP?\n\nNatural Language Processing (NLP) is a field at the intersection of computer science, linguistics, and artificial intelligence.\n\nIt focuses on enabling computers to understand, interpret, and generate human language."
+    "objectID": "slides/slides-10-regression-metrics.html#roc-of-a-baseline-model",
+    "href": "slides/slides-10-regression-metrics.html#roc-of-a-baseline-model",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "ROC of a baseline model",
+    "text": "ROC of a baseline model\n\n\n\n\nAUC–ROC measures the probability that a randomly chosen positive example receives a higher score than a randomly chosen negative example.\n\nPerfect model: (AUC = 1.0). Always ranks positives above negatives.\n\nRandom model (AUC = 0.5): No discriminative ability (equivalent to random guessing).\n\n\n\nSource"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#examples-of-nlp-applications",
-    "href": "slides/slides-17-natural-language-processing.html#examples-of-nlp-applications",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "Examples of NLP applications",
-    "text": "Examples of NLP applications"
+    "objectID": "slides/slides-10-regression-metrics.html#questions-for-you-1",
+    "href": "slides/slides-10-regression-metrics.html#questions-for-you-1",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Questions for you",
+    "text": "Questions for you\n\n\n\n\n\nWhich model would you pick?"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#key-challenges-in-nlp",
-    "href": "slides/slides-17-natural-language-processing.html#key-challenges-in-nlp",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "Key challenges in NLP",
-    "text": "Key challenges in NLP\n\nAmbiguity: words can have multiple meanings and meaning depends on previous words/sentences\n\nI had toast with jam vs We got stuck in a traffic jam.\nIf the baby does not thrive on raw milk, boil it.\n\n\nStructure: syntax and grammar vary widely\n\nTime flies like an arrow vs Fruit flies like a banana.\n\n\nWorld knowledge: understanding beyond text\n\nOlive oil: oil made from olives\nBaby oil: oil made for babies"
+    "objectID": "slides/slides-10-regression-metrics.html#dealing-with-class-imbalance",
+    "href": "slides/slides-10-regression-metrics.html#dealing-with-class-imbalance",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Dealing with class imbalance",
+    "text": "Dealing with class imbalance\n\nUnder sampling\nOversampling\nclass weight=\"balanced\" (preferred method for this course)\nSMOTE"
   },
   {
-    "objectID": "slides/slides-17-natural-language-processing.html#goal-of-this-lecture",
-    "href": "slides/slides-17-natural-language-processing.html#goal-of-this-lecture",
-    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
-    "section": "Goal of this lecture",
-    "text": "Goal of this lecture\nNLP is a broad field. In this lecture I’ll give you a high-level introduction to\n\nTopic Modeling\nWord embeddings\nLanguage models and large language models"
+    "objectID": "slides/slides-10-regression-metrics.html#handling-imbalance-by-chaning-class-weights",
+    "href": "slides/slides-10-regression-metrics.html#handling-imbalance-by-chaning-class-weights",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Handling imbalance by chaning class weights",
+    "text": "Handling imbalance by chaning class weights\n\nWe can specify class_weight=“balanced” to give more importance to rare examples during training.\n\n\n\n\n\n\n\n\n\n\n\n\nThis sets the weights so that the classes are “equal”.\nWe have reduced false negatives but we have many more false positives now …\n\nDecreases false negatives, which improves recall.\nIncreases false positives, which might lower precision."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#announcements",
-    "href": "slides/slides-03-ml-fundamentals.html#announcements",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "Announcements",
-    "text": "Announcements\n\nHomework 2 (hw2) has been released (Due: Sept 16, 11:59pm)\n\nYou are welcome to broadly discuss it with your classmates but final answers and submissions must be your own.\nGroup submissions are not allowed for this assignment.\n\nAdvice on keeping up with the material\n\nPractice!\nStart early on homework assignments.\n\nIf you are still on the waitlist, it’s your responsibility to keep up with the material and submit assignments.\nLast day to drop without a W standing: Sept 15"
+    "objectID": "slides/slides-10-regression-metrics.html#ridge-and-ridgecv",
+    "href": "slides/slides-10-regression-metrics.html#ridge-and-ridgecv",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Ridge and RidgeCV",
+    "text": "Ridge and RidgeCV\n\nRidge Regression: alpha hyperparameter controls model complexity.\nRidgeCV: Ridge regression with built-in cross-validation to find the optimal alpha."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#iclicker-3.1",
-    "href": "slides/slides-03-ml-fundamentals.html#iclicker-3.1",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "iClicker 3.1",
-    "text": "iClicker 3.1\nClicker cloud join link: https://join.iclicker.com/FZMQ\nSelect all of the following statements which are TRUE.\n\n\nA decision tree model with no depth (the default max_depth in sklearn) is likely to perform very well on the deployment data.\n\n\nData splitting helps us assess how well our model would generalize.\n\n\nDeployment data is scored only once.\n\n\nValidation data could be used for hyperparameter optimization.\n\n\nIt’s recommended that data be shuffled before splitting it into train and test sets."
+    "objectID": "slides/slides-10-regression-metrics.html#alpha-hyperparameter",
+    "href": "slides/slides-10-regression-metrics.html#alpha-hyperparameter",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "alpha hyperparameter",
+    "text": "alpha hyperparameter\n\nRole of alpha:\n\nControls model complexity\nHigher alpha: Simpler model, smaller coefficients.\nLower alpha: Complex model, larger coefficients."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#iclicker-3.2",
-    "href": "slides/slides-03-ml-fundamentals.html#iclicker-3.2",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "iClicker 3.2",
-    "text": "iClicker 3.2\nClicker cloud join link: https://join.iclicker.com/FZMQ\nSelect all of the following statements which are TRUE.\n\n\n\\(k\\)-fold cross-validation calls fit \\(k\\) times\n\n\nWe use cross-validation to get a more robust estimate of model performance.\n\n\nIf the mean train accuracy is much higher than the mean cross-validation accuracy it’s likely to be a case of overfitting.\n\n\nThe fundamental tradeoff of ML states that as training error goes down, validation error goes up.\n\n\nA decision stump on a complicated classification problem is likely to underfit."
+    "objectID": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape-r2_score",
+    "href": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape-r2_score",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Regression metrics: MSE, RMSE, MAPE, r2_score",
+    "text": "Regression metrics: MSE, RMSE, MAPE, r2_score\n\nMean Squared Error (MSE): Average of the squares of the errors.\nRoot Mean Squared Error (RMSE): Square root of MSE, same units as the target variable.\nr2 measures how much of the variation in the target variable your model can explain.-\nMean Absolute Percentage Error (MAPE): Average of the absolute percentage errors."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#recap-from-videos",
-    "href": "slides/slides-03-ml-fundamentals.html#recap-from-videos",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "Recap from videos",
-    "text": "Recap from videos\n\nWhy do we split the data? What are train/valid/test splits?\nWhat are the benefits of cross-validation?\nWhat is underfitting and overfitting?\nWhat’s the fundamental trade-off in supervised machine learning?\nWhat is the golden rule of machine learning?"
+    "objectID": "slides/slides-10-regression-metrics.html#applying-log-transformation-to-the-targets",
+    "href": "slides/slides-10-regression-metrics.html#applying-log-transformation-to-the-targets",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Applying log transformation to the targets",
+    "text": "Applying log transformation to the targets\n\nSuitable when the target has a wide range and spans several orders of magnitude\n\nExample: counts data such as social media likes or price data\n\nHelps manage skewed data, making patterns more apparent and regression models more effective.\nTransformedTargetRegressor\n\nWraps a regression model and applies a transformation to the target values."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#summary-of-train-validation-test-and-deployment-data",
-    "href": "slides/slides-03-ml-fundamentals.html#summary-of-train-validation-test-and-deployment-data",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "Summary of train, validation, test, and deployment data",
-    "text": "Summary of train, validation, test, and deployment data\n\n\n\n\nfit\nscore\npredict\n\n\n\n\nTrain\n✔️\n✔️\n✔️\n\n\nValidation\n\n✔️\n✔️\n\n\nTest\n\nonce\nonce\n\n\nDeployment\n\n\n✔️"
+    "objectID": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.1",
+    "href": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.1",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "iClicker Exercise 10.1",
+    "text": "iClicker Exercise 10.1\nSelect all of the following statements which are TRUE.\n\n\nPrice per square foot would be a good feature to add in our X.\n\n\nThe alpha hyperparameter of Ridge has similar interpretation of C hyperparameter of LogisticRegression; higher alpha means more complex model.\n\n\nIn Ridge, smaller alpha means bigger coefficients whereas bigger alpha means smaller coefficients."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#cross-validation",
-    "href": "slides/slides-03-ml-fundamentals.html#cross-validation",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "Cross validation",
-    "text": "Cross validation"
+    "objectID": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.2",
+    "href": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.2",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "iClicker Exercise 10.2",
+    "text": "iClicker Exercise 10.2\nSelect all of the following statements which are TRUE.\n\n\nWe can still use precision and recall for regression problems but now we have other metrics we can use as well.\n\n\nIn sklearn for regression problems, using r2_score() and .score() (with default values) will produce the same results.\n\n\nRMSE is always going to be non-negative.\n\n\nMSE does not directly provide the information about whether the model is underpredicting or overpredicting.\n\n\nWe can pass multiple scoring metrics to GridSearchCV or RandomizedSearchCV for regression as well as classification problems."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#cross-validation-1",
-    "href": "slides/slides-03-ml-fundamentals.html#cross-validation-1",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "Cross validation",
-    "text": "Cross validation"
+    "objectID": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario",
+    "href": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Which metric fits the scenario?",
+    "text": "Which metric fits the scenario?\n\n\n\n\n\n\n\n\nScenario\nWhat matters most?\nBest metric(s)?\n\n\n\n\nPredicting house prices ranging from $60K–$800K.\nA $30K error is huge for a $60K house but small for a $500K house.\n\n\n\nPredicting exam scores (0–100).\nYou want an interpretable measure of average error in points.\n\n\n\nPredicting energy consumption in a large industrial system.\nLarge errors are very costly and should be penalized heavily.\n\n\n\nPredicting insurance claim amounts.\nYou want to compare how well different models explain the variation in claims."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#overfitting-and-underfitting",
-    "href": "slides/slides-03-ml-fundamentals.html#overfitting-and-underfitting",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "Overfitting and underfitting",
-    "text": "Overfitting and underfitting\n\n\n\nSource\n\n\nAn overfit model matches the training set so closely that it fails to make correct predictions on new unseen data.\n\nAn underfit model is too simple and does not even make good predictions on the training data"
+    "objectID": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario-1",
+    "href": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario-1",
+    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "section": "Which metric fits the scenario?",
+    "text": "Which metric fits the scenario?\n\nFor interpretability: prefer RMSE or MAPE\nWhen you want to discourage large error: MSE is common\nFor fair comparison: r2 provides a normalized score similar to accuracy in classification.\n\nFor imbalanced scales: MAPE helps when proportional error matters more than absolute error."
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#the-fundamental-tradeoff",
-    "href": "slides/slides-03-ml-fundamentals.html#the-fundamental-tradeoff",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "The fundamental tradeoff",
-    "text": "The fundamental tradeoff\nAs you increase the model complexity, training score tends to go up and the gap between train and validation scores tends to go up.\n\n\n\n\n\n\n\n\n\nUnderfitting: Both accuracies rise\nSweet spot: Validation accuracy peaks\nOverfitting: Training \\(\\uparrow\\), Validation \\(\\downarrow\\)\nTradeoff: Balance complexity to avoid both"
+    "objectID": "lecture-20.html",
+    "href": "lecture-20.html",
+    "title": "Lecture 20: Survival analysis",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 20: Survival analysis"
+    ]
   },
   {
-    "objectID": "slides/slides-03-ml-fundamentals.html#the-golden-rule",
-    "href": "slides/slides-03-ml-fundamentals.html#the-golden-rule",
-    "title": "CPSC 330 Lecture 3: ML fundamentals",
-    "section": "The golden rule",
-    "text": "The golden rule\n\nAlthough our primary concern is the model’s performance on the test data, this data should not influence the training process in any way.\n\n\n\n Source: Image generated by ChatGPT 5\n\n\nTest data = final exam\n\nYou can practice all you want with training/validation data\nBut never peek at the test set before evaluation\nOtherwise, it’s like sneaking answers before the exam \\(\\rightarrow\\) not a real assessment of your learning."
+    "objectID": "lecture-20.html#slides",
+    "href": "lecture-20.html#slides",
+    "title": "Lecture 20: Survival analysis",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Lectures",
+      "Lecture 20: Survival analysis"
+    ]
+  },
+  {
+    "objectID": "lecture-20.html#outline",
+    "href": "lecture-20.html#outline",
+    "title": "Lecture 20: Survival analysis",
+    "section": "Outline",
+    "text": "Outline\n\nMotivation\nRight-censored data.\nWhen to use survival analysis\nApply survival analysis in Python using the lifelines package\nInterpret a survival curve, such as the Kaplan-Meier curve.\nInterpret the coefficients of a fitted Cox proportional hazards model.\nMake predictions for existing individuals and interpret these predictions.",
+    "crumbs": [
+      "Lectures",
+      "Lecture 20: Survival analysis"
+    ]
   },
   {
     "objectID": "lecture-18.html",
@@ -2310,7 +2483,7 @@
     "href": "lecture.html",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\nLecture 20: Survival analysis\n\n\n \n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -2321,7 +2494,7 @@
     "href": "lecture.html#schedule",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\nLecture 20: Survival analysis\n\n\n \n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -3050,284 +3223,298 @@
     ]
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
-    "href": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "objectID": "slides/slides-03-ml-fundamentals.html#announcements",
+    "href": "slides/slides-03-ml-fundamentals.html#announcements",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "Announcements",
+    "text": "Announcements\n\nHomework 2 (hw2) has been released (Due: Sept 16, 11:59pm)\n\nYou are welcome to broadly discuss it with your classmates but final answers and submissions must be your own.\nGroup submissions are not allowed for this assignment.\n\nAdvice on keeping up with the material\n\nPractice!\nStart early on homework assignments.\n\nIf you are still on the waitlist, it’s your responsibility to keep up with the material and submit assignments.\nLast day to drop without a W standing: Sept 15"
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#iclicker-3.1",
+    "href": "slides/slides-03-ml-fundamentals.html#iclicker-3.1",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "iClicker 3.1",
+    "text": "iClicker 3.1\nClicker cloud join link: https://join.iclicker.com/FZMQ\nSelect all of the following statements which are TRUE.\n\n\nA decision tree model with no depth (the default max_depth in sklearn) is likely to perform very well on the deployment data.\n\n\nData splitting helps us assess how well our model would generalize.\n\n\nDeployment data is scored only once.\n\n\nValidation data could be used for hyperparameter optimization.\n\n\nIt’s recommended that data be shuffled before splitting it into train and test sets."
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#iclicker-3.2",
+    "href": "slides/slides-03-ml-fundamentals.html#iclicker-3.2",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "iClicker 3.2",
+    "text": "iClicker 3.2\nClicker cloud join link: https://join.iclicker.com/FZMQ\nSelect all of the following statements which are TRUE.\n\n\n\\(k\\)-fold cross-validation calls fit \\(k\\) times\n\n\nWe use cross-validation to get a more robust estimate of model performance.\n\n\nIf the mean train accuracy is much higher than the mean cross-validation accuracy it’s likely to be a case of overfitting.\n\n\nThe fundamental tradeoff of ML states that as training error goes down, validation error goes up.\n\n\nA decision stump on a complicated classification problem is likely to underfit."
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#recap-from-videos",
+    "href": "slides/slides-03-ml-fundamentals.html#recap-from-videos",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "Recap from videos",
+    "text": "Recap from videos\n\nWhy do we split the data? What are train/valid/test splits?\nWhat are the benefits of cross-validation?\nWhat is underfitting and overfitting?\nWhat’s the fundamental trade-off in supervised machine learning?\nWhat is the golden rule of machine learning?"
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#summary-of-train-validation-test-and-deployment-data",
+    "href": "slides/slides-03-ml-fundamentals.html#summary-of-train-validation-test-and-deployment-data",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "Summary of train, validation, test, and deployment data",
+    "text": "Summary of train, validation, test, and deployment data\n\n\n\n\nfit\nscore\npredict\n\n\n\n\nTrain\n✔️\n✔️\n✔️\n\n\nValidation\n\n✔️\n✔️\n\n\nTest\n\nonce\nonce\n\n\nDeployment\n\n\n✔️"
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#cross-validation",
+    "href": "slides/slides-03-ml-fundamentals.html#cross-validation",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "Cross validation",
+    "text": "Cross validation"
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#cross-validation-1",
+    "href": "slides/slides-03-ml-fundamentals.html#cross-validation-1",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "Cross validation",
+    "text": "Cross validation"
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#overfitting-and-underfitting",
+    "href": "slides/slides-03-ml-fundamentals.html#overfitting-and-underfitting",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "Overfitting and underfitting",
+    "text": "Overfitting and underfitting\n\n\n\nSource\n\n\nAn overfit model matches the training set so closely that it fails to make correct predictions on new unseen data.\n\nAn underfit model is too simple and does not even make good predictions on the training data"
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#the-fundamental-tradeoff",
+    "href": "slides/slides-03-ml-fundamentals.html#the-fundamental-tradeoff",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "The fundamental tradeoff",
+    "text": "The fundamental tradeoff\nAs you increase the model complexity, training score tends to go up and the gap between train and validation scores tends to go up.\n\n\n\n\n\n\n\n\n\nUnderfitting: Both accuracies rise\nSweet spot: Validation accuracy peaks\nOverfitting: Training \\(\\uparrow\\), Validation \\(\\downarrow\\)\nTradeoff: Balance complexity to avoid both"
+  },
+  {
+    "objectID": "slides/slides-03-ml-fundamentals.html#the-golden-rule",
+    "href": "slides/slides-03-ml-fundamentals.html#the-golden-rule",
+    "title": "CPSC 330 Lecture 3: ML fundamentals",
+    "section": "The golden rule",
+    "text": "The golden rule\n\nAlthough our primary concern is the model’s performance on the test data, this data should not influence the training process in any way.\n\n\n\n Source: Image generated by ChatGPT 5\n\n\nTest data = final exam\n\nYou can practice all you want with training/validation data\nBut never peek at the test set before evaluation\nOtherwise, it’s like sneaking answers before the exam \\(\\rightarrow\\) not a real assessment of your learning."
+  },
+  {
+    "objectID": "slides/slides-17-natural-language-processing.html#focus-on-the-breath",
+    "href": "slides/slides-17-natural-language-processing.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
     "section": "Focus on the breath!",
     "text": "Focus on the breath!"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#announcements",
-    "href": "slides/slides-10-regression-metrics.html#announcements",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
+    "objectID": "slides/slides-17-natural-language-processing.html#announcements",
+    "href": "slides/slides-17-natural-language-processing.html#announcements",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\nGood news for you: You’ll have access to our course notes in the midterm!\n\nHW4 was due on Monday, Oct 6th 11:59 pm.\nHW5 has been released. It’s a project-type assignment and you get till Oct 27th to work on it."
+    "text": "Announcements\n\nNo classes next week.\nMidterm 2 coming up next week.\nDo you need OH to get ready for the midterm? If yes, I can hold OH on Monday."
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#iclicker-oh",
-    "href": "slides/slides-10-regression-metrics.html#iclicker-oh",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "iClicker OH",
-    "text": "iClicker OH\nI’m planning to hold an in-person midterm review office hour. Which time works best for you?\n\n\nFriday, October 10th 2pm\n\n\nTuesday, October 14th 2pm\n\n\nTuesday, October 14th 4pm"
+    "objectID": "slides/slides-17-natural-language-processing.html#iclicker-question",
+    "href": "slides/slides-17-natural-language-processing.html#iclicker-question",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "iClicker question",
+    "text": "iClicker question\nDo you need office hours to help you prepare for the midterm?\n\n\nMonday at 2 PM works well for me\n\n\nMonday at 4 PM works well for me\n\n\nNo, I don’t need office hours"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#which-metric-fits-best",
-    "href": "slides/slides-10-regression-metrics.html#which-metric-fits-best",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Which metric fits best?",
-    "text": "Which metric fits best?\n\n\n\nScenario\nData Imbalance\nMain Concern\nBest Metric(s) / Curve\n\n\n\n\nEmail Spam Detection\n10% spam\nAvoid false positives\n\n\n\nDisease Screening\n1 in 10,000\nAvoid false negatives\n\n\n\nCredit Card Fraud\n0.1% fraud\nFocus on rare positive class\n\n\n\nCustomer Churn\n20% churn\nBalance FP & FN\n\n\n\nSentiment Analysis\n50/50 balanced\nOverall correctness\n\n\n\nFace Recognition\nBalanced pairs\nTrade-off FP vs FN"
+    "objectID": "slides/slides-17-natural-language-processing.html#recap",
+    "href": "slides/slides-17-natural-language-processing.html#recap",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "Recap",
+    "text": "Recap\n\n\nImagine that you recently watched Minimalism: A Documentary About the Important Things (2015) and rated it highly.\n\n\n\n        \n        \n\n\n\nSuppose a recommendation system suggests items based on item similarity. Which movie would be recommended to you?\n\n\n🎬 Avatar: The Way of Water (2022) (Highly popular sci-fi movie with themes of nature and connection.)\n\n\n🎬 The Art of Effortless Living (2021) (A lesser-known documentary about mindfulness and simple living.)"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#summary-choosing-the-right-metric",
-    "href": "slides/slides-10-regression-metrics.html#summary-choosing-the-right-metric",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Summary: Choosing the right metric",
-    "text": "Summary: Choosing the right metric\n\n\n\n\n\n\n\n\nMetric / Plot\nWhen to Use\nWhy\n\n\n\n\nPrecision, Recall, F1\nWhen you care about specific error types (FP vs FN) or a fixed threshold.\nFocus on particular tradeoffs.\n\n\nPR Curve & AP Score\nWhen the dataset is highly imbalanced (rare positives).\nIgnores TNs; focuses on positives.\n\n\nROC Curve & AUC\nWhen classes are moderately imbalanced.\nMeasures ranking ability across thresholds."
+    "objectID": "slides/slides-17-natural-language-processing.html#similarity-metrics",
+    "href": "slides/slides-17-natural-language-processing.html#similarity-metrics",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "Similarity metrics",
+    "text": "Similarity metrics\n\nSimilarity based on Euclidean distance\n\n\\[distance(vec1, vec2) = \\sqrt{\\sum_{i =1}^{n} (vec1_i - vec2_i)^2}\\]\n\nDot product similarity:\n\n\\[similarity_{dot product}(vec1,vec2) = vec1.vec2\\]\n\nCosine similarity: normalized version of dot product.\n\n\\[similarity_{cosine}(vec1,vec2) = \\frac{vec1.vec2}{\\left\\lVert vec1\\right\\rVert_2 \\left\\lVert vec2\\right\\rVert_2}\\]"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#questions-for-you",
-    "href": "slides/slides-10-regression-metrics.html#questions-for-you",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Questions for you",
-    "text": "Questions for you\n\nWhat’s the difference between the average precision (AP) score and F1-score?\nWhich model would you pick?"
+    "objectID": "slides/slides-17-natural-language-processing.html#which-metric-in-what-context",
+    "href": "slides/slides-17-natural-language-processing.html#which-metric-in-what-context",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "Which metric in what context?",
+    "text": "Which metric in what context?\n\n\nGiven a query vector “Query” in the picture below and the three item vectors, determine the ranking of the items for the three similarity measures below:\n\n\n\nExample: Similarity based on Euclidean distance: item B &gt; item C &gt; item A \nSimilarity based on dot product: ?\n\n- Cosine similarity: ?\n\nAdapted from here."
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#roc-of-a-baseline-model",
-    "href": "slides/slides-10-regression-metrics.html#roc-of-a-baseline-model",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "ROC of a baseline model",
-    "text": "ROC of a baseline model\n\n\n\n\nAUC–ROC measures the probability that a randomly chosen positive example receives a higher score than a randomly chosen negative example.\n\nPerfect model: (AUC = 1.0). Always ranks positives above negatives.\n\nRandom model (AUC = 0.5): No discriminative ability (equivalent to random guessing).\n\n\n\nSource"
+    "objectID": "slides/slides-17-natural-language-processing.html#what-is-nlp",
+    "href": "slides/slides-17-natural-language-processing.html#what-is-nlp",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "What is NLP?",
+    "text": "What is NLP?\n\nNatural Language Processing (NLP) is a field at the intersection of computer science, linguistics, and artificial intelligence.\n\nIt focuses on enabling computers to understand, interpret, and generate human language."
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#questions-for-you-1",
-    "href": "slides/slides-10-regression-metrics.html#questions-for-you-1",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Questions for you",
-    "text": "Questions for you\n\n\n\n\n\nWhich model would you pick?"
+    "objectID": "slides/slides-17-natural-language-processing.html#examples-of-nlp-applications",
+    "href": "slides/slides-17-natural-language-processing.html#examples-of-nlp-applications",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "Examples of NLP applications",
+    "text": "Examples of NLP applications"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#dealing-with-class-imbalance",
-    "href": "slides/slides-10-regression-metrics.html#dealing-with-class-imbalance",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Dealing with class imbalance",
-    "text": "Dealing with class imbalance\n\nUnder sampling\nOversampling\nclass weight=\"balanced\" (preferred method for this course)\nSMOTE"
+    "objectID": "slides/slides-17-natural-language-processing.html#key-challenges-in-nlp",
+    "href": "slides/slides-17-natural-language-processing.html#key-challenges-in-nlp",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "Key challenges in NLP",
+    "text": "Key challenges in NLP\n\nAmbiguity: words can have multiple meanings and meaning depends on previous words/sentences\n\nI had toast with jam vs We got stuck in a traffic jam.\nIf the baby does not thrive on raw milk, boil it.\n\n\nStructure: syntax and grammar vary widely\n\nTime flies like an arrow vs Fruit flies like a banana.\n\n\nWorld knowledge: understanding beyond text\n\nOlive oil: oil made from olives\nBaby oil: oil made for babies"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#handling-imbalance-by-chaning-class-weights",
-    "href": "slides/slides-10-regression-metrics.html#handling-imbalance-by-chaning-class-weights",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Handling imbalance by chaning class weights",
-    "text": "Handling imbalance by chaning class weights\n\nWe can specify class_weight=“balanced” to give more importance to rare examples during training.\n\n\n\n\n\n\n\n\n\n\n\n\nThis sets the weights so that the classes are “equal”.\nWe have reduced false negatives but we have many more false positives now …\n\nDecreases false negatives, which improves recall.\nIncreases false positives, which might lower precision."
+    "objectID": "slides/slides-17-natural-language-processing.html#goal-of-this-lecture",
+    "href": "slides/slides-17-natural-language-processing.html#goal-of-this-lecture",
+    "title": "CPSC 330 Lecture 17: Introduction to Natural Language Processing",
+    "section": "Goal of this lecture",
+    "text": "Goal of this lecture\nNLP is a broad field. In this lecture I’ll give you a high-level introduction to\n\nTopic Modeling\nWord embeddings\nLanguage models and large language models"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#ridge-and-ridgecv",
-    "href": "slides/slides-10-regression-metrics.html#ridge-and-ridgecv",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Ridge and RidgeCV",
-    "text": "Ridge and RidgeCV\n\nRidge Regression: alpha hyperparameter controls model complexity.\nRidgeCV: Ridge regression with built-in cross-validation to find the optimal alpha."
+    "objectID": "slides/slides-20-survival-analysis.html#focus-on-the-breath",
+    "href": "slides/slides-20-survival-analysis.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Focus on the breath!",
+    "text": "Focus on the breath!"
   },
   {
-    "objectID": "slides/slides-10-regression-metrics.html#alpha-hyperparameter",
-    "href": "slides/slides-10-regression-metrics.html#alpha-hyperparameter",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "alpha hyperparameter",
-    "text": "alpha hyperparameter\n\nRole of alpha:\n\nControls model complexity\nHigher alpha: Simpler model, smaller coefficients.\nLower alpha: Complex model, larger coefficients."
-  },
-  {
-    "objectID": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape-r2_score",
-    "href": "slides/slides-10-regression-metrics.html#regression-metrics-mse-rmse-mape-r2_score",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Regression metrics: MSE, RMSE, MAPE, r2_score",
-    "text": "Regression metrics: MSE, RMSE, MAPE, r2_score\n\nMean Squared Error (MSE): Average of the squares of the errors.\nRoot Mean Squared Error (RMSE): Square root of MSE, same units as the target variable.\nr2 measures how much of the variation in the target variable your model can explain.-\nMean Absolute Percentage Error (MAPE): Average of the absolute percentage errors."
-  },
-  {
-    "objectID": "slides/slides-10-regression-metrics.html#applying-log-transformation-to-the-targets",
-    "href": "slides/slides-10-regression-metrics.html#applying-log-transformation-to-the-targets",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Applying log transformation to the targets",
-    "text": "Applying log transformation to the targets\n\nSuitable when the target has a wide range and spans several orders of magnitude\n\nExample: counts data such as social media likes or price data\n\nHelps manage skewed data, making patterns more apparent and regression models more effective.\nTransformedTargetRegressor\n\nWraps a regression model and applies a transformation to the target values."
-  },
-  {
-    "objectID": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.1",
-    "href": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.1",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "iClicker Exercise 10.1",
-    "text": "iClicker Exercise 10.1\nSelect all of the following statements which are TRUE.\n\n\nPrice per square foot would be a good feature to add in our X.\n\n\nThe alpha hyperparameter of Ridge has similar interpretation of C hyperparameter of LogisticRegression; higher alpha means more complex model.\n\n\nIn Ridge, smaller alpha means bigger coefficients whereas bigger alpha means smaller coefficients."
-  },
-  {
-    "objectID": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.2",
-    "href": "slides/slides-10-regression-metrics.html#iclicker-exercise-10.2",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "iClicker Exercise 10.2",
-    "text": "iClicker Exercise 10.2\nSelect all of the following statements which are TRUE.\n\n\nWe can still use precision and recall for regression problems but now we have other metrics we can use as well.\n\n\nIn sklearn for regression problems, using r2_score() and .score() (with default values) will produce the same results.\n\n\nRMSE is always going to be non-negative.\n\n\nMSE does not directly provide the information about whether the model is underpredicting or overpredicting.\n\n\nWe can pass multiple scoring metrics to GridSearchCV or RandomizedSearchCV for regression as well as classification problems."
-  },
-  {
-    "objectID": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario",
-    "href": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Which metric fits the scenario?",
-    "text": "Which metric fits the scenario?\n\n\n\n\n\n\n\n\nScenario\nWhat matters most?\nBest metric(s)?\n\n\n\n\nPredicting house prices ranging from $60K–$800K.\nA $30K error is huge for a $60K house but small for a $500K house.\n\n\n\nPredicting exam scores (0–100).\nYou want an interpretable measure of average error in points.\n\n\n\nPredicting energy consumption in a large industrial system.\nLarge errors are very costly and should be penalized heavily.\n\n\n\nPredicting insurance claim amounts.\nYou want to compare how well different models explain the variation in claims."
-  },
-  {
-    "objectID": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario-1",
-    "href": "slides/slides-10-regression-metrics.html#which-metric-fits-the-scenario-1",
-    "title": "CPSC 330 Lecture 10: Regression Metrics",
-    "section": "Which metric fits the scenario?",
-    "text": "Which metric fits the scenario?\n\nFor interpretability: prefer RMSE or MAPE\nWhen you want to discourage large error: MSE is common\nFor fair comparison: r2 provides a normalized score similar to accuracy in classification.\n\nFor imbalanced scales: MAPE helps when proportional error matters more than absolute error."
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#announcements",
-    "href": "slides/slides-07-linear-models.html#announcements",
-    "title": "Lecture 7: Linear models",
+    "objectID": "slides/slides-20-survival-analysis.html#announcements",
+    "href": "slides/slides-20-survival-analysis.html#announcements",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "Announcements",
-    "text": "Announcements\n\nImportant information about midterm 1\n\nhttps://piazza.com/class/mekbcze4gyber/post/162\n\nWhere to find slides?\n\nhttps://kvarada.github.io/cpsc330-slides/lecture.html\n\nHW3 is due next week Monday, Sept 29th, 11:59 pm."
+    "text": "Announcements\n\nHW9 has been released (due next week Monday)\n\nAlmost there! You’ve got this! 😊\n\nMidterm 2 grades were released last week."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
-    "href": "slides/slides-07-linear-models.html#recap-dealing-with-text-features",
-    "title": "Lecture 7: Linear models",
-    "section": "Recap: Dealing with text features",
-    "text": "Recap: Dealing with text features\n\nPreprocessing text to fit into machine learning models using text vectorization.\nBag of words representation"
+    "objectID": "slides/slides-20-survival-analysis.html#recap-iclicker-questions",
+    "href": "slides/slides-20-survival-analysis.html#recap-iclicker-questions",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Recap: iClicker questions",
+    "text": "Recap: iClicker questions\n(iClicker) Exercise 20.1\nSelect all of the following statements which are TRUE.\n\n\nWe need to be careful when splitting the data when working with time series data.\n\n\nCross-validation in time series can be randomly applied like in other machine learning tasks.\n\n\nIn time series forecasting, the future value of a series can only be predicted based on its past values and cannot incorporate other variables.\n\n\nWhen we used RandomForestRegressor model on the POSIX time feature, it predicted a straight line on the test data because tree-based models are inherently unable to extrapolate (i.e., make predictions outside the range of the training data)."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
-    "href": "slides/slides-07-linear-models.html#recap-sklearn-countvectorizer",
-    "title": "Lecture 7: Linear models",
-    "section": "Recap: sklearn CountVectorizer",
-    "text": "Recap: sklearn CountVectorizer\n\nUse scikit-learn’s CountVectorizer to encode text data\nCountVectorizer: Transforms text into a matrix of token counts\nImportant parameters:\n\nmax_features: Control the number of features used in the model\nmax_df, min_df: Control document frequency thresholds\nngram_range: Defines the range of n-grams to be extracted\nstop_words: Enables the removal of common words that are typically uninformative in most applications, such as “and”, “the”, etc."
+    "objectID": "slides/slides-20-survival-analysis.html#customer-churn",
+    "href": "slides/slides-20-survival-analysis.html#customer-churn",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Customer churn",
+    "text": "Customer churn\nCustomer churn, also known as customer attrition, refers to the phenomenon where customers or subscribers stop doing business with a company or service."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-6.2",
-    "title": "Lecture 7: Linear models",
-    "section": "(iClicker) Exercise 6.2",
-    "text": "(iClicker) Exercise 6.2\nSelect all of the following statements which are TRUE.\n\n\nhandle_unknown=\"ignore\" would treat all unknown categories equally.\n\n\nAs you increase the value for max_features hyperparameter of CountVectorizer the training score is likely to go up.\n\n\nSuppose you are encoding text data using CountVectorizer. If you encounter a word in the validation or the test split that’s not available in the training data, we’ll get an error.\n\n\nIn the code below, inside cross_validate, each fold might have slightly different number of features (columns) in the fold.\n\n\npipe = (CountVectorizer(), SVC())\ncross_validate(pipe, X_train, y_train)"
+    "objectID": "slides/slides-20-survival-analysis.html#monthly-subscriber-churn-rates-for-various-streaming-services",
+    "href": "slides/slides-20-survival-analysis.html#monthly-subscriber-churn-rates-for-various-streaming-services",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Monthly subscriber churn rates for various streaming services",
+    "text": "Monthly subscriber churn rates for various streaming services\n\n\n Source\n\nQuestion: Is a smaller or a larger churn rate more desirable for a subscription-based company?\n\nA smaller churn rate is better (means fewer customers leaving)\nLower churn = higher customer retention = more stable revenue"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#linear-models",
-    "href": "slides/slides-07-linear-models.html#linear-models",
-    "title": "Lecture 7: Linear models",
-    "section": "Linear models",
-    "text": "Linear models\n\n\n\nLinear models make an assumption that the relationship between X and y is linear.\nIn this case, with only one feature, our model is a straight line.\nWhat do we need to represent a line?\n\nSlope (\\(w_1\\)): Determines the angle of the line.\nY-intercept (\\(w_0\\)): Where the line crosses the y-axis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaking predictions: \\(y_{hat} = w_1 \\times \\text{\\# hours studied} + w_0\\)"
+    "objectID": "slides/slides-20-survival-analysis.html#the-challenge-predicting-when-not-just-whether",
+    "href": "slides/slides-20-survival-analysis.html#the-challenge-predicting-when-not-just-whether",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "The challenge: Predicting when, not just whether",
+    "text": "The challenge: Predicting when, not just whether\nImagine you work for a subscription-based telecom company.\n\nYour team wants to predict when a customer will churn, not just whether they churn.\nThis helps the company:\n\nTarget retention strategies at the right time\nAllocate resources efficiently to high-risk customers\nUnderstand which factors accelerate or delay churn\n\nOur goal: model time to churn while accounting for customers who haven’t churned yet."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
-    "href": "slides/slides-07-linear-models.html#ridge-vs.-linearregression",
-    "title": "Lecture 7: Linear models",
-    "section": "Ridge vs. LinearRegression",
-    "text": "Ridge vs. LinearRegression\n\nOrdinary linear regression is sensitive to multicolinearity and overfitting\nMulticolinearity: Overlapping and redundant features. Most of the real-world datasets have colinear features.\n\nLinear regression may produce large and unstable coefficients in such cases.\nRidge adds a parameter to control the complexity of a model. Finds a line that balances fit and prevents overly large coefficients."
+    "objectID": "slides/slides-20-survival-analysis.html#customer-churn-dataset",
+    "href": "slides/slides-20-survival-analysis.html#customer-churn-dataset",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Customer Churn Dataset",
+    "text": "Customer Churn Dataset\nIf you wanted to predict whether a customer churns, what kind of model from your ML toolbox would you use?\n\n\n\n\n\n\n\n\n\ncustomerID\ngender\nSeniorCitizen\nPartner\nDependents\ntenure\nPhoneService\nMultipleLines\nInternetService\nOnlineSecurity\n...\nDeviceProtection\nTechSupport\nStreamingTV\nStreamingMovies\nContract\nPaperlessBilling\nPaymentMethod\nMonthlyCharges\nTotalCharges\nChurn\n\n\n\n\n6464\n4726-DLWQN\nMale\n1\nNo\nNo\n50\nYes\nYes\nDSL\nYes\n...\nNo\nNo\nYes\nNo\nMonth-to-month\nYes\nBank transfer (automatic)\n70.35\n3454.6\nNo\n\n\n5707\n4537-DKTAL\nFemale\n0\nNo\nNo\n2\nYes\nNo\nDSL\nNo\n...\nNo\nNo\nNo\nNo\nMonth-to-month\nNo\nElectronic check\n45.55\n84.4\nNo\n\n\n3442\n0468-YRPXN\nMale\n0\nNo\nNo\n29\nYes\nNo\nFiber optic\nNo\n...\nYes\nYes\nYes\nYes\nMonth-to-month\nYes\nCredit card (automatic)\n98.80\n2807.1\nNo\n\n\n3932\n1304-NECVQ\nFemale\n1\nNo\nNo\n2\nYes\nYes\nFiber optic\nNo\n...\nYes\nNo\nNo\nNo\nMonth-to-month\nYes\nElectronic check\n78.55\n149.55\nYes\n\n\n6124\n7153-CHRBV\nFemale\n0\nYes\nYes\n57\nYes\nNo\nDSL\nYes\n...\nYes\nYes\nNo\nNo\nOne year\nYes\nMailed check\n59.30\n3274.35\nNo\n\n\n\n\n5 rows × 21 columns"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#when-to-use-what",
-    "href": "slides/slides-07-linear-models.html#when-to-use-what",
-    "title": "Lecture 7: Linear models",
-    "section": "When to use what?",
-    "text": "When to use what?\n\nLinearRegression\n\nWhen interpretability is key, and no multicollinearity exists\n\nRidge\n\nWhen you have multicollinearity (highly correlated features).\nWhen you want to prevent overfitting in linear models.\n\nIn this course, we’ll use Ridge."
+    "objectID": "slides/slides-20-survival-analysis.html#churn-prediction-as-binary-classification",
+    "href": "slides/slides-20-survival-analysis.html#churn-prediction-as-binary-classification",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Churn prediction as binary classification",
+    "text": "Churn prediction as binary classification\n\nWhen we treat churn as a binary classification problem, we only ask: Has the customer churned by the time of data collection?\nLimitations of this approach:\n\nAnswers only “Yes/No” and discards when churn occurred\nTreats a customer who churned after 1 month the same as one who churned after 5 years\nIgnores the time dimension entirely\n\nIs that what we want? Not if timing matters for business decisions!"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#logistic-regression",
-    "href": "slides/slides-07-linear-models.html#logistic-regression",
-    "title": "Lecture 7: Linear models",
-    "section": "Logistic regression",
-    "text": "Logistic regression\n\nSuppose your target is binary: pass or fail\nLogistic regression is used for such binary classification tasks.\n\nLogistic regression predicts a probability that the given example belongs to a particular class.\nIt uses Sigmoid function to map any real-valued input into a value between 0 and 1, representing the probability of a specific outcome.\nA threshold (usually 0.5) is applied to the predicted probability to decide the final class label."
+    "objectID": "slides/slides-20-survival-analysis.html#predicting-tenure",
+    "href": "slides/slides-20-survival-analysis.html#predicting-tenure",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Predicting tenure",
+    "text": "Predicting tenure\n\n\n\n\n\n\n\n\n\n\n\ntenure\nChurn\n\n\n\n\n6464\n50\nNo\n\n\n5707\n2\nNo\n\n\n3442\n29\nNo\n\n\n3932\n2\nYes\n\n\n6124\n57\nNo\n\n\n301\n4\nYes\n\n\n3552\n68\nNo\n\n\n2874\n64\nNo\n\n\n\n\n\n\n\n\nIn our dataset, the tenure column is the number of months the customer has stayed with the company. Can we use the techniques you learned so far (e.g., regression models) to predict the time (tenure in our case)?"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
-    "href": "slides/slides-07-linear-models.html#logistic-regression-decision-boundary",
-    "title": "Lecture 7: Linear models",
-    "section": "Logistic regression: Decision boundary",
-    "text": "Logistic regression: Decision boundary\n\n\n\n\n\n\n\n\n\n\n\n\n\nSigmoid Function: \\(\\hat{y} = \\sigma(w^\\top x_i + b) = \\frac{1}{1 + e^{-(w^\\top x_i + b)}}\\)\nThe decision boundary is the point on the x-axis where the corresponding predicted probability on the y-axis is 0.5."
+    "objectID": "slides/slides-20-survival-analysis.html#the-problem-incomplete-information",
+    "href": "slides/slides-20-survival-analysis.html#the-problem-incomplete-information",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "The problem: Incomplete information",
+    "text": "The problem: Incomplete information\n\n\n\n\n\n\n\n\n\n\n\ntenure\nChurn\n\n\n\n\n6464\n50\nNo\n\n\n5707\n2\nNo\n\n\n3442\n29\nNo\n\n\n3932\n2\nYes\n\n\n6124\n57\nNo\n\n\n301\n4\nYes\n\n\n3552\n68\nNo\n\n\n2874\n64\nNo\n\n\n\n\n\n\n\n\n\nWe only have information about tenure up to the point we collected the data.\nFor customers who haven’t churned:\n\nWe don’t know their true “time to churn”\nWe only know they lasted at least this long\nTheir actual churn time is unknown (incomplete information)\n\nThis is called right-censoring - the event hasn’t occurred yet"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#sentiment-analysis-example",
-    "href": "slides/slides-07-linear-models.html#sentiment-analysis-example",
-    "title": "Lecture 7: Linear models",
-    "section": "Sentiment analysis example",
-    "text": "Sentiment analysis example\n\n\n\n\n\nLogistic regression learns coefficients for each word from training data.\n\nPositive coefficients \\(\\rightarrow\\) push prediction toward positive class.\n\nNegative coefficients \\(\\rightarrow\\) push prediction toward negative class.\n\nIn this example, positive words (fun, rewarding) outweigh the negative word (long), so the overall sentiment is likely positive."
+    "objectID": "slides/slides-20-survival-analysis.html#types-of-censoring",
+    "href": "slides/slides-20-survival-analysis.html#types-of-censoring",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Types of censoring",
+    "text": "Types of censoring\n\nRight-censoring: Event hasn’t occurred yet (most common in practice)\nLeft-censoring: Event occurred before observation started\nInterval-censoring: Event occurred within a time interval"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
-    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level",
-    "title": "Lecture 7: Linear models",
-    "section": "Parametric vs. non-Parametric models (high-level)",
-    "text": "Parametric vs. non-Parametric models (high-level)\n\nImagine you are training a logistic regression model. For each of the following scenarios, identify how many parameters (weights and biases) will be learned.\nScenario 1: 100 features and 1,000 examples\nScenario 2: 100 features and 1 million examples"
+    "objectID": "slides/slides-20-survival-analysis.html#time-to-event-and-censoring",
+    "href": "slides/slides-20-survival-analysis.html#time-to-event-and-censoring",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Time to event and censoring",
+    "text": "Time to event and censoring\n\n\n\n\n\n\n\n\n\n\n\ntenure\nChurn\n\n\n\n\n6464\n50\nNo\n\n\n5707\n2\nNo\n\n\n3442\n29\nNo\n\n\n3932\n2\nYes\n\n\n6124\n57\nNo\n\n\n301\n4\nYes\n\n\n3552\n68\nNo\n\n\n2874\n64\nNo\n\n\n\n\n\n\n\n\n\nMany customers in the dataset are still active (Churn = “No”).\nThey are right-censored: we only know their tenure so far, not their final tenure."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
-    "href": "slides/slides-07-linear-models.html#parametric-vs.-non-parametric-models-high-level-1",
-    "title": "Lecture 7: Linear models",
-    "section": "Parametric vs. non-Parametric models (high-level)",
-    "text": "Parametric vs. non-Parametric models (high-level)\n\n\nParametric\n\nExamples: Logistic regression, linear regression, linear SVM\n\nModels with a fixed number of parameters, regardless of the dataset size\nSimple, computationally efficient, less prone to overfitting\nLess flexible, may not capture complex relationships\n\n\nNon parametric\n\nExamples: KNN, SVM RBF, Decision tree with no specific depth specified\nModels where the number of parameters grows with the dataset size. They do not assume a fixed form for the functions being learned.\nFlexible, can adapt to complex patterns\nComputationally expensive, risk of overfitting with noisy data"
+    "objectID": "slides/slides-20-survival-analysis.html#time-to-event-problems",
+    "href": "slides/slides-20-survival-analysis.html#time-to-event-problems",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Time-to-event problems",
+    "text": "Time-to-event problems\nTime-to-event problems appear everywhere. Examples include:\n\nTime until a customer leaves a subscription service\nTime until a disease causes death\nTime until equipment fails\nDuration of unemployment until finding a job\nWaiting time until a scheduled surgery\n\nThese all follow the same pattern: the event happens once, and we care about how long it takes."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.1",
-    "title": "Lecture 7: Linear models",
-    "section": "(iClicker) Exercise 7.1",
-    "text": "(iClicker) Exercise 7.1\nSelect all of the following statements which are TRUE.\n\n\nIncreasing the hyperparameter alpha of Ridge is likely to decrease model complexity.\n\n\nRidge can be used with datasets that have multiple features.\n\n\nWith Ridge, we learn one coefficient per training example.\n\n\nIf you train a linear regression model on a 2-dimensional problem (2 features), the model will learn 3 parameters: one for each feature and one for the bias term."
+    "objectID": "slides/slides-20-survival-analysis.html#approach-1-only-use-churned-customers",
+    "href": "slides/slides-20-survival-analysis.html#approach-1-only-use-churned-customers",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Approach 1: Only use churned customers ⛔️",
+    "text": "Approach 1: Only use churned customers ⛔️\nSuppose we only consider rows where Churn == “Yes” and throw away all right-censored customers.\n\n\n\n\n\n\n\n\n\ncustomerID\ngender\nSeniorCitizen\nPartner\nDependents\ntenure\nPhoneService\nMultipleLines\nInternetService\nOnlineSecurity\n...\nDeviceProtection\nTechSupport\nStreamingTV\nStreamingMovies\nContract\nPaperlessBilling\nPaymentMethod\nMonthlyCharges\nTotalCharges\nChurn\n\n\n\n\n3932\n1304-NECVQ\nFemale\n1\nNo\nNo\n2\nYes\nYes\nFiber optic\nNo\n...\nYes\nNo\nNo\nNo\nMonth-to-month\nYes\nElectronic check\n78.55\n149.55\nYes\n\n\n301\n8098-LLAZX\nFemale\n1\nNo\nNo\n4\nYes\nYes\nFiber optic\nNo\n...\nNo\nNo\nYes\nYes\nMonth-to-month\nYes\nElectronic check\n95.45\n396.1\nYes\n\n\n5540\n3803-KMQFW\nFemale\n0\nYes\nYes\n1\nYes\nNo\nNo\nNo internet service\n...\nNo internet service\nNo internet service\nNo internet service\nNo internet service\nMonth-to-month\nNo\nMailed check\n20.55\n20.55\nYes\n\n\n4084\n2777-PHDEI\nFemale\n0\nNo\nNo\n1\nYes\nNo\nFiber optic\nNo\n...\nNo\nNo\nYes\nNo\nMonth-to-month\nNo\nElectronic check\n78.05\n78.05\nYes\n\n\n\n\n4 rows × 21 columns\n\n\n\nThis throws away valuable information from active customers!"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
-    "href": "slides/slides-07-linear-models.html#iclicker-exercise-7.2",
-    "title": "Lecture 7: Linear models",
-    "section": "(iClicker) Exercise 7.2",
-    "text": "(iClicker) Exercise 7.2\nSelect all of the following statements which are TRUE.\n\n\nIncreasing logistic regression’s C hyperparameter increases model complexity.\n\n\nThe raw output score can be used to calculate the probability score for a given prediction.\n\n\nFor linear classifier trained on \\(d\\) features, the decision boundary is a \\(d-1\\)-dimensional hyperparlane.\n\n\nA linear model is likely to be uncertain about the data points close to the decision boundary."
+    "objectID": "slides/slides-20-survival-analysis.html#iclicker",
+    "href": "slides/slides-20-survival-analysis.html#iclicker",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "iClicker",
+    "text": "iClicker\nWould only considering rows where Churn == “Yes” and throwing away all right-censored customers overestimate or underestimate the average survival time?\n\n\nOverestimate\n\n\nUnderestimate\n\n\nCannot tell based on the provided information"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
-    "href": "slides/slides-07-linear-models.html#softmax-function-for-probabilities",
-    "title": "Lecture 7: Linear models",
-    "section": "Softmax Function for Probabilities",
-    "text": "Softmax Function for Probabilities\nGiven an input, the probability that it belongs to class \\(j \\in \\{1, 2, \\dots, K\\}\\) is calculated using the softmax function:\n\\(P(y = j \\mid x_i) = \\frac{e^{w_j^\\top x_i + b_j}}{\\sum_{k=1}^{K} e^{w_k^\\top x_i + b_k}}\\)\n\n\\(x_i\\) is the \\(i^{th}\\) example\n\\(w_j\\) is the weight vector for class \\(j\\).\n\\(b_j\\) is the bias term for class \\(j\\).\n\\(K\\) is the total number of classes."
+    "objectID": "slides/slides-20-survival-analysis.html#approach-2-assume-everyone-churns-now",
+    "href": "slides/slides-20-survival-analysis.html#approach-2-assume-everyone-churns-now",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Approach 2: Assume everyone churns now ⛔️",
+    "text": "Approach 2: Assume everyone churns now ⛔️\nTreat all current tenure values as final, even for active customers.\n\n\n\n\n\n\n\n\n\ntenure\nChurn\n\n\n\n\n6464\n50\nNo\n\n\n5707\n2\nNo\n\n\n3442\n29\nNo\n\n\n3932\n2\nYes\n\n\n6124\n57\nNo\n\n\n\n\n\n\n\nThis assumes active customers (Churn = “No”) will churn immediately."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#making-predictions",
-    "href": "slides/slides-07-linear-models.html#making-predictions",
-    "title": "Lecture 7: Linear models",
-    "section": "Making Predictions",
-    "text": "Making Predictions\n\nCompute Probabilities:\nFor each class \\(j\\), compute the probability \\(P(y = j \\mid x_i)\\) using the softmax function.\nSelect the Class with the Highest Probability:\nThe predicted class \\(\\hat{y}\\) is:\n\\(\\hat{y} = \\arg \\max_{j \\in \\{1, \\dots, K\\}} P(y = j \\mid x_i)\\)"
+    "objectID": "slides/slides-20-survival-analysis.html#iclicker-1",
+    "href": "slides/slides-20-survival-analysis.html#iclicker-1",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "iClicker",
+    "text": "iClicker\nWould assuming everyone churns now underestimate or overestimate tenure?\n\n\nOverestimate\n\n\nUnderestimate\n\n\nCannot tell based on the provided information"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
-    "href": "slides/slides-07-linear-models.html#binary-vs-multinomial-logistic-regression",
-    "title": "Lecture 7: Linear models",
-    "section": "Binary vs multinomial logistic regression",
-    "text": "Binary vs multinomial logistic regression\n\n\n\n\n\n\n\n\nAspect\nBinary Logistic Regression\nMultinomial Logistic Regression\n\n\n\n\nTarget variable\n2 classes (binary)\nMore than 2 classes (multi-class)\n\n\nGetting probabilities\nSigmoid\nSoftmax\n\n\nparameters\n\\(d\\) weights, one per feature and the bias term\n\\(d\\) weights and a bias term per class\n\n\nOutput\nSingle probability\nProbability distribution over classes\n\n\nUse case\nBinary classification (e.g., spam detection)\nMulti-class classification (e.g., flower species)"
+    "objectID": "slides/slides-20-survival-analysis.html#section",
+    "href": "slides/slides-20-survival-analysis.html#section",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "",
+    "text": "Key insight: Ignoring or removing censored cases will bias our estimates:"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#activity-time-permitting",
-    "href": "slides/slides-07-linear-models.html#activity-time-permitting",
-    "title": "Lecture 7: Linear models",
-    "section": "Activity (time-permitting)",
-    "text": "Activity (time-permitting)\n\nSo far, we have worked with various transformers and supervised machine learning models. The goal of this activity is collaboratively complete tables that provide an overview of\n\nthe strengths, weaknesses, key hyperparameters of different machine learning models\nthe pupose, use cases, and key considerations of various transformers\n\n(This will serve as a handy reference for your upcoming exam and beyond!)"
+    "objectID": "slides/slides-20-survival-analysis.html#approach-3-survival-analysis",
+    "href": "slides/slides-20-survival-analysis.html#approach-3-survival-analysis",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Approach 3: Survival analysis ✅",
+    "text": "Approach 3: Survival analysis ✅\nSurvival analysis explicitly models time until an event and properly handles censoring.\nCommon methods:\n\nKaplan–Meier estimator: Non-parametric method for estimating survival curves\nCox proportional hazards model: Semi-parametric regression model for survival data\nSurvival forests: Random forest variant adapted for censored data"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#activity-description",
-    "href": "slides/slides-07-linear-models.html#activity-description",
-    "title": "Lecture 7: Linear models",
-    "section": "Activity description",
-    "text": "Activity description\n\nYour task is to engage in group discussions and fill in the designated row in this Google document.\nFor strengths and weaknesses, some things to consider are:\n\nconcerns about underfitting\nconcerns about overfitting\nspeed\nscalability for large data sets\n\ninterpretability\neffectiveness on sparse data\nease of use for multi-class classification\n\nability to represent uncertainty\ntime/space complexity\netc."
+    "objectID": "slides/slides-20-survival-analysis.html#survival-analysis",
+    "href": "slides/slides-20-survival-analysis.html#survival-analysis",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "Survival analysis",
+    "text": "Survival analysis\nThese methods allow estimation of:\n\nSurvival function: \\(S(t) = P(T &gt; t)\\) (probability of surviving past time \\(t\\))\nHazard function: \\(h(t)\\) (instantaneous risk of the event at time \\(t\\))"
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#estimators",
-    "href": "slides/slides-07-linear-models.html#estimators",
-    "title": "Lecture 7: Linear models",
-    "section": "Estimators",
-    "text": "Estimators\nFill in the following table with at least one entry per box.\n\n\n\n\n\n\n\n\n\nModel\nStrengths\nWeaknesses\nKey hyperparameters\n\n\n\n\ndecision tree\n\n\n\n\n\n\\(k\\)-NN\n\n\n\n\n\nRBF SVM\n\n\n\n\n\nlinear models"
+    "objectID": "slides/slides-20-survival-analysis.html#iclicker-2",
+    "href": "slides/slides-20-survival-analysis.html#iclicker-2",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "iClicker",
+    "text": "iClicker\nSelect all of the following statements which are TRUE.\n\n\nRight censoring occurs when the endpoint of event has not been observed for all study subjects by the end of the study period.\n\n\nRight censoring implies that the data is missing completely at random.\n\n\nIn the presence of right-censored data, binary classification models can be applied directly without any modifications or special considerations.\n\n\nIf we apply the Ridge regression model to predict tenure in right censored data, we are likely to underestimate it because the tenure observed in our data is shorter than what it would be in reality."
   },
   {
-    "objectID": "slides/slides-07-linear-models.html#transformers",
-    "href": "slides/slides-07-linear-models.html#transformers",
-    "title": "Lecture 7: Linear models",
-    "section": "Transformers",
-    "text": "Transformers\n\n\n\n\n\n\n\n\n\nTransformation\nPurpose\nUse cases\nKey consideration\n\n\n\n\nImputation\n\n\n\n\n\nScaling\n\n\n\n\n\nOne-hot encoding\n\n\n\n\n\nOrdinal encoding\n\n\n\n\n\nBag-of-words encoding"
-  },
-  {
-    "objectID": "slides/slides-07-linear-models.html#coming-up",
-    "href": "slides/slides-07-linear-models.html#coming-up",
-    "title": "Lecture 7: Linear models",
-    "section": "Coming up",
-    "text": "Coming up\nA few big questions remain:\n\nHow do we tune hyperparameters?\nHow do we choose our features? (feature selection, dimensionality reduction, regularization etc.)\nHow do we come up with new useful features (feature engineering)\nHow do we choose between different models? (different evaluation metrics, what happens if we’re not happy with our test error?)\nHow to deal with class imbalance?\nWhat do we do if we do not have targets (unsupervised learning)\nHow to build models for more interesting data such as images, user preferences, or sequential data?)"
+    "objectID": "slides/slides-20-survival-analysis.html#what-did-we-learn-today",
+    "href": "slides/slides-20-survival-analysis.html#what-did-we-learn-today",
+    "title": "CPSC 330 Lecture 20: Survival analysis",
+    "section": "What did we learn today?",
+    "text": "What did we learn today?\n\nCensoring and incorrect approaches to handling it\n\nThrow away people who haven’t churned\nAssume everyone churns today\n\nPredicting tenure vs. churned\nSurvival analysis encompasses both of these, and deals with censoring\nAnd it can make rich and interesting predictions!\nKM model -&gt; doesn’t look at features\nCPH model -&gt; like linear regression, does look at the features"
   },
   {
     "objectID": "slides/slides-06-hyperparameter-optimization.html#recap-countvectorizer-input",
