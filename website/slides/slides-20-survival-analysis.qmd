@@ -1,0 +1,188 @@
+---
+title: "CPSC 330 Lecture 20: Survival analysis"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      html-math-method: mathjax    
+      embed-resources: true
+      slide-number: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+```{python}
+import os
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression, Ridge
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import (
+    cross_val_predict,
+    cross_val_score,
+    cross_validate,
+    train_test_split,
+)
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import (
+    FunctionTransformer,
+    OneHotEncoder,
+    OrdinalEncoder,
+    StandardScaler,
+)
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from utils import *
+
+plt.rcParams["font.size"] = 12
+
+import warnings
+
+warnings.filterwarnings("default")
+DATA_DIR = os.path.join(os.path.abspath("."), "data/")
+```
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements
+
+- HW9 has been released (due next week Monday)
+  - Almost there! You’ve got this! 😊
+- Midterm 2 grades were released last week. 
+
+## Recap: iClicker questions {.smaller}
+### (iClicker) Exercise 20.1 
+
+**Select all of the following statements which are TRUE.**
+
+- (A) We need to be careful when splitting the data when working with time series data. 
+- (B) Cross-validation in time series can be randomly applied like in other machine learning tasks.
+- (C) In time series forecasting, the future value of a series can only be predicted based on its past values and cannot incorporate other variables.
+- (D) When we used `RandomForestRegressor` model on the POSIX time feature, it predicted a straight line on the test data because tree-based models are inherently unable to extrapolate (i.e., make predictions outside the range of the training data).
+
+
+## Customer churn 
+
+Customer churn, also known as customer attrition, refers to the phenomenon where customers or subscribers stop doing business with a company or service.
+
+## Monthly subscriber churn rates for various streaming services
+
+:::: {.columns}
+:::{.column width="50%"}
+![](img/subscriber-churn.png)
+[Source](https://sherwood.news/tech/could-mergers-help-streaming-sites-turn-the-churning-tides/)
+::: 
+
+:::{.column width="50%"}
+Is a smaller or a larger churn rate more desirable for a subscription-based company?
+
+:::
+::::
+
+## Data 
+
+Imagine you work for a subscription-based telecom company.
+
+- Your team wants to predict **when a customer will churn**, not just whether they churn.
+- This helps the company target retention strategies for different customer segments.
+- Our goal is to **model time to churn**, so we can understand both when churn occurs and which factors influence it.
+
+## [Customer Churn Dataset](https://www.kaggle.com/blastchar/telco-customer-churn) {.scrollable .smaller}
+
+If you only wanted to predict whether a customer churns, what kind of model from your ML toolbox would you use?
+
+```{python}
+df = pd.read_csv(DATA_DIR + "WA_Fn-UseC_-Telco-Customer-Churn.csv")
+train_df, test_df = train_test_split(df, random_state=123)
+train_df.head()
+```
+
+# Censoring and survival analysis
+
+## Time to event and censoring
+
+- When we treat churn as a binary classification problem, we only ask: Has the customer churned by the time of data collection?
+
+- Framing this as a binary classification problem answers only "Yes/No" and discards when churn occurred.
+- Many customers in the dataset are still active; for them the true time-to-churn is unknown — they are right-censored (we only know their tenure so far, i.e., T > observed tenure).
+- Ignoring censored cases or removing them biases time-to-event estimates (typically underestimates survival time).
+- Survival analysis explicitly models time until an event and handles censoring (e.g., Kaplan–Meier, Cox proportional hazards, survival forests), allowing estimation of quantities like the survival function S(t)=P(T>t) and the hazard function h(t).
+
+## Time-to-event problems
+
+Time-to-event problems appear everywhere
+
+Examples include:
+- Time until a customer leaves a subscription service
+- Time until a disease causes death
+- Time until equipment fails
+- Duration of unemployment until finding a job
+- Waiting time until a scheduled surgery
+
+These all follow the same pattern: the event happens once, and we care about how long it takes.
+
+## Tenure column
+
+:::: {.columns}
+:::{.column width="30%"}
+```{python}
+train_df[["tenure"]].head()
+```
+:::
+:::{.column width="70%"}
+
+In our dataset, the tenure column is the number of months the customer has stayed with the company. But we only have information about this till the point we collected the data. 
+
+## ❓❓ Questions for you
+
+But why is this different? Can't you just use the techniques you learned so far (e.g., regression models) to predict the time (tenure in our case)? 
+
+![](img/censoring.png)
+
+## Right censoring 
+
+- Here we know that several cutomers haven't churned yet. Perhaps they churn tomorrow or in 5 years but we stop observing them before they churn. 
+- This means that we **don't have correct target values** to train or test our model. We have **incomplete information** about the churn.
+
+```{python}
+#| echo: true
+train_df[["tenure", "Churn"]].head()
+```
+
+# Approaches 
+
+## Approach 1: iClicker {.smaller}
+
+- Suppose we only consider rows where Churn == "Yes" and throw away all right-censored customers. Would this overestimate or underestimate the average survival time?
+
+```{python}
+train_df_churn = train_df.query(
+    "Churn == 'Yes'"
+)  # Consider only examples where the customers churned.
+test_df_churn = test_df.query(
+    "Churn == 'Yes'"
+)  # Consider only examples where the customers churned.
+train_df_churn.head()
+```
+- (A) Overestimate 
+- (B) Underestimate 
+- (C) Cannot tell based on the provided information
+
+
+
+
+
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20-survival-analysis.ipynb) 
+
+

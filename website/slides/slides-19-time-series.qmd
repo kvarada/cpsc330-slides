@@ -567,8 +567,7 @@ retail_df = pd.read_csv("data/MRTSSM448USN.csv", parse_dates=["DATE"])
 retail_df.columns = ["date", "sales"]
 retail_df.plot(x="date", y="sales", figsize=(8, 4));
 ```
-- It looks like there's a clear trend; retail sales gradually increase over time.
-- A **trend** is a long-term upward or downward movement in a time series.
+It looks like there's a clear trend; retail sales gradually increase over time. A **trend** is a long-term upward or downward movement in a time series.
 
 Question: How might we encode this trend information so our models can use it?
 
