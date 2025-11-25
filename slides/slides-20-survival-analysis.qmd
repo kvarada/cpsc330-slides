@@ -56,7 +56,7 @@ DATA_DIR = os.path.join(os.path.abspath("."), "data/")
 
 ## Announcements
 
-- HW9 has been released (due next week Monday)
+- HW9 has been released (due on December 5th)
   - Almost there! You’ve got this! 😊
 - Midterm 2 grades were released last week. 
 
