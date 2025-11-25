@@ -66,7 +66,7 @@ DATA_DIR = os.path.join(os.path.abspath("."), "data/")
 **Select all of the following statements which are TRUE.**
 
 - (A) We need to be careful when splitting the data when working with time series data.
-- (B) Cross-validation in time series can be randomly applied like in other machine learning tasks.
+- (B) Cross-validation in time series can be applied like in other machine learning tasks.
 - (C) In time series forecasting, the future value of a series can only be predicted based on its past values and cannot incorporate other variables.
 - (D) When we used `RandomForestRegressor` model on the POSIX time feature, it predicted a straight line on the test data because tree-based models are inherently unable to extrapolate (i.e., make predictions outside the range of the training data).
 
@@ -251,12 +251,22 @@ Survival analysis explicitly models time until an event **and properly handles c
 - **Cox proportional hazards model**: Semi-parametric regression model for survival data
 - **Survival forests**: Random forest variant adapted for censored data
 
-## Survival analysis
+## Survival analysis {.smaller}
 
 These methods allow estimation of:
 
-- **Survival function**: $S(t) = P(T > t)$ (probability of surviving past time $t$)
-- **Hazard function**: $h(t)$ (instantaneous risk of the event at time $t$)
+**Survival function**: 
+
+- $S(t) = P(T > t)$ (probability of surviving past time $t$)
+- Imagine starting with 100 customers on Day 0. The survival function tells you: What fraction of them are still active (have not churned) at time $t$? 
+- $S(3) = 0.80$ (80% haven't churned by month 3)
+- $S(12) = 0.40$ (40% haven't churned by month 12)
+
+**Hazard function**: $h(t)$ (instantaneous risk of the event at time $t$)
+
+- Imagine a customer who has not churned yet and is still active at month 10.
+- The hazard tells us: How likely are they to churn right now, at month 10?
+- Human mortality: hazard is low at age 20, higher at 80
 
 ## iClicker 
 

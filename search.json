@@ -3381,7 +3381,7 @@
     "href": "slides/slides-20-survival-analysis.html#recap-iclicker-questions",
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "Recap: iClicker questions",
-    "text": "Recap: iClicker questions\n(iClicker) Exercise 20.1\nSelect all of the following statements which are TRUE.\n\n\nWe need to be careful when splitting the data when working with time series data.\n\n\nCross-validation in time series can be randomly applied like in other machine learning tasks.\n\n\nIn time series forecasting, the future value of a series can only be predicted based on its past values and cannot incorporate other variables.\n\n\nWhen we used RandomForestRegressor model on the POSIX time feature, it predicted a straight line on the test data because tree-based models are inherently unable to extrapolate (i.e., make predictions outside the range of the training data)."
+    "text": "Recap: iClicker questions\n(iClicker) Exercise 20.1\nSelect all of the following statements which are TRUE.\n\n\nWe need to be careful when splitting the data when working with time series data.\n\n\nCross-validation in time series can be applied like in other machine learning tasks.\n\n\nIn time series forecasting, the future value of a series can only be predicted based on its past values and cannot incorporate other variables.\n\n\nWhen we used RandomForestRegressor model on the POSIX time feature, it predicted a straight line on the test data because tree-based models are inherently unable to extrapolate (i.e., make predictions outside the range of the training data)."
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#customer-churn",
@@ -3500,7 +3500,7 @@
     "href": "slides/slides-20-survival-analysis.html#survival-analysis",
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "Survival analysis",
-    "text": "Survival analysis\nThese methods allow estimation of:\n\nSurvival function: \\(S(t) = P(T &gt; t)\\) (probability of surviving past time \\(t\\))\nHazard function: \\(h(t)\\) (instantaneous risk of the event at time \\(t\\))"
+    "text": "Survival analysis\nThese methods allow estimation of:\nSurvival function:\n\n\\(S(t) = P(T &gt; t)\\) (probability of surviving past time \\(t\\))\nImagine starting with 100 customers on Day 0. The survival function tells you: What fraction of them are still active (have not churned) at time \\(t\\)?\n\\(S(3) = 0.80\\) (80% haven’t churned by month 3)\n\\(S(12) = 0.40\\) (40% haven’t churned by month 12)\n\nHazard function: \\(h(t)\\) (instantaneous risk of the event at time \\(t\\))\n\nImagine a customer who has not churned yet and is still active at month 10.\nThe hazard tells us: How likely are they to churn right now, at month 10?\nHuman mortality: hazard is low at age 20, higher at 80"
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#iclicker-2",
