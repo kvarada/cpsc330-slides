@@ -1,0 +1,172 @@
+---
+title: "CPSC 330 Lecture 21: Communication"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      html-math-method: mathjax    
+      embed-resources: true
+      slide-number: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+```{python}
+import os
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression, Ridge
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import (
+    cross_val_predict,
+    cross_val_score,
+    cross_validate,
+    train_test_split,
+)
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import (
+    FunctionTransformer,
+    OneHotEncoder,
+    OrdinalEncoder,
+    StandardScaler,
+)
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from utils import *
+
+plt.rcParams["font.size"] = 12
+
+import warnings
+
+warnings.filterwarnings("default")
+DATA_DIR = os.path.join(os.path.abspath("."), "data/")
+```
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements
+
+- HW9 has been released (due on December 5th)
+  - Almost there! You've got this! 😊
+- Next lecture on Ethics will be delivered by Giulia (Section 101 and 103 instructor)
+
+## iClicker (Survival analysis recap)
+
+**Select all of the following statements which are TRUE.**
+
+- (A) Right censoring occurs when the endpoint of event has not been observed for all study subjects by the end of the study period.
+- (B) Right censoring implies that the data is missing completely at random.
+- (C) In the presence of right-censored data, binary classification models can be applied directly without any modifications or special considerations.
+- (D) If we apply the `Ridge` regression model to predict tenure in right censored data, we are likely to underestimate it because the tenure observed in our data is shorter than what it would be in reality.
+
+## Why communication?
+
+Why spend a whole lecture on this?
+
+- **Great technical work often dies silently due to poor communication.**
+- Most ML work happens in teams with diverse backgrounds.
+- Decisions, budgets, and user trust depend on how you present results.
+- Communication is a multiplier for impact, adoption, and ethics.
+
+## Is this misleading? {.smaller}
+
+![](img/ml-communication.png){.nostretch fig-align="center"}
+
+1.	What additional information would you need to evaluate the validity of this claim?
+2.	What metrics would you use to evaluate the performance of a model like this?
+
+
+## Scenario discussion: What happens if... {.smaller}
+
+Pick one scenario: Discuss 2 negative consequences 1 thing you'd do to prevent them with your neighbour.
+
+1. You build an amazing model but fail to clearly communicate its value or results to your manager.
+2. You present a 98% accuracy without mentioning the trivial baseline is 97.5%.
+3. You say: "SHAP values show nonlinear feature interactions" to a non-technical stakeholder and stop there.
+4. A user asks why they were denied a loan; you give no explanation of the model's decision.
+5. You hide uncertainty and overpromise deployment success.
+
+## Why it matters
+
+- Adoption: Clear framing & business alignment: resources & deployment.
+- Trust: Stakeholders must believe the model is reliable & appropriate.
+- Risk management: Surfacing limitations avoids misuse & reputational damage.
+- Compliance & ethics: Transparency aids fairness, accountability, auditability.
+- Career leverage: Communicators influence strategy, not just deliver artifacts.
+
+## What effective ML communication covers
+
+- Audience: Who is listening? Technical? Executive? End user?
+- Goal: Inform? Persuade? Decide? Obtain resources?
+- Abstraction level: Raw metrics vs. narratives vs. visual summaries.
+- Evidence: Performance vs. baseline, validation design, robustness checks.
+- Uncertainty: Confidence intervals, failure modes, data caveats.
+- Actionability: What should happen next? What changes if we adopt?
+
+## Core questions you must be ready to answer
+
+- What does this result mean (in plain language)?
+- When does the model work? When does it fail? (failure modes)
+- Why did it make this prediction? (explainability path)
+- What are the risks & consequences of using it?
+- How does it compare to doing nothing or current practice?
+- What is the cost to maintain / retrain / monitor?
+
+## Common failure patterns
+
+- Metric dumping: Lots of numbers, no narrative.
+- Jargon mismatch: Overly technical phrasing for non-technical audiences.
+- Missing baseline: Claiming gains without comparison.
+- Hidden assumptions: Data leakage or unspoken preprocessing steps.
+- Overconfidence: Ignoring uncertainty, edge cases, deployment realities.
+
+## Quick checklist (use before presenting)
+
+1. Who is my audience and what do they care about?
+2. What decision do I want them to make?
+3. What baseline(s) am I comparing against?
+4. What caveats or limitations must I disclose?
+5. What is the recommended next action?
+6. How will we monitor after deployment?
+
+## Poor vs. Effective communication {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+**❌ Poor communication:**
+
+"I built a churn model. It has 92% accuracy and uses random forest with hyperparameter tuning. The cross-validation score was good. We should use it."
+
+**Result:** Manager is confused. No context, no business value, no next steps. **No adoption.**
+:::
+
+::: {.column width="50%"}
+**✅ Effective reframe:**
+
+"Our new churn model reduces false alarms by 30%, freeing 2 FTEs worth of retention effort. Deployment needs 1 week of engineering and monthly monitoring. Risk: performance drops if pricing strategy changes—here's a mitigation plan."
+
+**Result:** Clear value, cost, risk, and action. **Enables decision-making.**
+:::
+::::
+
+**Key difference:** Technical details → Business impact + actionable proposal
+
+## Takeaway
+
+Technical quality enables potential; communication unlocks impact.
+
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_21-communication.ipynb) 
+
+
+## What did we learn today? 
