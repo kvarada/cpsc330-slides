@@ -439,12 +439,11 @@ In our final exam, imagine if, along with your answers, we ask you to also provi
 
 This chart is attempting to suggest a relationship between childhood MMR vaccination rates and the prevalence of autism spectrum disorders (AD/ASD) across several countries.
 
-![](img/misleading-viz.png){.nostretch fig-align="center" width="800px"}
+![](img/misleading-viz.png){.nostretch fig-align="center" width="700px"}
 
 Do you see any problems with this visualization? 
 
-# {.smaller}
-⚠️ Visualizing your data and results could be very powerful but at the same time can be misleading if not done properly. 
+# ⚠️ Visualizing your data and results could be very powerful but at the same time can be misleading if not done properly. 
 
 ## Examples {.smaller}
 
