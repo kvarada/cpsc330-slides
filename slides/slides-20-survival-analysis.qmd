@@ -87,12 +87,13 @@ Customer churn, also known as customer attrition, refers to the phenomenon where
 
 **Question:** Is a smaller or a larger churn rate more desirable for a subscription-based company?
 
+- A smaller churn rate is better (means fewer customers leaving)
 - Lower churn = higher customer retention = more stable revenue
 
 :::
 ::::
 
-## Predicting *when*, not just *whether*
+## The challenge: Predicting *when*, not just *whether*
 
 Imagine you work for a subscription-based telecom company.
 
@@ -114,7 +115,7 @@ train_df.head()
 ```
 ## Churn prediction as binary classification
 
-- **Has the customer churned by the time of data collection?**
+- When we treat churn as a binary classification problem, we only ask: **Has the customer churned by the time of data collection?**
 
 - Limitations of this approach:
   - Answers only "Yes/No" and discards **when** churn occurred
@@ -137,7 +138,7 @@ In our dataset, the tenure column is the number of months the customer has staye
 :::
 ::::
 
-## The problem: Incomplete information {.smaller}
+## The problem: Incomplete information
 
 :::: {.columns}
 :::{.column width="40%"}
@@ -157,7 +158,7 @@ train_df[["tenure", "Churn"]].head(8)
 
 ## Types of censoring {.smaller}
 - **Right-censoring**: Event hasn't occurred yet (most common in practice)
-- **Left-censoring**: Event occurred before data collection started
+- **Left-censoring**: Event occurred before observation started
 - **Interval-censoring**: Event occurred within a time interval
 
 ![](img/censoring.png)
@@ -200,13 +201,16 @@ Suppose we only consider rows where Churn == "Yes" and throw away all right-cens
 train_df_churn = train_df.query(
     "Churn == 'Yes'"
 )  # Consider only examples where the customers churned.
+test_df_churn = test_df.query(
+    "Churn == 'Yes'"
+)  # Consider only examples where the customers churned.
 train_df_churn.head(4)
 ```
 
+This throws away valuable information from active customers!
 
 ## iClicker 
 
-This throws away valuable information from active customers!
 Would only considering rows where Churn == "Yes" and throwing away all right-censored customers overestimate or underestimate the average survival time?
 
 - (A) Overestimate 
@@ -214,7 +218,7 @@ Would only considering rows where Churn == "Yes" and throwing away all right-cen
 - (C) Cannot tell based on the provided information
 
 
-## Approach 2: Assume everyone churns now ⛔️  {.smaller}
+## Approach 2: Assume everyone churns now ⛔️
 
 Treat all current tenure values as final, even for active customers.
 
@@ -233,7 +237,9 @@ Would assuming everyone churns now underestimate or overestimate tenure?
 - (C) Cannot tell based on the provided information
 
 
-# **Key insight**: Ignoring or removing censored cases will bias our estimates:
+## 
+
+- **Key insight**: Ignoring or removing censored cases will bias our estimates:
 
 ## Approach 3: Survival analysis ✅
 
@@ -262,7 +268,7 @@ These methods allow estimation of:
 - The hazard tells us: How likely are they to churn right now, at month 10?
 - Human mortality: hazard is low at age 20, higher at 80
 
-## iClicker {.smaller}
+## iClicker 
 
 **Select all of the following statements which are TRUE.**
 
@@ -270,6 +276,7 @@ These methods allow estimation of:
 - (B) Right censoring implies that the data is missing completely at random.
 - (C) In the presence of right-censored data, binary classification models can be applied directly without any modifications or special considerations.
 - (D) If we apply the `Ridge` regression model to predict tenure in right censored data, we are likely to underestimate it because the tenure observed in our data is shorter than what it would be in reality.
+
 
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20-survival-analysis.ipynb) 

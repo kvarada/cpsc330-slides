@@ -1,0 +1,485 @@
+---
+title: "CPSC 330 Lecture 21: Communication"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      html-math-method: mathjax    
+      embed-resources: true
+      slide-number: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+```{python}
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from plotting_functions import *
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression, Ridge
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import (
+    cross_val_predict,
+    cross_val_score,
+    cross_validate,
+    train_test_split,
+)
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import (
+    FunctionTransformer,
+    OneHotEncoder,
+    OrdinalEncoder,
+    StandardScaler,
+)
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from utils import *
+
+plt.rcParams["font.size"] = 12
+
+import warnings
+
+warnings.filterwarnings("default")
+DATA_DIR = os.path.join(os.path.abspath("."), "data/")
+```
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements
+
+- HW9 has been released (due on December 5th)
+  - Almost there! You've got this! 😊
+- Next lecture on Ethics will be delivered by Giulia (Section 101 and 103 instructor)
+
+## iClicker (Survival analysis recap) {.smaller}
+
+**Select all of the following statements which are TRUE.**
+
+- (A) Right censoring occurs when the endpoint of event has not been observed for all study subjects by the end of the study period.
+- (B) Right censoring implies that the data is missing completely at random.
+- (C) In the presence of right-censored data, binary classification models can be applied directly without any modifications or special considerations.
+- (D) If we apply the `Ridge` regression model to predict tenure in right censored data, we are likely to underestimate it because the tenure observed in our data is shorter than what it would be in reality.
+
+## Recap {.smaller}
+
+- What is right-censored data?
+- What happens when we treat right-censored data the same as "regular" data?
+    - Predicting churn vs. no churn
+    - Predicting tenure
+        - Throw away people who haven't churned
+        - Assume everyone churns today
+- Survival analysis encompasses predicting both churn and tenure and deals with censoring and can make rich and interesting predictions!
+    - We can get survival curves which show the probability of survival over time.
+    - KM model $\rightarrow$ doesn't look at features
+    - CPH model $\rightarrow$ like linear regression, does look at the features and provides coefficients associated with each feature
+    
+
+## Why communication?
+
+Why spend a whole lecture on this?
+
+- **Great technical work often dies silently due to poor communication. **
+- Most ML work happens in teams with diverse backgrounds.
+- Decisions, budgets, and user trust depend on how you present results.
+- Effective communication $\rightarrow$ adoption and impact 
+
+## Is this misleading? {.smaller}
+
+![](img/ml-communication.png){.nostretch fig-align="center"}
+
+What additional information would you need to evaluate the validity of this claim?
+
+
+## Main issues in ML-related communication 
+
+- Overclaiming and unclear limitations
+- No baseline or missing context for metrics
+- Metric dumping without a narrative or decision link
+- Jargon/abstraction mismatch to the audience
+- Unexplained predictions; weak explainability path
+- Hidden assumptions or data leakage
+- Probability misinterpretation (e.g., `predict_proba=0.9` ≠ 90% certain)
+- Unreliable test error due to weak validation
+
+
+## Scenario discussion: What happens if... {.smaller}
+
+Pick one scenario: Discuss 2 negative consequences and 1 thing you'd do to prevent them. 
+
+1. You build an amazing model but fail to clearly communicate its value or results to your manager.
+2. You present a 98% accuracy without mentioning the trivial baseline is 97.5%.
+3. You say: "SHAP values show nonlinear feature interactions" to a non-technical stakeholder and stop there.
+4. A user asks why they were denied a loan; you give no explanation of the model's decision.
+5. You hide uncertainty and overpromise deployment success.
+
+
+# Principles of good communicaiton 
+
+
+## Grid search activity 
+
+Go to this Google doc: https://tinyurl.com/5n8xf5yj
+
+:::: {.columns}
+:::{.column width="50%"}
+Explanation 1: https://tinyurl.com/msk2cfkb
+
+![](img/gs-explanation1.png)
+
+:::
+:::{.column width="50%"}
+
+Explanation 2: https://tinyurl.com/mt2z9ey5
+
+![](img/gs-explanation2.png)
+
+:::
+::::
+
+## Discussion questions {.smaller}
+
+- What do you like about each explanation?
+- What do you dislike about each explanation?
+- What do you think is the intended audience for each explanation?
+- Which explanation do you think is more effective overall for someone on Day 1 of CPSC 330?
+- Each explanation has an image. Which one is more effective? What are the pros/cons?
+- Each explanation has some sample code. Which one is more effective? What are the pros/cons?
+
+
+## _Concepts then labels, not the other way around_
+:::: {.columns}
+:::{.column width="50%"}
+Explanation 1: Machine learning algorithms, like an airplane’s cockpit, typically involve a bunch of knobs and switches that need to be set.
+:::
+:::{.column width="50%"}
+
+Explanation 2: Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model.
+:::
+::::
+
+The effectiveness of these different statements depend on your audience.
+
+## _Concepts then labels, not the other way around_
+
+```{python}
+from IPython.display import YouTubeVideo
+video_id = "px_4TxC2mXU"
+YouTubeVideo(video_id, width=500, height=450)
+```
+
+## _Top down vs. bottom up_
+:::: {.columns}
+:::{.column width="50%"}
+
+- Start with the big picture
+- Then gradually reveal the structure and key components
+
+![](img/top_down.png)
+
+:::
+:::{.column width="50%"}
+
+- Start with the details 
+- Build to the big picture
+
+![](img/bottom_up.png)
+:::
+::::
+
+In the previous explanations, which one represented a bottom-up explanation and which one a top-down explanation? 
+
+## _New ideas in small chunks_
+
+The hidden structure in the first explanation
+
+1. The concept of setting a bunch of values.
+2. Random forest example.
+3. The problem / pain point.
+4. The solution.
+5. How it works - high level.
+6. How it works - written example.
+7. How it works - code example.
+8. The name of what we were discussing all this time.
+
+## _Reuse running examples_ 
+
+Effective explanations often use the same example throughout the text and code. This helps readers follow the line of reasoning.
+
+## _Approach from all angles_
+- When we're trying to draw mental boundaries around a concept, it's helpful to see examples on all sides of those boundaries
+- It would have been nice to include 
+  - Performance with and without hyperparameter tuning. 
+  - Other types of hyperparameter tuning (e.g. `RandomizedSearchCV`).
+
+## _When experimenting, show the results asap_
+
+The first explanation shows the output of the code, whereas the second does not. This is easy to do and makes a big difference.
+
+## _It's not about you_
+
+- Interesting to you != useful to the reader (aka it's not about you)
+- Examine the hidden intention of wanting to include something that's not important 
+  - Am I trying to sound smart or prove I know something?
+  - Am I afraid that leaving it out makes the work look too simple?
+  - Am I adding it because I spent time on it and want that effort to be visible?
+  - Am I overexplaining because I'm worried the audience will judge me?
+
+> **If it doesn't serve the audience, it's noise.**
+
+## Core questions you must be ready to answer
+
+- What does this result mean (in plain language)?
+- When does the model work? When does it fail? (failure modes)
+- Why did it make this prediction? (explainability path)
+- What are the risks & consequences of using it?
+- How does it compare to doing nothing or current practice?
+- What is the cost to maintain / retrain / monitor?
+
+## Quick checklist (use before presenting)
+
+1. [ ] Who is my audience and what do they care about?
+2. [ ] What decision do I want them to make?
+3. [ ] What baseline(s) am I comparing against?
+4. [ ] What caveats or limitations must I disclose?
+5. [ ] What is the recommended next action?
+6. [ ] How will we monitor after deployment?
+
+
+# ML and decision making 
+
+## ❓❓ Questions for you
+
+Imagine you are tasked with developing a recommender system for YouTube. You possess data on which users clicked on which videos. After spending considerable time building a recommender system using this data, you realize it isn't producing high-quality recommendations. What could be the reasons for this?
+
+## Think beyond the data that's given to you
+
+Questions you have to consider:
+
+- Who is the decision maker?
+- What are their objectives?
+- What are their alternatives?
+- What is their context?
+- What data do I need?
+
+## Decisions involve a few key pieces
+
+- The **decision variable**: the variable that is manipulated through the decision.
+  - E.g. how much should I sell my house for? (numeric)
+  - E.g. should I sell my house? (categorical)
+- The decision-maker's **objectives**: the variables that the decision-maker ultimately cares about, and wishes to manipulate indirectly through the decision variable.
+  - E.g. my total profit, time to sale, etc.
+- The **context**: the variables that mediate the relationship between the decision variable and the objectives.
+  - E.g. the housing market, cost of marketing it, my timeline, etc.
+
+## Poor vs. Effective communication {.smaller}
+
+Which one is poor and which one is effective? Why? 
+
+:::: {.columns}
+::: {.column width="50%"}
+
+**Communication 1**
+
+"I built a model to predict next week's avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest."
+:::
+
+::: {.column width="50%"}
+
+**Communication 2**
+
+"Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month.
+
+To deploy: we need 2 days to automate data updates and a weekly accuracy review.
+
+Risk: model performance drops during holiday spikes. Here's our mitigation plan."
+
+:::
+::::
+
+## Poor vs. Effective communication {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+❌ Poor communication:
+
+"I built a model to predict next week's avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest."
+
+Result:
+The manager doesn't know why this matters, how it affects decisions, or what to do next. No adoption.
+
+:::
+
+::: {.column width="50%"}
+
+✅ Effective reframe:
+
+"Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month.
+
+To deploy: we need 2 days to automate data updates and a weekly accuracy review.
+
+Risk: model performance drops during holiday spikes. Here's our mitigation plan."
+
+Result:
+Clear value, operational impact, required effort, and risks. Enables decision-making.
+:::
+::::
+
+Key difference:
+Shift from model-centric communication → decision-ready communication.
+
+
+
+# Confidence and `predict_proba`
+
+## 
+- What does it mean to be "confident" in your results?
+- When you perform analysis, you are responsible for many judgment calls.
+- [Your results will be different than others](https://fivethirtyeight.com/features/science-isnt-broken/#part1).
+- As you make these judgments and start to form conclusions, how can you recognize your own uncertainties about the data so that you can communicate confidently?
+
+
+## 
+Let's imagine that the following claim is true:
+
+> Vancouver has the highest cost of living of all cities in Canada.
+
+Now let's consider a few beliefs we could hold:
+
+1. Vancouver has the highest cost of living of all cities in Canada. **I am 95% sure of this.** 
+2. Vancouver has the highest cost of living of all cities in Canada. **I am 55% sure of this.** 
+
+The part is bold is called a [credence](https://en.wikipedia.org/wiki/Credence_(statistics)). Which belief is better?
+
+## 
+
+But what if it's actually Toronto that has the highest cost of living in Canada?
+
+1. Vancouver has the highest cost of living of all cities in Canada. **I am 95% sure of this.** 
+2. Vancouver has the highest cost of living of all cities in Canada. **I am 55% sure of this.** 
+
+Which belief is better now?
+
+**We don't just want to be right. We want to be confident when we're right and hesitant when we're wrong.**
+
+## 
+
+In our final exam, imagine if, along with your answers, we ask you to also provide a confidence score for each. This would involve rating how sure you are about each answer, perhaps on a percentage scale from 0% (completely unsure) to 100% (completely sure). This method not only assesses your knowledge but also your awareness of your own understanding, potentially impacting the grading process and highlighting areas for improvement. Who supports this idea 😉? 
+
+## Loss in machine learning 
+
+When you call `fit` for `LogisticRegression` it has similar preferences: 
+<br>
+<span style="color:green">**correct and confident**</span> <br> **>** <span style="color:cyan"> **correct and hesitant** </span>  <br> **>** <span style="color:orange">**incorrect and hesitant**</span> <br> **>**  <span style="color:red">**incorrect and confident**</span> 
+   
+- This is a "loss" or "error" function like mean squared error, so lower values are better.
+- When you call `fit` it tries to minimize this metric.
+
+## What should be the loss? {.smaller .scrollable}
+
+Consider the following made-up classification example where target (true `y`) is binary: -1 or 1. The true $y$ (`y_true`) and models raw scores ($w^Tx_i$) are given to you. You want to figure out how do you want to punish the mistakes made by the current model. How will you punish the model in each case?  
+
+```{python}
+data = {
+    "y_true": [1, 1, 1, 1, -1, -1, -1, -1],
+    "raw score ($w^Tx_i$)": [10.0, 0.51, -0.1, -10, -12.0, -1.0, 0.4, 18.0],
+    "correct? (yes/no)": ["yes", "yes", "no", "no", "yes", "yes", "no", "no"],
+    "confident/hesitant?": [
+        "confident",
+        "hesitant",
+        "hesitant",
+        "confident",
+        "confident",
+        "hesistant",
+        "hesitant",
+        "confident",
+    ],
+    "punishment": ["None", "small punishment", "", "", "", "", "", ""],
+}
+pd.DataFrame(data)
+```
+
+## Logistic regression loss
+:::: {.columns}
+::: {.column width="60%"}
+
+```{python}
+grid = np.linspace(-2, 2, 1000)
+plot_loss_diagram()
+plt.plot(grid, np.log(1 + np.exp(-grid)), color="green", linewidth=2, label="logistic")
+plt.legend(loc="best", fontsize=12);
+```
+:::
+::: {.column width="40%"}
+- confident and correct $\rightarrow$ smaller loss 
+- hesitant and correct $\rightarrow$ a bit higher loss
+- hesitant and incorrect $\rightarrow$ even higher loss
+- confident and incorrect $\rightarrow$ high loss 
+:::
+::::
+
+## Misleding visualizations {.smaller}
+
+This chart is attempting to suggest a relationship between childhood MMR vaccination rates and the prevalence of autism spectrum disorders (AD/ASD) across several countries.
+
+![](img/misleading-viz.png){.nostretch fig-align="center"}
+
+Do you see any problems with this visualization? 
+
+## 
+
+Visualizing your data and results could be very powerful but at the same time can be misleading if not done properly. 
+
+## Examples {.smaller}
+
+Some examples from [Calling BS visualization videos](https://www.youtube.com/watch?v=T-5aLbNeGo0&list=PLPnZfvKID1Sje5jWxt-4CSZD7bUI4gSPS&index=30&t=0s):
+
+- Dataviz in the popular media: [modern NYT](https://youtu.be/T-5aLbNeGo0?t=367)
+- Misleading axes: [vaccines](https://youtu.be/9pNWVMxaFuM?t=299)
+- Manipulating bin sizes: [tax dollars](https://youtu.be/zAg1wsYfwsM?t=196)
+- Dataviz ducks: [drinking water](https://youtu.be/rmii1hfP6d4?t=169)
+- Glass slippers: [internet marketing tree](https://youtu.be/59teS0SUHtI?t=285)
+- The principle of proportional ink: [most read books](https://youtu.be/oNhusd3xFC4?t=147)
+
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_21-communication.ipynb) 
+
+## Things to watch out for
+- Chopping off the x-axis
+    - the practice of starting the x-axis (or sometimes the y-axis) at a value other than zero to exaggerate the changes in the data   
+- Saturate the axes
+    - where the axes are set to ranges that are too narrow or too wide for the data being presented making it difficult to identify patterns
+- Bar chart for a cherry-picked values
+- Different y-axes
+
+
+## What did we learn today? {.smaller}
+**Principles of effective communication**
+
+- Concepts then labels, not the other way around
+- Bottom-up explanations
+- New ideas in small chunks
+- Reuse your running examples
+- Approaches from all angles  
+- When experimenting, show the results asap
+- **It's not about you.**
+- Decision variables, objectives, and context.
+- Expressing your confidence about the results
+- Misleading visualizations.  
+
+
+## Have a great weekend! 
+
+![](img/eva-seeyou.png)
