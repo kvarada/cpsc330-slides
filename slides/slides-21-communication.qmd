@@ -97,26 +97,26 @@ Why spend a whole lecture on this?
 
 ## Is this misleading? {.smaller}
 
-![](img/ml-communication.png){.nostretch fig-align="center"}
+![](img/ml-communication.png){.nostretch fig-align="center" width="800px"}
 
 What additional information would you need to evaluate the validity of this claim?
 
 
-## Main issues in ML-related communication 
+## Main issues in ML-related communication {.smaller}
 
 - Overclaiming and unclear limitations
 - No baseline or missing context for metrics
 - Metric dumping without a narrative or decision link
 - Jargon/abstraction mismatch to the audience
-- Unexplained predictions; weak explainability path
+- Unexplained predictions
 - Hidden assumptions or data leakage
-- Probability misinterpretation (e.g., `predict_proba=0.9` ≠ 90% certain)
+- Probability misinterpretation (e.g., `predict_proba=0.9` $\neq$ 90% certain)
 - Unreliable test error due to weak validation
 
 
-## Scenario discussion: What happens if... {.smaller}
+## What happens if... {.smaller}
 
-Pick one scenario: Discuss 2 negative consequences and 1 thing you'd do to prevent them. 
+**Pick one scenario. Discuss 2 negative consequences and 1 thing you'd do to prevent them.** 
 
 1. You build an amazing model but fail to clearly communicate its value or results to your manager.
 2. You present a 98% accuracy without mentioning the trivial baseline is 97.5%.
@@ -125,10 +125,10 @@ Pick one scenario: Discuss 2 negative consequences and 1 thing you'd do to preve
 5. You hide uncertainty and overpromise deployment success.
 
 
-# Principles of good communicaiton 
+# Principles of good communicaiton
 
 
-## Grid search activity 
+## Grid search activity {.smaller}
 
 Go to this Google doc: https://tinyurl.com/5n8xf5yj
 
@@ -161,11 +161,11 @@ Explanation 2: https://tinyurl.com/mt2z9ey5
 ## _Concepts then labels, not the other way around_
 :::: {.columns}
 :::{.column width="50%"}
-Explanation 1: Machine learning algorithms, like an airplane’s cockpit, typically involve a bunch of knobs and switches that need to be set.
+**Explanation 1:** Machine learning algorithms, like an airplane’s cockpit, typically involve a bunch of knobs and switches that need to be set.
 :::
 :::{.column width="50%"}
 
-Explanation 2: Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model.
+**Explanation 2:** Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model.
 :::
 ::::
 
@@ -177,7 +177,10 @@ The effectiveness of these different statements depend on your audience.
 from IPython.display import YouTubeVideo
 video_id = "px_4TxC2mXU"
 YouTubeVideo(video_id, width=500, height=450)
+
 ```
+
+[Feynman video link](https://www.youtube.com/watch?v=px_4TxC2mXU)
 
 ## _Top down vs. bottom up_
 :::: {.columns}
@@ -229,12 +232,11 @@ The first explanation shows the output of the code, whereas the second does not.
 
 ## _It's not about you_
 
-- Interesting to you != useful to the reader (aka it's not about you)
+- Interesting to you != useful to the reader
 - Examine the hidden intention of wanting to include something that's not important 
   - Am I trying to sound smart or prove I know something?
   - Am I afraid that leaving it out makes the work look too simple?
   - Am I adding it because I spent time on it and want that effort to be visible?
-  - Am I overexplaining because I'm worried the audience will judge me?
 
 > **If it doesn't serve the audience, it's noise.**
 
@@ -263,7 +265,15 @@ The first explanation shows the output of the code, whereas the second does not.
 
 Imagine you are tasked with developing a recommender system for YouTube. You possess data on which users clicked on which videos. After spending considerable time building a recommender system using this data, you realize it isn't producing high-quality recommendations. What could be the reasons for this?
 
-## Think beyond the data that's given to you
+## 
+
+Imagine you are tasked with developing a recommender system for YouTube. You possess data on which users clicked on which videos. After spending considerable time building a recommender system using this data, you realize it isn't producing high-quality recommendations. What could be the reasons for this?
+
+- Clicks $\neq$ True preferences
+- No information about watch time
+- Clicks can be gamed
+
+## Think beyond what's given to you
 
 Questions you have to consider:
 
@@ -277,31 +287,28 @@ Questions you have to consider:
 
 - The **decision variable**: the variable that is manipulated through the decision.
   - E.g. how much should I sell my house for? (numeric)
-  - E.g. should I sell my house? (categorical)
-- The decision-maker's **objectives**: the variables that the decision-maker ultimately cares about, and wishes to manipulate indirectly through the decision variable.
+- The decision-maker's **objectives**: the variables that the decision-maker ultimately cares about
   - E.g. my total profit, time to sale, etc.
 - The **context**: the variables that mediate the relationship between the decision variable and the objectives.
   - E.g. the housing market, cost of marketing it, my timeline, etc.
 
 ## Poor vs. Effective communication {.smaller}
 
-Which one is poor and which one is effective? Why? 
+Imagine that you're explaining your work to your manager who is not very technical. Which one is pooer and which one is more effective? Why? 
 
 :::: {.columns}
 ::: {.column width="50%"}
 
 **Communication 1**
 
-"I built a model to predict next week's avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest."
+"I built models to predict next week's avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest."
 :::
 
 ::: {.column width="50%"}
 
 **Communication 2**
 
-"Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month.
-
-To deploy: we need 2 days to automate data updates and a weekly accuracy review.
+"Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month. We need 2 days to automate data updates and a weekly accuracy review.
 
 Risk: model performance drops during holiday spikes. Here's our mitigation plan."
 
@@ -317,8 +324,8 @@ Risk: model performance drops during holiday spikes. Here's our mitigation plan.
 
 "I built a model to predict next week's avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest."
 
-Result:
-The manager doesn't know why this matters, how it affects decisions, or what to do next. No adoption.
+**Result:** 
+The manager doesn't know why this matters, how it affects decisions, or what to do next. No adoption. 😢
 
 :::
 
@@ -326,14 +333,12 @@ The manager doesn't know why this matters, how it affects decisions, or what to 
 
 ✅ Effective reframe:
 
-"Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month.
-
-To deploy: we need 2 days to automate data updates and a weekly accuracy review.
+"Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month. We need 2 days to automate data updates and a weekly accuracy review.
 
 Risk: model performance drops during holiday spikes. Here's our mitigation plan."
 
-Result:
-Clear value, operational impact, required effort, and risks. Enables decision-making.
+**Result:**
+Clear value, operational impact, required effort, and risks. Enables decision-making!! 
 :::
 ::::
 
@@ -373,10 +378,6 @@ But what if it's actually Toronto that has the highest cost of living in Canada?
 Which belief is better now?
 
 **We don't just want to be right. We want to be confident when we're right and hesitant when we're wrong.**
-
-## 
-
-In our final exam, imagine if, along with your answers, we ask you to also provide a confidence score for each. This would involve rating how sure you are about each answer, perhaps on a percentage scale from 0% (completely unsure) to 100% (completely sure). This method not only assesses your knowledge but also your awareness of your own understanding, potentially impacting the grading process and highlighting areas for improvement. Who supports this idea 😉? 
 
 ## Loss in machine learning 
 
@@ -430,17 +431,20 @@ plt.legend(loc="best", fontsize=12);
 :::
 ::::
 
+## 
+
+In our final exam, imagine if, along with your answers, we ask you to also provide a confidence score for each. This would involve rating how sure you are about each answer, perhaps on a percentage scale from 0% (completely unsure) to 100% (completely sure). This method not only assesses your knowledge but also your awareness of your own understanding, potentially impacting the grading process and highlighting areas for improvement. Who supports this idea 😉? 
+
 ## Misleding visualizations {.smaller}
 
 This chart is attempting to suggest a relationship between childhood MMR vaccination rates and the prevalence of autism spectrum disorders (AD/ASD) across several countries.
 
-![](img/misleading-viz.png){.nostretch fig-align="center"}
+![](img/misleading-viz.png){.nostretch fig-align="center" width="800px"}
 
 Do you see any problems with this visualization? 
 
-## 
-
-Visualizing your data and results could be very powerful but at the same time can be misleading if not done properly. 
+# {.smaller}
+⚠️ Visualizing your data and results could be very powerful but at the same time can be misleading if not done properly. 
 
 ## Examples {.smaller}
 

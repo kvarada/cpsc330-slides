@@ -81,14 +81,14 @@
     "href": "slides/slides-19-time-series.html#citibike-data-visualization",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "citibike data visualization",
-    "text": "citibike data visualization\n\n\nStart date: 2015-08-01 00:00:00, End date: 2015-08-31 21:00:00\n\n\n\n\n\n\n\n\n\nDo you see any daily patterns? Weekly patterns? Noise?"
+    "text": "citibike data visualization\n\n\nStart date: 2015-08-01 00:00:00, End date: 2015-08-31 21:00:00\n\n\n\nDo you see any daily patterns? Weekly patterns? Noise?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#incorrect-data-splitting",
     "href": "slides/slides-19-time-series.html#incorrect-data-splitting",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "⛔️ Incorrect data splitting",
-    "text": "⛔️ Incorrect data splitting\n\ntrain_df, test_df = train_test_split(citibike, test_size=0.2, random_state=123)\nprint('Train largest date: ', train_df.index.max())\nprint('Test smallest date: ', test_df.index.min())\n\nTrain largest date:  2015-08-31 21:00:00\nTest smallest date:  2015-08-01 12:00:00\n\n\n\n\n\n\n\n\n\n\n\n⛔️ We should never train on the future to predict the past!"
+    "text": "⛔️ Incorrect data splitting\n\ntrain_df, test_df = train_test_split(citibike, test_size=0.2, random_state=123)\nprint('Train largest date: ', train_df.index.max())\nprint('Test smallest date: ', test_df.index.min())\n\nTrain largest date:  2015-08-31 21:00:00\nTest smallest date:  2015-08-01 12:00:00\n\n\n\n⛔️ We should never train on the future to predict the past!"
   },
   {
     "objectID": "slides/slides-19-time-series.html#correct-data-splitting",
@@ -116,7 +116,7 @@
     "href": "slides/slides-19-time-series.html#rf-on-posix-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "RF on posix features",
-    "text": "RF on posix features\n\n\nTrain-set R^2: 0.85\nTest-set R^2: -0.04\n\n\n\n\n\n\n\n\n\n\nThe predictions on the training data and training score are pretty good\nBut for the test data, a constant line is predicted …\nWhat’s going on?"
+    "text": "RF on posix features\n\n\nTrain-set R^2: 0.85\nTest-set R^2: -0.04\n\n\n\n\nThe predictions on the training data and training score are pretty good\nBut for the test data, a constant line is predicted …\nWhat’s going on?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#trees-cannot-extrapolate",
@@ -144,7 +144,7 @@
     "href": "slides/slides-19-time-series.html#rf-with-hour-of-day",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "RF with hour of day",
-    "text": "RF with hour of day\n\nregressor = RandomForestRegressor(n_estimators=100, random_state=0)\neval_on_features(X_hour, y, regressor,  xtick_labels, feat_names=\"Hour of the day\")\n\nTrain-set R^2: 0.50\nTest-set R^2: 0.60\n\n\n\n\n\n\n\n\n\nThe scores are better when we add hour of day feature!"
+    "text": "RF with hour of day\n\nregressor = RandomForestRegressor(n_estimators=100, random_state=0)\neval_on_features(X_hour, y, regressor,  xtick_labels, feat_names=\"Hour of the day\")\n\nTrain-set R^2: 0.50\nTest-set R^2: 0.60\n\n\n\nThe scores are better when we add hour of day feature!"
   },
   {
     "objectID": "slides/slides-19-time-series.html#hour-of-day-day-of-week",
@@ -158,14 +158,14 @@
     "href": "slides/slides-19-time-series.html#rf-with-hour-of-day-day-of-week",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "RF with hour of day + day of week",
-    "text": "RF with hour of day + day of week\n\neval_on_features(X_hour_week, y, regressor,  xtick_labels, feat_names = \"hour of day + day of week\")\n\nTrain-set R^2: 0.89\nTest-set R^2: 0.84\n\n\n\n\n\n\n\n\n\nThe time of the day and day of the week features are clearly helping."
+    "text": "RF with hour of day + day of week\n\neval_on_features(X_hour_week, y, regressor,  xtick_labels, feat_names = \"hour of day + day of week\")\n\nTrain-set R^2: 0.89\nTest-set R^2: 0.84\n\n\n\nThe time of the day and day of the week features are clearly helping."
   },
   {
     "objectID": "slides/slides-19-time-series.html#ridge-with-hour-of-day-day-of-week",
     "href": "slides/slides-19-time-series.html#ridge-with-hour-of-day-day-of-week",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Ridge with Hour of day + Day of week",
-    "text": "Ridge with Hour of day + Day of week\n\n\nTrain-set R^2: 0.16\nTest-set R^2: 0.13\n\n\n\n\n\n\n\n\n\nWhy is Ridge performing poorly on the training data as well as test data?"
+    "text": "Ridge with Hour of day + Day of week\n\n\nTrain-set R^2: 0.16\nTest-set R^2: 0.13\n\n\n\nWhy is Ridge performing poorly on the training data as well as test data?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#encoding-hour-and-day-with-ohe",
@@ -193,7 +193,7 @@
     "href": "slides/slides-19-time-series.html#ridge-with-hour-of-day-ohe-day-of-week-ohe-interaction-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Ridge with hour of day OHE + day of week OHE + interaction features",
-    "text": "Ridge with hour of day OHE + day of week OHE + interaction features\n\n\nTrain-set R^2: 0.87\nTest-set R^2: 0.85\n\n\n\n\n\n\n\n\n\nThe scores are much better now!!"
+    "text": "Ridge with hour of day OHE + day of week OHE + interaction features\n\n\nTrain-set R^2: 0.87\nTest-set R^2: 0.85\n\n\n\nThe scores are much better now!!"
   },
   {
     "objectID": "slides/slides-19-time-series.html#interpretation",
@@ -228,28 +228,28 @@
     "href": "slides/slides-19-time-series.html#ridge-with-lag-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Ridge with lag features",
-    "text": "Ridge with lag features\n\n\nTrain-set R^2: 0.25\nTest-set R^2: 0.37\n\n\n\n\n\n\n\n\n\nThe model is performing poorly."
+    "text": "Ridge with lag features\n\n\nTrain-set R^2: 0.25\nTest-set R^2: 0.37\n\n\n\nThe model is performing poorly."
   },
   {
     "objectID": "slides/slides-19-time-series.html#random-forest-with-lag-features",
     "href": "slides/slides-19-time-series.html#random-forest-with-lag-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Random Forest with lag features",
-    "text": "Random Forest with lag features\n\n\nTrain-set R^2: 0.94\nTest-set R^2: 0.69\n\n\n\n\n\n\n\n\n\nBetter than the linear model but worse than our best model."
+    "text": "Random Forest with lag features\n\n\nTrain-set R^2: 0.94\nTest-set R^2: 0.69\n\n\n\nBetter than the linear model but worse than our best model."
   },
   {
     "objectID": "slides/slides-19-time-series.html#ridge-with-all-features",
     "href": "slides/slides-19-time-series.html#ridge-with-all-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Ridge with all features",
-    "text": "Ridge with all features\n\n\nTrain-set R^2: 0.87\nTest-set R^2: 0.84\n\n\n\n\n\n\n\n\n\nGood scores. But lag features don’t seem to help much in this case."
+    "text": "Ridge with all features\n\n\nTrain-set R^2: 0.87\nTest-set R^2: 0.84\n\n\n\nGood scores. But lag features don’t seem to help much in this case."
   },
   {
     "objectID": "slides/slides-19-time-series.html#rf-with-all-features",
     "href": "slides/slides-19-time-series.html#rf-with-all-features",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "RF with all features",
-    "text": "RF with all features\n\n\nTrain-set R^2: 0.96\nTest-set R^2: 0.78\n\n\n\n\n\n\n\n\n\nLag features seem to make things a bit worse in this case."
+    "text": "RF with all features\n\n\nTrain-set R^2: 0.96\nTest-set R^2: 0.78\n\n\n\nLag features seem to make things a bit worse in this case."
   },
   {
     "objectID": "slides/slides-19-time-series.html#cross-validation-with-time-series",
@@ -298,7 +298,7 @@
     "href": "slides/slides-19-time-series.html#trends",
     "title": "CPSC 330 Lecture 19: Time series",
     "section": "Trends",
-    "text": "Trends\nLet’s consider another time series dataset, Retail Sales of Clothing and Clothing Accessory Stores dataset.\n\n\n\n\n\n\n\n\n\nIt looks like there’s a clear trend; retail sales gradually increase over time. A trend is a long-term upward or downward movement in a time series.\nQuestion: How might we encode this trend information so our models can use it?"
+    "text": "Trends\nLet’s consider another time series dataset, Retail Sales of Clothing and Clothing Accessory Stores dataset.\n\nIt looks like there’s a clear trend; retail sales gradually increase over time. A trend is a long-term upward or downward movement in a time series.\nQuestion: How might we encode this trend information so our models can use it?"
   },
   {
     "objectID": "slides/slides-19-time-series.html#days-since-feature",
@@ -648,7 +648,7 @@
     "href": "slides/slides-18-computer-vision.html#a-feature-vector-given-by-densenet",
     "title": "CPSC 330 Lecture 18: Introduction to deep learning and computer vision",
     "section": "A feature vector given by densenet",
-    "text": "A feature vector given by densenet\n \n\nLet’s examine the feature vectors.\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n...\n1014\n1015\n1016\n1017\n1018\n1019\n1020\n1021\n1022\n1023\n\n\n\n\n0\n0.000290\n0.003821\n0.005015\n0.001307\n0.052690\n0.063403\n0.000626\n0.001850\n0.256254\n0.000223\n...\n0.229934\n1.046363\n2.241251\n0.229644\n0.033676\n0.742794\n1.338700\n2.130871\n0.625471\n0.463095\n\n\n1\n0.000407\n0.005973\n0.003206\n0.001932\n0.090702\n0.438522\n0.001513\n0.003906\n0.166081\n0.000286\n...\n0.910675\n1.580822\n0.087190\n0.606906\n0.436105\n0.306453\n0.940105\n1.159829\n1.712703\n1.624745\n\n\n2\n0.000626\n0.005090\n0.002887\n0.001299\n0.091715\n0.548536\n0.000491\n0.003587\n0.266537\n0.000408\n...\n0.465153\n0.678282\n0.946385\n1.194697\n2.537744\n1.642387\n0.701204\n0.115618\n0.186434\n0.166608\n\n\n3\n0.000169\n0.006087\n0.002489\n0.002167\n0.087537\n0.623212\n0.000427\n0.000226\n0.460680\n0.000388\n...\n0.394086\n0.700153\n0.105200\n0.856321\n0.038457\n0.023949\n0.131834\n1.296365\n0.723328\n1.915224\n\n\n4\n0.000286\n0.005520\n0.001906\n0.001599\n0.186035\n0.850148\n0.000835\n0.003025\n0.036309\n0.000142\n...\n3.313758\n0.565745\n0.473562\n0.139444\n0.029284\n1.165938\n0.442323\n0.227594\n0.884270\n1.592695\n\n\n\n\n5 rows × 1024 columns\n\n\n\n\nThe features are hard to interpret but they have some important information about the images which can be useful for classification."
+    "text": "A feature vector given by densenet\n \n\nLet’s examine the feature vectors.\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n...\n1014\n1015\n1016\n1017\n1018\n1019\n1020\n1021\n1022\n1023\n\n\n\n\n0\n0.000290\n0.003821\n0.005015\n0.001307\n0.052690\n0.063403\n0.000626\n0.001850\n0.256254\n0.000223\n...\n0.229935\n1.046375\n2.241259\n0.229641\n0.033674\n0.742792\n1.338698\n2.130880\n0.625475\n0.463088\n\n\n1\n0.000407\n0.005973\n0.003206\n0.001932\n0.090702\n0.438523\n0.001513\n0.003906\n0.166081\n0.000286\n...\n0.910680\n1.580815\n0.087191\n0.606904\n0.436106\n0.306456\n0.940102\n1.159818\n1.712705\n1.624753\n\n\n2\n0.000626\n0.005090\n0.002887\n0.001299\n0.091715\n0.548537\n0.000491\n0.003587\n0.266537\n0.000408\n...\n0.465152\n0.678276\n0.946387\n1.194697\n2.537747\n1.642383\n0.701200\n0.115620\n0.186433\n0.166605\n\n\n3\n0.000169\n0.006087\n0.002489\n0.002167\n0.087537\n0.623212\n0.000427\n0.000226\n0.460680\n0.000388\n...\n0.394083\n0.700158\n0.105200\n0.856323\n0.038457\n0.023948\n0.131838\n1.296370\n0.723323\n1.915215\n\n\n4\n0.000286\n0.005520\n0.001906\n0.001599\n0.186034\n0.850148\n0.000835\n0.003025\n0.036309\n0.000142\n...\n3.313760\n0.565744\n0.473564\n0.139446\n0.029283\n1.165938\n0.442319\n0.227593\n0.884266\n1.592698\n\n\n\n\n5 rows × 1024 columns\n\n\n\n\nThe features are hard to interpret but they have some important information about the images which can be useful for classification."
   },
   {
     "objectID": "slides/slides-18-computer-vision.html#logistic-regression-with-the-extracted-features",
@@ -676,7 +676,7 @@
     "href": "slides/slides-18-computer-vision.html#object-detection-using-yolo",
     "title": "CPSC 330 Lecture 18: Introduction to deep learning and computer vision",
     "section": "Object detection using YOLO",
-    "text": "Object detection using YOLO\n\n\nLet’s try this out using a pre-trained model.\n\nfrom ultralytics import YOLO\nmodel = YOLO(\"yolov8n.pt\")  # pretrained YOLOv8n model\n\nyolo_input = \"data/yolo_test/3356700488_183566145b.jpg\"\nyolo_result = \"data/yolo_result.jpg\"\n# Run batched inference on a list of images\nresult = model(yolo_input)  # return a list of Results objects\nresult[0].save(filename=yolo_result)\n\n\n\n\nimage 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 133.8ms\nSpeed: 5.8ms preprocess, 133.8ms inference, 1.3ms postprocess per image at shape (1, 3, 512, 640)\n\n\n'data/yolo_result.jpg'"
+    "text": "Object detection using YOLO\n\n\nLet’s try this out using a pre-trained model.\n\nfrom ultralytics import YOLO\nmodel = YOLO(\"yolov8n.pt\")  # pretrained YOLOv8n model\n\nyolo_input = \"data/yolo_test/3356700488_183566145b.jpg\"\nyolo_result = \"data/yolo_result.jpg\"\n# Run batched inference on a list of images\nresult = model(yolo_input)  # return a list of Results objects\nresult[0].save(filename=yolo_result)\n\n\nimage 1/1 /Users/kvarada/CS/2025-26/330/cpsc330-slides/website/slides/data/yolo_test/3356700488_183566145b.jpg: 512x640 4 persons, 2 cars, 1 stop sign, 130.1ms\nSpeed: 2.8ms preprocess, 130.1ms inference, 29.2ms postprocess per image at shape (1, 3, 512, 640)\n\n\n'data/yolo_result.jpg'"
   },
   {
     "objectID": "slides/slides-18-computer-vision.html#object-detection-output",
@@ -998,7 +998,7 @@
     "href": "slides/slides-08-hyperparameter-optimization.html#grid-search-example",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Grid search example",
-    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\n0.9782606272997375"
+    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\nnp.float64(0.9782606272997375)"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#random-search",
@@ -1012,7 +1012,7 @@
     "href": "slides/slides-08-hyperparameter-optimization.html#random-search-example",
     "title": "CPSC 330 Lecture 8: Hyperparameter Optimization",
     "section": "Random search example",
-    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\n0.9814518520287443"
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.9818506556179762)"
   },
   {
     "objectID": "slides/slides-08-hyperparameter-optimization.html#pizza-baking-competition-example",
@@ -1110,7 +1110,7 @@
     "href": "slides/slides-09-classification-metrics.html#dummyclassifier",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "DummyClassifier",
-    "text": "DummyClassifier\nLet’s try a DummyClassifier, which makes predictions without learning any patterns.\n\ndummy = DummyClassifier()\ncross_val_score(dummy, X_train, y_train).mean()\n\n0.9983017327649726\n\n\n\nThe accuracy looks surprisingly high!\nShould we be happy with this model and deploy it?"
+    "text": "DummyClassifier\nLet’s try a DummyClassifier, which makes predictions without learning any patterns.\n\ndummy = DummyClassifier()\ncross_val_score(dummy, X_train, y_train).mean()\n\nnp.float64(0.9983017327649726)\n\n\n\nThe accuracy looks surprisingly high!\nShould we be happy with this model and deploy it?"
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#problem-class-imbalance",
@@ -1236,7 +1236,7 @@
     "href": "slides/slides-09-classification-metrics.html#pr-curve",
     "title": "CPSC 330 Lecture 9: Classification Metrics",
     "section": "PR curve",
-    "text": "PR curve\n\nCalculate precision and recall (TPR) at every possible threshold and graph them.\nTop left \\(\\rightarrow\\) Very high threshold (strict model = high precision)\nBottom right \\(\\rightarrow\\) Very low threshold (linient model = high recall)\n\n\n\n\n\n\n\n\n\n\n\n\nWe can look at all possible thresholds and plot the corresponding precision and recall!\nAs we lower the threshold, the classifier predicts more positives:\n\nRecall increases because we capture more true positives.\nPrecision usually decreases because some of the additional positives are false positives.\n\nAs we raise the threshold, the classifier predicts fewer positives:\n\nPrecision increases because only the most confident predictions are positive.\nRecall decreases because we miss more true positives.\n\nThe curve shows the trade-offs between precision and recall across all thresholds.\nIdeal performance: top-right corner (high precision and high recall).\nUse cases like fraud detection often require focusing on areas of the curve that favor one metric over the other (e.g., high recall for safety-critical tasks)."
+    "text": "PR curve\n\nCalculate precision and recall (TPR) at every possible threshold and graph them.\nTop left \\(\\rightarrow\\) Very high threshold (strict model = high precision)\nBottom right \\(\\rightarrow\\) Very low threshold (linient model = high recall)\n\n\n\n\nWe can look at all possible thresholds and plot the corresponding precision and recall!\nAs we lower the threshold, the classifier predicts more positives:\n\nRecall increases because we capture more true positives.\nPrecision usually decreases because some of the additional positives are false positives.\n\nAs we raise the threshold, the classifier predicts fewer positives:\n\nPrecision increases because only the most confident predictions are positive.\nRecall decreases because we miss more true positives.\n\nThe curve shows the trade-offs between precision and recall across all thresholds.\nIdeal performance: top-right corner (high precision and high recall).\nUse cases like fraud detection often require focusing on areas of the curve that favor one metric over the other (e.g., high recall for safety-critical tasks)."
   },
   {
     "objectID": "slides/slides-09-classification-metrics.html#pr-curve-different-thresholds",
@@ -1348,14 +1348,14 @@
     "href": "slides/slides-21-communication.html#main-issues-in-ml-related-communication",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "Main issues in ML-related communication",
-    "text": "Main issues in ML-related communication\n\nOverclaiming and unclear limitations\nNo baseline or missing context for metrics\nMetric dumping without a narrative or decision link\nJargon/abstraction mismatch to the audience\nUnexplained predictions; weak explainability path\nHidden assumptions or data leakage\nProbability misinterpretation (e.g., predict_proba=0.9 ≠ 90% certain)\nUnreliable test error due to weak validation"
+    "text": "Main issues in ML-related communication\n\nOverclaiming and unclear limitations\nNo baseline or missing context for metrics\nMetric dumping without a narrative or decision link\nJargon/abstraction mismatch to the audience\nUnexplained predictions\nHidden assumptions or data leakage\nProbability misinterpretation (e.g., predict_proba=0.9 \\(\\neq\\) 90% certain)\nUnreliable test error due to weak validation"
   },
   {
-    "objectID": "slides/slides-21-communication.html#scenario-discussion-what-happens-if",
-    "href": "slides/slides-21-communication.html#scenario-discussion-what-happens-if",
+    "objectID": "slides/slides-21-communication.html#what-happens-if",
+    "href": "slides/slides-21-communication.html#what-happens-if",
     "title": "CPSC 330 Lecture 21: Communication",
-    "section": "Scenario discussion: What happens if…",
-    "text": "Scenario discussion: What happens if…\nPick one scenario: Discuss 2 negative consequences and 1 thing you’d do to prevent them.\n\nYou build an amazing model but fail to clearly communicate its value or results to your manager.\nYou present a 98% accuracy without mentioning the trivial baseline is 97.5%.\nYou say: “SHAP values show nonlinear feature interactions” to a non-technical stakeholder and stop there.\nA user asks why they were denied a loan; you give no explanation of the model’s decision.\nYou hide uncertainty and overpromise deployment success."
+    "section": "What happens if…",
+    "text": "What happens if…\nPick one scenario. Discuss 2 negative consequences and 1 thing you’d do to prevent them.\n\nYou build an amazing model but fail to clearly communicate its value or results to your manager.\nYou present a 98% accuracy without mentioning the trivial baseline is 97.5%.\nYou say: “SHAP values show nonlinear feature interactions” to a non-technical stakeholder and stop there.\nA user asks why they were denied a loan; you give no explanation of the model’s decision.\nYou hide uncertainty and overpromise deployment success."
   },
   {
     "objectID": "slides/slides-21-communication.html#grid-search-activity",
@@ -1383,7 +1383,7 @@
     "href": "slides/slides-21-communication.html#concepts-then-labels-not-the-other-way-around-1",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "Concepts then labels, not the other way around",
-    "text": "Concepts then labels, not the other way around"
+    "text": "Concepts then labels, not the other way around\n\n\n\n        \n        \n\n\nFeynman video link"
   },
   {
     "objectID": "slides/slides-21-communication.html#top-down-vs.-bottom-up",
@@ -1425,7 +1425,7 @@
     "href": "slides/slides-21-communication.html#its-not-about-you",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "It’s not about you",
-    "text": "It’s not about you\n\nInteresting to you != useful to the reader (aka it’s not about you)\nExamine the hidden intention of wanting to include something that’s not important\n\nAm I trying to sound smart or prove I know something?\nAm I afraid that leaving it out makes the work look too simple?\nAm I adding it because I spent time on it and want that effort to be visible?\nAm I overexplaining because I’m worried the audience will judge me?\n\n\n\nIf it doesn’t serve the audience, it’s noise."
+    "text": "It’s not about you\n\nInteresting to you != useful to the reader\nExamine the hidden intention of wanting to include something that’s not important\n\nAm I trying to sound smart or prove I know something?\nAm I afraid that leaving it out makes the work look too simple?\nAm I adding it because I spent time on it and want that effort to be visible?\n\n\n\nIf it doesn’t serve the audience, it’s noise."
   },
   {
     "objectID": "slides/slides-21-communication.html#core-questions-you-must-be-ready-to-answer",
@@ -1449,60 +1449,60 @@
     "text": "❓❓ Questions for you\nImagine you are tasked with developing a recommender system for YouTube. You possess data on which users clicked on which videos. After spending considerable time building a recommender system using this data, you realize it isn’t producing high-quality recommendations. What could be the reasons for this?"
   },
   {
-    "objectID": "slides/slides-21-communication.html#think-beyond-the-data-thats-given-to-you",
-    "href": "slides/slides-21-communication.html#think-beyond-the-data-thats-given-to-you",
+    "objectID": "slides/slides-21-communication.html#section",
+    "href": "slides/slides-21-communication.html#section",
     "title": "CPSC 330 Lecture 21: Communication",
-    "section": "Think beyond the data that’s given to you",
-    "text": "Think beyond the data that’s given to you\nQuestions you have to consider:\n\nWho is the decision maker?\nWhat are their objectives?\nWhat are their alternatives?\nWhat is their context?\nWhat data do I need?"
+    "section": "",
+    "text": "Imagine you are tasked with developing a recommender system for YouTube. You possess data on which users clicked on which videos. After spending considerable time building a recommender system using this data, you realize it isn’t producing high-quality recommendations. What could be the reasons for this?\n\nClicks \\(\\neq\\) True preferences\nNo information about watch time\nClicks can be gamed"
+  },
+  {
+    "objectID": "slides/slides-21-communication.html#think-beyond-whats-given-to-you",
+    "href": "slides/slides-21-communication.html#think-beyond-whats-given-to-you",
+    "title": "CPSC 330 Lecture 21: Communication",
+    "section": "Think beyond what’s given to you",
+    "text": "Think beyond what’s given to you\nQuestions you have to consider:\n\nWho is the decision maker?\nWhat are their objectives?\nWhat are their alternatives?\nWhat is their context?\nWhat data do I need?"
   },
   {
     "objectID": "slides/slides-21-communication.html#decisions-involve-a-few-key-pieces",
     "href": "slides/slides-21-communication.html#decisions-involve-a-few-key-pieces",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "Decisions involve a few key pieces",
-    "text": "Decisions involve a few key pieces\n\nThe decision variable: the variable that is manipulated through the decision.\n\nE.g. how much should I sell my house for? (numeric)\nE.g. should I sell my house? (categorical)\n\nThe decision-maker’s objectives: the variables that the decision-maker ultimately cares about, and wishes to manipulate indirectly through the decision variable.\n\nE.g. my total profit, time to sale, etc.\n\nThe context: the variables that mediate the relationship between the decision variable and the objectives.\n\nE.g. the housing market, cost of marketing it, my timeline, etc."
+    "text": "Decisions involve a few key pieces\n\nThe decision variable: the variable that is manipulated through the decision.\n\nE.g. how much should I sell my house for? (numeric)\n\nThe decision-maker’s objectives: the variables that the decision-maker ultimately cares about\n\nE.g. my total profit, time to sale, etc.\n\nThe context: the variables that mediate the relationship between the decision variable and the objectives.\n\nE.g. the housing market, cost of marketing it, my timeline, etc."
   },
   {
     "objectID": "slides/slides-21-communication.html#poor-vs.-effective-communication",
     "href": "slides/slides-21-communication.html#poor-vs.-effective-communication",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "Poor vs. Effective communication",
-    "text": "Poor vs. Effective communication\nWhich one is poor and which one is effective? Why?\n\n\nCommunication 1\n“I built a model to predict next week’s avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest.”\n\nCommunication 2\n“Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month.\nTo deploy: we need 2 days to automate data updates and a weekly accuracy review.\nRisk: model performance drops during holiday spikes. Here’s our mitigation plan.”"
+    "text": "Poor vs. Effective communication\nImagine that you’re explaining your work to your manager who is not very technical. Which one is pooer and which one is more effective? Why?\n\n\nCommunication 1\n“I built models to predict next week’s avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest.”\n\nCommunication 2\n“Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month. We need 2 days to automate data updates and a weekly accuracy review.\nRisk: model performance drops during holiday spikes. Here’s our mitigation plan.”"
   },
   {
     "objectID": "slides/slides-21-communication.html#poor-vs.-effective-communication-1",
     "href": "slides/slides-21-communication.html#poor-vs.-effective-communication-1",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "Poor vs. Effective communication",
-    "text": "Poor vs. Effective communication\n\n\n❌ Poor communication:\n“I built a model to predict next week’s avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest.”\nResult: The manager doesn’t know why this matters, how it affects decisions, or what to do next. No adoption.\n\n✅ Effective reframe:\n“Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month.\nTo deploy: we need 2 days to automate data updates and a weekly accuracy review.\nRisk: model performance drops during holiday spikes. Here’s our mitigation plan.”\nResult: Clear value, operational impact, required effort, and risks. Enables decision-making.\n\nKey difference: Shift from model-centric communication → decision-ready communication."
-  },
-  {
-    "objectID": "slides/slides-21-communication.html#section",
-    "href": "slides/slides-21-communication.html#section",
-    "title": "CPSC 330 Lecture 21: Communication",
-    "section": "",
-    "text": "What does it mean to be “confident” in your results?\nWhen you perform analysis, you are responsible for many judgment calls.\nYour results will be different than others.\nAs you make these judgments and start to form conclusions, how can you recognize your own uncertainties about the data so that you can communicate confidently?"
+    "text": "Poor vs. Effective communication\n\n\n❌ Poor communication:\n“I built a model to predict next week’s avocado prices. The ridge model had an RMSE of 0.79, but the random forest performed better with tuned hyperparameters. The cross-validation score improved after adding lag features. We should use the random forest.”\nResult: The manager doesn’t know why this matters, how it affects decisions, or what to do next. No adoption. 😢\n\n✅ Effective reframe:\n“Our avocado price forecast reduces weekly price uncertainty by 15%. This lets the procurement team lock in contracts earlier and avoid overpaying during high-volatility weeks, saving an estimated $45k per month. We need 2 days to automate data updates and a weekly accuracy review.\nRisk: model performance drops during holiday spikes. Here’s our mitigation plan.”\nResult: Clear value, operational impact, required effort, and risks. Enables decision-making!!\n\nKey difference: Shift from model-centric communication → decision-ready communication."
   },
   {
     "objectID": "slides/slides-21-communication.html#section-1",
     "href": "slides/slides-21-communication.html#section-1",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "",
-    "text": "Let’s imagine that the following claim is true:\n\nVancouver has the highest cost of living of all cities in Canada.\n\nNow let’s consider a few beliefs we could hold:\n\nVancouver has the highest cost of living of all cities in Canada. I am 95% sure of this.\nVancouver has the highest cost of living of all cities in Canada. I am 55% sure of this.\n\nThe part is bold is called a credence. Which belief is better?"
+    "text": "What does it mean to be “confident” in your results?\nWhen you perform analysis, you are responsible for many judgment calls.\nYour results will be different than others.\nAs you make these judgments and start to form conclusions, how can you recognize your own uncertainties about the data so that you can communicate confidently?"
   },
   {
     "objectID": "slides/slides-21-communication.html#section-2",
     "href": "slides/slides-21-communication.html#section-2",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "",
-    "text": "But what if it’s actually Toronto that has the highest cost of living in Canada?\n\nVancouver has the highest cost of living of all cities in Canada. I am 95% sure of this.\nVancouver has the highest cost of living of all cities in Canada. I am 55% sure of this.\n\nWhich belief is better now?\nWe don’t just want to be right. We want to be confident when we’re right and hesitant when we’re wrong."
+    "text": "Let’s imagine that the following claim is true:\n\nVancouver has the highest cost of living of all cities in Canada.\n\nNow let’s consider a few beliefs we could hold:\n\nVancouver has the highest cost of living of all cities in Canada. I am 95% sure of this.\nVancouver has the highest cost of living of all cities in Canada. I am 55% sure of this.\n\nThe part is bold is called a credence. Which belief is better?"
   },
   {
     "objectID": "slides/slides-21-communication.html#section-3",
     "href": "slides/slides-21-communication.html#section-3",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "",
-    "text": "In our final exam, imagine if, along with your answers, we ask you to also provide a confidence score for each. This would involve rating how sure you are about each answer, perhaps on a percentage scale from 0% (completely unsure) to 100% (completely sure). This method not only assesses your knowledge but also your awareness of your own understanding, potentially impacting the grading process and highlighting areas for improvement. Who supports this idea 😉?"
+    "text": "But what if it’s actually Toronto that has the highest cost of living in Canada?\n\nVancouver has the highest cost of living of all cities in Canada. I am 95% sure of this.\nVancouver has the highest cost of living of all cities in Canada. I am 55% sure of this.\n\nWhich belief is better now?\nWe don’t just want to be right. We want to be confident when we’re right and hesitant when we’re wrong."
   },
   {
     "objectID": "slides/slides-21-communication.html#loss-in-machine-learning",
@@ -1526,18 +1526,18 @@
     "text": "Logistic regression loss\n\n\n\n\n\n\n\n\n\n\n\n\n\nconfident and correct \\(\\rightarrow\\) smaller loss\nhesitant and correct \\(\\rightarrow\\) a bit higher loss\nhesitant and incorrect \\(\\rightarrow\\) even higher loss\nconfident and incorrect \\(\\rightarrow\\) high loss"
   },
   {
+    "objectID": "slides/slides-21-communication.html#section-4",
+    "href": "slides/slides-21-communication.html#section-4",
+    "title": "CPSC 330 Lecture 21: Communication",
+    "section": "",
+    "text": "In our final exam, imagine if, along with your answers, we ask you to also provide a confidence score for each. This would involve rating how sure you are about each answer, perhaps on a percentage scale from 0% (completely unsure) to 100% (completely sure). This method not only assesses your knowledge but also your awareness of your own understanding, potentially impacting the grading process and highlighting areas for improvement. Who supports this idea 😉?"
+  },
+  {
     "objectID": "slides/slides-21-communication.html#misleding-visualizations",
     "href": "slides/slides-21-communication.html#misleding-visualizations",
     "title": "CPSC 330 Lecture 21: Communication",
     "section": "Misleding visualizations",
     "text": "Misleding visualizations\nThis chart is attempting to suggest a relationship between childhood MMR vaccination rates and the prevalence of autism spectrum disorders (AD/ASD) across several countries.\n\n\n\n\n\nDo you see any problems with this visualization?"
-  },
-  {
-    "objectID": "slides/slides-21-communication.html#section-4",
-    "href": "slides/slides-21-communication.html#section-4",
-    "title": "CPSC 330 Lecture 21: Communication",
-    "section": "",
-    "text": "Visualizing your data and results could be very powerful but at the same time can be misleading if not done properly."
   },
   {
     "objectID": "slides/slides-21-communication.html#examples",
@@ -1706,6 +1706,27 @@
     "title": "CPSC 330 Lecture 3: ML fundamentals",
     "section": "The golden rule",
     "text": "The golden rule\n\nAlthough our primary concern is the model’s performance on the test data, this data should not influence the training process in any way.\n\n\n\n Source: Image generated by ChatGPT 5\n\n\nTest data = final exam\n\nYou can practice all you want with training/validation data\nBut never peek at the test set before evaluation\nOtherwise, it’s like sneaking answers before the exam \\(\\rightarrow\\) not a real assessment of your learning."
+  },
+  {
+    "objectID": "lecture-22.html",
+    "href": "lecture-22.html",
+    "title": "Lecture 22: Communication",
+    "section": "",
+    "text": "View slides in full screen"
+  },
+  {
+    "objectID": "lecture-22.html#slides",
+    "href": "lecture-22.html#slides",
+    "title": "Lecture 22: Communication",
+    "section": "",
+    "text": "View slides in full screen"
+  },
+  {
+    "objectID": "lecture-22.html#outline",
+    "href": "lecture-22.html#outline",
+    "title": "Lecture 22: Communication",
+    "section": "Outline",
+    "text": "Outline\n\nCommunication in applied ML\nBest practices of technical communication\nCommunicating confidence to stakeholders in an ML project.\nIdentifying misleading visualizations."
   },
   {
     "objectID": "lecture-20.html",
@@ -2036,6 +2057,97 @@
       "Lectures",
       "Lecture 2: Terminology, baselines, decision Trees"
     ]
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#announcements",
+    "href": "slides/slides-24-deployment.html#announcements",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "Announcements",
+    "text": "Announcements\n\nLast lecture today!\nHW9 is due today Dec 5th at 11:59 PM (No late submission allowed.)\nEthics bonus assignment is due tomorrow at 11:59pm.\nI’ll be holding OH on December 11th from 2 to 3:30"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#questions-for-you",
+    "href": "slides/slides-24-deployment.html#questions-for-you",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "❓❓ Questions for you",
+    "text": "❓❓ Questions for you\nImagine you’ve created a machine learning model and are eager to share it with others. Consider the following scenarios for sharing your model:\n\nTo a non-technical Audience: How would you present your model to friends and family who may not have a technical background?\nTo a technical audience: How would you share your model with peers or professionals in the field who have a technical understanding of machine learning?\nIn an academic or research setting: How would you disseminate your model within academic or research communities?"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#try-out-this-moment-predictor",
+    "href": "slides/slides-24-deployment.html#try-out-this-moment-predictor",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "Try out this moment predictor",
+    "text": "Try out this moment predictor\nhttps://cpsc330-moment-predictor.onrender.com/\n\nIn this lecture, I will show you how to set up/develop this."
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#what-is-deployment",
+    "href": "slides/slides-24-deployment.html#what-is-deployment",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "What is deployment?",
+    "text": "What is deployment?\n\nAfter we train a model, we want to use it!\nThe user likely does not want to install your Python stack, train your model.\nYou don’t necessarily want to share their dataset.\nSo we need to do two things:\n\nSave/store your model for later use.\nMake the saved model conveniently accessible."
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#we-will-use-the-tools-below-for",
+    "href": "slides/slides-24-deployment.html#we-will-use-the-tools-below-for",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "We will use the tools below for",
+    "text": "We will use the tools below for\n\nSaving the model: We will use Joblib\nMaking the saved model conveniently accessible: Flask & render"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#course-evaluations-15-mins",
+    "href": "slides/slides-24-deployment.html#course-evaluations-15-mins",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "Course evaluations (~15 mins)",
+    "text": "Course evaluations (~15 mins)\nhttps://canvas.ubc.ca/courses/149122/external_tools/53187\n\nThey help us improve our teaching!\nUBC & CS uses them to provide rewards to instructors and TAs who are doing well!\nUBC & CS uses them to identify where instructors, TAs and courses need additional supports to improve.\nUBC uses these in evaluating professors for tenure and promotion.\nI’ll very much appreciate your constructive and concrete feedback."
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#what-did-we-cover",
+    "href": "slides/slides-24-deployment.html#what-did-we-cover",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "What did we cover",
+    "text": "What did we cover\n\nPart 1: Supervised learning on tabular data: ML fundamentals, preprocessing and data encoding, a bunch of models, evaluation metrics, feature importances and model transparency, feature selection, hyperparameter optimization\nPart 2: Dealing with other non-tabular data types: Clustering, recommender systems, computer vision with pre-trained deep learning models (high level), language data, text preprocessing, embeddings, topic modeling, time series, right-censored data / survival analysis\nPart 3: Communication, Ethics, and Deployment"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#what-we-didnt-cover",
+    "href": "slides/slides-24-deployment.html#what-we-didnt-cover",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "What we didn’t cover",
+    "text": "What we didn’t cover\n\nHow do these models work under the hood"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#what-would-i-do-differently",
+    "href": "slides/slides-24-deployment.html#what-would-i-do-differently",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "What would I do differently?",
+    "text": "What would I do differently?\nLots of room for improvement. Here are some things on my mind.\n\nFlipped classroom in a more effective way in the first part of the course.\nMore demos during the lecture time\nWorksheets/practice questions during tutorials\nCourse project??\nAdd more interactive components in the lectures\nSome material to cover: dealing with outliers, data collection, large language models"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#what-next",
+    "href": "slides/slides-24-deployment.html#what-next",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "What next?",
+    "text": "What next?\nIf you want to further develop your machine learning skills: - Practice! - Work on your own projects - Work hard and be consistent.\n\nIf you are interested in research in machine learning\n\nTake CPSC 340. If you do not have the required prereqs you can try to audit it.\n\nGet into the habit of reading papers and replicating results"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#questions-for-you-1",
+    "href": "slides/slides-24-deployment.html#questions-for-you-1",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "❓❓ Questions for you",
+    "text": "❓❓ Questions for you\nFor each of the scenarios below\n\nIdentify if ML is a good solution for a problem.\nIf yes\n\nFrame the problem to a ML problem.\nDiscuss what kind of features you would need to effectively solve the problem\nWhat would be a reasonable baseline?\nWhich model would be a suitable model for the given scenario?\nWhat would be the appropriate success metrics."
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#questions-for-you-2",
+    "href": "slides/slides-24-deployment.html#questions-for-you-2",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "❓❓ Questions for you",
+    "text": "❓❓ Questions for you\n\n\n\n\n\n\n\nApp\nGoal\n\n\n\n\nQueuePredictor app\nInform callers how long they’ll wait on hold given the current call volume\n\n\nTo-doList App\nKeep track of the tasks that a user inputs and organize them by date\n\n\nSegmentSphere App\nTo segment customers to tailor marketing strategies based on purchasing behavior\n\n\nVideo app\nRecommend useful videos\n\n\nDining app\nIdentify cuisine by a restaurant’s menu\n\n\nWeather app\nCalculate precipitation in six hour increments for a geographic region\n\n\nEvoCarShare app\nCalculate number of car rentals in four increaments at a particular Evo parking spot\n\n\nPharma app\nUnderstand the effect of a new drug on patient survival time"
+  },
+  {
+    "objectID": "slides/slides-24-deployment.html#conclusion-farewell",
+    "href": "slides/slides-24-deployment.html#conclusion-farewell",
+    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
+    "section": "Conclusion & farewell",
+    "text": "Conclusion & farewell\nThat’s all, folks. We made it! Good luck on your final exam! When you get a chance, please let me know what worked for you and what didn’t work for you in this course."
   },
   {
     "objectID": "slides/slides-16-recommender-systems.html#focus-on-the-breath",
@@ -2609,7 +2721,7 @@
     "href": "lecture.html",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\nLecture 20: Survival analysis\n\n\n \n\n\n\n\nLecture 21: Communication\n\n\n \n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\nLecture 20: Survival analysis\n\n\n \n\n\n\n\nLecture 21: Communication\n\n\n \n\n\n\n\nLecture 22: Communication\n\n\n \n\n\n\n\nLecture 24: Deployment and conclusion\n\n\n \n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -2620,7 +2732,7 @@
     "href": "lecture.html#schedule",
     "title": "Overview",
     "section": "",
-    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\nLecture 20: Survival analysis\n\n\n \n\n\n\n\nLecture 21: Communication\n\n\n \n\n\n\n\n\nNo matching items",
+    "text": "Title\n\n\nDescription\n\n\n\n\n\n\nLecture 1: Course introduction\n\n\nWhat is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies\n\n\n\n\nLecture 2: Terminology, baselines, decision Trees\n\n\nSupervised machine learning terminology: Features, target, examples, training, parameters and hyperparameters, Decision boundary, classification vs. regression, inference vs. prediction, accuracy vs. error, baselines, intuition of decision trees\n\n\n\n\nLecture 3: ML fundamentals\n\n\nGeneralization, data splitting, cross-validation, overfitting, underfitting, the fundamental tradeoff, the golden rule\n\n\n\n\nLecture 4: \\(k\\)-nearest neighbours and SVM RBFs\n\n\nIntroduction to KNNs, hyperparameter n_neighbours or \\(k\\), C and gamma hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.\n\n\n\n\nLecture 5: Preprocessing and sklearn pipelines\n\n\nPreprocessing motivation, Common transformations in sklearn, sklearn transformers vs. Estimators, The golden rule in the feature transformations, sklearn pipelines\n\n\n\n\nLecture 6: sklearn column transformer and text fearutres\n\n\nColumn transformer, arguments of OHE, encoding text features, incorporating text features in an ML pipeline\n\n\n\n\nLecture 7: Linear models\n\n\nIntuition behind linear models, linear regression and logistic regression, scikit-learn’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models\n\n\n\n\nLecture 8: Hyperparameter Optimization\n\n\nmotivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias\n\n\n\n\nLecture 9: Classification metrics\n\n\nconfusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance\n\n\n\n\nLecture 10: Regression metrics\n\n\nClassification metrics recap, ridge and RidgeCV, alpha hyperparameter of ridge, MSE, RMSE, MAPE, log transformations on the target\n\n\n\n\nLecture 11: Ensembles\n\n\n \n\n\n\n\nLecture 12: Feature importances\n\n\n \n\n\n\n\nLecture 13: Feature engineering and selection\n\n\nMotivation for feature engineering, preliminary feature engineering on text data, general concept of feature selection, model-based feature selection vs. RFE\n\n\n\n\nLecture 14: K Means\n\n\nUnsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset, importance of input data representation in clustering.\n\n\n\n\nLecture 15: DBSCAN and hierarchical\n\n\nLimitations of K-Means, DBSCAN, ierarchical clustering, dendrograms, omparing and contrasting different clustering methods\n\n\n\n\nLecture 16: Recommender systems\n\n\n \n\n\n\n\nLecture 17: Natural Language Processing\n\n\n \n\n\n\n\nLecture 18: Introduction to computer vision\n\n\n \n\n\n\n\nLecture 19: Time series\n\n\n \n\n\n\n\nLecture 20: Survival analysis\n\n\n \n\n\n\n\nLecture 21: Communication\n\n\n \n\n\n\n\nLecture 22: Communication\n\n\n \n\n\n\n\nLecture 24: Deployment and conclusion\n\n\n \n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Lectures",
       "Overview"
@@ -3019,6 +3131,13 @@
     "text": "iClicker Exercise 14.3\nSelect all of the following statements which are True\n\n\nIf you train K-Means with n_clusters= the number of examples, the inertia value will be 0.\n\n\nThe elbow plot shows the tradeoff between within cluster distance and the number of clusters.\n\n\nUnlike the Elbow method, the Silhouette method is not dependent on the notion of cluster centers.\n\n\nThe elbow plot is not a reliable method to obtain the optimal number of clusters in all cases.\n\n\nThe Silhouette scores ranges between -1 and 1 where higher scores indicates better cluster assignments."
   },
   {
+    "objectID": "slides/slides-22-communication.html#announcements",
+    "href": "slides/slides-22-communication.html#announcements",
+    "title": "CPSC 330 Lecture 22: Communication",
+    "section": "Announcements",
+    "text": "Announcements\n\nHW9 has been released (due Sec 5th)\n\nAlmost there! Hang in there 😊\n\nMidterm 2 grades have been posted."
+  },
+  {
     "objectID": "lecture-01.html",
     "href": "lecture-01.html",
     "title": "Lecture 1: Course introduction",
@@ -3382,6 +3501,27 @@
     ]
   },
   {
+    "objectID": "lecture-24.html",
+    "href": "lecture-24.html",
+    "title": "Lecture 24: Deployment and conclusion",
+    "section": "",
+    "text": "View slides in full screen"
+  },
+  {
+    "objectID": "lecture-24.html#slides",
+    "href": "lecture-24.html#slides",
+    "title": "Lecture 24: Deployment and conclusion",
+    "section": "",
+    "text": "View slides in full screen"
+  },
+  {
+    "objectID": "lecture-24.html#outline",
+    "href": "lecture-24.html#outline",
+    "title": "Lecture 24: Deployment and conclusion",
+    "section": "Outline",
+    "text": "Outline\n\nDeployment using render\nCourse evaluations\nCourse summary"
+  },
+  {
     "objectID": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
     "href": "slides/slides-10-regression-metrics.html#focus-on-the-breath",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
@@ -3449,7 +3589,7 @@
     "href": "slides/slides-10-regression-metrics.html#handling-imbalance-by-chaning-class-weights",
     "title": "CPSC 330 Lecture 10: Regression Metrics",
     "section": "Handling imbalance by chaning class weights",
-    "text": "Handling imbalance by chaning class weights\n\nWe can specify class_weight=“balanced” to give more importance to rare examples during training.\n\n\n\n\n\n\n\n\n\n\n\n\nThis sets the weights so that the classes are “equal”.\nWe have reduced false negatives but we have many more false positives now …\n\nDecreases false negatives, which improves recall.\nIncreases false positives, which might lower precision."
+    "text": "Handling imbalance by chaning class weights\n\nWe can specify class_weight=“balanced” to give more importance to rare examples during training.\n\n\n\n\nThis sets the weights so that the classes are “equal”.\nWe have reduced false negatives but we have many more false positives now …\n\nDecreases false negatives, which improves recall.\nIncreases false positives, which might lower precision."
   },
   {
     "objectID": "slides/slides-10-regression-metrics.html#ridge-and-ridgecv",
@@ -3694,14 +3834,14 @@
     "href": "slides/slides-20-survival-analysis.html#monthly-subscriber-churn-rates-for-various-streaming-services",
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "Monthly subscriber churn rates for various streaming services",
-    "text": "Monthly subscriber churn rates for various streaming services\n\n\n Source\n\nQuestion: Is a smaller or a larger churn rate more desirable for a subscription-based company?\n\nA smaller churn rate is better (means fewer customers leaving)\nLower churn = higher customer retention = more stable revenue"
+    "text": "Monthly subscriber churn rates for various streaming services\n\n\n Source\n\nQuestion: Is a smaller or a larger churn rate more desirable for a subscription-based company?\n\nLower churn = higher customer retention = more stable revenue"
   },
   {
-    "objectID": "slides/slides-20-survival-analysis.html#the-challenge-predicting-when-not-just-whether",
-    "href": "slides/slides-20-survival-analysis.html#the-challenge-predicting-when-not-just-whether",
+    "objectID": "slides/slides-20-survival-analysis.html#predicting-when-not-just-whether",
+    "href": "slides/slides-20-survival-analysis.html#predicting-when-not-just-whether",
     "title": "CPSC 330 Lecture 20: Survival analysis",
-    "section": "The challenge: Predicting when, not just whether",
-    "text": "The challenge: Predicting when, not just whether\nImagine you work for a subscription-based telecom company.\n\nYour team wants to predict when a customer will churn, not just whether they churn.\nThis helps the company:\n\nTarget retention strategies at the right time\nAllocate resources efficiently to high-risk customers\nUnderstand which factors accelerate or delay churn\n\nOur goal: model time to churn while accounting for customers who haven’t churned yet."
+    "section": "Predicting when, not just whether",
+    "text": "Predicting when, not just whether\nImagine you work for a subscription-based telecom company.\n\nYour team wants to predict when a customer will churn, not just whether they churn.\nThis helps the company:\n\nTarget retention strategies at the right time\nAllocate resources efficiently to high-risk customers\nUnderstand which factors accelerate or delay churn\n\nOur goal: model time to churn while accounting for customers who haven’t churned yet."
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#customer-churn-dataset",
@@ -3715,7 +3855,7 @@
     "href": "slides/slides-20-survival-analysis.html#churn-prediction-as-binary-classification",
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "Churn prediction as binary classification",
-    "text": "Churn prediction as binary classification\n\nWhen we treat churn as a binary classification problem, we only ask: Has the customer churned by the time of data collection?\nLimitations of this approach:\n\nAnswers only “Yes/No” and discards when churn occurred\nTreats a customer who churned after 1 month the same as one who churned after 5 years\nIgnores the time dimension entirely\n\nIs that what we want? Not if timing matters for business decisions!"
+    "text": "Churn prediction as binary classification\n\nHas the customer churned by the time of data collection?\nLimitations of this approach:\n\nAnswers only “Yes/No” and discards when churn occurred\nTreats a customer who churned after 1 month the same as one who churned after 5 years\nIgnores the time dimension entirely\n\nIs that what we want? Not if timing matters for business decisions!"
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#predicting-tenure",
@@ -3736,7 +3876,7 @@
     "href": "slides/slides-20-survival-analysis.html#types-of-censoring",
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "Types of censoring",
-    "text": "Types of censoring\n\nRight-censoring: Event hasn’t occurred yet (most common in practice)\nLeft-censoring: Event occurred before observation started\nInterval-censoring: Event occurred within a time interval"
+    "text": "Types of censoring\n\nRight-censoring: Event hasn’t occurred yet (most common in practice)\nLeft-censoring: Event occurred before data collection started\nInterval-censoring: Event occurred within a time interval"
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#time-to-event-and-censoring",
@@ -3757,14 +3897,14 @@
     "href": "slides/slides-20-survival-analysis.html#approach-1-only-use-churned-customers",
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "Approach 1: Only use churned customers ⛔️",
-    "text": "Approach 1: Only use churned customers ⛔️\nSuppose we only consider rows where Churn == “Yes” and throw away all right-censored customers.\n\n\n\n\n\n\n\n\n\ncustomerID\ngender\nSeniorCitizen\nPartner\nDependents\ntenure\nPhoneService\nMultipleLines\nInternetService\nOnlineSecurity\n...\nDeviceProtection\nTechSupport\nStreamingTV\nStreamingMovies\nContract\nPaperlessBilling\nPaymentMethod\nMonthlyCharges\nTotalCharges\nChurn\n\n\n\n\n3932\n1304-NECVQ\nFemale\n1\nNo\nNo\n2\nYes\nYes\nFiber optic\nNo\n...\nYes\nNo\nNo\nNo\nMonth-to-month\nYes\nElectronic check\n78.55\n149.55\nYes\n\n\n301\n8098-LLAZX\nFemale\n1\nNo\nNo\n4\nYes\nYes\nFiber optic\nNo\n...\nNo\nNo\nYes\nYes\nMonth-to-month\nYes\nElectronic check\n95.45\n396.1\nYes\n\n\n5540\n3803-KMQFW\nFemale\n0\nYes\nYes\n1\nYes\nNo\nNo\nNo internet service\n...\nNo internet service\nNo internet service\nNo internet service\nNo internet service\nMonth-to-month\nNo\nMailed check\n20.55\n20.55\nYes\n\n\n4084\n2777-PHDEI\nFemale\n0\nNo\nNo\n1\nYes\nNo\nFiber optic\nNo\n...\nNo\nNo\nYes\nNo\nMonth-to-month\nNo\nElectronic check\n78.05\n78.05\nYes\n\n\n\n\n4 rows × 21 columns\n\n\n\nThis throws away valuable information from active customers!"
+    "text": "Approach 1: Only use churned customers ⛔️\nSuppose we only consider rows where Churn == “Yes” and throw away all right-censored customers.\n\n\n\n\n\n\n\n\n\ncustomerID\ngender\nSeniorCitizen\nPartner\nDependents\ntenure\nPhoneService\nMultipleLines\nInternetService\nOnlineSecurity\n...\nDeviceProtection\nTechSupport\nStreamingTV\nStreamingMovies\nContract\nPaperlessBilling\nPaymentMethod\nMonthlyCharges\nTotalCharges\nChurn\n\n\n\n\n3932\n1304-NECVQ\nFemale\n1\nNo\nNo\n2\nYes\nYes\nFiber optic\nNo\n...\nYes\nNo\nNo\nNo\nMonth-to-month\nYes\nElectronic check\n78.55\n149.55\nYes\n\n\n301\n8098-LLAZX\nFemale\n1\nNo\nNo\n4\nYes\nYes\nFiber optic\nNo\n...\nNo\nNo\nYes\nYes\nMonth-to-month\nYes\nElectronic check\n95.45\n396.1\nYes\n\n\n5540\n3803-KMQFW\nFemale\n0\nYes\nYes\n1\nYes\nNo\nNo\nNo internet service\n...\nNo internet service\nNo internet service\nNo internet service\nNo internet service\nMonth-to-month\nNo\nMailed check\n20.55\n20.55\nYes\n\n\n4084\n2777-PHDEI\nFemale\n0\nNo\nNo\n1\nYes\nNo\nFiber optic\nNo\n...\nNo\nNo\nYes\nNo\nMonth-to-month\nNo\nElectronic check\n78.05\n78.05\nYes\n\n\n\n\n4 rows × 21 columns"
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#iclicker",
     "href": "slides/slides-20-survival-analysis.html#iclicker",
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "iClicker",
-    "text": "iClicker\nWould only considering rows where Churn == “Yes” and throwing away all right-censored customers overestimate or underestimate the average survival time?\n\n\nOverestimate\n\n\nUnderestimate\n\n\nCannot tell based on the provided information"
+    "text": "iClicker\nThis throws away valuable information from active customers! Would only considering rows where Churn == “Yes” and throwing away all right-censored customers overestimate or underestimate the average survival time?\n\n\nOverestimate\n\n\nUnderestimate\n\n\nCannot tell based on the provided information"
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#approach-2-assume-everyone-churns-now",
@@ -3779,13 +3919,6 @@
     "title": "CPSC 330 Lecture 20: Survival analysis",
     "section": "iClicker",
     "text": "iClicker\nWould assuming everyone churns now underestimate or overestimate tenure?\n\n\nOverestimate\n\n\nUnderestimate\n\n\nCannot tell based on the provided information"
-  },
-  {
-    "objectID": "slides/slides-20-survival-analysis.html#section",
-    "href": "slides/slides-20-survival-analysis.html#section",
-    "title": "CPSC 330 Lecture 20: Survival analysis",
-    "section": "",
-    "text": "Key insight: Ignoring or removing censored cases will bias our estimates:"
   },
   {
     "objectID": "slides/slides-20-survival-analysis.html#approach-3-survival-analysis",
@@ -3869,7 +4002,7 @@
     "href": "slides/slides-06-hyperparameter-optimization.html#grid-search-example",
     "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
     "section": "Grid search example",
-    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\n0.9782606272997375"
+    "text": "Grid search example\n\nfrom sklearn.model_selection import GridSearchCV\n\npipe_svm = make_pipeline(CountVectorizer(), SVC())\n\nparam_grid = {\n    \"countvectorizer__max_features\": [100, 200, 400],\n    \"svc__gamma\": [0.01, 0.1, 1.0],\n    \"svc__C\": [0.01, 0.1, 1.0],\n}\ngrid_search = GridSearchCV(pipe_svm, \n                  param_grid = param_grid, \n                  n_jobs=-1, \n                  return_train_score=True\n                 )\ngrid_search.fit(X_train, y_train)\ngrid_search.best_score_\n\nnp.float64(0.9782606272997375)"
   },
   {
     "objectID": "slides/slides-06-hyperparameter-optimization.html#random-search",
@@ -3883,7 +4016,7 @@
     "href": "slides/slides-06-hyperparameter-optimization.html#random-search-example",
     "title": "DSCI 571 Lecture 6: Hyperparameter Optimization",
     "section": "Random search example",
-    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\n0.9818508546217635"
+    "text": "Random search example\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import randint\n\npipe_svc = make_pipeline(CountVectorizer(), SVC())\n\nparam_dist = {\n    \"countvectorizer__max_features\": randint(100, 2000), \n    \"svc__C\": uniform(0.1, 1e4),  # loguniform(1e-3, 1e3),\n    \"svc__gamma\": loguniform(1e-5, 1e3),\n}\nrandom_search = RandomizedSearchCV(pipe_svm,                                    \n                  param_distributions = param_dist, \n                  n_iter=10, \n                  n_jobs=-1, \n                  return_train_score=True)\n\n# Carry out the search\nrandom_search.fit(X_train, y_train)\nrandom_search.best_score_\n\nnp.float64(0.9804550420594504)"
   },
   {
     "objectID": "slides/slides-06-hyperparameter-optimization.html#pizza-baking-competition-example",
@@ -4485,7 +4618,7 @@
     "href": "slides/slides-01-intro.html#model-training",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Model training",
-    "text": "Model training\n\nfrom lightgbm.sklearn import LGBMClassifier\nmodel = LGBMClassifier(random_state=123, verbose=-1)\nmodel.fit(X_train, y_train)\n\nLGBMClassifier(random_state=123, verbose=-1)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org. LGBMClassifieriFittedLGBMClassifier(random_state=123, verbose=-1)"
+    "text": "Model training\n\nfrom lightgbm.sklearn import LGBMClassifier\nmodel = LGBMClassifier(random_state=123, verbose=-1)\nmodel.fit(X_train, y_train)\n\nLGBMClassifier(random_state=123, verbose=-1)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LGBMClassifieriFitted\n        \n            \n                Parameters\n                \n\n\n\n\nboosting_type \n'gbdt'\n\n\n\nnum_leaves \n31\n\n\n\nmax_depth \n-1\n\n\n\nlearning_rate \n0.1\n\n\n\nn_estimators \n100\n\n\n\nsubsample_for_bin \n200000\n\n\n\nobjective \nNone\n\n\n\nclass_weight \nNone\n\n\n\nmin_split_gain \n0.0\n\n\n\nmin_child_weight \n0.001\n\n\n\nmin_child_samples \n20\n\n\n\nsubsample \n1.0\n\n\n\nsubsample_freq \n0\n\n\n\ncolsample_bytree \n1.0\n\n\n\nreg_alpha \n0.0\n\n\n\nreg_lambda \n0.0\n\n\n\nrandom_state \n123\n\n\n\nn_jobs \nNone\n\n\n\nimportance_type \n'split'\n\n\n\nverbose \n-1"
   },
   {
     "objectID": "slides/slides-01-intro.html#new-examples",
@@ -4534,7 +4667,7 @@
     "href": "slides/slides-01-intro.html#lets-train-a-model",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Let’s train a model",
-    "text": "Let’s train a model\n\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\nclf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))\nclf.fit(X_train, y_train) # Training the model\n\nPipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),\n                ('logisticregression', LogisticRegression(max_iter=5000))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  Pipeline?Documentation for PipelineiFittedPipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),\n                ('logisticregression', LogisticRegression(max_iter=5000))])  CountVectorizer?Documentation for CountVectorizerCountVectorizer(max_features=5000)  LogisticRegression?Documentation for LogisticRegressionLogisticRegression(max_iter=5000)"
+    "text": "Let’s train a model\n\nX_train, y_train = train_df[\"sms\"], train_df[\"target\"]\nX_test, y_test = test_df[\"sms\"], test_df[\"target\"]\nclf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_iter=5000))\nclf.fit(X_train, y_train) # Training the model\n\nPipeline(steps=[('countvectorizer', CountVectorizer(max_features=5000)),\n                ('logisticregression', LogisticRegression(max_iter=5000))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\nsteps \n[('countvectorizer', ...), ('logisticregression', ...)]\n\n\n\ntransform_input \nNone\n\n\n\nmemory \nNone\n\n\n\nverbose \nFalse\n\n\n\n\n            \n        \n    CountVectorizer?Documentation for CountVectorizer\n        \n            \n                Parameters\n                \n\n\n\n\ninput \n'content'\n\n\n\nencoding \n'utf-8'\n\n\n\ndecode_error \n'strict'\n\n\n\nstrip_accents \nNone\n\n\n\nlowercase \nTrue\n\n\n\npreprocessor \nNone\n\n\n\ntokenizer \nNone\n\n\n\nstop_words \nNone\n\n\n\ntoken_pattern \n'(?u)\\\\b\\\\w\\\\w+\\\\b'\n\n\n\nngram_range \n(1, ...)\n\n\n\nanalyzer \n'word'\n\n\n\nmax_df \n1.0\n\n\n\nmin_df \n1\n\n\n\nmax_features \n5000\n\n\n\nvocabulary \nNone\n\n\n\nbinary \nFalse\n\n\n\ndtype \n&lt;class 'numpy.int64'&gt;\n\n\n\n\n            \n        \n    LogisticRegression?Documentation for LogisticRegression\n        \n            \n                Parameters\n                \n\n\n\n\npenalty \n'l2'\n\n\n\ndual \nFalse\n\n\n\ntol \n0.0001\n\n\n\nC \n1.0\n\n\n\nfit_intercept \nTrue\n\n\n\nintercept_scaling \n1\n\n\n\nclass_weight \nNone\n\n\n\nrandom_state \nNone\n\n\n\nsolver \n'lbfgs'\n\n\n\nmax_iter \n5000\n\n\n\nmulti_class \n'deprecated'\n\n\n\nverbose \n0\n\n\n\nwarm_start \nFalse\n\n\n\nn_jobs \nNone\n\n\n\nl1_ratio \nNone"
   },
   {
     "objectID": "slides/slides-01-intro.html#unseen-messages",
@@ -4576,7 +4709,7 @@
     "href": "slides/slides-01-intro.html#zero-shot-learning-for-emotion-detection-1",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Zero-shot learning for emotion detection",
-    "text": "Zero-shot learning for emotion detection\n\n\n\n\n\n\n\n\n\n\n\n\nsequence\nlabels\nscores\n\n\n\n\n0\ni don t feel particularly agitated\n[surprise, anger, joy, sadness, fear, love]\n[0.3600894808769226, 0.3018992841243744, 0.11901337653398514, 0.11381522566080093, 0.060392025858163834, 0.04479065164923668]\n\n\n1\ni feel beautifully emotional knowing that these women of whom i knew just a handful were holding me and my baba on our journey\n[joy, love, surprise, fear, sadness, anger]\n[0.3699415922164917, 0.2887157201766968, 0.25608018040657043, 0.04292364791035652, 0.0334492027759552, 0.008889684453606606]\n\n\n2\ni pay attention it deepens into a feeling of being invaded and helpless\n[fear, surprise, sadness, anger, joy, love]\n[0.3414682149887085, 0.308807909488678, 0.25616857409477234, 0.07989872992038727, 0.007844817824661732, 0.005811713170260191]\n\n\n3\ni just feel extremely comfortable with the group of people that i dont even need to hide myself\n[joy, surprise, love, sadness, anger, fear]\n[0.330521821975708, 0.29472413659095764, 0.15343177318572998, 0.07691384106874466, 0.07596709579229355, 0.06844125688076019]\n\n\n4\ni find myself in the odd position of feeling supportive of\n[surprise, joy, fear, love, sadness, anger]\n[0.8287973403930664, 0.043179724365472794, 0.039774090051651, 0.031413525342941284, 0.031412579119205475, 0.025422723963856697]\n\n\n5\ni was feeling as heartbroken as im sure katniss was\n[sadness, surprise, fear, love, anger, joy]\n[0.7667971849441528, 0.18184727430343628, 0.025871170684695244, 0.011756685562431812, 0.008171557448804379, 0.005556126125156879]\n\n\n6\ni feel a little mellow today\n[surprise, joy, love, fear, sadness, anger]\n[0.49373435974121094, 0.2632201910018921, 0.11367978155612946, 0.06402172893285751, 0.05095501244068146, 0.014388876967132092]\n\n\n7\ni feel like my only role now would be to tear your sails with my pessimism and discontent\n[sadness, anger, surprise, fear, joy, love]\n[0.6992793679237366, 0.20048710703849792, 0.061859212815761566, 0.03287450596690178, 0.003646905766800046, 0.0018528853543102741]\n\n\n8\ni feel just bcoz a fight we get mad to each other n u wanna make a publicity n let the world knows about our fight\n[anger, surprise, sadness, fear, joy, love]\n[0.6029902696609497, 0.19827134907245636, 0.10198818892240524, 0.0811697468161583, 0.01011709589511156, 0.005463308654725552]\n\n\n9\ni feel like reds and purples are just so rich and kind of perfect\n[joy, surprise, love, anger, fear, sadness]\n[0.36441487073898315, 0.305120587348938, 0.1946253925561905, 0.05556599050760269, 0.0541352778673172, 0.026137853041291237]"
+    "text": "Zero-shot learning for emotion detection\n\n\n\n\n\n\n\n\n\n\n\n\nsequence\nlabels\nscores\n\n\n\n\n0\ni don t feel particularly agitated\n[surprise, anger, joy, sadness, fear, love]\n[0.3600878417491913, 0.3019028306007385, 0.11901311576366425, 0.11381475627422333, 0.060391537845134735, 0.04478989914059639]\n\n\n1\ni feel beautifully emotional knowing that these women of whom i knew just a handful were holding me and my baba on our journey\n[joy, love, surprise, fear, sadness, anger]\n[0.36994311213493347, 0.28871551156044006, 0.25607970356941223, 0.04292311519384384, 0.03344893828034401, 0.008889686316251755]\n\n\n2\ni pay attention it deepens into a feeling of being invaded and helpless\n[fear, surprise, sadness, anger, joy, love]\n[0.3414697051048279, 0.3088077902793884, 0.25616782903671265, 0.07989819347858429, 0.007844815962016582, 0.005811681505292654]\n\n\n3\ni just feel extremely comfortable with the group of people that i dont even need to hide myself\n[joy, surprise, love, sadness, anger, fear]\n[0.33052313327789307, 0.2947230041027069, 0.15343120694160461, 0.0769142434000969, 0.07596743106842041, 0.06844092905521393]\n\n\n4\ni find myself in the odd position of feeling supportive of\n[surprise, joy, fear, love, sadness, anger]\n[0.8287989497184753, 0.0431794710457325, 0.03977375477552414, 0.03141302987933159, 0.03141230717301369, 0.025422487407922745]\n\n\n5\ni was feeling as heartbroken as im sure katniss was\n[sadness, surprise, fear, love, anger, joy]\n[0.7667977213859558, 0.1818464994430542, 0.025871247053146362, 0.01175675168633461, 0.008171566762030125, 0.005556134041398764]\n\n\n6\ni feel a little mellow today\n[surprise, joy, love, fear, sadness, anger]\n[0.4937359094619751, 0.2632196545600891, 0.11367890238761902, 0.06402157247066498, 0.05095512419939041, 0.014388807117938995]\n\n\n7\ni feel like my only role now would be to tear your sails with my pessimism and discontent\n[sadness, anger, surprise, fear, joy, love]\n[0.6992810368537903, 0.20048701763153076, 0.06185832992196083, 0.032874055206775665, 0.0036468510515987873, 0.0018528478685766459]\n\n\n8\ni feel just bcoz a fight we get mad to each other n u wanna make a publicity n let the world knows about our fight\n[anger, surprise, sadness, fear, joy, love]\n[0.6029909253120422, 0.19827117025852203, 0.10198791325092316, 0.08116964250802994, 0.010117068886756897, 0.005463309586048126]\n\n\n9\ni feel like reds and purples are just so rich and kind of perfect\n[joy, surprise, love, anger, fear, sadness]\n[0.36441490054130554, 0.3051193952560425, 0.1946256458759308, 0.05556650087237358, 0.05413544923067093, 0.026138072833418846]"
   },
   {
     "objectID": "slides/slides-01-intro.html#example-predicting-labels-of-a-given-image",
@@ -4597,14 +4730,14 @@
     "href": "slides/slides-01-intro.html#k-means-on-food-dataset",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "K-Means on food dataset",
-    "text": "K-Means on food dataset\n\n\n\ndensenet = models.densenet121(weights=\"DenseNet121_Weights.IMAGENET1K_V1\")\ndensenet.classifier = torch.nn.Identity()  # remove that last \"classification\" layer\n\n\nZ_food = get_features_unsup(densenet, food_inputs)\nk = 5\nkm = KMeans(n_clusters=k, n_init='auto', random_state=123)\nkm.fit(Z_food)\n\nKMeans(n_clusters=5, random_state=123)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.  KMeans?Documentation for KMeansiFittedKMeans(n_clusters=5, random_state=123)"
+    "text": "K-Means on food dataset\n\n\n\ndensenet = models.densenet121(weights=\"DenseNet121_Weights.IMAGENET1K_V1\")\ndensenet.classifier = torch.nn.Identity()  # remove that last \"classification\" layer\n\n\nZ_food = get_features_unsup(densenet, food_inputs)\nk = 5\nkm = KMeans(n_clusters=k, n_init='auto', random_state=123)\nkm.fit(Z_food)\n\nKMeans(n_clusters=5, random_state=123)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.KMeans?Documentation for KMeansiFitted\n        \n            \n                Parameters\n                \n\n\n\n\nn_clusters \n5\n\n\n\ninit \n'k-means++'\n\n\n\nn_init \n'auto'\n\n\n\nmax_iter \n300\n\n\n\ntol \n0.0001\n\n\n\nverbose \n0\n\n\n\nrandom_state \n123\n\n\n\ncopy_x \nTrue\n\n\n\nalgorithm \n'lloyd'"
   },
   {
     "objectID": "slides/slides-01-intro.html#examining-food-clusters",
     "href": "slides/slides-01-intro.html#examining-food-clusters",
     "title": "Lecture 1: Introduction to CPSC 330",
     "section": "Examining food clusters",
-    "text": "Examining food clusters\n\n\n\n\nfor cluster in range(k):\n    get_cluster_images(km, Z_food, X_food, cluster, n_img=6)\n\n174\nImage indices:  [174  52 125 226  17 195]\n\n\n\n\n\n\n\n\n\n17\nImage indices:  [ 17  25  72  54 174  36]\n\n\n\n\n\n\n\n\n\n50\nImage indices:  [ 50 217 204  30 149 224]\n\n\n\n\n\n\n\n\n\n81\nImage indices:  [ 81 206 189  35  71 165]\n\n\n\n\n\n\n\n\n\n11\nImage indices:  [ 11 225 170  58 268 145]"
+    "text": "Examining food clusters\n\n\n\n\nfor cluster in range(k):\n    get_cluster_images(km, Z_food, X_food, cluster, n_img=6)\n\n39\nImage indices:  [ 39 197  12  14 138 181]\n\n\n\n\n\n\n\n\n\n228\nImage indices:  [228  65 128  54 175 260]\n\n\n\n\n\n\n\n\n\n138\nImage indices:  [138  54 185 278  39  89]\n\n\n\n\n\n\n\n\n\n193\nImage indices:  [193  39 145 212 169 108]\n\n\n\n\n\n\n\n\n\n120\nImage indices:  [120 268 244  94  72  87]"
   },
   {
     "objectID": "slides/slides-01-intro.html#questions-for-you",

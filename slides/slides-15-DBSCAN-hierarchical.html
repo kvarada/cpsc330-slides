@@ -8,7 +8,7 @@
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.56">
+  <meta name="generator" content="quarto-1.5.57">
 
   <title>CPSC 330 – CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -423,16 +423,8 @@
 </section>
 <section id="imports" class="slide level2 center">
 <h2>Imports</h2>
-<div id="0c71d1a0" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-2-output-1.png" width="254" height="444"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
 <section id="iclicker-exercise-15.1" class="slide level2 smaller center">
 <h2>iClicker Exercise 15.1</h2>
 <p><strong>Select all of the following statements which are TRUE.</strong></p>
@@ -473,46 +465,22 @@
 <ul>
 <li>K-Means performs poorly if the clusters have more complex shapes (e.g., two moons data below).</li>
 </ul>
-<div id="844f8847" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-3-output-1.png" width="826" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-3-output-1.png" class="r-stretch"></section>
 <section id="k-means-failure-case-2" class="slide level2 center">
 <h2>K-Means: failure case 2</h2>
 <ul>
 <li>Again, K-Means is unable to capture complex cluster shapes.</li>
 </ul>
-<div id="dc4017ec" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-4-output-1.png" width="818" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-4-output-1.png" class="r-stretch"></section>
 <section id="k-means-failure-case-3" class="slide level2 center">
 <h2>K-Means: failure case 3</h2>
 <ul>
 <li>It assumes that all directions are equally important for each cluster and fails to identify non-spherical clusters.</li>
 </ul>
-<div id="045e19ec" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-5-output-1.png" width="807" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-</section></section>
+
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-5-output-1.png" class="r-stretch"></section></section>
 <section>
 <section id="can-we-do-better" class="title-slide slide level1 center">
 <h1>Can we do better?</h1>
@@ -524,20 +492,14 @@
 <li><strong>D</strong>ensity-<strong>B</strong>ased <strong>S</strong>patial <strong>C</strong>lustering of <strong>A</strong>pplications with <strong>N</strong>oise</li>
 <li>A density-based clustering algorithm</li>
 </ul>
-<div id="220745bd" class="cell" data-execution_count="5">
+<div id="df16eedf" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>X, y <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">200</span>, noise<span class="op">=</span><span class="fl">0.08</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb1-2"><a></a>dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb1-3"><a></a>dbscan.fit(X)</span>
 <span id="cb1-4"><a></a>plot_original_clustered(X, dbscan, dbscan.labels_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-6-output-1.png" width="974" height="375"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</section>
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-6-output-1.png" class="r-stretch"></section>
 <section id="two-main-hyperparameters" class="slide level2 center">
 <h2>Two main hyperparameters</h2>
 <p>In order to identify dense regions, we need two hyperparameters:</p>
@@ -550,11 +512,11 @@
 <h2>DBSCAN analogy</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div id="292cd9ba" class="cell" data-execution_count="6">
+<div id="227ca1df" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-7-output-1.png" width="521" height="545"></p>
+<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-7-output-1.png"></p>
 </figure>
 </div>
 </div>
@@ -663,40 +625,26 @@
 </li>
 <li>K-Means performs better compared to DBSCAN. But it has the benefit of knowing the value of <span class="math inline">\(K\)</span> in advance.</li>
 </ul>
-<div id="4bf22013" class="cell" data-execution_count="7">
+<div id="dd632f6f" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-8-output-2.png" width="1390" height="375"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</section>
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-8-output-2.png" class="r-stretch"></section>
 <section id="hierarchical-clustering" class="slide level2 center">
 <h2>Hierarchical clustering</h2>
-<div id="beae4e69" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-9-output-1.png" width="1073" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-9-output-1.png" class="r-stretch"></section>
 <section id="dendrogram" class="slide level2 center">
 <h2>Dendrogram</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div id="6ec4446d" class="cell" data-execution_count="9">
+<div id="60340034" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-10-output-1.png" width="427" height="358"></p>
+<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-10-output-1.png"></p>
 </figure>
 </div>
 </div>
@@ -718,20 +666,14 @@
 </section>
 <section id="flat-clusters-1" class="slide level2 center">
 <h2>Flat clusters</h2>
-<div id="cba27e6b" class="cell" data-execution_count="10">
+<div id="3d7c0f2b" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> fcluster</span>
 <span id="cb3-2"><a></a><span class="co"># flattening the dendrogram based on maximum number of clusters. </span></span>
 <span id="cb3-3"><a></a>hier_labels1 <span class="op">=</span> fcluster(linkage_array, <span class="dv">3</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
 <span id="cb3-4"><a></a>plot_dendrogram_clusters(X, linkage_array, hier_labels1, title<span class="op">=</span><span class="st">"flattened with max_clusts=3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-11-output-1.png" width="948" height="378"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</section>
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-11-output-1.png" class="r-stretch"></section>
 <section id="linkage-criteria" class="slide level2 smaller center">
 <h2>Linkage criteria</h2>
 <ul>
@@ -749,35 +691,23 @@
 <section id="example-single-linkage" class="slide level2 smaller center">
 <h2>Example: Single linkage</h2>
 <p>Suppose you want to go from 3 clusters to 2 clusters. Which clusters would you merge?</p>
-<div id="8ef808d2" class="cell" data-execution_count="11">
+<div id="3db0951e" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>X_orig, y <span class="op">=</span> make_blobs(random_state<span class="op">=</span><span class="dv">0</span>, n_samples<span class="op">=</span><span class="dv">11</span>)</span>
 <span id="cb4-2"><a></a>X <span class="op">=</span> StandardScaler().fit_transform(X_orig)</span>
 <span id="cb4-3"><a></a>linkage_array <span class="op">=</span> single(X)</span>
 <span id="cb4-4"><a></a>hier_labels <span class="op">=</span> fcluster(linkage_array, <span class="dv">3</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
 <span id="cb4-5"><a></a>plot_dendrogram_clusters(X, linkage_array, hier_labels, title<span class="op">=</span><span class="st">"maxclust 3"</span>, color_threshold<span class="op">=</span><span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-12-output-1.png" width="959" height="378"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</section>
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-12-output-1.png" class="r-stretch"></section>
 <section id="example-single-linkage-1" class="slide level2 smaller center">
 <h2>Example: Single linkage</h2>
-<div id="39ac55bc" class="cell" data-execution_count="12">
+<div id="dee71688" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>hier_labels <span class="op">=</span> fcluster(linkage_array, <span class="dv">2</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>) </span>
 <span id="cb5-2"><a></a>plot_dendrogram_clusters(X, linkage_array, hier_labels, title<span class="op">=</span><span class="st">"maxclust 2"</span>, color_threshold<span class="op">=</span><span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-13-output-1.png" width="959" height="378"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</section>
+<img data-src="slides-15-DBSCAN-hierarchical_files/figure-revealjs/cell-13-output-1.png" class="r-stretch"></section>
 <section id="iclicker-exercise-15.2" class="slide level2 smaller center">
 <h2>iClicker Exercise 15.2</h2>
 <p><strong>Select all of the following statements which are True</strong></p>

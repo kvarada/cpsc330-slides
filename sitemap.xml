@@ -2,182 +2,198 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-19-time-series.html</loc>
-    <lastmod>2025-11-25T14:07:14.817Z</lastmod>
+    <lastmod>2025-11-20T18:41:01.295Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-18-computer-vision.html</loc>
-    <lastmod>2025-11-19T02:29:08.056Z</lastmod>
+    <lastmod>2025-11-18T18:36:27.588Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-15-DBSCAN-hierarchical.html</loc>
-    <lastmod>2025-11-19T02:29:08.055Z</lastmod>
+    <lastmod>2025-10-31T04:50:00.293Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-08-hyperparameter-optimization.html</loc>
-    <lastmod>2025-10-02T16:15:13.587Z</lastmod>
+    <lastmod>2025-10-07T16:23:57.648Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-09-classification-metrics.html</loc>
-    <lastmod>2025-10-14T13:12:02.451Z</lastmod>
+    <lastmod>2025-10-09T14:47:52.134Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-21-communication.html</loc>
-    <lastmod>2025-11-27T16:54:55.802Z</lastmod>
+    <lastmod>2025-11-27T17:39:41.869Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-17-natural-language-processing.html</loc>
-    <lastmod>2025-11-19T02:29:08.056Z</lastmod>
+    <lastmod>2025-11-27T17:09:35.075Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-03-ml-fundamentals.html</loc>
-    <lastmod>2025-09-15T22:18:35.309Z</lastmod>
+    <lastmod>2025-09-11T21:56:35.544Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/lecture-22.html</loc>
+    <lastmod>2024-11-28T16:29:09.179Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-20.html</loc>
-    <lastmod>2025-11-25T14:07:14.813Z</lastmod>
+    <lastmod>2025-11-24T23:00:51.929Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-18.html</loc>
-    <lastmod>2025-11-19T02:29:08.015Z</lastmod>
+    <lastmod>2025-11-18T01:47:46.791Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-16.html</loc>
-    <lastmod>2025-11-19T02:29:08.015Z</lastmod>
+    <lastmod>2025-10-28T03:56:24.097Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-14.html</loc>
-    <lastmod>2025-11-19T02:29:08.015Z</lastmod>
+    <lastmod>2025-10-28T03:56:16.425Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-12.html</loc>
-    <lastmod>2025-10-28T03:42:49.124Z</lastmod>
+    <lastmod>2025-10-21T14:14:44.240Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-10.html</loc>
-    <lastmod>2025-10-07T13:35:04.129Z</lastmod>
+    <lastmod>2024-10-08T15:23:31.839Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-08.html</loc>
-    <lastmod>2025-10-02T14:54:10.699Z</lastmod>
+    <lastmod>2025-10-02T15:47:29.739Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-06.html</loc>
-    <lastmod>2025-09-03T00:46:06.372Z</lastmod>
+    <lastmod>2025-09-01T15:24:38.325Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-04.html</loc>
-    <lastmod>2025-09-03T00:46:06.372Z</lastmod>
+    <lastmod>2025-09-01T05:08:03.925Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-02.html</loc>
-    <lastmod>2025-09-03T00:46:06.372Z</lastmod>
+    <lastmod>2025-09-01T05:08:03.924Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-24-deployment.html</loc>
+    <lastmod>2024-12-05T16:16:30.621Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-16-recommender-systems.html</loc>
-    <lastmod>2025-11-19T02:29:08.055Z</lastmod>
+    <lastmod>2025-11-04T18:48:06.656Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-13-feature-engineering-selection.html</loc>
-    <lastmod>2025-10-28T03:42:49.140Z</lastmod>
+    <lastmod>2025-10-23T17:41:21.723Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-11-ensembles.html</loc>
-    <lastmod>2025-10-28T03:42:49.140Z</lastmod>
+    <lastmod>2025-10-15T01:46:51.756Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-04-kNNs-SVM-RBF.html</loc>
-    <lastmod>2025-09-22T13:27:00.424Z</lastmod>
+    <lastmod>2025-09-17T21:40:39.553Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/index.html</loc>
-    <lastmod>2025-09-03T00:46:06.371Z</lastmod>
+    <lastmod>2025-09-01T15:19:26.932Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture.html</loc>
-    <lastmod>2025-09-03T00:46:06.372Z</lastmod>
+    <lastmod>2025-10-28T03:53:18.605Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-05-preprocessing-pipelines.html</loc>
-    <lastmod>2025-09-22T18:52:23.247Z</lastmod>
+    <lastmod>2025-09-22T13:43:31.066Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-12-feature-importances.html</loc>
-    <lastmod>2025-10-28T03:42:49.140Z</lastmod>
+    <lastmod>2025-10-23T15:28:29.336Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-14-k-means.html</loc>
-    <lastmod>2025-11-19T02:29:08.055Z</lastmod>
+    <lastmod>2025-10-28T17:45:16.745Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-22-communication.html</loc>
+    <lastmod>2024-11-28T16:31:35.887Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-01.html</loc>
-    <lastmod>2025-09-03T00:46:06.371Z</lastmod>
+    <lastmod>2025-09-01T05:08:03.924Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-03.html</loc>
-    <lastmod>2025-09-03T00:46:06.372Z</lastmod>
+    <lastmod>2025-09-01T05:08:03.925Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-05.html</loc>
-    <lastmod>2025-09-03T00:46:06.372Z</lastmod>
+    <lastmod>2025-09-01T15:25:23.203Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-07.html</loc>
-    <lastmod>2025-10-02T14:03:06.918Z</lastmod>
+    <lastmod>2025-09-25T13:15:09.929Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-09.html</loc>
-    <lastmod>2025-10-07T12:59:40.164Z</lastmod>
+    <lastmod>2025-10-28T03:52:11.696Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-11.html</loc>
-    <lastmod>2025-10-14T16:02:53.752Z</lastmod>
+    <lastmod>2025-10-14T16:24:48.511Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-13.html</loc>
-    <lastmod>2025-10-28T03:42:49.125Z</lastmod>
+    <lastmod>2025-10-21T14:30:58.733Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-15.html</loc>
-    <lastmod>2025-11-19T02:29:08.015Z</lastmod>
+    <lastmod>2025-10-28T03:56:20.555Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-17.html</loc>
-    <lastmod>2025-11-19T02:29:08.015Z</lastmod>
+    <lastmod>2025-11-06T04:41:33.797Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-19.html</loc>
-    <lastmod>2025-11-19T02:35:33.433Z</lastmod>
+    <lastmod>2025-11-19T02:33:57.815Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/lecture-21.html</loc>
-    <lastmod>2025-11-27T14:24:48.563Z</lastmod>
+    <lastmod>2025-11-27T16:57:50.485Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kvarada.github.io/cpsc330-slides/lecture-24.html</loc>
+    <lastmod>2024-12-05T02:44:26.940Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-10-regression-metrics.html</loc>
-    <lastmod>2025-10-28T03:42:49.139Z</lastmod>
+    <lastmod>2025-10-14T17:00:45.174Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-07-linear-models.html</loc>
-    <lastmod>2025-10-02T14:03:06.920Z</lastmod>
+    <lastmod>2025-09-25T15:29:10.983Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-20-survival-analysis.html</loc>
-    <lastmod>2025-11-25T17:16:22.522Z</lastmod>
+    <lastmod>2025-11-25T18:57:14.296Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-06-hyperparameter-optimization.html</loc>
-    <lastmod>2025-11-19T02:29:08.054Z</lastmod>
+    <lastmod>2025-11-06T14:10:37.658Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-06-column-transformer-text-feats.html</loc>
-    <lastmod>2025-10-02T14:03:06.920Z</lastmod>
+    <lastmod>2025-09-24T19:29:28.481Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-02-terminology-decision-trees.html</loc>
-    <lastmod>2025-09-11T14:03:26.021Z</lastmod>
+    <lastmod>2025-09-09T17:47:41.653Z</lastmod>
   </url>
   <url>
     <loc>https://kvarada.github.io/cpsc330-slides/slides/slides-01-intro.html</loc>
-    <lastmod>2025-09-08T00:04:42.998Z</lastmod>
+    <lastmod>2025-09-04T17:38:01.673Z</lastmod>
   </url>
 </urlset>
