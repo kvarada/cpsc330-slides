@@ -61,6 +61,7 @@ DATA_DIR = os.path.join(os.path.abspath("."), "data/")
 
 - HW9 has been released (due on December 5th)
   - Almost there! You've got this! 😊
+- Check out [these final exam preparation guiding questions](https://ubc-cs.github.io/cpsc330-2025W1/lectures/notes/final-exam-review-guiding-question.html). 
 - Next lecture on Ethics will be delivered by Giulia (Section 101 and 103 instructor)
 
 ## iClicker (Survival analysis recap) {.smaller}
@@ -130,18 +131,18 @@ What additional information would you need to evaluate the validity of this clai
 
 ## Grid search activity {.smaller}
 
-Go to this Google doc: https://tinyurl.com/5n8xf5yj
+Go to this Google doc: [https://tinyurl.com/5n8xf5yj](https://tinyurl.com/5n8xf5yj)
 
 :::: {.columns}
 :::{.column width="50%"}
-Explanation 1: https://tinyurl.com/msk2cfkb
+Explanation 1: [https://tinyurl.com/msk2cfkb](https://tinyurl.com/msk2cfkb)
 
 ![](img/gs-explanation1.png)
 
 :::
 :::{.column width="50%"}
 
-Explanation 2: https://tinyurl.com/mt2z9ey5
+Explanation 2: [https://tinyurl.com/mt2z9ey5](https://tinyurl.com/mt2z9ey5)
 
 ![](img/gs-explanation2.png)
 
