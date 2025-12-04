@@ -87,7 +87,7 @@ Imagine you've created a machine learning model and are eager to share it with o
 
 - In this lecture, I will show you how to set up/develop this. 
 
-## What is deployment? 
+## What we need? 
 
 - After we train a model, we want to use it!
 - The user likely does not want to install your Python stack, train your model.
@@ -98,14 +98,14 @@ Imagine you've created a machine learning model and are eager to share it with o
 
 ## We will use the tools below 
 
-For Saving the model
+Saving the model
 
-- We will use [Joblib](https://joblib.readthedocs.io/) 
+- [Joblib](https://joblib.readthedocs.io/): A Python library for efficiently saving and loading trained models
 
-For making the saved model conveniently accessible
-
-- [Flask](https://flask.palletsprojects.com/)
-- [render](https://render.com/) 
+Making the model accessible
+- [Flask](https://flask.palletsprojects.com/): A lightweight web framework that lets you create a local API (request $\rightarrow$ prediction $\rightarrow$ response)
+- [render](https://render.com/): A cloud service that hosts your Flask app so anyone can access your model online
+(public URL $\rightarrow$ no need to manage servers)
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_24-Deployment.ipynb) 
 

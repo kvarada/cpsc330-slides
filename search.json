@@ -3744,18 +3744,18 @@
     "text": "Try out this moment predictor\nhttps://cpsc330-moment-predictor.onrender.com/\n\nIn this lecture, I will show you how to set up/develop this."
   },
   {
-    "objectID": "slides/slides-23-deployment.html#what-is-deployment",
-    "href": "slides/slides-23-deployment.html#what-is-deployment",
+    "objectID": "slides/slides-23-deployment.html#what-we-need",
+    "href": "slides/slides-23-deployment.html#what-we-need",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
-    "section": "What is deployment?",
-    "text": "What is deployment?\n\nAfter we train a model, we want to use it!\nThe user likely does not want to install your Python stack, train your model.\nYou don’t necessarily want to share the dataset.\nSo we need to do two things:\n\nSave/store your model for later use.\nMake the saved model conveniently accessible."
+    "section": "What we need?",
+    "text": "What we need?\n\nAfter we train a model, we want to use it!\nThe user likely does not want to install your Python stack, train your model.\nYou don’t necessarily want to share the dataset.\nSo we need to do two things:\n\nSave/store your model for later use.\nMake the saved model conveniently accessible."
   },
   {
     "objectID": "slides/slides-23-deployment.html#we-will-use-the-tools-below",
     "href": "slides/slides-23-deployment.html#we-will-use-the-tools-below",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
     "section": "We will use the tools below",
-    "text": "We will use the tools below\nFor Saving the model\n\nWe will use Joblib\n\nFor making the saved model conveniently accessible\n\nFlask\nrender"
+    "text": "We will use the tools below\nSaving the model\n\nJoblib: A Python library for efficiently saving and loading trained models\n\nMaking the model accessible - Flask: A lightweight web framework that lets you create a local API (request \\(\\rightarrow\\) prediction \\(\\rightarrow\\) response) - render: A cloud service that hosts your Flask app so anyone can access your model online (public URL \\(\\rightarrow\\) no need to manage servers)"
   },
   {
     "objectID": "slides/slides-23-deployment.html#course-evaluations-15-mins",
