@@ -3755,7 +3755,7 @@
     "href": "slides/slides-23-deployment.html#we-will-use-the-tools-below",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
     "section": "We will use the tools below",
-    "text": "We will use the tools below\nSaving the model\n\nJoblib: A Python library for efficiently saving and loading trained models\n\nMaking the model accessible - Flask: A lightweight web framework that lets you create a local API (request \\(\\rightarrow\\) prediction \\(\\rightarrow\\) response) - render: A cloud service that hosts your Flask app so anyone can access your model online (public URL \\(\\rightarrow\\) no need to manage servers)"
+    "text": "We will use the tools below\nSaving the model\n\nJoblib: A Python library for efficiently saving and loading trained models\n\nMaking the model accessible\n\nFlask: A lightweight web framework that lets you create a local API (request \\(\\rightarrow\\) prediction \\(\\rightarrow\\) response)\nrender: A cloud service that hosts your Flask app so anyone can access your model online (public URL \\(\\rightarrow\\) no need to manage servers)"
   },
   {
     "objectID": "slides/slides-23-deployment.html#course-evaluations-15-mins",

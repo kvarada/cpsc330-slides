@@ -103,6 +103,7 @@ Saving the model
 - [Joblib](https://joblib.readthedocs.io/): A Python library for efficiently saving and loading trained models
 
 Making the model accessible
+
 - [Flask](https://flask.palletsprojects.com/): A lightweight web framework that lets you create a local API (request $\rightarrow$ prediction $\rightarrow$ response)
 - [render](https://render.com/): A cloud service that hosts your Flask app so anyone can access your model online
 (public URL $\rightarrow$ no need to manage servers)
