@@ -1,0 +1,14 @@
+---
+title: "Lecture 23: Deployment"
+description: ""
+description-short: ""
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-23-deployment.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline

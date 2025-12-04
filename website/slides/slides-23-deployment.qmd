@@ -1,0 +1,119 @@
+---
+title: "CPSC 330 Lecture 23: Deployment and conclusion"
+author: "Varada Kolhatkar"
+format: 
+    revealjs:
+      html-math-method: mathjax    
+      embed-resources: true
+      slide-number: true
+      logo: img/UBC-CS-logo.png
+      resources:
+        - data/
+        - img/        
+---
+
+## Announcements
+
+- Last lecture today 🥺! 
+- HW9 is due Friday, Dec 5th at 11:59 PM (No late submission allowed.)
+- My OH next week has been moved to 11 AM. Do you prefer in-person or Zoom OH? 
+- For an in-person OH I'll book a larger room. 
+
+## ❓❓ Questions for you {.smaller}
+
+Imagine you've created a machine learning model and are eager to share it with others. Consider the following scenarios for sharing your model:
+
+- **To a non-technical Audience:** How would you present your model to friends and family who may not have a technical background?
+- **To a technical audience:** How would you share your model with peers or professionals in the field who have a technical understanding of machine learning? 
+- **In an academic or research setting:** How would you disseminate your model within academic or research communities?
+
+## Try out this moment predictor
+
+[https://cpsc330-moment-predictor.onrender.com/](https://cpsc330-moment-predictor.onrender.com/)
+
+- In this lecture, I will show you how to set up/develop this. 
+
+## What is deployment? 
+
+- After we train a model, we want to use it!
+- The user likely does not want to install your Python stack, train your model.
+- You don't necessarily want to share the dataset.
+- So we need to do two things:
+  1. Save/store your model for later use.
+  2. Make the saved model conveniently accessible.
+
+## We will use the tools below for 
+
+- Saving the model: We will use [Joblib](https://joblib.readthedocs.io/) 
+- Making the saved model conveniently accessible: [Flask](https://flask.palletsprojects.com/) & [render](https://render.com/) 
+
+# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_24-Deployment.ipynb) 
+
+## Course evaluations (~15 mins)
+
+https://canvas.ubc.ca/courses/170662/external_tools/53187
+
+- They help us improve our teaching!
+- UBC & CS uses them to provide rewards to instructors and TAs who are doing well!
+- UBC & CS uses them to identify where instructors, TAs and courses need additional supports to improve.
+- UBC uses these in evaluating professors for tenure and promotion.
+- I'll very much appreciate your constructive and concrete feedback.  
+
+## What did we cover 
+
+- Part 1: Supervised learning on tabular data: ML fundamentals, preprocessing and data encoding, a bunch of models, evaluation metrics, feature importances and model transparency, feature selection, hyperparameter optimization
+ 
+- Part 2: Dealing with other non-tabular data types: Clustering, recommender systems, computer vision with pre-trained deep learning models (high level), language data, text preprocessing, embeddings, topic modeling, time series, right-censored data / survival analysis
+
+- Part 3: Communication, Ethics, and Deployment
+
+## What we didn't cover 
+- How do these models work under the hood 
+
+![](img/modular-ML.png)
+
+## What next?
+
+If you want to further develop your machine learning skills:
+
+- Practice!
+- Work on your own projects. Make your work available and reproducible. 
+
+- If you are interested in research in machine learning
+  - Take CPSC 340. If you do not have the required prereqs you can try to audit it.
+  - Get into the habit of reading papers and replicating results
+
+
+## ❓❓ Questions for you
+
+For each of the scenarios below 
+
+- Identify if ML is a good solution for a problem. If yes
+    - Frame the problem to a ML problem.
+    - Discuss what kind of features you would need to effectively solve the problem
+    - What would be a reasonable baseline? 
+    - Which model would be a suitable model for the given scenario? 
+    - What would be the appropriate success metrics.
+
+## ❓❓ Questions for you {.smaller}
+
+|     App           | Goal | 
+|-------------------|--------------------------|
+| QueuePredictor app    |  Inform callers how long they'll wait on hold given the current call volume|
+| To-doList App    | Keep track of the tasks that a user inputs and organize them by date | 
+| SegmentSphere App | To segment customers to tailor marketing strategies based on purchasing behavior |
+| Video app	        | Recommend useful videos|
+| Dining app        | Identify cuisine by a restaurant's menu|
+| Weather app       | Calculate precipitation in six hour increments for a geographic region  |
+| EvoCarShare app   | Calculate number of car rentals in four increaments at a particular Evo parking spot |
+| Pharma app| Understand the effect of a new drug on patient survival time |
+
+
+## Conclusion & farewell {.smaller}
+
+That's all! We made it! I hope you learned something useful from the course. You all are wonderful students and I had fun teaching this course ♥️!
+
+![](img/eva-thank-you.png)
+
+If you didn’t fill out course evaluations during class , it’ll be great if you can fill them in when you get a chance.
+
