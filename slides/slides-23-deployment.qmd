@@ -88,29 +88,28 @@ If you want to further develop your machine learning skills:
   - Get into the habit of reading papers and replicating results
 
 
-## ❓❓ Questions for you
+## ❓❓ Questions for you 
 
-For each of the scenarios below 
+For each of the scenarios below identify whether ML is a good solution for the problem. If yes
 
-- Identify if ML is a good solution for a problem. If yes
-    - Frame the problem to a ML problem.
-    - Discuss what kind of features you would need to effectively solve the problem
-    - What would be a reasonable baseline? 
-    - Which model would be a suitable model for the given scenario? 
-    - What would be the appropriate success metrics.
+- Frame the task as a machine learning problem (classification, regression, clustering, forecasting, survival analysis, recommendation, etc.).
+- Identify key features you would need to solve the problem effectively.
+- Propose a reasonable baseline model or heuristic to compare against.
+- Choose an appropriate ML model for the scenario and explain why it's suitable.
+- Specify success metrics that make sense for the task.
 
 ## ❓❓ Questions for you {.smaller}
 
 |     App           | Goal | 
 |-------------------|--------------------------|
-| QueuePredictor app    |  Inform callers how long they'll wait on hold given the current call volume|
-| To-doList App    | Keep track of the tasks that a user inputs and organize them by date | 
-| SegmentSphere App | To segment customers to tailor marketing strategies based on purchasing behavior |
-| Video app	        | Recommend useful videos|
-| Dining app        | Identify cuisine by a restaurant's menu|
-| Weather app       | Calculate precipitation in six hour increments for a geographic region  |
-| EvoCarShare app   | Calculate number of car rentals in four increaments at a particular Evo parking spot |
-| Pharma app| Understand the effect of a new drug on patient survival time |
+| QueuePredictor app   |  Inform callers how long they will wait on hold given the current call volume.|
+| To-doList App    | Keep track of tasks a user enters and organize them by date. | 
+| SegmentSphere App | Segment customers to tailor marketing strategies based on purchasing behaviour. |
+| Video app	        | Recommend useful or personalized videos to users.|
+| Dining app        | Identify the cuisine type from a restaurant's menu.|
+| Weather app       | Estimate precipitation amounts in 6-hour increments for a geographic region. |
+| EvoCarShare app   | Predict the number of car rentals in 4-hour increments at a particular Evo parking spot.|
+| Pharma app | Understand the effect of a new drug on patient survival time.|
 
 
 ## Conclusion & farewell {.smaller}

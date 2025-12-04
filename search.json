@@ -3126,14 +3126,14 @@
     "href": "slides/slides-23-deployment.html#questions-for-you-1",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
     "section": "❓❓ Questions for you",
-    "text": "❓❓ Questions for you\nFor each of the scenarios below\n\nIdentify if ML is a good solution for a problem. If yes\n\nFrame the problem to a ML problem.\nDiscuss what kind of features you would need to effectively solve the problem\nWhat would be a reasonable baseline?\nWhich model would be a suitable model for the given scenario?\nWhat would be the appropriate success metrics."
+    "text": "❓❓ Questions for you\nFor each of the scenarios below identify whether ML is a good solution for the problem. If yes\n\nFrame the task as a machine learning problem (classification, regression, clustering, forecasting, survival analysis, recommendation, etc.).\nIdentify key features you would need to solve the problem effectively.\nPropose a reasonable baseline model or heuristic to compare against.\nChoose an appropriate ML model for the scenario and explain why it’s suitable.\nSpecify success metrics that make sense for the task."
   },
   {
     "objectID": "slides/slides-23-deployment.html#questions-for-you-2",
     "href": "slides/slides-23-deployment.html#questions-for-you-2",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
     "section": "❓❓ Questions for you",
-    "text": "❓❓ Questions for you\n\n\n\n\n\n\n\nApp\nGoal\n\n\n\n\nQueuePredictor app\nInform callers how long they’ll wait on hold given the current call volume\n\n\nTo-doList App\nKeep track of the tasks that a user inputs and organize them by date\n\n\nSegmentSphere App\nTo segment customers to tailor marketing strategies based on purchasing behavior\n\n\nVideo app\nRecommend useful videos\n\n\nDining app\nIdentify cuisine by a restaurant’s menu\n\n\nWeather app\nCalculate precipitation in six hour increments for a geographic region\n\n\nEvoCarShare app\nCalculate number of car rentals in four increaments at a particular Evo parking spot\n\n\nPharma app\nUnderstand the effect of a new drug on patient survival time"
+    "text": "❓❓ Questions for you\n\n\n\n\n\n\n\nApp\nGoal\n\n\n\n\nQueuePredictor app\nInform callers how long they will wait on hold given the current call volume.\n\n\nTo-doList App\nKeep track of tasks a user enters and organize them by date.\n\n\nSegmentSphere App\nSegment customers to tailor marketing strategies based on purchasing behaviour.\n\n\nVideo app\nRecommend useful or personalized videos to users.\n\n\nDining app\nIdentify the cuisine type from a restaurant’s menu.\n\n\nWeather app\nEstimate precipitation amounts in 6-hour increments for a geographic region.\n\n\nEvoCarShare app\nPredict the number of car rentals in 4-hour increments at a particular Evo parking spot.\n\n\nPharma app\nUnderstand the effect of a new drug on patient survival time."
   },
   {
     "objectID": "slides/slides-23-deployment.html#conclusion-farewell",
