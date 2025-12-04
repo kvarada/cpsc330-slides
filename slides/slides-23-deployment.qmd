@@ -1,5 +1,5 @@
 ---
-title: "CPSC 330 Lecture 24: Deployment and conclusion"
+title: "CPSC 330 Lecture 23: Deployment and conclusion"
 author: "Varada Kolhatkar"
 format: 
     revealjs:
