@@ -19,15 +19,13 @@ format:
 - My OH next week has been moved to 11 AM. Do you prefer in-person or Zoom OH? 
 - For an in-person OH I'll book a larger room. 
 
-## ❓❓ Questions for you
+## ❓❓ Questions for you {.smaller}
 
 Imagine you've created a machine learning model and are eager to share it with others. Consider the following scenarios for sharing your model:
 
 - **To a non-technical Audience:** How would you present your model to friends and family who may not have a technical background?
 - **To a technical audience:** How would you share your model with peers or professionals in the field who have a technical understanding of machine learning? 
 - **In an academic or research setting:** How would you disseminate your model within academic or research communities?
-<br><br><br><br><br><br><br><br><br><br>
-
 
 ## Try out this moment predictor
 
@@ -39,7 +37,7 @@ Imagine you've created a machine learning model and are eager to share it with o
 
 - After we train a model, we want to use it!
 - The user likely does not want to install your Python stack, train your model.
-- You don't necessarily want to share their dataset.
+- You don't necessarily want to share the dataset.
 - So we need to do two things:
   1. Save/store your model for later use.
   2. Make the saved model conveniently accessible.
@@ -77,9 +75,9 @@ https://canvas.ubc.ca/courses/170662/external_tools/53187
 ## What next?
 
 If you want to further develop your machine learning skills:
+
 - Practice!
-- Work on your own projects
-- Work hard and be consistent.
+- Work on your own projects. Make your work available and reproducible. 
 
 - If you are interested in research in machine learning
   - Take CPSC 340. If you do not have the required prereqs you can try to audit it.
@@ -90,15 +88,14 @@ If you want to further develop your machine learning skills:
 
 For each of the scenarios below 
 
-- Identify if ML is a good solution for a problem.
-- If yes
+- Identify if ML is a good solution for a problem. If yes
     - Frame the problem to a ML problem.
     - Discuss what kind of features you would need to effectively solve the problem
     - What would be a reasonable baseline? 
     - Which model would be a suitable model for the given scenario? 
     - What would be the appropriate success metrics.
 
-## ❓❓ Questions for you
+## ❓❓ Questions for you {.smaller}
 
 |     App           | Goal | 
 |-------------------|--------------------------|
@@ -112,11 +109,11 @@ For each of the scenarios below
 | Pharma app| Understand the effect of a new drug on patient survival time |
 
 
-## Conclusion & farewell
+## Conclusion & farewell {.smaller}
 
-That’s all, folks. We made it! Good luck on your final exam! When you get a chance, please let me know what worked for you and what didn't work for you in this course.
+That's all! We made it! I hope you learned something useful from the course. You all are wonderful students and I had fun teaching this course ♥️!
 
-![](img/eva-congrats.png)
+![](img/eva-thank-you.png)
 
-## Laura's music video
+If you didn’t fill out course evaluations during class , it’ll be great if you can fill them in when you get a chance.
 

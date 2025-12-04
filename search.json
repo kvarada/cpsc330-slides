@@ -3077,7 +3077,7 @@
     "href": "slides/slides-23-deployment.html#what-is-deployment",
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
     "section": "What is deployment?",
-    "text": "What is deployment?\n\nAfter we train a model, we want to use it!\nThe user likely does not want to install your Python stack, train your model.\nYou don’t necessarily want to share their dataset.\nSo we need to do two things:\n\nSave/store your model for later use.\nMake the saved model conveniently accessible."
+    "text": "What is deployment?\n\nAfter we train a model, we want to use it!\nThe user likely does not want to install your Python stack, train your model.\nYou don’t necessarily want to share the dataset.\nSo we need to do two things:\n\nSave/store your model for later use.\nMake the saved model conveniently accessible."
   },
   {
     "objectID": "slides/slides-23-deployment.html#we-will-use-the-tools-below-for",
@@ -3112,14 +3112,14 @@
     "href": "slides/slides-23-deployment.html#what-next",
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
     "section": "What next?",
-    "text": "What next?\nIf you want to further develop your machine learning skills: - Practice! - Work on your own projects - Work hard and be consistent.\n\nIf you are interested in research in machine learning\n\nTake CPSC 340. If you do not have the required prereqs you can try to audit it.\nGet into the habit of reading papers and replicating results"
+    "text": "What next?\nIf you want to further develop your machine learning skills:\n\nPractice!\nWork on your own projects. Make your work available and reproducible.\nIf you are interested in research in machine learning\n\nTake CPSC 340. If you do not have the required prereqs you can try to audit it.\nGet into the habit of reading papers and replicating results"
   },
   {
     "objectID": "slides/slides-23-deployment.html#questions-for-you-1",
     "href": "slides/slides-23-deployment.html#questions-for-you-1",
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
     "section": "❓❓ Questions for you",
-    "text": "❓❓ Questions for you\nFor each of the scenarios below\n\nIdentify if ML is a good solution for a problem.\nIf yes\n\nFrame the problem to a ML problem.\nDiscuss what kind of features you would need to effectively solve the problem\nWhat would be a reasonable baseline?\nWhich model would be a suitable model for the given scenario?\nWhat would be the appropriate success metrics."
+    "text": "❓❓ Questions for you\nFor each of the scenarios below\n\nIdentify if ML is a good solution for a problem. If yes\n\nFrame the problem to a ML problem.\nDiscuss what kind of features you would need to effectively solve the problem\nWhat would be a reasonable baseline?\nWhich model would be a suitable model for the given scenario?\nWhat would be the appropriate success metrics."
   },
   {
     "objectID": "slides/slides-23-deployment.html#questions-for-you-2",
@@ -3133,14 +3133,7 @@
     "href": "slides/slides-23-deployment.html#conclusion-farewell",
     "title": "CPSC 330 Lecture 24: Deployment and conclusion",
     "section": "Conclusion & farewell",
-    "text": "Conclusion & farewell\nThat’s all, folks. We made it! Good luck on your final exam! When you get a chance, please let me know what worked for you and what didn’t work for you in this course."
-  },
-  {
-    "objectID": "slides/slides-23-deployment.html#lauras-music-video",
-    "href": "slides/slides-23-deployment.html#lauras-music-video",
-    "title": "CPSC 330 Lecture 24: Deployment and conclusion",
-    "section": "Laura’s music video",
-    "text": "Laura’s music video"
+    "text": "Conclusion & farewell\nThat’s all! We made it! I hope you learned something useful from the course. You all are wonderful students and I had fun teaching this course ♥️!\n\nIf you didn’t fill out course evaluations during class , it’ll be great if you can fill them in when you get a chance."
   },
   {
     "objectID": "lecture-02.html",
