@@ -3702,6 +3702,34 @@
     "text": "Announcements\n\nLast lecture today 🥺!\nHW9 is due Friday, Dec 5th at 11:59 PM (No late submission allowed.)\nMy OH next week has been moved to 11 AM. Do you prefer in-person or Zoom OH?\nFor an in-person OH I’ll book a larger room."
   },
   {
+    "objectID": "slides/slides-23-deployment.html#iclicker",
+    "href": "slides/slides-23-deployment.html#iclicker",
+    "title": "CPSC 330 Lecture 23: Deployment and conclusion",
+    "section": "iClicker",
+    "text": "iClicker\nWhat percentage of machine learning projects do you think never make it into production?\n\n\nBetween 20-30%\n\n\nAround 50%\n\n\nBetween 60-70%\n\n\nBetween 80-90%\n\n\nSource"
+  },
+  {
+    "objectID": "slides/slides-23-deployment.html#model-deployment",
+    "href": "slides/slides-23-deployment.html#model-deployment",
+    "title": "CPSC 330 Lecture 23: Deployment and conclusion",
+    "section": "Model deployment",
+    "text": "Model deployment\nModel deployment is the process of making machibe learing model available for use in production enviroments.\n\nCarefully development machine learning models is only half the story.\nThe real challenge in practice is getting ML to work reliably in the real world!!"
+  },
+  {
+    "objectID": "slides/slides-23-deployment.html#model-deployment-1",
+    "href": "slides/slides-23-deployment.html#model-deployment-1",
+    "title": "CPSC 330 Lecture 23: Deployment and conclusion",
+    "section": "Model deployment",
+    "text": "Model deployment\nModel deployment is a complex, multi-step process that requires making several important decisions, such as:\n\nChoosing the right infrastructure: What hardware or cloud resources are needed (CPU, GPU, memory, storage)?\nMeeting performance requirements: What latency and throughput do users expect?\nPlanning for scale: How many users or requests per second must the system support, now and in the future?\nMonitoring in production: How will you track model performance, data drift, and system health over time?\nManaging model updates: When deploying a new version, how do you verify that it actually performs better than the current model (e.g., A/B tests)?"
+  },
+  {
+    "objectID": "slides/slides-23-deployment.html#goal-of-this-lecture",
+    "href": "slides/slides-23-deployment.html#goal-of-this-lecture",
+    "title": "CPSC 330 Lecture 23: Deployment and conclusion",
+    "section": "Goal of this lecture",
+    "text": "Goal of this lecture\nTo demonstrate, through a simple example, how you can take the models you’ve built in this course (or in your side projects) and deploy them in a lightweight, real-world setting."
+  },
+  {
     "objectID": "slides/slides-23-deployment.html#questions-for-you",
     "href": "slides/slides-23-deployment.html#questions-for-you",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",

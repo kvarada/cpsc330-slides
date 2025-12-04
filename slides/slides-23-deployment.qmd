@@ -41,6 +41,38 @@ DATA_DIR = os.path.join(os.path.abspath("."), "data/")
 - My OH next week has been moved to 11 AM. Do you prefer in-person or Zoom OH? 
 - For an in-person OH I'll book a larger room. 
 
+## iClicker 
+
+What percentage of machine learning projects do you think never make it into production?
+
+- (A) Between 20-30%
+- (B) Around 50%
+- (C) Between 60-70%
+- (D) Between 80-90%
+
+[Source](https://venturebeat.com/ai/why-do-87-of-data-science-projects-never-make-it-into-production)
+
+## Model deployment 
+
+**Model deployment** is the process of making machibe learing model available for use in production enviroments. 
+
+- Carefully development machine learning models is only half the story. 
+- The real challenge in practice is getting ML to work reliably in the real world!! 
+
+## Model deployment {.smaller}
+
+Model deployment is a complex, multi-step process that requires making several important decisions, such as:
+
+- Choosing the right infrastructure: What hardware or cloud resources are needed (CPU, GPU, memory, storage)?
+- Meeting performance requirements: What latency and throughput do users expect?
+- Planning for scale: How many users or requests per second must the system support, now and in the future?
+- Monitoring in production: How will you track model performance, data drift, and system health over time?
+- Managing model updates: When deploying a new version, how do you verify that it actually performs better than the current model (e.g., A/B tests)?
+
+## Goal of this lecture
+
+To demonstrate, through a simple example, how you can take the models you've built in this course (or in your side projects) and deploy them in a lightweight, real-world setting.
+
 ## ❓❓ Questions for you {.smaller}
 
 Imagine you've created a machine learning model and are eager to share it with others. Consider the following scenarios for sharing your model:
