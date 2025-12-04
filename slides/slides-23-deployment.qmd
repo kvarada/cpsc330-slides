@@ -124,6 +124,15 @@ https://canvas.ubc.ca/courses/170662/external_tools/53187
 - UBC uses these in evaluating professors for tenure and promotion.
 - I'll very much appreciate your constructive and concrete feedback.  
 
+## iClicker 
+
+What do you typically do when you get stressed? 
+
+- (A) Talk to LLMs
+- (B) Talk to a human friend 
+- (C) Spend time with myself (meditate, go for a walk, exercise etc)
+- (D) Suffer in silence 
+
 ## What did we cover 
 
 - Part 1: Supervised learning on tabular data: ML fundamentals, preprocessing and data encoding, a bunch of models, evaluation metrics, feature importances and model transparency, feature selection, hyperparameter optimization
