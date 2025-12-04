@@ -34,6 +34,10 @@ warnings.filterwarnings("default")
 DATA_DIR = os.path.join(os.path.abspath("."), "data/")
 ```
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
 ## Announcements
 
 - Last lecture today 🥺! 
