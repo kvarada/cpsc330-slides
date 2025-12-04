@@ -3133,7 +3133,7 @@
     "href": "slides/slides-23-deployment.html#questions-for-you-2",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
     "section": "❓❓ Questions for you",
-    "text": "❓❓ Questions for you\n\n\n\n\n\n\n\nApp\nGoal\n\n\n\n\nQueuePredictor app\nInform callers how long they will wait on hold given the current call volume.\n\n\nTo-doList App\nKeep track of tasks a user enters and organize them by date.\n\n\nSegmentSphere App\nSegment customers to tailor marketing strategies based on purchasing behaviour.\n\n\nVideo app\nRecommend useful or personalized videos to users.\n\n\nDining app\nIdentify the cuisine type from a restaurant’s menu.\n\n\nWeather app\nEstimate precipitation amounts in 6-hour increments for a geographic region.\n\n\nEvoCarShare app\nPredict the number of car rentals in 4-hour increments at a particular Evo parking spot.\n\n\nPharma app\nUnderstand the effect of a new drug on patient survival time."
+    "text": "❓❓ Questions for you\n\n\n\n\n\n\n\nApp\nGoal\n\n\n\n\nQueuePredictor app\nInform callers how long they will wait on hold given the current call volume.\n\n\nTo-doList App\nKeep track of tasks a user enters and organize them by date.\n\n\nSegmentSphere App\nSegment customers to tailor marketing strategies based on purchasing behaviour.\n\n\nVideo app\nRecommend useful or personalized videos to users.\n\n\nDining app\nIdentify the cuisine type from a restaurant’s menu.\n\n\nEvoCarShare app\nPredict the number of car rentals in 4-hour increments at a particular Evo parking spot.\n\n\nPharma app\nUnderstand the effect of a new drug on patient survival time."
   },
   {
     "objectID": "slides/slides-23-deployment.html#conclusion-farewell",

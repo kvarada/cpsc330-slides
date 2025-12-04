@@ -107,7 +107,6 @@ For each of the scenarios below identify whether ML is a good solution for the p
 | SegmentSphere App | Segment customers to tailor marketing strategies based on purchasing behaviour. |
 | Video app	        | Recommend useful or personalized videos to users.|
 | Dining app        | Identify the cuisine type from a restaurant's menu.|
-| Weather app       | Estimate precipitation amounts in 6-hour increments for a geographic region. |
 | EvoCarShare app   | Predict the number of car rentals in 4-hour increments at a particular Evo parking spot.|
 | Pharma app | Understand the effect of a new drug on patient survival time.|
 
