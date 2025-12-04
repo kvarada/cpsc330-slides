@@ -3744,11 +3744,11 @@
     "text": "Try out this moment predictor\nhttps://cpsc330-moment-predictor.onrender.com/\n\nIn this lecture, I will show you how to set up/develop this."
   },
   {
-    "objectID": "slides/slides-23-deployment.html#what-we-need",
-    "href": "slides/slides-23-deployment.html#what-we-need",
+    "objectID": "slides/slides-23-deployment.html#what-do-we-need",
+    "href": "slides/slides-23-deployment.html#what-do-we-need",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
-    "section": "What we need?",
-    "text": "What we need?\n\nAfter we train a model, we want to use it!\nThe user likely does not want to install your Python stack, train your model.\nYou don’t necessarily want to share the dataset.\nSo we need to do two things:\n\nSave/store your model for later use.\nMake the saved model conveniently accessible."
+    "section": "What do we need?",
+    "text": "What do we need?\n\nAfter we train a model, we want to use it!\nThe user likely does not want to install your Python stack, train your model.\nYou don’t necessarily want to share the dataset.\nSo we need to do two things:\n\nSave/store your model for later use.\nMake the saved model conveniently accessible."
   },
   {
     "objectID": "slides/slides-23-deployment.html#we-will-use-the-tools-below",

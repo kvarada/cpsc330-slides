@@ -87,7 +87,7 @@ Imagine you've created a machine learning model and are eager to share it with o
 
 - In this lecture, I will show you how to set up/develop this. 
 
-## What we need? 
+## What do we need? 
 
 - After we train a model, we want to use it!
 - The user likely does not want to install your Python stack, train your model.
