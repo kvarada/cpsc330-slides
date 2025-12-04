@@ -12,6 +12,10 @@ format:
         - img/        
 ---
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
 ## Announcements
 
 - Last lecture today 🥺! 

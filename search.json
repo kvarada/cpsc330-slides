@@ -3052,6 +3052,13 @@
     "text": "iClicker Exercise 14.3\nSelect all of the following statements which are True\n\n\nIf you train K-Means with n_clusters= the number of examples, the inertia value will be 0.\n\n\nThe elbow plot shows the tradeoff between within cluster distance and the number of clusters.\n\n\nUnlike the Elbow method, the Silhouette method is not dependent on the notion of cluster centers.\n\n\nThe elbow plot is not a reliable method to obtain the optimal number of clusters in all cases.\n\n\nThe Silhouette scores ranges between -1 and 1 where higher scores indicates better cluster assignments."
   },
   {
+    "objectID": "slides/slides-23-deployment.html#focus-on-the-breath",
+    "href": "slides/slides-23-deployment.html#focus-on-the-breath",
+    "title": "CPSC 330 Lecture 23: Deployment and conclusion",
+    "section": "Focus on the breath!",
+    "text": "Focus on the breath!"
+  },
+  {
     "objectID": "slides/slides-23-deployment.html#announcements",
     "href": "slides/slides-23-deployment.html#announcements",
     "title": "CPSC 330 Lecture 23: Deployment and conclusion",
