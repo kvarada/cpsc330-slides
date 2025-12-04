@@ -12,6 +12,28 @@ format:
         - img/        
 ---
 
+```{python}
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from plotting_functions import *
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from utils import *
+
+plt.rcParams["font.size"] = 12
+
+import warnings
+
+warnings.filterwarnings("default")
+DATA_DIR = os.path.join(os.path.abspath("."), "data/")
+```
+
 ## Announcements
 
 - Last lecture today 🥺! 
@@ -42,10 +64,16 @@ Imagine you've created a machine learning model and are eager to share it with o
   1. Save/store your model for later use.
   2. Make the saved model conveniently accessible.
 
-## We will use the tools below for 
+## We will use the tools below 
 
-- Saving the model: We will use [Joblib](https://joblib.readthedocs.io/) 
-- Making the saved model conveniently accessible: [Flask](https://flask.palletsprojects.com/) & [render](https://render.com/) 
+For Saving the model
+
+- We will use [Joblib](https://joblib.readthedocs.io/) 
+
+For making the saved model conveniently accessible
+
+- [Flask](https://flask.palletsprojects.com/)
+- [render](https://render.com/) 
 
 # [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_24-Deployment.ipynb) 
 
@@ -65,7 +93,7 @@ https://canvas.ubc.ca/courses/170662/external_tools/53187
  
 - Part 2: Dealing with other non-tabular data types: Clustering, recommender systems, computer vision with pre-trained deep learning models (high level), language data, text preprocessing, embeddings, topic modeling, time series, right-censored data / survival analysis
 
-- Part 3: Communication, Ethics, and Deployment
+- Part 3: Communication, ethics, and deployment
 
 ## What we didn't cover 
 - How do these models work under the hood 
@@ -95,11 +123,47 @@ For each of the scenarios below
     - Which model would be a suitable model for the given scenario? 
     - What would be the appropriate success metrics.
 
-## ❓❓ Questions for you {.smaller}
+## QueuePredictor app with call-level data {.smaller .scrollable}
+
+:::: {.columns}
+:::{.column width="50%"}
+```{python}
+df = pd.read_csv('data/call-wait-time-v1.csv')
+df
+```
+:::
+:::{.column width="50%"}
+**Scenario:** A call center wants to inform callers of their expected wait time when they join the queue.
+
+**Available data:** Historical calls with both completed (answered) and abandoned (hung up) calls.
+
+:::
+::::
+
+## QueuePredictor app with interval data {.smaller .scrollable}
+
+:::: {.columns}
+:::{.column width="50%" .smaller .scrollable}
+
+```{python}
+df = pd.read_csv('data/call-wait-time-v2.csv')
+df
+```
+
+:::
+:::{.column width="50%"}
+**Scenario:** Same problem, but data is aggregated by 5-minute intervals instead of individual calls.
+
+**Available data:** Each row represents a time window with summary statistics.
+
+:::
+::::
+
+## ❓❓ More scenarios for practice {.smaller}
+
 
 |     App           | Goal | 
 |-------------------|--------------------------|
-| QueuePredictor app    |  Inform callers how long they'll wait on hold given the current call volume|
 | To-doList App    | Keep track of the tasks that a user inputs and organize them by date | 
 | SegmentSphere App | To segment customers to tailor marketing strategies based on purchasing behavior |
 | Video app	        | Recommend useful videos|
@@ -107,7 +171,6 @@ For each of the scenarios below
 | Weather app       | Calculate precipitation in six hour increments for a geographic region  |
 | EvoCarShare app   | Calculate number of car rentals in four increaments at a particular Evo parking spot |
 | Pharma app| Understand the effect of a new drug on patient survival time |
-
 
 ## Conclusion & farewell {.smaller}
 
@@ -117,3 +180,8 @@ That's all! We made it! I hope you learned something useful from the course. You
 
 If you didn’t fill out course evaluations during class , it’ll be great if you can fill them in when you get a chance.
 
+## Time permitting 
+
+- Class picture 😊
+
+![](img/eva-photo.png)
