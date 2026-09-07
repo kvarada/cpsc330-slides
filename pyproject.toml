@@ -1,0 +1,44 @@
+[project]
+name = "cpsc330-slides"
+version = "0.1.0"
+description = "Lecture slides for CPSC 330"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "autograd",
+    "datasets",
+    "graphviz",
+    "imageio",
+    "ipykernel",
+    "ipython",
+    "jinja2",
+    "lightgbm",
+    "matplotlib",
+    "mglearn",
+    "nbclient",
+    "nbformat",
+    "nltk",
+    "numpy",
+    "pandas",
+    "pillow",
+    "plotly",
+    "psutil>=5.7.2",
+    "requests",
+    "scikit-learn>=1.5.1",
+    "scipy",
+    "seaborn",
+    "spacy",
+    "torch",
+    "torchaudio",
+    "torchvision",
+    "transformers",
+    "ultralytics",
+    "wikipedia",
+    "yellowbrick",
+]
+
+[dependency-groups]
+dev = ["jupyterlab"]
+
+[tool.uv]
+package = false

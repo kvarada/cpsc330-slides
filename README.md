@@ -1,7 +1,45 @@
 # cpsc330-slides
 CPSC 330 lecture slides 
 
-This repository contains the slides for CPSC 330, Section 102, for 2024W1. The instructor for this section is Varada Kolhatkar.
+This repository contains the slides for CPSC 330, Section 102, for 2026W1. The instructor for this section is Varada Kolhatkar.
+
+## Automatic publishing
+
+The [Publish slides workflow](.github/workflows/publish.yml) renders the Quarto
+website and deploys it to <https://kvarada.github.io/cpsc330-slides/> on every
+push to `main`. You can also start it from **Actions → Publish slides → Run
+workflow**. No manual `quarto publish` command is needed.
+
+### One-time GitHub setup
+
+In the repository's [Settings → Pages](https://github.com/kvarada/cpsc330-slides/settings/pages),
+set **Build and deployment → Source** to **GitHub Actions**. Commit and push the
+workflow, website sources and assets, and the complete `website/_freeze/`
+directory. The workflow uses GitHub's built-in token; no personal access token
+or publishing secret is needed.
+
+### Updating slides
+
+Preview or render changed slides locally using the setup below, then commit
+the source changes **and their updated `website/_freeze/` files** and push to
+`main`. Commit any new images or data needed by the slides too.
+
+Actions uses Quarto 1.10.18 and `freeze: auto` to reuse saved Python results.
+It builds the HTML and publishes the site without installing the ML environment
+or downloading pretrained models. This follows Quarto's
+[local execution with CI rendering approach](https://quarto.org/docs/publishing/ci.html).
+Keep `_freeze/` in version control; keep `website/_site/` ignored.
+
+If a slide containing executable code changes (including its prose), render
+it locally before pushing. Missing or outdated frozen results make Quarto try
+to execute Python in Actions, where the ML dependencies are not installed.
+Render the affected slide and commit the updated `_freeze/` directory to fix
+that build failure. Changes to data, imported Python helpers, or dependencies
+also require explicitly re-rendering the affected slides, since `freeze: auto`
+does not detect those changes.
+
+Check **Actions → Publish slides** for build errors or deployment status.
+The live site is updated only after a successful build and deployment.
 
 ## Local setup
 

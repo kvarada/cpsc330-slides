@@ -1,0 +1,10 @@
+.DS_Store
+.venv/
+__pycache__/
+*.pyc
+*.py[cod]
+*.pt
+**/.ipynb_checkpoints/
+**/.quarto/
+**/*.quarto_ipynb
+/website/_site/
