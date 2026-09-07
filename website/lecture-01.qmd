@@ -10,6 +10,10 @@ editor: { render-on-save: true }
 
 {{< revealjs "slides/slides-01-intro.html" height="600px" class="ratio ratio-16x9" >}}
 
+## Course notes
+
+Read [Chapter 1: Course Introduction](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html) in the separate [CPSC 330 course book](https://ubc-cs.github.io/cpsc330-book/).
+
 ## Outline
 
 - What is machine learning

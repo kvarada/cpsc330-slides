@@ -1,6 +1,7 @@
 ---
 title: 'Lecture 1: Introduction to CPSC 330'
 author: "Varada Kolhatkar"
+subtitle: "2026–27 · Winter Term 1"
 description: Introduction to ML and CPSC 330
 
 format:
@@ -43,6 +44,9 @@ pd.set_option("display.max_colwidth", 200)
 DATA_DIR = 'data/' 
 ```
 
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
 ## 🎯 Learning Outcomes {.smaller}
 
@@ -61,11 +65,12 @@ By the end of this lesson, you will be able to:
 - Navigate the course materials and get familiar with the course syllabus and 
 policies.  
 
-## CPSC 330 website
-\
+## CPSC 330 course materials
 
-- Course Jupyter book: https://ubc-cs.github.io/cpsc330-2025W1
-- Course GitHub repository: https://github.com/UBC-CS/cpsc330-2025W1
+- [Course website](https://ubc-cs.github.io/cpsc330-2026W1/): schedules, syllabus, and policies
+- [Course book](https://ubc-cs.github.io/cpsc330-book/): shared course notes
+- Today’s reading: [Chapter 1: Course Introduction](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html)
+- [Course GitHub repository](https://github.com/UBC-CS/cpsc330-2026W1)
 
 # 🤝 Introductions 🤝 {.middle}
 
@@ -108,7 +113,7 @@ Eva is among one of you. She has some experience in Python programming. She know
 
 - Introduce yourself to your neighbour. 
 - Since we're going to spend the semester with each other, I would like to know you a bit better. 
-- Please fill out [Getting to know you survey](https://canvas.ubc.ca/courses/170662/quizzes/897830) when you get a chance.
+- Please fill out [Getting to know you survey](https://canvas.ubc.ca/courses/190981) when you get a chance.
 
 ## Asking questions during class {.smaller}
 
@@ -128,37 +133,44 @@ Discuss with you neighbour
 
 # What is machine learning? 
 
-## Which cat do you think is AI-generated? {.smaller}
+## Original vs AI? {.smaller}
 
-:::: {.columns}
-::: {.column width="60%"}
+Which cats do you think are AI-generated? 
 
-![](img/ai-or-not-cat.png)
+![](img/Kili-AI-generated.png)
 
-[Source](https://thinktan.net/are-you-sure-this-photo-is-not-ai-generated/)
-:::
+## Original vs AI? {.smaller}
 
-::: {.column width="40%"}
+How did you decide?
 
-- A
-- B
-- Both
-- None
+![](img/Kili-AI-marked.png)
 
-:::
-:::: 
-- What clues did you use to decide?
+## Which of these do you think use AI?
+
+- Google's spam detector 📧
+- Autocomplete on your phone 📱
+- Face recognition 🔓
+- Voice assistants 🎤
+- Calculator ➕
+- Netflix recommendations 🍿
+- Alarm Clock ⏰
+
+## Which of these do you think use AI?
+
+- ✅ Google's spam detector 📧
+- ✅ Autocomplete on your phone 📱
+- ✅ Face recognition 🔓
+- ✅ Voice assistants 🎤
+- ❌ Calculator ➕
+- ✅ Netflix recommendations 🍿
+- ❌ Alarm Clock ⏰
+
+What makes these different?
 
 
 ## What are AI, ML, DL? {.smaller}
-- **Artificial Intelligence (AI)**: Making computers act smart  
-  - Examples: [Deep Blue](https://www.ibm.com/history/deep-blue), early spell checkers
-- **Machine Learning (ML)**: Learning patterns from data
-  - Example: Spam filtering in Gmail 
-- **Deep Learning (DL)**: Using neural networks to learn complex patterns
-  - Examples: Face recognition in your phone, voice assistants
 
-![](img/ai-ml-dl.png){.nostretch fig-align="center" width="700px"}
+![](img/ai-ml-dl.png){.nostretch fig-align="center" width="800px"}
 
 ## Let's walk through an example 
 
@@ -221,8 +233,9 @@ Discuss with you neighbour
 :::
 
 ::: {.column width="50%"}
-- We don't tell the model the exact rule. Instead, we give it many labeled images, and it learns probabilistic patterns across multiple features, not rigid rules.
-    - If fur is red $\rightarrow$ 90% chance of Fox.
+- We provide labeled examples, and the algorithm learns a relationship between features and labels.
+- Red fur helps distinguish foxes in this table; whiskers do not, because every example has them.
+- These are patterns in the observed data, not universal rules. We need to test on new examples.
 
 ::: 
 
@@ -257,15 +270,24 @@ Discuss with you neighbour
 ## When to use ML? 
 
 - When the problem can't be solved with a fixed set of rules
-- When you have **lots of data** and **complex relationships**
-- When human decision-making is too slow or inconsistent
+- When **representative data** contain useful patterns
+- When we can **evaluate errors** and decide whether their consequences are acceptable
 
 | Approach                 | Best for                                 |
 |--------------------------|-------------------------------------------|
 | Traditional Programming  | Rules are known, data is clean/predictable |
 | Machine Learning         | Rules are complex/unknown, data is noisy  |
 
-# When to use Machine Learning (ML) solutions? 
+# Learning from labeled examples
+
+## Supervised learning: inputs and targets
+
+- **Inputs ($X$):** observations described by features
+- **Targets ($y$):** labels or values we want to predict
+- **Training:** learn a relationship between inputs and targets
+- **Prediction:** apply that relationship to unseen examples
+
+Focus on the inputs and outputs in the demos. You do not need to understand all the code yet. 
 
 ## Example: Supervised classification {.smaller}
 - We want to predict liver disease from tabular features:
@@ -287,7 +309,8 @@ HTML(train_df.head().to_html(index=False))
 ```{python}
 #| echo: true
 from lightgbm.sklearn import LGBMClassifier
-model = LGBMClassifier(random_state=123, verbose=-1)
+# Use one worker to avoid a native multithreading crash on macOS.
+model = LGBMClassifier(random_state=123, verbose=-1, n_jobs=1)
 model.fit(X_train, y_train)
 ```
 
@@ -327,9 +350,9 @@ HTML(train_df.head().to_html(index=False))
 from lightgbm.sklearn import LGBMRegressor
 
 X_train, y_train = train_df.drop(columns= ["target"]), train_df["target"]
-X_test, y_test = test_df.drop(columns= ["target"]), train_df["target"]
+X_test, y_test = test_df.drop(columns= ["target"]), test_df["target"]
 
-model = LGBMRegressor()
+model = LGBMRegressor(n_jobs=1)
 model.fit(X_train, y_train);
 ```
 
@@ -343,7 +366,7 @@ pred_df = pd.DataFrame(
 df_concat = pd.concat([pred_df, X_test[0:4].reset_index(drop=True)], axis=1)
 HTML(df_concat.to_html(index=False))
 ```
-We are predicting **continuous values** here as apposed to discrete values in `disease` vs. `no disease` example. 
+We are predicting **continuous values** here as opposed to discrete values in `disease` vs. `no disease` example. 
 
 
 # Text data 
@@ -393,7 +416,7 @@ pd.DataFrame(X_test[0:4])
 
 ## Predicting on unseen data {.smaller}
 
-**The model is accurately predicting labels for the unseen text messages above!**
+These are predictions for a few unseen messages. We need a larger evaluation to judge how reliable the model is.
 
 ```{python}
 pred_dict = {
@@ -404,10 +427,11 @@ pred_df = pd.DataFrame(pred_dict)
 pred_df.style.set_properties(**{"text-align": "left"})
 ```
 
-## Examplel: Text classification with LLMs
+## Text classification with a pretrained language model
 \ 
 
-- LLMs = Large Language Models
+- We reuse a language model that has already been fine-tuned for positive/negative sentiment classification.
+- We do not train it on a new sentiment dataset here.
 
 ```{python}
 #| echo: true
@@ -423,7 +447,9 @@ analyzer(["I asked my model to predict my future, and it said '404: Life not fou
 ## Zero-shot learning {.smaller}
 \
 
-- Now suppose you want to identify the emotion expressed in the text rather than just positive or negative. 
+- Now suppose you want to identify the emotion expressed in the text rather than just positive or negative.
+- **Zero-shot** means no labeled training examples for this particular task; the model was still trained on other data.
+- Candidate labels and wording affect predictions. We still need to evaluate them. 
 
 ::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
 ```{python}
@@ -487,11 +513,13 @@ for img_path in images:
     print("--------------------------------------------------------------")
 ```
 :::
-:::
 
 # Clustering images
-## Finding groups in food images 
-\
+## Finding groups in food images
+
+- **Clustering** groups similar examples without supplied target labels.
+- The image representation affects what counts as similar.
+- People must interpret the groups: do they reflect food types, plate colour, or backgrounds?
 ```{python}
 data_dir = "data/food/train"
 file_names = [image_file for image_file in glob.glob(data_dir + "/*/*.jpg")]
@@ -536,7 +564,7 @@ for cluster in range(k):
 
 ## ❓❓ Questions for you {.smaller}
 
-iClicker cloud join link: https://join.iclicker.com/FZMQ
+Access this section’s iClicker Cloud through Canvas.
 
 **Select all that apply: Which problems are suitable for ML?**
 
@@ -561,16 +589,25 @@ Think of a problem you have come across in the past which could be solved using 
 - What would be the input and output? 
 - How do humans solve this now? Are there heuristics or rules?
 - What kind of data do you have or could you collect?
+- What mistakes could the system make, and who would be affected?
+- Should ML support a person or make the final decision?
 
-## Types of machine learning
+## Ways of learning from data
 
-Here are some typical learning problems. 
+- **Supervised learning:** predict targets from labeled examples
+- **Unsupervised learning:** discover structure without supplied targets
+- **Reinforcement learning:** learn actions through interaction and rewards
+- **Generative AI:** generate content; models can use several learning approaches
+- **Recommendation systems:** learn preferences, often combining multiple approaches
 
-- **Supervised learning** ([Gmail spam filtering](https://support.google.com/a/answer/2368132?hl=en))
-- **Unsupervised learning** ([Google News](https://news.google.com/))
-- Reinforcement learning ([AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far))
-- Generative AI ([ChatGPT](https://chatgpt.com/))
-- **Recommendation systems** ([Amazon item recommendation system](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf))
+These categories are not mutually exclusive.
+
+## Learning patterns in preferences
+
+![](img/toy-movie-pattern.png){.nostretch fig-align="center" height="350px"}
+
+- Sam and Pat like several of the same movies. What might we recommend to Pat?
+- Similar preferences can help predict missing ratings, but a few overlaps provide limited evidence.
 
 ## What is supervised learning? {.smaller}
 
@@ -594,6 +631,16 @@ At this point, Eva is wondering about many questions.
 
 It's great to think about these questions right now. But Eva has to be patient. By the end of this course you'll know answers to many of these questions!  
 
+## From a model to an ML solution
+
+1. Frame the problem and decide what role ML should play.
+2. Examine the data and choose useful representations.
+3. Build a model and evaluate it on unseen examples.
+4. Study errors, limitations, and possible harms.
+5. Communicate results and monitor the deployed system.
+
+A trained model is one component of a solution. Real systems often combine ML, explicit rules, and human judgment.
+
 ## Break 
 
 ![](img/eva-coffee.png)
@@ -602,7 +649,7 @@ It's great to think about these questions right now. But Eva has to be patient. 
 
 ## Course website 
 ::: {.callout-important}
-Course website: [https://github.com/UBC-CS/cpsc330-2025W1](https://github.com/UBC-CS/cpsc330-2025W1) is the most important link. Please read everything on this GitHub page!
+Use the [2026W1 course website](https://ubc-cs.github.io/cpsc330-2026W1/) for schedules, announcements, and policies. Read the syllabus carefully. The [separate course book](https://ubc-cs.github.io/cpsc330-book/) contains our shared notes.
 :::
 
 ::: {.callout-important}
@@ -627,7 +674,7 @@ Make sure you go through the syllabus thoroughly and complete the syllabus quiz 
   - Week 1 
 - Part I: ML fundamentals, preprocessing, midterm 1
   - Weeks 2, 3, 4, 5, 6, 7, 8
-- Part II: Unsupervised learning, transfer learning, common special cases, midterm 1
+- Part II: Unsupervised learning, transfer learning, common special cases, midterm 2
   - Weeks 8, 9, 10, 11, 12
 - Part III: Communication and ethics
   - ML skills are not beneficial if you can't use them responsibly and communicate your results. In this module we'll talk about these aspects. 
@@ -635,7 +682,7 @@ Make sure you go through the syllabus thoroughly and complete the syllabus quiz 
 
 ## CPSC 330 vs. 340
 
-Read [330_vs_340](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs_340.md) which explains the difference between two courses.  
+Read [330_vs_340](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/docs/330_vs_340.md) which explains the difference between two courses.  
 
 **TLDR:**
 
@@ -649,7 +696,7 @@ Read [330_vs_340](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/330_vs
 
 Here is our course Calendar. Make sure you check it on a regular basis: 
 
-[https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html](https://htmlpreview.github.io/?https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/calendar.html)
+[Lecture and assessment schedules](https://ubc-cs.github.io/cpsc330-2026W1/README.html#lecture-schedule-tentative)
 
 
 ## Lecture format
@@ -657,35 +704,33 @@ Here is our course Calendar. Make sure you check it on a regular basis:
 - In person lectures T/Th.
 - Sometimes there will be videos to watch before lecture. You will find the list of pre-watch videos in the schedule on the course webpage.
 - We will also try to work on some questions and exercises together during the class. 
-- All materials will be posted in this GitHub repository. 
+- Use the course website for the schedule and slides, and the course book for shared notes. 
 
 ## Tutorials 
 - Weekly tutorials will be run by the TAs. 
 
-- There is a small bonus grade associated with attending tutorials. 
+- Participation is worth **5%** of the course grade and is planned to be assessed during tutorials. Details will be announced. 
 - Make use of this helpful resource. 
 
 
-## Lecture notes {.smaller}
+## Lecture notes and slides
 
-- A draft version of lecture notes is available in [this Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html)
-- A "finalized" version will be pushed to [GitHub](https://github.com/UBC-CS/cpsc330-2025W1) and the [Jupyter book](https://ubc-cs.github.io/cpsc330-2025W1/README.html) right before each class.
-- Each instructor will have slightly adapted versions of notes to present slides during lectures.  
-- You will find the link to these slides in our repository: 
-https://ubc-cs.github.io/cpsc330-2025W1/lectures/102-Varada-lectures/README.html
-- All the lectures from last year are [available here](https://ubc-cs.github.io/cpsc330-2024W1/README.html).
-- We cannot promise anything will stay the same from last year to this year, so read them in advance at your own risk.
+- Read the shared notes in the [CPSC 330 course book](https://ubc-cs.github.io/cpsc330-book/).
+- For this lecture, read [Chapter 1: Course Introduction](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html).
+- Each instructor prepares slides and demos based on the book.
+- Find [this section’s slides](../lecture.qmd) on our slides website.
+- Use the [2026W1 course website](https://ubc-cs.github.io/cpsc330-2026W1/) for deadlines and policies.
 
 ## Registration, waitlist and prerequisites {.smaller}
 
 ::: {.callout-important}
-Please go through [this document](https://github.com/UBC-CS/cpsc330-2025W1/blob/master/docs/course_info.md#registration) carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.
+Please go through [this document](https://ubc-cs.github.io/cpsc330-2026W1/syllabus.html#registration-and-prerequisites) carefully before contacting your instructors about these issues. Even then, we are very unlikely to be able to help with registration, waitlist or prerequisite issues.
 :::
 
-- There are still seats available in Section 103.
-- If you are on the waitlist and would like to try your chances, you should already have access to Piazza and Gradescope.
+- See the current syllabus for registration and waitlist deadlines.
+- If you are on the waitlist and would like to try your chances, you should already have access to Ed Discussion and Gradescope.
 - **Please note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.**
-- If you are unable to secure a seat this term, the course will be offered again with two sections next semester, and once more in the summer.
+- Instructors cannot change the waitlist order or help you bypass it.
 
 
 # Setting up your computer for the course 
@@ -697,13 +742,13 @@ We will use the following tools throughout the course:
 - **Coding:** `Python`, with either `Jupyter Lab` or `VS Code`
 - **Version Control:** `git` and `GitHub`
 - **Assignment Submission:** `Gradescope`
-- **Discussion Forum:** `Piazza`
+- **Discussion Forum:** `Ed Discussion`
 - **Exams and Final Grades:** `PrairieLearn` and `Canvas`
 - **Recommended Browsers:** [Google Chrome](https://www.google.com/chrome/) or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/)
 
-## Course `conda` environment
+## Course Python environment
 
-- Follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html) to create a course `conda` environment on your computer. 
+- Follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2026W1/docs/setup.html) to set up the course Python environment with `uv` on your computer. 
 - If you do not have your computer with you, you can partner up with someone and set up your own computer later.
 
 ## Python requirements/resources {.smaller}
@@ -721,7 +766,7 @@ Homework 1 is all about Python.
 
 :::{.callout-note}
 We do not have time to teach all the Python we need 
-but you can find some useful Python resources [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/resources.md).  
+but you can find some useful Python resources [here](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/docs/resources.md).  
 :::
 
 <br><br>
@@ -742,12 +787,18 @@ What does a typical week look like?
 
 - Use Generative AI tools **responsibly**. No blind copy-pasting  
 
-- Always question your data, methods, and results — justify your choices  
+- Always question your data, methods, and results. Justify your choices.   
 
 # Course policies 
 
 ## Attendance {.smaller}
+### Scenario: I can learn just as well from home
+![](img/attendance.png){.nostretch fig-align="center" width="700px"}
 
+
+Your presence and engagement matters!! Together we create energy that makes lectures valuable! 
+
+## Attendance {.smaller}
 Raise your hand if you’ve ever
 
 - Learned something important just from overhearing a classmate’s question
@@ -757,24 +808,21 @@ Raise your hand if you’ve ever
 
 Your presence and engagement matters!! Together we create energy that makes lectures valuable! 
 
+
 ## Grading scheme 
 
-- The grading breakdown is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/syllabus.md#grading-scheme). 
+- The grading breakdown is [here](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/syllabus.md#grade-weights). 
 
-- The policy on challenging grades is [here](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/grades.md).
+- The policy on challenging grades is [here](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/docs/grades.md).
 
 
 ## Exams 
 
-Two midterms and a final exam all on PrairieLearn in Computer-based Testing Facility (CBTF).
+- Two midterms, conducted in ORCA by self-reservation over a multi-day period.
+- A comprehensive final exam during the exam period.
+- Check the [course website](https://ubc-cs.github.io/cpsc330-2026W1/) for dates and assessment instructions.
 
-- Midterm 1: Conceptual. Multiple choice, multi-select, and reasoning questions.
-
-- Midterm 2: Includes some coding.
-
-- Final exam: A mix of question types covering the full course.
-
-## Homework assignmnts {.smaller}
+## Homework assignments {.smaller}
 
 - Our notes are created in a [Jupyter notebook](https://jupyter.org/), with file extension `.ipynb`.
 - Also, you will complete your homework assignments using Jupyter notebooks.
@@ -804,14 +852,14 @@ x
 ## Jupyter 
 
 - By default, Jupyter prints out the result of the last line of code, so you don't need as many `print` statements.
-- In addition to the "live" notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. [this](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/01_intro.ipynb).
+- In addition to the "live" notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. [this](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html).
   - This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.
   - But you need to launch the app properly to interact with the notebooks.
 
 ## Important note 
-- Note that your first homework assignment is due **this coming Tuesday, September 9, 11:59 PM**. This is a relatively straightforward assignment on Python. 
+- Note that your first homework assignment is due **Monday, September 14, 11:59 PM** (tentative; check the [course schedule](https://ubc-cs.github.io/cpsc330-2026W1/README.html#deliverable-due-dates-tentative)). This is a relatively straightforward assignment on Python. 
 - If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
-- You must do the first two homework assignments on your own.
+- Write your own answers and code unless the assignment explicitly permits group work.
 
 
 ## Plagiarism 
@@ -831,14 +879,15 @@ Raise your hand if you've ever copied code from StackOverflow.
 ::::
 
 ## Using generative AI in this course {.smaller}
-**Please read our [full Generative AI usage policy](https://ubc-cs.github.io/cpsc330-2025W1/syllabus.html#use-of-generative-ai-in-the-course).**
+**Please read our [full Generative AI usage policy](https://ubc-cs.github.io/cpsc330-2026W1/syllabus.html#use-of-generative-ai-genai).**
 
 TL;DR: use AI to support, not substitute, your work. If you use a tool:
 
-- Cite it (tool name/version).
+- Name the tool and briefly explain how you used it.
 - Annotate your use (what you asked it to do and how you incorporated/edited the output).
 - Be able to explain and reproduce your work without the tool.
-- Do not share sensitive content (e.g., assessments, private data).
+- Do not share instructor-provided course materials or sensitive information without permission.
+- GenAI is not permitted during exams or timed assessments unless explicitly allowed.
 - Follow group-work rules and be extra careful when collaborating.
 - You are responsible for any errors (“hallucinations”) the tool produces.
 
@@ -853,32 +902,32 @@ Check out these slides I've put together for [GenAI usage during your learning j
 - If not resolved in two weeks, reach out to your section instructor 
 
 ## Who to contact: admin stuff/concessions?
-- Read [Frequently Asked Questions](https://ubc-cs.github.io/cpsc330-2025W1/docs/faq.html) before contacting. 
-- Contact our [course co-ordinator](https://ubc-cs.github.io/cpsc330-2025W1/README.html#course-co-ordinator)
+- Read [Frequently Asked Questions](https://ubc-cs.github.io/cpsc330-2026W1/docs/faq.html) before contacting. 
+- Contact our [course co-ordinator](https://ubc-cs.github.io/cpsc330-2026W1/README.html#course-co-ordinator)
 
 ## Who to contact: Questions on the content? 
-- Make sure to read [our guide on asking for help](https://ubc-cs.github.io/cpsc330-2025W1/docs/asking_for_help.html) before reaching out.  
-- Post your question on piazza.
+- Make sure to read [our guide on asking for help](https://ubc-cs.github.io/cpsc330-2026W1/docs/asking_for_help.html) before reaching out.  
+- Post your question on Ed Discussion.
 - Make use of instructor and TA office hours and tutorials 
 - I am open to answering questions after class.  
 
 ## Code of conduct
 
-- Our main forum for getting help will be [Piazza](https://piazza.com/ubc.ca/winterterm12025/cpsc_v3301011021032025w1).
+- Our main forum for getting help will be [Ed Discussion](https://edstem.org/us/courses/104703/discussion).
 
 ::: {.callout-important}
-Please read [this entire document about asking for help](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/docs/asking_for_help.md).
+Please read [this entire document about asking for help](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/docs/asking_for_help.md).
 **TLDR:** Be respectful.
 :::
 
 ## Checklist for you before the next class {.smaller}
 
-- [ ] Have you read [the syllabus](https://ubc-cs.github.io/cpsc330-2025W1/syllabus.html) and course policies carefully? 
-- [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/170662) shell? 
-- [ ] Are you able to access [course Piazza](https://piazza.com/ubc.ca/winterterm12025/cpsc330/home)?
-- [ ] Are you able to access [Gradescope](https://www.gradescope.ca/courses/29785)? (If not, refer to the [Gradescope Student Guide](https://lthub.ubc.ca/guides/gradescope-student-guide/).)
-- [ ] Are you able to access [iClicker Cloud for Section 102](https://join.iclicker.com/FZMQ) for this course? Make sure to access it via Canvas. 
-- [ ] Did you follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2025W1/docs/setup.html) to create a course conda environment on your computer?
+- [ ] Have you read [the syllabus](https://ubc-cs.github.io/cpsc330-2026W1/syllabus.html) and course policies carefully? 
+- [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/190981) shell? 
+- [ ] Are you able to access [course Ed Discussion](https://edstem.org/us/courses/104703/discussion)?
+- [ ] Are you able to access [Gradescope](https://canvas.ubc.ca/courses/190981)? (If not, refer to the [Gradescope Student Guide](https://lthub.ubc.ca/guides/gradescope-student-guide/).)
+- [ ] Are you able to access [iClicker Cloud for Section 102](https://canvas.ubc.ca/courses/190981) for this course? Make sure to access it via Canvas. 
+- [ ] Did you follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2026W1/docs/setup.html) to set up the course Python environment with `uv` on your computer?
 - [ ] Did you complete the "Getting to know you" survey on Canvas?
-- [ ] Did you complete the anonymous [restaurant survey on Qualtrics](https://ubc.ca1.qualtrics.com/jfe/form/SV_73VuZiuwM1eDVrw)?
+- [ ] Have you opened [Chapter 1 in the course book](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html)?
 - [ ] Are you almost finished or at least started with homework 1?
