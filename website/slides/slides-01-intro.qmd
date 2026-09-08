@@ -374,19 +374,18 @@ X_food = food_inputs.numpy()
 plot_sample_imgs(food_inputs[0:24,:,:,:])
 ```
 
+## Clustering images 
+
 ```{python}
-#| echo: false
+#| echo: true
 import torch
 densenet = models.densenet121(weights="DenseNet121_Weights.IMAGENET1K_V1")
 densenet.classifier = torch.nn.Identity()  # remove that last "classification" layer
-```
 
-```{python}
-#| echo: false
 Z_food = get_features_unsup(densenet, food_inputs)
 k = 5
 km = KMeans(n_clusters=k, n_init='auto', random_state=123)
-km.fit(Z_food)
+km.fit(Z_food);
 ```
 
 ## Examining food clusters
@@ -423,7 +422,7 @@ Real systems can combine all three. Making a prediction does not automatically j
 
 ## [Therapists using ChatGPT secretly](https://www.technologyreview.com/2025/09/02/1122871/therapists-using-chatgpt-secretly/) 😔
 
-![](img/therapists-using-ChatGPT.png){.nostretch fig-align="center"}
+![](img/therapists-using-ChatGPT.png){.nostretch fig-align="center" width="500px"}
 
 ## ❓❓ Rules, ML, or human judgment? {.smaller}
 
