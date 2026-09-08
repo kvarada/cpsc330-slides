@@ -48,22 +48,15 @@ DATA_DIR = 'data/'
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-## 🎯 Learning Outcomes {.smaller}
+## 🎯 Today’s big questions
 
-By the end of this lesson, you will be able to:
+- **AI, ML, DL:** What’s the difference?
 
-- Explain the difference between AI, ML, and DL
+- **Learning from examples:** How does it work?
 
-- Describe what machine learning is and when it is appropriate to use ML-based solutions.
+- **Rules, ML, or people:** Which should we choose?
 
-- Briefly describe supervised learning.
-
-- Differentiate between traditional programming and machine learning.
-
-- Evaluate whether a machine learning solution is suitable for your problem or whether a rule-based or human-expert solution is more appropriate.
-
-- Navigate the course materials and get familiar with the course syllabus and 
-policies.  
+- **Getting started in CPSC 330:** What do you need?
 
 ## CPSC 330 course materials
 
@@ -109,29 +102,16 @@ Eva is among one of you. She has some experience in Python programming. She know
 
 ::::
 
-## You all
-
-- Introduce yourself to your neighbour. 
-- Since we're going to spend the semester with each other, I would like to know you a bit better. 
-- Please fill out [Getting to know you survey](https://canvas.ubc.ca/courses/190981) when you get a chance.
-
-## Asking questions during class {.smaller}
-
-- You are encouraged to ask questions by raising your hand.
-- No question is a stupid question. 
-- Recommended reading as you begin your learning journey: [The Fear of Publicly Not Knowing](https://medium.com/bucknell-hci/the-fear-of-publicly-not-knowing-239e1b7a39f3)
-
-> What I quickly came to realize was that publicly not knowing wasn't a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA.
-
-## Activity 1
+## Activity 1 {background-color="#c2eaf5"}
 \
-Discuss with you neighbour
+Discuss the following questions with your neighbour. 
 
-- What do you know about machine learning?
-- What would you like to get out this course?
-- Are there any particular topics or aspects of this course that you are especially excited or anxious about? Why?
+- What's your name and major?
+- Where have you encountered machine learning?
+- What would you like to get out of this course?
+- What's one thing you're excited or unsure about?
 
-# What is machine learning? 
+# AI in everyday life
 
 ## Original vs AI? {.smaller}
 
@@ -143,51 +123,42 @@ Which cats do you think are AI-generated?
 
 How did you decide?
 
-![](img/Kili-AI-marked.png)
+![](img/Kili-AI-marked.png) 
 
-## Which of these do you think use AI?
+## Which of these do you think use AI? {background-color="#c2eaf5"}
 
-- Google's spam detector 📧
-- Autocomplete on your phone 📱
-- Face recognition 🔓
-- Voice assistants 🎤
-- Calculator ➕
-- Netflix recommendations 🍿
-- Alarm Clock ⏰
-
-## Which of these do you think use AI?
-
-- ✅ Google's spam detector 📧
-- ✅ Autocomplete on your phone 📱
-- ✅ Face recognition 🔓
-- ✅ Voice assistants 🎤
-- ❌ Calculator ➕
-- ✅ Netflix recommendations 🍿
-- ❌ Alarm Clock ⏰
+| Application | Answer |
+|---|---|
+| Google's spam detector 📧 | [✅]{.fragment} |
+| Autocomplete on your phone 📱 | [✅]{.fragment} |
+| Face recognition 🔓 | [✅]{.fragment} |
+| Voice assistants 🎤 | [✅]{.fragment} |
+| A basic calculator ➕ | [❌]{.fragment} |
+| Netflix recommendations 🍿 | [✅]{.fragment} |
+| A fixed-time alarm clock ⏰ | [❌]{.fragment} |
 
 What makes these different?
 
+# AI, ML, and DL
 
-## What are AI, ML, DL? {.smaller}
+## What are AI, ML, and DL?
 
-![](img/ai-ml-dl.png){.nostretch fig-align="center" width="800px"}
+![](img/ai-ml-dl.png){.nostretch fig-align="center" height="400px"}
 
-## Let's walk through an example 
+Our focus: learning from examples and applying what we learn to new cases.
 
-- Have you used search in Google Photos? You can search for "cat" and it will retrieve photos from your libraries containing cats.
-- This can be done using **image classification**. 
+# How ML works
 
 ## Image classification {.smaller}
-- Imagine we want a system that can tell cats and foxes apart.
-- How might we do this with traditional programming? With ML?
+Searching photos for animals involves **image classification**. Imagine telling cats and foxes apart. How might we do this with traditional programming? With ML?
 
 :::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="35%"}
 ![](img/cat-or-fox.png) 
 :::
 
-::: {.column width="60%"}
+::: {.column width="65%"}
 
 | Image ID | Whiskers Present | Ear Size  | Face Shape | Fur Color  | Eye Shape   | Label |
 |----------|------------------|-----------|------------|------------|-------------|-------|
@@ -202,44 +173,42 @@ What makes these different?
 | 9        | Yes              | Large     | Pointed    | Red        | Narrow      | Fox   |
 
 ::: 
-
 ::::
 
-
-## Traditional programming: example
+## Who writes the rules?
 
 :::: {.columns}
+::: {.column width="48%"}
+**Traditional programming**
 
-::: {.column width="40%"}
-![](img/cat-or-fox.png) 
+We write the rules.
+
+**Pointed face + red fur + narrow eyes**
+
+↓
+
+Predict **fox**
 :::
+::: {.column width="48%"}
+**Machine learning**
 
-::: {.column width="60%"}
-- You hard-code rules. If all of the following satisfy, it's a fox.     
-    - pointed face ✅
-    - red fur ✅
-    - narrow eyes ✅    
-- This works for normal cases, but what if there are exceptions
-::: 
+We provide labeled examples.
 
+**Features + cat/fox labels**
+
+↓
+
+Learn a **prediction rule**
+:::
 ::::
 
-## ML approach: example
-
-:::: {.columns}
-
-::: {.column width="50%"}
-![](img/cat-or-fox.png) 
+::: {.fragment}
+**For either approach: what happens with a cat or fox we haven’t seen before?**
 :::
 
-::: {.column width="50%"}
-- We provide labeled examples, and the algorithm learns a relationship between features and labels.
-- Red fur helps distinguish foxes in this table; whiskers do not, because every example has them.
-- These are patterns in the observed data, not universal rules. We need to test on new examples.
-
-::: 
-
-::::
+::: {.notes}
+In the example table, fur colour helps distinguish the classes, while whiskers do not because every animal has them. These patterns need not hold for all cats and foxes. ML can learn rules, too; the distinction is whether we specify the prediction rule ourselves or learn it from examples. Both approaches need evaluation on new cases.
+:::
 
 ## DL approach: example 
 
@@ -256,122 +225,29 @@ What makes these different?
 
 ::::
 
-## What is ML?  
+## Supervised learning: inputs, targets, and predictions {.smaller}
 
-- ML uses algorithms to learn patterns from data and build models.  
-- These models can:  
-  - Make predictions on new data  
-  - Support complex decisions  
-  - Generate new content  
-- ML systems can improve when trained on more data.  
-- There is no one-size-fits-all model. The right choice depends on the problem.  
+- **Inputs ($X$):** observations described by features, such as fur colour and ear size.
+- **Targets ($y$):** labels or values we want to predict, such as cat or fox.
+- **Training:** learn a model $f$ relating inputs to targets.
+- **Prediction:** use the model to predict targets for unseen examples.
 
+![](img/sup-learning.png){.nostretch fig-align="center" height="280px"}
 
-## When to use ML? 
+# Applications and coding examples
 
-- When the problem can't be solved with a fixed set of rules
-- When **representative data** contain useful patterns
-- When we can **evaluate errors** and decide whether their consequences are acceptable
+## What to look for in the demos
 
-| Approach                 | Best for                                 |
-|--------------------------|-------------------------------------------|
-| Traditional Programming  | Rules are known, data is clean/predictable |
-| Machine Learning         | Rules are complex/unknown, data is noisy  |
+For each example, identify the inputs, the desired output, and where learning happens.
 
-# Learning from labeled examples
+- **Spam:** learn to predict a category from labeled messages.
+- **House prices:** predict a continuous value.
+- **Images:** reuse a model trained elsewhere.
+- **Clustering and recommendations:** discover groups or patterns in preferences.
 
-## Supervised learning: inputs and targets
+Focus on the inputs and outputs. You do not need to understand all the code yet.
 
-- **Inputs ($X$):** observations described by features
-- **Targets ($y$):** labels or values we want to predict
-- **Training:** learn a relationship between inputs and targets
-- **Prediction:** apply that relationship to unseen examples
-
-Focus on the inputs and outputs in the demos. You do not need to understand all the code yet. 
-
-## Example: Supervised classification {.smaller}
-- We want to predict liver disease from tabular features:
-```{python}
-df = pd.read_csv(DATA_DIR + "indian_liver_patient.csv")
-df = df.drop(columns=["Gender"])
-df["Dataset"] = df["Dataset"].replace(1, "Disease")
-df["Dataset"] = df["Dataset"].replace(2, "No Disease")
-df.rename(columns={"Dataset": "Target"}, inplace=True)
-train_df, test_df = train_test_split(df, test_size=4, random_state=42)
-X_train = train_df.drop(columns=["Target"])
-y_train = train_df["Target"]
-X_test = test_df.drop(columns=["Target"])
-y_test = test_df["Target"]
-HTML(train_df.head().to_html(index=False))
-```
-
-## Model training 
-```{python}
-#| echo: true
-from lightgbm.sklearn import LGBMClassifier
-# Use one worker to avoid a native multithreading crash on macOS.
-model = LGBMClassifier(random_state=123, verbose=-1, n_jobs=1)
-model.fit(X_train, y_train)
-```
-
-## New examples 
-
-- Given features of new patients below we'll use this model to predict whether these patients have the liver disease or not.
-```{python}
-HTML(X_test.reset_index(drop=True).to_html(index=False))
-```
-
-## Model predictions on new examples {.smaller}
-- Let's examine predictions
-
-```{python}
-#| echo: true
-pred_df = pd.DataFrame({"Predicted_target": model.predict(X_test).tolist()})
-df_concat = pd.concat([pred_df, X_test.reset_index(drop=True)], axis=1)
-HTML(df_concat.to_html(index=False))
-```
-
-## Example: Supervised regression {.smaller}
-
-Suppose we want to predict housing prices given a number of attributes associated with houses. The target here is **continuous** and not **discrete**. 
-
-```{python}
-df = pd.read_csv( DATA_DIR + "kc_house_data.csv")
-df = df.drop(columns = ["id", "date"])
-df.rename(columns={"price": "target"}, inplace=True)
-train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
-HTML(train_df.head().to_html(index=False))
-```
-
-## Building a regression model
-
-```{python}
-#| echo: true
-from lightgbm.sklearn import LGBMRegressor
-
-X_train, y_train = train_df.drop(columns= ["target"]), train_df["target"]
-X_test, y_test = test_df.drop(columns= ["target"]), test_df["target"]
-
-model = LGBMRegressor(n_jobs=1)
-model.fit(X_train, y_train);
-```
-
-## Predicting prices of unseen houses {.smaller}
-
-```{python}
-#| echo: true
-pred_df = pd.DataFrame(
-    {"Predicted_target": model.predict(X_test[0:4]).tolist()}
-)
-df_concat = pd.concat([pred_df, X_test[0:4].reset_index(drop=True)], axis=1)
-HTML(df_concat.to_html(index=False))
-```
-We are predicting **continuous values** here as opposed to discrete values in `disease` vs. `no disease` example. 
-
-
-# Text data 
-
-## Example: Text classification {.smaller}
+## Spam classification: labeled examples {.smaller}
 
 - Suppose you are given some data with labeled spam and non-spam messages and you want to predict whether a new message is spam or not spam.  
 
@@ -396,7 +272,7 @@ HTML(train_df.head().to_html(index=False))
 :::
 :::
 
-## Let's train a model 
+## Spam classification: training 
 
 ```{python}
 #| echo: true
@@ -406,17 +282,11 @@ clf = make_pipeline(CountVectorizer(max_features=5000), LogisticRegression(max_i
 clf.fit(X_train, y_train) # Training the model
 ```
 
-## Unseen messages {.smaller}
-
-- Now use the trained model to predict targets of unseen messages:
-
-```{python}
-pd.DataFrame(X_test[0:4])
-```
-
-## Predicting on unseen data {.smaller}
+## Spam classification: predictions on unseen messages {.smaller}
 
 These are predictions for a few unseen messages. We need a larger evaluation to judge how reliable the model is.
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
 
 ```{python}
 pred_dict = {
@@ -426,72 +296,47 @@ pred_dict = {
 pred_df = pd.DataFrame(pred_dict)
 pred_df.style.set_properties(**{"text-align": "left"})
 ```
+:::
 
-## Text classification with a pretrained language model
-\ 
+## Example: Supervised regression {.smaller}
 
-- We reuse a language model that has already been fine-tuned for positive/negative sentiment classification.
-- We do not train it on a new sentiment dataset here.
+Suppose we want to predict housing prices given a number of attributes associated with houses. The target here is **continuous** and not **discrete**. 
+
+```{python}
+df = pd.read_csv( DATA_DIR + "kc_house_data.csv")
+df = df.drop(columns = ["id", "date"])
+df.rename(columns={"price": "target"}, inplace=True)
+train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
+HTML(train_df.head().to_html(index=False))
+```
+
+```{python}
+#| echo: false
+from lightgbm.sklearn import LGBMRegressor
+
+X_train, y_train = train_df.drop(columns= ["target"]), train_df["target"]
+X_test, y_test = test_df.drop(columns= ["target"]), test_df["target"]
+
+model = LGBMRegressor(n_jobs=1, verbosity=-1)
+model.fit(X_train, y_train);
+```
+
+## Predicting prices of unseen houses {.smaller}
 
 ```{python}
 #| echo: true
-from transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer
-# Sentiment analysis pipeline
-analyzer = pipeline("sentiment-analysis", model='distilbert-base-uncased-finetuned-sst-2-english')
-analyzer(["I asked my model to predict my future, and it said '404: Life not found.'",
-          '''Machine learning is just like cooking—sometimes you follow the recipe, 
-            and other times you just hope for the best!.'''])
+pred_df = pd.DataFrame(
+    {"Predicted_target": model.predict(X_test[0:4]).tolist()}
+)
+df_concat = pd.concat([pred_df, X_test[0:4].reset_index(drop=True)], axis=1)
+HTML(df_concat.to_html(index=False))
 ```
+We are predicting **continuous values** here as opposed to discrete values in `spam` vs. `ham` example. 
 
 
-## Zero-shot learning {.smaller}
-\
-
-- Now suppose you want to identify the emotion expressed in the text rather than just positive or negative.
-- **Zero-shot** means no labeled training examples for this particular task; the model was still trained on other data.
-- Candidate labels and wording affect predictions. We still need to evaluate them. 
-
-::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
-```{python}
-from datasets import load_dataset
-
-dataset = load_dataset("dair-ai/emotion")
-exs = dataset["test"]["text"][0:10]
-exs
-```
-:::
-
-## Zero-shot learning for emotion detection 
-\
-
-```{python}
-#| echo: true
-from transformers import AutoTokenizer
-from transformers import pipeline 
-import torch
-
-#Load the pretrained model
-model_name = "facebook/bart-large-mnli"
-classifier = pipeline('zero-shot-classification', model=model_name)
-exs = dataset["test"]["text"][10:20]
-candidate_labels = ["sadness", "joy", "love","anger", "fear", "surprise"]
-outputs = classifier(exs, candidate_labels)
-```
-
-## Zero-shot learning for emotion detection {.smaller}
-\
-
-::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
-```{python}
-pd.DataFrame(outputs)
-```
-:::
-
-# Image data
-
-## Example: Predicting labels of a given image {.smaller}
-- Suppose you have a bunch of animal images. You do not have any labels associated with them and you want to predict labels of these images. 
-- We can use machine learning to predict labels of these images using a technique called **transfer learning**. 
+## Example: Predicting image labels {.smaller}
+- We reuse an image classifier trained elsewhere to predict labels for new photos.
+- The model learned from labeled images during its original training; we do not train it here. 
 
 ::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
 
@@ -514,8 +359,7 @@ for img_path in images:
 ```
 :::
 
-# Clustering images
-## Finding groups in food images
+## Finding groups in food images {.smaller}
 
 - **Clustering** groups similar examples without supplied target labels.
 - The image representation affects what counts as similar.
@@ -530,17 +374,15 @@ X_food = food_inputs.numpy()
 plot_sample_imgs(food_inputs[0:24,:,:,:])
 ```
 
-## K-Means on food dataset
-\
-
 ```{python}
-#| echo: true
+#| echo: false
+import torch
 densenet = models.densenet121(weights="DenseNet121_Weights.IMAGENET1K_V1")
 densenet.classifier = torch.nn.Identity()  # remove that last "classification" layer
 ```
 
 ```{python}
-#| echo: true
+#| echo: false
 Z_food = get_features_unsup(densenet, food_inputs)
 k = 5
 km = KMeans(n_clusters=k, n_init='auto', random_state=123)
@@ -553,83 +395,59 @@ km.fit(Z_food)
 ::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
 
 ```{python}
-#| echo: true
+#| echo: false
 for cluster in range(k):
     get_cluster_images(km, Z_food, X_food, cluster, n_img=6)
 
 ```
 :::
 
-# Interactive: Is ML appropriate?
-
-## ❓❓ Questions for you {.smaller}
-
-Access this section’s iClicker Cloud through Canvas.
-
-**Select all that apply: Which problems are suitable for ML?**
-
-- (A) Checking if a UBC email address ends with @student.ubc.ca before allowing login
-- (B) Deciding which students should be awarded a scholarship based on their personal essays
-- (C) Predicting which songs you'll like based on your Spotify listening history
-- (D) Detecting plagiarism by checking if two essays are exactly identical
-- (E) Automatically tagging photos of your friends on Instagram
-
-## Summary: When is ML suitable?
-
-| **Approach**     | **Best Used When...**                                                                 |
-|------------------|----------------------------------------------------------------------------------------|
-| **Machine Learning** | The dataset is **large and complex**, and the decision rules are **unknown, fuzzy, or too complex to define explicitly** |
-| **Rule-based System** | The logic is **clear and deterministic**, and the rules or thresholds are **known and stable** |
-| **Human Expert**  | The problem involves **ethics, creativity, emotion, or ambiguity** that can't be formalized easily |
-
-## Activity 2 
-
-Think of a problem you have come across in the past which could be solved using machine learning. 
-
-- What would be the input and output? 
-- How do humans solve this now? Are there heuristics or rules?
-- What kind of data do you have or could you collect?
-- What mistakes could the system make, and who would be affected?
-- Should ML support a person or make the final decision?
-
-## Ways of learning from data
-
-- **Supervised learning:** predict targets from labeled examples
-- **Unsupervised learning:** discover structure without supplied targets
-- **Reinforcement learning:** learn actions through interaction and rewards
-- **Generative AI:** generate content; models can use several learning approaches
-- **Recommendation systems:** learn preferences, often combining multiple approaches
-
-These categories are not mutually exclusive.
-
-## Learning patterns in preferences
+## Learning patterns in preferences {.smaller}
 
 ![](img/toy-movie-pattern.png){.nostretch fig-align="center" height="350px"}
 
-- Sam and Pat like several of the same movies. What might we recommend to Pat?
-- Similar preferences can help predict missing ratings, but a few overlaps provide limited evidence.
+- Sam and Pat like many of the same movies. What should we recommend to Pat next?
+- How confident are you? What else would you want to know?
 
-## What is supervised learning? {.smaller}
+# When should we use ML?
 
-- Training data comprises a set of observations ($X$) and their corresponding targets ($y$). 
-- We wish to find a model function $f$ that relates $X$ to $y$.
-- We use the model function to predict targets of new examples. 
+## Rules, ML, or human judgment? {.smaller}
 
-![](img/sup-learning.png){.nostretch fig-align="center" width="700px"}
+| Starting point | When it is appropriate |
+|---|---|
+| **Explicit rules** | The logic is known, stable, and can be stated precisely. |
+| **Machine learning** | Useful patterns exist in representative data, hand-written rules are difficult, and we can evaluate errors. |
+| **Human judgment** | Context, empathy, values, or accountability are central to the decision. |
 
-## 🤔 Eva's questions {.smaller}
-\
+Real systems can combine all three. Making a prediction does not automatically justify delegating the decision to a model.
 
-At this point, Eva is wondering about many questions. 
+## [Therapists using ChatGPT secretly](https://www.technologyreview.com/2025/09/02/1122871/therapists-using-chatgpt-secretly/) 😔
 
-- How are we exactly "learning" whether a message is spam and ham? 
-- Are we expected to get correct predictions for all possible messages? How does it predict the label for a message it has not seen before?  
-- What if the model mis-labels an unseen example? For instance, what if the model incorrectly predicts a non-spam as a spam? What would be the consequences? 
-- How do we measure the success or failure of spam identification? 
-- If you want to use this model in the wild, how do you know how reliable it is?  
-- Would it be useful to know how confident the model is about the predictions rather than just a yes or a no?
+![](img/therapists-using-ChatGPT.png){.nostretch fig-align="center"}
 
-It's great to think about these questions right now. But Eva has to be patient. By the end of this course you'll know answers to many of these questions!  
+## ❓❓ Rules, ML, or human judgment? {.smaller}
+
+Use iClicker Cloud through Canvas. Choose a starting point for each problem and explain why. Combinations are possible.
+
+- **(A)** Checking whether an email address ends with `@student.ubc.ca`
+- **(B)** Awarding a scholarship based on a student's personal essay
+- **(C)** Predicting which songs a listener might enjoy
+- **(D)** Checking whether two essays are exactly identical
+- **(E)** Tagging photos of friends
+
+Where could mistakes cause harm, and who should be responsible?
+
+::: {.notes}
+Suggested starting points: A and D use explicit rules; C and E use ML; B requires accountable human judgment. ML could assist parts of B, but predicting a score does not settle who deserves a scholarship. Exact matching in D is only one narrow check, not a complete plagiarism detector.
+:::
+
+## 🤔 Eva's questions
+
+- How can a model predict a label for an example it has never seen before?
+- What happens when it makes a mistake, such as marking a genuine message as spam?
+- How do we measure whether it is reliable enough to use?
+
+These questions will guide our work throughout the course.
 
 ## From a model to an ML solution
 
@@ -795,7 +613,6 @@ What does a typical week look like?
 ### Scenario: I can learn just as well from home
 ![](img/attendance.png){.nostretch fig-align="center" width="700px"}
 
-
 Your presence and engagement matters!! Together we create energy that makes lectures valuable! 
 
 ## Attendance {.smaller}
@@ -920,14 +737,162 @@ Please read [this entire document about asking for help](https://github.com/UBC-
 **TLDR:** Be respectful.
 :::
 
+## Asking questions during class {.smaller}
+
+- You are encouraged to ask questions by raising your hand.
+- No question is a stupid question. 
+- Recommended reading as you begin your learning journey: [The Fear of Publicly Not Knowing](https://medium.com/bucknell-hci/the-fear-of-publicly-not-knowing-239e1b7a39f3)
+
+> What I quickly came to realize was that publicly not knowing wasn't a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA.
+
 ## Checklist for you before the next class {.smaller}
 
 - [ ] Have you read [the syllabus](https://ubc-cs.github.io/cpsc330-2026W1/syllabus.html) and course policies carefully? 
 - [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/190981) shell? 
 - [ ] Are you able to access [course Ed Discussion](https://edstem.org/us/courses/104703/discussion)?
-- [ ] Are you able to access [Gradescope](https://canvas.ubc.ca/courses/190981)? (If not, refer to the [Gradescope Student Guide](https://lthub.ubc.ca/guides/gradescope-student-guide/).)
 - [ ] Are you able to access [iClicker Cloud for Section 102](https://canvas.ubc.ca/courses/190981) for this course? Make sure to access it via Canvas. 
 - [ ] Did you follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2026W1/docs/setup.html) to set up the course Python environment with `uv` on your computer?
-- [ ] Did you complete the "Getting to know you" survey on Canvas?
-- [ ] Have you opened [Chapter 1 in the course book](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html)?
+- [ ] Have you read [Chapter 1 in the course book](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html)?
 - [ ] Are you almost finished or at least started with homework 1?
+
+# Optional demos and activities {.appendix}
+
+These examples extend the main lecture and can be explored as time permits.
+
+## Example: Supervised classification {.smaller}
+- We want to predict liver disease from tabular features:
+```{python}
+df = pd.read_csv(DATA_DIR + "indian_liver_patient.csv")
+df = df.drop(columns=["Gender"])
+df["Dataset"] = df["Dataset"].replace(1, "Disease")
+df["Dataset"] = df["Dataset"].replace(2, "No Disease")
+df.rename(columns={"Dataset": "Target"}, inplace=True)
+train_df, test_df = train_test_split(df, test_size=4, random_state=42)
+X_train = train_df.drop(columns=["Target"])
+y_train = train_df["Target"]
+X_test = test_df.drop(columns=["Target"])
+y_test = test_df["Target"]
+HTML(train_df.head().to_html(index=False))
+```
+
+## Model training 
+```{python}
+#| echo: true
+from lightgbm.sklearn import LGBMClassifier
+# Use one worker to avoid a native multithreading crash on macOS.
+model = LGBMClassifier(random_state=123, verbosity=-1, n_jobs=1)
+model.fit(X_train, y_train)
+```
+
+## New examples 
+
+- Given features of new patients below we'll use this model to predict whether these patients have the liver disease or not.
+```{python}
+HTML(X_test.reset_index(drop=True).to_html(index=False))
+```
+
+## Model predictions on new examples {.smaller}
+- Let's examine predictions
+
+```{python}
+#| echo: true
+pred_df = pd.DataFrame({"Predicted_target": model.predict(X_test).tolist()})
+df_concat = pd.concat([pred_df, X_test.reset_index(drop=True)], axis=1)
+HTML(df_concat.to_html(index=False))
+```
+
+## Text classification with a pretrained language model
+\ 
+
+- We reuse a language model that has already been fine-tuned for positive/negative sentiment classification.
+- We do not train it on a new sentiment dataset here.
+
+```{python}
+#| echo: true
+from transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer
+# Sentiment analysis pipeline
+analyzer = pipeline("sentiment-analysis", model='distilbert-base-uncased-finetuned-sst-2-english')
+analyzer(["I asked my model to predict my future, and it said '404: Life not found.'",
+          '''Machine learning is just like cooking—sometimes you follow the recipe, 
+            and other times you just hope for the best!.'''])
+```
+
+
+## Zero-shot learning {.smaller}
+\
+
+- Now suppose you want to identify the emotion expressed in the text rather than just positive or negative.
+- **Zero-shot** means no labeled training examples for this particular task; the model was still trained on other data.
+- Candidate labels and wording affect predictions. We still need to evaluate them. 
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+```{python}
+from datasets import load_dataset
+
+dataset = load_dataset("dair-ai/emotion")
+exs = dataset["test"]["text"][0:10]
+exs
+```
+:::
+
+## Zero-shot learning for emotion detection 
+\
+
+```{python}
+#| echo: true
+from transformers import AutoTokenizer
+from transformers import pipeline 
+import torch
+
+#Load the pretrained model
+model_name = "facebook/bart-large-mnli"
+classifier = pipeline('zero-shot-classification', model=model_name)
+exs = dataset["test"]["text"][10:20]
+candidate_labels = ["sadness", "joy", "love","anger", "fear", "surprise"]
+outputs = classifier(exs, candidate_labels)
+```
+
+## Zero-shot learning for emotion detection {.smaller}
+\
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+```{python}
+pd.DataFrame(outputs)
+```
+:::
+
+## Optional: How the food clusters were computed
+
+The main demo groups neural-network representations with K-Means.
+
+```python
+import torch
+
+densenet = models.densenet121(weights="DenseNet121_Weights.IMAGENET1K_V1")
+densenet.classifier = torch.nn.Identity()
+Z_food = get_features_unsup(densenet, food_inputs)
+km = KMeans(n_clusters=5, n_init="auto", random_state=123)
+km.fit(Z_food)
+```
+
+The representation determines which similarities the clustering method can find.
+
+## Activity 2 
+
+Think of a problem you have come across in the past which could be solved using machine learning. 
+
+- What would be the input and output? 
+- How do humans solve this now? Are there heuristics or rules?
+- What kind of data do you have or could you collect?
+- What mistakes could the system make, and who would be affected?
+- Should ML support a person or make the final decision?
+
+## Ways of learning from data
+
+- **Supervised learning:** predict targets from labeled examples
+- **Unsupervised learning:** discover structure without supplied targets
+- **Reinforcement learning:** learn actions through interaction and rewards
+- **Generative AI:** generate content; models can use several learning approaches
+- **Recommendation systems:** learn preferences, often combining multiple approaches
+
+These categories are not mutually exclusive.
