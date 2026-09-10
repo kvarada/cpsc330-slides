@@ -48,6 +48,7 @@ DATA_DIR = 'data/'
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
+
 ## 🎯 Today’s big questions
 
 - **AI, ML, DL:** What’s the difference?
@@ -125,19 +126,54 @@ How did you decide?
 
 ![](img/Kili-AI-marked.png) 
 
+## AI in the news {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**[Mathematical discovery](https://www.bbc.com/news/articles/cy7zygy3rl2o):** 
+
+OpenAI reports an AI-generated solution to a major problem about fluid motion. 
+
+**[Emotional support](https://www.cbc.ca/news/health/ai-teenagers-mental-health-study-9.7327227):** 
+
+About one in five students in an Ontario study reported seeking emotional support from AI. The association with emotional problems does not establish causation. 
+:::
+:::{.column width="50%"}
+![](img/ai-math-problem.png)
+
+![](img/ai-therapist.png)
+:::
+::::
+
+**What would you want to know before trusting an AI system in either setting?**
+
+::: {.notes}
+Spend about two minutes here to motivate today's questions. Return to these examples during the later discussion of rules, ML, and human judgment.
+
+Present this as OpenAI's reported result, rather than asserting independent acceptance. The announcement describes an internal system of agents and a Lean formalization. The roles above are a teaching framework, not a reconstruction of every step of the research. A formal checker checks a formal statement relative to its assumptions. People still need to examine the relationship between that statement and the original problem. Ask students to distinguish generating an argument, checking it, and assessing its significance.
+Source: https://openai.com/index/navier-stokes-solution/ (September 8, 2026).
+
+Bonnesen and colleagues conducted a cross-sectional study. The sample comprises Ontario students in Grades 4–12, so avoid describing all participants as teenagers or generalizing the percentage to all Canadian youth. Association alone establishes neither harm nor benefit from chatbot use. Other factors may influence both use and distress. Ask what a study following people over time could clarify and what uncertainties would remain. Connect back to system design: an LLM generates replies, explicit rules can implement data-handling policies, and accountable people must evaluate evidence and decide appropriate uses. Keep discussion about the evidence and hypothetical systems, without requesting personal disclosures.
+Source: https://jamanetwork.com/journals/jamapediatrics/article-abstract/2853453
+:::
+
 ## Which of these do you think use AI? {background-color="#c2eaf5"}
 
-| Application | Answer |
-|---|---|
-| Google's spam detector 📧 | [✅]{.fragment} |
-| Autocomplete on your phone 📱 | [✅]{.fragment} |
-| Face recognition 🔓 | [✅]{.fragment} |
-| Voice assistants 🎤 | [✅]{.fragment} |
-| A basic calculator ➕ | [❌]{.fragment} |
-| Netflix recommendations 🍿 | [✅]{.fragment} |
-| A fixed-time alarm clock ⏰ | [❌]{.fragment} |
+- A spam detector 📧
+- Autocomplete on your phone 📱
+- A basic calculator ➕
+- Finding the closest holiday destination by straight-line distance 🛫
+- Predicting traffic conditions tomorrow 
+- Recommending a holiday destination you would enjoy 🛳️
+- A chatbot planning your holiday 💬
 
-What makes these different?
+**What makes you call something AI?** 
+
+::: {.notes}
+Invite explanations rather than seeking a single correct label for every example. Calculators and straight-line distance calculations are usually considered ordinary computation. Route-finding can illustrate classical AI search, although shortest-path algorithms also belong to general computer science. Spam detection, autocomplete, traffic prediction, and recommendations can use learned models, explicit rules, or combinations. A holiday-planning chatbot can combine a language model with a calculator to total costs, web search to find opening hours, and route search to plan travel. Ask which parts of its work each component handles. Determinism alone does not exclude a system from AI. Use the ambiguity to motivate the next slide's distinction between AI, ML, and DL, without requiring students to know those terms yet.
+:::
 
 # AI, ML, and DL
 
@@ -203,7 +239,7 @@ Learn a **prediction rule**
 ::::
 
 ::: {.fragment}
-**For either approach: what happens with a cat or fox we haven’t seen before?**
+**What would happen with either approach if we encountered a fox with white fur?**
 :::
 
 ::: {.notes}
@@ -406,7 +442,6 @@ for cluster in range(k):
 ![](img/toy-movie-pattern.png){.nostretch fig-align="center" height="350px"}
 
 - Sam and Pat like many of the same movies. What should we recommend to Pat next?
-- How confident are you? What else would you want to know?
 
 # When should we use ML?
 
@@ -420,13 +455,10 @@ for cluster in range(k):
 
 Real systems can combine all three. Making a prediction does not automatically justify delegating the decision to a model.
 
-## [Therapists using ChatGPT secretly](https://www.technologyreview.com/2025/09/02/1122871/therapists-using-chatgpt-secretly/) 😔
 
-![](img/therapists-using-ChatGPT.png){.nostretch fig-align="center" width="500px"}
+## ❓❓ Rules, ML, or human judgment? {.smaller background-color="#c2eaf5"}
 
-## ❓❓ Rules, ML, or human judgment? {.smaller}
-
-Use iClicker Cloud through Canvas. Choose a starting point for each problem and explain why. Combinations are possible.
+Choose a starting point for each problem and explain why. Combinations are possible.
 
 - **(A)** Checking whether an email address ends with `@student.ubc.ca`
 - **(B)** Awarding a scholarship based on a student's personal essay
@@ -448,15 +480,17 @@ Suggested starting points: A and D use explicit rules; C and E use ML; B require
 
 These questions will guide our work throughout the course.
 
-## From a model to an ML solution
+## Developing ML solutions {.smaller}
 
-1. Frame the problem and decide what role ML should play.
-2. Examine the data and choose useful representations.
-3. Build a model and evaluate it on unseen examples.
-4. Study errors, limitations, and possible harms.
-5. Communicate results and monitor the deployed system.
+In this course, we will learn to:
 
-A trained model is one component of a solution. Real systems often combine ML, explicit rules, and human judgment.
+- Frame problems and decide what role ML should play.
+- Prepare data and engineer and select useful features.
+- Choose suitable methods and evaluate their results.
+- Study errors, limitations, and possible harms.
+- Communicate findings and explore deployment.
+
+**A trained model is one component of a solution.**
 
 ## Break 
 
@@ -487,15 +521,14 @@ Make sure you go through the syllabus thoroughly and complete the syllabus quiz 
 
 ## Course structure {.smaller}
 
-- Introduction
-  - Week 1 
-- Part I: ML fundamentals, preprocessing, midterm 1
-  - Weeks 2, 3, 4, 5, 6, 7, 8
-- Part II: Unsupervised learning, transfer learning, common special cases, midterm 2
-  - Weeks 8, 9, 10, 11, 12
-- Part III: Communication and ethics
-  - ML skills are not beneficial if you can't use them responsibly and communicate your results. In this module we'll talk about these aspects. 
-  - Weeks 13, 14
+- Part I: Foundations and Supervised Learning
+  - Weeks 2, 3, 4, 5, 6, 7
+- Unsupervised Learning and Recommendation
+  - Weeks 8, 9
+- Working with Different Data Types
+  - Weeks 9, 11, 12 
+- Responsible Machine Learning in Practice 
+  - Weeks 12, 13 
 
 ## CPSC 330 vs. 340
 
@@ -504,17 +537,10 @@ Read [330_vs_340](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/docs/330_vs
 **TLDR:**
 
 - 340: how do ML models work?
-- 330: how do I use ML models?
+- 330: how do I use ML models and develop ML solutions?
 - CPSC 340 has many prerequisites. 
 - CPSC 340 goes deeper but has a more narrow scope.
 - I think CPSC 330 will be more useful if you just plan to apply basic ML.
-
-## Course calendar
-
-Here is our course Calendar. Make sure you check it on a regular basis: 
-
-[Lecture and assessment schedules](https://ubc-cs.github.io/cpsc330-2026W1/README.html#lecture-schedule-tentative)
-
 
 ## Lecture format
 
@@ -525,17 +551,14 @@ Here is our course Calendar. Make sure you check it on a regular basis:
 
 ## Tutorials 
 - Weekly tutorials will be run by the TAs. 
-
-- Participation is worth **5%** of the course grade and is planned to be assessed during tutorials. Details will be announced. 
+- Participation is worth **5%** of the course grade and is planned to be assessed during tutorials starting next week. Details will be announced. 
 - Make use of this helpful resource. 
-
 
 ## Lecture notes and slides
 
 - Read the shared notes in the [CPSC 330 course book](https://ubc-cs.github.io/cpsc330-book/).
 - For this lecture, read [Chapter 1: Course Introduction](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html).
 - Each instructor prepares slides and demos based on the book.
-- Find [this section’s slides](../lecture.qmd) on our slides website.
 - Use the [2026W1 course website](https://ubc-cs.github.io/cpsc330-2026W1/) for deadlines and policies.
 
 ## Registration, waitlist and prerequisites {.smaller}
@@ -545,7 +568,7 @@ Please go through [this document](https://ubc-cs.github.io/cpsc330-2026W1/syllab
 :::
 
 - See the current syllabus for registration and waitlist deadlines.
-- If you are on the waitlist and would like to try your chances, you should already have access to Ed Discussion and Gradescope.
+- If you are on the waitlist and would like to try your chances, you should already have access to Ed Discussion and PrairieLearn.
 - **Please note that it is your responsibility to complete and submit all assessments while you are on the waitlist. No concessions will be made for students who are waitlisted.**
 - Instructors cannot change the waitlist order or help you bypass it.
 
@@ -558,7 +581,7 @@ We will use the following tools throughout the course:
 
 - **Coding:** `Python`, with either `Jupyter Lab` or `VS Code`
 - **Version Control:** `git` and `GitHub`
-- **Assignment Submission:** `Gradescope`
+- **Assignment Submission:** `PrairieLearn`
 - **Discussion Forum:** `Ed Discussion`
 - **Exams and Final Grades:** `PrairieLearn` and `Canvas`
 - **Recommended Browsers:** [Google Chrome](https://www.google.com/chrome/) or [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/)
@@ -614,16 +637,6 @@ What does a typical week look like?
 
 Your presence and engagement matters!! Together we create energy that makes lectures valuable! 
 
-## Attendance {.smaller}
-Raise your hand if you’ve ever
-
-- Learned something important just from overhearing a classmate’s question
-- Suddenly “got it” because of something the instructor said or showed that wasn’t written in the slides 💡
-- Made a good friend or professional connection just by showing up in a classroom 🤝
-- Felt more motivated when the room around you was engaged 
-
-Your presence and engagement matters!! Together we create energy that makes lectures valuable! 
-
 
 ## Grading scheme 
 
@@ -646,37 +659,10 @@ Your presence and engagement matters!! Together we create energy that makes lect
   - I am using Jupyter Lab, some things might not work with the Jupyter notebook application.
   - You can also open these files in Visual Studio Code.
 
-## Jupyter notebooks 
-
-- Notebooks contain a mix of code, code output, markdown-formatted text (including LaTeX equations), and more.
-- When you open a Jupyter notebook in one of these apps, the document is “live”, meaning you can run the code.
-
-For example:
-
-```{python}
-#| echo: true
-1 + 1
-```
-
-```{python}
-#| echo: true
-x = [1, 2, 3]
-x[0] = 9999
-x
-```
-
-## Jupyter 
-
-- By default, Jupyter prints out the result of the last line of code, so you don't need as many `print` statements.
-- In addition to the "live" notebooks, Jupyter notebooks can be statically rendered in the web browser, e.g. [this](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html).
-  - This can be convenient for quick read-only access, without needing to launch the Jupyter notebook/lab application.
-  - But you need to launch the app properly to interact with the notebooks.
-
 ## Important note 
 - Note that your first homework assignment is due **Monday, September 14, 11:59 PM** (tentative; check the [course schedule](https://ubc-cs.github.io/cpsc330-2026W1/README.html#deliverable-due-dates-tentative)). This is a relatively straightforward assignment on Python. 
 - If you struggle with this assignment then that could be a sign that you will struggle later on in the course.    
 - Write your own answers and code unless the assignment explicitly permits group work.
-
 
 ## Plagiarism 
 
@@ -700,22 +686,15 @@ Raise your hand if you've ever copied code from StackOverflow.
 TL;DR: use AI to support, not substitute, your work. If you use a tool:
 
 - Name the tool and briefly explain how you used it.
-- Annotate your use (what you asked it to do and how you incorporated/edited the output).
 - Be able to explain and reproduce your work without the tool.
 - Do not share instructor-provided course materials or sensitive information without permission.
 - GenAI is not permitted during exams or timed assessments unless explicitly allowed.
 - Follow group-work rules and be extra careful when collaborating.
 - You are responsible for any errors (“hallucinations”) the tool produces.
 
-## (Optional) Slides on LLM usage
-
-Check out these slides I've put together for [GenAI usage during your learning journey](https://docs.google.com/presentation/d/13IZMwnfC6YAeS6-bVF2S2CRYMSKZtTprMMaENuhkb04/edit?usp=sharing
-).
-
-
 ## Who to contact: Grading concerns? 
 - Start by opening a regrade request.   
-- If not resolved in two weeks, reach out to your section instructor 
+- If not resolved in two weeks, reach out to your section instructor on Ed Discussion 
 
 ## Who to contact: admin stuff/concessions?
 - Read [Frequently Asked Questions](https://ubc-cs.github.io/cpsc330-2026W1/docs/faq.html) before contacting. 
@@ -749,7 +728,7 @@ Please read [this entire document about asking for help](https://github.com/UBC-
 - [ ] Have you read [the syllabus](https://ubc-cs.github.io/cpsc330-2026W1/syllabus.html) and course policies carefully? 
 - [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/190981) shell? 
 - [ ] Are you able to access [course Ed Discussion](https://edstem.org/us/courses/104703/discussion)?
-- [ ] Are you able to access [iClicker Cloud for Section 102](https://canvas.ubc.ca/courses/190981) for this course? Make sure to access it via Canvas. 
+- [ ] Are you able to access [iClicker Cloud for Section 102](https://join.iclicker.com/GHJB) for this course? 
 - [ ] Did you follow the setup instructions [here](https://ubc-cs.github.io/cpsc330-2026W1/docs/setup.html) to set up the course Python environment with `uv` on your computer?
 - [ ] Have you read [Chapter 1 in the course book](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html)?
 - [ ] Are you almost finished or at least started with homework 1?
