@@ -8,6 +8,8 @@ editor: { render-on-save: true }
 
 ## Slides
 
+[Download slides as PDF](slides/slides-06-column-transformer-text-feats.pdf){.btn .btn-outline-primary download=""}
+
 {{< revealjs "slides/slides-06-column-transformer-text-feats.html" height="600px" class="ratio ratio-16x9" >}}
 
 

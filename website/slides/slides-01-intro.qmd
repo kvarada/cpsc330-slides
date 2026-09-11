@@ -150,13 +150,15 @@ About one in five students in an Ontario study reported seeking emotional suppor
 **What would you want to know before trusting an AI system in either setting?**
 
 ::: {.notes}
-Spend about two minutes here to motivate today's questions. Return to these examples during the later discussion of rules, ML, and human judgment.
+Maybe: How accurate is it? How was it tested? Who checked the answer? What data was it trained on? What happens when it's wrong? Who is accountable?
 
-Present this as OpenAI's reported result, rather than asserting independent acceptance. The announcement describes an internal system of agents and a Lean formalization. The roles above are a teaching framework, not a reconstruction of every step of the research. A formal checker checks a formal statement relative to its assumptions. People still need to examine the relationship between that statement and the original problem. Ask students to distinguish generating an argument, checking it, and assessing its significance.
-Source: https://openai.com/index/navier-stokes-solution/ (September 8, 2026).
+Exactly.
 
-Bonnesen and colleagues conducted a cross-sectional study. The sample comprises Ontario students in Grades 4–12, so avoid describing all participants as teenagers or generalizing the percentage to all Canadian youth. Association alone establishes neither harm nor benefit from chatbot use. Other factors may influence both use and distress. Ask what a study following people over time could clarify and what uncertainties would remain. Connect back to system design: an LLM generates replies, explicit rules can implement data-handling policies, and accountable people must evaluate evidence and decide appropriate uses. Keep discussion about the evidence and hypothetical systems, without requesting personal disclosures.
-Source: https://jamanetwork.com/journals/jamapediatrics/article-abstract/2853453
+And notice that the answers may be different in different contexts.
+
+For mathematics, perhaps we can formally verify part of an argument. But people still have to decide whether the formal statement actually corresponds to the original mathematical problem and whether the result is significant.
+
+For emotional support, the questions are quite different. What evidence do we have that this is safe? For whom? What happens in a crisis? What information is being collected? Who is responsible?:::
 :::
 
 ## Which of these do you think use AI? {background-color="#c2eaf5"}
@@ -182,6 +184,20 @@ Invite explanations rather than seeking a single correct label for every example
 ![](img/ai-ml-dl.png){.nostretch fig-align="center" height="400px"}
 
 Our focus: learning from examples and applying what we learn to new cases.
+
+:::{.notes}
+Imagine a self-driving car. To drive safely, the system needs to perceive what's around it—is there a pedestrian? Where are the other cars? It needs to reason about what it perceives—if there's a pedestrian in front of me, what should I do? And then it needs to act—perhaps slow down or stop.
+
+These are examples of capabilities we often associate with AI: perception, reasoning, planning, and decision-making.
+
+But AI doesn't necessarily mean machine learning. We can build AI systems using explicit rules, search, machine learning, or combinations of these approaches.
+
+Chess gives us a nice historical example. IBM built a chess-playing system called Deep Blue. Deep Blue relied heavily on search: it could examine enormous numbers of possible chess positions and evaluate which moves looked promising. A human chess player can't possibly search through that many possibilities.
+
+In 1997, Deep Blue defeated Garry Kasparov, who was the reigning world chess champion.
+
+So AI is broader than machine learning. Machine learning is one way of building systems with intelligent capabilities—and that's the approach we're mainly interested in in CPSC 330.
+:::
 
 # How ML works
 
