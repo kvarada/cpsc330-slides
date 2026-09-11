@@ -22,10 +22,29 @@ jobs:
 
       - name: Check saved Python outputs
         run: |
-          if ! git ls-files website/_freeze | grep '/execute-results/' > /dev/null; then
-            echo "::error::Saved Python outputs are missing. Render the slides locally, then commit and push website/_freeze/ before publishing."
-            exit 1
-          fi
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import re
+          from pathlib import Path
+
+          stale = []
+          for source in sorted(Path("website").rglob("*.qmd")):
+              if any(part.startswith(("_", ".")) for part in source.relative_to("website").parts):
+                  continue
+              if not re.search(r"^\s*`{3,}\{python\b", source.read_text(), re.MULTILINE):
+                  continue
+              frozen = Path("website/_freeze") / source.relative_to("website").with_suffix("") / "execute-results/html.json"
+              try:
+                  saved_hash = json.loads(frozen.read_text())["hash"]
+              except (OSError, ValueError, KeyError):
+                  saved_hash = None
+              if saved_hash != hashlib.md5(source.read_bytes()).hexdigest():
+                  stale.append(source)
+                  print(f"::error file={source}::Missing or stale saved Python outputs. Render this slide locally, then commit its updated website/_freeze/ files and push again.")
+          if stale:
+              raise SystemExit(1)
+          PY
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
