@@ -8,7 +8,7 @@ editor: { render-on-save: true }
 
 ## Slides
 
-[Download slides as PDF](slides/slides-03-ml-fundamentals.pdf){.btn .btn-outline-primary download=""}
+[Download slides as PDF](slides/slides-03-ml-fundamentals.pdf){.btn .btn-outline-primary .pdf-download download=""}
 
 {{< revealjs "slides/slides-03-ml-fundamentals.html" height="600px" class="ratio ratio-16x9" >}}
 

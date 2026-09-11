@@ -8,3 +8,6 @@ __pycache__/
 **/.quarto/
 **/*.quarto_ipynb
 /website/_site/
+
+/.pdf-cache/
+/.pdf-plan.json

@@ -1,4 +1,5 @@
 ---
+publish-pdf: true
 title: "Lecture 1: Course introduction"
 description: "Introduction to CPSC 330"  
 description-short: "What is machine learning, types of machine learning, learning to navigate through the course materials, getting familiar with the course policies"
@@ -8,7 +9,7 @@ editor: { render-on-save: true }
 
 ## Slides
 
-[Download slides as PDF](slides/slides-01-intro.pdf){.btn .btn-outline-primary download=""}
+[Download slides as PDF](slides/slides-01-intro.pdf){.btn .btn-outline-primary .pdf-download download=""}
 
 {{< revealjs "slides/slides-01-intro.html" height="600px" class="ratio ratio-16x9" >}}
 

@@ -10,6 +10,40 @@ website and deploys it to <https://kvarada.github.io/cpsc330-slides/> on every
 push to `main`. You can also start it from **Actions → Publish slides → Run
 workflow**. No manual `quarto publish` command is needed.
 
+### Downloadable slide PDFs
+
+PDFs are opt-in. When a lecture is ready, add this to the YAML frontmatter
+of its **lecture page** (for example, `website/lecture-02.qmd`):
+
+```yaml
+publish-pdf: true
+```
+
+Lecture 1 is enabled initially. Other lectures default to disabled. This flag
+shows the download button and enables PDF export during publishing. Remove it
+or set it to `false` to remove the button and PDF on the next publication.
+Changing only this flag does not require re-executing the slide source.
+
+Actions restores cached PDFs and exports only enabled decks whose rendered
+HTML or assets have changed. A homepage-only edit reuses existing PDFs. Each
+deck's figure directory is tracked separately; shared assets under `slides/`
+and `site_libs/` conservatively invalidate all enabled PDFs. Export script and
+workflow changes also invalidate PDFs. Remote asset changes are not detected;
+store assets locally for reliable invalidation. GitHub may evict caches, in
+which case enabled PDFs are regenerated automatically.
+
+DeckTape and Chrome installation is skipped when all enabled PDFs are cached
+or no lectures are enabled. Missing PDFs export three decks at a time, and any
+export failure prevents deployment. Generated PDFs are not committed.
+
+After changing slide sources, continue rendering locally and committing the
+updated `website/_freeze/` files. PDF export uses rendered HTML, not Python.
+To generate PDFs locally after `quarto render website`, install DeckTape 3.16.1
+and run `python3 scripts/slide_pdfs.py plan` followed by
+`python3 scripts/slide_pdfs.py export`. A plain local preview can show an enabled
+button before its PDF has been generated. PDFs are static; interactive content
+remains available in the HTML slides.
+
 ### One-time GitHub setup
 
 In the repository's [Settings → Pages](https://github.com/kvarada/cpsc330-slides/settings/pages),
@@ -17,6 +51,13 @@ set **Build and deployment → Source** to **GitHub Actions**. Commit and push t
 workflow, website sources and assets, and the complete `website/_freeze/`
 directory. The workflow uses GitHub's built-in token; no personal access token
 or publishing secret is needed.
+
+Also open **Settings → Environments → github-pages**. Under **Deployment
+branches and tags**, choose **Selected branches and tags** and add a **Branch**
+rule for `main`. An older Pages setup may only allow `gh-pages`; this workflow
+deploys from `main`. Leave any other required environment protections in place.
+If a run was rejected by this branch rule, correct the setting and use
+**Re-run failed jobs** on that Actions run.
 
 ### Updating slides
 

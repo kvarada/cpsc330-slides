@@ -56,35 +56,31 @@ jobs:
       - name: Render website
         run: quarto render website
 
+      - name: Restore PDF cache
+        uses: actions/cache@v4
+        with:
+          path: .pdf-cache
+          key: slide-pdfs-v1-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            slide-pdfs-v1-${{ runner.os }}-
+
+      - name: Plan PDF exports
+        id: pdfs
+        run: python3 scripts/slide_pdfs.py plan
+
       - name: Install Node.js
+        if: steps.pdfs.outputs.missing != '0'
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       - name: Install DeckTape
+        if: steps.pdfs.outputs.missing != '0'
         run: npm install --global decktape@3.16.1
 
       - name: Generate slide PDFs
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -m http.server 8765 --bind 127.0.0.1 --directory website/_site > /tmp/slides-http.log 2>&1 &
-          server_pid=$!
-          trap 'kill "$server_pid"' EXIT
-          curl --fail --silent --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:8765/ > /dev/null
-
-          shopt -s nullglob
-          slides=(website/_site/slides/slides-*.html)
-          if [ "${#slides[@]}" -eq 0 ]; then
-            echo "::error::No rendered slides found for PDF export."
-            exit 1
-          fi
-          for html in "${slides[@]}"; do
-            echo "Exporting ${html%.html}.pdf"
-            decktape reveal --chrome-arg=--no-sandbox --load-pause 2000 \
-              "http://127.0.0.1:8765/slides/$(basename "$html")" "${html%.html}.pdf"
-            test -s "${html%.html}.pdf"
-          done
+        if: steps.pdfs.outputs.missing != '0'
+        run: python3 scripts/slide_pdfs.py export
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v4

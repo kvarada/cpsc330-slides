@@ -65,3 +65,6 @@ editor:
 
 execute:
   freeze: auto
+
+filters:
+  - filters/pdf-download.lua
