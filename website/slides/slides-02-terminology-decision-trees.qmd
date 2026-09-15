@@ -192,6 +192,8 @@ Other regression examples: predicting temperature, house price, or travel time.
 
 ## iClicker 2.1: Classification or regression? {.slide-your-turn}
 
+**Link**: https://join.iclicker.com/GHJB
+
 **Select all regression problems.**
 
 - **A.** Predict whether a flight will be delayed.
@@ -493,6 +495,8 @@ Ask students what the word training contributes to the claim. Do not introduce a
 
 ## iClicker Check-in {.slide-your-turn}
 
+**Link**: https://join.iclicker.com/GHJB
+
 **How are you feeling about the workflow and decision trees?**
 
 - **A.** I can explain both to a neighbour.
@@ -633,6 +637,8 @@ Keep attention on the upper region: only that region receives another split. Bot
 -->
 
 ## iClicker 2.3: Baselines and trees {.slide-your-turn}
+
+**Link**: https://join.iclicker.com/GHJB
 
 **Select all true statements.**
 
