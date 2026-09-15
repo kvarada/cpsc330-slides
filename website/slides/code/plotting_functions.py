@@ -1,5 +1,6 @@
 from utils import *
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator, FuncFormatter
 import mglearn
 from imageio import imread
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
@@ -68,15 +69,41 @@ def plot_tree_decision_boundary_and_tree(
         1,
         2,
         figsize=(width, height),
-        subplot_kw={"xticks": (), "yticks": ()},
+        layout="constrained",
         gridspec_kw={"width_ratios": [1.5, 2]},
     )
     plot_tree_decision_boundary(model, X, y, x_label, y_label, eps, ax=ax[0], min_padding = min_padding)
-    custom_plot_tree(model, 
+    # Keep numerical coordinates visible, including the learned split values.
+    for feature, axis in enumerate((ax[0].xaxis, ax[0].yaxis)):
+        lower, upper = axis.get_view_interval()
+        observed = np.unique(X.iloc[:, feature])
+        ticks = (observed if len(observed) <= 2
+                 else MaxNLocator(nbins=4).tick_values(lower, upper))
+        ticks = ticks[(ticks >= lower) & (ticks <= upper)]
+        thresholds = np.unique(model.tree_.threshold[model.tree_.feature == feature])
+        thresholds = thresholds[(thresholds >= lower) & (thresholds <= upper)]
+        # Avoid crowded axes for deep trees with many distinct thresholds.
+        if len(thresholds) <= 6:
+            ticks = [tick for tick in ticks
+                     if not np.any(np.abs(thresholds - tick) < 0.08 * (upper - lower))]
+            ticks = np.unique(np.r_[ticks, thresholds])
+        axis.set_ticks(ticks)
+        axis.set_major_formatter(FuncFormatter(
+            lambda value, _: f"{value:,.6f}".rstrip("0").rstrip(".")
+        ))
+    ax[0].tick_params(labelsize=12)
+
+    # Draw into the same figure; custom_plot_tree calls show() prematurely.
+    annotations = plot_tree(model,
                  feature_names=X.columns.tolist(), 
                  class_names=class_names,
-                 impurity=False,
+                 impurity=False, filled=True,
                  fontsize=fontsize, ax=ax[1])
+    for annotation in annotations:
+        annotation.set_text("\n".join(
+            line for line in annotation.get_text().splitlines()
+            if not line.startswith("samples =")
+        ))
     ax[1].set_axis_off()
     plt.show()
     

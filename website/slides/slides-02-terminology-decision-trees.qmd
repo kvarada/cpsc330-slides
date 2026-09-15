@@ -43,6 +43,8 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 sys.path.insert(0, str(Path('code').resolve()))
 from lecture_02_visuals import show_jobs, show_tree, show_boundary
 
+from plotting_functions import *
+
 plt.rcParams.update({'font.size': 16, 'figure.dpi': 150})
 toy_happiness_df = pd.read_csv('data/toy_job_happiness.csv')
 toy_regression_happiness_df = pd.read_csv('data/toy_job_happiness_regression.csv')
@@ -176,7 +178,7 @@ Training is also called fitting. In the job example, training uses job attribute
 Optional reminder: unsupervised learning has no designated target—for example, grouping similar jobs by their attributes. Ask whether grouping jobs requires happy? labels; the answer is no.
 :::
 
-## Same job features, different targets:
+## Same job features, different targets {.smaller}
 
 ```{python}
 show_jobs(toy_regression_happiness_df.head(3))
@@ -197,7 +199,7 @@ Other regression examples: predicting temperature, house price, or travel time.
 - **D.** Predict whether you'll get a seat on the bus.
 - **E.** Predict whether you'll hit snooze tomorrow morning.
 
-# Train, predict, and evaluation models using `scikit-learn`
+# Train, predict, and evaluate models using `scikit-learn`
 
 ## [`scikit-learn`](https://scikit-learn.org/stable/)
 
@@ -286,7 +288,7 @@ print(f'Training accuracy: {dummy.score(X, y):.1%}')
 For this classifier, score returns accuracy. We are scoring the data used for fitting, so this is training accuracy. We have not measured performance on new people.
 :::
 
-## The `fit–predict–score` workflow
+## 
 
 | Method | You provide | It does |
 |---|---|---|
@@ -304,7 +306,7 @@ For classifiers used here, score is accuracy. Regressors usually return R²; sco
 
 # Decision trees 
 
-## Can a question beat the baseline?
+## Can we do better than the baseline? 
 
 ```{python}
 show_jobs(toy_happiness_df)
@@ -329,30 +331,36 @@ Invite rules involving supportive_colleagues or salary. Unlike the baseline, the
 | Supportive colleagues? | **0 Happy, 2 Unhappy** | **4 Happy, 1 Unhappy** |
 | Boss vegan? | 2 Happy, 2 Unhappy | 2 Happy, 1 Unhappy |
 :::
-::: {.fragment}
-**A:** one group is entirely Unhappy; the other is mostly Happy.
-:::
 ::::
-
-
 ### Data {.smaller}
 
 ```{python}
-pd.concat([X, y], axis=1)
+show_jobs(toy_happiness_df)
 ```
 :::
 
-## What are we trying to learn? {.smaller}
+
+::: {.fragment}
+**Supportive colleagues**: One group is entirely Unhappy; the other is mostly Happy.
+
+**Boss vegan**: Both groups have mixed labels 
+:::
+::: {.fragment}
+**Supportive colleagues** gives a cleaner split. 
+:::
+
+
+## What are we trying to learn? 
 
 - We want to learn which questions to ask and in what order.
 - How many different combinations of feature-based questions could a decision tree potentially ask?
 
 
 ```{python}
-pd.concat([X, y], axis=1)
+show_jobs(toy_happiness_df)
 ```
 
-## Decision tree Training (high level) {.smaller}
+## Decision tree Training (high level)
 
 - Training a decision tree is a search process: we look for the "best" tree among many possible ones.
 - There are different algorithms for learning trees. [Check this out.](https://scikit-learn.org/stable/modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart) 
@@ -361,12 +369,8 @@ pd.concat([X, y], axis=1)
   - Gini index
 - The goal is to split the data into groups with greater certainty (more homogeneous outcomes).
 
-::: {.fragment}
-This is a sequence of **local choices**; it does not guarantee the best possible whole tree.
-:::
-
 ::: {.notes}
-For classification, measures such as Gini impurity or entropy quantify class mixture. No formulas are needed here. Numeric features do not need to be binarized: a tree can learn salary <= 75000. A leaf predicts its most frequent training class.
+For classification, measures such as Gini impurity or entropy quantify class mixture. No formulas are needed here. Numeric features do not need to be binarized: a tree can learn salary <= 75000. A leaf predicts its most frequent training class. This is a sequence of **local choices**; it does not guarantee the best possible whole tree.
 :::
 
 
@@ -425,7 +429,7 @@ At each question, True goes left and False goes right. For a 0/1 feature, suppor
 ## Prediction {.smaller}
 - Given a new example, how does a decision tree predict the class of this example?  
 - What would be the prediction for the example below using the tree above? 
-  - supportive_colleagues = 1, salary = 60000, coffee_machine = 0, vegan_boss = 1,  
+  - supportive_colleagues = 0, salary = 100,000, coffee_machine = 0, vegan_boss = 1,  
 ```{python}
 plot_tree(model, filled=True, feature_names = X.columns, class_names = ["Happy", "Unhappy"], impurity = False, fontsize=12);
 ```
@@ -435,7 +439,7 @@ plot_tree(model, filled=True, feature_names = X.columns, class_names = ["Happy",
   - supportive_colleagues = 1, salary = 60000, free_coffee = 0, vegan_boss = 1,  
 ```{python}
 #| echo: true
-test_example = [[1, 60000, 0, 1]]
+test_example = [[0, 100000, 0, 1]]
 print("Model prediction: ", model.predict(test_example))
 ```
 
@@ -479,7 +483,12 @@ The columns match X. This prediction describes what the fitted model says, not a
 :::
 -->
 
-## Did the tree beat the baseline?
+## Does the tree beat the baseline?
+
+```{python}
+#| echo: true
+model.score(X, y)
+```
 
 ```{python}
 comparison = pd.DataFrame({
@@ -500,14 +509,14 @@ We still don't know how well it predicts happiness for new people.
 Ask students what the word training contributes to the claim. Do not introduce a full train/test workflow yet; that is the central question for Lecture 3.
 :::
 
-## Check-in {.slide-your-turn}
+## iClicker Check-in {.slide-your-turn}
 
 **How are you feeling about the workflow and trees?**
 
 - **A.** I can explain both to a neighbour.
 - **B.** I can follow a tree but need to review the code.
 - **C.** I understand the code but need to review how trees work.
-- **D.** I need a pause and another example.
+- **D.** I need a pause and look at another example.
 
 ::: {.notes}
 Use the response to choose a brief pause or revisit one prediction. This is a confidence check, not a scored content question.
@@ -527,6 +536,53 @@ Use the response to choose a brief pause or revisit one prediction. This is a co
 ::: {.notes}
 Leaf predictions are also learned from the data. Hyperparameters can later be selected using validation; for now, emphasize that they are supplied before fitting. A maximum depth is a limit, not a guarantee of exactly that depth.
 :::
+
+
+## A tree also divides the feature space
+
+For the next plots, fit using **only two features**: supportive colleagues and salary.
+
+- **Points:** observed people and their actual labels
+- **Shaded regions:** the model's predicted class
+- **Decision boundary:** where the predicted class changes
+
+::: {.notes}
+The two-feature models are fitted separately, not slices of an unspecified higher-dimensional model. Supportive colleagues is binary, so observations occur only at 0 and 1; shading between them just illustrates the model's threshold rule.
+:::
+
+## Decision boundary with `max_depth=1` {.model-plot .boundary-plot .smaller}
+
+```{python}
+X_subset = X[["supportive_colleagues", "salary"]]
+model = DecisionTreeClassifier(max_depth=1, random_state=1)
+model.fit(X_subset.values, y)
+plot_tree_decision_boundary_and_tree(
+    model, X_subset, y, x_label="supportive_colleagues", y_label="salary", fontsize=12, class_names = ["Happy", "Unhappy"]
+)
+```
+
+A shallow tree can stop too soon. Which person does this tree get wrong?
+
+::: {.fragment}
+The person earning **$150,000 without supportive colleagues**.
+:::
+
+A depth-one tree is called a **decision stump**. 
+
+
+## Decision boundary with `max_depth=2` {.model-plot .boundary-plot}
+
+Contrast it with the depth-two tree, which can ask another question within the higher-salary group.
+
+```{python}
+X_subset = X[["supportive_colleagues", "salary"]]
+model = DecisionTreeClassifier(max_depth=2, random_state=1)
+model.fit(X_subset.values, y)
+plot_tree_decision_boundary_and_tree(
+    model, X_subset, y, x_label="supportive_colleagues", y_label="salary", fontsize=12, class_names = ["Happy", "Unhappy"]
+)
+```
+
 
 <!-- ## A shallow tree can stop too soon {.model-plot .compact-tree}
 
@@ -554,18 +610,8 @@ A depth-one tree is called a decision stump. Contrast it with the depth-two tree
 :::
 -->
 
-## A tree also divides the feature space
 
-For the next plots, fit using **only two features**: supportive colleagues and salary.
-
-- **Points:** observed people and their actual labels
-- **Shaded regions:** the model's predicted class
-- **Decision boundary:** where the predicted class changes
-
-::: {.notes}
-The two-feature models are fitted separately, not slices of an unspecified higher-dimensional model. Supportive colleagues is binary, so observations occur only at 0 and 1; shading between them just illustrates the model's threshold rule.
-:::
-
+<!--
 ## Decision regions: depth 1 {.model-plot .boundary-plot}
 
 ```{python}
@@ -596,6 +642,7 @@ show_boundary(boundary_tree, X_two, y)
 ::: {.notes}
 Keep attention on the upper region: only that region receives another split. Both panels use identical axes and colours. For this toy dataset the extra split corrects the remaining training error. More detailed regions do not establish better predictions for unseen people.
 :::
+-->
 
 ## iClicker 2.3: Baselines and trees {.slide-your-turn}
 
