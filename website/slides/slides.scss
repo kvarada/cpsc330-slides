@@ -43,20 +43,40 @@
   color: var(--title-slide-background-color);
 }
 
-.reveal .slide-your-turn {
-  background-color: #17212b;
-  --slide-color: #F2F5F8;
-  --quarto-hl-fu-color: #E7B10A;
-  --r-link-color: #ff5fa1;
-  --r-link-color-hover: #E56399;
+// Shared colour schemes. Use one semantic class on a Quarto slide heading.
+@mixin slide-colour-scheme($background, $accent) {
+  background-color: $background;
+  color: #17212b;
+  --slide-color: #17212b;
+  --quarto-hl-fu-color: #{$accent};
+  --r-link-color: #{$accent};
+  --r-link-color-hover: #17212b;
 
-  strong {
-    color: var(--quarto-hl-fu-color);
-  }
-
+  a,
+  strong,
   code {
-    color: var(--quarto-hl-fu-color);
+    color: $accent;
   }
+
+  a:hover {
+    color: #17212b;
+  }
+}
+
+.reveal .slide-goals {
+  @include slide-colour-scheme(#f5f4de, #626025);
+}
+
+.reveal .slide-your-turn {
+  @include slide-colour-scheme(#ceeae9, #145e63);
+}
+
+.reveal .slide-summary {
+  @include slide-colour-scheme(#dce8f5, #244b73);
+}
+
+.reveal .slide-optional {
+  @include slide-colour-scheme(#e3edd7, #385b32);
 }
 
 :root {

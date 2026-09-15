@@ -49,7 +49,7 @@ DATA_DIR = 'data/'
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
 
-## 🎯 Today’s big questions
+## 🎯 Today’s big questions  {.slide-goals}
 
 - **AI, ML, DL:** What’s the difference?
 
@@ -103,7 +103,7 @@ Eva is among one of you. She has some experience in Python programming. She know
 
 ::::
 
-## Activity 1 {background-color="#c2eaf5"}
+## Activity 1 {.slide-your-turn}
 \
 Discuss the following questions with your neighbour. 
 
@@ -161,7 +161,7 @@ For mathematics, perhaps we can formally verify part of an argument. But people 
 For emotional support, the questions are quite different. What evidence do we have that this is safe? For whom? What happens in a crisis? What information is being collected? Who is responsible?:::
 :::
 
-## Which of these do you think use AI? {background-color="#c2eaf5"}
+## Which of these do you think use AI? {.slide-your-turn}
 
 - A spam detector 📧
 - Autocomplete on your phone 📱
@@ -472,7 +472,7 @@ for cluster in range(k):
 Real systems can combine all three. Making a prediction does not automatically justify delegating the decision to a model.
 
 
-## ❓❓ Rules, ML, or human judgment? {.smaller background-color="#c2eaf5"}
+## ❓❓ Rules, ML, or human judgment? {.smaller .slide-your-turn}
 
 Choose a starting point for each problem and explain why. Combinations are possible.
 
@@ -739,7 +739,7 @@ Please read [this entire document about asking for help](https://github.com/UBC-
 
 > What I quickly came to realize was that publicly not knowing wasn't a indicator of stupidity, it was an indicator of understanding. And from what I’ve seen, it is one of the clearest indicators of success in people — more than school prestige, more than GPA.
 
-## Checklist for you before the next class {.smaller}
+## Checklist for you before the next class {.smaller .slide-summary}
 
 - [ ] Have you read [the syllabus](https://ubc-cs.github.io/cpsc330-2026W1/syllabus.html) and course policies carefully? 
 - [ ] Are you able to access course [Canvas](https://canvas.ubc.ca/courses/190981) shell? 
@@ -749,11 +749,11 @@ Please read [this entire document about asking for help](https://github.com/UBC-
 - [ ] Have you read [Chapter 1 in the course book](https://ubc-cs.github.io/cpsc330-book/book/01_intro.html)?
 - [ ] Are you almost finished or at least started with homework 1?
 
-# Optional demos and activities {.appendix}
+# Optional demos and activities {.appendix .slide-optional}
 
 These examples extend the main lecture and can be explored as time permits.
 
-## Example: Supervised classification {.smaller}
+## Example: Supervised classification {.smaller .slide-optional}
 - We want to predict liver disease from tabular features:
 ```{python}
 df = pd.read_csv(DATA_DIR + "indian_liver_patient.csv")
@@ -769,7 +769,7 @@ y_test = test_df["Target"]
 HTML(train_df.head().to_html(index=False))
 ```
 
-## Model training 
+## Model training {.slide-optional}
 ```{python}
 #| echo: true
 from lightgbm.sklearn import LGBMClassifier
@@ -778,14 +778,14 @@ model = LGBMClassifier(random_state=123, verbosity=-1, n_jobs=1)
 model.fit(X_train, y_train)
 ```
 
-## New examples 
+## New examples {.slide-optional}
 
 - Given features of new patients below we'll use this model to predict whether these patients have the liver disease or not.
 ```{python}
 HTML(X_test.reset_index(drop=True).to_html(index=False))
 ```
 
-## Model predictions on new examples {.smaller}
+## Model predictions on new examples {.smaller .slide-optional}
 - Let's examine predictions
 
 ```{python}
@@ -795,7 +795,7 @@ df_concat = pd.concat([pred_df, X_test.reset_index(drop=True)], axis=1)
 HTML(df_concat.to_html(index=False))
 ```
 
-## Text classification with a pretrained language model
+## Text classification with a pretrained language model {.slide-optional}
 \ 
 
 - We reuse a language model that has already been fine-tuned for positive/negative sentiment classification.
@@ -812,7 +812,7 @@ analyzer(["I asked my model to predict my future, and it said '404: Life not fou
 ```
 
 
-## Zero-shot learning {.smaller}
+## Zero-shot learning {.smaller .slide-optional}
 \
 
 - Now suppose you want to identify the emotion expressed in the text rather than just positive or negative.
@@ -829,7 +829,7 @@ exs
 ```
 :::
 
-## Zero-shot learning for emotion detection 
+## Zero-shot learning for emotion detection {.slide-optional}
 \
 
 ```{python}
@@ -846,7 +846,7 @@ candidate_labels = ["sadness", "joy", "love","anger", "fear", "surprise"]
 outputs = classifier(exs, candidate_labels)
 ```
 
-## Zero-shot learning for emotion detection {.smaller}
+## Zero-shot learning for emotion detection {.smaller .slide-optional}
 \
 
 ::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
@@ -855,7 +855,7 @@ pd.DataFrame(outputs)
 ```
 :::
 
-## Optional: How the food clusters were computed
+## Optional: How the food clusters were computed {.slide-optional}
 
 The main demo groups neural-network representations with K-Means.
 
@@ -871,7 +871,7 @@ km.fit(Z_food)
 
 The representation determines which similarities the clustering method can find.
 
-## Activity 2 
+## Activity 2 {.slide-optional}
 
 Think of a problem you have come across in the past which could be solved using machine learning. 
 
@@ -881,7 +881,7 @@ Think of a problem you have come across in the past which could be solved using 
 - What mistakes could the system make, and who would be affected?
 - Should ML support a person or make the final decision?
 
-## Ways of learning from data
+## Ways of learning from data {.slide-optional}
 
 - **Supervised learning:** predict targets from labeled examples
 - **Unsupervised learning:** discover structure without supplied targets
