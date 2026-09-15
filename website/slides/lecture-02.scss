@@ -1,0 +1,66 @@
+/* Lecture 2 only: readable teaching tables and consistent class colours. */
+/*-- scss:rules --*/
+.reveal .jobs-table {
+  font-size: 0.68em;
+  margin: 0.4em auto;
+  width: 100%;
+}
+.reveal .jobs-table th,
+.reveal .jobs-table td {
+  padding: 0.2em 0.55em;
+  text-align: center;
+  vertical-align: middle;
+}
+.reveal .jobs-table th {
+  border-bottom: 2px solid #419599;
+}
+.reveal .jobs-table .happy-label {
+  background: #c7dfb1;
+  color: #17212b;
+  font-weight: 600;
+}
+.reveal .jobs-table .unhappy-label {
+  background: #edae7d;
+  color: #17212b;
+  font-weight: 600;
+}
+.reveal .jobs-table.annotated tbody tr:first-child {
+  outline: 3px solid #419599;
+  outline-offset: -2px;
+}
+.reveal .jobs-table.annotated th:last-child {
+  background: #d9eded;
+  color: #17212b;
+}
+.reveal .slide-your-turn table {
+  font-size: 0.75em;
+}
+.reveal .slide-your-turn .jobs-table {
+  font-size: 0.68em;
+}
+.reveal .cell-output-stdout pre {
+  font-size: 0.8em;
+}
+.reveal pre.sourceCode {
+  font-size: 0.65em;
+}
+.reveal .model-plot .cell-output-display img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 340px;
+  margin: 0 auto;
+}
+.reveal .compact-tree .cell-output-display img {
+  max-height: 260px;
+}
+.reveal .boundary-plot .cell-output-display img {
+  max-height: 390px;
+}
+.reveal .model-plot .cell-output-display p {
+  margin: 0;
+}
+.reveal .exit-answer {
+  font-size: 0.85em;
+}
