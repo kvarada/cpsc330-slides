@@ -158,7 +158,7 @@ And notice that the answers may be different in different contexts.
 
 For mathematics, perhaps we can formally verify part of an argument. But people still have to decide whether the formal statement actually corresponds to the original mathematical problem and whether the result is significant.
 
-For emotional support, the questions are quite different. What evidence do we have that this is safe? For whom? What happens in a crisis? What information is being collected? Who is responsible?:::
+For emotional support, the questions are quite different. What evidence do we have that this is safe? For whom? What happens in a crisis? What information is being collected? Who is responsible?
 :::
 
 ## Which of these do you think use AI? {.slide-your-turn}
