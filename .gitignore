@@ -11,3 +11,5 @@ __pycache__/
 
 /.pdf-cache/
 /.pdf-plan.json
+
+/.quarto/
