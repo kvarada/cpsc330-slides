@@ -12,7 +12,7 @@ project:
 
 website:
   title: "CPSC 330"
-  description: "Slides for CPSC 330 Section 2"
+  description: "Slides for CPSC 330 Section 102"
   site-url: https://kvarada.github.io/cpsc330-slides/
 
   repo-url: https://github.com/kvarada/cpsc330-slides/
@@ -35,7 +35,7 @@ website:
         - lecture-01.qmd
         - lecture-02.qmd
         - lecture-03.qmd
-        # - lecture-04.qmd
+        - lecture-04.qmd
         # - lecture-05.qmd
         # - lecture-06.qmd
         # - lecture-07.qmd
