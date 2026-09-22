@@ -125,15 +125,16 @@ Predict the query point's class using a majority vote of its $k$ nearest neighbo
 - (D) Similar to decision trees, $k$-NNs finds a small set of good features.
 - (E) In standard ($k$)-NN classification with uniform weighting and $k>1$, the closest neighbour always contributes more to the prediction than the other $k-1$ neighbours.
 
-## Curse of dimensionality {.smaller}
-- As dimensionality increases, the volume of the space increases exponentially, making the data sparse.
-- Distance metrics lose meaning
-    - Accidental similarity swamps out meaningful similarity
-    - All points become almost equidistant.
-- Overfitting becomes likely: Harder to generalize with high-dimensional data.
-- How to deal with this? 
-    - Dimensionality reduction (PCA) (not covered in this course)
-    - Feature selection techniques.
+## Curse of dimensionality
+
+- As dimensionality increases, the space gets much bigger and **data points become more spread out**.
+- Distances become less informative:
+  - Even the nearest neighbours may be far away.
+  - Points start to look similarly distant.
+- This makes it harder to generalize from limited data.
+- How to deal with this?
+  - Dimensionality reduction (e.g., PCA)
+  - Feature selection
 
 ## Can a decision stump classify these points perfectly?
 
