@@ -136,6 +136,8 @@ Predict the query point's class using a majority vote of its $k$ nearest neighbo
   - Dimensionality reduction (e.g., PCA)
   - Feature selection
 
+# RBF SVM intuition 
+
 ## Can a decision stump classify these points perfectly?
 
 ![](img/svm-original.svg){.nostretch fig-align="center" height="300" fig-alt="Orange points near zero lie between two groups of Blue points on the x axis."}
@@ -291,7 +293,7 @@ Compare **across a row**, then **down a column**. Choose both using **cross-vali
 | Neighbours change with the query | Support vectors stay fixed; similarities change |
 
 
-## When might we use an RBF SVM?
+## More comments on RBF SVM
 
 - A useful candidate when classes need a **nonlinear decision boundary**.
 - Requires choosing both **$C$ and $\gamma$** using validation data.
