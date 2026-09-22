@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>k-nearest neighbours demo</title>
+<style>
+  body { margin: 0; font: 18px system-ui, sans-serif; color: #17324d; background: white; }
+  .controls { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; }
+  select, button { font: inherit; padding: 5px 10px; border: 1px solid #64748b; border-radius: 5px; background: white; color: inherit; }
+  button { cursor: pointer; }
+  svg { display: block; width: 100%; height: 350px; }
+  #answer { text-align: center; min-height: 28px; margin: 5px 0; font-weight: 600; }
+  .note { text-align: center; font-size: 15px; margin: 0; }
+</style>
+<div class="controls">
+  <label>Query <select id="query"><option>A</option><option>B</option><option>C</option></select></label>
+  <label>Neighbours (k) <select id="k"></select></label>
+  <button id="reveal" type="button">Reveal neighbours &amp; prediction</button>
+</div>
+<svg id="plot" viewBox="0 0 760 350" role="img" aria-label="Training points in two classes and three labelled query points"></svg>
+<p id="answer" aria-live="polite"></p>
+<p class="note">Euclidean distance · Equal votes · Classes: Blue and Orange</p>
+<script>
+// Fixed teaching data; query points are never included in the training set.
+const training = [
+  [1,1,0], [1.5,2.3,0], [2,1.5,0], [2.4,3.4,0], [3,2.1,0],
+  [3.4,4.2,0], [4,3,0], [4.6,1.3,0], [5,4.6,0], [5.4,2.7,0],
+  [3.8,2,1], [5.2,3.5,1], [6,1.6,1], [6.3,4.4,1], [6.8,2.8,1],
+  [7.3,3.7,1], [7.7,1.2,1], [8.2,2.4,1], [8.7,4.5,1], [9,3.2,1]
+];
+const queries = [[3.8,2.4], [5.1,3.9], [6,2.8]];
+const query = document.querySelector('#query'), k = document.querySelector('#k');
+const plot = document.querySelector('#plot'), answer = document.querySelector('#answer');
+const button = document.querySelector('#reveal');
+for (let n = 1; n <= 10; n++) k.add(new Option(n, n));
+let revealed = false;
+// The same scale on both axes preserves Euclidean distances visually.
+const sx = x => 100 + 55*x, sy = y => 310 - 55*y;
+function draw() {
+  const q = queries[query.selectedIndex], count = Number(k.value);
+  const nearest = training.map((p,i) => ({p,i,d:(p[0]-q[0])**2+(p[1]-q[1])**2}))
+    .sort((a,b) => a.d-b.d || a.i-b.i).slice(0,count);
+  const selected = new Set(nearest.map(n => n.i));
+  let svg = '';
+  for (let x = 0; x <= 10; x++) svg += `<line x1="${sx(x)}" y1="35" x2="${sx(x)}" y2="310" stroke="#e2e8f0"/>`;
+  for (let y = 0; y <= 5; y++) svg += `<line x1="100" y1="${sy(y)}" x2="650" y2="${sy(y)}" stroke="#e2e8f0"/>`;
+  svg += '<path d="M100 35 V310 H650" fill="none" stroke="#64748b"/><text x="375" y="342" text-anchor="middle">Feature 1</text><text transform="translate(65 175) rotate(-90)" text-anchor="middle">Feature 2</text>';
+  if (revealed) for (const {p} of nearest) svg += `<line x1="${sx(q[0])}" y1="${sy(q[1])}" x2="${sx(p[0])}" y2="${sy(p[1])}" stroke="#64748b" stroke-width="2" stroke-dasharray="5 4"/>`;
+  training.forEach((p,i) => {
+    const x=sx(p[0]), y=sy(p[1]);
+    if (revealed && selected.has(i)) svg += `<circle cx="${x}" cy="${y}" r="13" fill="none" stroke="#172b4d" stroke-width="2"/>`;
+    svg += p[2] === 0 ? `<circle cx="${x}" cy="${y}" r="7" fill="#0072b2"/>` : `<rect x="${x-7}" y="${y-7}" width="14" height="14" fill="#d55e00"/>`;
+  });
+  queries.forEach((p,i) => {
+    const x=sx(p[0]), y=sy(p[1]), active=i===query.selectedIndex;
+    svg += `<g opacity="${active ? 1 : .4}"><path d="M${x} ${y-10} L${x+10} ${y} L${x} ${y+10} L${x-10} ${y} Z" fill="white" stroke="#172b4d" stroke-width="${active ? 3 : 1.5}"/><text x="${x+14}" y="${y-10}" font-weight="bold">${'ABC'[i]}</text></g>`;
+  });
+  plot.innerHTML = svg;
+  const ones = nearest.filter(n => n.p[2] === 1).length, zeros = count-ones;
+  answer.textContent = revealed
+    ? `Blue: ${zeros} votes · Orange: ${ones} votes → ${zeros===ones ? 'Tie! A tie-breaking rule is needed.' : 'Prediction: '+(ones>zeros ? 'Orange' : 'Blue')}`
+    : `Query ${query.value}, k = ${count}: Which class do you predict?`;
+  button.textContent = revealed ? 'Hide answer' : 'Reveal neighbours & prediction';
+}
+query.onchange = k.onchange = () => { revealed = false; draw(); };
+button.onclick = () => { revealed = !revealed; draw(); };
+draw();
+</script>
+</html>
