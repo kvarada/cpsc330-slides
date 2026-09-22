@@ -87,6 +87,14 @@ How might one address the issue of **underfitting** in a machine learning model.
 :::
 ::::
 
+## Today's big questions {.slide-goals}
+
+- How do **$k$-NN and RBF SVMs** use similarity to make predictions?
+- How do **$k$, $C$, and $\gamma$** affect model complexity and generalization?
+- Why do **feature scales and the number of features** matter for similarity-based models?
+
+We'll explore these questions through **visual examples and prediction activities**.
+
 ## Similarity-based algorithms 
 - Use similarity or distance metrics to predict targets.
 - Examples: $k$-nearest neighbors, Support Vector Machines (SVMs) with RBF Kernel.
