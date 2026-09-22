@@ -1,4 +1,5 @@
 ---
+publish-pdf: true
 title: "Lecture 4: $k$-nearest neighbours and SVM RBFs"
 description: "A high-level introduction to KNNs and SVM RBFs"
 description-short: 'Introduction to KNNs, hyperparameter `n_neighbours` or $k$, `C` and `gamma` hyperparameters of SVM RBF, decision boundaries with different values of hyperparameters.'
