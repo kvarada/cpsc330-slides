@@ -36,10 +36,10 @@ editor:
   - You can work in pairs for this assignment.
 - My OH: Tuesdays and Thursdays right after the class.
 
-## The full machine learning workflow
+## Supervised ML workflow
 
 ```{mermaid}
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '20px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '25px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
 flowchart LR
     A["Define task<br/>Collect data"] --> B["Split data"]
     B --> C["Explore training data<br/>Prepare features"]
@@ -60,24 +60,24 @@ This is the project workflow, broader than an sklearn Pipeline. Explore only tra
 
 **Take a guess:** how much of an ML project's time might go into data preparation and transformation?
 
-- (A) About 80%
-- (B) About 20%
-- (C) About 50%
-- (D) None; most time goes into model building
+(A) Less than 20%
+(B) 20–40%
+(C) More than 40%
+(D) None; most time goes into model building
 
 ::: {.fragment}
 Often a **substantial share**: understanding, cleaning, and transforming data takes time. The exact proportion varies by project.
 :::
 
-[Inspired by Google's ML Crash Course](https://developers.google.com/machine-learning/crash-course/numerical-data)
+<center><small>[Inspired by Google's ML Crash Course](https://developers.google.com/machine-learning/crash-course/numerical-data)</small></center>
 
 ::: {.notes}
 Use as an ungraded estimation poll, not a question with a universal numerical answer. The linked page says practitioners spend far more time evaluating, cleaning, and transforming data than building models; it does not give an 80% figure. Ask students what preparation work they have already encountered in homework.
 :::
 
-## Recap {.smaller}
+## Remember this from last lecture? {.smaller}
 
-- Remember this from last lecture? You're trying to find a suitable date based on:
+- You're trying to find a suitable date based on age and social media friends. 
 - You are 30 years old and have 250 Social Media (SM) friends.
 
 | Person | Age | #SM Friends | Euclidean Distance Calculation  | Distance    |
@@ -127,18 +127,17 @@ B replaces D as the closer person. **Only the units changed, not the people.**
 Compare B and D only here. In the full set, changing age to months changes the two nearest neighbours from D and B to B and A. Apply the unit conversion to the query and every candidate. This illustrates the effect of rescaling one feature relative to another.
 :::
 
-## Why data representation matters
+## Why data representation matters {.smaller}
 
 **Models operate on the representation we give them.**
 
-- **Units** can change distances without changing the people.
-- **Missing entries** can prevent a model from using a feature matrix.
-- **Category codes** can introduce an order that does not exist.
-
-We want useful relationships in the data to survive the transformation.
+- **Units:** age in years $\to$ months changes distances without changing the people.
+- **Scales:** ages might range from 18–60, but friend counts from 10–1000. Differences in friend counts can dominate distances.
+- **Missing entries:** someone leaves their age blank (`age = NaN`). How do we calculate their distance?
+- **Category codes:** suppose we add a favourite hobby: hiking = 0, reading = 1, gaming = 2. Why should hiking be "closer" to reading than gaming?
 
 ::: {.notes}
-We would like predictions to be unaffected by arbitrary changes of units. Standardization cancels positive linear unit conversions such as years to months when fitted consistently. It does not establish feature usefulness or guarantee better predictions. The restaurant demo will make each representation problem concrete.
+Keep all examples in the dating scenario. The age and friend-count ranges are illustrative. Favourite hobby is a hypothetical extra profile feature, not a column in the earlier table. Its integer codes impose an arbitrary order and distances that are not justified by the categories. KNN cannot directly calculate its usual distance with a missing age. Distinguish changing the units of one feature from different numerical ranges across features even when no units have been changed. For Euclidean distance, it is the size of differences between examples, not simply large absolute values, that matters. We would like predictions to be unaffected by arbitrary changes of units. Standardization cancels positive linear unit conversions such as years to months when fitted consistently. It does not establish feature usefulness or guarantee better predictions.
 :::
 
 ## Today's big questions {.slide-goals}
@@ -210,15 +209,15 @@ flowchart LR
 | Scaler: **fit and transform** | Scaler: **transform** |
 | KNN: **fit** with labels | KNN: **predict** |
 
-**One estimator outside; a sequence of steps inside.**
+**A sequence of preprocessing steps followed by a predictive estimator.**
 
 ::: {.notes}
 Read the diagram as the prediction path. The table distinguishes learning from application. During fit, the scaler receives imputed training features, then KNN receives scaled training features and labels. During predict, no step is refit. Pass the original numeric columns to the pipeline, not already transformed columns.
 :::
 
-## The golden rule applies to every learned step {background-color="#fce8e6"}
+## The golden rule in preprocessing {background-color="#fce8e6"}
 
-**Each validation fold must stay unseen while preprocessing and the model are fitted.**
+**Never call `fit` on the validation portion for preprocessing or the model.**
 
 - Learn medians, scales, and categories from **that fold's training rows**.
 - Apply the fitted transformations to its validation rows.
@@ -246,7 +245,7 @@ flowchart LR
 
 **Inside each CV fold:** raw features $\to$ fitted preprocessing $\to$ fitted classifier.
 
-Preprocessing is part of the procedure we compare, not a one-time step before CV.
+**Cross-validate the whole pipeline:** each fold fits preprocessing and the model using only its training rows. This keeps validation data out of `fit` and preserves the golden rule.
 
 ::: {.notes}
 Use the same workflow as the opening slide. We now know what preparing features involves and why fitting those transformations belongs inside model comparison. The notebook stops at model comparison; the final test set remains reserved. Refit and final evaluation are later steps, not results demonstrated today.
