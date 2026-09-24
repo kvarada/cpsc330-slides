@@ -85,10 +85,10 @@ Think about the assignments so far. Have you spent more time calling fit, or fig
 
 ## Remember this from last lecture? {.smaller}
 
-- You're trying to find a suitable date based on age and social media friends. 
-- You are 30 years old and have 250 Social Media (SM) friends.
+- You're trying to find a suitable date based on age and social media followers. 
+- You are 30 years old and have 250 followers.
 
-| Person | Age | #SM Friends | Euclidean Distance Calculation  | Distance    |
+| Person | Age | # Followers | Euclidean Distance Calculation  | Distance    |
 |--------|-----|-------------|---------------------------------|-------------|
 | A      | 25  | 400         | $\sqrt{5^2 + 150^2}$            | 150.08      |
 | B      | 27  | 300         |  $\sqrt{3^2 + 50^2}$            | 50.09       |
@@ -104,7 +104,7 @@ What's the problem here?
 
 ## Which models are affected? {.slide-your-turn}
 
-In the age-and-friends example, which models are sensitive to the **relative scales of the two features**? Why?
+In the age-and-followers example, which models are sensitive to the **relative scales of the two features**? Why?
 
 - **Decision trees**
 - **$k$-NN**
@@ -118,7 +118,7 @@ In the age-and-friends example, which models are sensitive to the **relative sca
 
 ## Same people, different units {.slide-your-turn}
 
-Suppose we express age in **months instead of years**, leaving friend counts unchanged.
+Suppose we express age in **months instead of years**, leaving follower counts unchanged.
 
 | Person | Distance using years | Distance using months |
 |---|---|---|
@@ -132,7 +132,7 @@ B replaces D as the closer person. **Only the units changed, not the people.**
 :::
 
 ::: {.notes}
-Let's compare just B and D. In years, D is closer: the age difference contributes 30, while B's friend-count difference is already 50.
+Let's compare just B and D. In years, D is closer: the age difference contributes 30, while B's difference in follower counts is already 50.
 
 Now suppose we record everyone's age in months, including our own. B's age difference becomes 36 months, and D's becomes 360 months. Before looking at the answer, which of these two people is closer now?
 
@@ -144,14 +144,14 @@ It's B. Nothing about either person changed. We only changed the unit used for a
 **Models operate on the representation we give them.**
 
 - **Units:** age in years $\to$ months changes distances without changing the people.
-- **Scales:** ages might range from 18–60, but friend counts from 10–1000. Differences in friend counts can dominate distances.
+- **Scales:** ages might range from 18–60, but follower counts from 10–1000. Differences in follower counts can dominate distances.
 - **Missing entries:** someone leaves their age blank (`age = NaN`). How do we calculate their distance?
 - **Category codes:** suppose we add a favourite hobby: hiking = 0, reading = 1, gaming = 2. Why should hiking be "closer" to reading than gaming?
 
 ::: {.notes}
-The model sees the numbers we give it. It doesn't know that one column represents years and another represents social connections.
+The model sees the numbers we give it. It doesn't know that one column represents years and another represents follower counts.
 
-We've just seen the units problem. There's also a scale problem even if we never change units: suppose ages range from 18 to 60, while friend counts range from 10 to 1000. Differences in friend counts can overwhelm differences in age. What matters for distance is the size of those differences, not simply whether a column contains large numbers.
+We've just seen the units problem. There's also a scale problem even if we never change units: suppose ages range from 18 to 60, while follower counts range from 10 to 1000. Differences in follower counts can overwhelm differences in age. What matters for distance is the size of those differences, not simply whether a column contains large numbers.
 
 Now imagine someone leaves their age blank. What should KNN use for that coordinate when calculating distance?
 
