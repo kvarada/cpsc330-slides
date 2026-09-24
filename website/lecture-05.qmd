@@ -1,4 +1,5 @@
 ---
+publish-pdf: true
 title: "Lecture 5: Preprocessing and sklearn pipelines"
 description: "Preprocessing and sklearn pipelines"
 description-short: 'Data representation, imputation, scaling, categorical encoding, transformers, pipelines, and preprocessing within cross-validation.'
