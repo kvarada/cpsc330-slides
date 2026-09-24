@@ -39,12 +39,12 @@ editor:
 ## Supervised ML workflow
 
 ```{mermaid}
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '25px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '32px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
 flowchart LR
     A["Define task<br/>Collect data"] --> B["Split data"]
-    B --> C["Explore training data<br/>Prepare features"]
-    C --> D["Compare pipelines<br/>with CV"]
-    D --> E["Refit chosen pipeline<br/>Evaluate once"]
+    B --> C["Explore <br/> training data <br/> Prepare features"]
+    C --> D["Compare <br>pipelines<br/>with CV"]
+    D --> E["Refit <br/> chosen pipeline<br/>Evaluate once"]
     B -->|Reserve test set| E
     E --> F["Deploy<br/>Monitor"]
     style C fill:#d9eded,stroke:#287f83,stroke-width:3px
@@ -197,8 +197,9 @@ These signatures describe today's examples; some transformers accept or use y. I
 ## A pipeline combines preprocessing and prediction
 
 ```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '32px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
 flowchart LR
-    A["Raw numeric features"] --> B["Imputer"] --> C["Scaler"] --> D["KNN"] --> E["Predictions"]
+    A["Raw numeric <br>features"] --> B["Imputer"] --> C["Scaler"] --> D["KNN"] --> E["Predictions"]
     style B fill:#d9eded,stroke:#287f83
     style C fill:#d9eded,stroke:#287f83
 ```
@@ -232,12 +233,12 @@ Connect to both deliberately incorrect evaluations in the demo: fitting imputati
 ## Back to the full workflow
 
 ```{mermaid}
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '20px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '32px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
 flowchart LR
     A["Define task<br/>Collect data"] --> B["Split data"]
-    B --> C["Explore training data<br/>Prepare features"]
-    C --> D["Compare pipelines<br/>with CV"]
-    D --> E["Refit chosen pipeline<br/>Evaluate once"]
+    B --> C["Explore <br/> training data <br/> Prepare features"]
+    C --> D["Compare <br>pipelines<br/>with CV"]
+    D --> E["Refit <br/> chosen pipeline<br/>Evaluate once"]
     B -->|Reserve test set| E
     E --> F["Deploy<br/>Monitor"]
     style C fill:#d9eded,stroke:#287f83,stroke-width:3px
