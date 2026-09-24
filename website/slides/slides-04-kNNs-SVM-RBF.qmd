@@ -308,7 +308,7 @@ Compare **across a row**, then **down a column**. Choose both using **cross-vali
 - (A) In `sklearn`'s RBF `SVC`, increasing `gamma` typically increases the training score, but it does not necessarily increase the validation score.
 - (B) If we increase `gamma` but decrease `C`, we can't be certain whether the model becomes more or less complex.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-4-demo.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-04-decision-boundaries-KNN-demo.ipynb)
 
 # Models
 ## Supervised models we have seen 

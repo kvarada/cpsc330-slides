@@ -91,7 +91,7 @@ Connect directly to Lecture 2's exit ticket. Training performance alone cannot e
 We'll investigate these questions in a **live housing-price demo**.
 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-3-demo.ipynb)
+# [Class demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-03-ml-fundamentals-demo.ipynb)
 
 ## Why split the data?
 
@@ -225,7 +225,7 @@ Validation results influence our choices. **Test results must not.**
 These are roles in the evaluation workflow, not API restrictions. After selection, validation examples can join the fitting data for the final refit. Deployment data can be scored later if reliable targets become available.
 :::
 
-## The golden rule
+## The golden rule {background-color="#fce8e6"}
 
 **Test data must not influence training or model selection.**
 
