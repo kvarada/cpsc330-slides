@@ -1,0 +1,23 @@
+---
+title: "Lecture 5: Preprocessing and sklearn pipelines"
+description: "Preprocessing and sklearn pipelines"
+description-short: 'Data representation, imputation, scaling, categorical encoding, transformers, pipelines, and preprocessing within cross-validation.'
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-05-preprocessing-pipelines.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-05-preprocessing-pipelines.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- The full ML workflow and why data representation matters
+- Restaurant survey demo: imputation, scaling, and categorical encoding
+- Transformers and predictive estimators in `sklearn`
+- Combining preprocessing and prediction in a pipeline
+- The golden rule in preprocessing and cross-validation
+- Motivation for `ColumnTransformer`

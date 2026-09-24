@@ -6,62 +6,81 @@ description-short: "Preprocessing and sklearn pipelines"
 format:
   revealjs:
     html-math-method: mathjax
-    embed-resources: true
     slide-number: true
-    smaller: true
+    slide-level: 2
+    theme:
+      - slides.scss
+      - lecture-02.scss
     center: true
     logo: img/UBC-CS-logo.png
     resources:
       - data/
-      - img/  
-
+      - img/
+execute:
+  echo: false
+  warning: false
+  message: false
 editor:
   render-on-save: true
 ---
 
-## Announcements 
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements
 
 - HW1 grades will be posted soon.
-- Syllabus quiz due date is September 19th, 11:59 pm. 
-- Homework 3 (hw3) has been released (Due: Sept 29th, 11:59 pm)
-  - You can work in pairs for this assignment. 
+- Homework 3 (hw3) has been released (Due: Oct 5th, 11:59 pm)
+  - You can work in pairs for this assignment.
+- My OH: Tuesdays and Thursdays right after the class.
 
-## Recap 
+## The full machine learning workflow
 
-- Decision trees: Split data into subsets based on feature values to create decision rules 
-- $k$-NNs: Classify based on the majority vote from $k$ nearest neighbors
-- SVM RBFs: Create a boundary using an RBF kernel to separate classes
+```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '20px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
+flowchart LR
+    A["Define task<br/>Collect data"] --> B["Split data"]
+    B --> C["Explore training data<br/>Prepare features"]
+    C --> D["Compare pipelines<br/>with CV"]
+    D --> E["Refit chosen pipeline<br/>Evaluate once"]
+    B -->|Reserve test set| E
+    E --> F["Deploy<br/>Monitor"]
+    style C fill:#d9eded,stroke:#287f83,stroke-width:3px
+```
 
-## iClicker 4.2
+**Next two lectures:** how do we get data into a useful representation?
 
-**Select all of the following statements which are TRUE.**
+::: {.notes}
+This is the project workflow, broader than an sklearn Pipeline. Explore only training data. The preparation box describes designing transformations; learned preprocessing must be refit inside each CV fold, not performed once before CV. After choosing a workflow, refit it on all training data and evaluate on the reserved test set. Deployment and monitoring come later in the course.
+:::
 
-- (A) $k$-NN may perform poorly in high-dimensional space (say, *d* > 1000). 
-- (B) In sklearn’s SVC classifier, large values of `gamma` tend to result in higher training score but probably lower validation score. 
-- (C) If we increase both `gamma` and `C`, we can't be certain if the model becomes more complex or less complex.
+## iClicker: where does the time go? {.slide-your-turn}
 
-## Comparison of models (activity)
+**Take a guess:** how much of an ML project's time might go into data preparation and transformation?
 
-| **Model**        | Parameters and hyperparameters | **Strengths**  | **Weaknesses**     |
-|------------------|--------------------------------|---------------------------|---------------------------|
-| **Decision Trees**    |  |  |  |
-| **KNNs**              |  |  |  |
-| **SVM RBF**           |  |  |  |
+- (A) About 80%
+- (B) About 20%
+- (C) About 50%
+- (D) None; most time goes into model building
 
+::: {.fragment}
+Often a **substantial share**: understanding, cleaning, and transforming data takes time. The exact proportion varies by project.
+:::
 
+[Inspired by Google's ML Crash Course](https://developers.google.com/machine-learning/crash-course/numerical-data)
 
-## Preprocessing motivation: example 
+::: {.notes}
+Use as an ungraded estimation poll, not a question with a universal numerical answer. The linked page says practitioners spend far more time evaluating, cleaning, and transforming data than building models; it does not give an 80% figure. Ask students what preparation work they have already encountered in homework.
+:::
 
-You’re trying to find a suitable date based on:
+## Recap {.smaller}
 
-- Age (closer to yours is better).
-- Number of Facebook Friends (closer to your social circle is ideal).
+- Remember this from last lecture? You're trying to find a suitable date based on:
+- You are 30 years old and have 250 Social Media (SM) friends.
 
-## Preprocessing motivation: example {.smaller}
-
-- You are 30 years old and have 250 Facebook friends.
-
-| Person | Age | #FB Friends | Euclidean Distance Calculation  | Distance    |
+| Person | Age | #SM Friends | Euclidean Distance Calculation  | Distance    |
 |--------|-----|-------------|---------------------------------|-------------|
 | A      | 25  | 400         | $\sqrt{5^2 + 150^2}$            | 150.08      |
 | B      | 27  | 300         |  $\sqrt{3^2 + 50^2}$            | 50.09       |
@@ -73,184 +92,202 @@ Based on the distances, the two nearest neighbors (2-NN) are:
 - **Person D** (Distance: 30.00)
 - **Person B** (Distance: 50.09)
 
-What's the problem here? 
+What's the problem here?
 
-## What is preprocessing? 
+## Which models are affected? {.slide-your-turn}
 
-- **Preprocessing** is about making the raw dataset ready for machine learning. 
+In the age-and-friends example, which models are sensitive to the **relative scales of the two features**? Why?
 
+- **Decision trees**
+- **$k$-NN**
+- **RBF SVM**
 
-## (iClicker) Exercise 5.1
+::: {.fragment}
+**$k$-NN and RBF SVM** use distances, so feature scales affect their neighbours or similarities.
 
-Take a guess: In your machine learning project, how much time will you typically spend on data preparation and transformation?
+**Decision trees** split on one feature at a time; changing units allows an equivalent split threshold.
+:::
 
-- (A) ~80% of the project time
-- (B) ~20% of the project time
-- (C) ~50% of the project time
-- (D) None. Most of the time will be spent on model building
+## Same people, different units {.slide-your-turn}
 
-The question is adapted from [here](https://developers.google.com/machine-learning/crash-course/numerical-data).
+Suppose we express age in **months instead of years**, leaving friend counts unchanged.
 
-## Class demo 
-- Let's walk through strategies for handling missing values, categorical variables, text, scaling, and irrelevant features using a class demo.
+| Person | Distance using years | Distance using months |
+|---|---|---|
+| B | $\sqrt{3^2 + 50^2} \approx 50.09$ | $\sqrt{36^2 + 50^2} \approx 61.61$ |
+| D | $\sqrt{30^2 + 0^2} = 30$ | $\sqrt{360^2 + 0^2} = 360$ |
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_05-06-preprocessing.ipynb)
+**Which of these two people is closer now?**
 
+::: {.fragment}
+B replaces D as the closer person. **Only the units changed, not the people.**
+:::
 
-## (iClicker) Exercise 5.2
+::: {.notes}
+Compare B and D only here. In the full set, changing age to months changes the two nearest neighbours from D and B to B and A. Apply the unit conversion to the query and every candidate. This illustrates the effect of rescaling one feature relative to another.
+:::
 
-Select all of the following statements which are TRUE.
+## Why data representation matters
 
-- (A) `StandardScaler` ensures a fixed range (i.e., minimum and maximum values) for the features.
-- (B) `StandardScaler` calculates mean and standard deviation for each feature separately.
-- (C) In general, it’s a good idea to apply scaling on numeric features before training $k$-NN or SVM RBF models.
-- (D) The transformed feature values might be hard to interpret for humans.
-- (E) After applying `SimpleImputer` The transformed data has a different shape than the original data.
+**Models operate on the representation we give them.**
 
+- **Units** can change distances without changing the people.
+- **Missing entries** can prevent a model from using a feature matrix.
+- **Category codes** can introduce an order that does not exist.
 
-## (iClicker) Exercise 5.3
+We want useful relationships in the data to survive the transformation.
 
-Select all of the following statements which are TRUE.
+::: {.notes}
+We would like predictions to be unaffected by arbitrary changes of units. Standardization cancels positive linear unit conversions such as years to months when fitted consistently. It does not establish feature usefulness or guarantee better predictions. The restaurant demo will make each representation problem concrete.
+:::
 
-- (A) You can have scaling of numeric features, one-hot encoding of categorical features, and scikit-learn estimator within a single pipeline.
-- (B) Once you have a `scikit-learn` pipeline object with an estimator as the last step, you can call `fit`, `predict`, and `score` on it.
-- (C) You can carry out data splitting within `scikit-learn` pipeline.
-- (D) We have to be careful of the order we put each transformation and model in a pipeline.
+## Today's big questions {.slide-goals}
 
+- What **representation** does the model need?
+- What do transformations **learn**, and which data may they learn from?
+- How do we combine **preprocessing and prediction** safely?
 
-# Common transformations
+## Class demo: restaurant survey responses
 
-## Imputation: Fill the gaps! (🟩 🟧 🟦)
-Fill in missing data using a chosen strategy:
+[Open the preprocessing demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-05-06-preprocessing-demo.ipynb)
 
-- **Mean**: Replace missing values with the average of the available data.
-- **Median**: Use the middle value.
-- **Most Frequent**: Use the most common value (mode).
-- **KNN Imputation**: Fill based on similar neighbors.
+**Task:** infer a respondent's `like` / `dislike` label from their completed survey.
 
-### Example:
-Imputation is like filling in your average or median or most frequent grade for an assessment you missed. 
+As we work, watch for:
 
-```python
-from sklearn.impute import SimpleImputer
-imputer = SimpleImputer(strategy='mean')
-X_imputed = imputer.fit_transform(X)
+1. What does each transformation change?
+2. What does `fit` learn?
+3. Which rows are allowed to influence that learning?
+
+::: {.notes}
+Use lecture-05-06-preprocessing-demo.ipynb. Work through numeric imputation, scaling, the deliberately leaky CV example, and its pipeline repair; then one-hot and ordinal encoding. Stop at “How can we horizontally stack” in the ColumnTransformer motivation, before the first make_column_transformer implementation. Return to these slides to consolidate. Keep the test set reserved. The task recovers a label from an existing survey; it does not predict enjoyment before a restaurant visit.
+:::
+
+## Recap: choosing transformations {.slide-summary .smaller}
+
+| Problem | Demo features | Transformation |
+|---|---|---|
+| Missing values | `price`, `food_type`, `noise_level` | Impute with a training median or most frequent value |
+| Different scales | `age`, `n_people`, `price` | Standardize numeric features |
+| Unordered categories | `food_type`, `north_america` | One-hot encode |
+| Ordered categories | `noise_level` | Ordinally encode with an explicit order |
+
+**Choose the representation to match the meaning of the feature.**
+
+::: {.notes}
+Median imputation replaces missing numeric values; most-frequent imputation is used for categorical and ordinal values in the demo. Neither recovers the unknown true value. Ordinal codes impose equal spacing for distance-based models. One-hot encoding avoids imposing a category order; handle_unknown="ignore" handles unseen categories with all-zero indicators for that feature. The demo defers comments, restaurant_name, and eat_out_freq.
+:::
+
+## Transformers and predictive estimators {.smaller}
+
+| | Transformer | Predictive estimator |
+|---|---|---|
+| Purpose | Change feature representation | Predict a target |
+| Learn | `fit(X)` | `fit(X, y)` |
+| Apply | `transform(X)` | `predict(X)` |
+| Examples | Imputer, scaler, encoder | $k$-NN, SVC |
+
+**Both are estimators:** both implement `fit`.
+
+`fit_transform` fits and transforms the same data. On unseen data, **transform only**.
+
+::: {.notes}
+These signatures describe today's examples; some transformers accept or use y. Imputers learn replacement values, StandardScaler learns means and standard deviations, and OneHotEncoder learns categories. The ordinal order in the demo is supplied explicitly using domain knowledge.
+:::
+
+## A pipeline combines preprocessing and prediction
+
+```{mermaid}
+flowchart LR
+    A["Raw numeric features"] --> B["Imputer"] --> C["Scaler"] --> D["KNN"] --> E["Predictions"]
+    style B fill:#d9eded,stroke:#287f83
+    style C fill:#d9eded,stroke:#287f83
 ```
 
-## Scaling: Everything to the same range! (📉 📈)
-Ensure all features have a comparable range.
+| During training | On unseen data |
+|---|---|
+| Imputer: **fit and transform** | Imputer: **transform** |
+| Scaler: **fit and transform** | Scaler: **transform** |
+| KNN: **fit** with labels | KNN: **predict** |
 
-- **StandardScaler**: Mean = 0, Standard Deviation = 1.
+**One estimator outside; a sequence of steps inside.**
 
-### Example:
-Scaling is like adjusting the number of everyone’s Facebook friends so that both the number of friends and their age are on a comparable scale. This way, one feature doesn't dominate the other when making comparisons.
+::: {.notes}
+Read the diagram as the prediction path. The table distinguishes learning from application. During fit, the scaler receives imputed training features, then KNN receives scaled training features and labels. During predict, no step is refit. Pass the original numeric columns to the pipeline, not already transformed columns.
+:::
 
-```python
-from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+## The golden rule applies to every learned step {background-color="#fce8e6"}
+
+**Each validation fold must stay unseen while preprocessing and the model are fitted.**
+
+- Learn medians, scales, and categories from **that fold's training rows**.
+- Apply the fitted transformations to its validation rows.
+- Pass the **whole pipeline and raw features** to cross-validation.
+
+Keeping the final test set separate is necessary, but does not prevent leakage between CV folds.
+
+::: {.notes}
+Connect to both deliberately incorrect evaluations in the demo: fitting imputation/scaling before CV, and learning the one-hot vocabulary before CV. A pipeline coordinates refitting in each fold when passed to cross-validation. It cannot prevent choices made by repeatedly consulting the held-out test set.
+:::
+
+## Back to the full workflow
+
+```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '20px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
+flowchart LR
+    A["Define task<br/>Collect data"] --> B["Split data"]
+    B --> C["Explore training data<br/>Prepare features"]
+    C --> D["Compare pipelines<br/>with CV"]
+    D --> E["Refit chosen pipeline<br/>Evaluate once"]
+    B -->|Reserve test set| E
+    E --> F["Deploy<br/>Monitor"]
+    style C fill:#d9eded,stroke:#287f83,stroke-width:3px
 ```
 
-## One-Hot encoding: 🍎  → 1️⃣ 0️⃣ 0️⃣
+**Inside each CV fold:** raw features $\to$ fitted preprocessing $\to$ fitted classifier.
 
-Convert categorical features into binary columns.
+Preprocessing is part of the procedure we compare, not a one-time step before CV.
 
-- Creates new binary columns for each category.
-- Useful for handling categorical data in machine learning models.
+::: {.notes}
+Use the same workflow as the opening slide. We now know what preparing features involves and why fitting those transformations belongs inside model comparison. The notebook stops at model comparison; the final test set remains reserved. Refit and final evaluation are later steps, not results demonstrated today.
+:::
 
-### Example:
-Turn "Apple, Banana, Orange" into binary columns:
+## Why `ColumnTransformer`?
 
-| Fruit   | 🍎 | 🍌 | 🍊 |
-|---------|-------|--------|--------|
-| Apple 🍎  |   1   |   0    |   0    |
-| Banana 🍌 |   0   |   1    |   0    |
-| Orange 🍊 |   0   |   0    |   1    |
+In the demo, we trained on feature groups separately:
 
-```python
-from sklearn.preprocessing import OneHotEncoder
-encoder = OneHotEncoder()
-X_encoded = encoder.fit_transform(X)
-```
+- **Numeric:** impute $\to$ scale
+- **Categorical:** impute $\to$ one-hot encode
+- **Ordinal:** impute $\to$ encode with a specified order
 
+**How do we combine these transformed columns for one classifier?**
 
-## Ordinal encoding: Ranking matters! (⭐️⭐️⭐️ → 3️⃣)
-Convert categories into integer values that have a meaningful order.
+::: {.fragment}
+`ColumnTransformer` applies different transformations to selected columns and joins the results into one feature matrix.
+:::
 
-- Assign integers based on order or rank.
-- Useful when there is an inherent ranking in the data.
+::: {.notes}
+Each group's preprocessing feeds one shared classifier, rather than keeping a classifier at the end of every branch. A plain Pipeline connects steps sequentially; ColumnTransformer routes different columns through different preprocessing paths. Binary good_server can use a separate encoding branch. Next lecture implements the column transformer and places it inside an outer pipeline with a predictor.
+:::
 
-### Example:
-Turn "Poor, Average, Good" into 1, 2, 3:
+## Summary {.slide-summary}
 
-| Rating   | Ordinal |
-|----------|---------|
-| Poor     |    1    |
-| Average  |    2    |
-| Good     |    3    |
+- **Representation:** handle missing values, feature scales, and categories according to what the features mean.
+- **Learning:** fit transformations using only the available training rows, including within each CV fold.
+- **Combination:** a pipeline keeps preprocessing and prediction together; cross-validate the whole procedure.
 
-```python
-from sklearn.preprocessing import OrdinalEncoder
-encoder = OrdinalEncoder()
-X_ordinal = encoder.fit_transform(X)
-```
+**Next lecture:** combine feature groups with `ColumnTransformer`.
 
-# `sklearn` Transformers vs Estimators
+[Chapter 5: Preprocessing and pipelines](https://ubc-cs.github.io/cpsc330-book/book/05_preprocessing-pipelines.html)
 
-## Transformers
-- Are used to transform or preprocess data.
-- Implement the `fit` and `transform` methods.
-  - `fit(X)`: Learns parameters from the data.
-  - `transform(X)`: Applies the learned transformation to the data.
-  
-- **Examples**:
-  - **Imputation** (`SimpleImputer`): Fills missing values.
-  - **Scaling** (`StandardScaler`): Standardizes features.
+## Exit question {.slide-your-turn}
 
-## Estimators
+A colleague imputes and scales **all training rows**, then cross-validates a KNN classifier on the transformed matrix.
 
-- Used to make predictions.
-- Implement `fit` and `predict` methods.
-    - `fit(X, y)`: Learns from labeled data.
-    - `predict(X)`: Makes predictions on new data.
+“The test set is untouched, so there's no leakage.”
 
-- Examples: `DecisionTreeClassifier`, `SVC`, `KNeighborsClassifier`
+**Do you agree? What would you change?**
 
-
-## The golden rule in feature transformations
-- **Never** transform the entire dataset at once!
-- **Why**? It leads to **data leakage** — using information from the test set in your training process, which can artificially inflate model performance.
-- **Fit** transformers like scalers and imputers on the **training set only**.
-- **Apply** the transformations to both the training and test sets **separately**.
-
-### Example:
-
-```python
-from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-```
-
-
-## `sklearn` Pipelines
-
-- Pipeline is a way to chain multiple steps (e.g., preprocessing + model fitting) into a single workflow.
-- Simplify the code and improves readability.
-- Reduce the risk of data leakage by ensuring proper transformation of the training and test sets.
-- Automatically apply transformations in sequence.
-
-### Example:
-Chaining a `StandardScaler` with a `KNeighborsClassifier` model.
-
-```python
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
-
-pipeline = make_pipeline(StandardScaler(), KNeighborsClassifier())
-
-pipeline.fit(X_train, y_train)
-y_pred = pipeline.predict(X_test)
-```
-
+::: {.notes}
+No. Each validation fold has already influenced the imputer's medians and scaler's means and standard deviations. Put imputation, scaling, and KNN in one pipeline, and pass that pipeline and the raw numeric training columns to cross-validation. The entire pipeline must be fitted anew within each fold.
+:::
