@@ -28,21 +28,9 @@ editor:
 ```{python}
 #| include: false
 import sys
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 sys.path.append("code")
-from plotting_functions import plot_original_scaled, plot_improper_processing, plot_proper_processing
-from sklearn.datasets import make_blobs
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-
-X, y = make_blobs(n_samples=100, centers=3, random_state=12, cluster_std=5)
-X_train_toy, X_test_toy, y_train_toy, y_test_toy = train_test_split(
-    X, y, random_state=5, test_size=0.4
-)
-train_scaled = StandardScaler().fit_transform(X_train_toy)
-test_scaled = StandardScaler().fit_transform(X_test_toy)
+from plotting_functions import plot_improper_processing, plot_proper_processing
 ```
 
 ## Focus on the breath!
@@ -85,19 +73,46 @@ Use `train_scaler.transform(X_test)` instead.
 Each fit learns a coordinate system. A zero in the training representation means the training mean; a zero in the test representation means the test mean. These need not describe the same original value. Reuse the fitted training scaler, without fitting on the test set.
 :::
 
-## Two different coordinate systems {.model-plot}
+## Same age, different coordinates {.slide-your-turn}
 
-```{python}
-#| fig-width: 15
-#| fig-height: 4
-plot_original_scaled(
-    X_train_toy, X_test_toy, train_scaled, test_scaled,
-    title_transformed="Separate fits: inconsistent coordinates",
-)
-plt.show()
-```
+Suppose **age is our only feature**:
 
-**The same fitted transformation must apply to training and unseen rows.**
+| Fit the scaler on… | Ages | Mean | Standard deviation |
+|---|---|---:|---:|
+| Training set | 20, 40 | 30 | 10 |
+| Test set | 40, 60 | 50 | 10 |
+
+For a **40-year-old**:
+
+- Training scaler: $(40 - 30) / 10 = +1$
+- Separate test scaler: $(40 - 50) / 10 = -1$
+
+**Should the same age have different coordinates in training and test?**
+
+::: {.notes}
+Both calculations use z = (age - mean) / standard deviation. These are the population standard deviations used by StandardScaler. The age is identical, but separate fits assign it different coordinates. Reusing the training scaler maps every 40-year-old to +1, including unseen respondents.
+:::
+
+## Why this changes the neighbours {.smaller}
+
+**A test point's location relative to the training points determines its neighbours.**
+
+**Example:**
+
+The training scaler places the **20-year-old at −1** and the **40-year-old at +1**.
+
+| A test respondent aged 40 | Coordinate | Nearest training age |
+|---|---:|---:|
+| Using the training scaler | +1 | 40 |
+| Using a separate test scaler | −1 | 20 |
+
+
+
+Use the **same fitted transformation** for training and unseen rows.
+
+::: {.notes}
+The training points stay fixed at −1 and +1. With the training scaler, the test respondent lands exactly on the training respondent of the same age. With the separately fitted test scaler, they land on the 20-year-old instead. For 1-NN, this changes whose label is used; if those training labels differ, the prediction changes. The problem is not simply that scaling moves points: it is that separate fits make training and test coordinates inconsistent.
+:::
 
 ## Mistake 2: fitting on train and test together {.slide-your-turn}
 
@@ -116,7 +131,7 @@ The test rows influence the **learned means and scales**.
 
 Fit only on the available training rows.
 
-Using one coordinate system fixes the first mistake, but fitting on the combined data creates leakage. We don't need to use test labels to leak information: learning from test features is enough.
+Using one coordinate system fixes the first mistake, but fitting on the combined data creates leakage. We don't need to use test labels to leak information.
 :::
 
 ## Mistake 3: fitting before cross-validation {.slide-your-turn}
@@ -175,7 +190,7 @@ cross_val_score(pipe, X_train, y_train)
 The golden rule applies to every fit call. A pipeline keeps the steps together so cross-validation can refit them using only the training portion of each fold. After model selection, refit the chosen pipeline on all training rows and evaluate once on the reserved test set.
 :::
 
-## Alternative transformations {.smaller}
+## (Optional) Alternative transformations {.smaller}
 
 | Method | Transformation |
 |---|---|
@@ -191,8 +206,6 @@ StandardScaler does not require normally distributed features. MinMaxScaler uses
 :::
 
 ## Different columns need different transformations
-
-Recall the restaurant survey from Lecture 5:
 
 | Feature group | Columns | Preprocessing |
 |---|---|---|
@@ -289,26 +302,7 @@ preprocessor = make_column_transformer(
 
 Each tuple contains **(transformer, columns)**; names are generated for you.
 
-**Use either constructor.** Both produce a `ColumnTransformer`.
-
-## Put preprocessing inside the prediction pipeline
-
-```python
-pipe = make_pipeline(
-    preprocessor,
-    KNeighborsClassifier(),
-)
-
-scores = cross_val_score(pipe, X_train, y_train, cv=5)
-```
-
-**Raw survey columns $\to$ column transformer $\to$ KNN $\to$ predictions**
-
-Cross-validation fits **every branch and the classifier** within each fold.
-
-::: {.notes}
-Here X_train is a DataFrame containing the original survey columns, and y_train contains the like/dislike labels. We do not fit the preprocessor before passing the pipeline to cross-validation. ColumnTransformer prepares features; the final classifier makes predictions.
-:::
+**We'll primarily use this constructor.**
 
 ## What comes out of a column transformer? {.smaller}
 
@@ -329,6 +323,26 @@ Don't infer output column positions from the original DataFrame. Use the fitted 
 
 [ColumnTransformer documentation](https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html)
 :::
+
+## Put preprocessing inside the prediction pipeline
+
+```python
+pipe = make_pipeline(
+    preprocessor, # column transformer object
+    KNeighborsClassifier(),
+)
+
+scores = cross_val_score(pipe, X_train, y_train, cv=5)
+```
+
+**Raw survey columns $\to$ column transformer $\to$ KNN $\to$ predictions**
+
+Cross-validation fits **every branch and the classifier** within each fold.
+
+::: {.notes}
+Here X_train is a DataFrame containing the original survey columns, and y_train contains the like/dislike labels. We do not fit the preprocessor before passing the pipeline to cross-validation. ColumnTransformer prepares features; the final classifier makes predictions.
+:::
+
 
 ## Class demo: combine the survey features
 
@@ -358,25 +372,34 @@ Would you impose an order when predicting:
 ::: {.fragment}
 Use an ordinal encoding only if you can justify the order for the feature.
 
-**A prediction task alone does not establish a universal weather ranking.**
+A meaningful order does not automatically make ordinal encoding the right choice. Choose the encoding in the context of the prediction task.
 :::
 
 ::: {.notes}
 The original example suggested a least-to-most-severe order. That requires care: severity depends on location, intensity, road conditions, and other factors. One-hot encoding avoids imposing an unsupported order. Even with a defensible order, integer spacing is a separate modelling assumption.
 :::
 
-## Unseen categories
+## Unseen categories {.smaller}
 
-With `OneHotEncoder(handle_unknown="ignore")`, an unseen category becomes **all zeros for that feature's indicators**.
+Suppose `food_type` contains only **Chinese** and **Italian** during training. 
 
-- Prediction can proceed.
-- Different unseen categories get the same representation.
-- The model has not learned what those new categories mean.
+With `OneHotEncoder(handle_unknown="ignore")`:
 
-**Handling an unknown value is not the same as understanding it.**
+| New respondent's `food_type` | `food_type_Chinese` | `food_type_Italian` |
+|---|---:|---:|
+| Chinese | 1 | 0 |
+| Italian | 0 | 1 |
+| Ethiopian (unseen) | 0 | 0 |
+| Peruvian (unseen) | 0 | 0 |
+
+**Prediction can proceed, but this feature cannot distinguish Ethiopian from Peruvian.**
+
+Is this the behaviour you want for your prediction task?
 
 ::: {.notes}
-Whether this is acceptable depends on the application and the frequency and importance of unknown categories. Monitor them and revisit the representation when needed. Do not assume that ignoring unknown categories is always harmless in one domain or always harmful in another.
+The encoder learns two categories during fit, so transform keeps those same two columns. It does not add a column for a new cuisine. Both unseen cuisines become all zeros for the food_type indicators; the model has not learned what either cuisine means. Other features may still distinguish the respondents. This example uses the default drop=None, so both known categories retain their own columns.
+
+Whether this is acceptable depends on the application and the frequency and importance of unknown categories. Monitor them and revisit the representation when needed.
 :::
 
 ## Binary and high-cardinality features
