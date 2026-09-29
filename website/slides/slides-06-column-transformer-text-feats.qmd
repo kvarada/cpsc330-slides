@@ -87,7 +87,8 @@ For a **40-year-old**:
 - Training scaler: $(40 - 30) / 10 = +1$
 - Separate test scaler: $(40 - 50) / 10 = -1$
 
-**Should the same age have different coordinates in training and test?**
+**Should the same age have different coordinates in training and test?** ❌
+
 
 ::: {.notes}
 Both calculations use z = (age - mean) / standard deviation. These are the population standard deviations used by StandardScaler. The age is identical, but separate fits assign it different coordinates. Reusing the training scaler maps every 40-year-old to +1, including unseen respondents.
@@ -96,17 +97,6 @@ Both calculations use z = (age - mean) / standard deviation. These are the popul
 ## Why this changes the neighbours {.smaller}
 
 **A test point's location relative to the training points determines its neighbours.**
-
-**Example:**
-
-The training scaler places the **20-year-old at −1** and the **40-year-old at +1**.
-
-| A test respondent aged 40 | Coordinate | Nearest training age |
-|---|---:|---:|
-| Using the training scaler | +1 | 40 |
-| Using a separate test scaler | −1 | 20 |
-
-
 
 Use the **same fitted transformation** for training and unseen rows.
 
@@ -418,7 +408,7 @@ Learn frequency-based grouping rules **inside each CV fold**.
 Dropping a binary indicator reduces redundancy, but is not required for every model. For many-category features, grouping trades detail for a smaller representation. Dimensionality reduction or clustering are further options, but are beyond today's scope. Any learned preprocessing must remain inside the evaluation pipeline.
 :::
 
-## iClicker: Exercise 6.1 {.slide-your-turn .smaller}
+## iClicker: Exercise 6.1 {.slide-your-turn}
 
 **Select all statements that are TRUE.**
 
