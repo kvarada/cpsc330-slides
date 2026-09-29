@@ -87,14 +87,16 @@ For a **40-year-old**:
 - Training scaler: $(40 - 30) / 10 = +1$
 - Separate test scaler: $(40 - 50) / 10 = -1$
 
-**Should the same age have different coordinates in training and test?** ❌
+**Should the same age have different coordinates in training and test?** 
 
 
 ::: {.notes}
 Both calculations use z = (age - mean) / standard deviation. These are the population standard deviations used by StandardScaler. The age is identical, but separate fits assign it different coordinates. Reusing the training scaler maps every 40-year-old to +1, including unseen respondents.
 :::
 
-## Why this changes the neighbours {.smaller}
+## 
+
+**Should the same age have different coordinates in training and test?** ❌
 
 **A test point's location relative to the training points determines its neighbours.**
 
