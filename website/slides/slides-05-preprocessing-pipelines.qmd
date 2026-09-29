@@ -235,7 +235,7 @@ Fit_transform combines fitting and transforming the same data. For unseen rows, 
 ```{mermaid}
 %%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'sans-serif', 'fontSize': '32px', 'primaryColor': '#ffffff', 'primaryTextColor': '#17212b', 'primaryBorderColor': '#419599', 'lineColor': '#52616b'}}}%%
 flowchart LR
-    A["Raw numeric <br>6features"] --> B["Imputer"] --> C["Scaler"] --> D["KNN"] --> E["Predictions"]
+    A["Raw numeric <br>features"] --> B["Imputer"] --> C["Scaler"] --> D["KNN"] --> E["Predictions"]
     style B fill:#d9eded,stroke:#287f83
     style C fill:#d9eded,stroke:#287f83
 ```

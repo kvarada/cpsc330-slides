@@ -35,7 +35,7 @@ editor:
 
 ## Recap: iClicker overfitting 1 {.slide-your-turn .smaller}
 
-**Link:** https://join.iclicker.com/
+**Link:** https://join.iclicker.com/GHJB
 
 Which scenarios, by themselves, do NOT provide sufficient evidence that a model is overfitting? Select all that apply.
 
