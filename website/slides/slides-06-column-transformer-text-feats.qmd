@@ -39,10 +39,10 @@ from plotting_functions import plot_improper_processing, plot_proper_processing
 
 ## Announcements
 
-- [Lecture slides](https://kvarada.github.io/cpsc330-slides/lecture.html)
 - HW3 is due Monday, Oct 5th, 11:59 pm.
   - If you haven't started yet, start now.
   - You can work in pairs for this assignment.
+- My OH: Tuesdays and Thursdays right after the class.
 
 ## Today's big questions {.slide-goals}
 
