@@ -1,5 +1,5 @@
 ---
-publish-pdf: false
+publish-pdf: true
 title: "Lecture 7: Linear models"
 description: "Linear regression and logistic regression"
 description-short: "Intuition behind linear models, linear regression and logistic regression, `scikit-learn`’s Ridge model, prediction probabilities, interpret model predictions using coefficients learned by a linear model, parametric vs. non-parametric models"

@@ -379,13 +379,40 @@ $$z=\mathbf{w}^{\mathsf T}\mathbf{x}+b
 Let's separate three quantities. The decision function gives the raw weighted score z. The sigmoid turns z into a probability, and the threshold turns that probability into a class. A zero score maps to probability one half. Although the probability transformation is nonlinear, the boundary is where the weighted sum equals zero, so it is linear in the represented features. With two features it is a line. Always check classes underscore to see which class each probability column refers to.
 :::
 
+# How does `fit` work for logistic regression? 
+
+## Why not use ordinary least squares for classification? {.smaller visibility="hidden"}
+
+Suppose the true label is $y=1$, and a linear model gives a raw score of $z=10$.
+
+- As a **classification score**, 10 is strongly on the positive side of the boundary $z=0$.
+- OLS treats the output as a **prediction of the numeric label**:
+
+$$\text{squared error}=(1-10)^2=81$$
+
+OLS tries to match the numeric labels; its unrestricted outputs are **not probabilities**.
+
+Logistic regression converts the score to a probability using the **sigmoid**. **Log loss** rewards high probability for the true class.
+
+::: {.notes}
+We have used squared error for predicting grades. Why not use the same approach for labels encoded as zero and one? Consider a positive example with label one and a raw linear score of ten. Under the score-based classification rule we just discussed, ten is well on the positive side of the zero boundary. But OLS treats ten as a predicted numeric target. Its residual is one minus ten, and its squared error is eighty-one. It tries to pull the output toward exactly one, rather than treating a large positive score as evidence for the positive class.
+
+Keep the two interpretations separate: a classification score uses zero as its boundary, whereas directly thresholding OLS predictions of zero-one labels would typically use one half. The point of this example is how the fitting objective interprets the output. OLS fits numeric labels and can produce values below zero or above one, so those outputs cannot directly serve as probabilities. OLS followed by a threshold can still be used as a classifier, but it does not provide the probability model we want here.
+
+Logistic regression applies the sigmoid to the raw score. A score of ten becomes a probability very close to one. For a positive example, log loss gives that prediction a very small penalty. We will now explore what an appropriate penalty should reward before looking at its formula.
+
+Instructor clarification if asked: squared error can also evaluate valid class probabilities; in binary classification this is the Brier score. Our objection here concerns OLS applied directly to unrestricted linear outputs, rather than every use of squared error in classification.
+:::
+
 ## iClicker: Ranking prediction penalties {.slide-your-turn .smaller}
 
 We want to classify an image as **cat or dog**. The true class is **cat**.
 
 :::: {.columns}
 ::: {.column width="35%"}
-![True class: cat](img/main-coon-cat.jpg){width=100%}
+![True class: cat](img/main-coon-cat.png){width=100%}
+
+<center><small>Image created by GPT-6.1 Sol Light</small></center>
 :::
 ::: {.column width="65%"}
 
@@ -466,7 +493,7 @@ Increasing the probability assigned to the true class reduces the loss.
 Read the horizontal axis carefully: it is probability of the true class, whether that class is cat or dog. The vertical axis is the loss for that example. Moving right reduces loss; near zero the curve rises sharply. Our three models sit on this same curve. Notice that there is no special break at one half. Log loss changes continuously with the probability, even when the predicted label stays the same.
 :::
 
-## Binary log loss {.smaller}
+## (Optional) Binary log loss {.smaller .slide-optional}
 
 Encode **cat as $y=1$** and **dog as $y=0$**. Let $p=P(y=1\mid\mathbf{x})$.
 
@@ -485,7 +512,7 @@ Here is the usual binary formula. We encode cat as one and dog as zero, and p is
 For endpoint probabilities, interpret the formula by limits: probability 1 on the true class gives zero loss; probability 0 on the true class gives infinite loss. The unused term contributes zero.
 :::
 
-## Extending log loss to multiclass classification {.smaller}
+## (Optional) Extending log loss to multiclass classification {.smaller .slide-optional}
 
 For $K$ classes, let $\hat p_k$ be the predicted probability of class $k$.
 The one-hot target has $y_k=1$ for the true class and 0 otherwise.
@@ -504,17 +531,12 @@ The same idea applies: **reward probability assigned to the true class**.
 To extend this to more classes, suppose our categories are cat, dog, and wild. Treat these as mutually exclusive labels in this toy example, with wild meaning the third category rather than cats or dogs. A one-hot target has one in the true class position and zero elsewhere. The sum looks more complicated, but only the true-class term contributes. For this cat, we select probability zero point nine, and the loss is still about zero point one one. The central idea has not changed.
 :::
 
-## Your turn: Is a log loss of 1.61 good? {.slide-your-turn}
+## Your turn: Is a log loss of 0.69 good? {.slide-your-turn}
 
-A five-class classifier has a mean training log loss of 1.61. Has it learned much?
+A binary classifier has a mean training log loss of 0.69. Has it learned much?
 
 ::: {.notes}
-Before calculating anything, discuss whether a mean training log loss of 1.61 suggests that this five-class model has learned much. [Pause for responses.] To interpret the number, we need a simple baseline.
-
-Suppose we assign equal probability to every class for every example. With five classes, each probability is one fifth, or zero point two. Whatever the true class is, its probability is zero point two, so the loss is negative log of zero point two: log five, approximately one point six one. Because every example has the same loss, the mean is also one point six one.
-
-Our fitted model has approximately the same training log loss as this uniform-probability baseline. Even on the examples used to fit it, it has not improved on that baseline according to log loss. This suggests it has learned little that improves its probability predictions under this measure.
-
+assigning 0.5 to each class gives $-\log(0.5) \approx0.69$, so the model has not improved on the uniform-probability baseline, even on its training data.
 This does not mean the model necessarily predicts uniform probabilities on every example or has learned nothing at all; different predictions can produce the same average loss. Describe the baseline as assigning uniform probabilities, rather than randomly choosing a class label. The key takeaway is that a loss value becomes meaningful when we compare it with a reference.
 :::
 
