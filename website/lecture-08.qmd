@@ -1,5 +1,5 @@
 ---
-publish-pdf: false
+publish-pdf: true
 title: "Lecture 8: Hyperparameter Optimization"
 description: "Hyperparameter optimization and optimization bias"
 description-short: "motivation for hyperparameter optimization, hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV, optimization bias" 
