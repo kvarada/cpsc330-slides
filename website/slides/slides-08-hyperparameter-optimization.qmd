@@ -101,25 +101,30 @@ The settings interact: **changing the representation can change which model sett
 The Spotify target describes one listener's preference, not universal song quality. We omit artist identity. The notebook constructs the column transformer and compares a most-frequent baseline with the default SVC using CV. Keep all preprocessing inside the searched pipeline.
 :::
 
-## Why does tuning get expensive?
+## Why does tuning get expensive? {.smaller}
 
-The demo searches:
+The demo tries every combination of:
 
-- **2** vocabulary sizes: `max_features`.
-- **4** values of `C`: regularization strength is inversely related to `C`.
-- **4** values of `gamma`: how local the RBF kernel's influence is.
+- **2** vocabulary sizes (`max_features`).
+- **4** regularization settings (`C`).
+- **4** RBF kernel settings (`gamma`).
 
+How many model fits does **five-fold cross-validation** require?
+
+::: {.fragment}
 $$2 \times 4 \times 4 = 32\text{ candidate pipelines}$$
+$$32 \times 5 = 160\text{ CV fits}$$
 
-Each candidate needs **five-fold cross-validation**.
+**More combinations and more folds mean more fits.**
+:::
 
 ::: {.notes}
-More settings multiply the work. With five hyperparameters and ten values each, there are 100,000 candidates and 500,000 CV fits. Automation alone does not reduce this cost if it evaluates the same candidates and folds.
+Each CV fit trains the entire pipeline, including preprocessing. The 160 fits exclude the final refit of the selected pipeline on all training data. With five hyperparameters and ten values each, there are 100,000 candidates and 500,000 CV fits. Automation alone does not reduce this cost if it evaluates the same candidates and folds.
 :::
 
 ## Demo 1: Data, pipeline, and baseline {.slide-your-turn}
 
-Open **Lecture 8: Choosing hyperparameters**.
+[Lecture 8 Class Demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-08-hyperparameter-optimization-demo.ipynb)
 
 Run **Section 1**:
 
@@ -135,7 +140,15 @@ Notebook: /Users/kvarada/CS/2026-27/330/cpsc330-2026W1/content/classes/varada/le
 Run Section 1 only, then return to slides. Each transformer may learn only from the fold's training portion. The pipeline is what enforces this. CountVectorizer receives the string column selector song_title; other transformers receive lists of columns.
 :::
 
-## Two ways to search {.smaller}
+## Hyperparameter optimization with loops {.your-turn}
+
+- Define a parameter space.
+- Iterate through possible combinations.
+- Evaluate model performance.
+
+What are some limitations of this approach? 
+
+## Two ways to search in `sklearn` {.smaller}
 
 | Method | Candidates evaluated | Useful when… |
 |---|---|---|
@@ -216,7 +229,7 @@ The search object can predict directly after refitting. Training scores help dia
 The demo heatmaps use the already-computed results, holding vocabulary size fixed in each panel. No additional fits are needed. A boundary result does not establish an optimum or guarantee that extending the range helps. Every refinement based on CV adds to model selection.
 :::
 
-## How to use random search {.smaller}
+## How to use random search
 
 ```python
 list_search = RandomizedSearchCV(
@@ -235,21 +248,21 @@ list_search.fit(X_train, y_train)
 Using the same lists allows a comparison within the same search space. All-list configurations are sampled without replacement. A smaller budget can miss the grid's winner. Random search is not inherently faster per fit; fewer candidates reduce total work.
 :::
 
-## Sample distributions instead of lists {.smaller}
+## Sample distributions instead of lists
 
 ```python
 param_dist = {
     "columntransformer__countvectorizer__max_features":
         randint(100, 2001),
-    "svc__C": loguniform(1e-3, 1e2),
-    "svc__gamma": loguniform(1e-4, 1),
+    "svc__C": loguniform(1e-4, 1e4),
+    "svc__gamma": loguniform(1e-4, 1e4),
 }
 ```
 
 Pass `param_dist` as `param_distributions` to `RandomizedSearchCV`.
 
 - `randint`: integer values; the upper endpoint is **excluded**.
-- `loguniform`: equal probability for equal **multiplicative intervals**.
+- `loguniform`: equal-sized intervals on log scale have equal probability.
 
 ::: {.notes}
 These are exactly the demo's distribution ranges. randint includes 100 through 2000. Log-uniform assigns equal probability to tenfold intervals such as 0.01–0.1 and 0.1–1. Uniform sampling over a wide positive interval places most samples at its larger orders of magnitude. The notebook illustrates the difference with histograms. Distributions are our choices about where to search, not learned from data.
@@ -322,26 +335,8 @@ A quiz has **10 questions**, each with **4 options**.
 
 **Will the winning sheet usually exceed 25%?**
 
-**What is its expected accuracy on new questions?**
-
 ::: {.notes}
 Pause for answers. The selected score usually exceeds 25%. On independent new questions, expected accuracy remains 25%. Selection improved the observed score without adding knowledge. Questions represent validation examples and answer sheets represent candidates. Adapted from the random-answer example attributed to Rodolfo Lourenzutti in Chapter 8. Real model candidates are correlated, so this analogy does not quantify bias in our search.
-:::
-
-## CV does not remove selection bias
-
-**All modelling choices count:**
-
-- Hyperparameter searches and refined ranges.
-- Feature engineering and preprocessing changes.
-- Comparing model families.
-
-CV helps compare candidates across multiple splits.
-
-**The selected CV score still helped choose the winner.**
-
-::: {.notes}
-Even a pipeline that obeys the Golden Rule in every fold can have an optimistic winning CV score. CV reduces dependence on one split but does not eliminate the selection effect. More trials and fewer validation examples can amplify it. Regularization and ensembles do not make reused evaluation data independent.
 :::
 
 ## Final evaluation: Protect the test set
@@ -392,7 +387,7 @@ The selection uses CV only. The search's selected pipeline is already refitted, 
 - Grid search evaluates every specified combination.
 - Random search controls the **candidate budget**.
 - Search ranges matter; inspect more than the winning score.
-- Count **candidates × folds + final refit**.
+- Count **candidates $\times$ folds + final refit**.
 - Selection can make the winning CV score optimistic.
 - Finish with an **untouched test set**.
 
