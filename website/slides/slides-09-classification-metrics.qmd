@@ -6,48 +6,58 @@ description-short: "confusion metrics, precision, recall, f1-score, PR curves, A
 format:
   revealjs:
     html-math-method: mathjax
-    embed-resources: true
     slide-number: true
-    smaller: true
+    slide-level: 2
+    theme:
+      - slides.scss
+      - lecture-02.scss
     center: true
     logo: img/UBC-CS-logo.png
     resources:
       - data/
-      - img/  
+      - img/
+jupyter: python3
+execute:
+  echo: false
+  warning: false
+  message: false
+editor:
+  render-on-save: true
 ---
 
 ## Focus on the breath!
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="600px"}
 
-
 ## Announcements 
 
 - Important information about midterm 1
-  - https://piazza.com/class/mekbcze4gyber/post/162
-  - **Good news for you: You'll have access to our course notes in the midterm!**
-- HW4 was due on Monday, Oct 6th 11:59 pm. 
-- HW5 has been released. It's a project-type assignment and you get till Oct 27th to work on it.  
+  - https://edstem.org/us/courses/104703/discussion/8335467
+  - **Good news for you: You'll have access to our [course notes](https://ubc-cs.github.io/cpsc330-book/) and sklearn, pandas, and numpy documentation in the midterm!**
+- HW3 was due on Monday, Oct 5th 11:59 pm.
+- HW4 will be due next week.
 
 
 ```{python}
-import os
-import sys
-import pandas as pd 
+from pathlib import Path
+import pandas as pd
 import numpy as np
-from sklearn import datasets
-from sklearn.svm import SVC
-from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
-from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-%matplotlib inline
 from sklearn.dummy import DummyClassifier
-from sklearn.model_selection import cross_validate
-import mglearn
-DATA_DIR = 'data/' 
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_validate, train_test_split, StratifiedKFold
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import (ConfusionMatrixDisplay, PrecisionRecallDisplay,
+    confusion_matrix, accuracy_score, precision_score, recall_score, f1_score,
+    average_precision_score)
 ```
+
+## Today's big questions {.slide-goals}
+
+1. When can **accuracy** mislead us, and what does a **confusion matrix** reveal?
+2. How do we choose between **precision, recall, and F1** based on the cost of errors?
+3. How do **thresholds and ranking metrics** help us choose a decision rule, and how do we evaluate it independently?
 
 ## ML workflow 
 ![](img/ml-workflow.png)
@@ -63,94 +73,112 @@ $$
 
 - But is **accuracy** always the right metric to evaluate a model? 🤔  
 
-## A fraud classification example
+## A fraud classification example {.smaller}
+
+- Each row is a transaction; **1 = fraud (positive), 0 = non-fraud**.
+- A positive prediction flags a transaction for investigation.
+- Reserve the test set; use stratified splits to preserve class proportions.
+
 ```{python}
-# This dataset will be loaded using a URL instead of a CSV file
 DATA_URL = "https://github.com/firasm/bits/raw/refs/heads/master/creditcard.csv"
-
-cc_df = pd.read_csv(DATA_URL, encoding="latin-1")
-# Sorting columns so it is easier to read
-cc_df = cc_df[['Class', 'Time', 'Amount'] + cc_df.columns[cc_df.columns.str.startswith('V')].to_list()]
-
-train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
-X_train_big, y_train_big = train_df.drop(columns=["Class", "Time"]), train_df["Class"]
+local_path = Path("data/creditcard.csv")
+cc_df = pd.read_csv(local_path if local_path.exists() else DATA_URL)
+development, test_df = train_test_split(
+    cc_df, test_size=0.3, random_state=111, stratify=cc_df["Class"])
+fit_df, valid_df = train_test_split(
+    development, test_size=0.3, random_state=123, stratify=development["Class"])
+X_train, y_train = fit_df.drop(columns=["Class", "Time"]), fit_df["Class"]
+X_valid, y_valid = valid_df.drop(columns=["Class", "Time"]), valid_df["Class"]
 X_test, y_test = test_df.drop(columns=["Class", "Time"]), test_df["Class"]
-X_train, X_valid, y_train, y_valid = train_test_split(
-    X_train_big, y_train_big, test_size=0.3, random_state=123
-)
-print(X_train.shape)
-train_df.head()
+fit_df[["Amount", "V1", "V2", "Class"]].head()
 ```
 
-## `DummyClassifier`
-Let's try a DummyClassifier, which makes predictions without learning any patterns.
+::: {.notes}
+Stratification preserves proportions; it does not balance the classes. Random splits keep this demo focused on metrics. Future-transaction deployment would require an evaluation that accounts for time.
+:::
+
+## Problem: Class imbalance
+
+```{python}
+counts = y_train.value_counts().reindex([0, 1])
+pd.DataFrame({"Count": counts, "Percentage": 100 * counts / len(y_train)}).round(3)
+```
+
+- Fraud is rare: fewer than 2 transactions in every 1,000.
+- Predicting non-fraud every time can achieve **over 99% accuracy**.
+
+## `DummyClassifier` {.slide-your-turn}
+
+Predict the accuracy and number of fraud cases caught before revealing the result.
 
 ```{python}
 #| echo: true
-dummy = DummyClassifier()
-cross_val_score(dummy, X_train, y_train).mean()
-```
-
-- The accuracy looks surprisingly high!
-- Should we be happy with this model and deploy it?
-
-## Problem: Class imbalance 
-
-```{python}
-#| echo: true
-y_train.value_counts()
-```
-
-- In many real-world problems, some classes are much rarer than others.
-
-- A model that always predicts "no fraud" could still achieve >99% accuracy!
-- This is why accuracy can be misleading in imbalanced datasets.
-- We need metrics that differentiate types of errors.
-
-## `DummyClassifier`: Confusion matrix 
-
-Which types of errors would be most critical for the bank to address? Missing a fraud case or flagging a legitimate transaction as fraud?
-
-```{python}
-from sklearn.metrics import ConfusionMatrixDisplay  
-
+dummy = DummyClassifier(strategy="most_frequent")
 dummy.fit(X_train, y_train)
-cm = ConfusionMatrixDisplay.from_estimator(
-    dummy, X_valid, y_valid, values_format="d", display_labels=["Non fraud", "Fraud"]
-)
+print(f"Validation accuracy: {accuracy_score(y_valid, dummy.predict(X_valid)):.3%}")
 ```
 
-## `LogisticRegression`: Confusion matrix
+Should the bank deploy this model?
 
-Are we doing better with logistic regression? 
+::: {.notes}
+It catches no fraud. High accuracy reflects the large non-fraud class.
+:::
+
+## Comparing models on the same validation set {.slide-your-turn}
+
+Which model catches more fraud? What new mistakes does it make?
 
 ```{python}
-from sklearn.metrics import ConfusionMatrixDisplay  
-pipe = make_pipeline(StandardScaler(), LogisticRegression())
+pipe = make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000))
 pipe.fit(X_train, y_train)
-cm = ConfusionMatrixDisplay.from_estimator(
-    pipe, X_valid, y_valid, values_format="d", display_labels=["Non fraud", "Fraud"]
-)
-
+fig, axes = plt.subplots(1, 2, figsize=(10, 3.5))
+for ax, (name, model) in zip(axes, [("Always non-fraud", dummy), ("Logistic regression", pipe)]):
+    ConfusionMatrixDisplay.from_estimator(model, X_valid, y_valid,
+        labels=[0, 1], display_labels=["Non-fraud", "Fraud"],
+        values_format="d", colorbar=False, ax=ax)
+    ax.set_title(name)
+fig.tight_layout()
+plt.show()
 ```
+
+::: {.notes}
+Use the same examples for both models. Rows are actual classes; columns are predicted classes. Logistic regression catches fraud but also flags some legitimate transactions.
+:::
 
 ## Understanding the confusion matrix
 :::: {.columns}
-:::{.column width="80%"}
-![](img/tp-fp-tn-fn-fraud.png)
+:::{.column width="40%"}
+
+```{python}
+# Reuse the logistic-regression pipeline fitted earlier.
+fig, ax = plt.subplots(figsize=(5, 3.5))
+ConfusionMatrixDisplay.from_estimator(
+    pipe, X_valid, y_valid,
+    labels=[0, 1], display_labels=["Non-fraud", "Fraud"],
+    values_format="d", colorbar=False, ax=ax,
+)
+ax.set_title("Logistic regression")
+fig.tight_layout()
+plt.show()
+```
+
 :::
 
-:::{.column width="20%"}
-- TN $\rightarrow$ True negatives 
-- FP $\rightarrow$ False positives 
-- FN $\rightarrow$ False negatives
-- TP $\rightarrow$ True positives 
+:::{.column width="60%"}
+- Actual Non-fraud, predicted Non-fraud
+  - TN $\rightarrow$ True negatives 
+- Actual Non-fraud, predicted Fraud  
+  - FP $\rightarrow$ False positives 
+- Actual Fraud, predicted Non-fraud
+  - FN $\rightarrow$ False negatives
+- Actual Fraud, predicted Fraud
+  - TP $\rightarrow$ True positives 
 :::
 ::::
 
 # Practice: confusion matrix terminology
 
-## Confusion matrix questions 
+## Confusion matrix questions {.slide-your-turn}
 
 Imagine a spam filter model where emails labeled **1 = spam, 0 = not spam**. 
 
@@ -161,18 +189,11 @@ If a spam email is incorrectly classified as not spam, what kind of error is thi
 - (C) A false negative
 - (D) A true negative
 
-## Confusion matrix questions
+::: {.notes}
+Answer: C (false negative).
+:::
 
-In an intrusion detection system, **1 = intrusion, 0 = safe**. 
-
-If the system misses an actual intrusion and classifies it as safe, this is a:
-
-- (A) A false positive
-- (B) A true positive
-- (C) A false negative
-- (D) A true negative
-
-## Confusion matrix questions
+## Confusion matrix questions {.slide-your-turn}
 
 In a medical test for a disease, **1 = diseased, 0 = healthy**. 
 
@@ -182,6 +203,10 @@ If a healthy patient is incorrectly diagnosed as diseased, that's a:
 - (B) A true positive
 - (C) A false negative
 - (D) A true negative
+
+::: {.notes}
+Answer: A (false positive).
+:::
 
 ## Metrics other than accuracy 
 
@@ -193,31 +218,67 @@ We'll start with three key ones:
 - **Recall**
 - **F1-score**
 
-## Precision and recall 
+## Precision and recall
 
-Let's revisit our fraud detection scenario. The circle below represents **all transactions predicted as fraud** by an **imaginary toy model** designed to detect fraudulent activity.
+- **Precision:** Of the transactions flagged, what fraction were fraud?
+- **Recall:** Of the actual fraud cases, what fraction did we catch?
 
-![](img/precision-recall.png){.nostretch fig-align="center" width="600px"}
-![](img/fraud-precision-recall.png){.nostretch fig-align="center" width="600px"}
+$$
+\text{Precision}=\frac{TP}{TP+FP}, \qquad
+\text{Recall}=\frac{TP}{TP+FN}
+$$
 
-## Intuition behind the two metrics
+## 
+:::: {.columns}
 
-- **Precision**: *Of all the transactions predicted as fraud, how many were actually fraud?*  
-  - High precision $\rightarrow$ few false alarms (low false positives).
+:::{.column width="35%"}
+```{python}
+# Reuse the logistic-regression pipeline fitted earlier.
+fig, ax = plt.subplots(figsize=(5, 3.5))
+ConfusionMatrixDisplay.from_estimator(
+    pipe, X_valid, y_valid,
+    labels=[0, 1], display_labels=["Non-fraud", "Fraud"],
+    values_format="d", colorbar=False, ax=ax,
+)
+ax.set_title("Logistic regression")
+fig.tight_layout()
+plt.show()
+```
+:::
 
-- **Recall**: *Of all the actual fraud cases, how many did the model catch?*  
-  - High recall $\rightarrow$ few missed frauds (low false negatives).
+:::{.column width="65%"}
+```{python}
+tn, fp, fn, tp = confusion_matrix(y_valid, pipe.predict(X_valid), labels=[0, 1]).ravel()
+pd.DataFrame({"Metric": ["Precision", "Recall"],
+    "Calculation": [f"{tp} / ({tp} + {fp})", f"{tp} / ({tp} + {fn})"],
+    "Value": [tp / (tp + fp), tp / (tp + fn)]}).round(3)
+```
+::: 
+::::
+High precision means a small **fraction of alerts** are false alarms.
+High recall means a small **fraction of actual positives** are missed.
+
+## Your turn: calculate the metrics {.slide-your-turn}
+
+A toy detector has **TP=6, FP=4, FN=2, TN=88**.
+
+1. What are its precision and recall?
+2. Which denominator counts alerts? Which counts actual fraud cases?
+
+::: {.notes}
+Precision = 6/10 = 0.60. Recall = 6/8 = 0.75. Alerts = TP+FP; actual positives = TP+FN.
+:::
 
 ## Trade-off between precision and recall
 
 - Increasing **recall** often decreases **precision**, and vice versa.  
 - Example:  
   - Predict *“fraud”* for every transaction $\rightarrow$ perfect recall, terrible precision.  
-  - Predict *“fraud”* only when 100% sure $\rightarrow$ high precision, low recall.
+  - Use a very high threshold $\rightarrow$ high precision, low recall.
 
 **The right balance depends on the application and cost of errors.**
 
-## F1-score
+## F1-score {.smaller}
 
 - Sometimes, we want a **single metric** that balances precision and recall.  
 - The **F1-score** is the **harmonic mean** of the two:
@@ -227,43 +288,53 @@ F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \t
 $$
 
 - High **F1** means both precision and recall are strong.  
-- Useful when we care about both false positives **and** false negatives.
+- F1 ignores TN and does **not** encode financial costs or review capacity.
 
-## Summary
+```{python}
+print(f"Fraud detector F1 = 2 × {tp} / (2 × {tp} + {fp} + {fn}) = {2*tp/(2*tp+fp+fn):.3f}")
+```
+
+## Summary {.slide-summary}
 
 | Metric | What it measures | High value means |
 |:--------|:----------------|:------------------|
 | **Accuracy** | Overall correctness | Model gets most predictions right |
-| **Precision** | Quality of positive predictions | Few false alarms |
-| **Recall** | Quantity of true positives caught | Few missed positives |
+| **Precision** | Quality of positive predictions | Small fraction of alerts are false alarms |
+| **Recall** | Quantity of true positives caught | Small fraction of positives are missed |
 | **F1-score** | Balance of precision & recall | Both precision and recall are high |
 
-## iClicker Exercise 9.1
+## iClicker Exercise 9.1 {.slide-your-turn .smaller}
 
 **Select all of the following statements which are TRUE.**
 
-- (A) In medical diagnosis, false positives are more damaging than false negatives (assume "positive" means the person has a disease, "negative" means they don't).
-- (B) In spam classification, false positives are more damaging than false negatives (assume "positive" means the email is spam, "negative" means they it's not).
+- (A) In screening where a missed disease delays urgent treatment and a false alarm triggers a low-risk follow-up, prioritize precision over recall.
+- (B) If a spam filter deletes flagged mail, losing a crucial legitimate email can be more costly than letting a spam email reach the inbox (positive = spam).
 - (C) If method A gets a higher accuracy than method B, that means its precision is also higher.
 - (D) If method A gets a higher accuracy than method B, that means its recall is also higher.
 
-## Counter examples
+::: {.notes}
+Answer: B. A reverses the stated priority; C and D do not follow from accuracy.
+:::
 
-Method A - higher accuracy but lower precision
+## Counterexamples {.smaller}
 
-| Negative | Positive
-| -------- |:-------------:|
-| 90      | 5|
-| 5      | 0|
+Both models see the same 95 negative and 5 positive examples.
 
-Method B - lower accuracy but higher precision
+| Model | Actual class | Predicted negative | Predicted positive |
+|---|---|---:|---:|
+| A | Negative | 90 (TN) | 5 (FP) |
+| A | Positive | 5 (FN) | 0 (TP) |
+| B | Negative | 80 (TN) | 15 (FP) |
+| B | Positive | 0 (FN) | 5 (TP) |
 
-| Negative | Positive
-| -------- |:-------------:|
-| 80      | 15|
-| 0      | 5|
+| Model | Accuracy | Precision | Recall |
+|---|---:|---:|---:|
+| A | 0.90 | 0 | 0 |
+| B | 0.85 | 0.25 | 1 |
 
-## Takeaway
+Higher accuracy does not guarantee higher precision or recall.
+
+## Takeaway {.slide-summary}
 
 - **Accuracy** summarizes overall correctness but hides class-specific behaviour.  
 - You can have **high accuracy but poor precision or recall**,  
@@ -272,146 +343,144 @@ Method B - lower accuracy but higher precision
 
 # Threshold-based classification
 
-## Predicting with logistic regression 
+## Predicting with logistic regression {.slide-your-turn}
 
-:::: {.columns}
-:::{.column width="40%"}
-![](img/lr-threshold.png)
-:::
-:::{.column width="60%"}
-- Most classification models don't directly predict labels. They predict scores or probabilities.
-- To get a label (e.g., "fraud" or “non fraud"), we choose a threshold (often 0.5).
-If the threshold changes, predictions change, and so do the errors. 
-- What happens to precision and recall if we change the probability threshold? 
-- [Play with classification thresholds](https://developers.google.com/machine-learning/crash-course/classification/thresholding)
+![](img/fraud-thresholding.png){.nostretch fig-align="center" width="950px"}
 
-::: 
-::::
+Move from the medium to the low threshold. Which transactions become TP or FP?
+
+**Precision arrows show a tendency, not a guarantee.** Scores stay fixed.
 
 ::: {.notes}
-- Decreasing the threshold:
-  - Increases the number of positive predictions
-  - Identify more examples as "fraud" examples
-  - More false positives, more true positives. 
-  - Recall would either stay the same or go up and precision is likely to go down (precision may increase if all the new examples after decreasing the threshold are TPs).
-- Increasing the threshold:
-  - Decreases the number of positive predictions
-  - Recall would go down or stay the same but precision is likely to go up (precision may go down if TP decrease but FP do not decrease).
+Predict fraud for scores at least the threshold. Moving from medium to low adds two fraud cases and two non-fraud cases. Recall increases. Precision depends on the mix added. Threshold changes do not refit the model or improve its ranking.
+:::
 
-- Key question: How do we decide on the best threshold? It depends on the problem and trade-offs between false positives and false negatives.
+## Same model, different thresholds {.smaller}
+
+```{python}
+#| echo: true
+valid_scores = pipe.predict_proba(X_valid)[:, 1]
+
+def threshold_metrics(y_true, scores, threshold):
+    predictions = scores >= threshold
+    tn, fp, fn, tp = confusion_matrix(y_true, predictions, labels=[0, 1]).ravel()
+    return {"Threshold": threshold, "Caught (TP)": tp, "Missed (FN)": fn,
+            "False alarms (FP)": fp,
+            "Precision": precision_score(y_true, predictions, zero_division=0),
+            "Recall": recall_score(y_true, predictions),
+            "F1": f1_score(y_true, predictions)}
+
+threshold_table = pd.DataFrame([
+    threshold_metrics(y_valid, valid_scores, t) for t in [0.5, 0.1, 0.01]])
+threshold_table.round(3)
+```
+
+Lowering the threshold cannot decrease recall on fixed data.
+Precision can increase or decrease.
+
+## Your turn: can both metrics improve? {.slide-your-turn}
+
+Start with **TP=6, FP=4, FN=2, TN=88**.
+Lowering the threshold flags three more transactions: **two fraud, one legitimate**.
+
+1. Calculate the new precision and recall.
+2. Does this contradict the usual trade-off?
+
+::: {.notes}
+New counts: TP=8, FP=5, FN=0, TN=87. Precision rises from 0.60 to 8/13 ≈ 0.615; recall rises from 0.75 to 1. Precision need not decrease when the threshold falls.
 :::
 
 ## PR curve
-- Calculate precision and recall (TPR) at every possible threshold and graph them. 
-- Top left $\rightarrow$ Very high threshold (strict model = high precision)
-- Bottom right $\rightarrow$ Very low threshold (linient model = high recall)
+
+- Horizontal axis: **recall**; vertical axis: **precision**.
+- Lower thresholds move toward greater recall; precision can move either way.
+- Desirable region: **top right**.
 
 ```{python}
-from sklearn.metrics import PrecisionRecallDisplay
-
-PrecisionRecallDisplay.from_estimator(
-    pipe,
-    X_valid,
-    y_valid,
-);
+fig, ax = plt.subplots(figsize=(7, 3.5))
+PrecisionRecallDisplay.from_estimator(pipe, X_valid, y_valid, ax=ax)
+ax.axhline(y_valid.mean(), color="gray", linestyle="--", label="Fraud prevalence")
+for row in threshold_table.to_dict("records"):
+    ax.scatter(row["Recall"], row["Precision"], color="red")
+    ax.annotate(f't={row["Threshold"]}', (row["Recall"], row["Precision"]),
+                xytext=(5, -12), textcoords="offset points")
+ax.legend(loc="lower left")
+plt.show()
 ```
 
 ::: {.notes}
-
-- We can look at all possible thresholds and plot the corresponding precision and recall! 
-
-- As we lower the threshold, the classifier predicts more positives:
-  - Recall increases because we capture more true positives.
-  - Precision usually decreases because some of the additional positives are false positives.
-
-- As we raise the threshold, the classifier predicts fewer positives:
-  - Precision increases because only the most confident predictions are positive.
-  - Recall decreases because we miss more true positives.
-
-- The curve shows the trade-offs between precision and recall across all thresholds.
-- Ideal performance: top-right corner (high precision and high recall).
-- Use cases like fraud detection often require focusing on areas of the curve that favor one metric over the other (e.g., high recall for safety-critical tasks).
+Predicting everything positive gives recall 1 and precision equal to prevalence. Prevalence is also a reference for an uninformative ranking. The no-positive endpoint has undefined precision, conventionally displayed as 1.
 :::
 
-## PR curve different thresholds
+## Your turn: choose an operating point {.slide-your-turn}
 
-- Which of the red dots are reasonable trade offs? 
+The bank needs **recall of at least 0.8** and wants the most reliable alerts.
 
-![](img/pr-curve-different-thresholds.png)
-
-## Average Precision (AP) Score 
-
-:::: {.columns}
-:::{.column width="60%"}
-- AP score summarizes the PR curve by calculating the area under the curve 
-- It measures the ranking ability of a model; how well it assigns higher probabilities to positive examples than to negative ones, regardless of the specific threshold.
-:::
-:::{.column width="40%"}
 ```{python}
-from sklearn.svm import SVC
-num_iter = 1000 # change to 1000 
-
-pipe_svc = make_pipeline(StandardScaler(), SVC(max_iter=num_iter))
-pipe_svc.fit(X_train, y_train)
-pipe_lr = make_pipeline(StandardScaler(), LogisticRegression(max_iter=num_iter))
-pipe_lr.fit(X_train, y_train)
-
-_, ax = plt.subplots()
-
-PrecisionRecallDisplay.from_estimator(
-    pipe_lr,
-    X_valid,
-    y_valid,
-    name="LR",
-    ax=ax
-);
-PrecisionRecallDisplay.from_estimator(
-    pipe_svc,
-    X_valid,
-    y_valid,
-    name="SVC",
-    ax=ax
-);
+threshold_table.round(3)
 ```
+
+Which of these thresholds qualifies? Which qualifying threshold has highest precision?
+
+::: {.notes}
+Use the displayed validation results. This compares only the three shown thresholds, not every possible threshold. A review-capacity constraint could change the choice.
 :::
-::::
 
-## iClicker Exercise
+## Average Precision (AP) Score
 
-Choose the appropriate evaluation metric for the following scenarios: 
+- AP weights precision by the **increase in recall** at each step.
+- It rewards retrieving positives early in the ranking.
+- It is **not** the trapezoidal area connecting PR points.
+- It accepts probabilities or decision scores; it does not measure calibration.
 
-**Scenario 1:** Balance between precision and recall for a threshold.
+```{python}
+#| echo: true
+average_precision_score(y_valid, valid_scores)
+```
 
-**Scenario 2:** Assess performance across all thresholds.
+**F1:** labels at one threshold. **AP:** ranking across thresholds.
+
+## iClicker Exercise 9.2 {.slide-your-turn}
+
+Choose the appropriate evaluation metric:
+
+**Scenario 1:** Balance precision and recall at one threshold.
+
+**Scenario 2:** Summarize retrieval of positives across thresholds.
 
 - (A) F1 for 1, AP for 2
-
-- (B) AP for 1, F1 Score for 2
-
-- (C) AP for both 
-
-- (D) F1 for both 
+- (B) AP for 1, F1 for 2
+- (C) AP for both
+- (D) F1 for both
 
 ::: {.notes}
-- F1 score is for a given threshold and measures the quality of `predict`.
-- AP score is a summary across thresholds and measures the quality of `predict_proba`.
+Answer: A. AP uses scores, including decision_function outputs; it does not require predict_proba.
 :::
 
-## iClicker Exercise 9.2
+## iClicker Exercise 9.3 {.slide-your-turn}
 
-**Select all of the following statements which are TRUE.**
+On the same fixed examples, select all TRUE statements.
 
-- (A) If we increase the classification threshold, both true and false positives are likely to decrease.
-- (B) If we increase the classification threshold, both true and false negatives are likely to decrease.
-- (C) Lowering the classification threshold generally increases the model’s recall.  
-- (D) Raising the classification threshold can improve the precision of the model if it effectively reduces the number of false positives without significantly affecting true positives.
+- (A) Raising the threshold cannot increase TP or FP.
+- (B) Raising the threshold cannot increase TN or FN.
+- (C) Lowering the threshold cannot decrease recall.
+- (D) Raising the threshold can improve precision, but need not.
 
+::: {.notes}
+Answers: A, C, D. Raising the threshold moves predicted positives to negatives, so TN and FN can increase. Counts can stay unchanged between scores.
+:::
 
-## ROC Curve 
+## ROC curve
 
-- Compute the **True Positive Rate (TPR)** and **False Positive Rate (FPR)** at **every possible threshold**, and plot **TPR** vs **FPR**.  
-- How well does the model separate positive and negative classes in terms of predicted probability?
-- A good choice when the dataset is **reasonably balanced** or **not extremely imbalanced** (e.g., fraud detection, disease diagnosis).  
+$$
+\text{TPR}=\text{Recall}=\frac{TP}{TP+FN}, \qquad
+\text{FPR}=\frac{FP}{FP+TN}
+$$
+
+- Plot **TPR versus FPR** as the threshold varies.
+- FPR: fraction of actual negatives flagged.
+- $1-\text{precision}$: fraction of alerts that are false alarms.
+- Desirable region: **top left**.
 
 ## ROC Curve example 
 
@@ -420,32 +489,120 @@ Choose the appropriate evaluation metric for the following scenarios:
 
 ![](img/roc-curve-example.png)
 
-## AUC 
-- The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative.
+## ROC AUC
+- The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative (ties count as half).
 
-## ROC AUC questions
+## Why a small FPR can still mean many false alarms
 
-Consider the points A, B, and C in the following diagram, each representing a threshold. Which threshold would you pick in each scenario?
+Suppose **100 of 100,000** transactions are fraud.
 
-:::: {.columns}
+At **80% recall** and **1% FPR**:
 
-:::{.column width="50%"}
-![](img/auc_abc)
+- Fraud caught: 80.
+- Legitimate transactions flagged: 999.
+- Precision: $80/(80+999) \approx 7.4\%$.
+
+**PR** shows alert reliability; **ROC** shows the fraction of negatives affected.
+Both are useful with imbalanced data. Inspect the operating region and counts.
+
+## iClicker Exercise 9.4: which model? {.slide-your-turn}
+
+The review team requires **recall ≥ 0.8**, then maximizes precision.
+
+| Model | AP | Best validation precision meeting the requirement |
+|---|---:|---:|
+| A | 0.90 | 0.50 |
+| B | 0.86 | 0.70 |
+
+Which model meets the stated goal better? Why can the AP ranking disagree?
+
+::: {.notes}
+Choose B under this objective. AP summarizes the whole ranking; A may perform better elsewhere. Neither validation result is an independent final evaluation.
 :::
 
-:::{.column width="50%"}
+# From metrics to a decision rule
 
-- (A) If false positives (false alarms) are highly costly
-- (B) If false positives are cheap and false negatives (missed true positives) highly costly
-- (C) If the costs are roughly equivalent
+## Compare several metrics with cross-validation {.smaller}
+
+```{python}
+#| echo: true
+cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=42)
+scoring = ["accuracy", "precision", "recall", "f1", "average_precision", "roc_auc"]
+cv_results = cross_validate(pipe, X_train, y_train, cv=cv, scoring=scoring)
+pd.Series({metric: cv_results[f"test_{metric}"].mean()
+           for metric in scoring}, name="Mean CV score").round(3)
+```
+
+- Accuracy, precision, recall, F1 use **class predictions**.
+- AP and ROC AUC use **scores**.
+- Here, `test_` means held-out **CV folds**, not the reserved test set.
+
+## Select a pipeline, then a threshold
+
+1. **Training/CV:** compare candidate pipelines with an explicit objective, e.g. `GridSearchCV(..., scoring="average_precision")`.
+2. **Validation:** choose the threshold for the operational goal, e.g. maximize precision subject to **recall ≥ 0.8**.
+3. **Test:** evaluate the frozen fitted pipeline and threshold once.
+
+The highest CV AP need not yield the best precision at the required recall.
+
+::: {.notes}
+This two-stage strategy is convenient, not a guarantee of the best constrained solution. Specify the requirement before examining results. Validation scores used for selection are optimistic estimates of the selected system.
 :::
-::::
 
-[Source](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)
+## Choose a validation threshold {.smaller}
 
-## What did we learn? 
-- Why accuracy is not always a good metric?
-- Confusion matrix
-- Precision, recall, & f1-score
-- Precision-recall curves & average precision
-- Receiver Operator Characteristic (ROC) curves & AUC
+```{python}
+#| echo: true
+from sklearn.metrics import precision_recall_curve
+precision, recall, thresholds = precision_recall_curve(y_valid, valid_scores)
+candidates = pd.DataFrame({"Threshold": thresholds,
+    "Precision": precision[:-1], "Recall": recall[:-1]})
+qualifying = candidates[candidates["Recall"] >= 0.8]
+chosen = qualifying.sort_values(
+    ["Precision", "Threshold"], ascending=[False, False]).iloc[0]
+chosen.to_frame("Chosen validation operating point").round(3)
+```
+
+This demonstration keeps our fitted logistic-regression pipeline fixed.
+The validation score helped select the threshold; it is not a final estimate.
+
+## iClicker Exercise 9.5: find the leak {.slide-your-turn}
+
+A student selects a pipeline using CV, tries **100 thresholds on the test set**, and reports the highest test F1.
+
+“The test set was never passed to `fit`, so the evaluation is independent.”
+
+Is this correct? How would you repair the workflow?
+
+::: {.notes}
+No. Threshold selection uses test labels to choose a decision rule. Select thresholds on development data and freeze the fitted pipeline and threshold before independent evaluation. Once test results guide selection, fresh held-out data is needed to evaluate the revised system.
+:::
+
+## Final evaluation: freeze both choices {.smaller}
+
+```{python}
+#| echo: true
+chosen_threshold = chosen["Threshold"]
+test_scores = pipe.predict_proba(X_test)[:, 1]
+pd.DataFrame([threshold_metrics(y_test, test_scores, chosen_threshold)]).round(3)
+```
+
+- Report **counts** as well as scores to show the scale of the mistakes.
+- Do not adjust the model or threshold after seeing these results.
+- Refitting can change scores; the chosen threshold may no longer transfer.
+
+::: {.notes}
+We keep the fitted pipeline unchanged and do not refit on validation data. In a broader search, the pipeline would first be selected within training CV. Repeatedly changing objectives after examining validation plots adds selection bias.
+:::
+
+## Summary questions {.slide-summary .slide-your-turn}
+
+1. Why can **accuracy** be misleading on imbalanced data? What do **FP and FN** reveal that accuracy hides?
+2. When would you prioritize **precision** or **recall**, and when is **F1** useful?
+3. How do **AP and ROC AUC** differ from metrics at one threshold? Where should we select the pipeline and threshold before final evaluation?
+
+::: {.notes}
+- A majority-class classifier can have high accuracy while missing the rare positive class. A confusion matrix separates false alarms (FP) from missed positives (FN).
+- Prioritize precision when false alarms are costly, recall when missed positives are costly, and F1 when balancing precision and recall at a chosen threshold.
+- AP and ROC AUC summarize rankings; precision, recall, and F1 describe labels at a chosen threshold. Select the pipeline in training CV and the threshold on validation data; evaluate the frozen system on an untouched test set.
+:::
