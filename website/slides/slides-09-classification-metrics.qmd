@@ -27,7 +27,7 @@ editor:
 
 ## Focus on the breath!
 
-![](img/inukshuk.jpeg){.nostretch fig-align="center" width="600px"}
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
 ## Announcements 
 
@@ -58,9 +58,6 @@ from sklearn.metrics import (ConfusionMatrixDisplay, PrecisionRecallDisplay,
 1. When can **accuracy** mislead us, and what does a **confusion matrix** reveal?
 2. How do we choose between **precision, recall, and F1** based on the cost of errors?
 3. How do **thresholds and ranking metrics** help us choose a decision rule, and how do we evaluate it independently?
-
-## ML workflow 
-![](img/ml-workflow.png)
 
 ## Accuracy
 
@@ -165,14 +162,14 @@ plt.show()
 :::
 
 :::{.column width="60%"}
-- Actual Non-fraud, predicted Non-fraud
-  - TN $\rightarrow$ True negatives 
-- Actual Non-fraud, predicted Fraud  
-  - FP $\rightarrow$ False positives 
-- Actual Fraud, predicted Non-fraud
-  - FN $\rightarrow$ False negatives
-- Actual Fraud, predicted Fraud
-  - TP $\rightarrow$ True positives 
+- ✅ True negatives (TN):<br>
+Actual Non-fraud, predicted Non-fraud
+- ✅ True positives (TP):<br> 
+Actual Fraud, predicted fraud
+- ❌ False positives (FP):<br> 
+Actual Non-fraud, predicted Fraud  
+- ❌ False negatives (FN):<br> 
+Actual Fraud, predicted Non-fraud 
 :::
 ::::
 
@@ -180,7 +177,7 @@ plt.show()
 
 ## Confusion matrix questions {.slide-your-turn}
 
-Imagine a spam filter model where emails labeled **1 = spam, 0 = not spam**. 
+Imagine a spam filter model where emails labeled <br> **1 = spam, 0 = not spam**. 
 
 If a spam email is incorrectly classified as not spam, what kind of error is this?
 
@@ -260,7 +257,7 @@ High recall means a small **fraction of actual positives** are missed.
 
 ## Your turn: calculate the metrics {.slide-your-turn}
 
-A toy detector has **TP=6, FP=4, FN=2, TN=88**.
+A toy fraud detector has **TP=6, FP=4, FN=2, TN=88**.
 
 1. What are its precision and recall?
 2. Which denominator counts alerts? Which counts actual fraud cases?
@@ -274,7 +271,7 @@ Precision = 6/10 = 0.60. Recall = 6/8 = 0.75. Alerts = TP+FP; actual positives =
 - Increasing **recall** often decreases **precision**, and vice versa.  
 - Example:  
   - Predict *“fraud”* for every transaction $\rightarrow$ perfect recall, terrible precision.  
-  - Use a very high threshold $\rightarrow$ high precision, low recall.
+  - Predict *“fraud”* only when the predicted probability of fraud is $> 0.95$ $\rightarrow$ typically high precision, low recall.
 
 **The right balance depends on the application and cost of errors.**
 
@@ -284,15 +281,13 @@ Precision = 6/10 = 0.60. Recall = 6/8 = 0.75. Alerts = TP+FP; actual positives =
 - The **F1-score** is the **harmonic mean** of the two:
 
 $$
-F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2TP}{2TP + FP + FN}
 $$
 
 - High **F1** means both precision and recall are strong.  
 - F1 ignores TN and does **not** encode financial costs or review capacity.
 
-```{python}
-print(f"Fraud detector F1 = 2 × {tp} / (2 × {tp} + {fp} + {fn}) = {2*tp/(2*tp+fp+fn):.3f}")
-```
+For the toy fraud detector (TP=6, FP=4, FN=2):
 
 ## Summary {.slide-summary}
 
@@ -343,6 +338,13 @@ Higher accuracy does not guarantee higher precision or recall.
 
 # Threshold-based classification
 
+## From probabilities to predictions
+
+- `predict(X)` returns a class label: fraud or non-fraud.
+- `predict_proba(X)` returns estimated probabilities for each class.
+- We can choose a threshold: predict fraud when its estimated probability exceeds that value.
+- Changing the threshold changes the predictions without retraining the model.
+
 ## Predicting with logistic regression {.slide-your-turn}
 
 ![](img/fraud-thresholding.png){.nostretch fig-align="center" width="950px"}
@@ -391,13 +393,11 @@ New counts: TP=8, FP=5, FN=0, TN=87. Precision rises from 0.60 to 8/13 ≈ 0.615
 :::
 
 ## PR curve
+:::: {.columns}
 
-- Horizontal axis: **recall**; vertical axis: **precision**.
-- Lower thresholds move toward greater recall; precision can move either way.
-- Desirable region: **top right**.
-
+:::{.column width="45%"}
 ```{python}
-fig, ax = plt.subplots(figsize=(7, 3.5))
+fig, ax = plt.subplots(figsize=(7, 5))
 PrecisionRecallDisplay.from_estimator(pipe, X_valid, y_valid, ax=ax)
 ax.axhline(y_valid.mean(), color="gray", linestyle="--", label="Fraud prevalence")
 for row in threshold_table.to_dict("records"):
@@ -407,6 +407,14 @@ for row in threshold_table.to_dict("records"):
 ax.legend(loc="lower left")
 plt.show()
 ```
+:::
+:::{.column width="45%"}
+
+- Horizontal axis: **recall**; vertical axis: **precision**.
+- Lower thresholds move toward greater recall; precision can move either way.
+- Desirable region: **top right**.
+:::
+::::
 
 ::: {.notes}
 Predicting everything positive gives recall 1 and precision equal to prevalence. Prevalence is also a reference for an uninformative ranking. The no-positive endpoint has undefined precision, conventionally displayed as 1.
@@ -431,7 +439,7 @@ Use the displayed validation results. This compares only the three shown thresho
 - AP weights precision by the **increase in recall** at each step.
 - It rewards retrieving positives early in the ranking.
 - It is **not** the trapezoidal area connecting PR points.
-- It accepts probabilities or decision scores; it does not measure calibration.
+- AP measures the quality of the ranking, not the accuracy of the predicted probabilities.
 
 ```{python}
 #| echo: true
@@ -483,11 +491,18 @@ $$
 - Desirable region: **top left**.
 
 ## ROC Curve example 
+:::: {.columns}
 
-- **Bottom-left** $\rightarrow$ very high threshold (almost everything predicted negative: low recall, low FPR).  
-- **Top-right**  $\rightarrow$ very low threshold (almost everything predicted positive: high recall, high FPR).  
+:::{.column width="45%"}
 
 ![](img/roc-curve-example.png)
+:::
+:::{.column width="55%"}
+- **Bottom-left** $\rightarrow$ very high threshold (almost everything predicted negative: low recall, low FPR).  
+- **Top-right**  $\rightarrow$ very low threshold (almost everything predicted positive: high recall, high FPR).  
+:::
+::::
+
 
 ## ROC AUC
 - The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative (ties count as half).
@@ -606,3 +621,4 @@ We keep the fitted pipeline unchanged and do not refit on validation data. In a 
 - Prioritize precision when false alarms are costly, recall when missed positives are costly, and F1 when balancing precision and recall at a chosen threshold.
 - AP and ROC AUC summarize rankings; precision, recall, and F1 describe labels at a chosen threshold. Select the pipeline in training CV and the threshold on validation data; evaluate the frozen system on an untouched test set.
 :::
+
