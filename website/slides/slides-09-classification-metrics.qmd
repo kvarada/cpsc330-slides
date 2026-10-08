@@ -59,17 +59,6 @@ from sklearn.metrics import (ConfusionMatrixDisplay, PrecisionRecallDisplay,
 2. How do we choose between **precision, recall, and F1** based on the cost of errors?
 3. How do **thresholds and ranking metrics** help us choose a decision rule, and how do we evaluate it independently?
 
-## Accuracy
-
-- So far, we’ve been measuring model performance using **Accuracy**.  
-- **Accuracy** is the proportion of all predictions that were correct — whether *positive* or *negative*.  
-
-$$
-\text{Accuracy} = \frac{\text{correct classifications}}{\text{total classifications}}
-$$
-
-- But is **accuracy** always the right metric to evaluate a model? 🤔  
-
 ## A fraud classification example {.smaller}
 
 - Each row is a transaction; **1 = fraud (positive), 0 = non-fraud**.
@@ -95,6 +84,10 @@ Stratification preserves proportions; it does not balance the classes. Random sp
 :::
 
 ## Problem: Class imbalance
+
+$$
+\text{Accuracy} = \frac{\text{correct classifications}}{\text{total classifications}}
+$$
 
 ```{python}
 counts = y_train.value_counts().reindex([0, 1])
@@ -173,8 +166,6 @@ Actual Fraud, predicted Non-fraud
 :::
 ::::
 
-# Practice: confusion matrix terminology
-
 ## Confusion matrix questions {.slide-your-turn}
 
 Imagine a spam filter model where emails labeled <br> **1 = spam, 0 = not spam**. 
@@ -190,31 +181,6 @@ If a spam email is incorrectly classified as not spam, what kind of error is thi
 Answer: C (false negative).
 :::
 
-## Confusion matrix questions {.slide-your-turn}
-
-In a medical test for a disease, **1 = diseased, 0 = healthy**. 
-
-If a healthy patient is incorrectly diagnosed as diseased, that's a:
-
-- (A) A false positive
-- (B) A true positive
-- (C) A false negative
-- (D) A true negative
-
-::: {.notes}
-Answer: A (false positive).
-:::
-
-## Metrics other than accuracy 
-
-Now that we understand the different types of errors, we can explore metrics that better capture model performance when **accuracy falls short**, especially for **imbalanced datasets**.
-
-We'll start with three key ones:
-
-- **Precision**
-- **Recall**
-- **F1-score**
-
 ## Precision and recall
 
 - **Precision:** Of the transactions flagged, what fraction were fraud?
@@ -225,7 +191,7 @@ $$
 \text{Recall}=\frac{TP}{TP+FN}
 $$
 
-## 
+## Precision and recall on our validation set
 :::: {.columns}
 
 :::{.column width="35%"}
@@ -259,8 +225,7 @@ High recall means a small **fraction of actual positives** are missed.
 
 A toy fraud detector has **TP=6, FP=4, FN=2, TN=88**.
 
-1. What are its precision and recall?
-2. Which denominator counts alerts? Which counts actual fraud cases?
+- What are its precision and recall?
 
 ::: {.notes}
 Precision = 6/10 = 0.60. Recall = 6/8 = 0.75. Alerts = TP+FP; actual positives = TP+FN.
@@ -287,7 +252,7 @@ $$
 - High **F1** means both precision and recall are strong.  
 - F1 ignores TN and does **not** encode financial costs or review capacity.
 
-For the toy fraud detector (TP=6, FP=4, FN=2):
+For the toy fraud detector: $F1 = 12/(12+4+2) \approx 0.67$.
 
 ## Summary {.slide-summary}
 
@@ -309,6 +274,22 @@ For the toy fraud detector (TP=6, FP=4, FN=2):
 
 ::: {.notes}
 Answer: B. A reverses the stated priority; C and D do not follow from accuracy.
+
+Both models see the same 95 negative and 5 positive examples.
+
+| Model | Actual class | Predicted negative | Predicted positive |
+|---|---|---:|---:|
+| A | Negative | 90 (TN) | 5 (FP) |
+| A | Positive | 5 (FN) | 0 (TP) |
+| B | Negative | 80 (TN) | 15 (FP) |
+| B | Positive | 0 (FN) | 5 (TP) |
+
+| Model | Accuracy | Precision | Recall |
+|---|---:|---:|---:|
+| A | 0.90 | 0 | 0 |
+| B | 0.85 | 0.25 | 1 |
+
+Higher accuracy does not guarantee higher precision or recall.
 :::
 
 ## Counterexamples {.smaller}
@@ -329,15 +310,6 @@ Both models see the same 95 negative and 5 positive examples.
 
 Higher accuracy does not guarantee higher precision or recall.
 
-## Takeaway {.slide-summary}
-
-- **Accuracy** summarizes overall correctness but hides class-specific behaviour.  
-- You can have **high accuracy but poor precision or recall**,  
-  especially in **imbalanced datasets**.  
-- Always check **multiple metrics** before deciding which model is better.
-
-# Threshold-based classification
-
 ## From probabilities to predictions
 
 - `predict(X)` returns a class label: fraud or non-fraud.
@@ -345,7 +317,7 @@ Higher accuracy does not guarantee higher precision or recall.
 - We can choose a threshold: predict fraud when its estimated probability exceeds that value.
 - Changing the threshold changes the predictions without retraining the model.
 
-## Predicting with logistic regression {.slide-your-turn}
+## Predicting with logistic regression {.slide-your-turn .smaller}
 
 ![](img/fraud-thresholding.png){.nostretch fig-align="center" width="950px"}
 
@@ -357,10 +329,10 @@ Move from the medium to the low threshold. Which transactions become TP or FP?
 Predict fraud for scores at least the threshold. Moving from medium to low adds two fraud cases and two non-fraud cases. Recall increases. Precision depends on the mix added. Threshold changes do not refit the model or improve its ranking.
 :::
 
-## Same model, different thresholds {.smaller}
+## Same model, different thresholds
 
 ```{python}
-#| echo: true
+#| echo: false
 valid_scores = pipe.predict_proba(X_valid)[:, 1]
 
 def threshold_metrics(y_true, scores, threshold):
@@ -434,19 +406,28 @@ Which of these thresholds qualifies? Which qualifying threshold has highest prec
 Use the displayed validation results. This compares only the three shown thresholds, not every possible threshold. A review-capacity constraint could change the choice.
 :::
 
-## Average Precision (AP) Score
+## Average Precision (AP) score example {.smaller}
 
-- AP weights precision by the **increase in recall** at each step.
-- It rewards retrieving positives early in the ranking.
-- It is **not** the trapezoidal area connecting PR points.
-- AP measures the quality of the ranking, not the accuracy of the predicted probabilities.
+| Rank | Predicted P(fraud) | Actual label | Precision so far | Recall so far |
+|---|---|---|---|---|
+| 1 | 0.95 | Positive | 1/1 = 1.00 | 1/3 |
+| 2 | 0.85 | Negative | 1/2 = 0.50 | 1/3 |
+| 3 | 0.80 | Positive | 2/3 = 0.67 | 2/3 |
+| 4 | 0.65 | Positive | 3/4 = 0.75 | 3/3 |
+| 5 | 0.40 | Negative | 3/5 = 0.60 | 3/3 |
+| 6 | 0.20 | Negative | 3/6 = 0.50 | 3/3 |
+
+**Key observation:** Recall increases only when we encounter
+another positive example. AP summarizes precision at the points where recall increases.
+
+::: {.notes}
+AP weights precision by each increase in recall. Retrieving positives earlier, with fewer negatives ahead of them, gives higher AP. It measures ranking quality, not probability accuracy.
 
 ```{python}
 #| echo: true
 average_precision_score(y_valid, valid_scores)
 ```
-
-**F1:** labels at one threshold. **AP:** ranking across thresholds.
+:::
 
 ## iClicker Exercise 9.2 {.slide-your-turn}
 
@@ -463,32 +444,27 @@ Choose the appropriate evaluation metric:
 
 ::: {.notes}
 Answer: A. AP uses scores, including decision_function outputs; it does not require predict_proba.
+
+| F1 Score | Average Precision (AP) |
+|---|---|
+| Evaluates binary predictions at one chosen threshold. | Evaluates prediction scores across thresholds. |
+| Balances precision and recall at that threshold. | Rewards ranking actual positives ahead of negatives. |
+| Changes when the classification threshold changes. | Does not require choosing a single threshold. |
+| Uses predicted class labels. | Uses prediction scores (e.g., probabilities or decision scores). |
 :::
 
-## iClicker Exercise 9.3 {.slide-your-turn}
+## PR vs ROC {.smaller}
 
-On the same fixed examples, select all TRUE statements.
-
-- (A) Raising the threshold cannot increase TP or FP.
-- (B) Raising the threshold cannot increase TN or FN.
-- (C) Lowering the threshold cannot decrease recall.
-- (D) Raising the threshold can improve precision, but need not.
-
-::: {.notes}
-Answers: A, C, D. Raising the threshold moves predicted positives to negatives, so TN and FN can increase. Counts can stay unchanged between scores.
-:::
-
-## ROC curve
+- Both curves use **recall (TPR)**: the fraction of actual fraud caught.
+- **PR** pairs recall with **precision**: the fraction of flagged transactions that are fraud.
+- **ROC** pairs recall with **FPR**: the fraction of legitimate transactions incorrectly flagged.
 
 $$
 \text{TPR}=\text{Recall}=\frac{TP}{TP+FN}, \qquad
 \text{FPR}=\frac{FP}{FP+TN}
 $$
 
-- Plot **TPR versus FPR** as the threshold varies.
-- FPR: fraction of actual negatives flagged.
-- $1-\text{precision}$: fraction of alerts that are false alarms.
-- Desirable region: **top left**.
+ROC plots **TPR versus FPR** as the threshold varies; the desirable region is **top left**.
 
 ## ROC Curve example 
 :::: {.columns}
@@ -503,9 +479,32 @@ $$
 :::
 ::::
 
+## ROC Curve example {.smaller visibility="hidden"}
+
+| Threshold | New transaction | Actual label | TPR (Recall) | FPR |
+|---|---|---|---|---|
+| > 0.95 | None | — | 0 | 0 |
+| 0.95 | 1 | Positive | 1/3 | 0 |
+| 0.85 | 2 | Negative | 1/3 | 1/3 |
+| 0.80 | 3 | Positive | 2/3 | 1/3 |
+| 0.65 | 4 | Positive | 3/3 | 1/3 |
+| 0.40 | 5 | Negative | 3/3 | 2/3 |
+| 0.20 | 6 | Negative | 3/3 | 3/3 |
+
+- Start with a threshold above 0.95: Nothing is predicted as positive.
+- As we lower the threshold, more transactions are predicted as positive.
+- When we include an actual **positive**, TPR increases (move up on the ROC curve).
+- When we include an actual **negative**, FPR increases (move right on the ROC curve).
+- **Goal:** High TPR and low FPR (top-left corner of the ROC curve).
+
+
 
 ## ROC AUC
-- The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative (ties count as half).
+
+The area under the ROC curve (AUC) represents the probability that the model, if given a randomly chosen positive and negative example, will rank the positive higher than the negative (ties count as half).
+
+For example, AUC-ROC = 0.90 means:
+If we randomly pick one fraudulent transaction and one legitimate transaction, there's a 90% chance the model assigns a higher fraud score to the fraudulent transaction, with ties counted as half.
 
 ## Why a small FPR can still mean many false alarms
 
@@ -520,22 +519,31 @@ At **80% recall** and **1% FPR**:
 **PR** shows alert reliability; **ROC** shows the fraction of negatives affected.
 Both are useful with imbalanced data. Inspect the operating region and counts.
 
-## iClicker Exercise 9.4: which model? {.slide-your-turn}
+## Exercise 9.4: which model? {.slide-your-turn}
 
-The review team requires **recall ≥ 0.8**, then maximizes precision.
+The review team wants to catch at least 80% of positive cases (recall ≥ 0.8) while keeping false alarms as low as possible (maximizing precision).
 
 | Model | AP | Best validation precision meeting the requirement |
 |---|---:|---:|
 | A | 0.90 | 0.50 |
 | B | 0.86 | 0.70 |
 
-Which model meets the stated goal better? Why can the AP ranking disagree?
+Questions:
+
+- Which model would you choose for this application?
 
 ::: {.notes}
-Choose B under this objective. AP summarizes the whole ranking; A may perform better elsewhere. Neither validation result is an independent final evaluation.
-:::
 
-# From metrics to a decision rule
+Choose Model B because it achieves higher precision (0.70 vs. 0.50) while satisfying the recall requirement.
+
+AP summarizes precision across the entire recall range, not just recall ≥ 0.8.
+
+Model A may have better precision at lower recall levels, resulting in a higher overall AP.
+
+This illustrates why the evaluation metric should align with the application's operating requirements.
+
+Both results come from validation data; final performance should be evaluated on an independent test set.
+:::
 
 ## Compare several metrics with cross-validation {.smaller}
 
@@ -562,9 +570,8 @@ The highest CV AP need not yield the best precision at the required recall.
 
 ::: {.notes}
 This two-stage strategy is convenient, not a guarantee of the best constrained solution. Specify the requirement before examining results. Validation scores used for selection are optimistic estimates of the selected system.
-:::
 
-## Choose a validation threshold {.smaller}
+Threshold-selection implementation:
 
 ```{python}
 #| echo: true
@@ -580,12 +587,13 @@ chosen.to_frame("Chosen validation operating point").round(3)
 
 This demonstration keeps our fitted logistic-regression pipeline fixed.
 The validation score helped select the threshold; it is not a final estimate.
+:::
 
 ## iClicker Exercise 9.5: find the leak {.slide-your-turn}
 
 A student selects a pipeline using CV, tries **100 thresholds on the test set**, and reports the highest test F1.
 
-“The test set was never passed to `fit`, so the evaluation is independent.”
+"The test set was never passed to `fit`, so the evaluation is independent."
 
 Is this correct? How would you repair the workflow?
 
