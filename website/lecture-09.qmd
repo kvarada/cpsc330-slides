@@ -1,5 +1,5 @@
 ---
-publish-pdf: false
+publish-pdf: true
 title: "Lecture 9: Classification metrics"
 description: "Metrics for classification"
 description-short: "confusion metrics, precision, recall, f1-score, PR curves, AP score, ROC curve, ROC AUC, class imbalance" 
