@@ -35,9 +35,8 @@ editor:
 - Midterm next week. Important information about midterm 1
   - https://edstem.org/us/courses/104703/discussion/8335467
   - **Good news for you: You'll have access to our [course notes](https://ubc-cs.github.io/cpsc330-book/) and sklearn, pandas, and numpy documentation in the midterm!**
-- HW4 was due on Monday, Oct 12th 11:59 pm.
-- HW5 has been released. Due date Oct 26th 11:59 pm. It's a project-type assignment where you'll put it all together. Start early.
-
+- HW4 was due Monday, Oct 12 at 11:59 pm.
+- HW5 is now available and due Oct 26 at 11:59 pm. This project brings together what you've learned. Start early!
 
 ## Which metric fits best? {.slide-your-turn .smaller}
 
@@ -72,7 +71,7 @@ Source: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.averag
 - What's the difference between the average precision (AP) score and F1-score?
 - Which model would you pick if **high recall** is essential?
 
-![](img/pr-curve-which-model.png)
+![](img/pr-curve-which-model.png){.nostretch fig-align="center" width="400px"}
 
 ::: {.notes}
 F1 evaluates binary decisions at a chosen threshold; AP summarizes the precision–recall ranking across thresholds. Ask which recall region matters before choosing a curve. Crossing curves do not imply a universally best model.
@@ -102,18 +101,18 @@ Source: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_au
 Start at 0.50 on the balanced example. Ask students to predict what lowering the threshold does to TP, FP, recall, and FPR; precision can move either way. Move to 1.00 (no alerts) and 0.00 (everyone flagged). Switch to rare positives at the same threshold: recall, FPR, ROC curve, and ROC AUC remain the same because each negative score is replicated equally; FP counts increase, precision drops, and PR/AP change. These are synthetic scores, not calibrated probabilities. Thresholding uses score >= threshold. AP is recall-weighted step precision; ROC AUC uses trapezoids with tied scores grouped. At no predicted positives, precision is undefined; the PR endpoint (0,1) is a plotting convention, not an observed precision. For PDF delivery, use the static rare-positive calculation on the following slides and open the standalone demo in a browser.
 :::
 
-## ROC AUC: Baseline and interpretation
+## ROC AUC: Baseline and interpretation {.smaller}
 
 :::: {.columns}
 :::{.column width="50%"}
-![](img/roc-baseline.png)
+![](img/roc-baseline.png){.nostretch fig-align="center" width="400px"}
 :::
 :::{.column width="50%"}
 - **AUC = 1:** Perfect separation in the evaluated sample.
-- **AUC = 0.5:** No-skill ranking reference.
+- **AUC = 0.5:** Baseline ranking reference.
 - **AUC < 0.5:** Ranking worse than that reference.
 
-AUC is the probability that a randomly chosen positive scores above a randomly chosen negative, **with half credit for ties**.
+AUC is the probability that a randomly chosen positive scores above a randomly chosen negative. 
 :::
 ::::
 
@@ -265,7 +264,7 @@ $$\operatorname{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2,
 - MSE has squared target units; RMSE has target units.
 - Both have a best value of zero; smaller is better.
 
-A \$20,000 error contributes **four times** as much squared error as a \$10,000 error.
+A \$20,000 error contributes **four times** as much to MSE as a \$10,000 error.
 
 ::: {.notes}
 MSE and RMSE rank models identically on one fixed evaluation set. Mean fold RMSE is not generally the square root of mean fold MSE; use the desired CV scorer directly.
@@ -282,7 +281,6 @@ Absolute errors on three houses:
 
 1. Which model has lower MAE?
 2. Which model has lower RMSE?
-3. Which errors would matter more in your application?
 
 ::: {.notes}
 Both MAEs are \$10,000. RMSE A ≈ \$17,321; RMSE B = \$10,000. RMSE penalizes the concentrated large mistake more. Neither automatically represents the application's actual costs. Run notebook cell 49 after students predict.
