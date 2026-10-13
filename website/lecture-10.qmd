@@ -1,0 +1,31 @@
+---
+publish-pdf: true
+title: "Lecture 10: Regression metrics"
+description: "Metrics for Regression"
+description-short: "Classification metrics revision, ridge and alpha, MAE, MSE, RMSE, R2, MAPE, cross-validation scoring, target transformations" 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-10-regression-metrics.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-10-regression-metrics.html" height="600px" class="ratio ratio-16x9" >}}
+
+## Outline
+
+- Revision: Classification metrics and class imbalance
+- Housing data: preprocessing decisions and target leakage
+- Ridge regression and tuning `alpha` with a complete pipeline
+- MAE, MSE, RMSE, $R^2$, and MAPE
+- Error direction, metric choice, and cross-validation scoring
+- Transforming targets with `TransformedTargetRegressor`
+
+## Notebook
+
+[Chapter 10: Regression metrics](https://github.com/UBC-CS/cpsc330-book/blob/main/book/10_regression-metrics.ipynb)
+
+## Interactive demo
+
+[Explore thresholds on PR and ROC curves](slides/demos/metric-thresholds.html)
