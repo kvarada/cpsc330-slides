@@ -71,7 +71,7 @@ Source: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.averag
 - What's the difference between the average precision (AP) score and F1-score?
 - Which model would you pick if **high recall** is essential?
 
-![](img/pr-curve-which-model.png){.nostretch fig-align="center" width="400px"}
+![](img/PR-curve-which-model.png){.nostretch fig-align="center" width="400px"}
 
 ::: {.notes}
 F1 evaluates binary decisions at a chosen threshold; AP summarizes the precision–recall ranking across thresholds. Ask which recall region matters before choosing a curve. Crossing curves do not imply a universally best model.
@@ -264,7 +264,7 @@ $$\operatorname{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2,
 - MSE has squared target units; RMSE has target units.
 - Both have a best value of zero; smaller is better.
 
-A \$20,000 error contributes **four times** as much to MSE as a \$10,000 error.
+A \$20,000 error contributes **four times** as much to MSE imas a \$10,000 error.
 
 ::: {.notes}
 MSE and RMSE rank models identically on one fixed evaluation set. Mean fold RMSE is not generally the square root of mean fold MSE; use the desired CV scorer directly.
