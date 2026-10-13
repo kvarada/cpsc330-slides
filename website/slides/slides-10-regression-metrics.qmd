@@ -125,7 +125,7 @@ Image source: https://developers.google.com/machine-learning/crash-course/classi
 
 :::: {.columns}
 :::{.column width="60%"}
-![](img/ROC-curve-which-model.png)
+![](img/ROC-curve-which-model.png){.nostretch fig-align="center" width="400px"}
 :::
 :::{.column width="40%"}
 - Which model would you pick if **very few false alarms** are acceptable?
