@@ -1,0 +1,45 @@
+/*-- scss:rules --*/
+.reveal .prediction-tables {
+  .prediction-correct {
+    color: #145e63;
+    font-weight: 700;
+  }
+  .prediction-wrong {
+    color: #984611;
+    font-weight: 700;
+  }
+  table {
+    font-size: 0.7em;
+    width: 100%;
+  }
+  th, td {
+    padding: 0.3em;
+    vertical-align: middle;
+  }
+  th:first-child, td:first-child {
+    white-space: nowrap;
+  }
+  .columns {
+    gap: 1.2em;
+  }
+}
+
+
+.reveal .bootstrap-example {
+  .row-a { color: #145e63; }
+  .row-b { color: #285b9a; }
+  .row-c { color: #984611; }
+  .row-d { color: #70429a; }
+  .row-e { color: #3f6827; }
+  .row-f { color: #a12e64; }
+  [class^="row-"] {
+    font-weight: 700;
+  }
+  table {
+    font-size: 0.72em;
+    width: 100%;
+  }
+  th, td {
+    padding: 0.3em 0.4em;
+  }
+}
