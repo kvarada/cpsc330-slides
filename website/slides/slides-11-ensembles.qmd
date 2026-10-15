@@ -57,9 +57,9 @@ Use this as a discussion prompt, not a question with one correct answer. Diverse
 
 Groups can make better decisions when members contribute useful, different perspectives.
 
-![A crowd illustrating the ensemble analogy](img/wisdom_of_crowds.jpg){.nostretch fig-align="center" width="250px"}
+![](img/wisdom_of_crowds.jpg){.nostretch fig-align="center" width="250px"}
 
-[Source](http://wisdomofcrowds.blogspot.com/2009/12/introduction-part-i.html)
+<center><small>[Source](http://wisdomofcrowds.blogspot.com/2009/12/introduction-part-i.html)</small></center>
 
 ## Can averaging help? {.slide-your-turn}
 
@@ -243,7 +243,7 @@ Before revealing the table, ask which IDs repeat and which are missing from the 
 :::
 ::::
 
-## Why choose a new subset at each split? {.slide-your-turn}
+## Why choose a new subset at each split instead of one subset per tree? {.slide-your-turn}
 
 Suppose `capital.gain` is useful but excluded from the candidates at the first split.
 
@@ -302,9 +302,9 @@ Validation scores need not improve monotonically as trees are added. Use cross-v
 Answer: A. Independent draws need not produce distinct samples. B describes a fixed feature subset per tree, rather than per split. C uses test data for model selection. D describes the sequential idea of boosting. E is contradicted by complementary errors, as in the opening example.
 :::
 
-## Demo: From one tree to a forest
+## Demo
 
-Go to the Demo. 
+Go to the [Demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-11_ensembles-demo.ipynb)
 
 - Trace a prediction through the small forest
 - Compare the tree and forest on the same validation folds
@@ -536,7 +536,5 @@ All have classification and regression versions.
 - Choose using **validation performance and practical cost**
 
 ## Ensembles class demo
-
-Continue with the corresponding **Chapter 11 notebook**.
 
 [Existing class demo notebook](https://github.com/UBC-CS/cpsc330-2026W1/tree/main/content/classes/varada)
