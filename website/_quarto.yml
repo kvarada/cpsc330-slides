@@ -42,7 +42,7 @@ website:
         - lecture-08.qmd
         - lecture-09.qmd
         - lecture-10.qmd
-        # - lecture-11.qmd
+        - lecture-11.qmd
         # - lecture-12.qmd
         # - lecture-13.qmd
         # - lecture-14.qmd
