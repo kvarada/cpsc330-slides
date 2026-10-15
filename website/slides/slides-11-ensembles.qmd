@@ -102,9 +102,9 @@ AI-generated redraw of the ensemble schematic, with separate training and predic
 
 ## Same accuracy, different mistakes {.slide-your-turn .prediction-tables}
 
-Each model gets **2 of 3 correct**. Which ensemble performs better?
+In a binary classification problem, each model gets **2 of 3 correct**. Which ensemble performs better?
 
-[✓ Correct]{.prediction-correct} · [✗ Wrong]{.prediction-wrong} — binary classification
+[✓ Correct]{.prediction-correct} and [✗ Wrong]{.prediction-wrong}
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -137,10 +137,10 @@ All three examples have true class 1. A check means prediction 1; a cross means 
 
 ## Diversity alone isn't enough {.slide-your-turn .prediction-tables}
 
-Each model gets **1 of 3 correct**, on a different example.
+In a binary classification problem, each model gets **1 of 3 correct**, on a different example.
 What does the majority vote predict?
 
-[✓ Correct]{.prediction-correct} · [✗ Wrong]{.prediction-wrong} — binary classification
+[✓ Correct]{.prediction-correct} and [✗ Wrong]{.prediction-wrong}
 
 | Example | Model 1 | Model 2 | Model 3 | Majority vote |
 |---|:---:|:---:|:---:|:---:|
@@ -149,7 +149,7 @@ What does the majority vote predict?
 | Example 3 | [✗]{.prediction-wrong} | [✗]{.prediction-wrong} | [✓]{.prediction-correct} | [✗]{.prediction-wrong .fragment data-fragment-index="1"} |
 
 ::: {.fragment data-fragment-index="1"}
-Majority vote: **0/3 correct** — two wrong predictions outvote one correct prediction on every row.
+Majority vote: **0/3 correct**: two wrong predictions outvote one correct prediction on every row.
 :::
 
 ::: {.notes}
@@ -173,9 +173,27 @@ All three examples again have true class 1; correct predictions are 1 and wrong 
 
 # Random forests
 
-## What can we randomize between trees? {.slide-your-turn}
+## iClicker Exercise 11.1 {.slide-your-turn .smaller}
 
-![A decision tree used to discuss sources of randomness](img/tree-example.png){.nostretch fig-align="center" height="420px"}
+**What could we randomize to build a diverse collection of useful trees? Select all that seem promising.**
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/tree-example.png){.nostretch fig-align="center" height="340px"}
+:::
+
+::: {.column width="50%"}
+- (A) Which training rows each tree sees
+- (B) Which features a split can use
+- (C) The thresholds used for splits
+- (D) The maximum depth of each tree
+- (E) The target labels assigned to training examples
+:::
+::::
+
+::: {.notes}
+Use this as an exploratory poll before introducing how random forests work. A–D are plausible ways to create different trees; students do not need to know any named ensemble method. Randomizing depth is possible, although it is not a defining mechanism of standard random forests. E creates variation but destroys the input–target relationship we want to learn: diversity alone is not enough. Invite students to explain their choices, then introduce random forests' two sources of randomness on the next slide. Random thresholds are also a valid idea, used in Extra Trees; do not mark C wrong simply because standard random forests use optimized thresholds.
+:::
 
 ## Two sources of randomness
 
@@ -213,9 +231,10 @@ Before revealing the table, ask which IDs repeat and which are missing from the 
 
 :::: {.columns}
 ::: {.column width="50%"}
-![Random candidate features at tree splits](img/random-feature-subset.png){.nostretch height="350px"}
+![Random subsets of Adult census features: `education` and `hours.per.week` at one split, `capital.gain` and `hours.per.week` at the next](img/random-feature-subset-adult.png){.nostretch height="350px"}
 
-[Source](https://sebastianraschka.com/pdf/lecture-notes/stat451fs20/07-ensembles__slides.pdf)
+<center><small>Image created by GPT-6.1 Sol</small></center>
+
 :::
 ::: {.column width="50%"}
 - Sample candidate features at each split
@@ -226,13 +245,13 @@ Before revealing the table, ask which IDs repeat and which are missing from the 
 
 ## Why choose a new subset at each split? {.slide-your-turn}
 
-Suppose a useful feature is excluded from a tree's candidate subset.
+Suppose `capital.gain` is useful but excluded from the candidates at the first split.
 
 - **One subset per tree:** when could that tree use the feature?
 - **A new subset per split:** what changes?
 
 ::: {.notes}
-With one fixed subset, the feature is unavailable throughout that tree. With fresh subsets, it may be available at later splits. This preserves access to useful information while encouraging different trees. Neither strategy has a universally fixed level of diversity or predictive strength.
+With one fixed subset, the feature is unavailable throughout that tree. With fresh subsets, it may be available at later splits: capital.gain is grey at the first split and orange at the next in the preceding diagram. The diagram illustrates four features from Adult; actual subsets are sampled from all available transformed features. This preserves access to useful information while encouraging different trees. Neither strategy has a universally fixed level of diversity or predictive strength.
 :::
 
 ## How a forest predicts
@@ -269,7 +288,7 @@ Fewer candidate features encourage diversity but can weaken individual trees.
 Validation scores need not improve monotonically as trees are added. Use cross-validation to investigate tree depth and leaf size as well as forest size. A forest can still overfit.
 :::
 
-## iClicker Exercise 11.1 {.slide-your-turn .smaller}
+## iClicker Exercise 11.2 {.slide-your-turn .smaller}
 
 **Select the most accurate statement about a standard random forest.**
 
@@ -285,7 +304,7 @@ Answer: A. Independent draws need not produce distinct samples. B describes a fi
 
 ## Demo: From one tree to a forest
 
-In the Chapter 11 notebook:
+Go to the Demo. 
 
 - Trace a prediction through the small forest
 - Compare the tree and forest on the same validation folds
@@ -305,35 +324,53 @@ In the Chapter 11 notebook:
 
 Both require validation; neither guarantees better generalization.
 
-## Boosting: Correct the current prediction
+## Boosting example: One starting prediction {.smaller}
 
-For **squared-error regression**:
+Predict house price from **floor area**, using squared-error loss.
+Prices are in **thousands of dollars**; these are invented training data.
 
-1. Start with the mean training target
-2. Compute residuals: actual value − current prediction
-3. Fit a small tree to residuals using the original features
-4. Add a scaled correction, then repeat
+Start by predicting the mean price, **280**, for every house.
+
+| Floor area | Actual price | Starting prediction | Residual: actual − prediction |
+|---:|---:|---:|---:|
+| 50 | 200 | 280 | −80 |
+| 70 | 220 | 280 | −60 |
+| 90 | 260 | 280 | −20 |
+| 110 | 300 | 280 | +20 |
+| 130 | 340 | 280 | +60 |
+| 150 | 360 | 280 | +80 |
+
+**Where should we lower predictions? Where should we raise them?**
 
 ::: {.notes}
-Each new tree corrects the whole current ensemble, not just the immediately preceding tree. A correction tree need not fit each residual exactly. For classification and other losses, corrections depend on the loss; they are not residuals formed by subtracting class labels.
+Use the same six houses as the Chapter 11 notebook. The mean is (200 + 220 + 260 + 300 + 340 + 360)/6 = 280. Residual means actual minus current prediction: negative means we predicted too high; positive means we predicted too low. Point out that the smaller houses need downward corrections and the larger houses need upward corrections. This is a squared-error regression example; classification uses loss-dependent corrections to numerical scores, not subtraction of class labels.
 :::
 
-## One boosting update
+## Boosting example: Learn a correction {.smaller}
 
-Prices in **thousands of dollars**:
+Fit a **one-split tree**: input = floor area; target = residual.
+It splits at **floor area 100** and predicts each group's mean residual.
 
-| Quantity | Value |
+| Houses | Residuals | Tree's correction |
+|---|---|---:|
+| Area ≤ 100 | −80, −60, −20 | −53.3 |
+| Area > 100 | +20, +60, +80 | +53.3 |
+
+::: {.fragment}
+With **learning rate 0.5**, apply half the correction:
+
+| Houses | Updated prediction |
 |---|---:|
-| Actual price | 200 |
-| Current prediction | 280 |
-| Residual | −80 |
-| Tree's predicted correction | −53.3 |
-| Learning rate | 0.5 |
+| Area ≤ 100 | 280 − 26.7 = **253.3** |
+| Area > 100 | 280 + 26.7 = **306.7** |
+:::
 
-**New prediction:** $280 + 0.5(-53.3) \approx 253.3$
+::: {.fragment}
+**Repeat:** compute the remaining errors and fit the next correction tree.
+:::
 
 ::: {.notes}
-This row comes from the chapter's invented house-price example. The small tree groups several houses, so its correction differs from this row's residual. At prediction time, start with the same initial prediction and add all scaled tree corrections. Do not average these trees' outputs.
+The first stump in the notebook splits between areas 90 and 110. Its lower leaf predicts (−80 − 60 − 20)/3 = −53.333…; the upper leaf predicts +53.333…. The learning rate scales these corrections to ±26.666…. Values on the slide are rounded to one decimal; calculations use unrounded values. The first house now has prediction 253.3 instead of 280, so its residual becomes about −53.3 rather than −80. The 90-area house is now predicted slightly too low: the group correction need not improve every individual row, even though it reduces total squared error here. The next tree uses the original floor-area feature and the updated residuals of the entire ensemble. At prediction time, start at 280 and add the scaled outputs of all correction trees; do not average them. The notebook continues for a second round and predicts for a new house. These training calculations illustrate the algorithm; use held-out data to evaluate generalization.
 :::
 
 ## Controlling boosting complexity
