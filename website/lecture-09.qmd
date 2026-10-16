@@ -9,7 +9,7 @@ editor: { render-on-save: true }
 
 ## Slides
 
-[Download slides as PDF](slides/slides-08-hyperparameter-optimization.pdf){.btn .btn-outline-primary download=""}
+[Download slides as PDF](slides/slides-09-classification-metrics.pdf){.btn .btn-outline-primary download=""}
 
 {{< revealjs "slides/slides-09-classification-metrics.html" height="600px" class="ratio ratio-16x9" >}}
 
