@@ -25,21 +25,30 @@ editor:
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-## Announcements
+## Today's big questions {.slide-goals}
 
-- HW4 grades are released
-- HW5 is due next week Monday. Make use of office hours and tutorials this week.
+1. When do we need **model transparency** alongside predictive performance?
+2. How do we interpret **linear-model coefficients** for numeric, ordinal, and one-hot encoded features?
+3. How do **tree-based feature importances and SHAP** help explain a model's predictions?
+4. What can feature importances tell us, and why don't they establish **cause and effect**?
 
 ## Scenario 1: Which model would you pick? Why? {.slide-your-turn}
 
-Predicting whether a patient is likely to develop diabetes based on features such as age, blood pressure, glucose levels, and BMI. You have two models:
+**Photo organization:** A model suggests labels for personal photos that users can easily correct. You have two models:
 
 - LGBM which results in 0.9 F1 score
 - Logistic regression which results in 0.84 F1 score
 
 ## Scenario 2: Which model would you pick? Why? {.slide-your-turn}
 
-You're building a model to predict whether a user will make their next purchase based on their browsing history, past purchases, and click behaviour. You have two candidate models:
+**Health screening:** A model flags patients for further testing, with a clinician reviewing the recommendation. You have two models:
+
+- LGBM which results in 0.9 F1 score
+- Logistic regression which results in 0.84 F1 score
+
+## Scenario 3: Which model would you pick? Why? {.slide-your-turn}
+
+**Loan applications:** A model automatically rejects applications predicted to be unlikely to repay. You have two models:
 
 - LGBM which results in 0.9 F1 score
 - Logistic regression which results in 0.84 F1 score
@@ -61,11 +70,11 @@ In many domains understanding the relationship between features and predictions 
 :::: {.columns}
 
 ::: {.column width="60%"}
-![](img/feat_corr.png){.nostretch fig-align="center" width="600px"}
+![](img/feat_corr_1.png){.nostretch fig-align="center" width="600px"}
 :::
 
 ::: {.column width="40%"}
-- What are some limitations of correlations?
+What are some limitations of correlations?
 :::
 ::::
 
@@ -86,4 +95,4 @@ In many domains understanding the relationship between features and predictions 
 
 ## Class demo
 
-[Feature importances notebook](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb)
+[Feature importances notebook](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-12-feat-importances-demo.ipynb)
