@@ -40,20 +40,17 @@ editor:
 
 ## Design a feature: flight delays {.slide-your-turn}
 
-Suppose flights on the same route are often delayed during the **4–7 p.m. departure rush**.
+Suppose we want to predict, **before departure**, whether a flight will arrive on time or be delayed. Our dataset includes:
 
-| Flight | Scheduled departure | Expected duration |
-|---|---|---|
-| A | 8 a.m. | 2 hours |
-| B | 5 p.m. | 2 hours |
-| C | 10 p.m. | 2 hours |
+- **Scheduled departure time**
+- **Expected flight duration** (in minutes)
 
-A linear model using hour as a number gives each extra hour the same effect.
+In the training data, flights scheduled to depart during the **evening rush (4–7 p.m.)** are delayed more often.
 
-**With a neighbour:** Design one feature that singles out B without treating C as even riskier.
+**With a neighbour:** What feature could we create from these inputs to help the model capture this pattern?
 
 ::: {.notes}
-This is a hypothetical pattern, not a claim about actual flight delays. Give students 30 seconds to think, then a minute in pairs. Ask for their proposed feature and its values for A, B, C before showing the next slide. A departure-rush indicator gives 0, 1, 0. Restrict the example to one route and equal durations to focus attention on a non-monotonic time effect.
+This is a hypothetical pattern, not a claim about actual flight delays. Give students 30 seconds to think, then a minute in pairs. Ask how they would calculate their proposed feature before showing the next slide. A departure-rush indicator is 1 during the specified interval and 0 otherwise. The next slide illustrates it with departures at 8 a.m., 5 p.m., and 10 p.m., giving 0, 1, 0. A linear model using departure hour as a number gives each extra hour the same effect; the indicator lets it capture a higher risk within a particular interval.
 
 If students suggest scheduled arrival time: it is derived from departure and duration (accounting for time zones and date rollover), so it adds no new measurement. In a simple numeric representation without rollover, their sum adds no expressive power to an unregularized linear model that already has both inputs. A rush-hour indicator is a nonlinear transformation and can change what that model expresses. Derived features can still be useful; being correlated is not by itself a reason to reject one.
 :::
@@ -80,7 +77,7 @@ The indicator is 1 for scheduled departures from 4 p.m. up to, but not including
 
 | Idea | Question |
 |---|---|
-| **Feature importance** (lecture 12) | How does a fitted model use its inputs? |
+| **Feature importance** <br> (lecture 12) | How does a fitted model use its inputs? |
 | **Feature engineering** | Could a different representation help the model? |
 | **Feature selection** | Which subset of inputs should we keep? |
 
@@ -143,7 +140,7 @@ Compare logistic regression **with and without** the product feature.
 Use the feature interactions section; pause before the categorical example. Keep the focus on the before/after comparison rather than every code line. The corresponding chapter also demonstrates PolynomialFeatures in a cross-validated pipeline.
 :::
 
-## Interactions between categories {.slide-your-turn}
+## Interactions between categories {.slide-your-turn .smaller}
 
 We predict parking availability from **location** and **time**.
 
@@ -154,8 +151,19 @@ We predict parking availability from **location** and **time**.
 
 **Discuss (60 seconds):** Would “7 p.m.” have the same effect at both locations? Propose a feature for one specific combination.
 
+::: {.fragment}
+For example, create **location AND time** indicators:
+
+| Location | Time | UBC AND 9 a.m. | Rogers Arena AND 7 p.m. |
+|---|---|---:|---:|
+| UBC campus | 9 a.m. | 1 | 0 |
+| UBC campus | 7 p.m. | 0 | 0 |
+| Rogers Arena | 9 a.m. | 0 | 0 |
+| Rogers Arena | 7 p.m. | 0 | 1 |
+:::
+
 ::: {.notes}
-Treat this as a hypothetical pattern, not measured parking availability. Students might suggest an indicator for Rogers Arena AND 7 p.m.; an event indicator could add useful information too. Multiplying two one-hot indicators gives 1 only when both categories are present. Avoid claiming that location alone or time alone is uninformative.
+Treat this as a hypothetical pattern, not measured parking availability. Students might suggest an indicator for Rogers Arena AND 7 p.m.; an event indicator could add useful information too. Reveal the example indicators after the discussion. Multiplying two one-hot indicators gives 1 only when both categories are present: for example, is_UBC * is_9am. These are two candidate interaction features; other location–time combinations are possible. They let the model adjust its prediction for specific combinations beyond the separate location and time effects. Avoid claiming that location alone or time alone is uninformative.
 :::
 
 ## iClicker: what did the interaction add? {.slide-your-turn .smaller}

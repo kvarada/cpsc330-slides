@@ -99,7 +99,7 @@ What are some limitations of correlations?
 
 Pause after **Section 5: Global feature importance**. We will return to SHAP after building some intuition.
 
-## iClicker: feature importances {.smaller}
+## iClicker: feature importances {.slide-your-turn .smaller}
 
 **Which statements are true? Select all that apply.**
 
@@ -115,6 +115,12 @@ Answers: C and E. A: correlated features can substitute; correlation is not mode
 
 # From global importance to individual explanations
 
+## Model transparency
+
+![](img/shap_example.png){.nostretch fig-align="center" height="360px"}
+
+An explanation can help us investigate whether a model relies on sensible signals or surprising shortcuts.
+
 ## Why do we need more than a ranking?
 
 - Global importance asks: **Which features does this model rely on overall?**
@@ -122,11 +128,6 @@ Answers: C and E. A: correlated features can substitute; correlation is not mode
 - The same feature can push predictions up for some examples and down for others.
 - We need a **local explanation**: contributions to one particular prediction.
 
-## Model transparency: what might we discover?
-
-![](img/shap_example.png){.nostretch fig-align="center" height="390px"}
-
-An explanation can help us investigate whether a model relies on sensible signals or surprising shortcuts.
 
 ::: {.notes}
 Ask students what evidence would make them trust or question the prediction. Explanations can suggest problems to investigate; they do not prove that a model is correct, fair, or suitable for deployment.
@@ -238,7 +239,7 @@ In a beeswarm, horizontal position is the signed contribution; colour is the inp
 For a linear model with an interventional background, a feature's SHAP value is its coefficient times its deviation from the background mean. Thus even a positive coefficient can produce a negative SHAP contribution for a below-reference value. With correlated features, attribution can depend strongly on how missing features are handled.
 :::
 
-## iClicker: SHAP {.smaller}
+## iClicker: SHAP {.slide-your-turn .smaller}
 
 **Which statements are true? Select all that apply.**
 
