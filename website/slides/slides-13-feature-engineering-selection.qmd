@@ -29,6 +29,16 @@ editor:
 
 - HW5 extension
 
+## iClicker
+
+How did you feel about the exam ?
+
+- (A) I felt well-prepared and it went smoothly
+- (B) I think it went okay. We'll see when grades come back
+- (C) I struggled and didn't feel fully prepared
+- (D) I noticed some gaps between what we practiced and what appeared on the exam
+- (E) It was a stressful experience for me 😔
+
 ## Today's big questions {.slide-goals}
 
 1. How can **changing the features** help a model learn?
