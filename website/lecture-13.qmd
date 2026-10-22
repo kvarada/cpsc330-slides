@@ -1,0 +1,24 @@
+---
+publish-pdf: true
+title: "Lecture 13: Feature engineering and selection"
+description: "Feature engineering, interaction features, numeric transformations, model-based selection, RFE"
+description-short: "Feature engineering, interaction features, numeric transformations, model-based selection, RFE" 
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-13-feature-engineering-selection.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-13-feature-engineering-selection.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Motivation for feature engineering
+- Interaction features and feature crosses
+- Numeric feature engineering: ratios and binning
+- Motivation for feature selection
+- Model-based selection and recursive feature elimination (RFE)
+- Evaluating feature decisions with cross-validation

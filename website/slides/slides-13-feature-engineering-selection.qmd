@@ -1,11 +1,12 @@
 ---
-title: 'CPSC 330 Lecture 13: Model Transparency, Feature Engineering and Selection'
-description: "feature engineering, feature crosses, model-based selection, RFE"
-
+title: 'CPSC 330 Lecture 13: Feature engineering and selection'
+author: "Varada Kolhatkar"
+description: "Feature engineering, interactions, numeric transformations, model-based selection, RFE"
+description-short: "Feature engineering, interactions, feature selection, RFE"
 
 format:
     revealjs:
-        html-math-method: plain
+        html-math-method: mathjax
         slide-number: true
         slide-level: 2
         theme:
@@ -20,151 +21,386 @@ editor:
   render-on-save: true
 ---
 
-## Announcements 
+## Focus on the breath!
 
-- HW5 is due next week Monday. Make use of office hours and tutorials this week.   
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
+## Announcements
 
-## iClicker Exercise {.smaller}
+- HW5 extension
 
-- (A) If a feature has a strong correlation with the target variable, the magnitude of its feature importance must be high. 
-- (B) Feature importance tells us how the model’s predictions change when a particular feature changes.
-- (C) In linear models, a positive coefficient indicates that as the feature increases, the prediction increases.
-- (D) In tree-based models such as Random Forests or Gradient Boosted Trees, feature importances have signs that tell whether the relationship is positive or negative.
-- (E) In permutation importance, if shuffling the _education_ feature causes a large drop in the model's performance, it indicates that the model heavily relies on that feature for its predictions.
+## Today's big questions {.slide-goals}
 
-# Model Transparency
+1. How can **changing the features** help a model learn?
+2. What do **interaction features** let a linear model express?
+3. When might we want **fewer features**?
+4. How do **model-based selection and RFE** work, and how do we evaluate them?
 
-## Why bother about model transparancey? 
+# Give the model useful inputs
 
-![](img/shap_example.png)
+## Design a feature: flight delays {.slide-your-turn}
 
-## SHAP intuition 
-- Think of the model as a "black box" that outputs predictions.
-- SHAP asks: If we treat each feature as a player contributing to the final prediction, how much credit does each one deserve?
-- To answer this fairly, SHAP looks at all possible combinations of features and averages their marginal contributions.
-- A marginal contribution is how much the prediction changes when you add that feature to a subset of other features.
+Suppose flights on the same route are often delayed during the **4–7 p.m. departure rush**.
 
-## SHAP 
+| Flight | Scheduled departure | Expected duration |
+|---|---|---|
+| A | 8 a.m. | 2 hours |
+| B | 5 p.m. | 2 hours |
+| C | 10 p.m. | 2 hours |
 
-![](img/shap-explanation-example.png)
+A linear model using hour as a number gives each extra hour the same effect.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_12-feature-importances.ipynb)
+**With a neighbour:** Design one feature that singles out B without treating C as even riskier.
 
+::: {.notes}
+This is a hypothetical pattern, not a claim about actual flight delays. Give students 30 seconds to think, then a minute in pairs. Ask for their proposed feature and its values for A, B, C before showing the next slide. A departure-rush indicator gives 0, 1, 0. Restrict the example to one route and equal durations to focus attention on a non-monotonic time effect.
 
-## iClicker Exercise SHAP {.smaller}
-- (A) SHAP values are model parameters learned during training.
-- (B) Coefficients in a linear model and SHAP values both quantify how much each feature contributes to a prediction, but coefficients are global while SHAP values are local.
-- (C) SHAP values can only be computed for tree-based models.
-- (D) A waterfall plot shows how each feature's SHAP value cumulatively contributes to a single prediction.
-- (E) SHAP provides the same explanation for all examples in the dataset.
+If students suggest scheduled arrival time: it is derived from departure and duration (accounting for time zones and date rollover), so it adds no new measurement. In a simple numeric representation without rollover, their sum adds no expressive power to an unregularized linear model that already has both inputs. A rush-hour indicator is a nonlinear transformation and can change what that model expresses. Derived features can still be useful; being correlated is not by itself a reason to reject one.
+:::
 
-# Feature engineering motivation 
+## Feature engineering: change the representation {.smaller}
 
-## iClicker Exercise 13.0
+Add **“scheduled departure is during rush hour”**:
 
-Suppose you are working on a machine learning project. If you have to prioritize one of the following in your project which of the following would it be?
+| Flight | Departure hour | Rush-hour indicator |
+|---|---:|---:|
+| A | 8 | 0 |
+| B | 17 | 1 |
+| C | 22 | 0 |
 
-- (A) The quality and size of the data
-- (B) Most recent deep neural network model
-- (C) Most recent optimization algorithm
+- The model can now assign an extra contribution to rush-hour flights.
+- We added **no new measurement**; we made a pattern easier to represent.
+- This is **feature engineering**. Check whether it helps using validation data.
 
+::: {.notes}
+The indicator is 1 for scheduled departures from 4 p.m. up to, but not including, 7 p.m. It supplements the original inputs. This lets a linear model capture an extra effect during that interval rather than requiring delay risk to rise steadily with departure hour. The example motivates a candidate feature; it does not establish a performance improvement. Use scheduled rather than actual departure information because we predict before departure. Scaling, one-hot encoding, and bag-of-words also change the representation.
+:::
 
-## Discussion question
+## Three different questions
 
-- Suppose we want to predict whether a flight will arrive on time or be delayed. We have a dataset with the following information about flights:
-    - Departure Time
-    - Expected Duration of Flight (in minutes)
+| Idea | Question |
+|---|---|
+| **Feature importance** (lecture 12) | How does a fitted model use its inputs? |
+| **Feature engineering** | Could a different representation help the model? |
+| **Feature selection** | Which subset of inputs should we keep? |
 
-Upon analyzing the data, you notice a pattern: flights tend to be delayed more often during the evening rush hours. What feature could be valuable to add for this prediction task?
-<br><br><br><br>
+Today: propose a representation or subset, **refit**, and compare validation performance.
 
-## Garbage in, garbage out.
+# Interaction features
 
-- Model building is interesting. But in your machine learning projects, you'll be spending more than half of your time on data preparation, feature engineering, and transformations.
-- The _quality_ of the data is important. Your model is only as good as your data. 
+## Can a straight line separate these classes? {.slide-your-turn .smaller}
 
-## Activity: Measuring quality of the data 
-- Discuss some attributes of good- and bad-quality data
+Can you draw one straight line with all blue circles on one side and all orange squares on the other?
 
-
-## What is feature engineering?  
-
-- Better features: more flexibility, higher score, we can get by with simple and more interpretable models. 
-- If your features, i.e., representation is bad, whatever fancier model you build is not going to help.
-
-<blockquote>
-<b>Feature engineering</b> is the process of transforming raw data into features that better represent the underlying problem to the predictive models, resulting in improved model accuracy on unseen data.<br> 
-- Jason Brownlee    
-</blockquote> 
-
-## Some quotes on feature engineering 
-
-A quote by Pedro Domingos [A Few Useful Things to Know About Machine Learning](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf)
-
-<blockquote>
-... At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used. 
-</blockquote>
-
-## Some quotes on feature engineering 
-A quote by Andrew Ng, [Machine Learning and AI via Brain simulations](https://ai.stanford.edu/~ang/slides/DeepLearning-Mar2013.pptx)
-
-<blockquote>
-Coming up with features is difficult, time-consuming, requires expert knowledge. "Applied machine learning" is basically feature engineering.
-</blockquote>
+![A synthetic XOR dataset with 80 points: blue circles in the lower-left and upper-right quadrants; orange squares in the upper-left and lower-right quadrants.](img/xor-classes.svg){.nostretch fig-align="center" height="390px"}
 
 
-## Better features usually help more than a better model {.smaller}
-- Good features would ideally:
-    - capture most important aspects of the problem
-    - allow learning with few examples 
-    - generalize to new scenarios.
+::: {.notes}
+Give students time to try drawing or tracing a line before revealing the answer. No straight line separates the two classes because each occupies opposite corners. This is exclusive OR (XOR): the target is 1 when the input signs differ. The plot contains 80 synthetic observations, with class 1 when the signs differ. The next slide uses four representative inputs to make the product calculation easy; the same sign rule applies to every point in this dataset.
+:::
 
-- There is a trade-off between simple and expressive features:
-    - With simple features overfitting risk is low, but scores might be low.
-    - With complicated features scores can be high, but so is overfitting risk.
+## Build a feature that exposes the pattern {.slide-your-turn}
 
+**Complete the product column. What rule separates the classes now?**
 
-## The best features may be dependent on the model you use {.smaller}
+| $x_1$ | $x_2$ | $x_1x_2$ | Target |
+|---:|---:|:---:|---:|
+| −1 | −1 | ? | 0 |
+| +1 | −1 | ? | 1 |
+| −1 | +1 | ? | 1 |
+| +1 | +1 | ? | 0 |
 
-- Examples:
-    - For counting-based methods like decision trees separate relevant groups of variable values
-        - Discretization makes sense 
-    - For distance-based methods like KNN, we want different class labels to be "far".
-        - Standardization 
-    - For regression-based methods like linear regression, we want targets to have a linear dependency on features.
+::: {.notes}
+Allow 30–45 seconds. Products are +1, −1, −1, +1. Predict class 1 when the product is negative. We calculated a new feature from existing measurements.
+:::
 
-## Domain-specific transformations
+## An interaction captures a combination
 
-In some domains there are natural transformations to do:
+Add the product to a linear classifier's score:
 
-- Spectrograms (sound data)
-- Convolutions (image data)
+$$s = b + w_1x_1 + w_2x_2 + w_{12}x_1x_2.$$
 
-![](img/spectogram.png)
+- The model is still **linear in its supplied features**.
+- Its boundary can be nonlinear in the original inputs.
+- The effect of $x_1$ can now depend on $x_2$.
+- Trees can already represent interactions through successive splits.
 
-[Source](https://en.wikipedia.org/wiki/Spectrogram) 
+::: {.notes}
+For XOR, a negative product coefficient and zero intercept can separate the four points. The product adds no new measurement; it changes the pattern the model can express. Do not derive the boundary unless students ask.
+:::
 
-# 
-[Demo of feature engineering and selection](https://github.com/UBC-CS/cpsc330-202451/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-feature-engineering-selection.ipynb)
+## Class demo: interaction features
 
+[Feature engineering and selection notebook](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-13-feature-engineering-selection-demo.ipynb)
 
-## Feature selection pipeline
+Compare logistic regression **with and without** the product feature.
 
-![](img/feat-selection-pipeline.png)
+**Before running:** Which model should do better on XOR?
 
-##  Two useful methods 
+**After running:** What changed—the data we measured, or the representation?
 
-- Model-based selection
-    - Use a supervised machine learning model to judge the importance of each feature.
-    - Keep only the most important once.
-- Recursive feature elimination 
-    - Build a series of models
-    - At each iteration, discard the least important feature according to the model. 
+::: {.notes}
+Use the feature interactions section; pause before the categorical example. Keep the focus on the before/after comparison rather than every code line. The corresponding chapter also demonstrates PolynomialFeatures in a cross-validated pipeline.
+:::
 
-## (iClicker) Exercise 13.2
+## Interactions between categories {.slide-your-turn}
 
-**Select all of the following statements which are TRUE.**
+We predict parking availability from **location** and **time**.
 
-- (A) You can carry out feature selection using linear models by pruning the features which have very small weights (i.e., coefficients less than a threshold).
-- (B) The order of features removed given by `rfe.ranking_` is the same as the order of original feature importances given by the model.  
+| Location | 9 a.m. | 7 p.m. |
+|---|---|---|
+| UBC campus | ? | ? |
+| Rogers Arena | ? | ? |
+
+**Discuss (60 seconds):** Would “7 p.m.” have the same effect at both locations? Propose a feature for one specific combination.
+
+::: {.notes}
+Treat this as a hypothetical pattern, not measured parking availability. Students might suggest an indicator for Rogers Arena AND 7 p.m.; an event indicator could add useful information too. Multiplying two one-hot indicators gives 1 only when both categories are present. Avoid claiming that location alone or time alone is uninformative.
+:::
+
+## iClicker: what did the interaction add? {.slide-your-turn .smaller}
+
+Logistic regression improves on XOR after we add $x_1x_2$. **Choose the best explanation.**
+
+- (A) We collected a new measurement.
+- (B) The pattern becomes separable by a linear classifier in the transformed space.
+- (C) Adding any feature must improve validation performance.
+- (D) The interaction must help every model equally.
+
+::: {.notes}
+Answer: B. The product uses existing inputs. Extra features can fit noise; benefits depend on the model. Generating every possible interaction can produce many poorly supported columns.
+:::
+
+# Other ways to represent numeric inputs
+
+## Counts or ratios? {.slide-your-turn}
+
+Each row describes a **California census block group**.
+
+| Block group | Total rooms | Households | Rooms per household |
+|---|---:|---:|---:|
+| A | 4,000 | 1,000 | 4 |
+| B | 2,000 | 200 | 10 |
+
+**Which has more rooms? Which has more rooms per household?**
+
+Would you use the counts, the ratio, or both to predict median house value?
+
+::: {.notes}
+Give students a minute in pairs. A has more rooms overall; B has more rooms per household. These describe different quantities. There is no guaranteed best feature set without evaluation. A block group is not an individual house.
+:::
+
+## Binning: let different ranges have different effects {.smaller}
+
+- A continuous input in ridge regression has a **constant slope**, holding other inputs fixed.
+- **Binning + one-hot encoding** gives each interval its own coefficient.
+- Values in the same bin receive the same contribution; adjacent bins can differ.
+
+| Rooms per household | Bin indicator |
+|---|---|
+| 4.01 | Bin A |
+| 4.09 | Bin A |
+| 4.10 | Bin B |
+
+**Does a larger value have to give a larger prediction?**
+
+::: {.notes}
+No. The bin coefficients determine direction. These boundaries are illustrative. Binning loses distinctions within intervals and creates jumps. More bins increase flexibility but leave fewer observations per bin. Keep binning as a supporting example rather than a separate technical lesson.
+:::
+
+## Class demo: numeric feature engineering
+
+Return to **feature engineering with numeric features** in the notebook.
+
+1. Inspect rooms per household alongside the original counts.
+2. Compare continuous and binned inputs for ridge regression.
+3. Inspect the bin coefficients.
+
+**Predict before running:** Will a more flexible representation always improve validation performance?
+
+::: {.notes}
+No guarantee. The chapter's controlled comparison finds that replacing counts with a ratio slightly lowers validation R², while binning improves it in that example. Avoid promising those exact results for the separate class demo. Learned bin boundaries belong inside the CV pipeline. Compare candidate representations on the same folds.
+:::
+
+# Do we need every feature?
+
+## Why consider feature selection?
+
+Interactions and bins can create many columns. Some may be irrelevant or redundant.
+
+Keeping a subset may help us:
+
+- Reduce opportunities to fit noise.
+- Reduce fitting and prediction costs.
+- Inspect a smaller model.
+- Avoid collecting expensive measurements—if we can drop the original measurement entirely.
+
+**Removing features can also discard useful information.**
+
+## Low importance: safe to delete? {.slide-your-turn}
+
+Two related features have low permutation importance in the current model.
+
+A teammate proposes removing **both**.
+
+**Discuss (60 seconds):** What could go wrong? What comparison would you run before agreeing?
+
+::: {.notes}
+Either feature may substitute for the other when shuffled individually; removing both could hurt. Refit and validate the proposed subset against an all-features baseline. Importance describes the current fitted model; it does not evaluate a refitted model. This connects to lecture 12.
+:::
+
+## Model-based selection: one importance threshold
+
+1. Fit a **selection model** that provides feature importances or coefficients.
+2. Keep features whose importance reaches a chosen threshold.
+3. Fit the **final predictor** using the retained columns.
+
+**Example:** random forest selects columns → logistic regression predicts.
+
+The selection model and final predictor can be different.
+
+::: {.notes}
+SelectFromModel implements this transformer. For a single-output linear model, selection uses coefficient magnitudes, so a large negative coefficient can be important. Scaling matters when comparing coefficient magnitudes. The selector passes columns to the predictor, not its predictions.
+:::
+
+## Keep selection inside the pipeline
+
+**Training fold:**
+
+Preprocess → fit selector and retain columns → fit predictor
+
+**Validation fold:**
+
+Apply fitted preprocessing → retain the same columns → predict and score
+
+```python
+make_pipeline(
+    StandardScaler(),
+    SelectFromModel(RandomForestClassifier(random_state=123),
+                    threshold="mean"),
+    LogisticRegression(max_iter=2000),
+)
+```
+
+::: {.notes}
+Illustrative numeric-data pipeline; imports and cross-validation calls belong in the notebook. Scaling serves logistic regression, not the forest. The pipeline is refitted on each fold; selected columns may differ across folds. SelectFromModel keeps importances at or above the threshold.
+:::
+
+## Class demo: model-based selection
+
+Return to **model-based selection** in the notebook.
+
+- Compare an all-features baseline with a selection pipeline.
+- Inspect which columns remain and how many are retained.
+- Compare validation performance and fitting cost.
+
+**Before running:** Is a smaller feature set guaranteed to score better?
+
+::: {.notes}
+No. Use the chapter's irrelevant-feature example if demonstrating when selection helps; its breast-cancer example shows that selection can hurt. The class demo uses breast-cancer data and a median threshold; the preceding slide illustrates a mean threshold. Do not equate a median threshold with exactly half the columns when importances tie.
+:::
+
+## RFE: remove, refit, repeat
+
+**Recursive feature elimination (RFE)** chooses a subset through repeated fitting.
+
+1. Choose how many features to retain, $k$.
+2. Fit the estimator on the remaining features.
+3. Remove the least important feature(s).
+4. **Refit and repeat** until $k$ remain.
+
+Importances can change after each removal.
+
+::: {.notes}
+RFE requires an estimator with usable coefficients or feature importances. The step parameter controls how many features are removed each round. Repeated fitting makes it more expensive than a single threshold-based selection pass.
+:::
+
+## Trace one RFE step {.slide-your-turn}
+
+We want **two features**. The current estimator gives these importances:
+
+| Feature | A | B | C | D |
+|---|---:|---:|---:|---:|
+| Importance | 0.50 | 0.30 | 0.15 | 0.05 |
+
+With one feature removed per step:
+
+1. Which feature goes first?
+2. Can we already conclude that C goes next? Why?
+
+::: {.notes}
+Give pairs one minute. D goes first. Refit on A, B, C before deciding the next removal; the new importances could differ. Ask students to explain how correlated inputs might make a remaining feature more important. These numbers are illustrative.
+:::
+
+## Model-based selection versus RFE
+
+| | Model-based selection | RFE |
+|---|---|---|
+| Decision rule | Importance threshold | Repeatedly remove least important |
+| Selection fitting | One fit for a given threshold | Refit after each removal round |
+| Main setting | Threshold | Number to retain; removal step |
+| Guarantee of best subset? | No | No |
+
+Both depend on the **estimator, data, and other available features**.
+
+::: {.notes}
+Both require evaluating a final predictor. A large negative coefficient should not be pruned just because its signed value is small. In RFE, ranking_ equals 1 for retained features; other ranks record elimination rounds, not importance magnitudes or the initial model's ranking.
+:::
+
+## Class demo: RFE
+
+Return to **recursive feature elimination** in the notebook.
+
+1. Inspect the retained features and `ranking_`.
+2. Compare validation performance with model-based selection and all features.
+3. Discuss the cost of fitting repeatedly.
+
+**How many features should we retain?** Treat the count as a hyperparameter and choose it using cross-validation.
+
+::: {.notes}
+The chapter demonstrates GridSearchCV over the whole pipeline, including an all-features option. Keep the test set for final evaluation. RFECV is an optional extension, not a new core algorithm to teach here. Preprocessing must respect any internal validation splits too.
+:::
+
+## iClicker: find the leakage {.slide-your-turn .smaller}
+
+A student fits `SelectFromModel` on **all labelled data**, keeps its selected columns, then cross-validates logistic regression on the reduced matrix.
+
+**Is this evaluation valid? Choose one.**
+
+- (A) Yes: logistic regression never fits on validation targets.
+- (B) Yes: the selector is only a transformation.
+- (C) No: every fold must select different features.
+- (D) No: validation targets helped select the columns before cross-validation.
+
+::: {.notes}
+Answer: D. The selector learns from targets too. Cross-validate the complete pipeline on the training split, and reserve the test set. Folds may select different columns, but are not required to. If responses are split, allow 45 seconds of peer discussion and vote again before explaining.
+:::
+
+## Choose features by evaluating the workflow
+
+- Compare engineered features and selected subsets with a **baseline**.
+- Fit learned preprocessing and selection **inside each training fold**.
+- Tune thresholds or feature counts using **cross-validation**.
+- Keeping **all features** is a legitimate outcome.
+- Use the test set once the workflow is fixed.
+
+::: {.notes}
+Ratios calculated from a single row are fixed rules; fitted bin boundaries and supervised selection learn from data. Trying many fixed formulas and picking the best can still overfit validation results. Selection is not a unique discovery of relevant or causal variables. Regularization is another way to control flexibility without dropping columns.
+:::
+
+## Today's takeaways {.slide-summary}
+
+- **Feature engineering** changes the representation; interactions let effects depend on combinations of inputs.
+- **Feature selection** keeps a subset; it can help or hurt predictive performance.
+- **Model-based selection** applies a threshold; **RFE** removes and refits repeatedly.
+- Evaluate the **whole pipeline**, including feature decisions.
+
+## Exit question {.slide-your-turn}
+
+A new interaction improves training accuracy but lowers mean cross-validation accuracy.
+
+**Write one sentence:** Would you keep it, and what evidence supports your decision?
+
+::: {.notes}
+Allow 45 seconds of individual writing. The result does not support keeping the interaction for predictive performance; it may be fitting noise. Inspect variation across folds and compare with the baseline before making a strong claim about a small difference. Ask for one or two responses, or collect via the usual course channel.
+:::
