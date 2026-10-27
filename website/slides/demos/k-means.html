@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K-Means: assign, average, repeat</title>
+<style>
+body { margin:0; font:16px system-ui,sans-serif; color:#17324d; background:white; }
+.controls { display:flex; gap:9px; align-items:center; justify-content:center; flex-wrap:wrap; padding:5px; }
+button,select { font:inherit; padding:5px 9px; color:inherit; background:white; border:1px solid #64748b; border-radius:4px; }
+button { cursor:pointer; } button:disabled { opacity:.4; cursor:default; }
+svg { display:block; width:100%; height:285px; }
+p { text-align:center; margin:4px 8px; } #status { font-weight:600; min-height:23px; }
+.note { font-size:13px; } .point { cursor:pointer; } .point:focus { outline:none; stroke:#111; stroke-width:4; }
+@media(max-width:650px) { body { font-size:14px; } svg { height:250px; } }
+</style>
+<div class="controls">
+<label>k <select id="k"><option>2</option><option selected>3</option><option>4</option><option>5</option></select></label>
+<label>Start <select id="start"><option value="spread">Spread</option><option value="crowded">Crowded</option></select></label>
+<button id="assign">Assign</button><button id="update">Update centres</button>
+<button id="run">Run</button><button id="reset">Reset</button>
+<label><input type="checkbox" id="distances"> Distances</label>
+</div>
+<svg id="plot" viewBox="0 0 780 310" role="group" aria-label="K-Means plot. Circles are examples; numbered crosses are centres. Select an example to highlight it."></svg>
+<p id="status" aria-live="polite"></p>
+<p id="detail"></p>
+<p class="note">Circles: examples · Numbered crosses: centres · Click or tab to a point to highlight it · Equal axis scales</p>
+<p class="note" id="distanceText"></p>
+<script>
+'use strict';
+// Fixed teaching data: three broader groups with two boundary examples.
+// Point 7 switches groups after the first centre update with Spread, k=3.
+// The two presets are
+// hand-picked starting positions, not implementations of K-Means++.
+const offsets=[[-.6,-.4],[-.6,.4],[-.2,-.7],[-.2,.7],[.2,-.7],[.2,.7],[.6,-.4],[.6,.4],[-.3,0],[.3,0]];
+const data=[[2,5],[8,2],[8,8]].flatMap(c=>offsets.map(d=>[c[0]+1.7*d[0],c[1]+1.7*d[1]]));
+data[6]=[4.6,3.4];
+data[22]=[5,6.6];
+const colours=['#0072b2','#d55e00','#009e73','#a33c92','#856300'];
+const $=s=>document.querySelector(s);
+const plot=$('#plot'), status=$('#status'), detail=$('#detail');
+let centres, labels, phase, iteration, selected=6, timer=null, converged=false, empty=[];
+const sx=x=>250+27*x, sy=y=>278-27*y;
+const sq=(p,c)=>(p[0]-c[0])**2+(p[1]-c[1])**2;
+function assignments(){return data.map(p=>centres.reduce((best,c,j)=>sq(p,c)<sq(p,centres[best])-1e-12?j:best,0));}
+function inertia(){return labels ? data.reduce((sum,p,i)=>sum+sq(p,centres[labels[i]]),0):null;}
+function stop(){if(timer!==null)clearInterval(timer);timer=null;$('#run').textContent='Run';}
+function reset(){
+ stop(); const k=Number($('#k').value);
+ const starts=$('#start').value==='spread' ? [[1,4],[6,1],[7,7],[1.5,4.5],[8.5,8.5]] : [[2,4.5],[2,5.5],[8,5],[1.5,5],[8,1.5]];
+ centres=starts.slice(0,k).map(c=>c.slice()); labels=null; phase='assign'; iteration=0; converged=false; empty=[]; draw();
+}
+function assign(){
+ if(phase!=='assign'||converged)return;
+ labels=assignments();phase='update';draw();
+}
+function update(){
+ if(phase!=='update'||converged)return;
+ empty=[];
+ const next=centres.map((c,j)=>{
+  const points=data.filter((p,i)=>labels[i]===j);
+  if(!points.length){empty.push(j+1);return c.slice();}
+  return [0,1].map(d=>points.reduce((sum,p)=>sum+p[d],0)/points.length);
+ });
+ const movement=Math.max(...centres.map((c,j)=>sq(c,next[j])));
+ centres=next; iteration++; phase='assign';
+ converged=movement<1e-12;
+ if(converged)stop();
+ draw();
+}
+function draw(){
+ let svg='<title>K-Means teaching dataset</title><desc>Three fixed groups of examples. Numbered crosses indicate current centres. Use Assign and Update centres to alternate the two algorithm steps.</desc>';
+ for(let x=0;x<=10;x+=2)svg+=`<line x1="${sx(x)}" y1="${sy(10)}" x2="${sx(x)}" y2="${sy(0)}" stroke="#e2e8f0"/><text x="${sx(x)}" y="296" text-anchor="middle" font-size="12">${x}</text>`;
+ for(let y=0;y<=10;y+=2)svg+=`<line x1="${sx(0)}" y1="${sy(y)}" x2="${sx(10)}" y2="${sy(y)}" stroke="#e2e8f0"/><text x="238" y="${sy(y)+4}" text-anchor="end" font-size="12">${y}</text>`;
+ svg+='<text x="575" y="285" font-size="14">Feature 1</text><text transform="translate(210 145) rotate(-90)" text-anchor="middle" font-size="14">Feature 2</text>';
+ const p=data[selected];
+ if($('#distances').checked)centres.forEach((c,j)=>{svg+=`<line x1="${sx(p[0])}" y1="${sy(p[1])}" x2="${sx(c[0])}" y2="${sy(c[1])}" stroke="${colours[j]}" stroke-width="1.5" stroke-dasharray="4 3"/>`;});
+ data.forEach((p,i)=>{
+  const group=labels ? `, cluster ${labels[i]+1}` : ', unassigned';
+  svg+=`<circle class="point" data-i="${i}" tabindex="0" role="button" aria-label="Point ${i+1}: (${p[0]}, ${p[1]})${group}" cx="${sx(p[0])}" cy="${sy(p[1])}" r="5.5" fill="${labels?colours[labels[i]]:'#7b8794'}" stroke="${i===selected?'#111':'white'}" stroke-width="${i===selected?3:1}"><title>Point ${i+1}${group}</title></circle>`;
+ });
+ centres.forEach((c,j)=>{
+  const x=sx(c[0]),y=sy(c[1]);
+  svg+=`<path d="M${x-8} ${y-8} L${x+8} ${y+8} M${x+8} ${y-8} L${x-8} ${y+8}" stroke="white" stroke-width="7"/><path d="M${x-8} ${y-8} L${x+8} ${y+8} M${x+8} ${y-8} L${x-8} ${y+8}" stroke="${colours[j]}" stroke-width="4"/><text x="${x+11}" y="${y-9}" font-size="15" font-weight="bold" fill="${colours[j]}">${j+1}</text>`;
+ });
+ plot.innerHTML=svg;
+ status.textContent=converged?`Converged after ${iteration} updates. Try another start or k.`:phase==='assign'?`${iteration===0?'Initial centres':`Update ${iteration} complete`}. Next: Assign each point to its nearest centre.`:`Assignment complete. Next: Update each centre to its group's mean.`;
+ detail.textContent=`k = ${centres.length} · Updates = ${iteration} · Inertia ${labels?'= '+inertia().toFixed(2):'shown after first assignment'}`;
+ if(labels&&phase==='assign'&&!converged)detail.textContent+=' · Colours still show preceding assignments.';
+ if(empty.length)detail.textContent+=` · Empty cluster(s) ${empty.join(', ')}: previous centre retained.`;
+ $('#distanceText').textContent=$('#distances').checked?`Point ${selected+1} → `+centres.map((c,j)=>`centre ${j+1}: ${Math.sqrt(sq(p,c)).toFixed(2)}`).join(' · '):'Hand-picked starts · Ties go to the lowest-numbered centre · Empty centres stay in place';
+ $('#assign').disabled=phase!=='assign'||converged||timer!==null;
+ $('#update').disabled=phase!=='update'||converged||timer!==null;
+ $('#run').disabled=converged;
+}
+function selectPoint(e){
+ const target=e.target.closest('[data-i]'); if(!target)return;
+ if(e.type==='keydown'&&!['Enter',' '].includes(e.key))return;
+ if(e.type==='keydown')e.preventDefault();
+ const focus=e.type==='keydown';selected=Number(target.dataset.i);draw();
+ if(focus)plot.querySelector(`[data-i="${selected}"]`).focus();
+}
+plot.addEventListener('click',selectPoint);plot.addEventListener('keydown',selectPoint);
+$('#assign').onclick=assign;$('#update').onclick=update;
+$('#reset').onclick=reset;$('#k').onchange=reset;$('#start').onchange=reset;
+$('#distances').onchange=draw;
+$('#run').onclick=()=>{
+ if(timer!==null){stop();draw();return;}
+ $('#run').textContent='Pause';
+ timer=setInterval(()=>{if(phase==='assign')assign();else update();if(iteration>=100){stop();status.textContent='Stopped at 100 updates.';}},650);draw();
+};
+// Stop timers when a presenter leaves this slide, including embedded decks.
+window.addEventListener('message',e=>{if(e.data==='slide:stop'){stop();draw();}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();draw();}});
+reset();
+</script>
+</html>

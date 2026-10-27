@@ -1,9 +1,13 @@
 ---
-title: 'CPSC 330 Lecture 14: K-Means'
-description: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
+title: 'CPSC 330 Lecture 14: K‑Means'
+author: "Varada Kolhatkar"
+description: "Unsupervised learning, K-Means, initialization, feature representation, elbow and silhouette diagnostics"
+description-short: "Clustering, K-Means, representation, choosing k"
 format:
     revealjs:
-        html-math-method: mathjax
+        html-math-method:
+          method: mathjax
+          url: https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js
         slide-number: true
         slide-level: 2
         theme:
@@ -13,7 +17,7 @@ format:
         resources:
           - data/
           - img/
-
+          - demos/k-means.html
 editor:
   render-on-save: true
 ---
@@ -22,257 +26,540 @@ editor:
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-## Announcements 
+## Today's big questions {.slide-goals}
 
-- Midterm 1 grades were released last week
-- HW5 was due yesterday 
-- HW6 has been released. It's due next week Monday. 
-  - Computationally intensive 
-  - You need to install many packages 
+1. What can we learn when there is **no target to predict**?
+2. How can we turn **similarity into groups**?
+3. How do we choose a useful **number of clusters**?
+4. What if our clusters miss the **similarity we care about**?
 
-## (iClicker) Midterm poll {.smaller}
+# What can we learn without targets?
 
-**Select all of the following statements which are TRUE.**
+## Organizing an online store
 
-- (A) I'm happy with my progress and learning in this course.
-- (B) I find the course content interesting, but the pace is a bit overwhelming. Balancing this course with other responsibilities is challenging
-- (C) I'm doing okay, but I feel stressed and worried about upcoming assessments.
-- (D) I'm confused about some concepts and would appreciate more clarification or review sessions.
-- (E) I'm struggling to keep up with the material. I am not happy with my learning in this course and my morale is low :(. 
+**Problem:** Help customers browse furniture that has no group labels.
 
+![](img/furniture-items.png){.nostretch fig-align="center" height="320px"}
 
-## Supervised learning {.smaller}
+We know how to train a classifier—but **what would its target be?**
 
-- Training data comprises a set of observations ($X$) and their corresponding targets ($y$). 
-- We wish to find a model function $f$ that relates $X$ to $y$.
-- Then use that model function to predict the targets of new examples.
-- We have been working with this set up so far. 
+::: {.notes}
+Use this as an opening problem, not a separate pair activity. Existing supervised tools need example targets. Here the goal is to discover an organization rather than reproduce supplied categories. Possible groupings include room, function, material, or style.
+:::
 
-![](img/sup-learning.png)
+## Unsupervised learning
 
-## Unsupervised learning {.smaller}
+Our supervised models learn from **features $X$ and targets $y$**.
 
-- Training data consists of observations ($X$) without any corresponding targets.
-- Unsupervised learning could be used to group similar things together in $X$ or to find underlying structure in the data. 
+Here we have **$X$, without a target column**. We can instead look for useful structure:
 
-![](img/unsup-learning.png)
+- **Clustering:** which examples form similar groups? For the furniture store, discover groups without supplied category labels.
+- **Representation learning:** can we describe the data using useful new features?
 
+**Dimensionality reduction** seeks a representation with fewer features.
 
-## Clustering activity {.smaller}
+::: {.notes}
+These are two broad goals, not an exhaustive taxonomy. Representation learning need not reduce dimensionality and can also use supervision; today's example motivates the unsupervised setting. Clustering assigns groups to examples; dimensionality reduction produces a representation of each example.
+:::
 
-![](img/food-clustering-activity.png)
+## Representation learning: clicks to interests {.smaller}
 
-- Categorize the food items in the image and write your categories. Do you think there is one correct way to cluster these images? Why or why not?
-- If you want to build a machine learning model to cluster such images how would you represent such images?
-- Write your answers here: https://docs.google.com/document/d/12GXA9Efi_19WiRnCi8FiOmdpxM-I_wq2nz97LjvXILg/edit?usp=sharing
+![](img/news-clicks.png){.nostretch fig-align="center" height="250px"}
 
+**Problem:** Thousands of article-click features are difficult to interpret; total clicks hide interests.
 
-## The "perfect" spaghetti sauce
+**Current toolbox:** manually count clicks by topic, if topics are already known.
 
-Suppose you are a hypothetical spaghetti sauce company and you're asked to create the "perfect" spaghetti sauce which makes all your customers happy. The truth is humans are diverse and there is no "perfect" spaghetti sauce. There are "perfect" spaghetti sauces that cater to different tastes! 
+**New goal:** learn a smaller set of interest dimensions from patterns of articles read together.
 
-## The "perfect" spaghetti sauce {.smaller}
+::: {.notes}
+Two readers may each click 20 articles but have very different interests. A learned representation could describe each reader with a few topic-like scores instead of thousands of article columns. These dimensions need interpretation; they are not guaranteed to correspond to named topics. We motivate dimensionality reduction here; its algorithms come later. Manually counting known topics is feature engineering, not itself unsupervised representation learning.
+:::
 
-Howard Moskowitz found out that Americans fall into one of the following three categories: 
+## iClicker: supervised or unsupervised? {.slide-your-turn .smaller}
 
-- people who like their spaghetti sauce **plain**
-- people who like their spaghetti sauce **spicy**
-- people who like their spaghetti sauce **extra chunky**
+**Which tasks can be learned without a target column? Select all that apply.**
 
-![](img/prego-pasta-sauces.png){.nostretch fig-align="center" width="700px"}
+- (A) Predict cancellation using past cancellation labels.
+- (B) Group furniture using item features, without group labels.
+- (C) Learn a few dimensions from article-click patterns, without topic labels.
+- (D) Predict furniture prices using previously priced items.
 
-Reference: [Malcolm Gladwell’s Ted talk](https://www.ted.com/talks/malcolm_gladwell_choice_happiness_and_spaghetti_sauce?language=en)
+::: {.notes}
+Answers: B and C. A is supervised classification; D is supervised regression. B produces groups. C produces a representation of each reader, rather than a group label.
+:::
 
-## The "perfect" spaghetti sauce
+# How can we group similar examples?
 
-- If one “perfect” authentic sauce satisfies 60%, of the people on average, creating several tailored sauce clusters could increase average happiness to between 75% to 78%.
-- Can we apply this concept of clustering and tailoring solutions to specific groups in machine learning?
+## Your turn: group the foods {.slide-your-turn .smaller}
 
+![](img/food-clustering-activity.png){.nostretch fig-align="center" height="330px"}
 
-# K-Means 
+**With a neighbour (2 minutes):** Propose two useful groupings. For each, explain its purpose and the features you would use. Would raw pixels capture what you mean by “similar”?
 
-## K-Means clustering algorithm 
-1. Select K initial centroids.
-2. Assign each data point to the nearest centroid.
-3. Recalculate centroids based on assigned points.
-4. Repeat until centroids stabilize or reach a maximum number of iterations.
+::: {.notes}
+Examples: sweet/savoury, meal type, ingredients, or visual appearance. There need not be one correct grouping. Pixel colour, ingredient indicators, and learned image representations encode different similarities. Ask how the intended use affects the choice.
+:::
 
-# K-Means activity
+## Clustering needs a notion of similarity
 
-## Initialization
-In K-Means, we start with random initial cluster centers. Who would like to be cluster centers? 
+The food activity gives us two choices to make:
+
+- **Representation:** which differences should matter?
+- **Grouping rule:** how do we turn those differences into clusters?
+
+Groups can summarize a dataset or reveal patterns for investigation.
+
+**We provide the interpretation:** cluster IDs are arbitrary names, not explanations.
+
+::: {.notes}
+Refer to two student proposals from the activity. Neither is universally correct. A clustering algorithm sees the supplied features and distance, not our intended semantic categories. Renaming labels 0, 1, 2 leaves memberships unchanged.
+:::
+
+## Using the distance tools we already know
+
+Represent each food by numeric features and choose $k$ groups.
+
+- **KNN** taught us to compare points using Euclidean distance.
+- Represent each group by a **centre**; assign points to the nearest one.
+- Use the group's **mean** as its centre.
+
+But **we need groups to calculate centres, and centres to assign groups**.
+
+::: {.notes}
+This is the problem K-Means resolves. Means are feature-wise averages and may not correspond to an actual food item. Keep k fixed for now; how to choose it is the next major problem.
+:::
+
+## The K-Means algorithm
+
+**Input:** features $X$ and $k$. **Output:** $k$ centroids and one label per example.
+
+1. Choose $k$ initial centres.
+2. **Assign:** send each point to its nearest centre.
+3. **Update:** move each centre to the mean of its assigned points.
+4. Repeat assignment and update until the centres change very little, or the iteration limit is reached.
+
+**The number of clusters stays fixed during a run.**
+
+::: {.notes}
+The teaching walkthrough uses Lloyd's alternating steps. Given centres we can assign points; given assignments we can calculate means. Alternating resolves the dependency. Centroids need not be observed examples. Cluster IDs have no inherent order. Exact ties can be broken deterministically. Empty clusters require an implementation rule; the interactive demo retains their previous centres and explicitly reports that choice.
+:::
+
+## Your turn: act out K-Means {.slide-your-turn .smaller}
+
+![](img/kmeans-classroom-activity.png){.nostretch fig-align="center" height="250px"}
+
+1. **Pick centres:** three volunteers mark the initial centre positions.
+2. **Assign:** raise your hand when your nearest centre is called.
+3. **Update:** move each centre to its group's average row/column position.
+4. **Repeat:** reassign, then update.
+
+Keep everyone else's position fixed. A centre can lie **between seats**.
+
+::: {.notes}
+Allow 4–5 minutes. Students can participate from their seats. Choose three visible volunteers as initial centres; they stand or raise a hand. Treat seat rows and columns as coordinates and use physical distance consistently. During assignment, call each centre in turn and ask students nearest to it to raise their hands. Resolve ties with the lower centre number. Freeze memberships while estimating all three means, then move the centre markers before anyone reassigns. If possible, volunteers serve as movable centre markers while the original seat positions remain the fixed data; otherwise mark the mean with a gesture or object. The centroid need not coincide with a student or seat. The illustration is schematic: flags move while observations stay fixed. Stop after two or three rounds. Ask what stayed fixed (k=3 and the data), what changed (memberships and centre locations), and whether different starting volunteers could give a different result. Use the following interactive slide briefly to show exact updates rather than repeat the full activity. Illustration generated with OpenAI image generation.
+:::
+
+## Discuss: what happened during K-Means? {.slide-your-turn}
+
+1. Did anyone **switch clusters** in the second round? Why?
+2. When do you think **K-Means should stop**?
+3. Could we get a **different result** with different initial centres?
+
+::: {.notes}
+Allow a minute for discussion before inviting responses. A point can switch clusters because a different centre becomes closest after the centres move; switching is possible, not required. With exact updates, stable centres and assignments indicate convergence. Practical implementations stop when changes are sufficiently small or the maximum number of iterations is reached. The number of clusters stays fixed, so an unchanged k is not a stopping criterion. Different initial centres can lead to different final groupings, even with the same data and k; convergence does not guarantee a global optimum. Use “initial centres” rather than “initial clusters” because the centres are chosen before the first assignment. Connect the observations to the following interactive check and revisit initialization later in the lecture.
+:::
+
+## Interactive check: assign, average, repeat {.slide-your-turn .smaller}
+
+**Before Assign:** Which centre will the highlighted point join? **Before Update:** Where will its centre move?
+
+<div class="kmeans-live">
+<iframe src="demos/k-means.html" title="Interactive K-Means: assignment, centroid updates, initialization and k" style="width:100%;height:450px;border:0;" loading="eager"></iframe>
+</div>
+
+<div class="kmeans-print">
+
+![](img/k-means.png){.nostretch fig-align="center" height="300px"}
+
+Assign each point to its nearest centre, then move each centre to its cluster's mean.
+
+</div>
+
+::: {.notes}
+Keep k=3 and the Spread initialization for the first walkthrough. Point 7 is highlighted initially: it first joins centre 2, then switches to centre 1 after the first update. Point 23 is another boundary example to inspect. Ask for predictions before each separate step. Click a point to highlight it; turn on distances to compare its distances to all centres. Points stay uncoloured until the first assignment. After an update, colours still show the preceding assignments until Assign is pressed again. During the update, ask students to average coordinates for one selected cluster; a centroid need not be an observed point. Revisit this demo for initialization and k later. Open the standalone demo if more space is needed: demos/k-means.html. Static PDFs show the existing worked-example image instead of the controls.
+:::
+
+## K-Means in scikit-learn
+
+```{.python}
+from sklearn.cluster import KMeans
+
+km = KMeans(n_clusters=3, n_init=10, random_state=42)
+labels = km.fit_predict(X)  # no target y
+centres = km.cluster_centers_
+new_labels = km.predict(X_new)
+```
+
+`predict` assigns new examples to their nearest **learned centre**.
+
+::: {.notes}
+X and X_new must use the same feature representation and preprocessing. This is a code illustration, not an executable slide cell. Explicit n_init avoids relying on a version-specific default. predict does not move centres or refit the model.
+:::
+
+## Your turn: predict a new example {.slide-your-turn .smaller}
+
+![](img/kmeans-new-example.svg){.nostretch fig-align="center" height="350px"}
+
+**Which cluster gets the query point? Explain using distance.**
+
+Does `predict` move either centre? What if we instead refit on the expanded dataset?
+
+::: {.notes}
+Allow one minute. The learned centres are A=(0,0) and B=(6,0); query=(5,1). Distances are sqrt(26) and sqrt(2), so predict assigns B. It does not refit or move centres. Refitting including this point can change centres and potentially assignments; it is a different operation. Plot points are synthetic and have means exactly at the labelled centres. Use the same preprocessing for training and new inputs.
+:::
+
+## iClicker: assignments and prediction {.slide-your-turn .smaller}
+
+**Select all true statements.**
+
+- (A) A centroid must coincide with an observed example.
+- (B) A point may change clusters during fitting.
+- (C) $k$ increases automatically as fitting proceeds.
+- (D) `predict` assigns a new point without moving the learned centres.
+- (E) Renaming cluster IDs leaves the grouping unchanged.
+
+::: {.notes}
+Answers: B, D, E. Centroids are means and need not be observations. k is fixed during a run. All points are assigned at each assignment step. Contrast predict with refitting.
+:::
+
+## Initialization: same data, different groups {.smaller}
+
+We have fixed $X$ and $k$. Does that determine a single final result?
+
+In the [interactive demo](demos/k-means.html), keep **$k=3$**:
+
+1. Run **Spread** to convergence.
+2. Run **Crowded** on the same points.
+3. Compare the final groups and squared distances to their centres.
+
+Different starts can reach **different solutions**. More iterations may not fix a poor one.
+
+::: {.notes}
+Make this an instructor-led comparison, not another separate activity. Reuse the earlier embedded demo or open the standalone link. The hand-picked presets are not implementations of K-Means++. The crowded solution splits the left group and merges the two right groups; its inertia is higher. Convergence does not establish a global optimum.
+:::
+
+## Getting a better starting point
+
+**Problem:** one initialization can produce a poor solution.
+
+- **K-Means++** spreads out the initial centres.
+- **Multiple starts** try different initializations and retain the lowest within-cluster sum of squares.
+- A fixed **`random_state`** makes the result reproducible.
+
+Our code uses `n_init=10`: try ten starts, then retain the best run.
+
+::: {.notes}
+K-Means++ is scikit-learn's default initialization. The within-cluster sum of squares is inertia, defined in the next section. These strategies improve the chance of finding a good solution but do not guarantee the global optimum. Reproducibility and quality are different properties.
+:::
+
+## iClicker: has K-Means found the best solution? {.slide-your-turn}
+
+The centres have stopped moving. **Which statement follows?**
+
+- (A) This is the globally smallest possible sum of squared distances.
+- (B) Every other initialization must produce the same grouping.
+- (C) Another assignment/update cycle will leave this solution unchanged, using the same tie rules.
+- (D) The chosen $k$ must be appropriate for the application.
+
+::: {.notes}
+Answer: C for the exact stable-centre case stated. Practical implementations can stop with small changes under a tolerance or at an iteration cap. Convergence does not prove global optimality, uniqueness, or an appropriate k.
+:::
+
+## Scaling: should changing units change the groups?
+
+We cluster customers using **age in years** and **spending in dollars**.
+
+Changing spending to **thousands of dollars** changes its contribution to Euclidean distance—even though the customers are unchanged.
+
+**Use the preprocessing tools we know:** usually scale numeric features before K-Means.
+
+Fit the scaler on the fitting data and apply the same transformation to new examples.
+
+::: {.notes}
+Spending differences shrink by a factor of 1,000 and squared contributions by one million. StandardScaler is a reasonable starting point; scaling is a modelling choice, not a guarantee of meaningful similarity. Use a pipeline when applying scaling and K-Means together. Scaling cannot recover semantic information missing from the features.
+:::
+
+## K-Means: strengths and limitations {.smaller}
+
+| Strength | Limitation |
+|---|---|
+| Simple and usually efficient | We must choose $k$ |
+| Centres summarize groups compactly | Means are sensitive to outliers |
+| Effective for compact, roughly spherical, similarly sized groups | Curved or elongated groups can be split unnaturally |
+| Assigns every example to a group | No explicit rejection of noise or ambiguous points |
+
+**Initialization and feature representation affect the result.**
+
+::: {.notes}
+Tie each limitation back to the algorithm rather than presenting a disconnected list. Nearest-centre assignment favours this geometry; averaging explains outlier sensitivity. Distance explains scale sensitivity. Other clustering methods in the next lecture relax some of these assumptions.
+:::
+
+# How many groups should we create?
+
+## How many clusters?
+
+K-Means asks us to choose $k$ **before fitting**.
+
+- **Too few:** we may merge groups whose differences matter.
+- **Too many:** we may split useful groups into small fragments.
+- There may not be one correct $k$; the intended use and domain knowledge matter.
+
+**How can we compare candidate values of $k$?**
+
+::: {.notes}
+Connect to the preceding fits with a fixed k. We now need to choose how detailed a grouping should be. Some datasets have a clear grouping at a particular scale; others support several reasonable choices or have no useful cluster structure. The goal is usefulness for the intended task, not a convenient narrative.
+:::
+
+## Evidence for choosing $k$ {.smaller}
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](img/cluster-centers.png)
 
-Source: Image created by ChatGPT 5.0
+### Quantitative evidence
+
+- **Elbow plot:** how much does another centre reduce inertia?
+- **Silhouette:** how cohesive and separated are the groups?
+
 :::
-
-::: {.column width="50%"}
-Let's pretend you are data points scattered across a 2D feature space. 
-:::
-::: 
-
-## Cluster assignment 
-
-Which cluster do you belong to? 
-
-:::: {.columns}
-::: {.column width="50%"}
-![](img/cluster-assignment.png)
-
-Source: Image created by ChatGPT 5.0
-:::
-
-::: {.column width="50%"}
-Look around and decide which cluster center is closest to you, just by eyeballing distance in the room.
-:::
-::: 
-
-## Recompute cluster centers 
-
-- Now each cluster needs to find its new mean location. Let’s compute new centroids!
-
-- For each cluster, identify the "average" position of your members. For example, pick someone roughly in the middle or calculate the average row/column number.
-
-- Move your old “cluster center” to these new locations.
-
-## Repeat cluster assignment 
-
-Now that cluster centers have moved, you may need to switch clusters! Check again: which center are you closest to now?
-
-## Discussion questions
-
-- Did anyone switch clusters in the second round?
-
-- When do you think K-Means stops? 
-- Could we end up in a different final clustering if we started with different centers?
-
-## K-Means example 
-![](img/k-means.png)
-
-## K-Means pros and cons
-- **Advantages**:
-  - Simple and efficient for large datasets.
-  - Works well with spherical clusters.
-
-- **Limitations**:
-  - Needs pre-defined $k$.
-  - Sensitive to outliers and initial centroid placement.
-
-## iClicker Exercise 14.1 
-
-Select all of the following statements which are **True**
-
-- (A) K-Means algorithm always converges to the same solution.
-- (B) $K$ in K-Means should always be $\leq$ # of features.
-- (C) In K-Means, it makes sense to have $K$ $\leq$ # of examples. 
-- (D) In K-Means, in some iterations some points may be left unassigned. 
-
-## iClicker Exercise 14.2 
-
-Select all of the following statements which are **True**
-
-- (A) K-Means is sensitive to initialization and the solution may change depending upon the initialization. 
-- (B) K-means terminates when the number of clusters does not increase between iterations.
-- (C) K-means terminates when the centroid locations do not change between iterations.
-- (D) K-Means is guaranteed to find the optimal solution. 
-
-
-# Choosing $k$ (the number of clusters) 
-
-## How many clusters? {.smaller}
-- Clustering is not about perfect scores, but **insight**.
-- Typically we do not want too few or way too many clusters. 
-- There's no single **"correct" value of $k$** -- only *useful* ones that make sense for your problem.
-- Some **preferred** values may exist (e.g., based on domain knowledge).
-- The goal is to find **interpretable, meaningful** clusters. So pick $k$ that helps tell a **useful story** about your data.
-- We typically go with **quantitative** and **qualitative** approaches.
-
-## {.smaller}
-
-:::: {.columns}
-
 ::: {.column width="50%"}
 
-### Quantitative methods
+### Qualitative evidence
 
-- **The Elbow plot**  
-   - Plot inertia vs. K  
-   - Look for the "elbow" — diminishing returns  
-- **Silhouette score**  
-   - Measures cluster cohesion and separation  
-   - Higher score: better-defined clusters
-:::
+- Inspect examples: what do members of each group share?
+- Are the groups useful for the intended task?
 
-::: {.column width="50%"}
-
-### Qualitative methods
-
-- **Manually inspect** clusters:
-  - Do they make sense?
-  - Are they interpretable and actionable?
-- The ultimate goal:  
-  **Human-understandable themes** for real-world decisions.
-- There's *no escape* from manual interpretation!
 :::
 ::::
 
-## The Elbow method
+**Use numerical diagnostics alongside interpretation.**
 
-- **Purpose**: Identify the optimal number of clusters $k$.
-- **How it Works**:
-  - Plot intra-cluster distances for different values of $k$.
-  - Look for the "elbow" point where the intra-cluster reduction slows.
+::: {.notes}
+This is a roadmap for the next slides. Numerical diagnostics quantify properties of a particular representation and distance; they do not establish the real-world meaning of the groups. Use domain knowledge and inspect multiple examples, including ambiguous ones. Neither approach alone establishes a uniquely correct k.
+:::
 
-- **Interpretation**:
-  - The point of diminishing returns suggests a good $k$.
+## Measuring fit with inertia
 
-## The Elbow method example
+We can fit K-Means for several values of $k$. How can we compare them?
+
+**Inertia** is the sum of squared distances to assigned centroids:
+
+$$\text{inertia}=\sum_{i=1}^{n}\lVert x_i-c_{z_i}\rVert^2.$$
+
+For a fixed $k$, lower inertia means a better fit to this objective.
+
+**Does the smallest inertia necessarily give the most useful grouping?**
+
+::: {.notes}
+z_i identifies point i's cluster. Inertia depends on the representation and scale. The best achievable objective cannot increase with k, but separately fitted heuristic runs can be nonmonotone due to local minima. Use multiple starts. The following example will expose the k=n extreme; leave the answer open here.
+:::
+
+## The elbow method
+
+**Adding centres can reduce inertia—but how much improvement is enough?**
+
+- Fit K-Means for several values of $k$.
+- Plot **inertia** against $k$.
+- Look for an **elbow**, where further reductions become much smaller.
+
+The elbow suggests a **candidate $k$**. It may be weak or absent.
+
+::: {.notes}
+The elbow is a diminishing-returns heuristic, not a guarantee of the optimal number of clusters. Compare fits on the same data and representation. Inertia is a sum of squared distances, not a sum of unsquared distances.
+:::
+
+## The elbow method example {.smaller}
+
 :::: {.columns}
-
 ::: {.column width="60%"}
-![](img/elbow-plot.png)
+
+![](img/elbow-plot.png){.nostretch fig-align="center" width="540px"}
+
 :::
 ::: {.column width="40%"}
 
-What would be the intracluster distance when 
+- At **$k=1$**, where is the centre? What does inertia measure?
+- At **$k=n$**, what can inertia be?
+- Why don't we always choose **$k=n$**?
 
-- $k=1$ 
-- $k=$ \# number of data points?  
-::: 
+:::
 ::::
 
-## The Silhouette method {.smaller}
+**Which candidate $k$ would you investigate from this plot?**
 
-- **Silhouette Score**: Measures how well data points fit within their cluster.
-  - $s(i) = \frac{b(i) - a(i)}{\max (a(i), b(i))}$
-    - $a(i)$: Mean distance to other points in the same cluster.
-    - $b(i)$: Mean distance to points in the nearest neighboring cluster.
+::: {.notes}
+At k=1 the centroid is the overall feature-wise mean, and inertia is the sum of squared distances from all examples to that mean. With one centre at each example, inertia can be zero at k=n; this gives no useful grouping or compression. Coincident examples need not form n distinct groups. Walk through the large early drops and smaller later drops, then invite candidate k values rather than a unique correct answer. The legacy figure also includes a fitting-time curve; focus on the within-cluster squared-distance curve. Some datasets have no clear elbow.
+:::
 
-![](img/distances-for-silhoutte.png)
+## iClicker: does lower inertia settle it? {.slide-your-turn}
 
-## The Silhouette method
-- **Range**: -1 to 1
-  - **1**: Perfect clustering.
-  - **0**: Overlapping clusters.
-  - **Negative**: Poor clustering.
-- Higher average silhouette score indicates "better" clustering.
+Two fits on the **same representation and dataset** have:
 
+| $k$ | Inertia |
+|---:|---:|
+| 3 | 120 |
+| 6 | 70 |
 
-## Silhouette plot example
+**Does this establish that six clusters are more useful?**
 
-![](img/silhoutte-example.png)
+- (A) Yes: lower inertia always means the best $k$.
+- (B) No: compare diminishing returns and inspect the groups.
 
-## iClicker Exercise 14.3 {.smaller}
+::: {.notes}
+Answer: B. Lower inertia measures a better fit to the squared-distance objective, not a better application outcome. Optionally change k in the demo, run each setting, and compare the tradeoff. Do not claim that every separate heuristic run must have lower inertia at larger k.
+:::
 
-Select all of the following statements which are **True** 
+## Are individual points in suitable groups?
 
-- (A) If you train K-Means with `n_clusters`= the number of examples, the inertia value will be 0. 
-- (B) The elbow plot shows the tradeoff between within cluster distance and the number of clusters.
-- (C) Unlike the Elbow method, the Silhouette method is not dependent on the notion of cluster centers.
-- (D) The elbow plot is not a reliable method to obtain the optimal number of clusters in all cases. 
-- (E) The Silhouette scores ranges between -1 and 1 where higher scores indicates better cluster assignments.  
+Inertia tells us how close points are to **their own centres**.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_14-k-means.ipynb)
+It does not directly compare a point's own group with its **nearest competing group**.
+
+We already know how to calculate distances. Compare:
+
+- How close is this point to others **inside its group**?
+- How close is it to points in the **best alternative group**?
+
+This motivates the **silhouette score**.
+
+## Silhouette: cohesion and separation {.smaller}
+
+For one point $i$:
+
+- $a(i)$: mean distance to **other points in its own cluster**.
+- $b(i)$: smallest mean distance to points in **another cluster**.
+
+$$s(i)=\frac{b(i)-a(i)}{\max(a(i),b(i))}.$$
+
+![](img/distances-for-silhoutte.png){.nostretch fig-align="center" height="230px"}
+
+::: {.notes}
+b is based on all points in the nearest competing cluster by average distance, not distance to a competing centroid. The overall score averages the point scores. Silhouette can evaluate clusterings from methods other than K-Means. A singleton's silhouette is conventionally set to zero; the overall metric requires between 2 and n−1 distinct labels.
+:::
+
+## Interpreting silhouette scores {.smaller}
+
+| Score | What it suggests |
+|---|---|
+| Near **1** | Own-cluster distances are small relative to competing-cluster distances |
+| Near **0** | Own and nearest-competing cluster distances are similar |
+| **Negative** | A competing cluster is closer on average |
+
+Higher average scores suggest more cohesive, separated groups **under the chosen distance**.
+
+They do not establish that the groups match our intended meaning.
+
+## Reading a silhouette plot {.smaller}
+
+![](img/silhoutte-example.png){.nostretch fig-align="center" height="360px"}
+
+Each band is a cluster; its thickness shows its size. Horizontal position is the score; the dashed line is the overall mean.
+
+::: {.notes}
+No negative scores appear in this example. Each band contains the scores for one cluster; its vertical thickness reflects its number of points. Horizontal position is silhouette score. The dashed line marks the overall average. Ask which clusters have low-score points and inspect their examples and competing groups. Not every cluster or every point needs to exceed the global mean. Similar cluster sizes are not a requirement for useful clustering.
+:::
+
+## Your turn: compare candidate clusterings {.slide-your-turn .smaller}
+
+**Illustrative results on the same representation:**
+
+| Fit | $k$ | Inertia | Mean silhouette |
+|---|---:|---:|---:|
+| A | 3 | 120 | 0.62 |
+| B | 5 | 80 | 0.41 |
+
+1. In B, one point has $a=6$, $b=2$. Calculate its silhouette. What does it suggest?
+2. Which fit would you investigate first? Does either score settle the choice?
+3. What would you inspect before recommending a grouping?
+
+::: {.notes}
+Allow two minutes in pairs. These numbers are hypothetical and are not outputs of the preceding plot. The point's score is (2−6)/6=−2/3: on average it is closer to a competing cluster. A is a reasonable initial candidate because it is simpler and has better average separation, but neither metric proves application usefulness. Inspect members, low-score examples, cluster sizes, stability, and domain relevance. B's lower inertia is not sufficient to prefer it. Other justified choices are welcome.
+:::
+
+## iClicker: choosing $k$ {.slide-your-turn .smaller}
+
+**Which statements are true? Select all that apply.**
+
+- (A) Every dataset has one obvious elbow.
+- (B) Silhouette compares point-to-point distances, so it can assess methods without centroids.
+- (C) A negative silhouette suggests a competing group is closer on average.
+- (D) The largest silhouette score proves the clusters have useful real-world meanings.
+- (E) Elbow and silhouette diagnostics should be combined with inspection.
+
+::: {.notes}
+Answers: B, C, E. Both diagnostics favour particular geometries; they can mislead on complex shapes, unequal densities, or application-specific groupings. An elbow can be weak or absent. A numerical optimum is not a guarantee of usefulness.
+:::
+
+# What if the features miss the similarity we care about?
+
+## Image similarity: what can pixels tell us?
+
+**Problem:** We want images of similar objects in the same group.
+
+**Current toolbox:** flatten pixels, calculate distances, and fit K-Means.
+
+But pixel distance compares values at matching positions. It can emphasize **background, colour, and alignment** rather than the object.
+
+**Change the representation:** use features from a pretrained image model, then apply the same K-Means procedure.
+
+::: {.notes}
+Connect back to the food activity and clicks-to-interests motivation. Here we reuse a learned representation rather than teach its training algorithm. Pretrained features may encode more useful visual content, but the comparison must be inspected. Their original training can use labels even though fitting K-Means on the resulting features does not.
+:::
+
+## Class demo: image clustering
+
+[K-Means demo notebook](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-14-k-means-demo.ipynb)
+
+1. Compare bird clusters from **pixels** and **pretrained features**.
+2. Inspect the more varied **food images**.
+3. Consider what changing $k$ would do to these groups.
+
+**Before running:** Which visual similarities can the chosen features capture?
+
+::: {.notes}
+Use the current lecture-14 notebook. Focus on the chosen representation and interpretation rather than every code line. Only X is supplied to the clustering fit. Any external labels used to inspect results are not training targets for K-Means.
+:::
+
+## Today's takeaways {.slide-summary}
+
+- **Without targets:** discover groups or learn useful representations.
+- **To form groups:** K-Means alternates nearest-centre assignments and mean updates.
+- **To get useful results:** consider initialization, scaling, and cluster geometry.
+- **To choose $k$:** combine elbow and silhouette diagnostics with inspection.
+- **From the image demo:** changing the representation changes similarity; we interpret the resulting groups.
+
+::: {.notes}
+Summarize immediately after the notebook. Ask students to connect the actual pixel-versus-feature results to the opening food representations. Avoid claiming that pretrained features always recover the desired categories.
+:::
+
+## Exit question {.slide-your-turn}
+
+Your image clusters have a **high average silhouette score**, but they group backgrounds together rather than the objects you care about.
+
+**What would you investigate or change next, and why?**
+
+Explain why changing $k$ alone might not solve the problem.
+
+::: {.notes}
+Ask for an individual response in one or two sentences. A strong answer connects the score to distances in the supplied representation, inspects members and preprocessing, and proposes a representation that captures object content. Changing k alters the partition but does not add missing semantic information. Other justified investigations are acceptable.
+:::
+
+<style>
+.kmeans-print { display: none; }
+@media print {
+  .kmeans-live { display: none !important; }
+  .kmeans-print { display: block !important; }
+}
+html.print-pdf .kmeans-live { display: none !important; }
+html.print-pdf .kmeans-print { display: block !important; }
+</style>

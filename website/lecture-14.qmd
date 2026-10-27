@@ -1,0 +1,28 @@
+---
+title: "Lecture 14: K-Means"
+description: "Unsupervised learning, clustering, representation learning, K-Means, and choosing useful clusters"
+description-short: "Unsupervised learning, K-Means, representation, choosing k"
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-14-k-means.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-14-k-means.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Learning without targets: clustering and representation learning
+- K-Means: assignment, centroid updates, and prediction
+- Initialization, scaling, and feature representation
+- Choosing a useful number of clusters with elbow and silhouette diagnostics
+- Applying K-Means to image representations
+
+## Interactive walkthrough
+
+[Explore K-Means: assign, average, repeat](slides/demos/k-means.html)
+
+The HTML slides include an interactive walkthrough. The PDF contains a static worked example.
