@@ -1,4 +1,5 @@
 ---
+publish-pdf: true
 title: "Lecture 14: K-Means"
 description: "Unsupervised learning, clustering, representation learning, K-Means, and choosing useful clusters"
 description-short: "Unsupervised learning, K-Means, representation, choosing k"
