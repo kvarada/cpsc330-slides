@@ -41,7 +41,7 @@ editor:
 
 ![](img/furniture-items.png){.nostretch fig-align="center" height="320px"}
 
-We know how to train a classifier—but **what would its target be?**
+We know how to train a classifier but **what would its target be?**
 
 ::: {.notes}
 Use this as an opening problem, not a separate pair activity. Existing supervised tools need example targets. Here the goal is to discover an organization rather than reproduce supplied categories. Possible groupings include room, function, material, or style.
@@ -64,29 +64,16 @@ These are two broad goals, not an exhaustive taxonomy. Representation learning n
 
 ## Representation learning: clicks to interests {.smaller}
 
-![](img/news-clicks.png){.nostretch fig-align="center" height="250px"}
-
 **Problem:** Thousands of article-click features are difficult to interpret; total clicks hide interests.
 
-**Current toolbox:** manually count clicks by topic, if topics are already known.
+Instead learn a smaller set of interest dimensions from patterns of articles read together.
 
-**New goal:** learn a smaller set of interest dimensions from patterns of articles read together.
+![](img/clicks-to-learned-topics.png){.nostretch fig-align="center" height="280px" fig-alt="The same readers represented by many article-click features and then learned features interpreted as politics, science, and sports."}
 
-::: {.notes}
-Two readers may each click 20 articles but have very different interests. A learned representation could describe each reader with a few topic-like scores instead of thousands of article columns. These dimensions need interpretation; they are not guaranteed to correspond to named topics. We motivate dimensionality reduction here; its algorithms come later. Manually counting known topics is feature engineering, not itself unsupervised representation learning.
-:::
-
-## iClicker: supervised or unsupervised? {.slide-your-turn .smaller}
-
-**Which tasks can be learned without a target column? Select all that apply.**
-
-- (A) Predict cancellation using past cancellation labels.
-- (B) Group furniture using item features, without group labels.
-- (C) Learn a few dimensions from article-click patterns, without topic labels.
-- (D) Predict furniture prices using previously priced items.
+<center><small>Image created by GPT-6.1 Sol Light</small></center>
 
 ::: {.notes}
-Answers: B and C. A is supervised classification; D is supervised regression. B produces groups. C produces a representation of each reader, rather than a group label.
+Two readers may each click 20 articles but have very different interests. A learned representation could describe each reader with a few topic-like scores instead of thousands of article columns. The diagram is an illustrative example, not the output of a fitted model. Its scores are features, not probabilities. Rows remain readers; the new columns are learned dimensions, not cluster IDs. Topic names are possible interpretations added after learning, not supplied training labels. These dimensions need interpretation; they are not guaranteed to correspond to named topics. Illustration generated using the built-in OpenAI image-generation tool. We motivate dimensionality reduction here; its algorithms come later. Manually counting known topics is feature engineering, not itself unsupervised representation learning.
 :::
 
 # How can we group similar examples?
@@ -101,22 +88,45 @@ Answers: B and C. A is supervised classification; D is supervised regression. B 
 Examples: sweet/savoury, meal type, ingredients, or visual appearance. There need not be one correct grouping. Pixel colour, ingredient indicators, and learned image representations encode different similarities. Ask how the intended use affects the choice.
 :::
 
-## Clustering needs a notion of similarity
+## The goal of clustering
 
-The food activity gives us two choices to make:
+**Group similar examples without predefined group labels.**
 
-- **Representation:** which differences should matter?
-- **Grouping rule:** how do we turn those differences into clusters?
+- **Within a cluster:** examples should be similar.
+- **Between clusters:** examples should differ.
 
-Groups can summarize a dataset or reveal patterns for investigation.
+What counts as "similar" depends on the **features, distance, and purpose**, as in your food groupings.
 
-**We provide the interpretation:** cluster IDs are arbitrary names, not explanations.
+The algorithm returns memberships; **we interpret what the groups mean**.
 
 ::: {.notes}
-Refer to two student proposals from the activity. Neither is universally correct. A clustering algorithm sees the supplied features and distance, not our intended semantic categories. Renaming labels 0, 1, 2 leaves memberships unchanged.
+Connect the definition to two groupings proposed during the food activity. For example, grouping by ingredients and grouping by appearance use different notions of similarity. The input is X without target group labels; the output identifies which examples belong together. Within-group similarity and between-group differences describe the broad aim, not a single objective shared by every clustering algorithm. There need not be one universally correct partition or useful clusters in every dataset. Cluster IDs are arbitrary identifiers, not explanations: renaming 0, 1, 2 leaves memberships unchanged. Next, use the familiar Euclidean-distance toolbox to develop one specific approach, K-Means.
 :::
 
-## Using the distance tools we already know
+## The "perfect" spaghetti sauce
+
+Suppose you are a hypothetical spaghetti sauce company and you're asked to create the "perfect" spaghetti sauce which makes all your customers happy. The truth is humans are diverse and there is no "perfect" spaghetti sauce. There are "perfect" spaghetti sauces that cater to different tastes! 
+
+## The "perfect" spaghetti sauce {.smaller}
+
+Howard Moskowitz found out that Americans fall into one of the following three categories: (Reference: [Malcolm Gladwell's Ted talk](https://www.ted.com/talks/malcolm_gladwell_choice_happiness_and_spaghetti_sauce?language=en)) 
+
+- people who like their spaghetti sauce **plain**
+- people who like their spaghetti sauce **spicy**
+- people who like their spaghetti sauce **extra chunky**
+
+![](img/prego-pasta-sauces.png){.nostretch fig-align="center" width="700px"}
+
+## The "perfect" spaghetti sauce
+
+- One "authentic" sauce satisfied ~60% of people
+- Designing multiple sauces for different clusters increased satisfaction to ~75% to 78%.
+
+
+**Key idea:** Clustering lets us tailor decisions and products to groups, not individuals. Can we apply this idea in machine learning? 
+
+
+## Using the distance tools we already know {visibility="hidden"}
 
 Represent each food by numeric features and choose $k$ groups.
 
@@ -195,7 +205,7 @@ Keep k=3 and the Spread initialization for the first walkthrough. Point 7 is hig
 ```{.python}
 from sklearn.cluster import KMeans
 
-km = KMeans(n_clusters=3, n_init=10, random_state=42)
+km = KMeans(n_clusters=3, random_state=42)
 labels = km.fit_predict(X)  # no target y
 centres = km.cluster_centers_
 new_labels = km.predict(X_new)
@@ -233,21 +243,11 @@ Allow one minute. The learned centres are A=(0,0) and B=(6,0); query=(5,1). Dist
 Answers: B, D, E. Centroids are means and need not be observations. k is fixed during a run. All points are assigned at each assignment step. Contrast predict with refitting.
 :::
 
-## Initialization: same data, different groups {.smaller}
+## Initialization: same data, different groups {.smaller .slide-your-turn}
 
-We have fixed $X$ and $k$. Does that determine a single final result?
+We have fixed $X$ and $k$. Does that determine a single final result? Which initilization is better here? 
 
-In the [interactive demo](demos/k-means.html), keep **$k=3$**:
-
-1. Run **Spread** to convergence.
-2. Run **Crowded** on the same points.
-3. Compare the final groups and squared distances to their centres.
-
-Different starts can reach **different solutions**. More iterations may not fix a poor one.
-
-::: {.notes}
-Make this an instructor-led comparison, not another separate activity. Reuse the earlier embedded demo or open the standalone link. The hand-picked presets are not implementations of K-Means++. The crowded solution splits the left group and merges the two right groups; its inertia is higher. Convergence does not establish a global optimum.
-:::
+![](img/k-means-initialization.png){.nostretch fig-align="center" height="350px"}
 
 ## Getting a better starting point
 
@@ -257,7 +257,7 @@ Make this an instructor-led comparison, not another separate activity. Reuse the
 - **Multiple starts** try different initializations and retain the lowest within-cluster sum of squares.
 - A fixed **`random_state`** makes the result reproducible.
 
-Our code uses `n_init=10`: try ten starts, then retain the best run.
+If you use `n_init=10`: try ten starts, then retain the best run.
 
 ::: {.notes}
 K-Means++ is scikit-learn's default initialization. The within-cluster sum of squares is inertia, defined in the next section. These strategies improve the chance of finding a good solution but do not guarantee the global optimum. Reproducibility and quality are different properties.
@@ -278,13 +278,13 @@ Answer: C for the exact stable-centre case stated. Practical implementations can
 
 ## Scaling: should changing units change the groups?
 
-We cluster customers using **age in years** and **spending in dollars**.
+- We cluster customers using **age in years** and **spending in dollars**.
 
-Changing spending to **thousands of dollars** changes its contribution to Euclidean distance—even though the customers are unchanged.
+- Changing spending to **thousands of dollars** changes its contribution to Euclidean distance even though the customers are unchanged.
 
-**Use the preprocessing tools we know:** usually scale numeric features before K-Means.
+- **Use the preprocessing tools we know:** usually scale numeric features before K-Means.
 
-Fit the scaler on the fitting data and apply the same transformation to new examples.
+- Fit the scaler on the fitting data and apply the same transformation to new examples.
 
 ::: {.notes}
 Spending differences shrink by a factor of 1,000 and squared contributions by one million. StandardScaler is a reasonable starting point; scaling is a modelling choice, not a guarantee of meaningful similarity. Use a pipeline when applying scaling and K-Means together. Scaling cannot recover semantic information missing from the features.
@@ -364,9 +364,9 @@ For a fixed $k$, lower inertia means a better fit to this objective.
 z_i identifies point i's cluster. Inertia depends on the representation and scale. The best achievable objective cannot increase with k, but separately fitted heuristic runs can be nonmonotone due to local minima. Use multiple starts. The following example will expose the k=n extreme; leave the answer open here.
 :::
 
-## The elbow method
+## The elbow method 
 
-**Adding centres can reduce inertia—but how much improvement is enough?**
+**Adding centres can reduce inertia but how much improvement is enough?**
 
 - Fit K-Means for several values of $k$.
 - Plot **inertia** against $k$.
@@ -378,7 +378,7 @@ The elbow suggests a **candidate $k$**. It may be weak or absent.
 The elbow is a diminishing-returns heuristic, not a guarantee of the optimal number of clusters. Compare fits on the same data and representation. Inertia is a sum of squared distances, not a sum of unsquared distances.
 :::
 
-## The elbow method example {.smaller}
+## The elbow method example {.smaller .slide-your-turn}
 
 :::: {.columns}
 ::: {.column width="60%"}
@@ -399,24 +399,6 @@ The elbow is a diminishing-returns heuristic, not a guarantee of the optimal num
 
 ::: {.notes}
 At k=1 the centroid is the overall feature-wise mean, and inertia is the sum of squared distances from all examples to that mean. With one centre at each example, inertia can be zero at k=n; this gives no useful grouping or compression. Coincident examples need not form n distinct groups. Walk through the large early drops and smaller later drops, then invite candidate k values rather than a unique correct answer. The legacy figure also includes a fitting-time curve; focus on the within-cluster squared-distance curve. Some datasets have no clear elbow.
-:::
-
-## iClicker: does lower inertia settle it? {.slide-your-turn}
-
-Two fits on the **same representation and dataset** have:
-
-| $k$ | Inertia |
-|---:|---:|
-| 3 | 120 |
-| 6 | 70 |
-
-**Does this establish that six clusters are more useful?**
-
-- (A) Yes: lower inertia always means the best $k$.
-- (B) No: compare diminishing returns and inspect the groups.
-
-::: {.notes}
-Answer: B. Lower inertia measures a better fit to the squared-distance objective, not a better application outcome. Optionally change k in the demo, run each setting, and compare the tradeoff. Do not claim that every separate heuristic run must have lower inertia at larger k.
 :::
 
 ## Are individual points in suitable groups?
@@ -498,22 +480,6 @@ Allow two minutes in pairs. These numbers are hypothetical and are not outputs o
 
 ::: {.notes}
 Answers: B, C, E. Both diagnostics favour particular geometries; they can mislead on complex shapes, unequal densities, or application-specific groupings. An elbow can be weak or absent. A numerical optimum is not a guarantee of usefulness.
-:::
-
-# What if the features miss the similarity we care about?
-
-## Image similarity: what can pixels tell us?
-
-**Problem:** We want images of similar objects in the same group.
-
-**Current toolbox:** flatten pixels, calculate distances, and fit K-Means.
-
-But pixel distance compares values at matching positions. It can emphasize **background, colour, and alignment** rather than the object.
-
-**Change the representation:** use features from a pretrained image model, then apply the same K-Means procedure.
-
-::: {.notes}
-Connect back to the food activity and clicks-to-interests motivation. Here we reuse a learned representation rather than teach its training algorithm. Pretrained features may encode more useful visual content, but the comparison must be inspected. Their original training can use labels even though fitting K-Means on the resulting features does not.
 :::
 
 ## Class demo: image clustering
