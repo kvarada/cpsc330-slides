@@ -103,30 +103,7 @@ The algorithm returns memberships; **we interpret what the groups mean**.
 Connect the definition to two groupings proposed during the food activity. For example, grouping by ingredients and grouping by appearance use different notions of similarity. The input is X without target group labels; the output identifies which examples belong together. Within-group similarity and between-group differences describe the broad aim, not a single objective shared by every clustering algorithm. There need not be one universally correct partition or useful clusters in every dataset. Cluster IDs are arbitrary identifiers, not explanations: renaming 0, 1, 2 leaves memberships unchanged. Next, use the familiar Euclidean-distance toolbox to develop one specific approach, K-Means.
 :::
 
-## The "perfect" spaghetti sauce
-
-Suppose you are a hypothetical spaghetti sauce company and you're asked to create the "perfect" spaghetti sauce which makes all your customers happy. The truth is humans are diverse and there is no "perfect" spaghetti sauce. There are "perfect" spaghetti sauces that cater to different tastes! 
-
-## The "perfect" spaghetti sauce {.smaller}
-
-Howard Moskowitz found out that Americans fall into one of the following three categories: (Reference: [Malcolm Gladwell's Ted talk](https://www.ted.com/talks/malcolm_gladwell_choice_happiness_and_spaghetti_sauce?language=en)) 
-
-- people who like their spaghetti sauce **plain**
-- people who like their spaghetti sauce **spicy**
-- people who like their spaghetti sauce **extra chunky**
-
-![](img/prego-pasta-sauces.png){.nostretch fig-align="center" width="700px"}
-
-## The "perfect" spaghetti sauce
-
-- One "authentic" sauce satisfied ~60% of people
-- Designing multiple sauces for different clusters increased satisfaction to ~75% to 78%.
-
-
-**Key idea:** Clustering lets us tailor decisions and products to groups, not individuals. Can we apply this idea in machine learning? 
-
-
-## Using the distance tools we already know {visibility="hidden"}
+## Using the distance tools we already know 
 
 Represent each food by numeric features and choose $k$ groups.
 
@@ -247,7 +224,7 @@ Answers: B, D, E. Centroids are means and need not be observations. k is fixed d
 
 We have fixed $X$ and $k$. Does that determine a single final result? Which initilization is better here? 
 
-![](img/k-means-initialization.png){.nostretch fig-align="center" height="350px"}
+![](img/k-means-initialization-unassigned.png){.nostretch fig-align="center" height="350px"}
 
 ## Getting a better starting point
 
