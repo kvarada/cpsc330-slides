@@ -39,7 +39,7 @@ from sklearn.preprocessing import StandardScaler
 
 sys.path.insert(0, os.path.join(os.path.abspath("."), "code"))
 from plotting_functions_unsup import (
-    plot_kmeans, plot_kmeans_gmm, plot_original_clustered,
+    discrete_scatter, plot_kmeans, plot_kmeans_gmm, plot_original_clustered,
 )
 plt.close("all")  # Discard figures created when importing the existing helpers.
 
@@ -151,46 +151,44 @@ Answers: A and C. KNN uses k neighbours for a prediction; K-Means requests k gro
 K-Means uses nearest-centre assignments under Euclidean distance. Comparable sizes describe a favourable setting, not a requirement or an equal-size constraint. Scaling, representation, initialization, and outliers also affect the result.
 :::
 
-## Failure case 1
+## When nearest-centre assignments fail
 
-- K-Means performs poorly with complex cluster shapes, such as these two moons.
-
-```{python}
-X, y = make_moons(n_samples=200, noise=0.05, random_state=42)
-plot_kmeans(X, 2)
-```
-
-::: {.notes}
-Ask students to predict where the nearest-centre boundary will cut. We supply the intended number of groups, so choosing k is not the difficulty.
-:::
-
-## Failure case 2
-
-- Nearest-centre assignments cannot recover these concentric rings.
+Even with the intended $k$, K-Means can split natural groups.
 
 ```{python}
-X, y = make_circles(n_samples=200, noise=0.06, factor=0.4, random_state=42)
-plot_kmeans(X, 2)
-```
-
-::: {.notes}
-The Gaussian mixture panel is a preview for comparison, not an additional algorithm students need to learn today. Its elliptical components also struggle with this ring-shaped grouping. More initializations cannot remove the nearest-centre geometry of K-Means.
-:::
-
-## Failure case 3
-
-- K-Means uses the same distance in every direction and can split elongated groups.
-
-```{python}
-X, y = make_blobs(random_state=170, n_samples=200)
+#| fig-width: 12
+#| fig-height: 5.2
+X_elongated, _ = make_blobs(random_state=170, n_samples=200)
 rng = np.random.RandomState(74)
-transformation = rng.normal(size=(2, 2))
-X = np.dot(X, transformation)
-plot_kmeans(X, 3)
+X_elongated = X_elongated @ rng.normal(size=(2, 2))
+failure_cases = [
+    ("Two moons", make_moons(n_samples=200, noise=0.05, random_state=42)[0], 2),
+    ("Concentric rings", make_circles(n_samples=200, noise=0.06, factor=0.4, random_state=42)[0], 2),
+    ("Elongated groups", X_elongated, 3),
+]
+fig, axes = plt.subplots(2, 3, figsize=(12, 5.2))
+for col, (title, X_case, k) in enumerate(failure_cases):
+    model = KMeans(n_clusters=k, n_init="auto", random_state=42).fit(X_case)
+    discrete_scatter(X_case[:, 0], X_case[:, 1], ax=axes[0, col])
+    discrete_scatter(X_case[:, 0], X_case[:, 1], model.labels_,
+                     markers="o", ax=axes[1, col])
+    discrete_scatter(model.cluster_centers_[:, 0], model.cluster_centers_[:, 1],
+                     range(k), s=15, markers="*", markeredgewidth=1.0,
+                     ax=axes[1, col])
+    axes[0, col].set_title(title)
+    axes[1, col].set_title(f"K-Means ($k={k}$)")
+    for ax in axes[:, col]:
+        ax.set_xticks([])
+        ax.set_yticks([])
+    axes[1, col].set_xlim(axes[0, col].get_xlim())
+    axes[1, col].set_ylim(axes[0, col].get_ylim())
+axes[0, 0].set_ylabel("Original data")
+axes[1, 0].set_ylabel("K-Means clusters")
+fig.tight_layout()
 ```
 
 ::: {.notes}
-Use three clusters for the three generated groups. The Gaussian mixture comparison illustrates how allowing different spreads and orientations can help with elongated groups. Do not infer that it solves arbitrary shapes or that generating labels define the only useful partition.
+Ask students where nearest-centre boundaries will cut each dataset. We supply the intended number of groups in every case, so choosing k is not the difficulty. Moons and rings require curved group boundaries; elongated groups can also be split by nearest-centre assignments. More initializations cannot remove this geometry. The original-data row is unlabelled; generating labels do not define the only useful partition.
 :::
 
 # Can we do better?
@@ -198,12 +196,12 @@ Use three clusters for the three generated groups. The Gaussian mixture comparis
 ## DBSCAN {.smaller}
 
 - **D**ensity-**B**ased **S**patial **C**lustering of **A**pplications with **N**oise
-- A density-based clustering algorithm
+- Forms clusters from connected dense regions, leaving isolated points as noise.
 
 ```{python}
 #| echo: true
 X, y = make_moons(n_samples=200, noise=0.08, random_state=42)
-dbscan = DBSCAN(eps=0.2)
+dbscan = DBSCAN(eps=0.2, min_samples=5)
 dbscan.fit(X)
 plot_original_clustered(X, dbscan, dbscan.labels_)
 ```
@@ -235,34 +233,58 @@ Their values depend on the **features, scale, and distance metric**.
 
 ```{python}
 #| echo: false
+#| fig-width: 11
+#| fig-height: 4.2
 X_points = np.array([
     [0.0, 0.0], [0.1, 0.1], [-0.1, 0.1], [0.0, -0.15],
-    [0.55, 0.0], [1.05, 0.0],
+    [0.55, 0.0], [1.0, 0.0],
 ])
 point_model = DBSCAN(eps=0.5, min_samples=4).fit(X_points)
 point_types = np.full(len(X_points), "border", dtype=object)
 point_types[point_model.labels_ == -1] = "noise"
 point_types[point_model.core_sample_indices_] = "core"
 
-fig, ax = plt.subplots(figsize=(8, 3.5))
-for kind, marker, colour, size in [
-    ("core", "o", "C0", 150), ("border", "s", "C1", 95), ("noise", "x", "grey", 100)
-]:
-    mask = point_types == kind
-    ax.scatter(X_points[mask, 0], X_points[mask, 1], marker=marker,
-               color=colour, s=size, label=kind)
-for i, point in enumerate(X_points):
-    ax.annotate(str(i), point, xytext=(5, 6), textcoords="offset points")
-for index, colour in [(1, "C0"), (4, "C1")]:
-    ax.add_patch(Circle(X_points[index], 0.5, fill=False, linestyle="--", color=colour))
-ax.set(xlim=(-0.65, 1.35), ylim=(-0.65, 0.7), title="Who can extend the group?")
-ax.set_aspect("equal")
-ax.legend(loc="upper left", bbox_to_anchor=(1, 1))
-plt.tight_layout()
+fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
+label_offsets = [(-14, -8), (10, 10), (-15, 10), (0, -18), (0, -20), (0, -20)]
+for ax, centre, colour, title in zip(
+    axes, [1, 4], ["C0", "C1"],
+    ["Point 1: core neighbourhood", "Point 4: border neighbourhood"],
+):
+    ax.add_patch(Circle(X_points[centre], 0.5, facecolor=colour,
+                        edgecolor=colour, alpha=0.12, zorder=0))
+    ax.add_patch(Circle(X_points[centre], 0.5, fill=False,
+                        linestyle="--", linewidth=2, edgecolor=colour))
+    for kind, marker, point_colour, size in [
+        ("core", "o", "C0", 150),
+        ("border", "s", "C1", 140),
+        ("noise", "x", "grey", 150),
+    ]:
+        mask = point_types == kind
+        ax.scatter(X_points[mask, 0], X_points[mask, 1], marker=marker,
+                   color=point_colour, s=size, zorder=3, label=kind,
+                   **({"edgecolors": "black", "linewidths": 0.8}
+                      if kind != "noise" else {"linewidths": 2.5}))
+    for i, point in enumerate(X_points):
+        ax.annotate(str(i), point, xytext=label_offsets[i],
+                    textcoords="offset points", ha="center", va="center",
+                    fontsize=12, fontweight="bold",
+                    bbox=dict(facecolor="white", edgecolor="none", pad=1),
+                    zorder=4)
+    count = np.count_nonzero(np.linalg.norm(X_points - X_points[centre], axis=1) <= 0.5)
+    ax.set_title(title, fontsize=14, pad=12)
+    ax.set_xlabel(f"{count} points within eps (including point {centre})", fontsize=12)
+    ax.set(xlim=(-0.65, 1.15), ylim=(-0.6, 0.7), xticks=[], yticks=[])
+    ax.set_aspect("equal")
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+handles, labels = axes[0].get_legend_handles_labels()
+fig.legend(handles, labels, loc="lower center", ncol=3, frameon=False,
+           bbox_to_anchor=(0.5, 0.0))
+fig.tight_layout(rect=(0, 0.1, 1, 1))
 ```
 
 ::: {.notes}
-Points 0–3 are core, 4 is border, and 5 is noise. Point 4 cannot extend the cluster to 5. The dashed circles show neighbourhoods of points 1 and 4. Have students count each centre point itself. A chain of border points cannot connect clusters.
+Points 0–3 are core, 4 is border, and 5 is noise. Point 4 cannot extend the cluster to 5. The two panels show the same data with one eps-neighbourhood highlighted at a time. Point 1 has five points in its neighbourhood; point 4 has only three (1, 4, and 5). Count each centre point itself. Point 5 is within eps of border point 4, but no core point. Its distance from 4 is 0.45, safely inside eps rather than exactly on the boundary. A chain of border points cannot connect clusters.
 :::
 
 ## How DBSCAN grows clusters {.smaller}
@@ -378,7 +400,7 @@ The first two settings retain two groups here; the stricter threshold fragments 
 3. Inspect **cluster sizes, noise fraction, and representative examples**.
 4. Check whether useful interpretations persist at nearby settings.
 
-**Can we use our usual target-based cross-validation score?**
+**Can we use our usual grid search or random search?**
 
 ::: {.notes}
 Usually there is no target y or natural held-out prediction score. GridSearchCV is not a drop-in solution for standard DBSCAN: it has no predict method or default score. Custom evaluation is possible, but internal scores alone do not establish usefulness. Almost all noise suggests trying larger eps or smaller min_samples; one large group suggests the reverse. These are diagnostic directions, not guarantees. Suitable numerical settings are representation-specific.
