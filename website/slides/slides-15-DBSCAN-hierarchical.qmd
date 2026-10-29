@@ -1,6 +1,8 @@
 ---
-title: 'CPSC 330 Lecture 15: DBSCAN, Hierarchical Clustering'
-description: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
+title: 'CPSC 330 Lecture 15: DBSCAN and hierarchical clustering'
+author: "Varada Kolhatkar"
+description: "K-Means limitations, DBSCAN, density parameters, hierarchical clustering, dendrograms, linkage, and interpreting clusters"
+description-short: "DBSCAN, hierarchical clustering, dendrograms, linkage"
 format:
     revealjs:
         html-math-method: mathjax
@@ -13,10 +15,91 @@ format:
         resources:
           - data/
           - img/
-
+execute:
+    echo: false
+    warning: false
 editor:
   render-on-save: true
 ---
+
+```{python}
+#| echo: false
+#| include: false
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.patches import Circle
+from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
+from sklearn.cluster import DBSCAN, KMeans
+from sklearn.datasets import make_blobs, make_circles, make_moons
+from sklearn.preprocessing import StandardScaler
+
+plt.rcParams.update({"font.size": 12, "figure.figsize": (6, 4)})
+
+
+def plot_cluster_labels(X, labels, ax=None, title=None, annotate=False):
+    """Plot a partition, with noise shown as grey crosses."""
+    if ax is None:
+        _, ax = plt.subplots()
+    labels = np.asarray(labels)
+    for label in np.unique(labels):
+        mask = labels == label
+        colour = "grey" if label == -1 else f"C{int(label) % 10}"
+        ax.scatter(
+            X[mask, 0], X[mask, 1], s=70, color=colour,
+            marker="x" if label == -1 else "o",
+            **({"edgecolors": "black", "linewidths": 0.6} if label != -1 else {}),
+            label="noise" if label == -1 else f"cluster {label}",
+        )
+    if annotate:
+        ax.margins(0.15)
+        for i, point in enumerate(X):
+            ax.annotate(str(i), point, xytext=(6, 6), textcoords="offset points")
+    ax.set(xlabel="Feature 0", ylabel="Feature 1", title=title)
+    ax.set_aspect("equal", adjustable="box")
+    return ax
+
+
+def plot_dbscan(X, model, ax, title):
+    """Use colour for cluster membership and marker size for point type."""
+    labels = model.labels_
+    core = np.zeros(len(X), dtype=bool)
+    core[model.core_sample_indices_] = True
+    for label in sorted(set(labels) - {-1}):
+        colour = f"C{int(label) % 10}"
+        for is_core, size in [(True, 55), (False, 22)]:
+            mask = (labels == label) & (core == is_core)
+            ax.scatter(X[mask, 0], X[mask, 1], s=size, color=colour,
+                       edgecolor="black", linewidth=0.4)
+    noise = labels == -1
+    ax.scatter(X[noise, 0], X[noise, 1], color="grey", marker="x", s=35)
+    n_clusters = len(set(labels) - {-1})
+    cluster_word = "cluster" if n_clusters == 1 else "clusters"
+    ax.set_title(f"{title}\n{n_clusters} {cluster_word}; {noise.mean():.0%} noise")
+    ax.set(xlabel="Feature 0", ylabel="Feature 1")
+    ax.set_aspect("equal", adjustable="box")
+
+
+def plot_hierarchy_cut(X, Z, labels, height, title):
+    """Match dendrogram branch colours to flat-cluster colours."""
+    n = len(X)
+    members = {i: [i] for i in range(n)}
+    for i, row in enumerate(Z):
+        members[n + i] = members[int(row[0])] + members[int(row[1])]
+
+    def branch_colour(node):
+        groups = np.unique(labels[members[node]])
+        return f"C{int(groups[0]) % 10}" if len(groups) == 1 else "grey"
+
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.5))
+    dendrogram(Z, ax=axes[0], link_color_func=branch_colour,
+               leaf_font_size=11)
+    axes[0].axhline(height, color="black", linestyle="--", label=f"cut = {height:.2f}")
+    axes[0].set(xlabel="Sample index", ylabel="Merge height", title=title)
+    axes[0].legend()
+    plot_cluster_labels(X, labels, ax=axes[1], title="Flat clusters", annotate=True)
+    plt.tight_layout()
+```
 
 ## Focus on the breath!
 
@@ -24,318 +107,545 @@ editor:
 
 ## Announcements {.smaller}
 
-- HW6 is due next week Monday
-  - This one is computationally intensive — you’ll need to install several packages to get it running.
-	- Make sure all images and outputs are rendered when you submit on Gradescope.
-	- The .ipynb file might be too large to render directly on Gradescope, so please export it to WebPDF and upload both the .ipynb and the .pdf files.
+## Today's big questions {.slide-goals}
 
-- Midterm 2
-  - Check out this piazza post: https://piazza.com/class/mekbcze4gyber/post/423#
+1. When does a **nearest-centre** grouping fail?
+2. How can **density** define a cluster and identify noise?
+3. How can we explore **nested groups** with a dendrogram?
+4. What evidence makes a clustering **useful**?
 
-## Imports 
+## iClicker 15.1: recalling K-Means {.slide-your-turn}
 
-```{python}
-import os
-import random
-import sys
+**Select all statements that are true.**
 
-import numpy as np
-import pandas as pd
+- (A) With $n$ examples and $d$ features, K-Means learns $k$ centres, each with $d$ coordinates.
+- (B) The parameter $k$ plays the same role in KNN and K-Means.
+- (C) Changing feature units can change a distance-based clustering.
+- (D) Useful clusters should always have equal numbers of examples.
 
-sys.path.append(os.path.join(os.path.abspath("."), "code"))
-import matplotlib.pyplot as plt
-import seaborn as sns
-from plotting_functions import *
-from plotting_functions_unsup import *
-from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
-from sklearn import cluster, datasets, metrics
-from sklearn.cluster import DBSCAN, AgglomerativeClustering, KMeans
-from sklearn.mixture import GaussianMixture
-from sklearn.datasets import make_blobs, make_moons
-from sklearn.decomposition import PCA
-from sklearn.metrics.pairwise import euclidean_distances
-from sklearn.preprocessing import StandardScaler
-from yellowbrick.cluster import SilhouetteVisualizer
-from scipy.cluster.hierarchy import (
-    average,
-    complete,
-    dendrogram,
-    fcluster,
-    single,
-    ward,
-)
+::: {.notes}
+Answers: A and C. KNN uses k neighbours for a prediction; K-Means requests k groups. Units affect distances unless preprocessing compensates. Equal group sizes are not a general clustering goal. Cluster IDs are arbitrary.
+:::
 
-plt.rcParams["font.size"] = 16
-plt.rcParams["figure.figsize"] = (5, 4)
-%matplotlib inline
-pd.set_option("display.max_colwidth", 0)
-```
+# When do centres miss the groups?
 
-## iClicker Exercise 15.1 {.smaller}
+## K-Means: useful assumptions, real limitations
 
-**Select all of the following statements which are TRUE.**
+K-Means assigns **every point to its nearest centre**.
 
-- (A) With $n$ examples, $k$ clusters, and $d$ features, K-Means learns $k$ cluster centers, each $d$-dimensional. 
-- (B) The meaning of $k$ in K-nearest neighbours and K-Means clustering is very similar. 
-- (C) Scaling of input features is crucial in clustering.  
-- (D) In clustering, it's almost always a good idea to find equal-sized clusters. 
+- Works well when means represent compact groups.
+- Can split curved or elongated groups.
+- Outliers can pull centres away from the main group.
+- Requires $k$; different initial centres can give different results.
 
-# K-means limitations {.smaller}
+**Scaling and representation matter for all three methods today.**
 
-## Shape of clusters
-- Good for spherical clusters of more or less equal sizes 
+## Your turn: where will K-Means cut? {.slide-your-turn .smaller}
 
-![](img/kmeans_boundaries.png){.nostretch fig-align="center" width="500px"}
-
-## K-Means: failure case 1
-
-- K-Means performs poorly if the clusters have more complex shapes (e.g., two moons data below). 
+We give K-Means the intended number of groups. **Will it recover their shapes?**
 
 ```{python}
-X, y = make_moons(n_samples=200, noise=0.05, random_state=42)
-plot_kmeans(X, 2)
+#| echo: false
+X_moons, _ = make_moons(n_samples=180, noise=0.07, random_state=42)
+X_rings, _ = make_circles(n_samples=180, noise=0.04, factor=0.4, random_state=42)
+X_elongated, _ = make_blobs(n_samples=180, centers=3, random_state=170)
+X_elongated = X_elongated @ np.array([[0.6, -0.6], [-0.4, 0.8]])
+
+fig, axes = plt.subplots(2, 3, figsize=(12, 5.5))
+for col, (X, k, name) in enumerate([
+    (X_moons, 2, "Half-moons"),
+    (X_rings, 2, "Concentric rings"),
+    (X_elongated, 3, "Elongated groups"),
+]):
+    axes[0, col].scatter(X[:, 0], X[:, 1], s=30, color="grey")
+    axes[0, col].set_title(name)
+    axes[0, col].set_aspect("equal", adjustable="box")
+    labels = KMeans(n_clusters=k, n_init=10, random_state=42).fit_predict(X)
+    plot_cluster_labels(X, labels, ax=axes[1, col], title=f"K-Means, K={k}")
+plt.tight_layout()
 ```
 
-## K-Means: failure case 2
+::: {.notes}
+Ask for predictions before discussing the bottom row. The elongated data use K=3, matching the three generated groups. More initializations cannot remove the geometry imposed by nearest-centre assignment. Synthetic generating labels illustrate intended groups, not universal ground truth for clustering.
+:::
 
-- Again, K-Means is unable to capture complex cluster shapes. 
+# Can density define a group?
+
+## DBSCAN: connected dense regions {.smaller}
+
+**Density-based spatial clustering of applications with noise**
+
+A cluster grows through crowded neighbourhoods. Sparse points can remain **noise**.
 
 ```{python}
-X = datasets.make_circles(n_samples=200, noise=0.06, factor=0.4)[0]
-plot_kmeans(X, 2)
+#| echo: false
+dbscan = DBSCAN(eps=0.22, min_samples=6).fit(X_moons)
+fig, ax = plt.subplots()
+plot_dbscan(X_moons, dbscan, ax, "DBSCAN on the half-moons data")
+plt.tight_layout()
 ```
 
-## K-Means: failure case 3
+## Two choices define “locally dense”
 
-- It assumes that all directions are equally important for each cluster and fails to identify non-spherical clusters. 
+- **`eps`:** radius of a point's neighbourhood.
+- **`min_samples`:** minimum number of examples in that neighbourhood, **including the point itself**, needed to make it a **core point**.
+
+We choose these parameters; the **number of clusters emerges**.
+
+Their values depend on the **features, scale, and distance metric**.
+
+## Core, border, and noise
+
+- **Core:** at least `min_samples` examples within `eps`, counting itself.
+- **Border:** not core, but within `eps` of a core point.
+- **Noise:** neither core nor within `eps` of any core point.
+
+**Only core points extend a cluster.** Border points can join it.
+
+## Your turn: who can extend the group? {.slide-your-turn .smaller}
+
+`eps=0.5`, `min_samples=4`. Why is point 5 noise even though it is near point 4?
 
 ```{python}
-# generate some random cluster data
-X, y = make_blobs(random_state=170, n_samples=200)
-rng = np.random.RandomState(74)
-transformation = rng.normal(size=(2, 2))
-X = np.dot(X, transformation)
-plot_kmeans(X, 2)
+#| echo: false
+X_points = np.array([
+    [0.0, 0.0], [0.1, 0.1], [-0.1, 0.1], [0.0, -0.15],
+    [0.55, 0.0], [1.05, 0.0],
+])
+point_model = DBSCAN(eps=0.5, min_samples=4).fit(X_points)
+point_types = np.full(len(X_points), "border", dtype=object)
+point_types[point_model.labels_ == -1] = "noise"
+point_types[point_model.core_sample_indices_] = "core"
+
+fig, ax = plt.subplots(figsize=(8, 3.5))
+for kind, marker, colour, size in [
+    ("core", "o", "C0", 150), ("border", "s", "C1", 95), ("noise", "x", "grey", 100)
+]:
+    mask = point_types == kind
+    ax.scatter(X_points[mask, 0], X_points[mask, 1], marker=marker,
+               color=colour, s=size, label=kind)
+for i, point in enumerate(X_points):
+    ax.annotate(str(i), point, xytext=(5, 6), textcoords="offset points")
+for index, colour in [(1, "C0"), (4, "C1")]:
+    ax.add_patch(Circle(X_points[index], 0.5, fill=False, linestyle="--", color=colour))
+ax.set(xlim=(-0.65, 1.35), ylim=(-0.65, 0.7), title="Who can extend the group?")
+ax.set_aspect("equal")
+ax.legend(loc="upper left", bbox_to_anchor=(1, 1))
+plt.tight_layout()
 ```
 
-# Can we do better? 
+::: {.notes}
+Points 0–3 are core, 4 is border, and 5 is noise. Point 4 cannot extend the cluster to 5. The dashed circles show neighbourhoods of points 1 and 4. Have students count each centre point itself. A chain of border points cannot connect clusters.
+:::
 
-## DBSCAN {.smaller}
+## How DBSCAN grows clusters {.smaller}
 
-- **D**ensity-**B**ased **S**patial **C**lustering of **A**pplications with **N**oise
-- A density-based clustering algorithm
+:::: {.columns}
+::: {.column width="48%"}
+![](img/DBSCAN_search.gif){.nostretch height="300px" fig-alt="DBSCAN expanding clusters through neighbouring core points."}
+:::
+::: {.column width="52%"}
+1. Visit an unprocessed point.
+2. If core, start a cluster and add its neighbours.
+3. Expand through any core neighbours.
+4. Repeat until no further expansion is possible.
+5. Continue with unprocessed points.
+
+Points never reached from core points remain **noise**.
+:::
+::::
+
+::: {.notes}
+A point initially marked noise can later join a cluster. Border points never propagate a label. Core components are fixed for fixed data and parameters; an ambiguous border point reachable from two components can receive either label depending on processing order. Animation source: https://dashee87.github.io/data%20science/general/Clustering-with-Scikit-with-GIFs/ .
+:::
+
+## DBSCAN in scikit-learn
 
 ```{python}
 #| echo: true
-X, y = make_moons(n_samples=200, noise=0.08, random_state=42)
-dbscan = DBSCAN(eps=0.2)
-dbscan.fit(X)
-plot_original_clustered(X, dbscan, dbscan.labels_)
+#| eval: false
+model = DBSCAN(eps=0.22, min_samples=6)
+labels = model.fit_predict(X_moons)
+# After fitting, these labels are also in model.labels_
 ```
 
-## Two main hyperparameters
+- One label per input row; **`-1` means noise**.
+- Other integers are arbitrary group identifiers.
+- Standard DBSCAN has **no `predict` method** for new points.
 
-In order to identify dense regions, we need two hyperparameters: 
+::: {.notes}
+Adding observations can change density connections. Fitting the expanded dataset can change memberships; it is not equivalent to K-Means assigning new observations to fixed centres.
+:::
 
-- `eps`: determines what it means for points to be "close"
-- `min_samples`: determines the number of **neighbouring points** we require to consider in order for a point to be part of a cluster
+## Your turn: human DBSCAN {.slide-your-turn}
 
+**Keep the same students and positions for every run.**
 
-## DBSCAN analogy {.smaller}
-:::: {.columns}
-::: {.column width="60%"}
+- Each student is a point; distance is physical seat distance.
+- Start with `eps` about 1 m and `min_samples=4`.
+- Count neighbours **including yourself**; identify all core points first.
+- Give connected core points one label, then label their border neighbours.
+- Everyone else is noise. **Border points do not spread labels.**
+
+::: {.notes}
+Allow about 4 minutes. Use one clearly bounded group of seats, and count only participating students. Students can remain seated and signal roles by raised hands. Use row/seat IDs to record memberships. Start a new label only for a core point not already reached. If a border point touches two core components, assign it to the first component processed, without merging the components.
+:::
+
+## Repeat: change one parameter {.slide-your-turn}
+
+| Run | `eps` | `min_samples` | What changed? |
+|---|---|---|---|
+| Baseline | ~1 m | 4 | Identify core, border, noise |
+| Wider neighbourhood | ~3 m | 4 | Which groups connect? |
+| Stricter density | ~1 m | 15 | Who remains core? |
+
+**Reset labels between runs. Keep positions fixed.**
+
+::: {.notes}
+Compare each changed run with baseline, not with the previous run. Choose radii appropriate to the room. The larger radius can be judged from seats rather than asking students to move or reach. Exact outcomes depend on seating density; do not promise a particular cluster count.
+:::
+
+## Predict: increase `eps` {.slide-your-turn .smaller}
+
+Hold `min_samples=6` fixed. Which setting fragments or merges the moons?
+
+**Large dots:** core. **Small dots:** border. **Grey crosses:** noise.
 
 ```{python}
-# Generate synthetic data
-centers = [[1, 1], [-1, -1], [1, -1]]
-X, labels_true = make_blobs(n_samples=100, centers=centers, cluster_std=0.4, random_state=0)
-plot_dbscan_core_border_noise_points(X)
+#| echo: false
+X_density = np.vstack([
+    X_moons, [[-1.5, 1.5], [2.4, 1.4], [0.5, -1.0], [1.6, -0.9]]
+])
+fig, axes = plt.subplots(1, 3, figsize=(12, 4), sharex=True, sharey=True)
+for ax, eps in zip(axes, [0.12, 0.22, 0.40]):
+    model = DBSCAN(eps=eps, min_samples=6).fit(X_density)
+    plot_dbscan(X_density, model, ax, f"eps={eps}, min_samples=6")
+plt.tight_layout()
 ```
+
+::: {.notes}
+Small neighbourhoods fragment the groups; the middle setting recovers the moons; the large setting joins them. Colours are local identifiers within each panel, not correspondence across runs. Increasing eps can grow or merge core components; the cluster count need not change monotonically because new components can also appear from noise.
 :::
-::: {.column width="40%"}
-Consider DBSCAN in a social context: 
 
-- Social butterflies (🦋): Core points
-- Friends of social butterflies who are not social butterflies: Border points
-- Lone wolves (🐺): Noise points  
-:::
-::::
+## Predict: increase `min_samples` {.slide-your-turn .smaller}
 
-
-## **DBSCAN algorithm** {.smaller}
-::: {.columns}
-::: {.column width="50%"}
-
-![](img/DBSCAN_search.gif)
-:::
-::: {.column width="50%"}
-
-- Pick a point $p$ at random.
-- Check whether $p$ is a "core" point or not. 
-- If $p$ is a core point, give it a colour (label). 
-- Spread the colour of $p$ to all of its neighbours.
-- Check if any of the neighbours that received the colour is a core point, if yes, spread the colour to its neighbors as well.
-- Once there are no more core points left to spread the colour, pick a new unlabeled point $p$ and repeat the process.
-:::
-::::
-
-## 🧩 Human DBSCAN activity
-
-### Goal
-Experience how **$\epsilon$ (eps)** and **min_samples** affect what counts as a cluster.
-
-
-## Setup
-
-- Each student = one **data point**
-- Distance (eps) = **arm’s length (~1 m)**
-- Each gets a **sticky note** to mark cluster ID and a **marker** (colour)
-- Start from a random student: check whos within $\epsilon$
-
-
-## Two parallel runs
-
-| Side of Class | $\epsilon$ (eps) | min_samples | Expected Outcome |
-|:---------------|:--------|:-------------|:-----------------|
-| **Left side**  | ~1 m (arm’s length) | 5 | Moderate clusters; Some isolated ones become **noise points**. |
-| **Right side** | ~1 m (arm’s length) | 15 | Few or no clusters; the density requirement is high. Many **noise points**. |
-
-## How to play
-1. Pick a **starting student**.
-2. Count how many of your neighbours are within $\epsilon$ distance.
-3. If you have **≥ min_samples**, you are a **core point** $\rightarrow$ start spreading your colour.
-4. Neighbours who receive a colour but aren't core are **border points**.
-5. Students who never receive a colour are **noise points**.
-
-## After the activity
-- Which side formed **more clusters**?
-- What happened when **min_samples** was too high?
-- Why doesn't DBSCAN need to know the number of clusters $k$?
-
-## How to tune `eps` and `min_samples`?
-
-- Can you use `GridSearchCV` and `RandomizedSearchCV`?
-
-## DBSCAN: failure cases {.smaller}
-
-- Let's consider this dataset with three clusters of varying densities.  
-- K-Means performs better compared to DBSCAN. But it has the benefit of knowing the value of $K$ in advance. 
+Hold `eps=0.22` fixed. Does every parameter change alter the partition?
 
 ```{python}
-X_varied, y_varied = make_blobs(
+#| echo: false
+fig, axes = plt.subplots(1, 3, figsize=(12, 4), sharex=True, sharey=True)
+for ax, min_samples in zip(axes, [3, 6, 12]):
+    model = DBSCAN(eps=0.22, min_samples=min_samples).fit(X_density)
+    plot_dbscan(X_density, model, ax, f"eps=0.22, min_samples={min_samples}")
+plt.tight_layout()
+```
+
+::: {.notes}
+The first two settings retain two groups here; the stricter threshold fragments them. A stricter core requirement cannot create new core points, but cluster counts can change in either direction as components split or disappear.
+:::
+
+## How should we tune DBSCAN? {.smaller}
+
+1. Choose a meaningful **representation, scaling, and metric**.
+2. Try a small grid of `eps` and `min_samples` values.
+3. Inspect **cluster sizes, noise fraction, and representative examples**.
+4. Check whether useful interpretations persist at nearby settings.
+
+**Can we use our usual target-based cross-validation score?**
+
+::: {.notes}
+Usually there is no target y or natural held-out prediction score. GridSearchCV is not a drop-in solution for standard DBSCAN: it has no predict method or default score. Custom evaluation is possible, but internal scores alone do not establish usefulness. Almost all noise suggests trying larger eps or smaller min_samples; one large group suggests the reverse. These are diagnostic directions, not guarantees. Suitable numerical settings are representation-specific.
+:::
+
+## One density threshold may not suit every group {.smaller}
+
+A small radius can discard a sparse group; a large radius can merge distinct groups.
+
+```{python}
+#| echo: false
+X_varied, _ = make_blobs(
     n_samples=200, cluster_std=[1.0, 5.0, 1.0], random_state=10
 )
-plot_k_means_dbscan_comparison(X_varied)
+fig, axes = plt.subplots(1, 4, figsize=(14, 4), sharex=True, sharey=True)
+axes[0].scatter(X_varied[:, 0], X_varied[:, 1], s=25, color="grey")
+axes[0].set_title("Data: unequal densities")
+axes[0].set_aspect("equal", adjustable="box")
+for ax, eps in zip(axes[1:3], [0.7, 3.0]):
+    model = DBSCAN(eps=eps, min_samples=5).fit(X_varied)
+    plot_dbscan(X_varied, model, ax, f"DBSCAN, eps={eps}")
+kmeans_labels = KMeans(n_clusters=3, n_init=10, random_state=42).fit_predict(X_varied)
+plot_cluster_labels(X_varied, kmeans_labels, ax=axes[3], title="K-Means, K=3")
+plt.tight_layout()
 ```
 
-## Hierarchical clustering 
-```{python}
-X_orig, y = make_blobs(random_state=0, n_samples=11)
-X = StandardScaler().fit_transform(X_orig)
-linkage_array = ward(X)
-plot_X_dendrogram(X, linkage_array, label_n_clusters=True) # user-defined function defined in code/plotting_functions.py
-```
-
-## Dendrogram 
-
-:::: {.columns}
-::: {.column width="60%"}
-```{python}
-from scipy.cluster.hierarchy import dendrogram
-
-ax = plt.gca()
-dendrogram(linkage_array, ax=ax, color_threshold=2)
-plt.xlabel("Sample index")
-plt.ylabel("Cluster distance");
-```
+::: {.notes}
+K-Means receives K=3 and offers an alternative partition, not a guaranteed correct answer. DBSCAN uses one global density definition. Neither method is universally better.
 :::
-::: {.column width="40%"}
 
-- Dendrogram is a tree-like plot. 
-- On the x-axis we have data points. 
-- On the y-axis we have distances between clusters. 
+## A dense bridge can join groups {.smaller}
+
+DBSCAN follows **core-point connections**, even when we would prefer two groups.
+
+```{python}
+#| echo: false
+rng = np.random.default_rng(42)
+X_groups = np.vstack([
+    rng.normal(loc=(-1, 0), scale=0.13, size=(60, 2)),
+    rng.normal(loc=(1, 0), scale=0.13, size=(60, 2)),
+])
+bridge_x = np.linspace(-0.8, 0.8, 35)
+bridge = np.column_stack([bridge_x, rng.normal(0, 0.02, len(bridge_x))])
+X_bridge = np.vstack([X_groups, bridge])
+fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharex=True, sharey=True)
+for ax, X, title in zip(axes, [X_groups, X_bridge], ["Without a bridge", "With a dense bridge"]):
+    model = DBSCAN(eps=0.22, min_samples=5).fit(X)
+    plot_dbscan(X, model, ax, title)
+plt.tight_layout()
+```
+
+::: {.notes}
+Contrast this with the six-point example: border points alone do not extend a cluster. Tuning cannot always reconcile our desired grouping with density connectivity. High-dimensional representations can also make distances less informative.
 :::
-::::
 
-## Flat clusters
+# What if we want nested groups?
 
-- This is good but how can we get cluster labels from a dendrogram? 
-- We can bring the clustering to a "flat" format use `fcluster`
+## Agglomerative hierarchical clustering
 
-## Flat clusters
-```{python}
-#| echo: true
-from scipy.cluster.hierarchy import fcluster
-# flattening the dendrogram based on maximum number of clusters. 
-hier_labels1 = fcluster(linkage_array, 3, criterion="maxclust") 
-plot_dendrogram_clusters(X, linkage_array, hier_labels1, title="flattened with max_clusts=3")
-```
+Start with **one cluster per example**.
 
-## Linkage criteria {.smaller}
-- When we create a dendrogram, we need to calculate distance between clusters. How do we measure distances between clusters? 
-- The **linkage criteria** determines how to find similarity between clusters:
-- Some example linkage criteria are: 
-    - Single linkage $\rightarrow$ smallest minimal distance, leads to loose clusters
-    - Complete linkage $\rightarrow$ smallest maximum distance, leads to tight clusters 
-    - Average linkage $\rightarrow$ smallest average distance between all pairs of points in the clusters
-    - Ward linkage $\rightarrow$ smallest increase in within-cluster variance, leads to equally sized clusters
+1. Merge the two closest clusters.
+2. Recalculate which clusters are closest.
+3. Repeat until all examples form one cluster.
 
-## Example: Single linkage {.smaller}
+After $n-1$ merges, we have a **hierarchy of nested groups**.
 
-Suppose you want to go from 3 clusters to 2 clusters. Which clusters would you merge? 
+**Merges are not undone.** We can choose a level of detail afterward.
+
+## Your turn: read the merge sequence {.slide-your-turn .smaller}
+
+Find the first pair that merges. Where are those points in the scatter plot?
 
 ```{python}
-#| echo: true
-X_orig, y = make_blobs(random_state=0, n_samples=11)
-X = StandardScaler().fit_transform(X_orig)
-linkage_array = single(X)
-hier_labels = fcluster(linkage_array, 3, criterion="maxclust") 
-plot_dendrogram_clusters(X, linkage_array, hier_labels, title="maxclust 3", color_threshold=1.0)
+#| echo: false
+X_hier_original, _ = make_blobs(n_samples=11, centers=3, random_state=0)
+X_hier = StandardScaler().fit_transform(X_hier_original)
+Z = linkage(X_hier, method="ward", metric="euclidean")
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 4))
+axes[0].scatter(X_hier[:, 0], X_hier[:, 1], s=110, color="grey", edgecolor="black", linewidth=0.7)
+for i, point in enumerate(X_hier):
+    axes[0].annotate(str(i), point, xytext=(6, 6), textcoords="offset points")
+axes[0].set(xlabel="Feature 0", ylabel="Feature 1", title="Eleven numbered examples")
+axes[0].set_aspect("equal", adjustable="box")
+dendrogram(Z, ax=axes[1], leaf_font_size=11, color_threshold=0)
+axes[1].set(xlabel="Sample index", ylabel="Merge height", title="Ward-linkage dendrogram")
+plt.tight_layout()
 ```
 
-##  Example: Single linkage {.smaller}
+::: {.notes}
+Points 0 and 2 merge first, then 5 and 9, then 4 and 7. Each merge reduces the cluster count by one. The input is standardized, as in the notes.
+:::
+
+## Reading a dendrogram
+
+- **Leaves:** individual examples, identified by original row number.
+- **Connections:** merges of two points or groups.
+- **Height:** merge dissimilarity under the chosen linkage rule.
+
+Horizontal spacing **does not measure similarity**. Branches can rotate.
+
+Large vertical gaps suggest possible cuts, rather than proving a correct number of groups.
+
+::: {.notes}
+For Ward, height relates to the increase in within-cluster squared deviation, not simply the distance between individual points. Leaf order in the display differs from original row order.
+:::
+
+## What does “closest clusters” mean? {.smaller}
+
+A **distance metric** compares points. A **linkage criterion** compares clusters.
+
+| Linkage | Merge the pair with the smallest… |
+|---|---|
+| Single | Minimum cross-cluster point distance |
+| Complete | Maximum cross-cluster point distance |
+| Average | Average cross-cluster point distance |
+| Ward | Increase in total within-cluster squared deviation |
+
+**Ward requires Euclidean distance** and favours compact groups. It does not enforce equal sizes.
+
+## Your turn: does linkage change the result? {.slide-your-turn .smaller}
+
+Same data, Euclidean distance, and two requested groups. Only linkage changes.
+
+```{python}
+#| echo: false
+methods = ["single", "complete", "average", "ward"]
+X_link, _ = make_moons(n_samples=120, noise=0.07, random_state=7)
+fig, axes = plt.subplots(2, 2, figsize=(10, 5.5))
+for ax, method in zip(axes.flat, methods):
+    Z_method = linkage(X_link, method=method, metric="euclidean")
+    labels = fcluster(Z_method, t=2, criterion="maxclust")
+    plot_cluster_labels(X_link, labels, ax=ax, title=f"{method.title()} linkage")
+plt.tight_layout()
+```
+
+::: {.notes}
+Single linkage follows nearby chains and can capture the moons, but chaining is a liability when noise bridges groups. Complete controls the farthest pair. Average and Ward produce other compact groupings. No rule is universally best.
+:::
+
+## Distance and linkage are separate choices
 
 ```{python}
 #| echo: true
-hier_labels = fcluster(linkage_array, 2, criterion="maxclust") 
-plot_dendrogram_clusters(X, linkage_array, hier_labels, title="maxclust 2", color_threshold=1.0)
+#| eval: false
+Z = linkage(X, method="complete", metric="cosine")
 ```
 
-## iClicker Exercise 15.2 {.smaller}
+- **Cosine:** dissimilarity between individual feature vectors.
+- **Complete:** compare clusters using their farthest pair.
 
-**Select all of the following statements which are True**
+Choose the metric for the representation. **Ward cannot use cosine distance.**
 
-- (A) In hierarchical clustering we do not have to worry about initialization.
-- (B) Hierarchical clustering can only be applied to smaller datasets because dendrograms are hard to visualize for large datasets.
-- (C) In all the clustering methods we have seen (K-Means, DBSCAN, hierarchical clustering), there is a way to decide the number of clusters.
-- (D) To get robust clustering we can naively ensemble cluster labels (e.g., pick the most popular label) produced by different clustering methods.
-- (E) If you have a high Silhouette score and very clean and robust clusters, it means that the algorithm has captured the semantic meaning in the data of our interest.
+::: {.notes}
+For example, cosine can compare directions of numerical document vectors; avoid zero vectors. Single, complete, and average support other metrics. Keep this API distinction concise; extended examples are in the notes.
+:::
 
+## From the tree to flat cluster labels {.smaller}
 
-## Activity
+Cut horizontally: each connected group below the cut becomes a cluster.
 
-Discuss the following
+```{python}
+#| echo: false
+labels_three = fcluster(Z, t=3, criterion="maxclust")
+cut_three = (Z[-3, 2] + Z[-2, 2]) / 2
+plot_hierarchy_cut(X_hier, Z, labels_three, cut_three, "At most three clusters")
+```
 
-| **Clustering Method**  | **KMeans**                                           | **DBSCAN**                                          | **Hierarchical Clustering**                            |
-|------------------------|------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------|
-| **Approach**           | | |
-| **Hyperparameters**    | | |
-| **Shape of clusters**  | | |
-| **Handling noise**     | | | 
-| **Distance metric**    | | |
+## Two ways to cut the same hierarchy
 
-## Discussion question 
+```{python}
+#| echo: true
+#| eval: false
+# At most three clusters
+labels = fcluster(Z, t=3, criterion="maxclust")
 
-Which clustering method would you use in each of the scenarios below? Why? How would you represent the data in each case?
+# A merge-height threshold
+labels = fcluster(Z, t=0.7, criterion="distance")
+```
 
-- Scenario 1: Customer segmentation in retail
-- Scenario 2: An environmental study aiming to identify clusters of a rare plant species
-- Scenario 3: Clustering furniture items for inventory management and customer recommendations
+Both reuse **the same fitted hierarchy `Z`**.
 
+Changing dendrogram colours alone does not extract labels.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_15-dbscan-hierarchical.ipynb)
+::: {.notes}
+fcluster returns labels in original input-row order, starting at 1. maxclust requests at most t clusters, not a guarantee of exactly t when merge heights tie. The distance threshold depends on the linkage rule. The figure's branch colours match its flat labels.
+:::
 
+## Optional: a smaller display {.slide-optional}
+
+```{python}
+#| echo: true
+#| eval: false
+dendrogram(Z, truncate_mode="lastp", p=8)
+```
+
+- Truncation collapses branches **for display**.
+- All observations still contribute to the fitted hierarchy.
+- It does **not** reduce fitting cost; standard methods often need roughly quadratic memory.
+
+::: {.notes}
+Parenthesized leaf labels count observations in collapsed groups. Display limits and computational limits are separate. A full dendrogram is not required to extract flat labels.
+:::
+
+## iClicker 15.2: interpreting clusters {.slide-your-turn .smaller}
+
+**Select all statements that are true.**
+
+- (A) Agglomerative clustering avoids choosing random initial centres.
+- (B) Truncating a dendrogram reduces the memory needed to fit the hierarchy.
+- (C) DBSCAN's cluster count emerges from its density settings.
+- (D) We can combine clustering results by taking a majority vote of their numeric labels.
+- (E) A high silhouette score proves that clusters capture the meaning we care about.
+
+::: {.notes}
+Answers: A and C. B confuses display with fitting. D is false because IDs can be permuted without changing memberships. E is false because distance-based separation does not establish semantic usefulness. Tied hierarchical merge choices may still require deterministic tie-breaking.
+:::
+
+# Which grouping is useful?
+
+## Your turn: compare the methods {.slide-your-turn .smaller}
+
+**With a neighbour:** fill in the table and give one reason for each choice.
+
+| Consideration | K-Means | DBSCAN | Hierarchical |
+|---|---|---|---|
+| Meaning of a group | ? | ? | ? |
+| Main choices | ? | ? | ? |
+| Noise handling | ? | ? | ? |
+| Assign new points with `predict`? | ? | ? | ? |
+
+::: {.notes}
+Allow 2 minutes. Answers: nearest centre / connected dense region / nested merge sequence. Main choices: k (and initialization) / eps, min_samples, metric / metric, linkage, cut. K-Means and standard hierarchical flat cuts assign every point; DBSCAN can leave noise. Standard scikit-learn K-Means provides predict; DBSCAN and standard agglomerative clustering do not. K-Means is usually the most scalable of these; hierarchical methods often face quadratic memory. K-Means uses Euclidean geometry; DBSCAN supports other metrics; hierarchical compatibility depends on linkage.
+:::
+
+## Your turn: choose a starting method {.slide-your-turn .smaller}
+
+**Explain your representation and what should count as a group.**
+
+1. Retail: millions of customers, compact segments, and immediate assignment of new customers.
+2. Ecology: winding spatial regions of a plant species, plus isolated measurement errors.
+3. Furniture: explore nested similarities among 40 items before choosing a level of detail.
+
+**What additional information could change your choice?**
+
+::: {.notes}
+Reasonable starts: K-Means for scale and prediction; DBSCAN for spatial density and noise; hierarchical for nested exploration. These are not unique correct answers. Ask about units, features, varying densities, and whether spatial proximity, buying behaviour, function, material, or style defines similarity. A rare observation is not automatically an error. Noise requires domain inspection.
+:::
+
+## Evaluating clusters: evidence beyond one score {.smaller}
+
+- Inspect representative members **and exceptions** in each group.
+- Check nearby parameter settings and reasonable preprocessing changes.
+- Use silhouette as supporting evidence; it can undervalue curved groups.
+- For DBSCAN, report the **noise fraction** alongside any score.
+
+**Stable, separated groups can still reflect the wrong similarity.**
+
+::: {.notes}
+If computing silhouette on non-noise points, explicitly report that exclusion. At least two clusters must remain, with more points than clusters. Treating all -1 points as a single ordinary cluster is often misleading. For documents, read representative texts and noise examples. Stability alone cannot establish usefulness. External partition comparisons such as adjusted Rand index handle arbitrary label permutations; ordinary label accuracy does not.
+:::
+
+## Class demo: inspect and explain groups
+
+Compare density settings and hierarchy cuts. For each result:
+
+1. Describe what members share and inspect exceptions.
+2. Explain what changed when the settings changed.
+3. Decide whether the grouping serves the task.
+
+::: {.notes}
+Use the corresponding lecture notebook, 15_DBSCAN-hierarchical.ipynb, for parameter exploration, cut examples, and interpretation. The previous slide linked a 2025 class demo; use the current course notebook instead. No new student-facing notebook URL is assumed.
+:::
+
+## Today's takeaways {.slide-summary .smaller}
+
+- **DBSCAN:** core points extend density-connected groups; border points join; noise remains unassigned.
+- **Density settings:** tune together and inspect noise, stability, and examples. Varying densities and bridges can cause trouble.
+- **Hierarchical clustering:** repeated merging gives nested groups; linkage defines closeness and a cut gives flat labels.
+- **Representation defines similarity:** useful groups require interpretation, beyond a numerical score.
+
+## Exit question {.slide-your-turn}
+
+Two DBSCAN settings both produce three clusters.
+
+One marks half the dataset as noise; the other marks almost none.
+
+**What would you inspect before choosing, and why is cluster count alone insufficient?**
+
+::: {.notes}
+Look at memberships, sizes, representative examples, exceptions, noise examples, and stability across nearby settings. Relate the interpretation to the task; neither low noise nor the desired count is automatically better.
+:::
 
 ## Happy Halloween
 
-![](img/eva-halloween.png)
+![](img/eva-halloween.png){.nostretch fig-align="center" height="430px"}
