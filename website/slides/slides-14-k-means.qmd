@@ -391,6 +391,19 @@ We already know how to calculate distances. Compare:
 
 This motivates the **silhouette score**.
 
+## {.slide-your-turn}
+
+Which blue point seems more confident about belonging to the blue cluster? Why?
+
+![](img/silhouette-intution1.png)
+
+## {.slide-your-turn}
+
+Which blue point seems more confident about belonging to the blue cluster? Why?
+
+![](img/silhouette-intution2.png)
+
+
 ## Silhouette: cohesion and separation {.smaller}
 
 For one point $i$:
