@@ -522,24 +522,72 @@ A **distance metric** compares points. A **linkage criterion** compares clusters
 
 **Ward requires Euclidean distance** and favours compact groups. It does not enforce equal sizes.
 
-## Your turn: does linkage change the result? {.slide-your-turn .smaller}
+## Example: single linkage, three clusters {.slide-your-turn .smaller}
 
-Same data, Euclidean distance, and two requested groups. Only linkage changes.
+To go from **three clusters to two**, which clusters would you merge?
+
+Single linkage compares the **closest pair of points across each pair of clusters**.
 
 ```{python}
 #| echo: false
-methods = ["single", "complete", "average", "ward"]
-X_link, _ = make_moons(n_samples=120, noise=0.07, random_state=7)
-fig, axes = plt.subplots(2, 2, figsize=(10, 5.5))
-for ax, method in zip(axes.flat, methods):
+Z_single = linkage(X_hier, method="single", metric="euclidean")
+labels_single_three = fcluster(Z_single, t=3, criterion="maxclust")
+cut_single_three = (Z_single[-3, 2] + Z_single[-2, 2]) / 2
+plot_hierarchy_cut(
+    X_hier, Z_single, labels_single_three, cut_single_three,
+    "Single linkage: three clusters",
+)
+```
+
+::: {.notes}
+Use the same standardized eleven-point dataset as the earlier Ward dendrogram, but recompute the hierarchy with single linkage. Ask students to identify the nearest cross-cluster pair in the scatter plot, then locate the next merge above the dashed cut in the dendrogram. Distances between cluster centres do not determine this merge.
+:::
+
+## Example: single linkage, two clusters {.smaller}
+
+Points **6 and 8** are the closest cross-cluster pair: merge their two clusters.
+
+```{python}
+#| echo: false
+labels_single_two = fcluster(Z_single, t=2, criterion="maxclust")
+cut_single_two = (Z_single[-2, 2] + Z_single[-1, 2]) / 2
+plot_hierarchy_cut(
+    X_hier, Z_single, labels_single_two, cut_single_two,
+    "Single linkage: two clusters",
+)
+```
+
+The **same hierarchy** gives two clusters when we raise the cut past the next merge.
+
+::: {.notes}
+Point out which two groups have joined; colours are assigned from the new flat labels and can change between cuts. Only one close pair is needed to join two groups, even if other points are far apart. This explains why single linkage can form long chains. The following slide compares this behaviour with other linkage criteria.
+:::
+
+## Your turn: does linkage change the result? {.slide-your-turn .smaller}
+
+Same data, Euclidean distance, and **two clusters**. Which rule keeps the long chain together?
+
+```{python}
+#| echo: false
+link_rng = np.random.default_rng(12)
+X_chain = np.column_stack([
+    np.linspace(0, 8, 25), link_rng.normal(0, 0.04, 25),
+])
+X_compact = link_rng.normal(loc=[8, 2], scale=0.15, size=(18, 2))
+X_link = np.vstack([X_chain, X_compact])
+fig, axes = plt.subplots(1, 2, figsize=(11, 3.5), sharex=True, sharey=True)
+for ax, method in zip(axes, ["single", "complete"]):
     Z_method = linkage(X_link, method=method, metric="euclidean")
     labels = fcluster(Z_method, t=2, criterion="maxclust")
     plot_cluster_labels(X_link, labels, ax=ax, title=f"{method.title()} linkage")
 plt.tight_layout()
 ```
 
+- **Single:** one nearby pair can join groups $\to$ loose, elongated clusters.
+- **Complete:** the farthest pair determines closeness $\to$ tighter clusters.
+
 ::: {.notes}
-Single linkage follows nearby chains and can capture the moons, but chaining is a liability when noise bridges groups. Complete controls the farthest pair. Average and Ward produce other compact groupings. No rule is universally best.
+Pause before explaining the two panels. Single linkage joins all 25 chain points because consecutive points are close, even though the endpoints are far apart. The compact group remains separate. Complete linkage splits the chain: joining the entire chain would require a large maximum pairwise distance. Some chain points instead join the nearby compact group. Here the largest within-cluster distance is smaller under complete linkage. This illustrates a tendency, not a guarantee of round or equally sized clusters, and neither partition is inherently correct. Colours identify groups within each panel; their numerical labels are arbitrary across methods. Features use the same units and both panels use identical axis scales.
 :::
 
 ## Distance and linkage are separate choices
@@ -610,7 +658,7 @@ Parenthesized leaf labels count observations in collapsed groups. Display limits
 
 **Select all statements that are true.**
 
-- (A) Agglomerative clustering avoids choosing random initial centres.
+- (A) Hierarchical clustering avoids choosing random initial centres.
 - (B) Truncating a dendrogram reduces the memory needed to fit the hierarchy.
 - (C) DBSCAN's cluster count emerges from its density settings.
 - (D) We can combine clustering results by taking a majority vote of their numeric labels.
@@ -637,7 +685,7 @@ Answers: A and C. B confuses display with fitting. D is false because IDs can be
 Allow 2 minutes. Answers: nearest centre / connected dense region / nested merge sequence. Main choices: k (and initialization) / eps, min_samples, metric / metric, linkage, cut. K-Means and standard hierarchical flat cuts assign every point; DBSCAN can leave noise. Standard scikit-learn K-Means provides predict; DBSCAN and standard agglomerative clustering do not. K-Means is usually the most scalable of these; hierarchical methods often face quadratic memory. K-Means uses Euclidean geometry; DBSCAN supports other metrics; hierarchical compatibility depends on linkage.
 :::
 
-## Your turn: choose a starting method {.slide-your-turn .smaller}
+## Your turn: choose a starting method {.slide-your-turn .smaller visibility="hidden"}
 
 **Explain your representation and what should count as a group.**
 
@@ -664,7 +712,7 @@ Reasonable starts: K-Means for scale and prediction; DBSCAN for spatial density 
 If computing silhouette on non-noise points, explicitly report that exclusion. At least two clusters must remain, with more points than clusters. Treating all -1 points as a single ordinary cluster is often misleading. For documents, read representative texts and noise examples. Stability alone cannot establish usefulness. External partition comparisons such as adjusted Rand index handle arbitrary label permutations; ordinary label accuracy does not.
 :::
 
-## Class demo: inspect and explain groups
+## Class demo: inspect and explain groups 
 
 Compare density settings and hierarchy cuts. For each result:
 
