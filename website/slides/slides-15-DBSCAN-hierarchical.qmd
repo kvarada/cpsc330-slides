@@ -25,6 +25,9 @@ editor:
 ```{python}
 #| echo: false
 #| include: false
+import os
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -33,6 +36,15 @@ from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
 from sklearn.cluster import DBSCAN, KMeans
 from sklearn.datasets import make_blobs, make_circles, make_moons
 from sklearn.preprocessing import StandardScaler
+
+sys.path.insert(0, os.path.join(os.path.abspath("."), "code"))
+from plotting_functions_unsup import (
+    plot_kmeans, plot_kmeans_gmm, plot_original_clustered,
+)
+plt.close("all")  # Discard figures created when importing the existing helpers.
+
+# Keep the later parameter comparisons on the lecture-notes dataset.
+X_moons, _ = make_moons(n_samples=180, noise=0.07, random_state=42)
 
 plt.rcParams.update({"font.size": 12, "figure.figsize": (6, 4)})
 
@@ -121,69 +133,84 @@ def plot_hierarchy_cut(X, Z, labels, height, title):
 - (A) With $n$ examples and $d$ features, K-Means learns $k$ centres, each with $d$ coordinates.
 - (B) The parameter $k$ plays the same role in KNN and K-Means.
 - (C) Changing feature units can change a distance-based clustering.
-- (D) Useful clusters should always have equal numbers of examples.
+- (D) When choosing the number of clusters, we should prefer values that produce clusters of roughly equal size.
 
 ::: {.notes}
 Answers: A and C. KNN uses k neighbours for a prediction; K-Means requests k groups. Units affect distances unless preprocessing compensates. Equal group sizes are not a general clustering goal. Cluster IDs are arbitrary.
 :::
 
-# When do centres miss the groups?
+# K-Means limitations {.smaller}
 
-## K-Means: useful assumptions, real limitations
+## Shape of clusters
 
-K-Means assigns **every point to its nearest centre**.
+- Good for compact, roughly spherical clusters of comparable sizes.
 
-- Works well when means represent compact groups.
-- Can split curved or elongated groups.
-- Outliers can pull centres away from the main group.
-- Requires $k$; different initial centres can give different results.
+![](img/kmeans_boundaries.png){.nostretch fig-align="center" width="500px"}
 
-**Scaling and representation matter for all three methods today.**
+::: {.notes}
+K-Means uses nearest-centre assignments under Euclidean distance. Comparable sizes describe a favourable setting, not a requirement or an equal-size constraint. Scaling, representation, initialization, and outliers also affect the result.
+:::
 
-## Your turn: where will K-Means cut? {.slide-your-turn .smaller}
+## Failure case 1
 
-We give K-Means the intended number of groups. **Will it recover their shapes?**
+- K-Means performs poorly with complex cluster shapes, such as these two moons.
 
 ```{python}
-#| echo: false
-X_moons, _ = make_moons(n_samples=180, noise=0.07, random_state=42)
-X_rings, _ = make_circles(n_samples=180, noise=0.04, factor=0.4, random_state=42)
-X_elongated, _ = make_blobs(n_samples=180, centers=3, random_state=170)
-X_elongated = X_elongated @ np.array([[0.6, -0.6], [-0.4, 0.8]])
-
-fig, axes = plt.subplots(2, 3, figsize=(12, 5.5))
-for col, (X, k, name) in enumerate([
-    (X_moons, 2, "Half-moons"),
-    (X_rings, 2, "Concentric rings"),
-    (X_elongated, 3, "Elongated groups"),
-]):
-    axes[0, col].scatter(X[:, 0], X[:, 1], s=30, color="grey")
-    axes[0, col].set_title(name)
-    axes[0, col].set_aspect("equal", adjustable="box")
-    labels = KMeans(n_clusters=k, n_init=10, random_state=42).fit_predict(X)
-    plot_cluster_labels(X, labels, ax=axes[1, col], title=f"K-Means, K={k}")
-plt.tight_layout()
+X, y = make_moons(n_samples=200, noise=0.05, random_state=42)
+plot_kmeans(X, 2)
 ```
 
 ::: {.notes}
-Ask for predictions before discussing the bottom row. The elongated data use K=3, matching the three generated groups. More initializations cannot remove the geometry imposed by nearest-centre assignment. Synthetic generating labels illustrate intended groups, not universal ground truth for clustering.
+Ask students to predict where the nearest-centre boundary will cut. We supply the intended number of groups, so choosing k is not the difficulty.
 :::
 
-# Can density define a group?
+## Failure case 2
 
-## DBSCAN: connected dense regions {.smaller}
-
-**Density-based spatial clustering of applications with noise**
-
-A cluster grows through crowded neighbourhoods. Sparse points can remain **noise**.
+- Nearest-centre assignments cannot recover these concentric rings.
 
 ```{python}
-#| echo: false
-dbscan = DBSCAN(eps=0.22, min_samples=6).fit(X_moons)
-fig, ax = plt.subplots()
-plot_dbscan(X_moons, dbscan, ax, "DBSCAN on the half-moons data")
-plt.tight_layout()
+X, y = make_circles(n_samples=200, noise=0.06, factor=0.4, random_state=42)
+plot_kmeans(X, 2)
 ```
+
+::: {.notes}
+The Gaussian mixture panel is a preview for comparison, not an additional algorithm students need to learn today. Its elliptical components also struggle with this ring-shaped grouping. More initializations cannot remove the nearest-centre geometry of K-Means.
+:::
+
+## Failure case 3
+
+- K-Means uses the same distance in every direction and can split elongated groups.
+
+```{python}
+X, y = make_blobs(random_state=170, n_samples=200)
+rng = np.random.RandomState(74)
+transformation = rng.normal(size=(2, 2))
+X = np.dot(X, transformation)
+plot_kmeans(X, 3)
+```
+
+::: {.notes}
+Use three clusters for the three generated groups. The Gaussian mixture comparison illustrates how allowing different spreads and orientations can help with elongated groups. Do not infer that it solves arbitrary shapes or that generating labels define the only useful partition.
+:::
+
+# Can we do better?
+
+## DBSCAN {.smaller}
+
+- **D**ensity-**B**ased **S**patial **C**lustering of **A**pplications with **N**oise
+- A density-based clustering algorithm
+
+```{python}
+#| echo: true
+X, y = make_moons(n_samples=200, noise=0.08, random_state=42)
+dbscan = DBSCAN(eps=0.2)
+dbscan.fit(X)
+plot_original_clustered(X, dbscan, dbscan.labels_)
+```
+
+::: {.notes}
+DBSCAN follows connected dense regions instead of assigning points to the nearest centre. The default min_samples is 5. We did not supply the number of clusters. Later parameter comparisons use the slightly different moons dataset from the lecture notes, held fixed across those comparisons.
+:::
 
 ## Two choices define “locally dense”
 
