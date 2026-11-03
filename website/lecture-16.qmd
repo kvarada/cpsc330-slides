@@ -1,0 +1,27 @@
+---
+title: "Lecture 16: Recommender systems"
+description: "Utility matrices, held-out rating evaluation, collaborative and content-based filtering, and recommendation quality"
+description-short: "Recommender systems and content-based regression"
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-16-recommender-systems.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Ratings and the utility matrix
+- Holding out observed ratings and evaluating with RMSE
+- Global-average baseline and similar-user KNN
+- Content-based recommendation with per-user regression
+- New items, new users, and feature limitations
+- Ranking, diversity, exploration, and feedback
+
+## Class demo
+
+[Download the recommender systems notebook](slides/demos/lecture-16-recommender-systems.ipynb)
+
+The notebook uses [toy ratings](slides/data/toy_ratings.csv) and [movie features](slides/data/toy_movie_feats.csv). Keep the notebook in a `demos/` folder next to a `data/` folder containing both CSVs.
