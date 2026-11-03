@@ -55,12 +55,24 @@ def create_Y_from_ratings(data, N, M, user_mapper, item_mapper):
   - 🕑 When? **Every Tuesday at 1 PM**
   - 📍 Where? **ICCS 146**
 
+
+## iClicker question {.slide-your-turn}
+
+What percentage of watch time on YouTube do you think comes from recommendations?
+
+- (A) 50%
+- (B) 70%
+- (C) 20%
+- (D) 90%
+
 ## Today's big questions {.slide-goals}
 
 1. How do we represent **ratings** when most are missing?
 2. How can we **evaluate predictions** for unseen ratings?
 3. How do **similar users** and **item features** help us recommend items?
 4. Does lower prediction error mean **better recommendations**?
+
+
 
 ## What is a recommendation system?
 
