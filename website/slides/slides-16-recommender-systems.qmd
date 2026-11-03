@@ -1,6 +1,8 @@
 ---
 title: 'CPSC 330 Lecture 16: Recommendation systems'
-description: "Unsupervised paradigm, motivation and potential applications of clustering, K-Means algorithm, pros and cons of K-Means, the Elbow plot and Silhouette plots for a given dataset,  importance of input data representation in clustering."
+author: "Varada Kolhatkar"
+description: "Recommender systems, utility matrices, evaluation, baselines, KNN imputation, and content-based filtering"
+description-short: "Utility matrices, rating prediction, content-based filtering"
 format:
     revealjs:
         html-math-method: mathjax
@@ -14,233 +16,567 @@ format:
           - data/
           - img/
 
+execute:
+  echo: false
+  warning: false
+
 editor:
   render-on-save: true
 ---
+
+```{python}
+#| include: false
+from pathlib import Path
+import numpy as np
+import pandas as pd
+
+DATA_DIR = Path("data")
+pd.set_option("display.max_colwidth", 60)
+
+
+def create_Y_from_ratings(data, N, M, user_mapper, item_mapper):
+    Y = np.full((N, M), np.nan)
+    for _, row in data.iterrows():
+        Y[user_mapper[row["user_id"]], item_mapper[row["movie_id"]]] = row["rating"]
+    return Y
+```
 
 ## Focus on the breath!
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-## Announcements
+## Announcements {.smaller}
 
-- HW6 was due yesterday. 
+- HW6 was due yesterday.
+- HW7 has been released (a new homework on transfer learning)
 - No classes or OH during the midterm break.
-- Midterm 2 coming up next week! 
-- If you find the breathing exercises helpful, you’re very welcome to join our weekly meditation sessions.
-  - 🕑 When? **Every Wednesdays at 2 PM**
-  - 📍 Where? **ICCS 146** 
+- Midterm 2 coming up next week!
+- If you find the breathing exercises helpful, you're very welcome to join our weekly meditation sessions.
+  - 🕑 When? **Every Tuesday at 1 PM**
+  - 📍 Where? **ICCS 146**
 
-## iClicker question 💡 
+## Today's big questions {.slide-goals}
 
-What percentage of watch time on YouTube do you think comes from recommendations?
+1. How do we represent **ratings** when most are missing?
+2. How can we **evaluate predictions** for unseen ratings?
+3. How do **similar users** and **item features** help us recommend items?
+4. Does lower prediction error mean **better recommendations**?
 
-- (A) 50%
-- (B) 60%
-- (C) 20%
-- (D) 90%
-
-Based on [Google Developers (2022)](https://developers.google.com/machine-learning/recommendation/overview). The number may have changed since then!
-
-## What is a recommendation system? 
+## What is a recommendation system?
 
 A recommendation system suggests products, services, or content that a user is likely to consume or enjoy.
 
-## Example: Recommender systems
+- Items could be movies, songs, videos, products, or news articles.
+- The system uses past data to predict what a user may want next.
+- It helps users choose from a large catalogue.
 
-- A user visits Amazon to shop.
-- Amazon knows:
-  - what the user viewed or purchased before
-  - what similar users bought
-- **The goal:** recommend items that maximize user engagement or sales.
-- There's no single "right" label. The goal is to model user behaviour.
 
-## Why should we care? 
-:::: {.columns}
-
-::: {.column width="50%"}
-![](img/reco-examples.png)
+::: {.notes}
+Use this example to introduce the information sources before naming the methods. Return to differences between sales objectives and user benefit in the final section, where they inform evaluation choices. For the technical work today, we predict explicit movie ratings and use the predictions to rank unseen movies.
 :::
-
-::: {.column width="50%"}
-- Recommendations shape almost everything we buy or watch.
-- Central to the success of companies like Amazon, Netflix, YouTube, and Spotify.
-:::
-::::
 
 ## Why recommendation systems? {.smaller}
 
-- They help users navigate information overload.
-- Without them, finding the right item would require sifting through thousands of options.
-- Recommendations reduce effort and improve user experience.
+- They help users navigate **information overload**.
+- Searching a large catalogue takes effort.
+- Good recommendations help users find relevant choices.
 
-![](img/info-overload.png){.nostretch fig-align="center" width="400px"}
+![](img/info-overload.png){.nostretch fig-align="center" height="300px"}
 
-## The other side: Filter bubbles 
-- Recommenders often amplify what users already like or what similar users like.
-- This can create filter bubbles, limiting exposure to diverse content.
-- Probably harmless in shopping, but can have **serious consequences in domains like news, politics, or science, where diverse viewpoints matter**.
+## Explicit vs. implicit feedback
 
-# Data and problem setup 
-
-## What data do we need?
-
-To build a recommender, we typically use:
-
-- User–item interactions (ratings, clicks, views, purchases)
-- Item or user features (e.g., genre, price, age)
-- Historical data (purchase or viewing history)
-
-## Problem formulation
-
-- We have $N$ users and $M$ items.
-- Observed data = interactions:
-	- Movie ratings (Netflix)
-	- Song plays (Spotify)
-	- Product purchases (Amazon)
-
-**Goal**: predict unobserved interactions.
-
-## The utility matrix
-- Rows = users, columns = items
-- Each entry $y_{ij}$ = user $i$'s interaction (e.g., rating) with item $j$
-
-![](img/utility_matrix.png)
-
-<!-- <img src="img/utility_matrix.png" alt="" height="900" width="900">  -->
-
-
-## Sparsity
-- The utility matrix is mostly empty.
-- Each user interacts with only a small fraction of all items.
-- Examples:
-  - Netflix users rate only a few shows out of thousands.
-  - Amazon shoppers review only a handful of products.
-
-## What do we predict?
-
-We aim to fill in the missing entries. In other words, predict ratings or preferences the user hasn't expressed yet.
-
-![](img/utility_matrix.png)
-
-## Rating prediction $\neq$ regression 
-::: {.columns}
-
+:::: {.columns}
 ::: {.column width="50%"}
 
-### Regression
+### Explicit feedback
 
-$$
-\begin{bmatrix} 
-\checkmark & \checkmark & \checkmark  & \checkmark & \checkmark\\
-\checkmark & \checkmark & \checkmark  & \checkmark & \checkmark\\
-\checkmark & \checkmark & \checkmark  & \checkmark & \checkmark\\
-\checkmark & \checkmark & \checkmark  & \checkmark & ?\\
-\checkmark & \checkmark & \checkmark  & \checkmark & ?\\
-\checkmark & \checkmark & \checkmark  & \checkmark & ?\\
-\end{bmatrix}
-$$
+- The user directly reports a preference.
+- Example: a 1-to-5 movie rating.
+
 :::
-
 ::: {.column width="50%"}
 
-### Rating prediction
+### Implicit feedback
 
-$$
-\begin{bmatrix} 
-? & ? & \checkmark  & ? & \checkmark\\
-\checkmark & ? & ?  & ? & ?\\
-? & \checkmark & \checkmark  & ? & \checkmark\\
-? & ? & ?  & ? & ?\\
-? & ? & ? & \checkmark & ?\\
-? & \checkmark & \checkmark  & ? & \checkmark
-\end{bmatrix}
-$$
+- We infer preferences from behaviour.
+- Examples: clicks, watch time, purchases.
+
 :::
 ::::
 
-## Main approaches {.smaller}
+**Behaviour needs interpretation: a purchase could be a gift.**
 
-- Collaborative filtering
-    - "Unsupervised" learning 
-    - We only have labels $y_{ij}$ (rating of user $i$ for item $j$). 
-    - We learn latent features.  
-- **Content-based recommenders** (today's focus)
-    - Supervised learning
-    - Extract features $x_i$ of users and/or items building a model to predict rating $y_i$ given $x_i$. 
-    - Apply model to predict for new users/items. 
-- Hybrid 
-    - Combining collaborative filtering with content-based filtering
+::: {.notes}
+Neither signal is a complete measure of satisfaction. A missing click could mean the user never saw the item. Even explicit ratings depend on what users encountered and chose to rate. Our observed movie ratings provide numerical targets for rating prediction.
+:::
 
 
-# Evaluating Recommender Systems
+::: {.notes}
+This is one recommendation formulation. Other systems predict clicks or learn to rank directly. We are not claiming that every type of interaction has the same meaning or that accurate rating prediction alone solves recommendation.
 
-## How do we evaluate recommendations?
+Ratings and clicks are not an unbiased sample of all user–item pairs. Position and exposure affect behaviour. Held-out ratings are a useful starting point, but evaluating a ranked list and longer-term usefulness needs additional evidence. Clicks alone do not establish satisfaction. Ask what feedback or interface evidence could distinguish the explanations.
+:::
 
-- Is there a **single correct answer** for what should be recommended or what rating should be predicted?  
-  - **Not really!**
-- Still, we need ways to **compare different methods** and measure their usefulness.
+## The utility matrix
 
-## Why evaluation matters? 
+- **Rows:** users. **Columns:** items.
+- Entry $y_{ij}$ is user $i$'s rating of item $j$.
+- Blank entries represent **unknown ratings**.
 
-- We'll experiment with different ways to **fill in missing entries** in the utility matrix.  
-- Even though recommendations are subjective, we still need **quantitative metrics** to judge:
-  - How well do our predictions match real user behavior?  
-  - Which model performs better?
+![](img/utility_matrix.png){.nostretch fig-align="center" height="330px"}
 
-## RMSE for rating prediction {.smaller}
+## Toy movie ratings data {.smaller}
 
-- RMSE, which measures how close predicted ratings are to actual ratings, is one of the commonly used metric to evaluate recommendation systems  
-- In **2006**, Netflix launched the **Netflix Prize** competition.  
-- They released a dataset of **100 million movie ratings** and offered **$1 million** to the first team that improved Netflix’s existing algorithm by **at least 10% in RMSE** on a held-out test set.
+```{python}
+#| echo: true
+#| output: false
+toy_ratings = pd.read_csv(DATA_DIR / "toy-movie-ratings.csv")
+users = np.unique(toy_ratings["user_id"])
+movies = np.unique(toy_ratings["movie_id"])
+N_toy, M_toy = len(users), len(movies)
+```
 
-![](img/netflix.png){.nostretch fig-align="center" width="400px"}
+```{python}
+#| output: asis
+print(toy_ratings.head(6).to_html(index=False, border=0))
+```
 
-[Source: Netflix Tech Blog](https://netflixtechblog.com/netflix-recommendations-beyond-the-5-stars-part-1-55838468f429)
+**First six rows shown.** The full table has 14 ratings, 4 users, and 7 movies.
 
-
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_16-recommendation-systems.ipynb)
-
-
-## iClicker Exercise {.smaller}
-Select all of the following statements which are **True** 
-
-- (A) In the context of recommendation systems, the shapes of validation utility matrix and train utility matrix are the same. 
-- (B) RMSE perfectly captures what we want to measure in the context of recommendation systems. 
-- (C) It would be reasonable to impute missing values in the utility matrix by taking the average of the ratings given to an item by similar users.  
-- (D) In KNN type imputation, if a user has not rated any items yet, a reasonable strategy would be recommending them the most popular item. 
-
-
-## iClicker Exercise {.smaller}
-
-Select all of the following statements which are **True**
-
-(A) In content-based filtering we leverage available item features in addition to similarity between users.
-(B) In content-based filtering you represent each user in terms of known features of items.
-(C) In the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie.
-(D) In content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won't be able to calculate RMSE for the validation utility matrix.
-
-## Baseline approaches 
-
-- Global average baseline
-- Per-user average baseline
-- Per-item average baseline
-- Average of 2 and 3
-    - Take an average of per-user and per-item averages. 
-- [$k$-Nearest Neighbours imputation](https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html)    
-
-## Content-based filtering 
-
-![](img/content-based-filtering.png){.nostretch fig-align="center" width="900px"}
+::: {.notes}
+This is the seven-movie illustration from the supplied DSCI 563 sequence. Each row is one observed rating. The companion regression demo later uses a different, twelve-movie dataset from the course notes; do not silently treat the datasets as identical. Avoid a scrolling table during teaching: show a representative sample, then the full utility matrix.
+:::
 
 
-### iClicker {.smaller}
+::: {.notes}
+np.unique sorts the IDs, so the row order is Eva, Jim, Pat, Sam and Toy Story is movie column 6. Forward mappings locate array entries; inverse mappings recover labels for displayed predictions. IDs are identifiers, not numerical features to regress on.
 
-Select all of the following statements which are **True** 
+The setup cell defines the same helper shown here. A NaN marks missing evidence. We use a dense array because the example is tiny; large datasets generally store observed interactions instead. This helper assumes one rating per user–movie pair in the supplied data.
+:::
 
-- (A) In content-based filtering we leverage available item features in addition to similarity between users.
-- (B) In content-based filtering you represent each user in terms of **known** features of items.
-- (C) In the set up of content-based filtering we discussed, if you have a new movie, you would have problems predicting ratings for that movie. 
-- (D) In content-based filtering if a user has a number of ratings in the training utility matrix but does not have any ratings in the validation utility matrix then we won't be able to calculate RMSE for the validation utility matrix.
+## Toy utility matrix
 
-<br><br><br><br>
+![](img/toy-movie.png){.nostretch fig-align="center" width="900px"}
+
+**Four users × seven movies.** A question mark means no observed rating.
+
+::: {.notes}
+The supplied movie-poster illustration matches toy-movie-ratings.csv exactly, with rows Eva, Jim, Pat, Sam and alphabetically ordered movie columns. Ask students to locate Sam's Toy Story rating and Jim's missing Toy Story rating. Image reused from the instructor's supplied DSCI 563 course materials.
+:::
+
+## Missing ratings and sparsity
+
+Most users rate only a small fraction of the catalogue.
+
+- **Low rating:** observed evidence of a low reported preference.
+- **Missing rating:** the user may never have encountered the movie.
+- Filling missing entries with zero changes their meaning.
+
+**Our task:** estimate ratings we have not observed.
+
+::: {.notes}
+The toy notebook uses NaN for unknown values. For large catalogues, store observed interactions rather than a dense completed matrix. Implicit zeros in a sparse representation must not be confused with observed zero ratings. Our predictions estimate ratings, not whether someone has seen a movie.
+:::
+
+
+::: {.notes}
+Allow one minute. The 1-star rating is an explicit low rating; the blank is unknown. Zero imputation treats an unobserved preference as an observed low value and can distort both averages and similarities. Pat may not have seen the movie, may not know it exists, or may have watched without rating it.
+:::
+
+## Recommendation approaches
+
+| Approach | Evidence used | This lecture's example |
+|---|---|---|
+| **Collaborative filtering** | Patterns in user–item interactions | Average ratings from similar users |
+| **Content-based filtering** | Known item features and a user's ratings | Per-user regression on genres |
+| **Hybrid** | Both sources | Combine candidate sources or scores |
+
+Our focus is **content-based rating prediction** using regression we already know.
+
+::: {.notes}
+Do not classify all collaborative filtering as unsupervised or say it always learns latent features. The neighbourhood method here uses observed rating histories directly. Matrix factorization is another collaborative approach, outside this lecture's scope. Our content-based implementation fits separate user models; shared models using user and item features are a different design.
+:::
+
+## Hold out observed ratings
+
+We cannot check a rating that the user has never provided.
+
+1. Split the **observed ratings table** into training and validation rows.
+2. Fit using **training ratings only**.
+3. Compare predictions with **held-out ratings**.
+
+The held-out ratings give us targets for evaluation.
+
+::: {.notes}
+Use the same held-out ratings for every method. Splitting ratings asks about additional preferences within the catalogue. Holding out entire users or movies instead tests a different generalization problem. In deployment, splitting by time may better reflect predicting future interactions from past data. Fit any learned preprocessing and tune models within training data.
+:::
+
+## Train and validation sets {.smaller}
+
+:::: {.columns}
+::: {.column width="43%"}
+
+![](img/recco-systems-eval.png){.nostretch fig-align="center" height="440px"}
+
+:::
+::: {.column width="57%"}
+
+- The matrices have the **same users and items**.
+- They differ in **which entries are observed**.
+- Validation ratings are hidden during training and revealed for evaluation.
+
+**Never train on a held-out rating.**
+
+:::
+::::
+
+::: {.notes}
+The instructor's supplied hand-drawn diagram illustrates the seven-movie setting. Its user and movie labels are positional IDs. Trace one validation-table row into the validation matrix and confirm that its training entry is blank. The next slide isolates the same principle with a smaller numerical illustration. Image reused from the instructor's DSCI 563 course materials.
+:::
+
+
+::: {.notes}
+The numbers in this slide are illustrative, not the notebook's actual split. Both shapes are N by M because we retain a fixed catalogue of IDs. Some entries are unknown in both matrices. The matrices' known entries are disjoint. Knowing that an ID exists does not allow using its held-out ratings for fitting.
+:::
+
+## RMSE on held-out ratings
+
+List the **$n$ held-out ratings** as $y_1,\ldots,y_n$, with predictions $\hat y_1,\ldots,\hat y_n$.
+
+$$\mathrm{RMSE}=\sqrt{\frac{1}{n}\sum_{k=1}^{n}(\hat y_k-y_k)^2}.$$
+
+- Lower RMSE means closer predictions, in **rating units**.
+- Unknown ratings contribute **no terms**.
+- Every evaluated entry needs a finite prediction.
+
+::: {.notes}
+Here k numbers held-out ratings, rather than users or movies; n is the number of held-out ratings, not the number of users. Mask the observed targets, not whichever predictions happen to be available. Silently dropping missing predictions can make a model look better. Require at least one observed rating overall. A user with no validation ratings contributes nothing to this aggregate; other users can still be evaluated.
+:::
+
+
+::: {.notes}
+RMSE = sqrt((1 + 4)/2) = sqrt(2.5), approximately 1.58 rating units. Unknown ratings are excluded. The validation values must not enter baseline fitting or any other training step. Allow two minutes.
+:::
+
+## Global-average baseline
+
+Predict the mean of the **observed training ratings** for every pair:
+
+$$\hat y_{ij}=\bar y_{\mathrm{train}}.$$
+
+```{.python}
+avg = np.nanmean(train_mat)
+pred_g = np.full(train_mat.shape, avg)
+```
+
+A simple reference: does personalization improve held-out predictions?
+
+::: {.notes}
+The baseline ignores differences between users and movies. Use training ratings only, excluding NaNs. It also supplies a fallback if a more specialized prediction has no evidence. Content-based filtering is not guaranteed to beat it, particularly with few ratings or weak features.
+:::
+
+## Per-user and per-item baselines {.smaller}
+
+![](img/user-item-averages.png){.nostretch fig-align="center" width="900px"}
+
+- **Per-user:** predict the user's mean observed rating.
+- **Per-item:** predict the item's mean observed rating.
+- **Combined:** average the user and item means.
+
+**For evaluation, compute all means from training ratings only.**
+
+::: {.notes}
+This supplied illustration uses all 14 ratings to demonstrate the arithmetic. Eva's average is 11/3; Toy Story's is 5/2. If these data were split for evaluation, hide validation ratings before calculating the means. A user or item with no training ratings needs a fallback. Averaging the user and item means is a heuristic, distinct from fitting an additive bias model. Image reused from the instructor's DSCI 563 course materials.
+:::
+
+## KNN-style imputation: intuition {.slide-your-turn}
+
+Jim has not rated **Toy Story**. How could we predict his rating?
+
+![](img/toy-movie.png){.nostretch fig-align="center" width="900px"}
+
+**Which users have overlapping ratings with Jim? Who has rated Toy Story?**
+
+::: {.notes}
+Jim and Eva both rated Man on Wire and The Social Dilemma, giving both 5. Eva rated Toy Story 1. Sam has a very different rating for The Social Dilemma and rated Toy Story 4. Pat has no jointly observed items with Jim, so absence of overlap is not evidence of either similarity or dissimilarity. This motivates a similarity rule rather than guessing from movie titles. With one nearest eligible neighbour, Eva supplies a prediction of 1; the later demo uses two neighbours on a different dataset.
+:::
+
+## KNN imputation and missing evidence {.smaller}
+
+```{.python}
+imputer = KNNImputer(n_neighbors=2, keep_empty_features=True)
+pred_knn = imputer.fit_transform(train_mat)
+empty_movies = np.isnan(train_mat).all(axis=0)
+pred_knn[:, empty_movies] = avg
+```
+
+- Compare users using **jointly observed ratings**, then average neighbours' ratings for the target movie.
+- A movie with **no training ratings** needs a fallback.
+- With no history, use a non-personalized fallback.
+- The imputer copies known ratings: **zero training RMSE is automatic**.
+
+::: {.notes}
+KNNImputer uses a distance adjusted for the number of overlapping entries. When distances are undefined it can use the column mean. keep_empty_features preserves entirely empty movie columns; explicitly replace their default zero with the global training mean. If no user-specific evidence exists, popularity or onboarding ratings are possible recommendation strategies. A global mean supplies a rating fallback, not a meaningful personalized ranking.
+:::
+
+
+::: {.notes}
+Connect to familiar KNN. Here a row represents a user and columns are movies. Similarity requires overlapping evidence. With only a few jointly observed movies, distances can be unreliable. This is a simple neighbourhood-based collaborative filter, not matrix factorization.
+
+Similarity uses jointly observed ratings, with the imputer's distance adjusted for the amount of overlap. For each missing entry, eligible donor users must have rated the target item. An item-based imputation would compare columns, for example by transposing the matrix; do not imply the shown code does both simultaneously.
+
+The imputer copies observed training entries, so zero training error is not evidence of perfect generalization. Ridge will instead predict training targets, and need not have zero training error. Compare held-out performance on the same targets.
+:::
+
+## Class demo 1: ratings, split, and baselines
+
+We now use the chapter's **12-movie dataset**, which also has genre features.
+
+[Open the recommender demo notebook]()
+
+1. Inspect the new ratings table and utility matrix.
+2. Check which entries move into validation.
+3. Compare the global mean and KNN predictions.
+
+**Before running:** What happens if a movie has no training ratings?
+
+::: {.notes}
+Use the first half of the companion notebook, ending at the content-based section. Inspect train_mat and valid_mat before evaluation. Ask students to predict why KNN has zero training error. Compare validation errors without treating this tiny split as strong evidence of general model quality.
+:::
+
+## iClicker 16.1: evaluation and baselines {.slide-your-turn .smaller}
+
+**Select all statements that are true in our setup.**
+
+- (A) Training and validation utility matrices have the same shape.
+- (B) Replacing missing ratings with zero preserves their meaning.
+- (C) Validation ratings must be excluded when calculating the global baseline.
+- (D) Zero training RMSE proves that KNN predicts unseen ratings perfectly.
+- (E) A global-mean fallback provides a prediction for a movie with no training ratings.
+
+::: {.notes}
+Answers: A, C, E. The fixed catalogue determines matrix shape. A missing rating is unknown. KNN preserves its observed inputs; its training score does not measure prediction of unseen entries. A fallback provides coverage, not evidence of a particular user's taste.
+:::
+
+## Movie features provide another source of evidence
+
+![](img/content-based-filtering.png){.nostretch fig-align="center" height="350px"}
+
+For each user, learn a model that predicts a rating from **known movie features**.
+
+::: {.notes}
+Use the supplied image as an overview. The workflow is: item features, one user's training ratings, a fitted regression model, then predictions for other items. No comparison with other users is required in this implementation.
+:::
+
+## Pat's regression dataset {.smaller}
+
+**One row per movie Pat rated in training.**
+
+| Movie | Action | Romance | Drama | Comedy | Children | Documentary | Rating |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Bambi | 0 | 0 | 1 | 0 | 1 | 0 | 4 |
+| Jerry Maguire | 0 | 1 | 1 | 1 | 0 | 0 | 5 |
+| Titanic | 0 | 1 | 1 | 0 | 0 | 0 | 3 |
+| Cast Away | 0 | 1 | 1 | 0 | 0 | 0 | 3 |
+| Lion King | 0 | 0 | 1 | 0 | 1 | 0 | 4 |
+| Downfall | 0 | 0 | 0 | 0 | 0 | 1 | 2 |
+
+$X_{\mathrm{Pat}}$: **6 movies × 6 genre features**. $y_{\mathrm{Pat}}$: **6 ratings**.
+
+::: {.notes}
+These are actual values from toy_ratings.csv and toy_movie_feats.csv after train_test_split(test_size=0.2, random_state=42). Genres are toy annotations, not an authoritative classification of these movies. Movie names identify rows, rather than serving as predictive features. Held-out ratings are excluded.
+:::
+
+
+::: {.notes}
+These are actual ratings in Pat's training split of the toy dataset. The matrix initially has no single target column. Constructing a dataset for one user gives one row per movie they rated, with genres as input features and that user's rating as the target. We will build this dataset in detail later.
+
+IDs connect the ratings table with the feature table. Alignment is essential: each row of X must correspond to the same movie as its target in y. The notebook explicitly aligns feature rows with utility-matrix columns when constructing predictions for all users.
+:::
+
+## Fit a separate Ridge model for each user
+
+$$\hat y_{ij}=b_i+x_j^\top w_i.$$
+
+```{.python}
+pat_model = Ridge(alpha=1.0)
+pat_model.fit(X_pat, y_pat)
+```
+
+- $x_j$: known genre features of movie $j$.
+- $w_i$ and $b_i$: learned preferences and intercept for user $i$.
+- Ridge regularization helps when each user has **few ratings**.
+
+::: {.notes}
+A model profile summarizes associations learned from that user's ratings. A coefficient does not prove that a genre caused enjoyment: features overlap and data are scarce. Regularization helps control coefficient magnitude but does not create missing evidence. A user with no training ratings cannot fit this model and needs a fallback.
+:::
+
+
+::: {.notes}
+Eva has four training ratings in the supplied split, compared with Pat's six. This implementation does not share training evidence between users. Each user's predictions depend on their own model, and sparse histories make profiles uncertain. A high rating for one movie does not imply liking every one of its genres.
+:::
+
+## From predictions to recommendations
+
+For Pat:
+
+1. Score movies from their features.
+2. Exclude movies already rated **in training**.
+3. Sort the remaining candidates by predicted rating.
+
+```{.python}
+unrated = np.isnan(train_mat[pat_n])
+scores = pd.Series(content_predictions[pat_n, unrated],
+                   index=movie_feats_df.index[unrated])
+scores.sort_values(ascending=False)
+```
+
+::: {.notes}
+Held-out movies can be candidates because their ratings were unavailable during fitting. In an actual system, exclude items already consumed or unavailable according to the information available when serving. Scoring every movie is practical for this toy catalogue; a large catalogue often needs candidate generation first. Regression can predict outside the rating scale; any clipping policy should be consistent in evaluation and serving.
+:::
+
+## Class demo 2: content-based regression
+
+[Continue the recommender demo notebook]()
+
+1. Inspect Pat's $X$, $y$, and fitted coefficients.
+2. Compare Pat's and Eva's predictions for the same movies.
+3. Compare validation RMSE with the baselines and rank Pat's candidates.
+
+**Before running:** Must content-based Ridge beat the global mean?
+
+::: {.notes}
+Start at the content-based section. It need not beat the baseline: useful features and adequate rating evidence matter. All methods use the same validation entries. The small validation set makes modest differences weak evidence. Ridge predicts rather than copies training targets, so its training RMSE need not be zero.
+:::
+
+## Comparing the toy models
+
+| Method | Training RMSE | Validation RMSE |
+|---|---:|---:|
+| Global mean | 1.41 | 0.83 |
+| KNN imputation | 0.00 | 0.66 |
+| Content-based Ridge | 0.52 | 0.58 |
+
+**Same five held-out ratings. A small difference is weak evidence.**
+
+::: {.notes}
+Computed from the supplied toy data with test_size=0.2 and random_state=42. There are 21 ratings, of which five are held out. KNN uses two neighbours and Ridge uses alpha=1. KNN's training error is zero because it preserves observed values. Content-based Ridge performs best on this particular split, which does not establish general superiority. Do not tune repeatedly against these five validation values and treat the result as an independent final assessment.
+:::
+
+## New items and new users {.smaller}
+
+| Situation | Similar-user KNN | Our content-based model |
+|---|---|---|
+| **New movie**, known features, no ratings | No movie ratings to average | Score using an existing user's fitted model |
+| **New user**, no ratings | No personal history for similarity | No ratings to fit that user's model |
+
+For a new user: request **onboarding ratings** or use a **non-personalized fallback**.
+
+**Feature limit:** identical genre vectors give the same user identical predictions.
+
+::: {.notes}
+Content-based filtering handles a new item only when the required features are available at prediction time. It does not automatically handle a new user. Popular or trending recommendations can supply initial candidates but do not establish personal preferences. User features in a shared model would be a different design.
+:::
+
+
+::: {.notes}
+The predictions are identical under this model because both x and the user-specific parameters are identical. More ratings may change the model but cannot distinguish identical feature vectors. Features such as descriptions, actors, or release years could help if they capture relevant differences and are available when predicting. Feature quality limits the recommendation.
+:::
+
+## iClicker 16.2: content-based filtering {.slide-your-turn .smaller}
+
+**Select all statements that are true for our separate user models.**
+
+- (A) Pat's model requires rating-history similarity to Eva.
+- (B) Each training example contains movie features and that user's rating.
+- (C) A new movie can be scored if its features and a fitted user model are available.
+- (D) Genre features alone tell us a completely new user's preferences.
+- (E) A user with no validation ratings prevents evaluating all other users.
+
+::: {.notes}
+Answers: B and C. A confuses this content-based implementation with user-based collaborative filtering. D lacks a personal preference signal. E is false: evaluate all observed validation entries overall. A user without validation ratings contributes no terms; an entirely empty validation set cannot yield RMSE.
+:::
+
+## Your turn: lower error, better top choice? {.slide-your-turn .smaller}
+
+**Pat's held-out ratings and two illustrative models:**
+
+| Movie | Pat's rating | Model A | Model B |
+|---|---:|---:|---:|
+| A | 5 | 4.0 | 5.0 |
+| B | 4 | 4.1 | 3.0 |
+| C | 1 | 1.0 | 2.0 |
+
+1. Which model has lower RMSE?
+2. Which recommends Pat's highest-rated movie if we show **one** suggestion?
+3. Why do these answers differ?
+
+::: {.notes}
+Allow two minutes. Model A RMSE = sqrt(1.01/3), approximately 0.58. Model B RMSE = sqrt(2/3), approximately 0.82. A ranks Movie B first (4.1 > 4.0), but B ranks Movie A first, Pat's highest-rated movie. Average numerical accuracy and top-choice quality measure different properties. This example comes from the supplied chapter exercise and is not the fitted toy model's output.
+:::
+
+## From a catalogue to a short list
+
+1. **Candidate generation:** retrieve a manageable set of relevant items.
+2. **Ranking:** score those candidates using preferences and context.
+3. **Final list:** account for availability, already-consumed items, and variety.
+
+**A ranking model cannot recommend an item that never becomes a candidate.**
+
+::: {.notes}
+The toy model scores every movie. At larger scale, one design combines candidates from content similarity, collaborative patterns, and new releases before ranking. Collaborative and content-based ideas can play complementary roles. This is a conceptual extension; implementing a production retrieval system is outside this lecture.
+:::
+
+## Useful variety depends on context
+
+Three highly scored movies could all be sequels in the same series.
+
+- That list may suit a user planning a series marathon.
+- Another user may want different genres or unfamiliar choices.
+- Repeatedly showing similar content can narrow discovery.
+- Assess user benefit as well as sales or clicks.
+
+**Diversity concerns the mix of a list, while relevance still matters.**
+
+::: {.notes}
+More diversity is not automatically better. Distinguish substitutes from complements: similar products help before purchase, but a complementary product may be more useful afterward. Context changes the value of the same candidate list.
+:::
+
+
+::: {.notes}
+Avoid dismissing shopping consequences as harmless. Effects depend on the objective, data, interface, and context. A genre-only model can explain a recommendation through genre associations, but cannot truthfully claim to use a topic absent from its features. Also weigh serving speed, update cost, and maintenance against improvements in offline error.
+:::
+
+## Familiar choices and exploration
+
+- **Exploitation:** use current evidence to select likely good choices.
+- **Exploration:** try uncertain choices to learn about preferences or items.
+
+**Freshness** means recently released. **Novelty** means new to the user.
+
+A decades-old movie can be novel. A new release can closely match known tastes.
+
+::: {.notes}
+An unfamiliar documentary among familiar recommendations could help learn a preference, while risking a less relevant choice today. Exploration need not involve recent releases, and novelty need not mean uncertainty. Recommendations influence the feedback available for future learning.
+:::
+
+## Today's takeaways {.slide-summary .smaller}
+
+- **Represent ratings:** missing entries are unknown preferences.
+- **Evaluate honestly:** hold out observed ratings and fit using training data only.
+- **Compare evidence sources:** collaborative methods use rating patterns; content-based models use item features.
+- **Personalize with regression:** learn one user's model from their rated movies.
+- **Handle missing history:** new items and new users pose different challenges.
+- **Judge the final list:** RMSE, diversity, context, and future feedback all matter.
+
+## Exit question {.slide-your-turn}
+
+A recommender has **lower validation RMSE**, but users keep seeing the same kinds of movies and rarely discover anything new.
+
+What would you investigate or change next, and why?
+
+Explain both **what RMSE tells you** and **what it leaves unanswered**.
+
+::: {.notes}
+A strong response separates rating prediction accuracy from ranked-list usefulness. Inspect candidates and final rankings, variety, exposure, novelty, and feedback collection. Propose a relevant change such as broadening candidate sources or introducing measured exploration, and explain how to assess the resulting user experience. Neither maximal diversity nor more clicks alone establishes success.
+:::
