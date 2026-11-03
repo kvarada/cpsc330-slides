@@ -219,7 +219,25 @@ The held-out ratings give us targets for evaluation.
 Use the same held-out ratings for every method. Splitting ratings asks about additional preferences within the catalogue. Holding out entire users or movies instead tests a different generalization problem. In deployment, splitting by time may better reflect predicting future interactions from past data. Fit any learned preprocessing and tune models within training data.
 :::
 
-## Train and validation sets {.smaller}
+## Train and validation sets
+
+:::: {.columns}
+::: {.column width="40%"}
+![](img/recco-systems-eval.png){.nostretch fig-align="center" width="500px"}
+:::
+::: {.column width="60%"}
+
+- The train and validation utility matrices typically have the same shape:
+same users, same items.
+
+- The difference is which entries are observed.
+
+- Validation entries are masked during training and revealed only for evaluation.
+
+:::
+::::
+
+## Train and validation sets {.smaller visibility="hidden"}
 
 **Illustrative split:** hide two observed ratings for evaluation.
 
@@ -374,6 +392,23 @@ Use the first half of the companion notebook, ending at the content-based sectio
 Answers: A, C, E. The fixed catalogue determines matrix shape. A missing rating is unknown. KNN preserves its observed inputs; its training score does not measure prediction of unseen entries. A fallback provides coverage, not evidence of a particular user's taste.
 :::
 
+## iClicker 16.2: a movie with no ratings {.slide-your-turn .smaller}
+
+A **new movie** arrives. Pat has rated other movies, but **nobody has rated this one**: its utility-matrix column is all missing.
+
+We use similar-user KNN to predict Pat's rating.
+
+**Which statement is correct? Select one.**
+
+- (A) We can average the nearest users' ratings for the new movie.
+- (B) No users have rated it, so KNN needs a fallback rather than a neighbour-based prediction.
+- (C) The missing ratings show that everyone dislikes the movie.
+- (D) Increasing the number of neighbours guarantees a personalized prediction.
+
+::: {.notes}
+Answer: B. Even if we identify users similar to Pat from their other ratings, none can supply a rating for this movie. This is the new-item cold-start problem. More neighbours cannot create missing evidence, and missing does not mean disliked. In our demo, KNNImputer with keep_empty_features=True initially fills an entirely empty training column with zero; our code explicitly replaces that value with the global training mean. That is a non-personalized fallback, not a rating learned for this movie. Do not confuse this with the per-column-mean fallback for a new user: this movie has no training column mean. Ask: what if we know the movie's genres? Content-based filtering can use those features with Pat's existing fitted model, without requiring ratings for the new movie. A new user with no rating history remains a different problem for our separate-user models.
+:::
+
 # Content-based filtering
 
 ## Content-based filtering intro  
@@ -386,11 +421,9 @@ One way to address cold start is content-based filtering. The key idea is to rec
 - release year
 - budget
 
-## Content-based filtering example 
+## Content-based filtering example
 
 ![](img/content-based-filtering.png){.nostretch fig-align="center" width="900px"}
-
-
 
 ## Movie features provide another source of evidence {visibility="hidden"}
 
@@ -539,7 +572,7 @@ Content-based filtering handles a new item only when the required features are a
 The predictions are identical under this model because both x and the user-specific parameters are identical. More ratings may change the model but cannot distinguish identical feature vectors. Features such as descriptions, actors, or release years could help if they capture relevant differences and are available when predicting. Feature quality limits the recommendation.
 :::
 
-## iClicker 16.2: content-based filtering {.slide-your-turn .smaller}
+## iClicker 16.3: content-based filtering {.slide-your-turn .smaller}
 
 **Select all statements that are true for our separate user models.**
 
