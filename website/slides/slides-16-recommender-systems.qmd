@@ -83,6 +83,14 @@ Use this example to introduce the information sources before naming the methods.
 
 ![](img/info-overload.png){.nostretch fig-align="center" height="300px"}
 
+## The other side: filter bubbles
+
+- Recommenders can reinforce existing interests by repeatedly showing similar content.
+- This can contribute to filter bubbles, limiting exposure to different information or viewpoints.
+- In news, politics, and science, narrowed exposure can affect what people learn and believe.
+
+Recommendation quality includes the information people have an opportunity to encounter.
+
 ## Explicit vs. implicit feedback
 
 :::: {.columns}
@@ -125,7 +133,7 @@ Ratings and clicks are not an unbiased sample of all user–item pairs. Position
 
 ![](img/utility_matrix.png){.nostretch fig-align="center" height="330px"}
 
-## Toy movie ratings data {.smaller}
+## 7-movie illustration: ratings data {.smaller}
 
 ```{python}
 #| echo: true
@@ -154,7 +162,7 @@ np.unique sorts the IDs, so the row order is Eva, Jim, Pat, Sam and Toy Story is
 The setup cell defines the same helper shown here. A NaN marks missing evidence. We use a dense array because the example is tiny; large datasets generally store observed interactions instead. This helper assumes one rating per user–movie pair in the supplied data.
 :::
 
-## Toy utility matrix
+## 7-movie illustration: utility matrix
 
 ![](img/toy-movie.png){.nostretch fig-align="center" width="900px"}
 
@@ -183,7 +191,7 @@ The toy notebook uses NaN for unknown values. For large catalogues, store observ
 Allow one minute. The 1-star rating is an explicit low rating; the blank is unknown. Zero imputation treats an unobserved preference as an observed low value and can distort both averages and similarities. Pat may not have seen the movie, may not know it exists, or may have watched without rating it.
 :::
 
-## Recommendation approaches
+## Recommendation approaches {.smaller}
 
 | Approach | Evidence used | This lecture's example |
 |---|---|---|
@@ -213,49 +221,56 @@ Use the same held-out ratings for every method. Splitting ratings asks about add
 
 ## Train and validation sets {.smaller}
 
-:::: {.columns}
-::: {.column width="43%"}
+**Illustrative split:** hide two observed ratings for evaluation.
 
-![](img/recco-systems-eval.png){.nostretch fig-align="center" height="440px"}
+:::: {.columns}
+::: {.column width="50%"}
+
+### Training
+
+| User | Movie A | Movie B | Movie C |
+|---|---:|---:|---:|
+| Eva | 5 | ? | ? |
+| Pat | ? | 4 | ? |
 
 :::
-::: {.column width="57%"}
+::: {.column width="50%"}
 
-- The matrices have the **same users and items**.
-- They differ in **which entries are observed**.
-- Validation ratings are hidden during training and revealed for evaluation.
+### Validation
 
-**Never train on a held-out rating.**
+| User | Movie A | Movie B | Movie C |
+|---|---:|---:|---:|
+| Eva | ? | **2** | ? |
+| Pat | ? | ? | **5** |
 
 :::
 ::::
 
-::: {.notes}
-The instructor's supplied hand-drawn diagram illustrates the seven-movie setting. Its user and movie labels are positional IDs. Trace one validation-table row into the validation matrix and confirm that its training entry is blank. The next slide isolates the same principle with a smaller numerical illustration. Image reused from the instructor's DSCI 563 course materials.
-:::
+Same users and movies; **different observed entries**. “?” means unknown in that split.
 
+**Never train on a held-out rating.**
 
 ::: {.notes}
-The numbers in this slide are illustrative, not the notebook's actual split. Both shapes are N by M because we retain a fixed catalogue of IDs. Some entries are unknown in both matrices. The matrices' known entries are disjoint. Knowing that an ID exists does not allow using its held-out ratings for fitting.
+Trace Eva's Movie B rating: it is hidden in training and revealed only for evaluation. Pat's Movie C rating is the other held-out target. Some entries are unknown in both matrices. This small illustration is separate from both movie datasets. The shapes are identical because the catalogue of IDs is fixed; knowing an ID exists does not reveal its rating.
 :::
 
 ## RMSE on held-out ratings
 
 List the **$n$ held-out ratings** as $y_1,\ldots,y_n$, with predictions $\hat y_1,\ldots,\hat y_n$.
 
-$$\mathrm{RMSE}=\sqrt{\frac{1}{n}\sum_{k=1}^{n}(\hat y_k-y_k)^2}.$$
+$$\mathrm{RMSE}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2}.$$
 
 - Lower RMSE means closer predictions, in **rating units**.
 - Unknown ratings contribute **no terms**.
 - Every evaluated entry needs a finite prediction.
 
 ::: {.notes}
-Here k numbers held-out ratings, rather than users or movies; n is the number of held-out ratings, not the number of users. Mask the observed targets, not whichever predictions happen to be available. Silently dropping missing predictions can make a model look better. Require at least one observed rating overall. A user with no validation ratings contributes nothing to this aggregate; other users can still be evaluated.
+Here i numbers held-out ratings, rather than users or movies; n is the number of held-out ratings, not the number of users. The residual is the observed rating minus the predicted rating, consistent with Chapter 10. Mask the observed targets, not whichever predictions happen to be available. Silently dropping missing predictions can make a model look better. Require at least one observed rating overall. A user with no validation ratings contributes nothing to this aggregate; other users can still be evaluated.
 :::
 
 
 ::: {.notes}
-RMSE = sqrt((1 + 4)/2) = sqrt(2.5), approximately 1.58 rating units. Unknown ratings are excluded. The validation values must not enter baseline fitting or any other training step. Allow two minutes.
+The validation values must not enter baseline fitting or any other training step. This slide reviews the metric; students calculate RMSE later in the ranking exercise.
 :::
 
 ## Global-average baseline
@@ -276,6 +291,8 @@ The baseline ignores differences between users and movies. Use training ratings 
 :::
 
 ## Per-user and per-item baselines {.smaller}
+
+**7-movie illustration: arithmetic before splitting, using all 14 ratings.**
 
 ![](img/user-item-averages.png){.nostretch fig-align="center" width="900px"}
 
@@ -306,13 +323,10 @@ Jim and Eva both rated Man on Wire and The Social Dilemma, giving both 5. Eva ra
 ```{.python}
 imputer = KNNImputer(n_neighbors=2, keep_empty_features=True)
 pred_knn = imputer.fit_transform(train_mat)
-empty_movies = np.isnan(train_mat).all(axis=0)
-pred_knn[:, empty_movies] = avg
 ```
 
 - Compare users using **jointly observed ratings**, then average neighbours' ratings for the target movie.
-- A movie with **no training ratings** needs a fallback.
-- With no history, use a non-personalized fallback.
+- No movie ratings or no user history? Use a **fallback** (implemented in the demo).
 - The imputer copies known ratings: **zero training RMSE is automatic**.
 
 ::: {.notes}
@@ -328,11 +342,13 @@ Similarity uses jointly observed ratings, with the imputer's distance adjusted f
 The imputer copies observed training entries, so zero training error is not evidence of perfect generalization. Ridge will instead predict training targets, and need not have zero training error. Compare held-out performance on the same targets.
 :::
 
-## Class demo 1: ratings, split, and baselines
+## Class demo 1: ratings, split, and baselines {.smaller}
 
-We now use the chapter's **12-movie dataset**, which also has genre features.
+We now switch to the **12-movie demo**, which includes genre features.
 
-[Open the recommender demo notebook]()
+The user names recur, but **these are different ratings** from the 7-movie illustration.
+
+[Open the recommender demo notebook](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-16-recommender-systems-demo.ipynb)
 
 1. Inspect the new ratings table and utility matrix.
 2. Check which entries move into validation.
@@ -358,19 +374,50 @@ Use the first half of the companion notebook, ending at the content-based sectio
 Answers: A, C, E. The fixed catalogue determines matrix shape. A missing rating is unknown. KNN preserves its observed inputs; its training score does not measure prediction of unseen entries. A fallback provides coverage, not evidence of a particular user's taste.
 :::
 
-## Movie features provide another source of evidence
+# Content-based filtering
 
-![](img/content-based-filtering.png){.nostretch fig-align="center" height="350px"}
+## Content-based filtering intro  
 
-For each user, learn a model that predicts a rating from **known movie features**.
+One way to address cold start is content-based filtering. The key idea is to recommend items similar to what the user liked before based on item features. Examples of item features:
+
+- movie genres
+- plot text
+- actors
+- release year
+- budget
+
+## Content-based filtering example 
+
+![](img/content-based-filtering.png){.nostretch fig-align="center" width="900px"}
+
+
+
+## Movie features provide another source of evidence {visibility="hidden"}
+
+**What if nobody has rated a new movie, but we know its genres?**
+
+In the **12-movie demo**, fit a model for Pat:
+
+$$\underbrace{X_{\mathrm{Pat}}}_{\text{movie genres}}
+\quad + \quad
+\underbrace{y_{\mathrm{Pat}}}_{\text{Pat's training ratings}}
+\quad \longrightarrow \quad
+\text{Pat's Ridge model}$$
+
+Then use it:
+
+$$\text{another movie's genres} \longrightarrow
+\text{Pat's model} \longrightarrow \text{predicted rating}$$
+
+**No ratings from other users are required by this model.**
 
 ::: {.notes}
-Use the supplied image as an overview. The workflow is: item features, one user's training ratings, a fitted regression model, then predictions for other items. No comparison with other users is required in this implementation.
+This stays with the 12-movie demo introduced in Demo 1. Item features provide evidence even when no other user has rated a movie. The existing user still needs training ratings to fit a model. The next slide shows exactly which movies and ratings form Pat's training dataset.
 :::
 
-## Pat's regression dataset {.smaller}
+## Pat's regression dataset {.smaller visibility="hidden"} 
 
-**One row per movie Pat rated in training.**
+**12-movie demo: one row per movie Pat rated in training.**
 
 | Movie | Action | Romance | Drama | Comedy | Children | Documentary | Rating |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -389,7 +436,7 @@ These are actual values from toy_ratings.csv and toy_movie_feats.csv after train
 
 
 ::: {.notes}
-These are actual ratings in Pat's training split of the toy dataset. The matrix initially has no single target column. Constructing a dataset for one user gives one row per movie they rated, with genres as input features and that user's rating as the target. We will build this dataset in detail later.
+These are actual ratings in Pat's training split of the toy dataset. The matrix initially has no single target column. Constructing a dataset for one user gives one row per movie they rated, with genres as input features and that user's rating as the target. The notebook constructs this dataset explicitly.
 
 IDs connect the ratings table with the feature table. Alignment is essential: each row of X must correspond to the same movie as its target in y. The notebook explicitly aligns feature rows with utility-matrix columns when constructing predictions for all users.
 :::
@@ -416,7 +463,7 @@ A model profile summarizes associations learned from that user's ratings. A coef
 Eva has four training ratings in the supplied split, compared with Pat's six. This implementation does not share training evidence between users. Each user's predictions depend on their own model, and sparse histories make profiles uncertain. A high rating for one movie does not imply liking every one of its genres.
 :::
 
-## From predictions to recommendations
+## Predictions to recommendations 
 
 For Pat:
 
@@ -424,20 +471,13 @@ For Pat:
 2. Exclude movies already rated **in training**.
 3. Sort the remaining candidates by predicted rating.
 
-```{.python}
-unrated = np.isnan(train_mat[pat_n])
-scores = pd.Series(content_predictions[pat_n, unrated],
-                   index=movie_feats_df.index[unrated])
-scores.sort_values(ascending=False)
-```
-
 ::: {.notes}
 Held-out movies can be candidates because their ratings were unavailable during fitting. In an actual system, exclude items already consumed or unavailable according to the information available when serving. Scoring every movie is practical for this toy catalogue; a large catalogue often needs candidate generation first. Regression can predict outside the rating scale; any clipping policy should be consistent in evaluation and serving.
 :::
 
-## Class demo 2: content-based regression
+## Class demo 2: content-based regression {.smaller}
 
-[Continue the recommender demo notebook]()
+[Continue the recommender demo notebook](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-16-recommender-systems-demo.ipynb)
 
 1. Inspect Pat's $X$, $y$, and fitted coefficients.
 2. Compare Pat's and Eva's predictions for the same movies.
@@ -449,7 +489,23 @@ Held-out movies can be candidates because their ratings were unavailable during 
 Start at the content-based section. It need not beat the baseline: useful features and adequate rating evidence matter. All methods use the same validation entries. The small validation set makes modest differences weak evidence. Ridge predicts rather than copies training targets, so its training RMSE need not be zero.
 :::
 
-## Comparing the toy models
+## Pat's top recommendations {visibility="hidden"}
+
+**12-movie demo:** exclude Pat's training movies, then sort predicted ratings.
+
+| Rank | Movie | Predicted rating |
+|---|---|---:|
+| 1 | Roman Holidays | 4.19 |
+| 2 | A Beautiful Mind | 3.39 |
+| 3 | Inception | 3.36 |
+
+**Would these three make a useful list? What information is missing?**
+
+::: {.notes}
+Computed with the demo's random_state=42 split and Ridge(alpha=1.0), without clipping predictions. A Beautiful Mind is held out for Pat, so it remains a candidate in this offline exercise. The scores are estimates, not probabilities or guarantees of enjoyment. We have not used context, availability, or a variety objective. Return to this list when discussing quality beyond RMSE.
+:::
+
+## Comparing the models: 12-movie demo 
 
 | Method | Training RMSE | Validation RMSE |
 |---|---:|---:|
@@ -472,7 +528,7 @@ Computed from the supplied toy data with test_size=0.2 and random_state=42. Ther
 
 For a new user: request **onboarding ratings** or use a **non-personalized fallback**.
 
-**Feature limit:** identical genre vectors give the same user identical predictions.
+**Feature limit:** for a given user, movies with identical genre vectors receive identical predictions.
 
 ::: {.notes}
 Content-based filtering handles a new item only when the required features are available at prediction time. It does not automatically handle a new user. Popular or trending recommendations can supply initial candidates but do not establish personal preferences. User features in a shared model would be a different design.
@@ -515,49 +571,129 @@ Answers: B and C. A confuses this content-based implementation with user-based c
 Allow two minutes. Model A RMSE = sqrt(1.01/3), approximately 0.58. Model B RMSE = sqrt(2/3), approximately 0.82. A ranks Movie B first (4.1 > 4.0), but B ranks Movie A first, Pat's highest-rated movie. Average numerical accuracy and top-choice quality measure different properties. This example comes from the supplied chapter exercise and is not the fitted toy model's output.
 :::
 
-## From a catalogue to a short list
+## Beyond prediction error
 
-1. **Candidate generation:** retrieve a manageable set of relevant items.
-2. **Ranking:** score those candidates using preferences and context.
-3. **Final list:** account for availability, already-consumed items, and variety.
+**Lower RMSE does not guarantee better recommendations.**
 
-**A ranking model cannot recommend an item that never becomes a candidate.**
+Users see a **ranked list**, not a table of predicted ratings.
+
+- **Relevance:** does the list match what the user wants now?
+- **Diversity:** does it offer useful variety?
+- **Freshness:** can recently released items be discovered?
+- **Long-term satisfaction:** does it remain useful over time?
+
+These objectives can conflict: a familiar favourite may feel safer than an unfamiliar choice.
 
 ::: {.notes}
-The toy model scores every movie. At larger scale, one design combines candidates from content similarity, collaborative patterns, and new releases before ranking. Collaborative and content-based ideas can play complementary roles. This is a conceptual extension; implementing a production retrieval system is outside this lecture.
+Connect this to the preceding exercise: rating accuracy and the quality of the top choice differed. RMSE evaluates rating predictions; it does not directly measure list variety, discovery, trust, or long-term satisfaction. The right balance depends on the task and user context. More clicks alone do not establish user benefit.
+:::
+
+## From a catalogue to a short list
+
+![](img/reco-systems-architecture.png){.nostretch fig-align="center" height="330px" fig-alt="Video catalogue narrowed by candidate generation and ranking, with user history informing both stages."}
+
+::: {style="font-size: 0.5em; text-align: center;"}
+YouTube example; counts are illustrative. [Covington et al. (2016), Fig. 2](https://research.google.com/pubs/archive/45530.pdf).
+:::
+
+**Ranking cannot recover an item excluded from the candidates.**
+
+Where could we introduce **new releases** or **more variety**?
+
+::: {.notes}
+The toy model scores every movie. This figure shows the YouTube architecture described in 2016, not a claim about its current implementation. Candidate generation retrieves a manageable set of relevant items; ranking scores those candidates using preferences and context. Read millions, hundreds, and dozens as illustrative scales rather than fixed requirements. At larger scale, one design combines candidates from content similarity, collaborative patterns, and new releases before ranking. The final list can also account for availability, already-consumed items, and variety. Collaborative and content-based ideas can play complementary roles. This is a conceptual extension; implementing a production retrieval system is outside this lecture.
 :::
 
 ## Useful variety depends on context
 
-Three highly scored movies could all be sequels in the same series.
+You are considering a **solar robot toy**. Are these useful alternatives?
 
-- That list may suit a user planning a series marathon.
-- Another user may want different genres or unfamiliar choices.
-- Repeatedly showing similar content can narrow discovery.
-- Assess user benefit as well as sales or clicks.
+<div style="width: 950px; max-width: 100%; margin: 0 auto;">
+<img src="img/reco-diversity.png" alt="Sponsored related-product strip showing several similar solar robot kits." style="width: 100%; height: 240px; object-fit: cover; object-position: bottom; margin: 0;">
+</div>
 
-**Diversity concerns the mix of a list, while relevance still matters.**
-
-::: {.notes}
-More diversity is not automatically better. Distinguish substitutes from complements: similar products help before purchase, but a complementary product may be more useful afterward. Context changes the value of the same candidate list.
+::: {style="font-size: 0.55em; text-align: center;"}
+Amazon screenshot: sponsored related products.
 :::
 
+**What changes once you have already bought the toy?**
 
 ::: {.notes}
-Avoid dismissing shopping consequences as harmless. Effects depend on the objective, data, interface, and context. A genre-only model can explain a recommendation through genre associations, but cannot truthfully claim to use a topic absent from its features. Also weigh serving speed, update cost, and maintenance against improvements in offline error.
+Pause for responses before and after changing the purchase context. Similar products can help someone compare alternatives before purchase. After purchase, another very similar toy may be less useful; a compatible accessory or a different project might be better. Repeat purchases and gifts are possible, so do not assume a similar item is always unwanted. The screenshot labels the related products as sponsored: it illustrates a displayed list, not evidence about Amazon's recommendation algorithm or its objective.
 :::
 
-## Familiar choices and exploration
+## Diversity and timing
 
-- **Exploitation:** use current evidence to select likely good choices.
-- **Exploration:** try uncertain choices to learn about preferences or items.
+**Diversity** describes how different the items in a recommendation list are from one another.
 
-**Freshness** means recently released. **Novelty** means new to the user.
+- **Before purchase:** similar toys help compare alternatives.
+- **After purchase:** a compatible accessory or a different project may be more useful.
+- **As interests change:** update recommendations using recent feedback.
 
-A decades-old movie can be novel. A new release can closely match known tastes.
+Too little variety can narrow discovery. More variety is useful only when the items remain relevant.
 
 ::: {.notes}
-An unfamiliar documentary among familiar recommendations could help learn a preference, while risking a less relevant choice today. Exploration need not involve recent releases, and novelty need not mean uncertainty. Recommendations influence the feedback available for future learning.
+Diversity concerns the mix within a list; timing and context affect whether that mix is useful. Three sequels could suit a movie marathon but disappoint someone seeking a new genre. Low diversity alone does not establish a filter bubble. Assess user benefit rather than assuming either similarity or diversity is always preferable.
+:::
+
+## Freshness, novelty, and exploration
+
+| Idea | Meaning | Movie example |
+|---|---|---|
+| **Freshness** | Recently released | A movie released this week |
+| **Novelty** | New to this user | A classic they have never seen |
+| **Exploration** | Try an uncertain choice to learn | A genre they have not rated |
+
+A fresh item can match familiar tastes. An older item can support exploration.
+
+::: {.notes}
+New items may have little interaction data, but item features can still provide evidence. Freshness does not imply uncertainty, novelty does not necessarily imply uncertainty, and exploration need not involve a new release. The concepts can overlap without being interchangeable.
+:::
+
+## Familiar choices and exploration {.slide-your-turn}
+
+You have one recommendation slot left. Which would you choose?
+
+| Choice | Possible benefit | What could we learn? |
+|---|---|---|
+| **Familiar favourite** (exploitation) | Strong evidence of relevance | Response to familiar content |
+| **Uncertain documentary** (exploration) | A chance to discover a new interest | Response to a less-tested genre |
+
+**What is the cost if the documentary misses the mark?**
+
+**What we recommend affects what feedback we can collect next.**
+
+::: {.notes}
+Only showing familiar choices limits opportunities to learn about other interests. Exploration trades some immediate certainty for information that may improve future recommendations. It should be measured against user experience and satisfaction, not treated as an automatic improvement. Users can also provide feedback explicitly rather than through clicks alone.
+:::
+
+## Trust and user feedback
+
+A useful explanation should reflect the evidence the system actually used.
+
+> “Recommended because you rated documentary movies highly.”
+
+- Explanations **can support trust** when they are faithful and useful.
+- Controls such as **“not interested”** let users correct recommendations.
+- Recent feedback can help the system adapt when interests change.
+
+::: {.notes}
+For our genre-based Ridge model, genre associations could support an explanation; a claim about a documentary topic absent from its features would not be faithful. Explanations do not guarantee trust or satisfaction. A negative response can mean the item is unwanted now, already consumed, or poorly timed; its meaning depends on the control and context. Evaluate whether explanations and feedback controls help users, rather than merely making the system sound convincing. Also weigh serving speed, update cost, and maintenance against improvements in offline error.
+:::
+
+## What evidence would show improvement? {.smaller}
+
+| Question | Evidence to inspect |
+|---|---|
+| Are the top choices relevant? | User judgements of the top few items |
+| Does the list offer useful variety? | Differences among items, plus user feedback |
+| Can new items be discovered? | Exposure of recent releases and responses to them |
+| Does it stay useful over time? | Repeated feedback about satisfaction and usefulness |
+
+**Compare on a shared task and context. More clicks alone do not establish success.**
+
+::: {.notes}
+These are evaluation questions, not a claim that one metric captures all objectives. Offline ranking measures can be useful when relevance labels are available, but observed ratings reflect exposure and selection. User studies or carefully designed online comparisons can add evidence about usefulness. For Pat's top three, inspect both the ordering and what the list leaves out. Ask students to choose one objective and propose evidence before the exit question.
 :::
 
 ## Today's takeaways {.slide-summary .smaller}
@@ -567,7 +703,7 @@ An unfamiliar documentary among familiar recommendations could help learn a pref
 - **Compare evidence sources:** collaborative methods use rating patterns; content-based models use item features.
 - **Personalize with regression:** learn one user's model from their rated movies.
 - **Handle missing history:** new items and new users pose different challenges.
-- **Judge the final list:** RMSE, diversity, context, and future feedback all matter.
+- **Judge the final list:** relevance, variety, freshness, trust, and future feedback matter beyond RMSE.
 
 ## Exit question {.slide-your-turn}
 
