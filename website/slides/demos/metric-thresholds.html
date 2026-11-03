@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explore classification thresholds: PR and ROC</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:10px 18px;font-family:system-ui,sans-serif;color:#17212b;background:#fff;font-size:17px} .controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}label{font-weight:600}select,button{font:inherit;padding:5px 8px;border:1px solid #899ba0;border-radius:4px;background:#fff;color:inherit}button{cursor:pointer} .threshold{display:flex;align-items:center;gap:12px;margin:8px 0}input{flex:1;accent-color:#145e63;min-width:100px}output{font-variant-numeric:tabular-nums;font-weight:700;min-width:42px}.plots{display:grid;grid-template-columns:1fr 1fr;gap:20px}figure{margin:0}figcaption{font-weight:700;text-align:center}svg{width:100%;height:220px;display:block}svg text{font-family:system-ui,sans-serif;font-size:16px;fill:#17212b}.counts,.metrics{display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap;padding:8px 0;font-variant-numeric:tabular-nums}.counts{border-top:1px solid #c7d3d5;border-bottom:1px solid #c7d3d5}.metrics{font-size:18px;font-weight:600}.context,.message{margin:4px 0;font-size:15px}.message{font-weight:600;color:#145e63}.key{font-size:14px;text-align:center;color:#495a60}.dot{color:#c5531b}.curve{color:#145e63}@media(max-width:600px){body{font-size:14px;padding:8px}.plots{gap:4px}.metrics{font-size:15px}.controls{gap:8px}}@media print{button{display:none}input{display:none}}
+</style>
+</head>
+<body>
+<div class="controls">
+<label for="dataset">Class balance</label>
+<select id="dataset"><option value="1">Balanced (50% positive)</option><option value="99">Rare positives (1% positive)</option></select>
+<button id="reset" type="button">Reset threshold</button>
+<span>Predict positive when score ≥ threshold.</span>
+</div>
+<div class="threshold"><label for="threshold">Threshold</label><output id="threshold-value" for="threshold">0.50</output><input id="threshold" type="range" min="0" max="1" step="0.01" value="0.50" aria-label="Classification threshold"></div>
+<p class="context" id="context"></p>
+<div class="plots">
+<figure><figcaption>ROC: Recall (TPR) vs. FPR</figcaption><svg id="roc" viewBox="0 0 440 280" role="img" aria-label="ROC curve with current threshold highlighted"></svg></figure>
+<figure><figcaption>PR: Precision vs. Recall</figcaption><svg id="pr" viewBox="0 0 440 280" role="img" aria-label="Precision recall curve with current threshold highlighted"></svg></figure>
+</div>
+<div class="key"><span class="curve">— All thresholds</span> &nbsp; <span class="dot">● Current threshold</span> &nbsp; – – Reference</div>
+<div class="counts" aria-live="polite" id="counts"></div>
+<div class="metrics" aria-live="polite" id="metrics"></div>
+<p class="message" id="message"></p>
+<p class="context">Moving the threshold changes decisions and the highlighted points. AP and ROC AUC stay fixed for these scores and labels.</p>
+<script>
+'use strict';
+// Each score represents a cohort of identical examples. The rare-positive
+// scenario replicates each negative 99 times, preserving class-conditional scores.
+const positiveScores = [.96,.89,.82,.76,.70,.64,.58,.51,.38,.22];
+const negativeScores = [.85,.68,.55,.47,.40,.34,.28,.20,.12,.04];
+function makeData(negativeWeight){return [...positiveScores.map(score=>({score,y:1,w:1})),...negativeScores.map(score=>({score,y:0,w:negativeWeight}))];}
+function confusion(data,t){let tp=0,fp=0,fn=0,tn=0;for(const d of data){if(d.score>=t){if(d.y)tp+=d.w;else fp+=d.w;}else{if(d.y)fn+=d.w;else tn+=d.w;}}return {tp,fp,fn,tn,recall:tp/(tp+fn),fpr:fp/(fp+tn),precision:tp+fp?tp/(tp+fp):null};}
+function curveStats(data){const thresholds=[...new Set(data.map(d=>d.score))].sort((a,b)=>b-a);const points=[{recall:0,fpr:0,precision:1},...thresholds.map(t=>confusion(data,t))];let auc=0,ap=0;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];auc+=(b.fpr-a.fpr)*(b.recall+a.recall)/2;ap+=(b.recall-a.recall)*b.precision;}return {points,auc,ap};}
+const $=id=>document.getElementById(id);
+const pct=n=>n===null?'undefined':`${(100*n).toFixed(1)}%`;
+const x=v=>60+350*v,y=v=>225-190*v;
+function axes(xLabel,yLabel){let s='';for(let i=0;i<=5;i++){const v=i/5;s+=`<path d="M${x(v)},35 V225 M60,${y(v)} H410" stroke="#e1e7e8" fill="none"/><text x="${x(v)}" y="246" text-anchor="middle">${v.toFixed(1)}</text><text x="51" y="${y(v)+5}" text-anchor="end">${v.toFixed(1)}</text>`;}return s+`<path d="M60,35 V225 H410" fill="none" stroke="#52666b"/><text x="235" y="273" text-anchor="middle">${xLabel}</text><text transform="translate(18,130) rotate(-90)" text-anchor="middle">${yLabel}</text>`;}
+function marker(a,b){return `<path d="M60,${y(b)} H${x(a)} V225" stroke="#c5531b" stroke-dasharray="4 4" fill="none"/><circle cx="${x(a)}" cy="${y(b)}" r="7" fill="#c5531b" stroke="white" stroke-width="2"/>`;}
+function draw(stats,c,prevalence){const rocPath=stats.points.map((p,i)=>`${i?'L':'M'}${x(p.fpr)},${y(p.recall)}`).join(' ');$('roc').innerHTML=axes('False-positive rate','Recall / TPR')+`<path d="M60,225 L410,35" stroke="#899ba0" stroke-dasharray="6 5"/><path d="${rocPath}" fill="none" stroke="#145e63" stroke-width="3"/>`+marker(c.fpr,c.recall);
+// Recall-weighted step segments have area equal to average precision.
+let path=`M${x(0)},${y(1)}`;for(let i=1;i<stats.points.length;i++){const p=stats.points[i];path+=` V${y(p.precision)} H${x(p.recall)}`;}
+$('pr').innerHTML=axes('Recall','Precision')+`<path d="M60,${y(prevalence)} H410" stroke="#899ba0" stroke-dasharray="6 5"/><path d="${path}" fill="none" stroke="#145e63" stroke-width="3"/>`+(c.precision===null?'':marker(c.recall,c.precision));}
+function update(){const multiplier=Number($('dataset').value),t=Number($('threshold').value),data=makeData(multiplier),c=confusion(data,t),stats=curveStats(data),prevalence=1/(1+multiplier);$('threshold-value').textContent=t.toFixed(2);$('threshold').setAttribute('aria-valuetext',t.toFixed(2));$('context').textContent=`Synthetic scores: 10 positives, ${10*multiplier} negatives. Dashed references: ROC chance diagonal; PR positive fraction (${pct(prevalence)}).`;
+$('counts').textContent=`TP: ${c.tp}     FP: ${c.fp}     FN: ${c.fn}     TN: ${c.tn}`;
+$('metrics').textContent=`Recall: ${pct(c.recall)}   ·   FPR: ${pct(c.fpr)}   ·   Precision: ${pct(c.precision)}   ·   AP: ${stats.ap.toFixed(3)}   ·   ROC AUC: ${stats.auc.toFixed(3)}`;
+$('message').textContent=c.precision===null?'No predicted positives: precision is undefined, so no PR operating point is shown.':`Recall = ${c.tp}/${c.tp+c.fn}; FPR = ${c.fp}/${c.fp+c.tn}; precision = ${c.tp}/${c.tp+c.fp}.`;
+draw(stats,c,prevalence);}
+$('threshold').addEventListener('input',update);$('dataset').addEventListener('change',update);$('reset').addEventListener('click',()=>{$('threshold').value='0.50';update();});update();
+</script>
+</body>
+</html>
