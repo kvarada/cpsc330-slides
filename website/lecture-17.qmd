@@ -1,4 +1,5 @@
 ---
+publish-pdf: true
 title: "Lecture 17: Introduction to Computer Vision"
 description: "Neural networks, convolutional filters, and transfer learning with frozen image features"
 description-short: "Computer vision and transfer learning"
@@ -6,7 +7,7 @@ editor: { render-on-save: true }
 ---
 
 ## Slides
-
+[Download slides as PDF](slides/slides-17-computer-vision.pdf){.btn .btn-outline-primary download=""}
 {{< revealjs "slides/slides-17-computer-vision.html" height="600px" class="ratio ratio-16x9" >}}
 
 ## Demo
