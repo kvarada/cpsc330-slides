@@ -32,34 +32,27 @@ execute:
 
 ## iClicker: shopping recommendations for Eva {.slide-your-turn .smaller}
 
-An online shop describes backpacks with **three binary features**: Waterproof, Laptop compartment, Recycled material. It fits a separate Ridge model to **Eva's training ratings**.
+A shop uses **content-based filtering** with backpack attributes: Waterproof, Laptop compartment, and Recycled material. Eva has rated **12 backpacks**.
 
-Eva's fitted coefficients, in that order, are $(0.8, -0.4, 0.6)$, and her intercept is $3.0$. A new backpack has features $(1, 0, 1)$.
+**How should the shop predict Eva's rating for a new backpack?**
 
-**What parameters does Eva's model learn, and what rating does it predict?**
-
-- **(A)** Three feature coefficients and an intercept; predicted rating **4.4**.
-- **(B)** One coefficient per backpack and an intercept; predicted rating **4.4**.
-- **(C)** Three feature coefficients and an intercept; predicted rating **4.0**.
-- **(D)** Three feature coefficients and an intercept; predict using the average rating from shoppers similar to Eva.
+- **(A)** Fit Ridge using the 12 backpacks' attributes and Eva's ratings, then pass the new backpack's attributes to that model.
+- **(B)** Fit Ridge using other shoppers' ratings as features and Eva's ratings as targets.
+- **(C)** Fit Ridge using backpack attributes and all shoppers' ratings together, without identifying the shoppers.
+- **(D)** Recommend only backpacks Eva has already rated because a new backpack has no rating.
 
 ::: {.notes}
 Correct answer: A.
 
-This is a hypothetical example using explicit product ratings. We supply fitted values so students can focus on what the parameters represent and how to predict in a new application.
+Use Eva's training ratings only. X has 12 rows (backpacks) and three columns (attributes). y contains Eva's 12 corresponding ratings. Fit a separate Ridge model for Eva, then supply the new backpack's three attributes in the same column order to predict her rating.
 
-Eva's model learns four parameters: one coefficient per product feature and one intercept. Fit using feature rows for the backpacks Eva rated in training, with her ratings as targets. The number of rated backpacks determines the number of training examples, not the number of coefficients. Ridge's alpha is a hyperparameter rather than a fitted coefficient.
+B uses other shoppers' rating patterns rather than product attributes, moving toward collaborative filtering. C pools different shoppers' preferences without representing whose rating we want to predict. D misses the benefit of content features: a new item can receive a prediction even without ratings, provided its attributes are available and Eva already has a fitted model. A shopper without training ratings would need a fallback.
 
-The new backpack is waterproof and uses recycled material, but has no laptop compartment. Use its features with Eva's own fitted model:
+Numerical follow-up: Suppose Eva's fitted coefficients for Waterproof, Laptop compartment, and Recycled material are (0.8, -0.4, 0.6), with intercept 3.0. What rating does her model predict for a backpack with attributes (1, 0, 1)?
 
-$$\hat r_{\mathrm{Eva},j}=b_{\mathrm{Eva}}+x_j^\top w_{\mathrm{Eva}}
-=3.0+1(0.8)+0(-0.4)+1(0.6)=4.4.$$
+$$\hat r_{\mathrm{Eva},j}=3.0+1(0.8)+0(-0.4)+1(0.6)=4.4.$$
 
-B confuses items (training rows) with features (columns). C adds the laptop-compartment coefficient even though that feature is zero. D describes a similar-user collaborative approach rather than our content-based model.
-
-Coefficients describe associations in Eva's training ratings, not causal effects of product features on enjoyment.
-
-Follow-up: Could we score this backpack if no other shopper had rated it? Yes, provided its features are available and Eva already has a fitted model. A new shopper without training ratings would need a fallback.
+These are hypothetical fitted values. Eva's model learns three feature coefficients and an intercept. The number of training backpacks determines the number of rows, not the number of coefficients. Coefficients describe associations in Eva's ratings, not causal effects on enjoyment.
 :::
 
 ## Today's big questions {.slide-goals}
@@ -75,15 +68,48 @@ Follow-up: Could we score this backpack if no other shopper had rated it? Yes, p
 
 Which differences matter for the label **cat**?
 
-## Our task: seven food categories
+::: {.notes}
+Pause and ask: “What changes across these pictures, and what stays the same?” Invite a few observations: coat colour and pattern, pose, viewpoint, lighting, and background vary, but every image still has the label cat.
 
-We have only a few hundred labelled food images.
+To a computer, these images are arrays of numbers. Two cat images can have very different pixel values. Even moving the same cat within an image changes which pixels contain its ears, eyes, or fur. Recognizing a cat therefore requires more than matching an exact pixel pattern.
 
-- Training a large vision model from scratch would require much more data.
-- **Transfer learning:** reuse a representation learned from a larger image collection.
-- Fit a familiar classifier to that representation.
+Ask: “Would coat colour change our answer?” For cat classification, usually no. If our task were to classify coat colours, it would matter. Which differences we want a model to tolerate depends on the target label.
 
-Today’s live demo uses the same frozen-feature workflow as HW7.
+A useful image representation should retain evidence that helps distinguish cats from other categories while tolerating variation within the cat category. We will use neural networks to produce learned features rather than try to list every useful visual feature ourselves. This does not guarantee that the model ignores backgrounds or other shortcuts, so representative evaluation images still matter.
+
+Transition: “What model from our current toolbox would you try for image classification? What features would you give it?” Invite students to connect this task to familiar supervised-learning methods before introducing CNNs.
+:::
+
+## Image classification with our current toolbox {.slide-your-turn}
+
+**What model would you try for image classification?**
+
+**What features would you give it?**
+
+Think about logistic regression, KNN, or random forests.
+
+::: {.notes}
+Allow a brief discussion. Several familiar classifiers can accept numerical image features. Ask students what one row of X would contain and what y would represent.
+
+Pixel values are one possible starting point. Connect back to the cat images: changes in pose, lighting, or background can change many pixels without changing the label. The choice of representation matters as well as the choice of classifier.
+:::
+
+## CNNs for image classification
+
+A **convolutional neural network (CNN)** is a neural network architecture designed to work with images.
+
+- We will build **high-level intuition** for how CNNs work.
+- We can use **pretrained CNNs** for our own tasks without studying every architectural or training detail.
+
+Let’s begin with a brief introduction to **neural networks**.
+
+::: {.notes}
+CNNs are a common approach to image classification. Their layers learn useful image features from training examples, reducing the need to hand-design those features.
+
+We will not derive the full architecture or train a CNN from scratch. Our practical goal is to use a pretrained model and understand enough of the workflow to apply it appropriately.
+
+Before discussing what makes a CNN suited to images, introduce the neural-network idea using a model students already know: logistic regression.
+:::
 
 ## A graphical view of logistic regression
 
@@ -99,19 +125,77 @@ Today’s live demo uses the same frozen-feature workflow as HW7.
 
 Each hidden unit computes its own weighted sum and bias, then applies a **nonlinear activation**. Its output becomes a feature for the next layer.
 
-## Hidden features and the output {.smaller}
+## How many parameters do we learn? {.slide-your-turn}
 
-For hidden unit $j$:
+![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="320px"}
 
-$$h_j = \operatorname{sigmoid}(w_j^\top x + b_j).$$
+With **4 inputs, 3 hidden units, and 1 output unit**:
 
-The output combines these learned features:
+- How many **weights** do we learn?
+- How many **biases** do we learn?
 
-$$\hat p = \operatorname{sigmoid}(v^\top h + c).$$
+::: {.notes}
+Give students a moment to count. Ask them to distinguish connections (weights) from units with an intercept (biases).
 
-- Hidden activations are features. We do not threshold them.
-- The final sigmoid gives the binary class probability.
-- Computing features and a prediction is a **forward pass**.
+Input to hidden layer: each of the three hidden units receives four inputs, giving 4 × 3 = 12 weights and 3 biases.
+
+Hidden layer to output: the output unit receives three hidden features, giving 3 × 1 = 3 weights and 1 bias.
+
+Total: 15 weights and 4 biases, or 19 learned parameters.
+
+The input nodes simply supply feature values, so they have no learned biases. Each hidden unit and the output unit has one bias. The sigmoid activation and threshold add no learned parameters here.
+
+Compare with logistic regression on the same four inputs: 4 weights and 1 bias, or 5 parameters. Adding the hidden layer introduces intermediate learned features and increases the parameter count.
+:::
+
+## Computing the first hidden feature {.smaller}
+
+![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="250px"}
+
+$$
+\begin{aligned}
+z_1^{(1)} &= w_{11}^{(1)}x_1 + w_{12}^{(1)}x_2
+             + w_{13}^{(1)}x_3 + w_{14}^{(1)}x_4 + b_1^{(1)} \\
+h_1 &= \operatorname{sigmoid}\!\left(z_1^{(1)}\right)
+\end{aligned}
+$$
+
+- Superscript $(1)$ identifies the **first layer**, not a power.
+- $w_{12}^{(1)}$ connects **input 2 to hidden unit 1**.
+- Repeat with different weights and biases to obtain $h_2$ and $h_3$.
+
+::: {.notes}
+Trace the four incoming connections to the first hidden unit in the diagram. Each input is multiplied by its own weight. Add these contributions and the unit's bias to obtain its score, z_1^(1). Apply sigmoid to obtain h_1.
+
+In w_12^(1), the first subscript identifies the receiving hidden unit and the second identifies the input. The superscript identifies the layer. The bias also belongs to this specific hidden unit.
+
+The other hidden units receive the same four inputs but use their own weights and biases. Their outputs can therefore represent different transformations of those inputs. We now have three learned features, h_1, h_2, and h_3. We do not threshold them.
+:::
+
+## Computing the output {.smaller}
+
+![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="250px"}
+
+$$
+\begin{aligned}
+z^{(2)} &= w_1^{(2)}h_1 + w_2^{(2)}h_2 + w_3^{(2)}h_3 + b^{(2)} \\
+\hat p &= \operatorname{sigmoid}\!\left(z^{(2)}\right)
+\end{aligned}
+$$
+
+- Layer $(2)$ combines the **three hidden features** using its own weights and bias.
+- $\hat p$ is the predicted probability of the **positive class**.
+- Computing the hidden features and prediction is a **forward pass**.
+
+::: {.notes}
+Trace the three connections from the hidden units to the output unit. This is the same weighted-sum-and-sigmoid computation as binary logistic regression, now using h_1, h_2, and h_3 as inputs instead of the original features.
+
+The superscript (2) identifies the output layer. Since there is only one output unit, we use one subscript on each output weight to identify its incoming hidden feature.
+
+Distinguish the roles of the sigmoid outputs: the hidden outputs are learned features, while the final output is the predicted probability of the positive class. With a decision threshold of 0.5, predict class 1 when p-hat is at least 0.5 and class 0 otherwise. Thresholding is the final decision step, not part of computing the hidden features.
+
+A forward pass uses the current parameter values without updating them. Training is what adjusts the weights and biases.
+:::
 
 ## Why nonlinear activations?
 
@@ -123,13 +207,13 @@ Stacking weighted sums without nonlinear activations still gives a linear model.
 
 This is the idea behind **deep learning**.
 
-## How does a network learn?
+## How does a network learn? {.smaller}
 
 ![Supervised learning uses labelled examples to fit a model](img/cv-supervised-learning-training.png){.nostretch fig-align="center" height="300px"}
 
 A loss measures disagreement with known targets. Training adjusts weights to reduce that loss.
 
-In our demo, the CNN’s weights stay fixed. We train logistic regression on its features.
+We’ll use a pretrained model with fixed weights to extract image features, then train a familiar model, such as logistic regression, on those features.
 
 ## Computer vision tasks
 
@@ -152,7 +236,6 @@ image_path = next(
 image = Image.open(image_path).convert("RGB")
 np.asarray(image).shape
 ```
-
 ## Why use local image structure?
 
 Flattening preserves pixel values, but an ordinary classifier does not automatically use the fact that nearby pixels form patterns.
@@ -189,13 +272,45 @@ A pretrained model supplies weights already learned on another dataset.
 
 **Multiclass classification:** each example receives one of several labels. Multilabel classification allows several labels per example.
 
+## Example: Image classification using a pretrained model {.smaller}
+- We reuse an image classifier trained elsewhere to predict labels for new photos.
+- The model learned from labeled images during its original training; we do not train it here. 
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+
+```{python}
+import sys, os
+sys.path.append(os.path.join(os.path.abspath("."), "code"))
+from plotting_functions import *
+import img_classify
+from PIL import Image
+import glob
+import matplotlib.pyplot as plt
+DATA_DIR = 'data/' 
+# Predict topn labels and their associated probabilities for unseen images
+images = glob.glob(DATA_DIR + "test_images/*.*")
+class_labels_file = DATA_DIR + 'imagenet_classes.txt'
+for img_path in images:
+    img = Image.open(img_path).convert('RGB')
+    img.load()
+    plt.imshow(img)
+    plt.show();    
+    df = img_classify.classify_image(img_path, class_labels_file)
+    print(df.to_string(index=False))
+    print("--------------------------------------------------------------")
+```
+:::
+
 ## Softmax probabilities
 
 Softmax converts class scores into probabilities that sum to one.
 
-```python
+```{python}
+#|echo: true
+import torch
 scores = torch.tensor([1.2, -0.4, 2.0, 0.7])
 probabilities = torch.softmax(scores, dim=0)
+probabilities
 ```
 
 Which class wins? **Class 2**, using zero-based labels.
