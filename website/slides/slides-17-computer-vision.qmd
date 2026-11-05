@@ -409,27 +409,7 @@ Every probability depends on all class scores.
 - We reuse an image classifier trained elsewhere to predict labels for new photos.
 - The model learned from labeled images during its original training; we do not train it here. 
 
-::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
-
-```{python}
-#| echo: false
-#| output: true
-# Predict topn labels and their associated probabilities for unseen images
-images = sorted(
-    path for path in (DATA_DIR / "test_images").iterdir()
-    if path.suffix.lower() in {".jpg", ".jpeg", ".png"}
-)
-class_labels_file = DATA_DIR / "imagenet_classes.txt"
-for img_path in images:
-    img = Image.open(img_path).convert('RGB')
-    img.load()
-    plt.imshow(img)
-    plt.show();    
-    df = img_classify.classify_image(img_path, class_labels_file)
-    print(df.to_string(index=False))
-    print("--------------------------------------------------------------")
-```
-:::
+[Class demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-17-transfer-learning.ipynb)
 
 ## When the labels do not answer our question {.slide-your-turn}
 
@@ -454,11 +434,7 @@ Our seven labels can differ from ImageNet’s labels.
 
 ## Food classification: live demo
 
-Open **lecture-17-transfer-learning.ipynb**.
-
-- Inspect class counts and one training image per category.
-- Check that training and validation use the same label mapping.
-- Predict likely confusions before fitting a classifier.
+[Class demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-17-transfer-learning.ipynb)
 
 ## Image preprocessing versus feature scaling {.smaller}
 
