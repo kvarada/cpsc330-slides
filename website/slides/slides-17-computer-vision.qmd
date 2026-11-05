@@ -17,6 +17,23 @@ execute:
   warning: false
 ---
 
+```{python}
+#| include: false
+from pathlib import Path
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import torch
+from torch import nn
+from torchvision import models
+from PIL import Image
+
+sys.path.insert(0, str(Path("code").resolve()))
+import img_classify
+
+DATA_DIR = Path("data")
+```
 ## Focus on the breath!
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
@@ -215,6 +232,8 @@ A loss measures disagreement with known targets. Training adjusts weights to red
 
 We’ll use a pretrained model with fixed weights to extract image features, then train a familiar model, such as logistic regression, on those features.
 
+## Introduction to computer vision
+
 ## Computer vision tasks
 
 ![Classification, localization, object detection, and instance segmentation](img/vision-apps.jpeg){.nostretch fig-align="center" height="360px"}
@@ -225,16 +244,23 @@ Today we focus on **image classification**: one category for an entire image.
 
 - Grayscale: height × width intensity values.
 - RGB: height × width × 3 colour channels.
-- A 200 × 200 RGB image has **120,000 values**.
+- A 340 × 512 RGB image has **522,240 values**.
 
-```python
-from pathlib import Path
-DATA_DIR = Path("data")
-image_path = next(
-    (DATA_DIR / "food-transfer-learning" / "train" / "pizza").glob("*.jpg")
-)
+```{python}
+#| echo: false
+#| output: true
+#| fig-width: 5
+#| fig-height: 3.5
+image_path = sorted((DATA_DIR / "food" / "train" / "beet_salad").glob("*.jpg"))[0]
 image = Image.open(image_path).convert("RGB")
-np.asarray(image).shape
+image_array = np.asarray(image)
+
+fig, ax = plt.subplots(figsize=(5, 3.5))
+ax.imshow(image)
+ax.set_title(f"Array shape: {image_array.shape}\n(height, width, RGB channels)")
+ax.axis("off")
+plt.tight_layout()
+plt.show()
 ```
 ## Why use local image structure?
 
@@ -262,9 +288,44 @@ Convolutions and activations build features. Pooling reduces spatial dimensions.
 Figure reused from the book chapter. Original source: Google Developers, https://developers.google.com/machine-learning.
 :::
 
-## Pretrained models
 
-A pretrained model supplies weights already learned on another dataset.
+# Pretrained CNNs
+
+## Why start with a pretrained model?
+
+Training a CNN from scratch can require substantial **labelled data, computing power, and time**.
+
+Companies and research groups have already trained models on large image datasets.
+
+A **pretrained model** gives us a starting point: an architecture with weights already learned from data.
+
+::: {.notes}
+Connect to the CNN diagram: the filter weights and classification weights all have to be learned during training. For large models, doing this from scratch can be expensive, particularly when we have little labelled data for our own task.
+
+We can reuse weights that another team has already learned and released. Loading the architecture alone would give us a network structure, but pretrained weights supply the learned parameter values.
+
+Pretraining does not guarantee success on a new task. Its usefulness depends on the source data, our target images, and how we evaluate the resulting workflow.
+:::
+
+## Three ways to use a pretrained model
+
+1. **Use it directly:** predict its original categories with its weights fixed.
+2. **Extract features:** keep the pretrained weights fixed and train a new classifier, such as logistic regression, on its features.
+3. **Fine-tune it:** update some or all pretrained weights using our task’s training data.
+
+We’ll focus on **direct prediction and frozen feature extraction**.
+
+::: {.notes}
+For direct prediction, retain the original classification head and label vocabulary. This is useful when those labels answer our question.
+
+For frozen feature extraction, take the representation before the original classification head. Keep the CNN fixed and fit a new classifier for our own labels. The scaler and logistic regression learn from our training data, while the CNN does not.
+
+For fine-tuning, training changes some or all of the pretrained network's weights. This requires additional modelling choices and computation, and it can overfit a small dataset. We will not implement it in this course.
+
+Transition: First, inspect what a pretrained ImageNet classifier can predict without any additional training. Later, reuse its features for a new classification task.
+:::
+
+## ImageNet classification 
 
 - We use **MobileNet V3 Small**, trained for 1,000 ImageNet categories.
 - Its original classifier chooses among those categories.
@@ -272,24 +333,93 @@ A pretrained model supplies weights already learned on another dataset.
 
 **Multiclass classification:** each example receives one of several labels. Multilabel classification allows several labels per example.
 
-## Example: Image classification using a pretrained model {.smaller}
+## Imagenet classes 
+
+```{python}
+#| echo: true
+#| output: true
+weights = models.MobileNet_V3_Small_Weights.IMAGENET1K_V1
+imagenet_model = models.mobilenet_v3_small(weights=weights).eval()
+imagenet_preprocess = weights.transforms()
+imagenet_labels = weights.meta["categories"]
+imagenet_labels[700:715]
+```
+
+## Multinomial logistic regression
+
+- **Binary:** one score, converted into the positive-class probability using **sigmoid**.
+- **Multinomial:** one score per class, each computed using that class’s own coefficients and intercept.
+- **Softmax** converts those scores into class probabilities that sum to one.
+
+Predict the class with the **highest probability**.
+
+A CNN’s classification head applies the same score-to-probability idea to **learned image features**.
+
+::: {.notes}
+Recall that a binary logistic regression score is a weighted sum of features plus an intercept. For multinomial logistic regression, repeat that computation with a separate set of coefficients and an intercept for each class.
+
+The scores can be negative and do not sum to one. Softmax converts the whole set of scores into a probability distribution over the available classes. We choose one class, so this is multiclass rather than multilabel classification.
+
+A CNN's feature extractor is more complex than logistic regression, but its output can follow this same pattern: one score per class followed by softmax. The next slide illustrates this with four classes instead of ImageNet's 1,000.
+:::
+
+## Softmax probabilities
+
+Suppose a classifier produces these scores for **four classes**:
+
+```{python}
+#| echo: true
+#| output: true
+import pandas as pd
+scores = torch.tensor([1.2, -0.4, 2.0, 0.7])
+probabilities = torch.softmax(scores, dim=0)
+pd.DataFrame({
+    "Class": [0, 1, 2, 3],
+    "Score": scores.numpy(),
+    "Probability": probabilities.numpy(),
+}).round(3)
+```
+
+**Class 2 wins:** it has the highest score and probability.
+
+Softmax preserves the score ordering. A high probability does not guarantee a correct prediction.
+
+::: {.notes}
+Read across a row to connect each score to its probability. The unrounded probabilities sum to one. Displayed values may differ slightly from one when summed because of rounding.
+
+Class labels here are numbered from zero, so class 2 is the third row. Softmax preserves the ordering of the scores, so we could identify the winning class directly from its score. Softmax also gives a probability distribution over all four classes.
+
+These probabilities are relative to the available labels. A model still assigns them when an image does not belong to any useful category in its vocabulary. Return to this limitation when inspecting pretrained predictions.
+:::
+
+## Softmax
+
+For scores $z_1,\ldots,z_K$,
+
+$$P(y=k)=\frac{e^{z_k}}{\sum_{j=1}^{K}e^{z_j}}.$$
+
+Exponentiation makes values positive. Dividing by their sum makes probabilities add to one.
+
+Every probability depends on all class scores.
+
+# Using pretrained models out of the box
+
+## {.smaller}
+
 - We reuse an image classifier trained elsewhere to predict labels for new photos.
 - The model learned from labeled images during its original training; we do not train it here. 
 
 ::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
 
 ```{python}
-import sys, os
-sys.path.append(os.path.join(os.path.abspath("."), "code"))
-from plotting_functions import *
-import img_classify
-from PIL import Image
-import glob
-import matplotlib.pyplot as plt
-DATA_DIR = 'data/' 
+#| echo: false
+#| output: true
 # Predict topn labels and their associated probabilities for unseen images
-images = glob.glob(DATA_DIR + "test_images/*.*")
-class_labels_file = DATA_DIR + 'imagenet_classes.txt'
+images = sorted(
+    path for path in (DATA_DIR / "test_images").iterdir()
+    if path.suffix.lower() in {".jpg", ".jpeg", ".png"}
+)
+class_labels_file = DATA_DIR / "imagenet_classes.txt"
 for img_path in images:
     img = Image.open(img_path).convert('RGB')
     img.load()
@@ -300,47 +430,6 @@ for img_path in images:
     print("--------------------------------------------------------------")
 ```
 :::
-
-## Softmax probabilities
-
-Softmax converts class scores into probabilities that sum to one.
-
-```{python}
-#|echo: true
-import torch
-scores = torch.tensor([1.2, -0.4, 2.0, 0.7])
-probabilities = torch.softmax(scores, dim=0)
-probabilities
-```
-
-Which class wins? **Class 2**, using zero-based labels.
-
-A high probability does not guarantee a correct or useful label.
-
-## Optional: softmax {.slide-optional}
-
-For scores $z_1,\ldots,z_K$,
-
-$$P(y=k)=\frac{e^{z_k}}{\sum_{j=1}^{K}e^{z_j}}.$$
-
-Exponentiation makes values positive. Dividing by their sum makes probabilities add to one.
-
-Every probability depends on all class scores.
-
-## Pretrained predictions: live demo
-
-```python
-weights = models.MobileNet_V3_Small_Weights.IMAGENET1K_V1
-imagenet_model = models.mobilenet_v3_small(weights=weights).eval()
-imagenet_preprocess = weights.transforms()
-imagenet_labels = weights.meta["categories"]
-```
-
-1. Predict labels for the chapter’s animal photographs.
-2. Try the UBC photographs and the apple image.
-3. Which predictions describe visible objects? Which identify the landmark?
-
-The CNN receives resized, cropped, and normalized images.
 
 ## When the labels do not answer our question {.slide-your-turn}
 
@@ -371,51 +460,6 @@ Open **lecture-17-transfer-learning.ipynb**.
 - Check that training and validation use the same label mapping.
 - Predict likely confusions before fitting a classifier.
 
-The chapter uses predefined training and validation folders. A final evaluation would require a separate test set.
-
-## Preprocessing and batches
-
-```python
-food_dir = DATA_DIR / "food-transfer-learning"
-feature_datasets = {
-    split: datasets.ImageFolder(
-        food_dir / split, transform=imagenet_preprocess
-    )
-    for split in ["train", "valid"]
-}
-```
-
-A `DataLoader` processes images in batches. Use `shuffle=False` to keep extracted rows aligned with the original image order.
-
-## A frozen MobileNet feature extractor
-
-```python
-feature_model = models.mobilenet_v3_small(weights=weights)
-feature_model.classifier = nn.Identity()
-feature_model.requires_grad_(False)
-feature_model = feature_model.to(DEVICE).eval()
-```
-
-- `nn.Identity()` removes the original classifier.
-- `eval()` prepares the network for prediction.
-- `torch.inference_mode()` avoids gradient tracking during extraction.
-- Each image produces **576 features**.
-
-## The feature matrix
-
-```python
-Z_train, y_train = extract_features(
-    feature_model, feature_loaders["train"], DEVICE
-)
-Z_valid, y_valid = extract_features(
-    feature_model, feature_loaders["valid"], DEVICE
-)
-```
-
-**Rows:** images. **Columns:** learned representation coordinates.
-
-The CNN learns nothing from our food data. We can reuse the matrices when changing logistic regression’s `C`.
-
 ## Image preprocessing versus feature scaling {.smaller}
 
 | Operation | What it does | Where its settings come from |
@@ -426,42 +470,6 @@ The CNN learns nothing from our food data. We can reuse the matrices when changi
 | Logistic regression | Learn food class coefficients | Training features and labels |
 
 Keep scaling inside the scikit-learn pipeline.
-
-## A baseline and a familiar classifier
-
-```python
-dummy = DummyClassifier(strategy="most_frequent")
-dummy.fit(Z_train, y_train)
-
-feature_pipe = make_pipeline(
-    StandardScaler(),
-    LogisticRegression(max_iter=3000, random_state=42),
-)
-feature_pipe.fit(Z_train, y_train)
-```
-
-Compare training and validation accuracy against the dummy baseline.
-
-## Evaluation and error analysis
-
-In the demo:
-
-- Compare training and validation accuracy. Is there an overfitting gap?
-- Inspect a labelled confusion matrix. Which categories are confused?
-- Display individual mistakes with true and predicted labels.
-
-A small validation set leaves uncertainty. Small score differences may not be decisive.
-
-## Predicting a new food image
-
-Apply the **same image preprocessing**, frozen extractor, and fitted pipeline.
-
-```python
-inputs = imagenet_preprocess(image).unsqueeze(0).to(DEVICE)
-with torch.inference_mode():
-    features = feature_model(inputs).cpu().numpy()
-label_index = int(feature_pipe.predict(features)[0])
-```
 
 The classifier always chooses a known food category, even for an unrelated image. One prediction does not measure accuracy.
 
