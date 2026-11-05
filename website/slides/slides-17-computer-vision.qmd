@@ -136,15 +136,15 @@ Before discussing what makes a CNN suited to images, introduce the neural-networ
 - Sigmoid converts the score into a binary class probability.
 - A threshold converts that probability into a label.
 
-## A neural network with one hidden layer
+## A neural network with one hidden layer {.smaller}
 
-![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="320px"}
+![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="300px"}
 
 Each hidden unit computes its own weighted sum and bias, then applies a **nonlinear activation**. Its output becomes a feature for the next layer.
 
 ## How many parameters do we learn? {.slide-your-turn}
 
-![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="320px"}
+![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="300px"}
 
 With **4 inputs, 3 hidden units, and 1 output unit**:
 
