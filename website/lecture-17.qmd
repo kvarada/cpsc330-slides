@@ -1,0 +1,22 @@
+---
+title: "Lecture 17: Introduction to Computer Vision"
+description: "Neural networks, convolutional filters, and transfer learning with frozen image features"
+description-short: "Computer vision and transfer learning"
+editor: { render-on-save: true }
+---
+
+## Slides
+
+{{< revealjs "slides/slides-17-computer-vision.html" height="600px" class="ratio ratio-16x9" >}}
+
+## Demo
+
+[Food classification notebook](https://github.com/ubc-cs/cpsc330-2026W1/blob/main/content/classes/varada/lecture-17-transfer-learning.ipynb)
+
+## Outline
+
+- Neural networks and learned features
+- Images, convolutions, and CNNs
+- Pretrained ImageNet predictions and their limitations
+- Frozen feature extraction for food classification
+- Evaluation, error analysis, and the connection to HW7

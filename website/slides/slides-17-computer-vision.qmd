@@ -1,0 +1,402 @@
+---
+title: "CPSC 330 Lecture 17: Introduction to computer vision"
+author: "Varada Kolhatkar"
+description: "Neural networks, CNNs, pretrained predictions, and frozen feature extraction"
+description-short: "Computer vision and transfer learning"
+format:
+  revealjs:
+    html-math-method: mathjax
+    slide-number: true
+    slide-level: 2
+    theme: [slides.scss]
+    center: true
+    logo: img/UBC-CS-logo.png
+    resources: [data/, img/]
+execute:
+  echo: false
+  warning: false
+---
+
+## Focus on the breath!
+
+![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+## Announcements
+- HW7 has been released (a new homework on transfer learning)
+- No classes or OH during the midterm break.
+- Midterm 2 coming up next week!
+- If you find the breathing exercises helpful, you're very welcome to join our weekly meditation sessions.
+  - 🕑 When? **Every Tuesday at 1 PM**
+  - 📍 Where? **ICCS 146**
+
+
+## iClicker: shopping recommendations for Eva {.slide-your-turn .smaller}
+
+An online shop describes backpacks with **three binary features**: Waterproof, Laptop compartment, Recycled material. It fits a separate Ridge model to **Eva's training ratings**.
+
+Eva's fitted coefficients, in that order, are $(0.8, -0.4, 0.6)$, and her intercept is $3.0$. A new backpack has features $(1, 0, 1)$.
+
+**What parameters does Eva's model learn, and what rating does it predict?**
+
+- **(A)** Three feature coefficients and an intercept; predicted rating **4.4**.
+- **(B)** One coefficient per backpack and an intercept; predicted rating **4.4**.
+- **(C)** Three feature coefficients and an intercept; predicted rating **4.0**.
+- **(D)** Three feature coefficients and an intercept; predict using the average rating from shoppers similar to Eva.
+
+::: {.notes}
+Correct answer: A.
+
+This is a hypothetical example using explicit product ratings. We supply fitted values so students can focus on what the parameters represent and how to predict in a new application.
+
+Eva's model learns four parameters: one coefficient per product feature and one intercept. Fit using feature rows for the backpacks Eva rated in training, with her ratings as targets. The number of rated backpacks determines the number of training examples, not the number of coefficients. Ridge's alpha is a hyperparameter rather than a fitted coefficient.
+
+The new backpack is waterproof and uses recycled material, but has no laptop compartment. Use its features with Eva's own fitted model:
+
+$$\hat r_{\mathrm{Eva},j}=b_{\mathrm{Eva}}+x_j^\top w_{\mathrm{Eva}}
+=3.0+1(0.8)+0(-0.4)+1(0.6)=4.4.$$
+
+B confuses items (training rows) with features (columns). C adds the laptop-compartment coefficient even though that feature is zero. D describes a similar-user collaborative approach rather than our content-based model.
+
+Coefficients describe associations in Eva's training ratings, not causal effects of product features on enjoyment.
+
+Follow-up: Could we score this backpack if no other shopper had rated it? Yes, provided its features are available and Eva already has a fitted model. A new shopper without training ratings would need a fallback.
+:::
+
+## Today's big questions {.slide-goals}
+
+1. How do neural networks learn useful **features**?
+2. Why do CNNs use **local, shared filters** for images?
+3. How can a pretrained model help us classify **new labels**?
+4. How do we evaluate the resulting classifier?
+
+## One label, many appearances
+
+![Cats with different appearances, poses, and backgrounds](img/cat-variations.png){.nostretch fig-align="center" height="400px"}
+
+Which differences matter for the label **cat**?
+
+## Our task: seven food categories
+
+We have only a few hundred labelled food images.
+
+- Training a large vision model from scratch would require much more data.
+- **Transfer learning:** reuse a representation learned from a larger image collection.
+- Fit a familiar classifier to that representation.
+
+Today’s live demo uses the same frozen-feature workflow as HW7.
+
+## A graphical view of logistic regression
+
+![Four inputs, weighted sum and bias, sigmoid, and threshold](img/lr-graphical.png){.nostretch fig-align="center" height="300px"}
+
+- Weights and an intercept produce a score.
+- Sigmoid converts the score into a binary class probability.
+- A threshold converts that probability into a label.
+
+## A neural network with one hidden layer
+
+![Four inputs, three nonlinear hidden units, and a binary output](img/nn-1-hidden.png){.nostretch fig-align="center" height="320px"}
+
+Each hidden unit computes its own weighted sum and bias, then applies a **nonlinear activation**. Its output becomes a feature for the next layer.
+
+## Hidden features and the output {.smaller}
+
+For hidden unit $j$:
+
+$$h_j = \operatorname{sigmoid}(w_j^\top x + b_j).$$
+
+The output combines these learned features:
+
+$$\hat p = \operatorname{sigmoid}(v^\top h + c).$$
+
+- Hidden activations are features. We do not threshold them.
+- The final sigmoid gives the binary class probability.
+- Computing features and a prediction is a **forward pass**.
+
+## Why nonlinear activations?
+
+Stacking weighted sums without nonlinear activations still gives a linear model.
+
+- Nonlinear hidden activations allow nonlinear decision boundaries.
+- **ReLU** is another activation: $\operatorname{ReLU}(z)=\max(0,z)$.
+- Multiple hidden layers repeatedly transform the representation.
+
+This is the idea behind **deep learning**.
+
+## How does a network learn?
+
+![Supervised learning uses labelled examples to fit a model](img/cv-supervised-learning-training.png){.nostretch fig-align="center" height="300px"}
+
+A loss measures disagreement with known targets. Training adjusts weights to reduce that loss.
+
+In our demo, the CNN’s weights stay fixed. We train logistic regression on its features.
+
+## Computer vision tasks
+
+![Classification, localization, object detection, and instance segmentation](img/vision-apps.jpeg){.nostretch fig-align="center" height="360px"}
+
+Today we focus on **image classification**: one category for an entire image.
+
+## Images as numerical arrays
+
+- Grayscale: height × width intensity values.
+- RGB: height × width × 3 colour channels.
+- A 200 × 200 RGB image has **120,000 values**.
+
+```python
+from pathlib import Path
+DATA_DIR = Path("data")
+image_path = next(
+    (DATA_DIR / "food-transfer-learning" / "train" / "pizza").glob("*.jpg")
+)
+image = Image.open(image_path).convert("RGB")
+np.asarray(image).shape
+```
+
+## Why use local image structure?
+
+Flattening preserves pixel values, but an ordinary classifier does not automatically use the fact that nearby pixels form patterns.
+
+- Moving an object can change many input values.
+- Connecting every pixel to every hidden unit creates many parameters.
+- A CNN uses local filters and shares their weights across locations.
+
+## Convolutions and shared filters
+
+![A filter moves across an input array to produce a feature map](img/cnn-5.gif){.nostretch fig-align="center" height="320px"}
+
+A **filter** computes a weighted sum over a local patch. Reusing it across locations produces a **feature map**.
+
+[Explore image kernels](https://setosa.io/ev/image-kernels/)
+
+## Convolutional neural networks
+
+![Convolutions, ReLU, pooling, and a classification head](img/cnn_big_picture.png){.nostretch fig-align="center" height="330px"}
+
+Convolutions and activations build features. Pooling reduces spatial dimensions. A **classification head** maps features to scores.
+
+::: {.notes}
+Figure reused from the book chapter. Original source: Google Developers, https://developers.google.com/machine-learning.
+:::
+
+## Pretrained models
+
+A pretrained model supplies weights already learned on another dataset.
+
+- We use **MobileNet V3 Small**, trained for 1,000 ImageNet categories.
+- Its original classifier chooses among those categories.
+- It cannot invent a new output label.
+
+**Multiclass classification:** each example receives one of several labels. Multilabel classification allows several labels per example.
+
+## Softmax probabilities
+
+Softmax converts class scores into probabilities that sum to one.
+
+```python
+scores = torch.tensor([1.2, -0.4, 2.0, 0.7])
+probabilities = torch.softmax(scores, dim=0)
+```
+
+Which class wins? **Class 2**, using zero-based labels.
+
+A high probability does not guarantee a correct or useful label.
+
+## Optional: softmax {.slide-optional}
+
+For scores $z_1,\ldots,z_K$,
+
+$$P(y=k)=\frac{e^{z_k}}{\sum_{j=1}^{K}e^{z_j}}.$$
+
+Exponentiation makes values positive. Dividing by their sum makes probabilities add to one.
+
+Every probability depends on all class scores.
+
+## Pretrained predictions: live demo
+
+```python
+weights = models.MobileNet_V3_Small_Weights.IMAGENET1K_V1
+imagenet_model = models.mobilenet_v3_small(weights=weights).eval()
+imagenet_preprocess = weights.transforms()
+imagenet_labels = weights.meta["categories"]
+```
+
+1. Predict labels for the chapter’s animal photographs.
+2. Try the UBC photographs and the apple image.
+3. Which predictions describe visible objects? Which identify the landmark?
+
+The CNN receives resized, cropped, and normalized images.
+
+## When the labels do not answer our question {.slide-your-turn}
+
+Suppose our task is to identify UBC landmarks.
+
+The model predicts an ImageNet category with high confidence.
+
+- Does confidence establish that the landmark is correct?
+- Can the model predict a landmark absent from its output vocabulary?
+- How could we adapt it to our own labels?
+
+## Frozen feature extraction
+
+Use the pretrained CNN to produce a representation for each image.
+
+1. Apply the preprocessing expected by the pretrained weights.
+2. Remove the original classification head.
+3. Keep the CNN weights fixed.
+4. Train a scaler and logistic regression for our food labels.
+
+Our seven labels can differ from ImageNet’s labels.
+
+## Food classification: live demo
+
+Open **lecture-17-transfer-learning.ipynb**.
+
+- Inspect class counts and one training image per category.
+- Check that training and validation use the same label mapping.
+- Predict likely confusions before fitting a classifier.
+
+The chapter uses predefined training and validation folders. A final evaluation would require a separate test set.
+
+## Preprocessing and batches
+
+```python
+food_dir = DATA_DIR / "food-transfer-learning"
+feature_datasets = {
+    split: datasets.ImageFolder(
+        food_dir / split, transform=imagenet_preprocess
+    )
+    for split in ["train", "valid"]
+}
+```
+
+A `DataLoader` processes images in batches. Use `shuffle=False` to keep extracted rows aligned with the original image order.
+
+## A frozen MobileNet feature extractor
+
+```python
+feature_model = models.mobilenet_v3_small(weights=weights)
+feature_model.classifier = nn.Identity()
+feature_model.requires_grad_(False)
+feature_model = feature_model.to(DEVICE).eval()
+```
+
+- `nn.Identity()` removes the original classifier.
+- `eval()` prepares the network for prediction.
+- `torch.inference_mode()` avoids gradient tracking during extraction.
+- Each image produces **576 features**.
+
+## The feature matrix
+
+```python
+Z_train, y_train = extract_features(
+    feature_model, feature_loaders["train"], DEVICE
+)
+Z_valid, y_valid = extract_features(
+    feature_model, feature_loaders["valid"], DEVICE
+)
+```
+
+**Rows:** images. **Columns:** learned representation coordinates.
+
+The CNN learns nothing from our food data. We can reuse the matrices when changing logistic regression’s `C`.
+
+## Image preprocessing versus feature scaling {.smaller}
+
+| Operation | What it does | Where its settings come from |
+|---|---|---|
+| Image preprocessing | Resize, crop, normalize RGB input | Pretrained weight specification |
+| Feature extraction | Produce 576 learned features | Frozen ImageNet weights |
+| Feature scaling | Learn feature means and scales | Current training rows |
+| Logistic regression | Learn food class coefficients | Training features and labels |
+
+Keep scaling inside the scikit-learn pipeline.
+
+## A baseline and a familiar classifier
+
+```python
+dummy = DummyClassifier(strategy="most_frequent")
+dummy.fit(Z_train, y_train)
+
+feature_pipe = make_pipeline(
+    StandardScaler(),
+    LogisticRegression(max_iter=3000, random_state=42),
+)
+feature_pipe.fit(Z_train, y_train)
+```
+
+Compare training and validation accuracy against the dummy baseline.
+
+## Evaluation and error analysis
+
+In the demo:
+
+- Compare training and validation accuracy. Is there an overfitting gap?
+- Inspect a labelled confusion matrix. Which categories are confused?
+- Display individual mistakes with true and predicted labels.
+
+A small validation set leaves uncertainty. Small score differences may not be decisive.
+
+## Predicting a new food image
+
+Apply the **same image preprocessing**, frozen extractor, and fitted pipeline.
+
+```python
+inputs = imagenet_preprocess(image).unsqueeze(0).to(DEVICE)
+with torch.inference_mode():
+    features = feature_model(inputs).cpu().numpy()
+label_index = int(feature_pipe.predict(features)[0])
+```
+
+The classifier always chooses a known food category, even for an unrelated image. One prediction does not measure accuracy.
+
+## What learns from our labels? {.slide-your-turn}
+
+We extract frozen ImageNet features from 300 plant photographs and train a classifier for five species.
+
+1. Which components learned from ImageNet? Which learn from the plants?
+2. Must the species appear in ImageNet’s original labels?
+3. If we change only `C`, must we run the CNN again?
+4. What if we change the image preprocessing?
+
+::: {.notes}
+The CNN stays fixed. The scaler learns training feature statistics, and logistic regression learns coefficients and intercepts. The species need not match ImageNet labels. Changing C reuses features. Changing preprocessing requires new features.
+:::
+
+## Connection to HW7 {.smaller}
+
+| Food demo | HW7 |
+|---|---|
+| Seven food categories | Six waste categories |
+| Fixed training/validation folders | Training data with stratified CV, reserved test set |
+| Dummy versus pretrained features | Also compare low-resolution pixel features |
+| One logistic regression setting | Choose `C` using `GridSearchCV` |
+| Validation mistakes | Final test metrics and application limits |
+
+Both use frozen MobileNet features and a scaler inside the pipeline.
+
+## The Golden Rule still applies
+
+- Fit scaling and logistic regression using only the current fitting rows.
+- Use validation data or CV to choose settings.
+- Evaluate the selected workflow once on the reserved test set.
+- Keep related images, such as frames from the same video, together when splitting.
+
+Extracting deterministic frozen features does not fit to held-out images. Using their results to choose settings does.
+
+## Practical limitations
+
+- **Domain shift:** features from everyday photos may transfer poorly to other image conditions.
+- Pretrained models inherit gaps and biases from their source data.
+- Larger extractors cost more time and memory.
+- **Fine-tuning** updates CNN weights on the new data. It is outside our scope and may overfit a small dataset.
+
+Evaluate on images representative of the intended use.
+
+## Summary {.slide-summary}
+
+- Neural networks combine weighted sums and nonlinear activations to learn features.
+- CNNs use local filters shared across image locations.
+- Pretrained predictions use the original label vocabulary.
+- Frozen feature extraction supports new labels with a familiar classifier.
+- Compare baselines, inspect errors, and protect the data splits.
