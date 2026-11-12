@@ -441,7 +441,7 @@ Our seven labels can differ from ImageNet’s labels.
 | Operation | What it does | Where its settings come from |
 |---|---|---|
 | Image preprocessing | Resize, crop, normalize RGB input | Pretrained weight specification |
-| Feature extraction | Produce 576 learned features | Frozen ImageNet weights |
+| Feature extraction | Produce learned features | Frozen ImageNet weights |
 | Feature scaling | Learn feature means and scales | Current training rows |
 | Logistic regression | Learn food class coefficients | Training features and labels |
 
@@ -451,7 +451,7 @@ The classifier always chooses a known food category, even for an unrelated image
 
 ## What learns from our labels? {.slide-your-turn}
 
-We extract frozen ImageNet features from 300 plant photographs and train a classifier for five species.
+Suppose we extract frozen ImageNet features from 300 plant photographs and train a classifier for five species.
 
 1. Which components learned from ImageNet? Which learn from the plants?
 2. Must the species appear in ImageNet’s original labels?
