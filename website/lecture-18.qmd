@@ -1,4 +1,5 @@
 ---
+publish-pdf: true
 title: "Lecture 18: Introduction to NLP and LLMs"
 description: "Text representations, sparse and dense retrieval, language models, and retrieval-augmented generation"
 description-short: "NLP, LLMs, and RAG"
