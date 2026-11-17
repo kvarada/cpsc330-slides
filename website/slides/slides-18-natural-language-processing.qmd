@@ -52,7 +52,7 @@ Source throughout: Chapter 18, /Users/kvarada/CS/2026-27/330/cpsc330-book/book/1
   - Almost there! Hang in there 😊
 - Midterm 2 grading is in progress. 
 
-## iClicker
+## iClicker {.slide-your-turn}
 
 **Select all of the following statements which are TRUE for you.**
 
@@ -170,7 +170,9 @@ Give students a few seconds to read, then ask for two interpretations of a headl
 Transition: “If language depends on all this context and knowledge, what should we expect a numerical representation to preserve?”
 :::
 
+:::{.fragment}
 Language is ambiguous. We use **context, world knowledge, and common sense** to interpret it.
+:::
 
 ## What should a text representation capture?
 
