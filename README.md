@@ -61,6 +61,22 @@ If a run was rejected by this branch rule, correct the setting and use
 
 ### Updating slides
 
+Shared slide colours are defined in `website/slides/slides.scss`. Add one of
+these classes to a heading in any deck using that theme:
+
+```markdown
+## Today's big questions {.slide-goals}
+## Your turn {.slide-your-turn}
+## Summary {.slide-summary}
+## Optional: Further examples {.slide-optional}
+```
+
+The backgrounds are cream, pale teal, powder blue, and pastel green,
+respectively, with dark text and matching emphasis/link colours. Combine a
+colour class with layout classes as needed, for example
+`{.smaller .slide-optional}`. Regular teaching slides can stay white.
+The shared `slide-colour-scheme` Sass mixin keeps all four schemes consistent.
+
 Preview or render changed slides locally using the setup below, then commit
 the source changes **and their updated `website/_freeze/` files** and push to
 `main`. Commit any new images or data needed by the slides too.

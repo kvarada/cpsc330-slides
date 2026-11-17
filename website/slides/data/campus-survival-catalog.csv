@@ -1,0 +1,15 @@
+product_id,title,text,item_type
+C001,Sony WH-1000XM6 headphones,Over-ear wireless headphones with active noise cancellation and up to 30 hours of battery life. Useful for studying in noisy spaces.,product
+C002,Pocket power bank,"Portable 20,000 mAh battery with two USB-C ports. Recharges mobile devices several times when wall power is unavailable.",product
+C003,Waterproof laptop backpack,Rain-resistant backpack with sealed zippers and a padded compartment for a 16-inch laptop. Keeps electronics and notes dry during wet commutes.,product
+C004,Sunrise alarm clock,Gradually brightens the room before the alarm sounds. Designed to make waking up on dark winter mornings easier.,product
+C005,Ergonomic keyboard,Split keyboard with a padded wrist rest. Designed to reduce wrist strain during long typing and programming sessions.,product
+C006,Laptop stand,Raises a laptop screen to eye level and folds flat for carrying. An external keyboard is recommended for prolonged use.,product
+C007,USB-C hub,"The HUB-7X adds HDMI, Ethernet, an SD-card reader, and three USB ports to laptops with limited connections.",product
+C008,Insulated travel mug,Leak-resistant 500 mL mug that keeps coffee hot for eight hours. Fits standard campus cup holders.,product
+C009,Pomodoro timer,Distraction-free timer with 25- and 50-minute study modes. It does not connect to a phone.,product
+C010,Bike-light set,Rechargeable front and rear bicycle lights with weather-resistant housings. Improves visibility when commuting after dark.,product
+C011,Mini rice cooker,Compact rice cooker suitable for a dormitory kitchen. Makes two servings and switches automatically to warming mode.,product
+C012,White-noise machine,"Produces fan, rain, and ambient sounds without playing music. Intended for sleep or concentration.",product
+C013,Study-skills article,An article describing ways to concentrate in a busy library.,article
+C014,Vancouver weather guide,An article about preparing for wet and dark winter commutes in Vancouver.,article

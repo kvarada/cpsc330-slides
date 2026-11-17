@@ -7,6 +7,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "autograd",
     "datasets",
+    "gensim>=4.4.0",
     "graphviz",
     "imageio",
     "ipykernel",
@@ -27,6 +28,7 @@ dependencies = [
     "scikit-learn>=1.5.1",
     "scipy",
     "seaborn",
+    "sentence-transformers>=6.3.0",
     "spacy",
     "torch",
     "torchaudio",

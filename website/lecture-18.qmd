@@ -1,0 +1,21 @@
+---
+title: "Lecture 18: Introduction to NLP and LLMs"
+description: "Text representations, sparse and dense retrieval, language models, and retrieval-augmented generation"
+description-short: "NLP, LLMs, and RAG"
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-18-natural-language-processing.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-18-natural-language-processing.html" height="600px" class="ratio ratio-16x9" >}}
+
+## Outline
+
+- Language ambiguity, context, and world knowledge
+- Bag-of-words, TF–IDF, and word and text embeddings
+- Sparse and dense information retrieval
+- Next-token prediction, pretraining, post-training, and prompting
+- Retrieval-augmented generation: indexing, retrieval, prompts, and answers
+- Evidence checking and failure diagnosis
