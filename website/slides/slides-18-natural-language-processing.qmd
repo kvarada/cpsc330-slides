@@ -245,7 +245,7 @@ Start with the with column: it occurs across several descriptions of quite diffe
 
 **Inverse document frequency:** How uncommon is it across the collection?
 
-**TF–IDF downweights terms common across the collection**, relative to more distinctive terms.
+**TF-IDF gives higher scores to words that appear frequently in a particular document but are relatively rare across the collection of documents.**
 
 ::: {.notes}
 Transition from the count table: “With appears in several unrelated product descriptions. Can we give such common terms less influence?” TF–IDF addresses term weighting. Final weights also depend on term frequency and normalization; do not promise that every with entry is smaller than every other term. After inspecting weights, revisit rain to separate weighting from interpretation.
@@ -756,20 +756,39 @@ A **large language model** is a language model built with a large neural network
 An LLM uses a large neural network trained on large amounts of data. Training recipes differ; RLHF is one possible post-training method, not a universal step. Connect next-token prediction to assistants: instruction tuning teaches useful response patterns, but does not guarantee correctness. We are not studying transformer internals in this lecture.
 :::
 
-## Clear instructions versus supplied evidence
+## Clear instructions versus supplied evidence {.smaller}
+
+**Compare these prompts in your favourite chatbot.**
 
 **Prompt A:** Recommend gear for my commute.
 
 **Prompt B:** I cycle home after evening labs in Vancouver rain and carry a laptop. Recommend exactly two products and briefly explain why.
 
-B clarifies the **task**, **constraints**, and **output**.
+B gives clearer **instructions**: the shopper's needs and the requested output.
 
-But how would the model know what is in **our catalog**?
+::: {.fragment}
+A sensible suggestion is a start. Now imagine you are building an assistant for **MEC**:
 
-Retrieve relevant catalog descriptions and **include them in the prompt**.
+> Recommend only products in **MEC's current catalog**, and explain your choices using their **documented specifications**.
+
+:::
+
+::: {.fragment}
+Clearer instructions specify **what to do**. Catalog descriptions supply **evidence to answer from**.
+
+**How can we find the relevant descriptions and give them to the chatbot?**
+::: 
 
 ::: {.notes}
-Ask what B improves and what it cannot establish. It may improve relevance and formatting, but supplies no evidence about this store's inventory. Both prompts leave model weights unchanged. A prompt can also supply facts; distinguish adding evidence from merely rephrasing instructions. Context windows are finite, and irrelevant text can distract, motivating retrieval instead of inserting an entire large collection.
+Ask: “What does B improve?” It communicates the shopper's situation, constraints, and requested output. It may produce sensible recommendations, but does not itself supply evidence about a particular store's products or specifications.
+
+If trying the prompt live, do not rely on the chatbot failing. A useful backpack or bike-light suggestion still leaves the question: is this recommendation supported by the intended catalog? If the interface visibly searches the web and uses retrieved pages, connect that behaviour to retrieval-augmented generation. Product links alone do not establish that a search occurred; avoid asserting an unseen implementation.
+
+Use MEC as a hypothetical application, not a claim about MEC's actual systems. Ask: “How could we make this answer depend on our store's catalog rather than general product knowledge?” Invite students to suggest supplying the catalog descriptions. Then connect to the retrieval system they have already seen: retrieve relevant descriptions, add them to the prompt, and ask the generator to recommend products using that evidence.
+
+Both clearer instructions and supplied evidence leave the model's weights unchanged. A small catalog could fit entirely in the prompt; a larger collection may exceed the context window or include distracting material. Retrieval selects focused evidence. A catalog listing or product specification does not establish current stock availability unless the source explicitly provides that information.
+
+Transition: “We already know how to find relevant descriptions. Now we can give those descriptions to a language model to help it write a supported answer. That combination is RAG.”
 :::
 
 ## Retrieval-augmented generation
