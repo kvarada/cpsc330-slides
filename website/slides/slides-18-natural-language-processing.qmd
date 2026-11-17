@@ -216,40 +216,39 @@ bow_table = pd.DataFrame(
     index=products["title"].rename("Product"),
     columns=bow.get_feature_names_out(),
 )
+comparison_products = [
+    "Sony WH-1000XM6 headphones", "Pocket power bank",
+    "Waterproof laptop backpack", "Laptop stand",
+    "Ergonomic keyboard", "White-noise machine",
+]
+comparison_terms = ["with", "battery", "laptop", "rain", "wrist"]
 display(HTML(bow_table.loc[
-    ["Sony WH-1000XM6 headphones", "Pocket power bank",
-     "Waterproof laptop backpack", "Ergonomic keyboard",
-     "Pomodoro timer", "White-noise machine"],
-    ["battery", "laptop", "rain", "study", "wrist"],
+    comparison_products, comparison_terms,
 ].to_html()))
 ```
 
-**The backpack and white-noise machine both contain “rain”. Does it mean the same thing in both descriptions?**
+**Does “with” help distinguish these products? Should it count as much as a more distinctive word?**
 
 ::: {.notes}
-Code executes on the complete catalog descriptions using default CountVectorizer settings. Selected output rows are C001 headphones, C002 power bank, C003 backpack, C005 keyboard, C009 timer, and C012 white-noise machine. Imports and data loading are omitted from the projected slide. Each row is a document; each column is a vocabulary term. Most entries are zero (231 out of 2,422 are nonzero). The displayed matrix is only a slice, not the complete vocabulary.
+Code executes on the complete catalog descriptions using default CountVectorizer settings. Both tables use the same six products and five terms through shared comparison_products and comparison_terms lists. Imports and data loading are omitted from the projected slide. Each row is a document; each column is a vocabulary term. Most entries are zero (231 out of 2,422 are nonzero). The displayed matrix is only a slice, not the complete vocabulary.
 
-Rain means weather exposure for the backpack but an ambient sound for the white-noise machine; counts do not distinguish these contexts. Headphones has study=0 because the description uses studying, which is a separate token. Wrist occurs twice in the keyboard description. Word order is also lost. Reconnect to CountVectorizer from earlier in the course.
+Start with the with column: it occurs across several descriptions of quite different products, so matching it offers little help in distinguishing those products. This motivates weighting terms by how common they are across the collection. Save the rain example for after TF–IDF: weighting still cannot distinguish weather exposure from an ambient sound. The backpack and laptop stand share laptop in the same sense: useful overlap for a search about laptop-related products, although they serve different needs. Headphones and the power bank also share battery in the same sense of electrical energy storage. Wrist occurs twice in the keyboard description. Word order is also lost. Reconnect to CountVectorizer from earlier in the course.
 :::
 
 ## TF–IDF: weighting distinguishing terms {.smaller}
 
 **Should every word count equally?**
 
-A word that appears in almost every document tells us little about what makes one document different.
+**“With”** appears in several different product descriptions. Matching it tells us little about which product meets a need.
 
 **Term frequency:** How often does a term appear in this document?
 
 **Inverse document frequency:** How uncommon is it across the collection?
 
-> laptop with a keyboard  
-> laptop with a touchscreen  
-> laptop with a keyboard and touchscreen
-
-**Laptop** appears everywhere; **keyboard** and **touchscreen** help distinguish the documents.
+**TF–IDF downweights terms common across the collection**, relative to more distinctive terms.
 
 ::: {.notes}
-Transition from bag-of-words: the rain example exposed a limitation involving meaning. TF–IDF addresses a different question: how much weight should each term receive? It does not distinguish rain as weather from rain as a sound.
+Transition from the count table: “With appears in several unrelated product descriptions. Can we give such common terms less influence?” TF–IDF addresses term weighting. Final weights also depend on term frequency and normalization; do not promise that every with entry is smaller than every other term. After inspecting weights, revisit rain to separate weighting from interpretation.
 
 Explain intuitively rather than deriving weights. TF–IDF gives more weight to terms that are frequent in a document but uncommon across the collection. TfidfVectorizer also normalizes document vectors by default. Rare terms are distinguishing, but rarity alone does not make a document relevant to a query. Preprocessing choices depend on the application; removing stop words mechanically can lose useful information.
 :::
@@ -262,7 +261,7 @@ tfidf = TfidfVectorizer()
 product_tfidf = tfidf.fit_transform(products["text"])
 ```
 
-Selected weights, rounded to two decimals:
+**Same products and terms as before**, now with TF–IDF weights (rounded):
 
 ```{python}
 #| echo: false
@@ -272,24 +271,25 @@ tfidf_table = pd.DataFrame(
     columns=tfidf.get_feature_names_out(),
 )
 display(HTML(tfidf_table.loc[
-    ["Sony WH-1000XM6 headphones", "White-noise machine", "Study-skills article"],
-    ["concentrate", "concentration", "noise", "studying"],
+    comparison_products, comparison_terms,
 ].to_html(float_format=lambda value: f"{value:.2f}")))
 ```
 
-**Weights change, but related words still occupy separate columns.**
+**For a rainy Vancouver commute, does the shared “rain” feature make the backpack and white-noise machine useful matches?**
 
 ::: {.notes}
-Computed weights fitted on all 14 original descriptions. Displayed rows: C001 headphones, C012 white-noise machine, C013 study-skills article. Rows and columns are selected for readability; the full matrix has the same (14, 173) shape as the count matrix. Weights reflect term frequency, inverse document frequency, and default L2 normalization. Do not interpret a larger weight as a relevance probability. Noise is absent from the white-noise machine's text description: its title is not part of the fitted text column.
+Computed weights fitted on all 14 original descriptions. The displayed products and terms are identical to the count table for direct comparison. Rows and columns are selected for readability; the full matrix has the same (14, 173) shape as the count matrix. Weights reflect term frequency, inverse document frequency, and default L2 normalization. Do not interpret a larger weight as a relevance probability. Only descriptions are vectorized, not product titles.
 
-Ask whether weighting alone connects concentrate, concentration, and studying. It does not. This leads directly to vocabulary mismatch. Keep the preceding TF–IDF intuition slide brief so the additional output inspection fits the existing time allocation.
+Revisit rain: the backpack protects against rain while the machine produces rain sounds. TF–IDF changes weights but still assigns both occurrences to the same feature. It does not resolve meaning. Contrast rain with laptop in the backpack and stand descriptions, which refers to the same kind of device. Useful word overlap still does not guarantee both products meet the same need. This leads directly to vocabulary mismatch. Keep the preceding TF–IDF intuition slide brief so the additional output inspection fits the existing time allocation.
 :::
 
-## Your turn: vocabulary mismatch {.slide-your-turn}
+## Your turn: vocabulary mismatch {.slide-your-turn .smaller}
 
 **Query:** “How can I avoid hearing people talk while I study?”
 
-**Relevant description:** “Over-ear wireless headphones with active noise cancellation … Useful for studying in noisy spaces.”
+**Relevant description:**
+
+> Sony WH-1000XM6 headphones: Over-ear wireless headphones with active noise cancellation and up to 30 hours of battery life. Useful for studying in noisy spaces.
 
 **Would bag-of-words or TF–IDF reliably rank these headphones highly for this query?**
 
@@ -322,11 +322,15 @@ Embeddings and similarity: 19–35 minutes. Budget about four minutes for the ne
 
 ## Comparing vectors {.smaller}
 
+We want related texts to have similar vectors. But how should we measure similarity?
+
 | Measure | Formula | What matters? |
 |---|---|---|
-| Euclidean distance | $\sqrt{\sum_i(a_i-b_i)^2}$ | Distance between endpoints; smaller is closer |
-| Dot product | $\sum_i a_i b_i$ | Direction and magnitude; larger is more similar |
-| Cosine similarity | $\frac{a\cdot b}{\lVert a\rVert_2\lVert b\rVert_2}$ | Direction; larger is more similar |
+| Euclidean distance | $\sqrt{\sum_{i=1}^d(u_i-v_i)^2}$ | Distance between endpoints; smaller is closer |
+| Dot product | $\mathbf{u}^{\top}\mathbf{v}=\sum_{i=1}^d u_i v_i$ | Direction and magnitude; larger is more similar |
+| Cosine similarity | $\frac{\mathbf{u}^{\top}\mathbf{v}}{\lVert\mathbf{u}\rVert_2\lVert\mathbf{v}\rVert_2}$ | Direction; larger is more similar |
+
+Here, $\mathbf{u},\mathbf{v}\in\mathbb{R}^d$ are vectors; $u_i,v_i$ are their scalar $i$-th components.
 
 Doubling every word count changes a vector's **length**, but preserves its **direction**.
 
@@ -442,6 +446,8 @@ Source: chapter figure, screenshot from 3Blue1Brown, https://www.youtube.com/wat
 
 ## Trying an analogy {.smaller}
 
+"Man is to king as woman is to ___." 
+
 ```{python}
 #| echo: true
 word_vectors.most_similar(
@@ -449,7 +455,7 @@ word_vectors.most_similar(
 )
 ```
 
-**What relationship does this vector operation approximate?**
+Does the model's result match your expectation?
 
 ::: {.notes}
 This executes the king − man + woman example shown in the schematic. The nearest result is queen, with cosine similarity about 0.712. The result reflects regularities learned from the corpus, not a general guarantee of human-like reasoning. Transition immediately to the bias example: appealing regularities and harmful associations can both be encoded in the same geometry.
@@ -457,6 +463,9 @@ This executes the king − man + woman example shown in the schematic. The neare
 
 ## Embeddings also encode bias {.smaller}
 
+"Man is to Computer programmer as woman is to ___." 
+
+::: {.fragment}
 The chapter's historical word2vec model returns:
 
 $$v(\text{computer\_programmer})-v(\text{man})+v(\text{woman})$$
@@ -468,10 +477,13 @@ word_vectors.most_similar(
     negative=["man"], topn=5
 )
 ```
+:::
 
+::: {.fragment}
 This exposes a **gender stereotype learned from the corpus**.
 
 Learned associations can be harmful; removing one analogy would not establish that a model is unbiased.
+:::
 
 ::: {.notes}
 Computed nearest result: homemaker. Show this immediately after the appealing analogy. It does not identify an appropriate relationship between occupations and genders. This old model makes one stereotype easy to expose; newer embeddings also require evaluation in their intended application. Bias is relevant to the use of representations, not an optional historical footnote.
@@ -564,13 +576,14 @@ In both cases, what does it mean for the pretrained model to be frozen?
 Answer: B. Frozen means the pretrained model's weights stay fixed; its output can still depend on the input. C describes updating the model rather than using it frozen. D is false: frozen features can be used to train a downstream classifier, as in last lecture. Connect to frozen image features and to the recipe-title embeddings used in HW6.
 :::
 
-## Information retrieval: finding useful documents
+# Information retrieval
+## Finding useful documents {.smaller}
 
 > How can I avoid hearing people talk while I study?
 
-![Document indexing, query processing, and search produce ranked documents](img/IR.jpeg){.nostretch fig-align="center" height="350px"}
+![Document indexing, query processing, and search produce ranked documents](img/IR.jpeg){.nostretch fig-align="center" height="300px"}
 
-**Represent → compare → return the top-$k$ descriptions.**
+**Represent $\to$  compare $\to$ return the top-$k$ descriptions.**
 
 ::: {.notes}
 Retrieval: about ten minutes. Start with the familiar shopper's question, then trace it through the diagram. Information retrieval returns a ranked list of documents that might help with a query. Unlike classification, it does not assign a class label. Here, a document is a catalog description. Figure reused from Chapter 18.
@@ -670,7 +683,7 @@ Timing checkpoint: roughly 45 minutes. Transition: “Search gives us documents.
 
 # Language models and large language models (LLMs)
 
-## Become a language model {.slide-your-turn}
+## Become a language model {.slide-your-turn .smaller}
 
 Suggest several next words and rough probabilities.
 
@@ -710,13 +723,23 @@ The word-based game is an intuition; actual tokenization need not follow word bo
 3. Append it to the context.
 4. Repeat.
 
-> My model works perfectly on → training → data → but → …
+> My model works perfectly on $\to$ training $\to$ data $\to$ but $\to$ …
 
 **A plausible continuation can still be factually wrong.**
 
 ::: {.notes}
 For this illustration only, suppose each displayed word is one token. Each new prediction uses the full preceding context, including the newly appended words. Choosing a token may involve sampling or selecting a high-probability token. The repeated prediction mechanism can generate an answer, translation, or summary when conditioned on an appropriate input. This describes autoregressive generation, rather than every possible language-model architecture.
 :::
+
+## Large language models (LLMs)
+
+A **large language model** is a language model built with a large neural network and trained on large amounts of data.
+
+- It learns patterns by predicting tokens from context.
+- Given a **prompt**, it can generate an answer, summary, translation, or other text.
+- ChatGPT and Claude are familiar applications powered by LLMs.
+
+**How does token prediction become a useful assistant?**
 
 ## Pretraining, post-training, and prompting {.smaller}
 
