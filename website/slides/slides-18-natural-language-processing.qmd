@@ -44,6 +44,24 @@ Pacing for an approximately 80-minute lecture: opening 5; language challenges 5;
 Source throughout: Chapter 18, /Users/kvarada/CS/2026-27/330/cpsc330-book/book/18_natural-language-processing.ipynb. Numerical results are taken from its saved outputs, not newly executed models. Implementation details are reading material; students should interpret the components and their outputs.
 :::
 
+
+## Announcements
+
+- HW7 was due yesterday 
+- HW8 has been released (due next week Monday)
+  - Almost there! Hang in there 😊
+- Midterm 2 grading is in progress. 
+
+# iClicker
+
+**Select all of the following statements which are TRUE for you.**
+
+- (A) I found the multiple-choice questions challenging.
+- (B) The coding questions took a lot of time.
+- (C) I didn't like the format of the midterm.
+- (D) I appreciated the mix of coding, conceptual, and multiple-choice questions.
+- (E) I felt the midterm was a good reflection of what we cover in the lectures and homework assignments.
+
 ## iClicker: Guess before we start {.slide-your-turn}
 
 **Select all statements you think are true.** No prior knowledge of NLP is needed.
