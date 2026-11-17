@@ -183,7 +183,11 @@ The goal is not to capture every aspect of a sentence's meaning. Ask:
 > **Does the representation preserve the information needed for our task?**
 
 ::: {.notes}
-Connect the ambiguity examples to the choice of features. Different tasks require different distinctions: counting mentions of milk may only require matching a word, whereas determining what someone should boil requires resolving the pronoun. A representation useful for one task may lose information needed for another. Evaluate it by how well it supports the intended task, rather than by whether it captures all of language.
+Use a product-review example:
+“The battery is good, but the screen is terrible.”
+- Task: Find reviews mentioning batteries. Word counts can be enough.
+- Task: Determine whether the reviewer likes the battery or the screen. We need to preserve which opinion refers to which feature.
+“The battery is terrible, but the screen is good” has identical word counts, yet reverses the opinions.
 
 Pause on the question in bold: “We do not need a representation to capture everything about language before it can be useful. We need it to preserve the distinctions that matter for the particular task.” A simple word-count representation can be useful for document classification while missing relationships needed for answering a question about the document. More complex representations also need task-specific evaluation.
 
@@ -506,7 +510,11 @@ Learned associations can be harmful; removing one analogy would not establish th
 :::
 
 ::: {.notes}
-Computed nearest result: homemaker. Show this immediately after the appealing analogy. It does not identify an appropriate relationship between occupations and genders. This old model makes one stereotype easy to expose; newer embeddings also require evaluation in their intended application. Bias is relevant to the use of representations, not an optional historical footnote.
+Computed nearest result: homemaker. Show this immediately after the appealing analogy. It does not identify an appropriate relationship between occupations and genders. This old model makes one stereotype easy to expose; newer embeddings also require evaluation in their intended application. Bias is relevant to the use of representations, not an optional historical footnote. The goal of debiasing isn't necessarily to remove every difference or association we observe in the real world. Some of these associations contain useful information, while others reflect stereotypes or historical inequalities that we don't want our models to perpetuate.
+
+Whether we should remove an association depends on what we're using the embeddings for. If we're studying historical gender stereotypes, those associations are valuable information. But if we're recommending candidates for jobs, we don't want historical gender stereotypes influencing our recommendations.
+
+So the important question isn't simply "Are these embeddings biased?" but rather "Which associations are relevant to our task, and which ones could lead to harmful or unfair outcomes?"
 :::
 
 ## Sentence and text embeddings {.smaller}
