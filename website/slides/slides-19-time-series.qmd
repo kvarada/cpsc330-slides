@@ -1,41 +1,43 @@
 ---
 title: "CPSC 330 Lecture 19: Time series"
 author: "Varada Kolhatkar"
-format: 
-    revealjs:
-      html-math-method: mathjax    
-      embed-resources: true
-      slide-number: true
-      logo: img/UBC-CS-logo.png
-      resources:
-        - data/
-        - img/        
+description: "Chronological evaluation, temporal feature engineering, multi-step forecasts, seasonality, and trends"
+format:
+  revealjs:
+    html-math-method: mathjax
+    embed-resources: true
+    slide-number: true
+    slide-level: 2
+    theme: [slides.scss]
+    center: true
+    logo: img/UBC-CS-logo.png
+    resources:
+      - data/
+      - img/
+jupyter: python3
+execute:
+  echo: false
+  warning: false
 ---
 
 ```{python}
+#| include: false
 import matplotlib.pyplot as plt
-import os, sys
+import mglearn
 import numpy as np
 import pandas as pd
-sys.path.append(os.path.join(os.path.abspath("."), "code"))
-from time_series_code import *
-from sklearn.compose import ColumnTransformer, make_column_transformer
-from sklearn.dummy import DummyClassifier
+from IPython.display import display
+from sklearn.base import clone
+from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LogisticRegression, Ridge
-
-from sklearn.model_selection import (
-    TimeSeriesSplit,
-    cross_val_score,
-    cross_validate,
-    train_test_split,
-)
-from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
-
-from datetime import datetime
+from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import TimeSeriesSplit, cross_val_score, train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures
 ```
+
 
 ## Focus on the breath!
 
@@ -45,128 +47,150 @@ from datetime import datetime
 
 - HW8 has been released (due next week Monday)
   - Almost there! You’ve got this! 😊
-- Midterm 2 grading is in progress. 
+- Midterm 2 grading is in progress.
 
-## Lecture learning objectives 🎯
-
-- Recognize when a problem is a time series problem and what makes time-ordered data unique.
-
-- Apply proper train/test splits for time series.
-
-- Engineer key time-based features
-
-- Understand strategies for multi-step forecasting
-
-- Describe trend and its impact on time series behavior
-
-## Recap: iClicker questions {.smaller}
+## Recap: iClicker {.slide-your-turn .smaller}
 
 **Select all of the following statements which are TRUE.**
 
-- (A) In multinomial logistic regression, the model learns a separate weight vector and bias for each class.
-- (B) Neural networks are powerful models, so it's usually a good idea to start with them on any new machine learning problem.
-- (C) The main reason we add hidden layers is to allow the model to learn increasingly complex representations.
-- (D) Convolutional neural networks (CNNs) use filters that slide over the image to detect local patterns.
-- (E) Using a pre-trained network as a feature extractor typically requires less data than training a deep network from scratch.
+- (A) Bag-of-words represents a document using word counts and preserves the order of its words.
+- (B) TF–IDF gives more weight to a term that is frequent in a document but rare across the collection.
+- (C) Dense retrieval can find relevant text even when the query and document use different words for the same idea.
+- (D) Supplying retrieved passages in a RAG prompt updates the generator's learned weights.
+- (E) A RAG system can generate an unsupported answer even when it retrieves relevant evidence.
 
-## Recap: What type of model would be appropriate? {.smaller}
+::: {.notes}
+
+Correct answers: B, C, E.
+
+A: False. Bag-of-words discards word order, so it can miss differences in meaning caused by order.
+B: TF captures frequency within a document; IDF downweights terms that occur in many documents.
+C: Dense representations can capture semantic similarity beyond exact word overlap, though retrieval can still fail.
+D: False. Ordinary RAG changes the input context, not the generator's weights.
+E: Retrieval and generation can fail separately. Even useful passages do not guarantee that the generated answer follows the evidence.
+
+:::
+
+## Recap: Which model would you use? {.slide-your-turn .smaller}
 
 | Scenario |  Model/Method |
 |-------------------------------------------------------|-------|
 | You have user–item ratings (e.g., movie ratings) and want to predict missing ratings. | ? |
 | You have a collection of documents without any labels and want to group them into themes. | ? |
-| You want to classify the emotion of a set of text messages, but you do not have any labeled data. | ? |
+| You want to find catalog descriptions relevant to a customer’s question, even when they use different words for the same idea. | ? |
 | You have a small dataset with ~500 images containing pictures and names of 20 different Computer Science faculty members from UBC. Your goal is to develop a reasonably accurate multi-class classification model for this task.| ? |
 
-## Loan default prediction (tabular data) {.scrollable .smaller} 
+::: {.notes}
 
-You work for a financial institution and have a dataset where each row represents a customer applying for a loan. What type of model would you use? 
+For the catalog scenario: dense retrieval using text embeddings and cosine similarity. Embed the question and catalog descriptions, then rank descriptions by similarity. This task asks for relevant source text; generating an answer would be an additional step.
 
-| customer_id | income_k | credit_utilization | late_payments | employment_length | employment_type | home_ownership | loan_purpose        | default |
-|----|---|---|---|---|---|---|---|---|
-| 1           | 95       | 22                 | 0             | 9                 | salaried        | mortgage       | home_improvement    | 0       |
-| 2           | 45       | 78                 | 3             | 2                 | contract        | rent           | debt_consolidation  | 1       |
-| 3           | 120      | 30                 | 1             | 7                 | salaried        | own            | car                 | 0       |
-| 4           | 60       | 65                 | 2             | 3                 | self_employed   | rent           | debt_consolidation  | 1       |
-| 5           | 85       | 40                 | 0             | 10                | salaried        | mortgage       | education           | 0       |
-| 6           | 55       | 90                 | 4             | 1                 | contract        | rent           | debt_consolidation  | 1       |
-| 7           | 130      | 28                 | 0             | 6                 | salaried        | own            | car                 | 0       |
-| 8           | 40       | 82                 | 2             | 1                 | self_employed   | rent           | debt_consolidation  | 1       |
+:::
 
-Rows are independent $\rightarrow$ order does not matter $\rightarrow$ time does not matter
+## Today's big questions {.slide-goals}
+
+1. What changes when our data has a **time order**?
+2. How can we **evaluate forecasts** without using future information?
+3. How can we turn **past observations and time patterns** into useful features?
+4. How can we forecast **multiple steps into the future**?
+
+Time order $\to$ evaluation $\to$ temporal features $\to$ forecasting
+
+::: {.notes}
+
+Use bike rentals as the running example: what can we know at prediction time, how should we test our predictions, and what features help us predict future demand?
+
+Temporal features include calendar information, lagged observations, seasonality, and trends. Connect the feature choices to the strengths and limitations of linear and tree-based models.
+
+:::
+
+## Loan default prediction {.smaller}
+
+Each row describes a customer applying for a loan. **What type of model would you use to predict default?**
+
+| Customer | Income ($k) | Credit used (%) | Late payments | Employment | Default |
+|----------|------------:|----------------:|--------------:|------------|--------:|
+| 1 | 95  | 22 | 0 | Salaried      | 0 |
+| 2 | 45  | 78 | 3 | Contract      | 1 |
+| 3 | 120 | 30 | 1 | Salaried      | 0 |
+| 4 | 60  | 65 | 2 | Self-employed | 1 |
+
+**Target:** default (1 = yes, 0 = no). Customer ID identifies the row.
+
+For this example, we treat customers as independent: **reordering rows does not change the prediction task.**
 
 ## Predict demand for bike rentals
 
 Suppose you want to predict the bike rental demand for the next three-hour period at a station in New York City.
 
 :::: {.columns}
-:::{.column width="60%"}
+
+::: {.column width="60%"}
+
 ![](img/citibike.jpg)
+
 :::
 
-:::{.column width="40%"}
+::: {.column width="40%"}
+
 What features might help us make an accurate prediction?
+
 :::
+
 ::::
 
-## citibike data
+## Citi Bike data {.smaller}
 
 :::: {.columns}
 
-:::{.column width="40%"}
+::: {.column width="40%"}
+
 ```{python}
 import mglearn
 
 citibike = mglearn.datasets.load_citibike()
-citibike.head(20)
+rentals = citibike.rename("rentals")
+citibike.head(6)
 ```
+
 :::
 
-:::{.column width="60%"}
-- Only feature: datetime
-- The data is collected at regular intervals (every three hours) 
-- Target: rentals in the next 3-hour period
-- Goal: Given past rental counts, predict the number of rentals at a specific future time.
+::: {.column width="60%"}
+
+- Recorded every **three hours**; each timestamp marks the start of a period.
+- **Target:** rental count during that period.
+- Initially, our only input is **datetime**.
+- Nearby rental counts may be related: **time order matters**.
+
 :::
+
 ::::
 
 **Using only the tools in your current toolbox, what model would you choose, and what challenges might you run into?**
 
-## Why different treatement?
+## What do we know when we predict? {.smaller}
 
-:::: {.columns}
+At **09:00**, predict rentals during **09:00–12:00**.
 
-:::{.column width="40%"}
-```{python}
-import mglearn
+| Past observations | Prediction time | Target period |
+|:------------------|:---------------:|:--------------|
+| 03:00–06:00 and 06:00–09:00 counts are known | **09:00** | **09:00–12:00** count is unknown |
 
-citibike = mglearn.datasets.load_citibike()
-citibike.head(20)
-```
-:::
-:::{.column width="60%"}
-- This type of data is distinctive because it is **inherently sequential**. 
-- The number of bikes available at a station at one point in time is often related to the number of bikes at earlier times. 
-- This is a **time-series forecasting** problem.
-:::
-::::
+- Each timestamp labels the **start** of a three-hour rental period.
+- Calendar features for the target period are known in advance.
+- Lag features use counts from **completed periods**.
 
-## Today's lecture 
-
-- What is time series? 
-- How do we know a problem is a time series problem?
-- Why do standard ML models struggle with time-dependent data?
-- How can we adapt ML models to handle time series?
+**Every feature must be available when we make the prediction.**
 
 ## Models for time series
 
-The ML models we've used so far **do not have a built-in concept of time**. There are **two broad strategies** for modeling time series:
+Two broad approaches:
 
-- Use models designed for sequential data which explicitly capture temporal dependencies (e.g., Hidden Markov Models, Transformer architectures etc.) 
+- Use **sequence models** that explicitly model temporal relationships, such as Transformers.
+- Use **tabular models with engineered temporal features**, such as Ridge, random forests, and gradient boosted trees.
 
-- **Use tabular ML models with engineered temporal features (e.g., Linear models, Random Forests, Gradient Boosted Trees)**    
+**Today: give familiar tabular models useful information about time.**
 
-## citibike data visualization
+## Citi Bike data visualization
 
 ```{python}
 print(f"Start date: {citibike.index.min()}, End date: {citibike.index.max()}")
@@ -180,7 +204,7 @@ plt.ylabel("Rentals");
 plt.title("Number of bike rentals over time for a selected bike station");
 ```
 
-Do you see any daily patterns? Weekly patterns? Noise? 
+Do you see any daily patterns? Weekly patterns? Noise?
 
 ## ⛔️ Incorrect data splitting
 
@@ -205,13 +229,13 @@ plt.legend();
 
 ## ✅ Correct data splitting
 
-In time series, the simplest split is: earlier data $\rightarrow$ training and later data $\rightarrow$ testing. For example: 
+Use the first **23 days for development** and hold out the last **eight days for one final test**. Choose features and models using temporal validation within the development period.
 
 ```{python}
 #| echo: true
-n_train = 184 
-train_df = citibike[:184] 
-test_df = citibike[184:]
+n_train = 184
+train = train_df = rentals.iloc[:n_train]
+test = test_df = rentals.iloc[n_train:]
 ```
 ```{python}
 
@@ -224,50 +248,174 @@ plt.plot(test_df_sort, "r", label="test")
 plt.xticks(rotation="vertical")
 plt.legend();
 ```
-# Feature engineering for time series 
 
-## Motivation 
+## Cross-validation with time series {.smaller}
 
-- In this toy data, we just have a single feature: the date time feature. 
-- Note that ML models do not have a built-in concept of time. We have to give it to them.
-- We will explore different ways to extract informative features from time.
+- Each validation window comes **after** its training window.
+- Use three expanding folds within the **first 23 days**; each validation window covers **four days**.
 
-## POSIX time feature {.smaller}
-- Let's start with a simplest encoding. 
-- A common way that dates are stored on computers is using POSIX time, which is the number of seconds since January 1970 00:00:00 (this is beginning of Unix time). 
-
-- Let's start with encoding feature as a single integer representing this POSIX time. 
+```text
+Time →   Training grows; validation moves forward
+Fold 1   [Train: 11 days][Valid: 4 days]
+Fold 2   [Train:     15 days][Valid: 4 days]
+Fold 3   [Train:         19 days][Valid: 4 days]
+```
 
 ```{python}
 #| echo: true
-# convert to POSIX time by dividing by 10**9
-X = (
-    citibike.index.astype("int64").values.reshape(-1, 1) // 10**9
-)  # convert to POSIX time by dividing by 10**9
-y = citibike.values
-X[:10]
+cv = TimeSeriesSplit(n_splits=3, test_size=32)
+for fold, (fit_rows, valid_rows) in enumerate(cv.split(train), start=1):
+    print(f"Fold {fold}: train {fit_rows[0]}–{fit_rows[-1]}, "
+          f"validate {valid_rows[0]}–{valid_rows[-1]}")
 ```
 
-## RF on posix features {.smaller}
+The final eight-day test period is excluded from every fold.
+
+## How will we compare forecasts?
+
+**Mean absolute error (MAE)** is the average absolute prediction error, measured in **rentals per three-hour interval**.
+
+- An MAE of 5 means predictions miss by **five rentals on average**.
+- **Lower is better.** Compare mean validation MAE over the same three folds.
+- Start with simple forecasts before fitting more complex models.
+
+## Simple forecasting baselines {.smaller}
+
+- **Persistence:** repeat the previous interval's count (`shift(1)`).
+- **Seasonal naive:** repeat the same interval yesterday (`shift(8)`).
 
 ```{python}
-regressor = RandomForestRegressor(n_estimators=100, random_state=0)
-eval_on_features(X, y, regressor,  xtick_labels, feat_names="POSIX time")
+#| echo: false
+baseline_predictions = pd.DataFrame({
+    "Previous interval": rentals.shift(1),
+    "Same interval yesterday": rentals.shift(8),
+})
+baseline_scores = {}
+for name in baseline_predictions:
+    errors = []
+    for _, valid_rows in cv.split(train):
+        errors.append(mean_absolute_error(
+            train.iloc[valid_rows], baseline_predictions[name].iloc[valid_rows]
+        ))
+    baseline_scores[name] = np.mean(errors)
+display(pd.Series(baseline_scores, name="Validation MAE"))
 ```
-- The predictions on the training data and training score are pretty good 
-- But for the test data, a constant line is predicted ...
-- What's going on?
 
-## Trees cannot extrapolate! 
+These are successive one-step forecasts: completed counts become available between predictions.
+
+## Reading the model comparisons {.smaller}
+
+- **Mean validation MAE:** averaged over all three temporal folds.
+- **Plots:** the same final fold for every model, showing the last training week and four validation days.
+- **Preprocessing:** fitted only on each fold's training rows, using pipelines.
+- **Final test:** reserved until we have selected a model.
+
+Training fit shows what a model can represent; validation error shows what carries forward.
+
+# Feature engineering for time series
+
+## From timestamps to useful features
+
+- In this toy data, we just have a single feature: the date time feature.
+- Note that ML models do not have a built-in concept of time. We have to give it to them.
+- Start with a numeric timestamp, then add **calendar patterns**, **interactions**, and **recent observations**.
+
+```{python}
+#| include: false
+# Explicitly request seconds; do not assume the datetime storage resolution.
+calendar = pd.DataFrame({
+    "elapsed_seconds": rentals.index.as_unit("s").asi8,
+    "hour": rentals.index.hour,
+    "weekday": rentals.index.dayofweek,
+}, index=rentals.index)
+y_train = train.to_numpy()
+validation_results = {}
+candidates = {}
+
+# Use the same last validation fold for every illustration.
+# Cross-validation scores still average over all three folds.
+plot_fit_rows, plot_valid_rows = list(cv.split(train))[-1]
+
+def compare(name, model, features):
+    scores = -cross_val_score(
+        model, features.iloc[:n_train], y_train,
+        cv=cv, scoring="neg_mean_absolute_error",
+    )
+    validation_results[name] = scores.mean()
+    candidates[name] = (model, features)
+    fitted = clone(model).fit(features.iloc[plot_fit_rows], train.iloc[plot_fit_rows])
+    fit_predictions = fitted.predict(features.iloc[plot_fit_rows])
+    valid_predictions = fitted.predict(features.iloc[plot_valid_rows])
+    fit_mae = mean_absolute_error(train.iloc[plot_fit_rows], fit_predictions)
+    valid_mae = mean_absolute_error(train.iloc[plot_valid_rows], valid_predictions)
+
+    fig, ax = plt.subplots(figsize=(11, 3.5))
+    ax.plot(train.index[plot_fit_rows], train.iloc[plot_fit_rows],
+            color="C0", label="Training observations", alpha=0.65)
+    ax.plot(train.index[plot_valid_rows], train.iloc[plot_valid_rows],
+            color="C1", label="Validation observations", alpha=0.8)
+    ax.plot(train.index[plot_fit_rows], fit_predictions, "--",
+            color="C2", label="Training predictions")
+    ax.plot(train.index[plot_valid_rows], valid_predictions, "--",
+            color="C3", label="Validation predictions")
+    boundary = train.index[plot_valid_rows[0]]
+    ax.axvline(boundary, color="0.4", linestyle=":", label="Validation begins")
+    # Zoom to the last training week and all four validation days.
+    ax.set_xlim(boundary - pd.Timedelta(days=7), train.index[plot_valid_rows[-1]])
+    ax.set_ylim(-5, train.max() * 1.1)
+    ax.set(xlabel="Interval start", ylabel="Rentals", title=(
+        f"{name}\nIllustrated fold MAE: train {fit_mae:.2f}, validation {valid_mae:.2f}"
+    ))
+    ax.legend(loc="upper left", bbox_to_anchor=(1.01, 1))
+    fig.autofmt_xdate()
+    plt.show()
+    print(f"Mean cross-validation MAE: {scores.mean():.2f} rentals")
+    return fitted
+
+
+```
+
+## POSIX time feature {.smaller}
+
+A simple numeric encoding is **seconds since the Unix epoch**, January 1, 1970, 00:00 UTC.
+
+Will a random forest learn repeating demand from one increasing number?
+
+```{python}
+#| echo: true
+calendar[["elapsed_seconds"]].head(6)
+```
+
+## Random forest with POSIX time {.smaller}
+
+```{python}
+#| echo: false
+forest = RandomForestRegressor(n_estimators=100, random_state=123)
+timestamp_model = compare("Forest: timestamp", forest, calendar[["elapsed_seconds"]])
+```
+
+The forest fits the training data, but predicts a constant for later timestamps. **Why?**
+
+## Trees cannot extrapolate!
 - Tree-based models only make predictions within the range of values they've seen during training.
 - Trees partition the feature space into fixed regions and predictions inside each region are averages of training labels.
 - If your future timestamps are larger than the ones in the training set trees cannot "see beyond" the training range and they will flatline or behave unpredictably.
 
-This is exactly what happens with POSIX time encoded as a single numeric feature! 
+This is exactly what happens with POSIX time encoded as a single numeric feature!
+
+## Seasonality
+
+**Seasonality** refers to a **repeating pattern** that occurs at regular, predictable intervals.
+
+- **Example 1:** Bike rentals tend to peak at the same hours each day (daily seasonality).
+- **Example 2:** Retail sales consistently spike before the December holidays (annual seasonality).
+- Recognizing seasonality helps a model **anticipate recurring patterns** rather than mistake them for noise.
+- We can capture seasonality by adding features such as: `rush_hour`, `is_weekend`, and `is_holiday`
+
 
 ## Extracting date and time information
 
-- Note that our index is of this special type: [`DateTimeIndex`](https://pandas.pydata.org/docs/reference/api/pandas.DatetimeIndex.html). We can extract all kinds of interesting information from it.   
+- Note that our index is of this special type: [`DateTimeIndex`](https://pandas.pydata.org/docs/reference/api/pandas.DatetimeIndex.html). We can extract all kinds of interesting information from it.
 
 ```{python}
 #| echo: true
@@ -277,240 +425,305 @@ print(citibike.index[0].dayofweek)
 print(citibike.index[0].hour)
 ```
 
-## Hour of day 
-- We noted before that the hour of day and day of week seem quite important. 
-- Let's start with hour of day. 
+## Hour of day
+
+Hour-of-day values recur in future intervals, allowing a model to reuse daily patterns.
 
 ```{python}
 #| echo: true
-X_hour = citibike.index.hour.values.reshape(-1, 1)
-X_hour[:10]
+calendar[["hour"]].head(6)
 ```
 
-## RF with hour of day
+## Random forest with hour of day {.smaller}
+
+```{python}
+#| echo: false
+hour_model = compare("Forest: hour", forest, calendar[["hour"]])
+```
+
+The model repeats one daily profile. **What weekday–weekend differences does it miss?**
+
+## Hour of day + day of week {.smaller}
+
+Add weekday so the model can distinguish a weekend afternoon from a weekday afternoon.
 
 ```{python}
 #| echo: true
-regressor = RandomForestRegressor(n_estimators=100, random_state=0)
-eval_on_features(X_hour, y, regressor,  xtick_labels, feat_names="Hour of the day")
+calendar_features = calendar[["hour", "weekday"]]
+calendar_features.head(6)
 ```
 
-The scores are better when we add hour of day feature! 
-
-## hour of day + day of week 
-
-Now let's add day of week along with hour of day. 
-```{python}
-#| echo: true
-X_hour_week = np.hstack(
-    [
-        citibike.index.dayofweek.values.reshape(-1, 1),
-        citibike.index.hour.values.reshape(-1, 1),
-    ]
-)
-X_hour_week
-```
-## RF with hour of day + day of week 
-```{python}
-#| echo: true
-eval_on_features(X_hour_week, y, regressor,  xtick_labels, feat_names = "hour of day + day of week")
-```
-
-The time of the day and day of the week features are clearly helping. 
-
-## Ridge with Hour of day + Day of week 
+## Random forest with hour of day + day of week {.smaller}
 
 ```{python}
-lr = Ridge();
-eval_on_features(X_hour_week, y, lr,  xtick_labels, feat_names = "hour of day + day of week")
-
+#| echo: false
+calendar_forest_model = compare("Forest: hour + weekday", forest, calendar_features)
 ```
 
-Why is `Ridge` performing poorly on the training data as well as test data?
+Compare validation MAE with the hour-only model. **Does adding weekday help?**
 
-## Encoding hour and day with OHE 
+## Ridge with hour of day + day of week {.smaller}
+
+```{python}
+#| echo: false
+numeric_ridge_model = compare("Ridge: numeric calendar", Ridge(), calendar_features)
+```
+
+One coefficient for hour imposes the same change per hour. **Can that describe morning and evening peaks?**
+
+## One-hot encoding hour and day {.smaller}
+
+Learn a separate effect for each hour and weekday category.
 
 ```{python}
 #| echo: true
-enc = OneHotEncoder()
-X_hour_week_onehot = enc.fit_transform(X_hour_week).toarray()
-hour = ["%02d:00" % i for i in range(0, 24, 3)]
-day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-features = day + hour
-pd.DataFrame(X_hour_week_onehot, columns=features).head(6)
-```
-
-## Ridge with hour of day OHE + day of week OHE
-
-:::: {.columns}
-
-:::{.column width="70%"}
-```{python}
-eval_on_features(X_hour_week_onehot, y, Ridge(),  xtick_labels, feat_names="hour of day OHE + day of week OHE")
-```
-:::
-
-:::{.column width="30%"}
-- The scores are a bit better! 
-- Can we improve them further? 
-:::
-::::
-
-## Add interaction features 
-```{python }
-from sklearn.preprocessing import PolynomialFeatures
-
-poly_transformer = PolynomialFeatures(
-    interaction_only=True, include_bias=False
-)
-X_hour_week_onehot_poly = poly_transformer.fit_transform(X_hour_week_onehot)
-hour = ["%02d:00" % i for i in range(0, 24, 3)]
-day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-features = day + hour
-features_poly = poly_transformer.get_feature_names_out(features)
-df_hour_week_ohe_poly = pd.DataFrame(X_hour_week_onehot_poly, columns = features_poly)
-df_hour_week_ohe_poly.iloc[:, [0, 1, 2, 3, 4, 5, 34, 35, 36, 37, 40]].head(6)
-```
-
-## Ridge with hour of day OHE + day of week OHE + interaction features
-
-```{python}
-eval_on_features(X_hour_week_onehot_poly, y, lr,  xtick_labels, feat_names = "hour of day OHE + day of week OHE + interaction feats")
-```
-The scores are much better now!! 
-
-## Interpretation {.scrollable .smaller}
-
-Since we are using a linear model, we can examine the coefficients learned by `Ridge`. 
-
-:::: {.columns}
-:::{.column width="50%"}
-
-```{python}
-features_nonzero = np.array(features_poly)[lr.coef_ != 0]
-coef_nonzero = lr.coef_[lr.coef_ != 0]
-pd.DataFrame(coef_nonzero, index=features_nonzero, columns=["Coefficient"]).sort_values(
-    "Coefficient", ascending=False
+calendar_ridge = make_pipeline(
+    OneHotEncoder(handle_unknown="ignore", sparse_output=False),
+    Ridge(),
 )
 ```
+
+The pipeline fits the encoder separately inside each training fold. One-hot encoding does not explicitly encode closeness across midnight.
+
+## Ridge with one-hot calendar features {.smaller}
+
+```{python}
+#| echo: false
+onehot_model = compare("Ridge: one-hot calendar", calendar_ridge, calendar_features)
+```
+
+The hourly effects are more flexible, but the same hourly profile is used on every weekday.
+
+## Add interaction features {.smaller}
+
+**Does 09:00 mean the same rental demand on Monday and Sunday?**
+
+**Interactions** let the hourly effect depend on the weekday.
+
+```{python}
+#| echo: true
+interaction_ridge = make_pipeline(
+    OneHotEncoder(handle_unknown="ignore", sparse_output=False),
+    PolynomialFeatures(interaction_only=True, include_bias=False),
+    Ridge(),
+)
+```
+
+## Example: one-hot calendar features {.smaller}
+
+::: {style="max-height: 360px; overflow: auto;"}
+
+```{python}
+#| echo: false
+encoder = onehot_model.named_steps["onehotencoder"]
+encoded_calendar = pd.DataFrame(
+    encoder.transform(calendar_features.iloc[plot_fit_rows]),
+    columns=encoder.get_feature_names_out(),
+    index=train.index[plot_fit_rows],
+)
+display(encoded_calendar.head(8))
+```
+
 :::
 
-:::{.column width="50%"}
+## Ridge with one-hot and interaction features {.smaller}
 
-**Do these coefficients make sense?**
+```{python}
+#| echo: false
+interaction_model = compare("Ridge: calendar interactions", interaction_ridge, calendar_features)
+```
 
-:::
-::::
+Interactions allow the daily demand profile to change with the weekday. Compare the validation MAE with the additive model.
 
-## iClicker 19.2 
+## Interpretation {.smaller}
+
+Interaction coefficients adjust predictions for particular hour–weekday combinations.
+
+```{python}
+#| echo: false
+poly = interaction_model.named_steps["polynomialfeatures"]
+encoder = interaction_model.named_steps["onehotencoder"]
+names = poly.get_feature_names_out(encoder.get_feature_names_out())
+weights = pd.Series(interaction_model.named_steps["ridge"].coef_, index=names)
+interaction_weights = weights[weights.index.str.contains(" ")]
+interaction_weights.loc[interaction_weights.abs().nlargest(6).index].to_frame("Coefficient")
+```
+
+The full prediction includes the intercept and other active terms. A coefficient is **neither the total effect nor a causal effect**.
+
+## iClicker 19.2 {.slide-your-turn}
 
 **Select all of the following statements which are TRUE.**
 
-- (A) One-hot encoding the hour of day allows linear models to treat each hour as a separate category and capture cyclic patterns effectively.
-- (B) Success in time-series modeling often depends more on choosing the right features and right encoding for the given model. 
+- (A) One-hot encoding the hour of day allows a linear model to learn a separate effect for each hour category.
+- (B) Useful temporal features and an encoding suited to the model can improve forecasting performance.
 - (C) Tree-based models are good at predicting values beyond the range of the training set because they can extrapolate trends.
 
 
-## Lag-based features {.smaller .scrollable}
+## Lag-based features {.smaller}
+
+Calendar features describe **when**. Lag features describe **what happened recently**.
+
 
 :::: {.columns}
 
-:::{.column width="40%"}
+::: {.column width="40%"}
+
 ```{python}
-rentals_df = pd.DataFrame(citibike)
-rentals_df = rentals_df.rename(columns={"one":"n_rentals"})
-rentals_df.head(10)
+rentals_df = rentals.to_frame()
+rentals_df.head(6)
 ```
+
 :::
 
-:::{.column width="60%"}
+::: {.column width="60%"}
+
 - In time series data there is temporal dependence; observations close in time tend to be correlated.
 - Currently we're using current time to predict the number of bike rentals in the next three hours.
 - But, what if the number of bike rentals is also related to bike rentals three hours ago or 6 hours ago and so on?
 - Such features are called lagged features.
+
 :::
-:::: 
+
+::::
 
 
 
-## Creating lag features {.smaller .scrollable}
+## Creating lag features {.smaller}
 
 ```{python}
 #| echo: true
-def create_lag_df(df, lag, cols):
-    return df.assign(
-        **{f"{col}-{n}": df[col].shift(n) for n in range(1, lag + 1) for col in cols}
-    )
-rentals_lag5 = create_lag_df(rentals_df, 5, ['n_rentals'] )
-rentals_lag5.head(8)
+def add_lags(frame, column, lags):
+    return frame.assign(**{
+        f"{column}_lag{lag}": frame[column].shift(lag) for lag in lags
+    })
+
+lagged = add_lags(rentals_df, "rentals", [1, 2, 3, 4, 5, 8])
+lag_features = lagged.drop(columns="rentals")
 ```
+
+::: {style="max-height: 200px; overflow: auto;"}
+
+```{python}
+#| echo: false
+lagged.head(10)
+```
+
+:::
+
+`shift(1)` = three hours; `shift(8)` = yesterday, **only with regular spacing**. Initial missing values are imputed using training-fold statistics.
+
+## How do we evaluate predictions with lags? {.smaller}
+
+We make **successive one-step forecasts** within each validation fold (and later, the final test).
+
+1. At 09:00, use completed rental counts to predict 09:00–12:00.
+2. At 12:00, observe the actual 09:00–12:00 count.
+3. Use that newly observed count to predict 12:00–15:00.
+
+The model stays fixed; **the available observations grow**.
+
+Predicting the entire test period at 09:00 would be a different task: later actual counts would not yet be available.
 
 ## Ridge with lag features
 
 ```{python}
-X_lag_features = rentals_lag5.drop(columns = ['n_rentals']).to_numpy()
-eval_on_features(X_lag_features, y, lr,  xtick_labels, feat_names="Lag features", impute="yes")
+#| echo: false
+lag_ridge_model = compare("Ridge: lags", make_pipeline(SimpleImputer(), Ridge()), lag_features)
 ```
 
-The model is performing poorly. 
+Can recent counts alone anticipate the recurring peaks? Compare with the calendar models and baselines.
 
-
-## Random Forest with lag features
+## Random forest with lag features
 
 ```{python}
-imp = SimpleImputer()
-X_lag_features_imp = imp.fit_transform(X_lag_features)
-eval_on_features(X_lag_features_imp, y, regressor,  xtick_labels, feat_names="Lag features")
+#| echo: false
+lag_forest_model = compare("Forest: lags", make_pipeline(SimpleImputer(), forest), lag_features)
 ```
 
-Better than the linear model but worse than our best model. 
+Does a nonlinear model use these same lags more effectively? Check validation MAE.
 
-## Ridge with all features
-```{python}
-X_hour_week_onehot_poly_lag = np.hstack([X_hour_week_onehot_poly, X_lag_features])
-eval_on_features(X_hour_week_onehot_poly_lag, y, lr, xtick_labels, feat_names = "hour of day OHE + day of week OHE + interaction feats + Lag feats")
-```
+## Ridge with all features {.smaller}
 
-Good scores. But lag features don't seem to help much in this case. 
-
-
-## RF with all features
+Calendar columns use **one-hot encoding + interactions**; lag columns use **imputation**. Both transformations are fitted within each fold.
 
 ```{python}
-X_hour_week_lag = np.hstack([X_hour_week, X_lag_features])
-eval_on_features(X_hour_week_lag, y, regressor,  xtick_labels, feat_names = "hour of day + day of week + Lag feats")
+#| echo: false
+combined = pd.concat([calendar_features, lag_features], axis=1)
+lag_columns = lag_features.columns.tolist()
+combined_preprocessor = ColumnTransformer([
+    ("calendar", make_pipeline(
+        OneHotEncoder(handle_unknown="ignore", sparse_output=False),
+        PolynomialFeatures(interaction_only=True, include_bias=False),
+    ), ["hour", "weekday"]),
+    ("lags", SimpleImputer(), lag_columns),
+])
+combined_ridge = make_pipeline(combined_preprocessor, Ridge())
+combined_model = compare("Ridge: calendar + lags", combined_ridge, combined)
 ```
 
-Lag features seem to make things a bit worse in this case.
+Combine weekday-specific hourly patterns with recent demand. Does validation MAE improve?
 
-## Cross-validation with time series
-
-- We can't do regular cross-validation if we don't want to be predicting the past.
-
-- There is [`TimeSeriesSplit`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html) for time series data. 
+## Random forest with all features
 
 ```{python}
-from sklearn.model_selection import TimeSeriesSplit
-# Code from sklearn documentation
-X_toy = np.array([[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]])
-y_toy = np.array([1, 2, 3, 4, 5, 6])
-tscv = TimeSeriesSplit(n_splits=3)
-for train, test in tscv.split(X_toy):
-    print("%s %s" % (train, test))
+#| echo: false
+combined_forest = make_pipeline(SimpleImputer(), forest)
+combined_forest_model = compare("Forest: calendar + lags", combined_forest, combined)
+
 ```
 
-# Forecasting further into the future 
+The forest learns calendar interactions through its splits. Adding history is useful only if it improves validation performance.
 
-## Problem
-- So far, our lag features let us predict 3 hours ahead. 
-- What if we want to predict 15 hours in the future? 
+## What did the feature comparisons show? {.smaller}
 
-- Problem: We do not yet know the rental counts for the required lag timestamps:
-    - 2015-09-01 00:00:00
-    - 2015-09-01 03:00:00
-    - 2015-09-01 06:00:00
-    - 2015-09-01 09:00:00
-- Without those values, our lag features break 😢
+Compare models **and baselines** on the same validation windows.
+
+::: {style="max-height: 350px; overflow: auto;"}
+
+```{python}
+#| echo: false
+comparison = pd.concat([
+    pd.Series(baseline_scores), pd.Series(validation_results)
+]).sort_values().rename("Validation MAE (rentals)")
+comparison.round(2).to_frame()
+```
+
+:::
+
+The hour + weekday forest has the lowest validation MAE; adding lags does not improve it here. Small differences on this short series may be uncertain.
+
+## One final test {.smaller}
+
+Select the model with the lowest validation MAE, refit its full pipeline on **all 23 development days**, then evaluate once on the final eight days.
+
+```{python}
+#| echo: false
+best_name = min(validation_results, key=validation_results.get)
+selected_model, selected_features = candidates[best_name]
+fitted_model = clone(selected_model).fit(selected_features.iloc[:n_train], train)
+test_predictions = fitted_model.predict(selected_features.iloc[n_train:])
+print("Selected:", best_name)
+print(f"Final test MAE: {mean_absolute_error(test, test_predictions):.2f} rentals")
+fig, ax = plt.subplots(figsize=(10, 3))
+test.plot(ax=ax, label="Observed")
+pd.Series(test_predictions, index=test.index).plot(ax=ax, label="Forecast")
+ax.set(xlabel="Interval start", ylabel="Rentals")
+ax.legend()
+plt.show()
+```
+
+Successive one-step forecasts still use completed counts as they arrive. Do not use this test result to choose another model.
+
+# Forecasting further into the future
+
+## What changes when we forecast further ahead?
+
+- At **00:00 on September 1**, suppose we need predictions for the next five three-hour periods, through **12:00–15:00**.
+- The count for **21:00–00:00** is known.
+- Counts for periods starting at **00:00, 03:00, 06:00, and 09:00** are not yet known.
+
+**How can we build lag features for later predictions without those actual counts?**
 
 ## Approach 1: Iterative forecasting {.smaller}
 
@@ -523,44 +736,36 @@ Train one model that predicts 3 hours ahead. At prediction time, move forward st
 - Use both predictions to predict rentals at 06:00.
 - Continue until you reach 12:00.
 
-This method works, but errors accumulate as we step forward. The longer the horizon, the more uncertainty grows. 
+This method works, but errors accumulate as we step forward. The longer the horizon, the more uncertainty grows.
 
-## Approach 2: Direct forecasting (multiple horizons)
+## Approach 2: Direct forecasting (multiple horizons) {.smaller}
 
 - Train separate models for each horizon:
   - Model 1 $\rightarrow$ predict 3 hours ahead
   - Model 2 $\rightarrow$ predict 6 hours ahead
   - Model 3 $\rightarrow$ predict 9 hours ahead
 
-Each model uses lag features that match the required horizon.
+All models use observations available at the **same forecast origin**.
+
+For each horizon, shift the target forward while keeping lag inputs in the known past. Future calendar features are also available.
 
 
-## (Optional) Approach 3: Multi-output models (joint forecasting)
+## Optional: Multi-output forecasting {.slide-optional}
 
 - Train one model that predicts several future steps at once, e.g.:
 
   ```y = [rentals_in_3h, rentals_in_6h, rentals_in_9h, ...]```
 
-- These models learn relationships across future time steps.
+- Some models share information across future steps; others fit outputs independently.
 - Note: Multi-output forecasting is powerful, but outside the scope of CPSC 330.
 
-# Seasonality and trends 
+# Modeling trends
 
-**Time series often show recognizable patterns over time**, which we want our models to capture.
-
-## Seasonality
-
-**Seasonality** refers to a **repeating pattern** that occurs at regular, predictable intervals.
-
-- **Example 1:** Bike rentals tend to peak at the same hours each day (daily seasonality).  
-- **Example 2:** Retail sales consistently spike before the December holidays (annual seasonality).
-- Recognizing seasonality helps a model **anticipate recurring patterns** rather than mistake them for noise.
-- We can capture seasonality by adding features such as: `rush_hour`, `is_weekend`, and `is_holiday`
-
+We have used calendar features for **repeating patterns**. What about **long-term change**?
 
 ## Trends {.smaller}
 
-Let's consider another time series dataset, [Retail Sales of Clothing and Clothing Accessory Stores dataset](https://fred.stlouisfed.org/series/MRTSSM448USN). 
+Let's consider another time series dataset, [Retail Sales of Clothing and Clothing Accessory Stores dataset](https://fred.stlouisfed.org/series/MRTSSM448USN).
 
 ```{python}
 retail_df = pd.read_csv("data/MRTSSM448USN.csv", parse_dates=["DATE"])
@@ -571,30 +776,24 @@ It looks like there's a clear trend; retail sales gradually increase over time. 
 
 Question: How might we encode this trend information so our models can use it?
 
-## Days since feature {.scrollable .smaller}
+## Days since feature {.smaller}
 
-One idea is to create a feature such as "Days_since"
+Encode long-term change as **elapsed time from a fixed reference date**.
 
 ```{python}
-def lag_df(df, lag, cols):
-    return df.assign(
-        **{f"{col}-{n}": df[col].shift(n) for n in range(1, lag + 1) for col in cols}
-    )
-retail_lag_5 = lag_df(retail_df, 5, ["sales"])
-retail_train_5 = retail_lag_5.query("date <= 20160101")
-retail_test_5 = retail_lag_5.query("date >  20160101")
-retail_train_5_date = retail_lag_5.query("date <= 20160101")
-first_day_retail = retail_train_5_date["date"].min()
-
-retail_train_5_date = retail_train_5_date.assign(
-    Days_since=retail_train_5_date["date"].apply(lambda x: (x - first_day_retail).days)
+#| echo: true
+first_day_retail = retail_df["date"].min()
+retail_with_time = retail_df.assign(
+    Days_since=(retail_df["date"] - first_day_retail).dt.days
 )
-retail_train_5_date.head(10)
+retail_with_time.head(6)
 ```
 
-# Types of time series 
+A linear model can learn a slope for this feature. A random forest still cannot extrapolate a trend beyond its training range.
 
-## Univariate time series: Bike rentals
+# Optional: Types of time series
+
+## Univariate time series: Bike rentals {.slide-optional .smaller}
 
 A **univariate time series** tracks *one* variable over time. Here, we only measure the number of bike rentals at each timestamp.
 
@@ -607,9 +806,9 @@ A **univariate time series** tracks *one* variable over time. Here, we only meas
 | 2015-08-03 09:00:00  |    9    |
 
 
-## Multivariate time series: Bike rentals with weather + traffic {.smaller}
+## Multivariate time series {.slide-optional .smaller}
 
-A **multivariate time series** records several variables at each timestamp.  
+A **multivariate time series** records several variables at each timestamp.
 Here, we track bike rentals along with weather and local traffic conditions.
 
 | datetime            | rentals | temp_C | humidity | wind_kmh | traffic_level |
@@ -620,12 +819,13 @@ Here, we track bike rentals along with weather and local traffic conditions.
 | 2015-08-01 18:00    |   30    |   21    |    60    |    20    |       3        |
 | 2015-08-02 09:00    |   10    |   17   |    70    |    15    |       1        |
 
-## Hierarchical time series: Bike sales across cities and stores {.smaller}
+## Hierarchical time series {.slide-optional .smaller}
 
-Consists of multiple variables from multiple observations, nested within the larger group categories, recorded sequentially over time (e.g., bike sales from multiple stores over time)
+Related time series form an aggregation hierarchy: store sales add up to city sales, and city sales add up to company sales.
 
 :::: {.columns}
-:::{.column width="60%"}
+
+::: {.column width="60%"}
 
 | city      | store_id | date        | bike_sales |
 |-----------|----------|-------------|------------|
@@ -639,7 +839,8 @@ Consists of multiple variables from multiple observations, nested within the lar
 | Victoria | M2       | 2024-01-02  |     13     |
 
 :::
-:::{.column width="40%"}
+
+::: {.column width="40%"}
 
 ```
 Company
@@ -650,24 +851,20 @@ Company
       ├── M1 time series
       └── M2 time series
 ```
+
 :::
+
 ::::
 
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_19_time-series.ipynb) 
+# Check out the [demo](https://ubc-cs.github.io/cpsc330-book/book/chapter-19-time-series-demo.html)
 
 
-## What did we learn today? {.smaller}
+## Back to today's big questions {.slide-summary .smaller}
 
-- **Time series** data has an inherent order. 
-- Correct **train/test splitting** must respect time (no shuffling!).
-- **Modeling considerations:**
-  - ML models can handle time series *if we engineer meaningful temporal features*.
-  - **Linear models** struggle with cyclic numeric features unless encoded properly.
-  - **Tree-based models** cannot extrapolate beyond the training range.
-- Forecasting further ahead with iterative forecasting 
-- **Seasonality** = repeating patterns (daily, weekly, annual). 
-- **Trends** = long-term upward/downward movement
+1. **What changes with time order?** Recent observations, repeating patterns (**seasonality**), and long-term **trends** can inform predictions.
+2. **How do we evaluate forecasts?** Compare baselines and models using temporal validation MAE; fit preprocessing within folds, then evaluate the selected model once on the final test.
+3. **Which features help?** Calendar, interaction, lag, and elapsed-time features; their encoding must suit the model. Trees cannot extrapolate trends.
+4. **How do we forecast further ahead?** Use predictions as future lag inputs (**iterative**) or train a model for each horizon (**direct**).
 
-**The key to successful time-series modeling: Choose the right features + choose the right model for the temporal structure.**
-
+**Baseline → temporal validation → model selection → one final test.**

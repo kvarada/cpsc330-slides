@@ -1,0 +1,22 @@
+---
+title: "Lecture 19: Time series"
+description: "Time series forecasting with machine learning: chronological evaluation, temporal feature engineering, multi-step forecasts, seasonality, and trends"
+description-short: "Time series and forecasting"
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-19-time-series.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-19-time-series.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Motivation and time series data
+- Chronological train/test splitting and cross-validation
+- Temporal feature engineering: calendar, interaction, and lag features
+- Forecasting multiple time steps into the future
+- Seasonality and trends
