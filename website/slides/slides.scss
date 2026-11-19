@@ -189,3 +189,13 @@ div.shinylive-wrapper {
   overflow-y: scroll;
   height: 400px; 
 }
+
+// Keep the shift example readable without wrapping timestamps into tall rows.
+.reveal .shift-output table {
+  font-size: 0.65em;
+
+  th, td {
+    white-space: nowrap;
+    padding: 0.15em 0.3em;
+  }
+}

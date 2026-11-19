@@ -262,6 +262,10 @@ Do you see any daily patterns? Weekly patterns? Noise?
 
 Expected observations: repeating daily peaks, quieter intervals, differences across days, and irregular fluctuations. The gray bands mark Saturdays and Sundays; weekday labels make it easier to compare the same hour across different days. Ask students to compare weekdays and weekends, but avoid treating every bump as a stable pattern: this is only one month at one station. A pattern is useful for forecasting only if it carries forward.
 
+Ask: “The weekend peaks look wider. What might that mean?” A wider peak suggests rental activity stays elevated over a broader part of the day, whereas sharper weekday peaks suggest activity concentrated in particular time slots. Commuting on weekdays and more flexible leisure trips on weekends are plausible explanations, but the counts alone do not establish trip purposes or a universal rush-hour pattern.
+
+Distinguish width from total volume: a broader peak does not necessarily mean more rentals overall. Compare daily totals before making that claim. Describe what this plot supports: “Weekday demand appears more concentrated around particular hours; weekend demand stays elevated over a broader part of the day.”
+
 :::
 
 ## ⛔️ Incorrect data splitting
@@ -391,6 +395,55 @@ Why might yesterday beat the immediately preceding period? Yesterday at 09:00 is
 
 :::
 
+## What does `shift` do? {.smaller}
+
+`shift(k)` puts the value from **$k$ rows earlier** alongside the current row.
+
+:::: {.columns}
+::: {.column width="43%"}
+
+```{python}
+#| echo: true
+shift_example = pd.DataFrame({
+    "Original": rentals,
+    "shift(1)": rentals.shift(1),
+    "shift(8)": rentals.shift(8),
+})
+```
+
+- **1 row = 3 hours** in this dataset.
+- **8 rows = 24 hours**: the same interval yesterday.
+- Leading **NaN** values mean no earlier observation is available.
+
+:::
+::: {.column width="57%"}
+
+::: {.scroll-container .shift-output style="height: 460px;"}
+
+```{python}
+#| echo: true
+shift_example.head(12)
+```
+
+:::
+
+:::
+::::
+
+**At a row labeled 2015-08-02 09:00:00, which earlier interval does `shift(8)` refer to?**
+
+::: {.notes}
+Use the actual first 12 rental counts so students can trace values from the original column into the shifted columns. Pick the second row: its shift(1) value is the first row's original value. Pick the ninth row: its shift(8) value is the first row's original value, now aligned with the same time on the next day. Pandas leaves the row labels in place and shifts the values down; it does not relabel the timestamps here.
+
+Pause for students to answer the question, then trace eight rows back from 2015-08-02 09:00:00. Eight three-hour steps equal 24 hours, so shift(8) contains the original value at 2015-08-01 09:00:00: the rental count for **August 1, 09:00–12:00**. Ask students to match that earlier row's Original entry to the current row's shift(8) entry.
+
+Contrast the three columns at 2015-08-02 09:00:00: Original is the target count for August 2, 09:00–12:00; shift(1) is the completed August 2, 06:00–09:00 count; shift(8) is the August 1, 09:00–12:00 count. At prediction time, both shifted counts are historical, while the current interval's target is unknown. The daily baseline repeats yesterday's count for the same time slot, not the total count for yesterday.
+
+Shift counts rows, not elapsed time. The three-hour and daily interpretations require sorted, regularly spaced observations; a missing row would break that correspondence. The first row has no lag-1 value and the first eight rows have no lag-8 values within this series. Do not fill those gaps with future observations.
+
+Connect back to the baseline results: these shifted columns supplied the previous-interval and same-interval-yesterday forecasts. The daily baseline reuses an observation from a similar time of day.
+:::
+
 ## Reading the model comparisons {.smaller}
 
 - **Mean validation MAE:** averaged over all three temporal folds.
@@ -495,7 +548,13 @@ calendar[["elapsed_seconds"]].head(6)
 
 ::: {.notes}
 
-Prediction question: a standard forest given only the increasing timestamp will produce a constant for all later timestamps. The large number itself is not the central problem; converting seconds to days would leave the ordering and the forest’s inability to extend the pattern unchanged.
+Explain the displayed values first: elapsed_seconds encodes each timestamp as a single number of seconds since the Unix epoch. In the setup code, as_unit("s") explicitly requests seconds before extracting the integer values. Consecutive observations are three hours apart, so these values increase by 10,800 seconds per row. The index remains a readable timestamp; the numeric column is what we supply to the model.
+
+This representation preserves chronological position and elapsed gaps. It does not explicitly tell the model that two observations are both at 09:00, or both on a Saturday. Tomorrow at 09:00 has a larger numeric value than today at 09:00, rather than sharing a recurring hour-of-day feature. Connect this to the daily patterns and broader weekend peaks seen earlier.
+
+Ask students to predict: “If we give a random forest only this increasing number, will it repeat the daily pattern for future dates?” Leave the result for the next slide. The issue is not simply that the values are large: changing seconds to days would preserve their ordering and would not teach the forest a repeating cycle.
+
+For a real dataset, establish the timestamps' timezone before interpreting epoch values. This dataset's index is timezone-naive; converting its stored values to seconds does not establish that the original observations were recorded in UTC. Calendar-hour features should use the timezone relevant to the forecasting task.
 
 :::
 
@@ -598,8 +657,17 @@ Add weekday so the model can distinguish a weekend afternoon from a weekday afte
 ```{python}
 #| echo: true
 calendar_features = calendar[["hour", "weekday"]]
-calendar_features.head(6)
 ```
+
+::: {.scroll-container}
+
+```{python}
+#| echo: false
+with pd.option_context("display.max_rows", None):
+    display(calendar_features)
+```
+
+:::
 
 ::: {.notes}
 
@@ -664,7 +732,7 @@ Think of one-hot encoding as giving each observed hour its own adjustable contri
 onehot_model = compare("Ridge: one-hot calendar", calendar_ridge, calendar_features)
 ```
 
-The hourly effects are more flexible, but the same hourly profile is used on every weekday.
+One-hot encoding gives each hour its own effect, but **the 09:00 effect is still the same on Monday and Sunday**.
 
 ::: {.notes}
 
@@ -676,7 +744,7 @@ What remains missing? The additive model applies the same hourly effect on every
 
 **Does 09:00 mean the same rental demand on Monday and Sunday?**
 
-**Interactions** let the hourly effect depend on the weekday.
+**Interactions** add features for combinations such as **09:00 × Monday** and **09:00 × Sunday**.
 
 ```{python}
 #| echo: true
@@ -689,31 +757,59 @@ interaction_ridge = make_pipeline(
 
 ::: {.notes}
 
-Answer: 09:00 may reflect commuting on Monday and a quieter start on Sunday. Suppose the main effects contribute +8 for 09:00 and +3 for Monday; the additive contribution is +11. An interaction of +6 for Monday × 09:00 would make it +17. These numbers are illustrative, not fitted coefficients.
+An additive model combines an hour effect with a weekday effect. An interaction adds a contribution that is active only for a particular combination, so the model can learn different daily profiles. For example, weekday commuting and broader weekend activity may produce different 09:00 demand; those trip purposes remain hypotheses rather than observed labels.
+
+PolynomialFeatures multiplies pairs of one-hot indicators while retaining the original indicators. The default degree is 2; interaction_only=True excludes squared terms. Products between different hour indicators or different weekday indicators are always zero. The useful new terms are hour–weekday pairs. The next slide shows actual transformed features, not manually assigned values.
 
 :::
 
-## Example: one-hot calendar features {.smaller}
+## A feature that switches on only on Monday at 09:00 {.smaller}
 
-::: {style="max-height: 360px; overflow: auto;"}
+Multiply the two one-hot indicators:
 
 ```{python}
 #| echo: false
-encoder = onehot_model.named_steps["onehotencoder"]
-encoded_calendar = pd.DataFrame(
-    encoder.transform(calendar_features.iloc[plot_fit_rows]),
-    columns=encoder.get_feature_names_out(),
-    index=train.index[plot_fit_rows],
+interaction_features = clone(interaction_ridge[:-1])
+fit_calendar = calendar_features.iloc[plot_fit_rows]
+interaction_features.fit(fit_calendar)
+
+# Select actual training rows satisfying each pair of conditions.
+example_times = [
+    fit_calendar.index[
+        (fit_calendar["hour"] == hour) & (fit_calendar["weekday"] == day)
+    ][0]
+    for hour, day in [(9, 0), (12, 0), (9, 6)]
+]
+example_calendar = fit_calendar.loc[example_times]
+encoded_interactions = pd.DataFrame(
+    interaction_features.transform(example_calendar),
+    columns=interaction_features.get_feature_names_out(),
+    index=pd.Index(
+        ["Monday 09:00", "Monday 12:00", "Sunday 09:00"], name="Time"
+    ),
 )
-display(encoded_calendar.head(8))
+selected_interactions = encoded_interactions.loc[:, [
+    "hour_9", "weekday_0", "hour_9 weekday_0",
+]].rename(columns={
+    "hour_9": "Hour = 09:00",
+    "weekday_0": "Monday",
+    "hour_9 weekday_0": "Product",
+})
+display(selected_interactions.astype(int))
 ```
 
-:::
+The new feature is **1 only when both conditions hold**.
+
+Ridge can learn an **extra adjustment for Monday at 09:00**.
 
 ::: {.notes}
+The table is computed from actual training rows with the same one-hot and PolynomialFeatures transformations as the model pipeline. Preprocessing is fitted only on the illustrated training fold. Only two original indicators and one interaction are displayed.
 
-Ask students to locate the two active indicators in a row: one hour and one weekday. Multiplying those indicators produces 1 only when both are active. Products between two different hour indicators are always zero because an interval cannot simultaneously begin at 06:00 and 09:00.
+Read the rows aloud: Monday at 09:00 gives 1 × 1 = 1. Monday at 12:00 gives 0 × 1 = 0. Sunday at 09:00 gives 1 × 0 = 0. Ask: “Why is the product zero in each of the last two rows?” This is a feature indicating that both conditions hold, not a rental prediction.
 
+The same multiplication creates features for other hour–weekday combinations, letting the model adjust the hourly pattern differently on different days. No need to enumerate those columns here. Original hour and weekday indicators remain in the model; the interaction coefficient adds to their contributions and the intercept, rather than representing the whole prediction or a causal effect.
+
+Transition: “We have given Ridge a way to make a special adjustment for each hour–weekday combination. Does that help on validation data?”
 :::
 
 ## Ridge with one-hot and interaction features {.smaller}
@@ -723,7 +819,7 @@ Ask students to locate the two active indicators in a row: one hour and one week
 interaction_model = compare("Ridge: calendar interactions", interaction_ridge, calendar_features)
 ```
 
-Interactions allow the daily demand profile to change with the weekday. Compare the validation MAE with the additive model.
+**Do hour–weekday interactions improve validation MAE over one-hot features alone?**
 
 ::: {.notes}
 
@@ -742,14 +838,16 @@ encoder = interaction_model.named_steps["onehotencoder"]
 names = poly.get_feature_names_out(encoder.get_feature_names_out())
 weights = pd.Series(interaction_model.named_steps["ridge"].coef_, index=names)
 interaction_weights = weights[weights.index.str.contains(" ")]
-interaction_weights.loc[interaction_weights.abs().nlargest(6).index].to_frame("Coefficient")
+interaction_weights.loc[
+    interaction_weights.abs().nlargest(6).index
+].sort_values(ascending=False).to_frame("Coefficient")
 ```
 
 The full prediction includes the intercept and other active terms. A coefficient is **neither the total effect nor a causal effect**.
 
 ::: {.notes}
 
-How should we interpret the coefficients? A positive interaction adjusts that combination upward relative to the other active terms; a negative one adjusts it downward. It does not mean changing the clock would cause that many extra rentals. Overlapping indicator columns also mean Ridge can distribute a pattern across several coefficients, so do not read one coefficient as the full predicted demand.
+The table selects the six interaction coefficients with the largest absolute values, then displays them from highest to lowest signed coefficient. How should we interpret the coefficients? A positive interaction adjusts that combination upward relative to the other active terms; a negative one adjusts it downward. It does not mean changing the clock would cause that many extra rentals. Overlapping indicator columns also mean Ridge can distribute a pattern across several coefficients, so do not read one coefficient as the full predicted demand.
 
 :::
 
@@ -813,7 +911,7 @@ lagged = add_lags(rentals_df, "rentals", [1, 2, 3, 4, 5, 8])
 lag_features = lagged.drop(columns="rentals")
 ```
 
-::: {style="max-height: 200px; overflow: auto;"}
+::: {.scroll-container .shift-output style="height: 300px; overflow: auto;"}
 
 ```{python}
 #| echo: false
@@ -840,15 +938,13 @@ We make **successive one-step forecasts** within each validation fold (and later
 
 The model stays fixed; **the available observations grow**.
 
-Predicting the entire test period at 09:00 would be a different task: later actual counts would not yet be available.
-
 ::: {.notes}
 
 Answer: earlier validation counts may be used only because they arrive before the next prediction. Compare a dashboard refreshed every three hours with a staffing plan fixed at midnight: the dashboard can use new actual counts, while the plan cannot. These are different forecasting tasks even if they use the same train/validation dates.
 
 :::
 
-## Ridge with lag features
+## Ridge with lag features {.smaller}
 
 ```{python}
 #| echo: false
@@ -863,7 +959,7 @@ Recent counts can be correlated with each other, and a linear combination may st
 
 :::
 
-## Random forest with lag features
+## Random forest with lag features {.smaller}
 
 ```{python}
 #| echo: false
@@ -880,7 +976,7 @@ Does a forest use the lags more effectively? In this comparison, yes: validation
 
 ## Ridge with all features {.smaller}
 
-Calendar columns use **one-hot encoding + interactions**; lag columns use **imputation**. Both transformations are fitted within each fold.
+Calendar columns use **one-hot encoding + interactions**; lag columns use **imputation**. Both transformations are fitted within each fold. Combine weekday-specific hourly patterns with recent demand. Does validation MAE improve?
 
 ```{python}
 #| echo: false
@@ -897,15 +993,15 @@ combined_ridge = make_pipeline(combined_preprocessor, Ridge())
 combined_model = compare("Ridge: calendar + lags", combined_ridge, combined)
 ```
 
-Combine weekday-specific hourly patterns with recent demand. Does validation MAE improve?
-
 ::: {.notes}
 
 Does combining information improve Ridge here? No: MAE increases from about 4.79 for calendar interactions to 5.09 with lags. Recent counts may overlap with information already captured by the calendar, and extra coefficients must be estimated from little data. An added feature is a hypothesis to validate, not free accuracy.
 
 :::
 
-## Random forest with all features
+## Random forest with all features {.smaller}
+
+The forest learns calendar interactions through its splits. Adding history is useful only if it improves validation performance.
 
 ```{python}
 #| echo: false
@@ -914,7 +1010,7 @@ combined_forest_model = compare("Forest: calendar + lags", combined_forest, comb
 
 ```
 
-The forest learns calendar interactions through its splits. Adding history is useful only if it improves validation performance.
+
 
 ::: {.notes}
 
@@ -931,7 +1027,11 @@ Compare models **and baselines** on the same validation windows.
 ```{python}
 #| echo: false
 comparison = pd.concat([
-    pd.Series(baseline_scores), pd.Series(validation_results)
+    pd.Series(baseline_scores).rename(index={
+        "Previous interval": "Baseline: persistence (previous interval)",
+        "Same interval yesterday": "Baseline: seasonal naive (yesterday)",
+    }),
+    pd.Series(validation_results),
 ]).sort_values().rename("Validation MAE (rentals)")
 comparison.round(2).to_frame()
 ```
@@ -942,7 +1042,7 @@ The hour + weekday forest has the lowest validation MAE; adding lags does not im
 
 ::: {.notes}
 
-The calendar forest wins this validation comparison, and the seasonal baseline already beats several learned alternatives. Ask whether a complex model would be worth maintaining for a tiny improvement over a simple rule. We have only one month from one station, so the ranking is evidence for this setup rather than a general leaderboard of model families.
+The table includes both baselines and all fitted-model comparisons, sorted from lowest to highest validation MAE on the same folds. Persistence repeats the previous interval; seasonal naive repeats yesterday's same interval. The calendar forest wins this validation comparison, and the seasonal baseline already beats several learned alternatives. Ask whether a complex model would be worth maintaining for a tiny improvement over a simple rule. We have only one month from one station, so the ranking is evidence for this setup rather than a general leaderboard of model families.
 
 :::
 
@@ -1201,7 +1301,7 @@ Use the demo to ask how the workflow changes when data comes from several locati
 3. **Which features help?** Calendar, interaction, lag, and elapsed-time features; their encoding must suit the model. Trees cannot extrapolate trends.
 4. **How do we forecast further ahead?** Use predictions as future lag inputs (**iterative**) or train a model for each horizon (**direct**).
 
-**Baseline → temporal validation → model selection → one final test.**
+**Baseline $\to$ temporal validation $\to$ model selection $\to$ one final test.**
 
 ::: {.notes}
 
