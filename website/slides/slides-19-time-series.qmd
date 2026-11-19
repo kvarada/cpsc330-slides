@@ -25,6 +25,7 @@ execute:
 ```{python}
 #| include: false
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import mglearn
 import numpy as np
 import pandas as pd
@@ -38,6 +39,21 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import TimeSeriesSplit, cross_val_score, train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures
+
+
+def style_rental_dates(ax, start, end):
+    """Use daily weekday labels and shade complete weekend days."""
+    start, end = pd.Timestamp(start), pd.Timestamp(end)
+    ax.set_xlim(start, end)
+    for day in pd.date_range(start.normalize(), end.normalize(), freq="D"):
+        if day.dayofweek >= 5:
+            ax.axvspan(day, day + pd.Timedelta(days=1),
+                       color="0.5", alpha=0.12, linewidth=0, zorder=0)
+    ax.xaxis.set_major_locator(mdates.DayLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%a %b %d"))
+    ax.tick_params(axis="x", labelsize=9)
+    plt.setp(ax.get_xticklabels(), rotation=60, ha="right")
+    ax.set_xlabel("Interval start (shaded: weekends)")
 ```
 
 
@@ -233,20 +249,18 @@ A random forest does not remember the previous row merely because we pass rows i
 ```{python}
 print(f"Start date: {citibike.index.min()}, End date: {citibike.index.max()}")
 
-plt.figure(figsize=(10, 4))
-xtick_labels = pd.date_range(start=citibike.index.min(), end=citibike.index.max(), freq="D")
-plt.xticks(xtick_labels,  xtick_labels.strftime("%a %m-%d"), rotation=90, ha="left")
-plt.plot(citibike, linewidth=1)
-plt.xlabel("Date")
-plt.ylabel("Rentals");
-plt.title("Number of bike rentals over time for a selected bike station");
+fig, ax = plt.subplots(figsize=(11, 4))
+ax.plot(citibike.index, citibike, linewidth=1)
+style_rental_dates(ax, citibike.index.min(), citibike.index.max())
+ax.set(ylabel="Rentals", title="Bike rentals over time at one station")
+plt.show()
 ```
 
 Do you see any daily patterns? Weekly patterns? Noise?
 
 ::: {.notes}
 
-Expected observations: repeating daily peaks, quieter intervals, differences across days, and irregular fluctuations. Ask students to compare weekdays and weekends, but avoid treating every bump as a stable pattern: this is only one month at one station. A pattern is useful for forecasting only if it carries forward.
+Expected observations: repeating daily peaks, quieter intervals, differences across days, and irregular fluctuations. The gray bands mark Saturdays and Sundays; weekday labels make it easier to compare the same hour across different days. Ask students to compare weekdays and weekends, but avoid treating every bump as a stable pattern: this is only one month at one station. A pattern is useful for forecasting only if it carries forward.
 
 :::
 
@@ -265,7 +279,7 @@ test_df_sort = test_df.sort_index()
 
 plt.plot(train_df_sort, "b", label="train")
 plt.plot(test_df_sort, "r", label="test")
-plt.xticks(rotation="vertical")
+style_rental_dates(plt.gca(), rentals.index.min(), rentals.index.max())
 plt.legend();
 ```
 
@@ -295,7 +309,7 @@ test_df_sort = test_df.sort_index()
 
 plt.plot(train_df_sort, "b", label="train")
 plt.plot(test_df_sort, "r", label="test")
-plt.xticks(rotation="vertical")
+style_rental_dates(plt.gca(), rentals.index.min(), rentals.index.max())
 plt.legend();
 ```
 
@@ -453,7 +467,8 @@ def compare(name, model, features):
         f"{name}\nIllustrated fold MAE: train {fit_mae:.2f}, validation {valid_mae:.2f}"
     ))
     ax.legend(loc="upper left", bbox_to_anchor=(1.01, 1))
-    fig.autofmt_xdate()
+    style_rental_dates(ax, boundary - pd.Timedelta(days=7),
+                       train.index[plot_valid_rows[-1]])
     plt.show()
     print(f"Mean cross-validation MAE: {scores.mean():.2f} rentals")
     return fitted
@@ -944,9 +959,10 @@ test_predictions = fitted_model.predict(selected_features.iloc[n_train:])
 print("Selected:", best_name)
 print(f"Final test MAE: {mean_absolute_error(test, test_predictions):.2f} rentals")
 fig, ax = plt.subplots(figsize=(10, 3))
-test.plot(ax=ax, label="Observed")
-pd.Series(test_predictions, index=test.index).plot(ax=ax, label="Forecast")
-ax.set(xlabel="Interval start", ylabel="Rentals")
+ax.plot(test.index, test, label="Observed")
+ax.plot(test.index, test_predictions, label="Forecast")
+ax.set_ylabel("Rentals")
+style_rental_dates(ax, test.index.min(), test.index.max())
 ax.legend()
 plt.show()
 ```
