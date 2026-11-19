@@ -8,6 +8,8 @@ format:
     embed-resources: true
     slide-number: true
     slide-level: 2
+    title-slide-attributes:
+      data-notes: "Today we will adapt familiar machine learning tools to forecasting. The main thread is bike-rental demand: what information is available, how to evaluate it fairly, and which temporal features help."
     theme: [slides.scss]
     center: true
     logo: img/UBC-CS-logo.png
@@ -39,15 +41,29 @@ from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures
 ```
 
 
+
+
 ## Focus on the breath!
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
+
+::: {.notes}
+
+Take one slow breath together. A brief pause also gives students a moment to stop switching tasks before the recap.
+
+:::
 
 ## Announcements
 
 - HW8 has been released (due next week Monday)
   - Almost there! You’ve got this! 😊
 - Midterm 2 grading is in progress.
+
+::: {.notes}
+
+Keep the logistics brief and confirm the homework deadline before presenting. Invite longer individual grading questions after class so the class can begin together.
+
+:::
 
 ## Recap: iClicker {.slide-your-turn .smaller}
 
@@ -61,13 +77,7 @@ from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures
 
 ::: {.notes}
 
-Correct answers: B, C, E.
-
-A: False. Bag-of-words discards word order, so it can miss differences in meaning caused by order.
-B: TF captures frequency within a document; IDF downweights terms that occur in many documents.
-C: Dense representations can capture semantic similarity beyond exact word overlap, though retrieval can still fail.
-D: False. Ordinary RAG changes the input context, not the generator's weights.
-E: Retrieval and generation can fail separately. Even useful passages do not guarantee that the generated answer follows the evidence.
+Answers: B, C, E. For A, “dog bites person” and “person bites dog” have identical word counts but different meanings. For D, think of RAG as an open-book exam: supplying the book changes what the model can consult, not its learned weights. Having the book still does not guarantee a correct answer.
 
 :::
 
@@ -82,7 +92,7 @@ E: Retrieval and generation can fail separately. Even useful passages do not gua
 
 ::: {.notes}
 
-For the catalog scenario: dense retrieval using text embeddings and cosine similarity. Embed the question and catalog descriptions, then rank descriptions by similarity. This task asks for relevant source text; generating an answer would be an additional step.
+Expected answers: collaborative filtering for missing ratings; clustering on document representations for themes; dense retrieval using embeddings and cosine similarity for catalog search; a pretrained image network as a feature extractor plus a classifier for the small image dataset. These are reasonable starting points, not unique solutions. Retrieval returns evidence; generating a recommendation from that evidence would be a separate step.
 
 :::
 
@@ -97,9 +107,7 @@ Time order $\to$ evaluation $\to$ temporal features $\to$ forecasting
 
 ::: {.notes}
 
-Use bike rentals as the running example: what can we know at prediction time, how should we test our predictions, and what features help us predict future demand?
-
-Temporal features include calendar information, lagged observations, seasonality, and trends. Connect the feature choices to the strengths and limitations of linear and tree-based models.
+Answers in brief: time order changes which information is available; evaluate by training earlier and validating later; represent calendar patterns and past counts as features; forecast several steps by feeding back predictions or fitting separate horizon models. A useful running question is: would this number actually be on our screen when we need to decide how many bikes to move?
 
 :::
 
@@ -117,6 +125,12 @@ Each row describes a customer applying for a loan. **What type of model would yo
 **Target:** default (1 = yes, 0 = no). Customer ID identifies the row.
 
 For this example, we treat customers as independent: **reordering rows does not change the prediction task.**
+
+::: {.notes}
+
+Answer: this is supervised binary classification; a preprocessing pipeline with logistic regression or a tree-based classifier is a reasonable starting point. Customer ID should not be treated as a meaningful numeric measurement. The independence assumption is deliberately simplified: real lending data can also change over time, so this example is a contrast rather than a claim that finance never needs temporal evaluation.
+
+:::
 
 ## Predict demand for bike rentals
 
@@ -137,6 +151,12 @@ What features might help us make an accurate prediction?
 :::
 
 ::::
+
+::: {.notes}
+
+Possible answers: hour, weekday, holidays, weather forecasts, and recent rental counts. Ask which weather input is available now: tomorrow’s observed rainfall is unavailable, but a forecast issued today could be used. Also distinguish demand from inventory: predicting bikes remaining would require starting stock and returns, not just rentals.
+
+:::
 
 ## Citi Bike data {.smaller}
 
@@ -167,6 +187,12 @@ citibike.head(6)
 
 **Using only the tools in your current toolbox, what model would you choose, and what challenges might you run into?**
 
+::: {.notes}
+
+A reasonable starting model is a regressor such as Ridge or a random forest, using extracted time information rather than a raw datetime object. Main challenges: representing repeating patterns, preserving time order in evaluation, and using only completed counts. A timestamp is both an address on a timeline and a source of reusable patterns; those are different ways of representing it.
+
+:::
+
 ## What do we know when we predict? {.smaller}
 
 At **09:00**, predict rentals during **09:00–12:00**.
@@ -176,10 +202,16 @@ At **09:00**, predict rentals during **09:00–12:00**.
 | 03:00–06:00 and 06:00–09:00 counts are known | **09:00** | **09:00–12:00** count is unknown |
 
 - Each timestamp labels the **start** of a three-hour rental period.
-- Calendar features for the target period are known in advance.
-- Lag features use counts from **completed periods**.
+- We already know the **hour and day of the week** for 09:00–12:00.
+- We can use rental counts from **completed periods**, such as 06:00–09:00.
 
 **Every feature must be available when we make the prediction.**
+
+::: {.notes}
+
+At 09:00 we know the hour, weekday, and completed 06:00–09:00 count; we do not know the 09:00–12:00 count. Suppose the station uploads counts 30 minutes late: then even the preceding period is unavailable at 09:00. Our example assumes immediate reporting; in practice, data arrival time matters as much as the timestamp printed on the row.
+
+:::
 
 ## Models for time series
 
@@ -189,6 +221,12 @@ Two broad approaches:
 - Use **tabular models with engineered temporal features**, such as Ridge, random forests, and gradient boosted trees.
 
 **Today: give familiar tabular models useful information about time.**
+
+::: {.notes}
+
+A random forest does not remember the previous row merely because we pass rows in chronological order. If two rows have identical inputs, a fixed model gives them the same prediction regardless of their neighbors. We must explicitly include the information that should distinguish them.
+
+:::
 
 ## Citi Bike data visualization
 
@@ -205,6 +243,12 @@ plt.title("Number of bike rentals over time for a selected bike station");
 ```
 
 Do you see any daily patterns? Weekly patterns? Noise?
+
+::: {.notes}
+
+Expected observations: repeating daily peaks, quieter intervals, differences across days, and irregular fluctuations. Ask students to compare weekdays and weekends, but avoid treating every bump as a stable pattern: this is only one month at one station. A pattern is useful for forecasting only if it carries forward.
+
+:::
 
 ## ⛔️ Incorrect data splitting
 
@@ -226,6 +270,12 @@ plt.legend();
 ```
 
 ⛔️ We should never train on the future to predict the past!
+
+::: {.notes}
+
+Why is the random split unsuitable here? A training count from August 25 could help a model being evaluated on August 10, although it would not exist when that forecast was made. Random splitting answers a different question: predicting a missing observation among known dates. Our task is forecasting later dates from earlier ones.
+
+:::
 
 ## ✅ Correct data splitting
 
@@ -249,6 +299,12 @@ plt.xticks(rotation="vertical")
 plt.legend();
 ```
 
+::: {.notes}
+
+The last eight days act like a sealed exam; validation is where we practice and choose an approach. Looking at the test score after every feature change gradually turns that exam into another development set. Chronological ordering fixes the direction of time, but we must still check that each feature was available at the forecast origin.
+
+:::
+
 ## Cross-validation with time series {.smaller}
 
 - Each validation window comes **after** its training window.
@@ -271,6 +327,12 @@ for fold, (fit_rows, valid_rows) in enumerate(cv.split(train), start=1):
 
 The final eight-day test period is excluded from every fold.
 
+::: {.notes}
+
+Why expand the window? Later folds imitate refitting as more observations accumulate. An alternative is a rolling window that drops older data, useful to consider if behavior changes. Here each validation block is four days; results can depend on which weekdays those blocks contain, so the folds are not independent repeated experiments.
+
+:::
+
 ## How will we compare forecasts?
 
 **Mean absolute error (MAE)** is the average absolute prediction error, measured in **rentals per three-hour interval**.
@@ -278,6 +340,12 @@ The final eight-day test period is excluded from every fold.
 - An MAE of 5 means predictions miss by **five rentals on average**.
 - **Lower is better.** Compare mean validation MAE over the same three folds.
 - Start with simple forecasts before fitting more complex models.
+
+::: {.notes}
+
+For errors of −2, +3, and −7 rentals, MAE is (2 + 3 + 7) / 3 = 4 rentals. Equal-sized over- and underpredictions count equally, although an operator might find underprediction more costly. MAE is an understandable starting point; it does not capture every operational cost or describe the largest error.
+
+:::
 
 ## Simple forecasting baselines {.smaller}
 
@@ -303,6 +371,12 @@ display(pd.Series(baseline_scores, name="Validation MAE"))
 
 These are successive one-step forecasts: completed counts become available between predictions.
 
+::: {.notes}
+
+Why might yesterday beat the immediately preceding period? Yesterday at 09:00 is closer in daily context to today at 09:00 than today at 06:00. The baseline MAEs are about 7.68 for yesterday and 13.04 for the previous interval. Neither knows about holidays or sudden disruptions, but they test whether a sophisticated model adds value beyond simple repetition.
+
+:::
+
 ## Reading the model comparisons {.smaller}
 
 - **Mean validation MAE:** averaged over all three temporal folds.
@@ -312,7 +386,19 @@ These are successive one-step forecasts: completed counts become available betwe
 
 Training fit shows what a model can represent; validation error shows what carries forward.
 
+::: {.notes}
+
+The final fold trains on August 1–19 and validates on August 20–23; only August 13 onward is shown. The first 12 days still train the model. The full month introduces repeating patterns; the zoom lets us inspect missed peaks and compare models on identical dates. The mean validation MAE summarizes all three folds, while the title’s train/validation errors describe this one fold.
+
+:::
+
 # Feature engineering for time series
+
+::: {.notes}
+
+A timestamp can be represented as a unique position or as a place in a repeating cycle. The next examples hold the evaluation fixed so we can ask which representation lets each model express the pattern we care about.
+
+:::
 
 ## From timestamps to useful features
 
@@ -375,6 +461,12 @@ def compare(name, model, features):
 
 ```
 
+::: {.notes}
+
+Consider Monday at 09:00 and the following Monday at 09:00. Their timestamps differ substantially, but their demand patterns may resemble each other. A useful representation makes that resemblance accessible to the model without assuming the two counts must be identical.
+
+:::
+
 ## POSIX time feature {.smaller}
 
 A simple numeric encoding is **seconds since the Unix epoch**, January 1, 1970, 00:00 UTC.
@@ -386,6 +478,12 @@ Will a random forest learn repeating demand from one increasing number?
 calendar[["elapsed_seconds"]].head(6)
 ```
 
+::: {.notes}
+
+Prediction question: a standard forest given only the increasing timestamp will produce a constant for all later timestamps. The large number itself is not the central problem; converting seconds to days would leave the ordering and the forest’s inability to extend the pattern unchanged.
+
+:::
+
 ## Random forest with POSIX time {.smaller}
 
 ```{python}
@@ -396,12 +494,24 @@ timestamp_model = compare("Forest: timestamp", forest, calendar[["elapsed_second
 
 The forest fits the training data, but predicts a constant for later timestamps. **Why?**
 
+::: {.notes}
+
+Answer to “Why?”: all validation timestamps lie beyond the largest training timestamp. In every tree they reach the same outermost leaf, so the forest returns the same average for all of them. The model can fit local historical values without discovering that tomorrow morning should resemble this morning.
+
+:::
+
 ## Trees cannot extrapolate!
 - Tree-based models only make predictions within the range of values they've seen during training.
 - Trees partition the feature space into fixed regions and predictions inside each region are averages of training labels.
 - If your future timestamps are larger than the ones in the training set trees cannot "see beyond" the training range and they will flatline or behave unpredictably.
 
 This is exactly what happens with POSIX time encoded as a single numeric feature!
+
+::: {.notes}
+
+Imagine a one-feature tree that splits at day 10 and day 20. Days 21, 30, and 100 all take the same final branch; there is no rule that continues a rising slope. Calendar inputs can still make a forest’s future predictions vary, so “cannot extrapolate a trend” does not mean “cannot forecast anything.”
+
+:::
 
 ## Seasonality
 
@@ -412,6 +522,11 @@ This is exactly what happens with POSIX time encoded as a single numeric feature
 - Recognizing seasonality helps a model **anticipate recurring patterns** rather than mistake them for noise.
 - We can capture seasonality by adding features such as: `rush_hour`, `is_weekend`, and `is_holiday`
 
+::: {.notes}
+
+Daily and weekly cycles count as seasonality even though they are much shorter than a season of the year. A hypothetical campus station might be busy at class-change times and quiet during a break. Repetition gives us a candidate feature, not a guarantee that the same pattern survives every holiday or schedule change.
+
+:::
 
 ## Extracting date and time information
 
@@ -425,6 +540,12 @@ print(citibike.index[0].dayofweek)
 print(citibike.index[0].hour)
 ```
 
+::: {.notes}
+
+The weekday output uses Monday = 0 through Sunday = 6; the first timestamp is a Saturday, so it gives 5. Hour and weekday extraction does not learn from future rental targets. A real deployment also needs a consistent timezone: the same UTC hour can correspond to different local commuting times across stations.
+
+:::
+
 ## Hour of day
 
 Hour-of-day values recur in future intervals, allowing a model to reuse daily patterns.
@@ -434,6 +555,12 @@ Hour-of-day values recur in future intervals, allowing a model to reuse daily pa
 calendar[["hour"]].head(6)
 ```
 
+::: {.notes}
+
+What is lost by keeping only hour? Monday at 09:00 and Sunday at 09:00 become identical inputs. No amount of fitting can distinguish those cases without another feature. Better training fit cannot recover information we removed from the representation.
+
+:::
+
 ## Random forest with hour of day {.smaller}
 
 ```{python}
@@ -442,6 +569,12 @@ hour_model = compare("Forest: hour", forest, calendar[["hour"]])
 ```
 
 The model repeats one daily profile. **What weekday–weekend differences does it miss?**
+
+::: {.notes}
+
+Answer: the model misses weekday–weekend differences because every date shares one hourly profile. It captures useful daily structure—mean validation MAE drops from about 11.40 to 6.97—but cannot explain why two days differ at the same hour. This is a representation limit, not merely too few trees.
+
+:::
 
 ## Hour of day + day of week {.smaller}
 
@@ -453,6 +586,12 @@ calendar_features = calendar[["hour", "weekday"]]
 calendar_features.head(6)
 ```
 
+::: {.notes}
+
+Adding weekday lets Monday at 09:00 differ from Sunday at 09:00. But weekday numbers are labels, not a claim that Sunday is “six units more” than Monday. Whether numeric encoding is adequate depends on how the chosen model uses those numbers.
+
+:::
+
 ## Random forest with hour of day + day of week {.smaller}
 
 ```{python}
@@ -462,6 +601,12 @@ calendar_forest_model = compare("Forest: hour + weekday", forest, calendar_featu
 
 Compare validation MAE with the hour-only model. **Does adding weekday help?**
 
+::: {.notes}
+
+Answer: adding weekday helps here; mean validation MAE drops from about 6.97 to 4.36. A tree can ask “weekday below 5?” and then split on hour, which naturally represents a different weekend pattern. These results support the feature in this example, not a universal promise that every added calendar field helps.
+
+:::
+
 ## Ridge with hour of day + day of week {.smaller}
 
 ```{python}
@@ -470,6 +615,12 @@ numeric_ridge_model = compare("Ridge: numeric calendar", Ridge(), calendar_featu
 ```
 
 One coefficient for hour imposes the same change per hour. **Can that describe morning and evening peaks?**
+
+::: {.notes}
+
+Answer: numeric hour gives Ridge one slope, so it cannot rise to a morning peak, fall, and rise again in the evening. Numeric weekday is similarly restrictive. Mean validation MAE is about 10.00; poor fit even on training data is a clue to this limitation. Merely changing the scale of hour would not make a straight-line effect express two peaks.
+
+:::
 
 ## One-hot encoding hour and day {.smaller}
 
@@ -485,6 +636,12 @@ calendar_ridge = make_pipeline(
 
 The pipeline fits the encoder separately inside each training fold. One-hot encoding does not explicitly encode closeness across midnight.
 
+::: {.notes}
+
+Think of one-hot encoding as giving each observed hour its own adjustable contribution. A useful limitation to mention: it does not share an explicit notion of proximity between 21:00 and 00:00. An unseen category also needs handling; this pipeline ignores it rather than failing, but the model has not learned a category-specific effect for it.
+
+:::
+
 ## Ridge with one-hot calendar features {.smaller}
 
 ```{python}
@@ -493,6 +650,12 @@ onehot_model = compare("Ridge: one-hot calendar", calendar_ridge, calendar_featu
 ```
 
 The hourly effects are more flexible, but the same hourly profile is used on every weekday.
+
+::: {.notes}
+
+What remains missing? The additive model applies the same hourly effect on every weekday. If a weekend effect adds five rentals, it adds those five at every hour; it cannot remove only the weekday morning peak. Encoding helps substantially—MAE is about 6.93—but the relationship between hour and day still matters.
+
+:::
 
 ## Add interaction features {.smaller}
 
@@ -508,6 +671,12 @@ interaction_ridge = make_pipeline(
     Ridge(),
 )
 ```
+
+::: {.notes}
+
+Answer: 09:00 may reflect commuting on Monday and a quieter start on Sunday. Suppose the main effects contribute +8 for 09:00 and +3 for Monday; the additive contribution is +11. An interaction of +6 for Monday × 09:00 would make it +17. These numbers are illustrative, not fitted coefficients.
+
+:::
 
 ## Example: one-hot calendar features {.smaller}
 
@@ -526,6 +695,12 @@ display(encoded_calendar.head(8))
 
 :::
 
+::: {.notes}
+
+Ask students to locate the two active indicators in a row: one hour and one weekday. Multiplying those indicators produces 1 only when both are active. Products between two different hour indicators are always zero because an interval cannot simultaneously begin at 06:00 and 09:00.
+
+:::
+
 ## Ridge with one-hot and interaction features {.smaller}
 
 ```{python}
@@ -534,6 +709,12 @@ interaction_model = compare("Ridge: calendar interactions", interaction_ridge, c
 ```
 
 Interactions allow the daily demand profile to change with the weekday. Compare the validation MAE with the additive model.
+
+::: {.notes}
+
+A linear model can have different daily profiles once the inputs include hour–weekday products; “linear” describes how coefficients combine the supplied columns. Mean validation MAE improves from about 6.93 to 4.79 here. A forest can discover interactions through splits, whereas Ridge needs them supplied as features.
+
+:::
 
 ## Interpretation {.smaller}
 
@@ -551,6 +732,12 @@ interaction_weights.loc[interaction_weights.abs().nlargest(6).index].to_frame("C
 
 The full prediction includes the intercept and other active terms. A coefficient is **neither the total effect nor a causal effect**.
 
+::: {.notes}
+
+How should we interpret the coefficients? A positive interaction adjusts that combination upward relative to the other active terms; a negative one adjusts it downward. It does not mean changing the clock would cause that many extra rentals. Overlapping indicator columns also mean Ridge can distribute a pattern across several coefficients, so do not read one coefficient as the full predicted demand.
+
+:::
+
 ## iClicker 19.2 {.slide-your-turn}
 
 **Select all of the following statements which are TRUE.**
@@ -559,6 +746,11 @@ The full prediction includes the intercept and other active terms. A coefficient
 - (B) Useful temporal features and an encoding suited to the model can improve forecasting performance.
 - (C) Tree-based models are good at predicting values beyond the range of the training set because they can extrapolate trends.
 
+::: {.notes}
+
+Answers: A and B are true; C is false. Follow-up: can a forest predict a future date at all? Yes—hour and weekday values recur, so it can reuse learned partitions. Its limitation is extending a trend beyond the observed target range, not accepting a date later than the training dates.
+
+:::
 
 ## Lag-based features {.smaller}
 
@@ -587,7 +779,11 @@ rentals_df.head(6)
 
 ::::
 
+::: {.notes}
 
+Imagine a hypothetical event near the station: today’s demand may be unusually high even at an otherwise quiet hour. Recent counts could signal that departure from the usual schedule. Conversely, a quiet 03:00 count may tell us little about a predictable 09:00 rush, which is why history and calendar information can complement each other.
+
+:::
 
 ## Creating lag features {.smaller}
 
@@ -613,6 +809,12 @@ lagged.head(10)
 
 `shift(1)` = three hours; `shift(8)` = yesterday, **only with regular spacing**. Initial missing values are imputed using training-fold statistics.
 
+::: {.notes}
+
+At a row labeled 09:00, lag 1 holds the completed 06:00–09:00 count, not the unknown 09:00–12:00 count. If the 06:00 row is missing, shift(1) may instead refer to a much older interval. Sort and check spacing before interpreting rows as fixed durations; do not fill an unknown historical count by silently borrowing a future one.
+
+:::
+
 ## How do we evaluate predictions with lags? {.smaller}
 
 We make **successive one-step forecasts** within each validation fold (and later, the final test).
@@ -625,6 +827,12 @@ The model stays fixed; **the available observations grow**.
 
 Predicting the entire test period at 09:00 would be a different task: later actual counts would not yet be available.
 
+::: {.notes}
+
+Answer: earlier validation counts may be used only because they arrive before the next prediction. Compare a dashboard refreshed every three hours with a staffing plan fixed at midnight: the dashboard can use new actual counts, while the plan cannot. These are different forecasting tasks even if they use the same train/validation dates.
+
+:::
+
 ## Ridge with lag features
 
 ```{python}
@@ -634,6 +842,12 @@ lag_ridge_model = compare("Ridge: lags", make_pipeline(SimpleImputer(), Ridge())
 
 Can recent counts alone anticipate the recurring peaks? Compare with the calendar models and baselines.
 
+::: {.notes}
+
+Recent counts can be correlated with each other, and a linear combination may still struggle with the transition from a quiet night to a busy morning. Lag-only Ridge has MAE about 7.75, close to the seasonal baseline’s 7.68. Do not overinterpret that small difference; the baseline already carries useful daily history through lag 8.
+
+:::
+
 ## Random forest with lag features
 
 ```{python}
@@ -642,6 +856,12 @@ lag_forest_model = compare("Forest: lags", make_pipeline(SimpleImputer(), forest
 ```
 
 Does a nonlinear model use these same lags more effectively? Check validation MAE.
+
+::: {.notes}
+
+Does a forest use the lags more effectively? In this comparison, yes: validation MAE is about 6.05 versus Ridge’s 7.75. A tree can respond differently depending on combinations of recent counts. It still loses to the calendar-only forest, suggesting that knowing the schedule is especially useful in this short example.
+
+:::
 
 ## Ridge with all features {.smaller}
 
@@ -664,6 +884,12 @@ combined_model = compare("Ridge: calendar + lags", combined_ridge, combined)
 
 Combine weekday-specific hourly patterns with recent demand. Does validation MAE improve?
 
+::: {.notes}
+
+Does combining information improve Ridge here? No: MAE increases from about 4.79 for calendar interactions to 5.09 with lags. Recent counts may overlap with information already captured by the calendar, and extra coefficients must be estimated from little data. An added feature is a hypothesis to validate, not free accuracy.
+
+:::
+
 ## Random forest with all features
 
 ```{python}
@@ -674,6 +900,12 @@ combined_forest_model = compare("Forest: calendar + lags", combined_forest, comb
 ```
 
 The forest learns calendar interactions through its splits. Adding history is useful only if it improves validation performance.
+
+::: {.notes}
+
+Does the combined forest win? No: MAE is about 5.56 compared with 4.36 for hour and weekday alone. Extra split choices can fit accidental details in a small sample. This result is a reason to keep a simpler candidate here, not a reason to exclude lags from every forecasting problem.
+
+:::
 
 ## What did the feature comparisons show? {.smaller}
 
@@ -692,6 +924,12 @@ comparison.round(2).to_frame()
 :::
 
 The hour + weekday forest has the lowest validation MAE; adding lags does not improve it here. Small differences on this short series may be uncertain.
+
+::: {.notes}
+
+The calendar forest wins this validation comparison, and the seasonal baseline already beats several learned alternatives. Ask whether a complex model would be worth maintaining for a tiny improvement over a simple rule. We have only one month from one station, so the ranking is evidence for this setup rather than a general leaderboard of model families.
+
+:::
 
 ## One final test {.smaller}
 
@@ -715,7 +953,19 @@ plt.show()
 
 Successive one-step forecasts still use completed counts as they arrive. Do not use this test result to choose another model.
 
+::: {.notes}
+
+The final test MAE of about 3.53 is lower than the validation average of 4.36. That need not indicate a mistake: this test period may be easier, and the selected model is refitted on more data. The test tells us how the chosen procedure did on these eight days; it does not establish performance through winter, holidays, or at another station.
+
+:::
+
 # Forecasting further into the future
+
+::: {.notes}
+
+Ask students to imagine making a staffing decision once at midnight rather than updating a dashboard every three hours. The decision time changes which observations are allowed, even though the data and model could look identical.
+
+:::
 
 ## What changes when we forecast further ahead?
 
@@ -724,6 +974,12 @@ Successive one-step forecasts still use completed counts as they arrive. Do not 
 - Counts for periods starting at **00:00, 03:00, 06:00, and 09:00** are not yet known.
 
 **How can we build lag features for later predictions without those actual counts?**
+
+::: {.notes}
+
+Answer: for the later intervals, some required lag counts have not happened yet. We can substitute model predictions as we advance recursively, or train horizon-specific models that use only the history known at midnight. Calendar information remains available for all the future intervals.
+
+:::
 
 ## Approach 1: Iterative forecasting {.smaller}
 
@@ -738,6 +994,12 @@ Train one model that predicts 3 hours ahead. At prediction time, move forward st
 
 This method works, but errors accumulate as we step forward. The longer the horizon, the more uncertainty grows.
 
+::: {.notes}
+
+If the first prediction is too high, it becomes an overly high lag input for the next prediction and may affect later steps. That is why training with actual history and forecasting with estimated history can behave differently. Errors can propagate, but they need not grow monotonically at every step; evaluate performance separately at each horizon.
+
+:::
+
 ## Approach 2: Direct forecasting (multiple horizons) {.smaller}
 
 - Train separate models for each horizon:
@@ -749,6 +1011,11 @@ All models use observations available at the **same forecast origin**.
 
 For each horizon, shift the target forward while keeping lag inputs in the known past. Future calendar features are also available.
 
+::: {.notes}
+
+All horizon models start with the same known history. One predicts the next three-hour period; another learns to predict a later period directly, rather than taking the first model’s output as an input. Direct forecasting avoids this feedback, but longer-horizon targets leave fewer eligible training examples near the cutoff and require more models.
+
+:::
 
 ## Optional: Multi-output forecasting {.slide-optional}
 
@@ -759,9 +1026,21 @@ For each horizon, shift the target forward while keeping lag inputs in the known
 - Some models share information across future steps; others fit outputs independently.
 - Note: Multi-output forecasting is powerful, but outside the scope of CPSC 330.
 
+::: {.notes}
+
+A multi-output target could be a vector of counts for the next morning, afternoon, and evening periods. Predicting a vector does not automatically make its components coherent or guarantee shared learning; that depends on the model. This is an option to recognize rather than an additional method students need to implement today.
+
+:::
+
 # Modeling trends
 
 We have used calendar features for **repeating patterns**. What about **long-term change**?
+
+::: {.notes}
+
+An hourly schedule can repeat while the overall demand level rises from year to year. Use the distinction between the shape of a repeating pattern and the changing level around which it repeats to introduce the retail example.
+
+:::
 
 ## Trends {.smaller}
 
@@ -775,6 +1054,12 @@ retail_df.plot(x="date", y="sales", figsize=(8, 4));
 It looks like there's a clear trend; retail sales gradually increase over time. A **trend** is a long-term upward or downward movement in a time series.
 
 Question: How might we encode this trend information so our models can use it?
+
+::: {.notes}
+
+How might we encode a trend? Supply elapsed time, such as days since a fixed starting date, so a linear model can learn a slope. An annually repeating December peak and a multi-year increase can coexist. A temporary disruption should not automatically be interpreted as a new trend that will continue indefinitely.
+
+:::
 
 ## Days since feature {.smaller}
 
@@ -791,7 +1076,19 @@ retail_with_time.head(6)
 
 A linear model can learn a slope for this feature. A random forest still cannot extrapolate a trend beyond its training range.
 
+::: {.notes}
+
+If a fitted coefficient is +0.1 sales units per day, the time contribution increases by 36.5 units over 365 days; this is an illustrative slope. Changing the reference date shifts the intercept without changing a fitted linear trend’s predictions when an intercept is included. Extending that slope into the future is an assumption, not a fact established by the feature.
+
+:::
+
 # Optional: Types of time series
+
+::: {.notes}
+
+These labels answer different questions: how many variables are measured, how many related series are present, and whether totals must add up. They are not mutually exclusive categories: a hierarchy of stores could also have several measured variables per store.
+
+:::
 
 ## Univariate time series: Bike rentals {.slide-optional .smaller}
 
@@ -805,6 +1102,11 @@ A **univariate time series** tracks *one* variable over time. Here, we only meas
 | 2015-08-07 12:00:00  |   22    |
 | 2015-08-03 09:00:00  |    9    |
 
+::: {.notes}
+
+One measured rental-count series remains univariate even if we derive hour, weekday, and many lag columns from it. Derived features do not create new independently observed series. The example rows are displayed out of order; sort by time before shifting to construct lags.
+
+:::
 
 ## Multivariate time series {.slide-optional .smaller}
 
@@ -818,6 +1120,12 @@ Here, we track bike rentals along with weather and local traffic conditions.
 | 2015-08-01 15:00    |   35    |   24   |    50    |    12    |       4        |
 | 2015-08-01 18:00    |   30    |   21    |    60    |    20    |       3        |
 | 2015-08-02 09:00    |   10    |   17   |    70    |    15    |       1        |
+
+::: {.notes}
+
+Suppose we predict tomorrow’s rentals using tomorrow’s temperature. A historical table contains the eventual measured temperature, but a real forecast would have only a weather forecast issued earlier. Training with perfect future measurements can make a model look more useful than it would be at deployment.
+
+:::
 
 ## Hierarchical time series {.slide-optional .smaller}
 
@@ -856,9 +1164,19 @@ Company
 
 ::::
 
+::: {.notes}
+
+If two store forecasts are 10 and 15, the city total should be 25. Independently forecasting the city as 30 creates an inconsistency; some applications need forecasts adjusted to agree. Also construct lags separately for each store, or the previous row could accidentally refer to a different store rather than an earlier day.
+
+:::
 
 # Check out the [demo](https://ubc-cs.github.io/cpsc330-book/book/chapter-19-time-series-demo.html)
 
+::: {.notes}
+
+Use the demo to ask how the workflow changes when data comes from several locations or dates are missing. A good transfer exercise is to identify the forecast origin, the most recent available observation, and which rows belong in each location’s history before discussing model choice.
+
+:::
 
 ## Back to today's big questions {.slide-summary .smaller}
 
@@ -868,3 +1186,9 @@ Company
 4. **How do we forecast further ahead?** Use predictions as future lag inputs (**iterative**) or train a model for each horizon (**direct**).
 
 **Baseline → temporal validation → model selection → one final test.**
+
+::: {.notes}
+
+Answers: time order limits available information; temporal validation and one final test reproduce forecasting; calendar patterns, interactions, and lags give familiar models useful inputs; recursive and direct strategies handle longer horizons differently. Exit question: can a Thursday prediction made on Sunday use Wednesday’s actual demand? No—use information known on Sunday, or predictions of later counts, and evaluate that same procedure.
+
+:::
