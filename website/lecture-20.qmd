@@ -1,0 +1,23 @@
+---
+title: "Lecture 20: Survival analysis"
+description: ""
+description-short: ""
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-20-survival-analysis.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-20-survival-analysis.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Time-to-event questions and right-censored outcomes
+- The Telco customer data and the two-part survival outcome
+- Why snapshot classification and ordinary regression targets can fail
+- Survival probabilities measured from signup
+- Live demo: data cleaning, Kaplan–Meier curves, contract comparisons, and Cox regression
+- Interpreting predictions and their limits for retention decisions

@@ -1,294 +1,233 @@
 ---
 title: "CPSC 330 Lecture 20: Survival analysis"
 author: "Varada Kolhatkar"
-format: 
-    revealjs:
-      html-math-method: mathjax    
-      embed-resources: true
-      slide-number: true
-      logo: img/UBC-CS-logo.png
-      resources:
-        - data/
-        - img/        
+description: "Right censoring, customer data, limits of familiar targets, and a survival-analysis demo"
+format:
+  revealjs:
+    html-math-method: mathjax
+    embed-resources: true
+    slide-number: true
+    slide-level: 2
+    theme: [slides.scss]
+    center: true
+    logo: img/UBC-CS-logo.png
+jupyter: python3
+execute:
+  echo: false
+  warning: false
 ---
 
 ```{python}
-import os
-import sys
-
+#| include: false
+#| code-fold: true
+#| code-summary: "Show imports and setup"
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from sklearn.compose import ColumnTransformer, make_column_transformer
-from sklearn.dummy import DummyClassifier
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LogisticRegression, Ridge
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import (
-    cross_val_predict,
-    cross_val_score,
-    cross_validate,
-    train_test_split,
-)
-from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.preprocessing import (
-    FunctionTransformer,
-    OneHotEncoder,
-    OrdinalEncoder,
-    StandardScaler,
-)
-
-sys.path.append(os.path.join(os.path.abspath("."), "code"))
-from utils import *
-
-plt.rcParams["font.size"] = 12
-
-import warnings
-
-warnings.filterwarnings("default")
-DATA_DIR = os.path.join(os.path.abspath("."), "data/")
 ```
 
 ## Focus on the breath!
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
-## Announcements
+## Today’s goals {.slide-goals}
 
-- HW9 has been released (due on December 5th)
-  - Almost there! You’ve got this! 😊
-- Midterm 2 grades were released last week. 
+- Recognize what a right-censored outcome tells us.
+- Represent outcomes using duration and event status.
+- Explain the limits of familiar classification and regression targets.
+- Interpret retention curves and model output in the lecture demo.
 
-## Recap: iClicker questions {.smaller}
-### (iClicker) Exercise 20.1 
+## Recap: time series {.slide-your-turn .smaller}
 
-**Select all of the following statements which are TRUE.**
+**Select all statements that are true.**
 
-- (A) We need to be careful when splitting the data when working with time series data.
-- (B) Cross-validation in time series can be applied like in other machine learning tasks.
-- (C) In time series forecasting, the future value of a series can only be predicted based on its past values and cannot incorporate other variables.
-- (D) When we used `RandomForestRegressor` model on the POSIX time feature, it predicted a straight line on the test data because tree-based models are inherently unable to extrapolate (i.e., make predictions outside the range of the training data).
+- (A) A forecasting split should respect the order in which data become available.
+- (B) Ordinary shuffled cross-validation is always appropriate for forecasting.
+- (C) Forecasts can incorporate variables other than past target values.
+- (D) A random forest using only a time feature can extrapolate a rising trend beyond the training range.
 
-
-## Customer churn 
-
-Customer churn, also known as customer attrition, refers to the phenomenon where customers or subscribers stop doing business with a company or service.
-
-## Monthly subscriber churn rates for various streaming services
-
-:::: {.columns}
-:::{.column width="50%"}
-![](img/subscriber-churn.png)
-[Source](https://sherwood.news/tech/could-mergers-help-streaming-sites-turn-the-churning-tides/)
-::: 
-
-:::{.column width="50%"}
-
-**Question:** Is a smaller or a larger churn rate more desirable for a subscription-based company?
-
-- A smaller churn rate is better (means fewer customers leaving)
-- Lower churn = higher customer retention = more stable revenue
-
+::: {.notes}
+Answers: A and C. Trees predict using training-region leaf values, so a time-only forest does not extrapolate the trend.
 :::
-::::
 
-## The challenge: Predicting *when*, not just *whether*
+## When will a customer leave?
 
-Imagine you work for a subscription-based telecom company.
+A telecom retention team wants to anticipate **time to churn**.
 
-- Your team wants to predict **when a customer will churn**, not just whether they churn.
-- This helps the company:
-  - Target retention strategies at the right time
-  - Allocate resources efficiently to high-risk customers
-  - Understand which factors accelerate or delay churn
-- Our goal: **model time to churn** while accounting for customers who haven't churned yet.
+- **Event:** a customer leaves the service.
+- **Time origin:** the customer’s signup.
+- **Prediction:** a probability of staying beyond a relevant duration.
 
-## [Customer Churn Dataset](https://www.kaggle.com/blastchar/telco-customer-churn) {.scrollable .smaller}
+Timing can help plan outreach. Predicting churn does not tell us whether an offer will prevent it.
 
-If you wanted to predict whether a customer churns, what kind of model from your ML toolbox would you use?
+## Same duration, different information
+
+| Customer | Observed months | Churn observed? | What we know |
+|---|---:|---|---|
+| A | 4 | Yes | Churn at month 4 |
+| B | 4 | No | Stayed beyond month 4 |
+| C | 18 | No | Stayed beyond month 18 |
+
+**B and C have incomplete lifetimes, not zero churn risk.**
+
+## Observation ends before the event
 
 ```{python}
-df = pd.read_csv(DATA_DIR + "WA_Fn-UseC_-Telco-Customer-Churn.csv")
-train_df, test_df = train_test_split(df, random_state=123)
-train_df.head()
-```
-## Churn prediction as binary classification
-
-- When we treat churn as a binary classification problem, we only ask: **Has the customer churned by the time of data collection?**
-
-- Limitations of this approach:
-  - Answers only "Yes/No" and discards **when** churn occurred
-  - Treats a customer who churned after 1 month the same as one who churned after 5 years
-  - Ignores the time dimension entirely
-
-- **Is that what we want?** Not if timing matters for business decisions! 
-
-## Predicting tenure
-
-:::: {.columns}
-:::{.column width="40%"}
-```{python}
-train_df[["tenure", "Churn"]].head(8)
-```
-:::
-:::{.column width="60%"}
-
-In our dataset, the tenure column is the number of months the customer has stayed with the company. Can we use the techniques you learned so far (e.g., regression models) to predict the time (tenure in our case)? 
-:::
-::::
-
-## The problem: Incomplete information
-
-:::: {.columns}
-:::{.column width="40%"}
-```{python}
-train_df[["tenure", "Churn"]].head(8)
-```
-:::
-:::{.column width="60%"}
-- We only have information about tenure **up to the point we collected the data**. 
-- For customers who haven't churned:
-  - We don't know their true "time to churn"
-  - We only know they lasted **at least** this long
-  - Their actual churn time is unknown (incomplete information)
-- This is called **right-censoring** - the event hasn't occurred yet
-:::
-::::
-
-## Types of censoring {.smaller}
-- **Right-censoring**: Event hasn't occurred yet (most common in practice)
-- **Left-censoring**: Event occurred before observation started
-- **Interval-censoring**: Event occurred within a time interval
-
-![](img/censoring.png)
-
-## Time to event and censoring 
-
-:::: {.columns}
-:::{.column width="40%"}
-```{python}
-train_df[["tenure", "Churn"]].head(8)
-```
-:::
-:::{.column width="60%"}
-- Many customers in the dataset are still active (Churn = "No"). 
-- They are **right-censored**: we only know their tenure **so far**, not their final tenure. 
-:::
-::::
-
-
-## Time-to-event problems
-
-Time-to-event problems appear everywhere. Examples include:
-
-- Time until a customer leaves a subscription service
-- Time until a disease causes death
-- Time until equipment fails
-- Duration of unemployment until finding a job
-- Waiting time until a scheduled surgery
-
-These all follow the same pattern: the event happens once, and we care about how long it takes.
-
-
-# Approaches 
-
-## Approach 1: Only use churned customers ⛔️ {.smaller}
-
-Suppose we only consider rows where Churn == "Yes" and throw away all right-censored customers. 
-
-```{python}
-train_df_churn = train_df.query(
-    "Churn == 'Yes'"
-)  # Consider only examples where the customers churned.
-test_df_churn = test_df.query(
-    "Churn == 'Yes'"
-)  # Consider only examples where the customers churned.
-train_df_churn.head(4)
+fig, ax = plt.subplots(figsize=(8, 2.8))
+for y, (customer, duration, observed) in enumerate(
+    [("A", 4, True), ("B", 4, False), ("C", 18, False)]
+):
+    ax.hlines(y, 0, duration, color="tab:blue", linewidth=3)
+    ax.plot(duration, y, "X" if observed else "o", color="tab:blue",
+            markerfacecolor="tab:blue" if observed else "white", markersize=9)
+    ax.text(duration + 0.6, y, "Churn" if observed else "Observation ends", va="center")
+ax.set(yticks=[0, 1, 2], yticklabels=["A", "B", "C"],
+       xlabel="Months since each customer's signup", xlim=(-0.5, 26), ylim=(-0.5, 2.5))
+ax.invert_yaxis()
+ax.set_title("An observed event and two incomplete lifetimes")
+plt.show()
 ```
 
-This throws away valuable information from active customers!
+::: {.notes}
+Open circles mark the end of observation, not churn. Timelines align by time since signup, not calendar date.
+:::
 
-## iClicker 
+## Right-censoring
 
-Would only considering rows where Churn == "Yes" and throwing away all right-censored customers overestimate or underestimate the average survival time?
+For a right-censored customer, we know a **lower bound** on time to churn.
 
-- (A) Overestimate 
-- (B) Underestimate 
-- (C) Cannot tell based on the provided information
+- We observed them event-free through their recorded duration.
+- We do not know their eventual churn time.
+- We should preserve both the **duration** and **event indicator**.
 
+The same structure appears in time to equipment failure or time until finding a job.
 
-## Approach 2: Assume everyone churns now ⛔️
+## Meet the customer data {.smaller}
 
-Treat all current tenure values as final, even for active customers.
+[Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn): one row per customer.
 
-```{python}
-train_df[["tenure", "Churn"]].head()
-```
+| Column | Meaning in our teaching example |
+|---|---|
+| `tenure` | Months from signup to churn or the end of observation |
+| `Churn` | Whether departure was observed (`Yes` / `No`) |
+| `Contract` | Recorded contract type |
+| `MonthlyCharges` | Recorded monthly charge |
+| `InternetService` | Recorded internet service type |
 
-This assumes active customers (Churn = "No") will churn immediately. 
+**Teaching assumption:** this is a snapshot, not a documented customer history. We interpret `Churn = No` as right censoring.
 
-## iClicker 
+::: {.notes}
+Before operational use, verify sampling, follow-up, and which features were available at prediction time. Current contract and billing attributes need not be their values at signup. The demo inspects actual rows and explores data quality; these are model illustrations, not validated deployment predictions.
+:::
 
-Would assuming everyone churns now underestimate or overestimate tenure?
+## Could we use classification? {.smaller}
 
-- (A) Overestimate 
-- (B) Underestimate 
-- (C) Cannot tell based on the provided information
+A snapshot label, “churn observed,” mixes customers with different follow-up lengths.
 
+A fixed-horizon question can work: **Will they churn within six months of signup?**
 
-## 
+| Record | Six-month label |
+|---|---|
+| Churn at month 4 | Positive |
+| Active through month 8 | Negative |
+| Observation ends at month 2, no churn | Unknown |
 
-- **Key insight**: Ignoring or removing censored cases will bias our estimates:
+**An unknown horizon label cannot simply be labelled negative.**
 
-## Approach 3: Survival analysis ✅
+## Two tempting shortcuts {.slide-your-turn}
 
-Survival analysis explicitly models time until an event **and properly handles censoring**.
+1. Fit a regressor using **only customers who churned**.
+2. Fit a regressor treating **every recorded tenure as final**.
 
-**Common methods:**
+A customer is still subscribed when observation ends at month 15.
 
-- **Kaplan–Meier estimator**: Non-parametric method for estimating survival curves
-- **Cox proportional hazards model**: Semi-parametric regression model for survival data
-- **Survival forests**: Random forest variant adapted for censored data
+**What information does each shortcut lose or misrepresent?**
 
-## Survival analysis {.smaller}
+::: {.notes}
+Shortcut 1 discards evidence that this customer survived beyond 15 months. Shortcut 2 invents an event at month 15. Replacing their duration with the mean of observed events also discards the lower-bound information.
+:::
 
-These methods allow estimation of:
+## Why the shortcuts fail
 
-**Survival function**: 
+**Events only:** selects customers whose events happened during follow-up; discards censored customers’ evidence of longer survival.
 
-- $S(t) = P(T > t)$ (probability of surviving past time $t$)
-- Imagine starting with 100 customers on Day 0. The survival function tells you: What fraction of them are still active (have not churned) at time $t$? 
-- $S(3) = 0.80$ (80% haven't churned by month 3)
-- $S(12) = 0.40$ (40% haven't churned by month 12)
+- Generally biases lifetime estimates downward under independent censoring.
 
-**Hazard function**: $h(t)$ (instantaneous risk of the event at time $t$)
+**Follow-up as lifetime:** declares that active customers churned when observation ended.
 
-- Imagine a customer who has not churned yet and is still active at month 10.
-- The hazard tells us: How likely are they to churn right now, at month 10?
-- Human mortality: hazard is low at age 20, higher at 80
+- Learns observed follow-up rather than time to churn.
 
-## iClicker 
+**Changing regressors does not repair the targets.**
 
-**Select all of the following statements which are TRUE.**
+## Preserve the two-part outcome
 
-- (A) Right censoring occurs when the endpoint of event has not been observed for all study subjects by the end of the study period.
-- (B) Right censoring implies that the data is missing completely at random.
-- (C) In the presence of right-censored data, binary classification models can be applied directly without any modifications or special considerations.
-- (D) If we apply the `Ridge` regression model to predict tenure in right censored data, we are likely to underestimate it because the tenure observed in our data is shorter than what it would be in reality.
+| Customer | `tenure` | `event` | What we know |
+|---|---:|---:|---|
+| A | 4 | 1 | Churn at month 4 |
+| B | 4 | 0 | Stayed beyond month 4 |
+| C | 18 | 0 | Stayed beyond month 18 |
 
+- `event = 1`: churn observed (`Churn = Yes`).
+- `event = 0`: churn not observed (`Churn = No`).
 
+Duration and event status form the **outcome**, not the predictors.
 
-# [Class demo](https://github.com/UBC-CS/cpsc330-2025W1/blob/main/lectures/102-Varada-lectures/class_demos/demo_20-survival-analysis.ipynb) 
+::: {.notes}
+The demo creates the numeric event column expected by lifelines. Zero means event not observed, not zero future churn risk. Both parts of the outcome matter: B contributes evidence of survival through month 4 even though their eventual churn time is unknown.
+:::
 
+## What should we predict instead?
 
-## What did we learn today? 
+The **survival function** describes the probability of staying beyond a duration:
 
-- Censoring and incorrect approaches to handling it
-  - Throw away people who haven't churned
-  - Assume everyone churns today
-- Predicting tenure vs. churned
-- Survival analysis encompasses both of these, and deals with censoring
-- And it can make rich and interesting predictions!
-- KM model -> doesn't look at features
-- CPH model -> like linear regression, does look at the features
+$$S(t)=P(T>t)$$
+
+If $S(12)=0.8$, the probability of staying **beyond 12 months from signup** is 0.8.
+
+This is different from staying **another** 12 months for a customer who is already subscribed.
+
+::: {.notes}
+T is time from signup to churn. Survival means remaining with the service. We will read estimated survival curves in the demo rather than predicting a completed lifetime for every customer. No Kaplan–Meier calculation is required before the handoff.
+:::
+
+## Lecture demo {.smaller}
+
+[Open the lecture 20 demo](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-20-survival-analysis-demo.ipynb)
+
+1. **Inspect and clean:** can a clean column still be an unsuitable predictor?
+2. **Overall retention:** estimate and read a Kaplan–Meier curve.
+3. **Contract groups:** compare curves and discuss what differences mean.
+4. **Several features:** fit a Cox model and interpret coefficient signs.
+
+**If time permits:** compare predicted survival curves for different contract profiles.
+
+::: {.notes}
+Switch to the local lecture-20-survival-analysis-demo.ipynb notebook. Sections 1–4 are the core walkthrough; section 5 is predicted curves if time permits. Remaining sections cover optional group comparisons, remaining survival, and evaluation. Let students predict and discuss before revealing explanations. Explain the independent-censoring assumption while reading the overall curve: observation ending should not signal systematically different future churn prospects among comparable customers.
+:::
+
+## After the demo: what would you tell the team? {.slide-your-turn}
+
+A group has lower estimated retention, and the model predicts higher churn risk for some customers.
+
+- What does a survival curve’s value at 12 months mean?
+- Do the group curves show that changing a contract would prevent churn?
+- Is predicted churn risk enough to decide whom to contact?
+
+::: {.notes}
+Return here after the demo. The curve measures survival beyond 12 months from signup, not another 12 months from today. Group differences and model coefficients describe associations. An outreach decision also needs evidence of intervention effectiveness, costs, and customer value; high predicted risk is not the same as high treatment benefit.
+:::
+
+## What did we learn? {.slide-summary}
+
+- Censored records contain useful **partial information**.
+- Preserve **duration and event status**.
+- Familiar targets can discard information or invent event times.
+- Survival curves describe retention across durations.
+- Group comparisons and model predictions do not establish intervention effects.
+
+**Define the event, time origin, and prediction time first.**
+
+## Further reading {.smaller}
+
+- [Chapter 20: Survival analysis](https://ubc-cs.github.io/cpsc330-book/book/20_survival-analysis.html)
+- [Lecture demo notebook](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-20-survival-analysis-demo.ipynb)
+- [Kaplan–Meier in lifelines](https://lifelines.readthedocs.io/en/latest/Survival%20analysis%20with%20lifelines.html)
+- [Survival regression in lifelines](https://lifelines.readthedocs.io/en/latest/Survival%20Regression.html)
