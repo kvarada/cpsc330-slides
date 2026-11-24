@@ -95,7 +95,7 @@ A telecom company wants to predict how long a new customer will stay. You have e
 ::: {.notes}
 Let students propose approaches before naming survival analysis or right censoring. The aim is to expose a gap in familiar targets, rather than expect students to name a method they have not learned.
 
-We know the active customer has stayed for at least eight months, but do not know their eventual churn time. Assigning eight months as an exact lifetime invents a departure; dropping the customer discards useful partial information. A snapshot active/churned label does not answer how long a new customer will stay. Fixed-horizon classification is possible, but some customers will not have enough follow-up to receive a known label.
+We know the active customer has stayed for at least eight months, but do not know their eventual churn time. Assigning eight months as an exact lifetime invents a departure; dropping the customer discards useful partial information. A snapshot active/churned label does not answer how long a new customer will stay. We could ask, “Will this customer churn within six months of signup?” But if we observed them for only two months and they had not churned, we would not yet know the answer.
 
 Keep this target question open as we continue with the same telecom example for the rest of the lecture and demo. The next slides define the prediction task and contrast completed and incomplete subscriptions before introducing the terminology.
 :::
@@ -159,19 +159,17 @@ Suppose we train a classifier with `Churn` as the target.
 Invite answers before moving on. A snapshot classifier distinguishes recorded departures from customers recorded as active; this is different from predicting eventual subscription length. Follow-up lengths differ. No means departure was not observed, not that future departure is impossible.
 :::
 
-## Classification needs a defined horizon {.smaller}
+## Will this customer churn within six months? {.smaller}
 
-A snapshot label, “churn observed,” mixes customers with different follow-up lengths.
+Classification can answer this question, but **do our records tell us the answer for every customer?**
 
-A fixed-horizon question can work: **Will they churn within six months of signup?**
-
-| Record | Six-month label |
+| What we observed | Churn within six months of signup? |
 |---|---|
-| Churn at month 4 | Positive |
-| Active through month 8 | Negative |
-| Observation ends at month 2, no churn | Unknown |
+| Customer left at month 4 | **Yes** |
+| Customer was still subscribed at month 8 | **No** |
+| Customer was still subscribed when observation ended at month 2 | **We don’t know** |
 
-**An unknown horizon label cannot simply be labelled negative.**
+For the last customer, we don’t know what happened between months 2 and 6. **We cannot label them “No.”**
 
 ::: {.notes}
 Walk through the three records and ask students to justify each label. Churn at month 4 is positive for the six-month question; active through month 8 is negative because the customer passed the horizon without churn. Observation ending at month 2 leaves the six-month outcome unknown. Classification remains useful with an appropriate horizon and follow-up design. Simply dropping unknown labels can also select a different population, so it is not an automatic repair. Transition: could regression let us keep the durations instead?
