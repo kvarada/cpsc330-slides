@@ -28,6 +28,10 @@ import matplotlib.pyplot as plt
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
+::: {.notes}
+Invite everyone to pause for a few slow breaths before starting. Then explain that the recap asks students to choose approaches from the data and task, rather than from the order in which methods were taught.
+:::
+
 ## Recap: What approach would you try? (1/3) {.slide-your-turn .smaller}
 
 **Identify the problem type, suggest an approach, and explain what clues guide your choice.**
@@ -43,7 +47,7 @@ You are building a YouTube recommendation prototype. You have viewer IDs, video 
 **Discuss:** If someone clicks a video, does that mean they liked it?
 
 ::: {.notes}
-Ask pairs to discuss both scenarios before revealing the approaches. Ask which details matter for the choice and what additional information they would want.
+Keep the recap brief: ask for an approach and one clue per scenario. Prioritize the click-versus-enjoyment discussion on this slide. The other follow-up questions below are optional.
 
 A — NLP and semantic search (lecture 18): use a pretrained text embedding model designed for retrieval to encode product descriptions and queries into a shared vector space, then retrieve products with high similarity, for example cosine similarity. A pretrained model provides a starting point without labelled query–product matches. Embed new products as they enter the catalogue.
 
@@ -69,6 +73,8 @@ UBC facilities staff have two years of hourly electricity-use records for campus
 A conservation team has thousands of camera-trap photos, each showing a deer, bear, or coyote, but only 600 have species labels. They want to classify the remaining photos without training a large model from scratch.
 
 ::: {.notes}
+Prioritize one follow-up: which weather information is available this evening? Save the additional discussion for spare time.
+
 C — Time-series forecasting (lecture 19): start with a seasonal baseline, such as demand at the same hour last week, then consider regression with lagged demand, calendar features, and weather forecasts. Hour of day, day of week, holidays, and the academic calendar can capture recurring patterns. Evaluate with chronological splits and forecast origins matching the evening decision.
 
 Ask: can we use tomorrow’s actual temperature or electricity demand from earlier tomorrow when making this evening’s forecast? No. Use weather forecasts available this evening; actual future weather would leak information. Predicting all of tomorrow requires a multi-step strategy: some recent-demand lags will be unavailable for later forecast hours. The academic calendar and tomorrow’s hour/day are known in advance.
@@ -101,28 +107,23 @@ Keep this target question open as we continue with the same telecom example for 
 - Explain the limits of familiar classification and regression targets.
 - Interpret retention curves and model output in the lecture demo.
 
+::: {.notes}
+Connect the last recap scenario to today’s goals: the difficulty is not choosing a more powerful regressor, but deciding what outcome information we actually have. The slides establish the problem; the live notebook demonstrates Kaplan–Meier and Cox. Students should leave able to explain censored records and interpret retention results, rather than derive the estimators.
+:::
+
 ## When will a customer leave?
-
-A telecom retention team wants to anticipate **time to churn**.
-
-Let’s continue with the company from our recap: some customers have left, while others are still subscribed.
-
-- **Event:** a customer leaves the service.
-- **Time origin:** the customer’s signup.
-- **Prediction:** a probability of staying beyond a relevant duration.
-
-Timing can help plan outreach. Predicting churn does not tell us whether an offer will prevent it.
-
-## Customer churn
 
 **Churn** means a customer stops using a company’s service.
 
-Our telecom company wants to predict **when**, not just whether, a customer will leave.
+Let’s continue with the telecom company from our recap. Its retention team wants to anticipate **time to churn**.
+
+- **Event:** a customer leaves the service.
+- **Time origin:** the customer’s signup.
 
 **What information would we need to learn from past customers?**
 
 ::: {.notes}
-Connect to the recap scenario. Ask for signup dates, departure dates where observed, observation end dates, and customer features available at prediction time. Keep the distinction between predicting departure and identifying an effective retention action.
+Ask for signup dates, departure dates where observed, observation end dates, and customer features available at prediction time. Some customers have left; others are still subscribed. Timing can help plan outreach, but predicting departure does not tell us whether an offer will prevent it.
 :::
 
 ## Meet the customer data {.smaller}
@@ -172,6 +173,10 @@ A fixed-horizon question can work: **Will they churn within six months of signup
 
 **An unknown horizon label cannot simply be labelled negative.**
 
+::: {.notes}
+Walk through the three records and ask students to justify each label. Churn at month 4 is positive for the six-month question; active through month 8 is negative because the customer passed the horizon without churn. Observation ending at month 2 leaves the six-month outcome unknown. Classification remains useful with an appropriate horizon and follow-up design. Simply dropping unknown labels can also select a different population, so it is not an automatic repair. Transition: could regression let us keep the durations instead?
+:::
+
 ## Could we predict tenure with regression? {.slide-your-turn .smaller}
 
 | Customer | `tenure` (months) | `Churn` |
@@ -185,7 +190,7 @@ A fixed-horizon question can work: **Will they churn within six months of signup
 
 **Could we use `tenure` as the target for a regressor?**
 
-Does a recorded tenure of 34 months mean the same thing when `Churn` is `Yes` versus `No`?
+For the customer with `tenure = 34` and `Churn = No`, do we know their **final subscription length**?
 
 ::: {.notes}
 Pause before explaining. For an observed departure, tenure is a completed duration. For an active customer, it is only follow-up so far. Ordinary regression expects exact targets; some of these records provide bounds instead. Changing the regressor does not fix this difference.
@@ -201,11 +206,15 @@ Pause before explaining. For an observed departure, tenure is a completed durati
 
 **B and C have incomplete lifetimes, not zero churn risk.**
 
+::: {.notes}
+These are illustrative customers, not the six CSV records on the previous slide. Compare A and B first: both have four recorded months, but only A has a completed subscription. Ask students what the No entry tells us before discussing C. C supplies a longer period of known survival, not a known departure time. The next plot puts these same customers on one calendar-time axis.
+:::
+
 ## Same cutoff, different information
 
 ```{python}
 fig, ax = plt.subplots(figsize=(10, 3.8))
-ax.axvspan(0, 2.5, color="#f1f3f5", zorder=0)
+ax.axvspan(0, 7.5, color="#f1f3f5", zorder=0)
 ax.axvline(0, color="#495057", linestyle="--", linewidth=1.8)
 ax.text(0, -0.65, "Data collected", ha="center", fontsize=12, fontweight="bold")
 
@@ -242,14 +251,32 @@ All timelines share a calendar-time cutoff at month 0. A and B signed up four mo
 
 ## Right-censoring
 
-For a right-censored customer, we know a **lower bound** on time to churn.
+**Right censoring:** observation ends before churn is observed.
 
-- The event was **not observed before observation ended**.
-- We observed them event-free through their recorded duration.
-- We do not know their eventual churn time.
-- We should preserve both the **duration** and **event indicator**.
+Customer B is still subscribed at month 4:
 
-The same structure appears in time to equipment failure or time until finding a job.
+- We know their time to churn is **greater than 4 months**.
+- Their eventual churn time is **unknown**.
+
+::: {.notes}
+Give the name only after students have seen the contrast in the table and plot. Right means the unknown event time lies beyond the observed duration on the time axis. For B, we know T > 4; we do not substitute a guess for the eventual departure time. Censoring describes the information available when observation ends, not a claim that churn can never occur. Transition: this is a general data structure, not a telecom-specific problem.
+:::
+
+## Time-to-event problems
+
+The same structure appears in many settings:
+
+- Time until a customer leaves a subscription service
+- Time until death in a patient study
+- Time until equipment fails
+- Duration of unemployment until finding a job
+- Waiting time until surgery
+
+We care about **how long until a defined event occurs**, but observation may end before we see it.
+
+::: {.notes}
+Connect each example to right censoring: a customer is still subscribed, a patient is alive, equipment is still working, someone is still looking for work, or a patient is still waiting when follow-up ends. We model a defined event within an observation period; avoid saying events must happen exactly once in general. Some settings also have competing events, such as leaving a surgery waiting list for another reason, which require additional care beyond this introduction.
+:::
 
 ## Approach 1: Use only customers who churned
 
@@ -262,9 +289,13 @@ churned = train.loc[train["Churn"].eq("Yes")]
 
 **Now every retained row has an observed event time. What did we lose?**
 
+::: {.notes}
+Present this as a plausible suggestion: after filtering, every retained tenure is a completed duration, so ordinary regression appears possible. The code is illustrative; train will be created in the demo. Pause at the question and move to the discussion slide before explaining the selection problem. The important choice is which records we keep, not the syntax of the filter.
+:::
+
 ## Your turn: discard active customers? {.slide-your-turn}
 
-A customer is still subscribed when observation ends at month 15.
+Customer B is still subscribed when observation ends at month 4.
 
 If we remove their row:
 
@@ -272,7 +303,7 @@ If we remove their row:
 - Would the remaining customers represent all subscription lengths fairly?
 
 ::: {.notes}
-We discard evidence that this customer stayed at least 15 months. Keeping only observed departures selects events that occurred during follow-up. Under independent censoring, this tends to favor shorter lifetimes, so events-only estimates tend to be too short. Do not present the direction as universal under every possible observation process. The central issue is losing partial information and changing which customers are represented.
+We discard evidence that B stayed at least 4 months. Keeping only observed departures selects events that occurred during follow-up. Under independent censoring, this tends to favor shorter lifetimes, so events-only estimates tend to be too short. Do not present the direction as universal under every possible observation process. The central issue is losing partial information and changing which customers are represented.
 :::
 
 ## Approach 2: Treat every tenure as final
@@ -282,16 +313,20 @@ Keep all rows and use recorded `tenure` as the regression target, regardless of 
 | Customer | Observation | Regression target |
 |---|---|---:|
 | A | Left at month 4 | 4 |
-| B | Still subscribed at month 15 | 15 |
+| B | Still subscribed at month 4 | 4 |
 
 **We have a number for everyone. Does it mean the same thing?**
 
-## Your turn: did they leave at month 15? {.slide-your-turn}
+::: {.notes}
+Now try the opposite shortcut: retain everyone, but ignore event status. Compare A and B, whose numerical targets are both 4. Ask whether the regression loss can distinguish their different information; it cannot when both are supplied as exact targets. Move to the next question before giving the answer. Keeping rows is not enough if we change the meaning of their outcomes.
+:::
 
-For the active customer, setting the target to 15 claims that:
+## Your turn: did B leave at month 4? {.slide-your-turn}
 
-- (A) They left at month 15.
-- (B) They stayed at least 15 months; their departure time is unknown.
+For customer B, setting the target to 4 claims that:
+
+- (A) They left at month 4.
+- (B) They stayed at least 4 months; their departure time is unknown.
 - (C) They will never leave.
 
 **Which claim does an ordinary regression target encode? Which claim does the record support?**
@@ -307,7 +342,13 @@ The exact numerical regression target encodes A, but the record supports B. We i
 
 **Changing regressors or tuning hyperparameters does not repair the targets.**
 
-We need to learn from both **exact event times** and **partial information**.
+Customer B tells us **$T>4$**, not $T=4$. Discarding B loses that information.
+
+Here, $T$ is months from signup to churn.
+
+::: {.notes}
+Summarize the two student discussions: removing B loses evidence, while assigning an exact target invents evidence. Define T as the underlying time from signup to churn and read T > 4 aloud as “more than four months.” Ask for a quick verbal check: what must our new method preserve? Both completed durations and the bounds supplied by incomplete records. This motivates survival analysis without needing a more elaborate regression model.
+:::
 
 ## Approach 3: Survival analysis
 
@@ -345,11 +386,14 @@ The demo creates the numeric event column expected by lifelines. Zero means even
 
 ## What should we predict instead?
 
-The **survival function** describes the probability of staying beyond a duration:
+Let $T$ be **months from signup to churn**. The survival function is:
 
 $$S(t)=P(T>t)$$
 
-If $S(12)=0.8$, the probability of staying **beyond 12 months from signup** is 0.8.
+If $S(12)=0.8$:
+
+- 80% stay **beyond 12 months from signup**.
+- 20% churn **within 12 months of signup**.
 
 This is different from staying **another** 12 months for a customer who is already subscribed.
 
@@ -369,12 +413,14 @@ T is time from signup to churn. Survival means remaining with the service. We wi
 **If time permits:** compare predicted survival curves for different contract profiles.
 
 ::: {.notes}
+Open with: “How does customer B contribute despite having no observed churn time?” Revisit this question when fitting Kaplan–Meier: B contributes while still observed, and observation ending is not counted as churn.
+
 Switch to the local lecture-20-survival-analysis-demo.ipynb notebook. Sections 1–4 are the core walkthrough; section 5 is predicted curves if time permits. Remaining sections cover optional group comparisons, remaining survival, and evaluation. Let students predict and discuss before revealing explanations. Explain the independent-censoring assumption while reading the overall curve: observation ending should not signal systematically different future churn prospects among comparable customers.
 :::
 
 ## After the demo: what would you tell the team? {.slide-your-turn}
 
-A group has lower estimated retention, and the model predicts higher churn risk for some customers.
+The contract-group curves differ, and the Cox model associates some features with faster churn.
 
 - What does a survival curve’s value at 12 months mean?
 - Do the group curves show that changing a contract would prevent churn?
@@ -394,9 +440,17 @@ Return here after the demo. The curve measures survival beyond 12 months from si
 
 **Define the event, time origin, and prediction time first.**
 
+::: {.notes}
+Return to customer B as a final check: ask students for the two recorded outcome values and what they mean. Expected answer: tenure 4 and event 0; departure was not observed and time to churn exceeds four months. Connect the recap to the lecture: first identify the task and available evidence, then choose a method. Reinforce that retention predictions describe risk, while deciding which action works requires additional evidence. Close by distinguishing time from signup from time remaining for an existing customer.
+:::
+
 ## Further reading {.smaller}
 
 - [Chapter 20: Survival analysis](https://ubc-cs.github.io/cpsc330-book/book/20_survival-analysis.html)
 - [Lecture demo notebook](https://github.com/UBC-CS/cpsc330-2026W1/blob/main/content/classes/varada/lecture-20-survival-analysis-demo.ipynb)
 - [Kaplan–Meier in lifelines](https://lifelines.readthedocs.io/en/latest/Survival%20analysis%20with%20lifelines.html)
 - [Survival regression in lifelines](https://lifelines.readthedocs.io/en/latest/Survival%20Regression.html)
+
+::: {.notes}
+Point students to the chapter for the full explanation and the demo for executable examples. The lifelines pages are implementation references rather than additional material to cover now. Remaining survival and censoring-aware evaluation are available in the optional notebook sections for students who want to continue. No need to walk through the links individually.
+:::
