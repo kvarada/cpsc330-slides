@@ -28,6 +28,72 @@ import matplotlib.pyplot as plt
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
+## Recap: What approach would you try? (1/3) {.slide-your-turn .smaller}
+
+**Identify the problem type, suggest an approach, and explain what clues guide your choice.**
+
+**A. What should I watch next?**
+
+You are building a YouTube recommendation prototype. You have viewer IDs, video IDs, and records of which videos each viewer clicked, but no ratings or video descriptions. Suggest three videos a returning viewer might enjoy.
+
+**Discuss:** If someone clicks a video, does that mean they liked it?
+
+**B. Who visited the wildlife crossing?**
+
+A conservation team has thousands of camera-trap photos, each showing a deer, bear, or coyote, but only 600 have species labels. They want to classify the remaining photos without training a large model from scratch.
+
+::: {.notes}
+Ask pairs to discuss both scenarios before revealing the approaches. Ask which details matter for the choice and what additional information they would want.
+
+A — Recommender systems (lecture 16): clicks provide implicit feedback. Collaborative filtering can learn viewer–video interaction patterns; an implicit-feedback variant of matrix factorization is one possible approach. The absence of descriptions limits content-based approaches. A popularity baseline is also worth considering, especially for a new viewer.
+
+Use the discussion prompt to distinguish the goal (recommend videos the viewer enjoys) from the observed proxy (clicks). A click might reflect curiosity, an appealing thumbnail, clickbait, or an accident; it does not establish satisfaction. An absent click does not establish dislike: the viewer may never have been shown the video. Do not treat all missing interactions as explicit negative ratings. Exposure and placement also influence what gets clicked.
+
+Ask: what additional evidence would help assess enjoyment? Explicit feedback, watch duration or completion, and satisfaction surveys can help, but each has limitations. Predicting clicks well does not by itself show that recommendations improve satisfaction. This is a simplified prototype, not a description of YouTube’s production system.
+
+B — Image classification and transfer learning (lecture 17): use a pretrained image model as a feature extractor with a classifier, or fine-tune it. Many images but few labels motivates reusing learned visual features. Ask: if several near-identical frames come from the same animal visit, should they be split randomly across training and test sets? Keep related frames together; consider held-out cameras or locations if that matches intended use. A model trained on ordinary photos may still need adaptation for night-time camera images.
+:::
+
+## Recap: What approach would you try? (2/3) {.slide-your-turn .smaller}
+
+**Identify the problem type, suggest an approach, and explain what clues guide your choice.**
+
+**C. Finding the right product**
+
+An online store wants a search for “something to keep my coffee hot on the bus” to find products described as “insulated travel mugs.” You have product titles and descriptions, but no labelled query–product matches. How could you retrieve relevant products even when the wording differs?
+
+**D. How much electricity will campus need tomorrow?**
+
+UBC facilities staff have two years of hourly electricity-use records for campus buildings. They want to predict demand for each hour tomorrow to plan electricity purchases. They also have weather records and the academic calendar. What information could they use when making the forecast this evening?
+
+::: {.notes}
+C — NLP and semantic search (lecture 18): use a pretrained text embedding model designed for retrieval to encode product descriptions and queries into a shared vector space, then retrieve products with high similarity, for example cosine similarity. A pretrained model provides a starting point without labelled query–product matches. Embed new products as they enter the catalogue.
+
+Ask: why might exact keyword matching miss this result? The query describes a need using different words from the product description. Semantic search aims to capture this relationship. An LLM-generated answer is not required to return ranked products; retrieval would become part of RAG if we supplied the retrieved descriptions to an LLM to generate an answer. Check performance on representative queries with human relevance judgments. Exact constraints such as price, dimensions, and availability may need explicit filters rather than embedding similarity alone.
+
+D — Time-series forecasting (lecture 19): start with a seasonal baseline, such as demand at the same hour last week, then consider regression with lagged demand, calendar features, and weather forecasts. Hour of day, day of week, holidays, and the academic calendar can capture recurring patterns. Evaluate with chronological splits and forecast origins matching the evening decision.
+
+Ask: can we use tomorrow’s actual temperature or electricity demand from earlier tomorrow when making this evening’s forecast? No. Use weather forecasts available this evening; actual future weather would leak information. Predicting all of tomorrow requires a multi-step strategy: some recent-demand lags will be unavailable for later forecast hours. The academic calendar and tomorrow’s hour/day are known in advance.
+:::
+
+## Recap: What approach would you try? (3/3) {.slide-your-turn .smaller}
+
+**E. When will a subscriber cancel?**
+
+A streaming service wants to predict how long a new subscriber will stay. You have signup dates and cancellation dates for subscribers who left. Many subscribers are still active when the data are collected.
+
+- Would you frame this as classification or regression?
+- What target would you assign to someone who has been subscribed for **eight months and is still active**?
+- Would you keep that subscriber in the training data? Why?
+
+::: {.notes}
+Let students propose approaches before naming survival analysis or right censoring. The aim is to expose a gap in familiar targets, rather than expect students to name a method they have not learned.
+
+We know the active subscriber has stayed for at least eight months, but do not know their eventual cancellation time. Assigning eight months as an exact lifetime invents a cancellation; dropping the subscriber discards useful partial information. A snapshot active/cancelled label does not answer how long a new subscriber will stay. Fixed-horizon classification is possible, but some subscribers will not have enough follow-up to receive a known label.
+
+Invite students to keep this unresolved target question in mind. Transition to the telecom example: the same issue arises when predicting time to churn. The next slides contrast completed and incomplete subscriptions before introducing the terminology.
+:::
+
 ## Today’s goals {.slide-goals}
 
 - Recognize what a right-censored outcome tells us.
@@ -35,22 +101,11 @@ import matplotlib.pyplot as plt
 - Explain the limits of familiar classification and regression targets.
 - Interpret retention curves and model output in the lecture demo.
 
-## Recap: time series {.slide-your-turn .smaller}
-
-**Select all statements that are true.**
-
-- (A) A forecasting split should respect the order in which data become available.
-- (B) Ordinary shuffled cross-validation is always appropriate for forecasting.
-- (C) Forecasts can incorporate variables other than past target values.
-- (D) A random forest using only a time feature can extrapolate a rising trend beyond the training range.
-
-::: {.notes}
-Answers: A and C. Trees predict using training-region leaf values, so a time-only forest does not extrapolate the trend.
-:::
-
 ## When will a customer leave?
 
 A telecom retention team wants to anticipate **time to churn**.
+
+Like the streaming service, it has customers who left and others who are still subscribed.
 
 - **Event:** a customer leaves the service.
 - **Time origin:** the customer’s signup.

@@ -1,7 +1,8 @@
 ---
+publish-pdf: true
 title: "Lecture 20: Survival analysis"
-description: ""
-description-short: ""
+description: "Time-to-event prediction with right-censored customer data: limits of classification and regression targets, survival probabilities, and a live demo of Kaplan–Meier curves and Cox regression"
+description-short: "Right censoring and survival analysis"
 
 editor: { render-on-save: true }
 ---
