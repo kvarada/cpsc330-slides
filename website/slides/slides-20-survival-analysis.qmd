@@ -32,66 +32,66 @@ import matplotlib.pyplot as plt
 
 **Identify the problem type, suggest an approach, and explain what clues guide your choice.**
 
-**A. What should I watch next?**
+**A. Finding the right product**
+
+Suppose the UBC Store wants its online search to match “something to keep my coffee hot on the bus” with products described as “insulated travel mugs.” You have the store’s product titles and descriptions. How could you retrieve relevant products even when the wording differs?
+
+**B. What should I watch next?**
 
 You are building a YouTube recommendation prototype. You have viewer IDs, video IDs, and records of which videos each viewer clicked, but no ratings or video descriptions. Suggest three videos a returning viewer might enjoy.
 
 **Discuss:** If someone clicks a video, does that mean they liked it?
 
-**B. Who visited the wildlife crossing?**
-
-A conservation team has thousands of camera-trap photos, each showing a deer, bear, or coyote, but only 600 have species labels. They want to classify the remaining photos without training a large model from scratch.
-
 ::: {.notes}
 Ask pairs to discuss both scenarios before revealing the approaches. Ask which details matter for the choice and what additional information they would want.
 
-A — Recommender systems (lecture 16): clicks provide implicit feedback. Collaborative filtering can learn viewer–video interaction patterns; an implicit-feedback variant of matrix factorization is one possible approach. The absence of descriptions limits content-based approaches. A popularity baseline is also worth considering, especially for a new viewer.
+A — NLP and semantic search (lecture 18): use a pretrained text embedding model designed for retrieval to encode product descriptions and queries into a shared vector space, then retrieve products with high similarity, for example cosine similarity. A pretrained model provides a starting point without labelled query–product matches. Embed new products as they enter the catalogue.
+
+Ask: why might exact keyword matching miss this result? The query describes a need using different words from the product description. Semantic search aims to capture this relationship. An LLM-generated answer is not required to return ranked products; retrieval would become part of RAG if we supplied the retrieved descriptions to an LLM to generate an answer. Check performance on representative queries with human relevance judgments. Exact constraints such as price, dimensions, and availability may need explicit filters rather than embedding similarity alone.
+
+B — Recommender systems (lecture 16): clicks provide implicit feedback. Collaborative filtering can learn viewer–video interaction patterns; an implicit-feedback variant of matrix factorization is one possible approach. The absence of descriptions limits content-based approaches. A popularity baseline is also worth considering, especially for a new viewer.
 
 Use the discussion prompt to distinguish the goal (recommend videos the viewer enjoys) from the observed proxy (clicks). A click might reflect curiosity, an appealing thumbnail, clickbait, or an accident; it does not establish satisfaction. An absent click does not establish dislike: the viewer may never have been shown the video. Do not treat all missing interactions as explicit negative ratings. Exposure and placement also influence what gets clicked.
 
 Ask: what additional evidence would help assess enjoyment? Explicit feedback, watch duration or completion, and satisfaction surveys can help, but each has limitations. Predicting clicks well does not by itself show that recommendations improve satisfaction. This is a simplified prototype, not a description of YouTube’s production system.
-
-B — Image classification and transfer learning (lecture 17): use a pretrained image model as a feature extractor with a classifier, or fine-tune it. Many images but few labels motivates reusing learned visual features. Ask: if several near-identical frames come from the same animal visit, should they be split randomly across training and test sets? Keep related frames together; consider held-out cameras or locations if that matches intended use. A model trained on ordinary photos may still need adaptation for night-time camera images.
 :::
 
 ## Recap: What approach would you try? (2/3) {.slide-your-turn .smaller}
 
 **Identify the problem type, suggest an approach, and explain what clues guide your choice.**
 
-**C. Finding the right product**
-
-An online store wants a search for “something to keep my coffee hot on the bus” to find products described as “insulated travel mugs.” You have product titles and descriptions, but no labelled query–product matches. How could you retrieve relevant products even when the wording differs?
-
-**D. How much electricity will campus need tomorrow?**
+**C. How much electricity will campus need tomorrow?**
 
 UBC facilities staff have two years of hourly electricity-use records for campus buildings. They want to predict demand for each hour tomorrow to plan electricity purchases. They also have weather records and the academic calendar. What information could they use when making the forecast this evening?
 
+**D. Who visited the wildlife crossing?**
+
+A conservation team has thousands of camera-trap photos, each showing a deer, bear, or coyote, but only 600 have species labels. They want to classify the remaining photos without training a large model from scratch.
+
 ::: {.notes}
-C — NLP and semantic search (lecture 18): use a pretrained text embedding model designed for retrieval to encode product descriptions and queries into a shared vector space, then retrieve products with high similarity, for example cosine similarity. A pretrained model provides a starting point without labelled query–product matches. Embed new products as they enter the catalogue.
-
-Ask: why might exact keyword matching miss this result? The query describes a need using different words from the product description. Semantic search aims to capture this relationship. An LLM-generated answer is not required to return ranked products; retrieval would become part of RAG if we supplied the retrieved descriptions to an LLM to generate an answer. Check performance on representative queries with human relevance judgments. Exact constraints such as price, dimensions, and availability may need explicit filters rather than embedding similarity alone.
-
-D — Time-series forecasting (lecture 19): start with a seasonal baseline, such as demand at the same hour last week, then consider regression with lagged demand, calendar features, and weather forecasts. Hour of day, day of week, holidays, and the academic calendar can capture recurring patterns. Evaluate with chronological splits and forecast origins matching the evening decision.
+C — Time-series forecasting (lecture 19): start with a seasonal baseline, such as demand at the same hour last week, then consider regression with lagged demand, calendar features, and weather forecasts. Hour of day, day of week, holidays, and the academic calendar can capture recurring patterns. Evaluate with chronological splits and forecast origins matching the evening decision.
 
 Ask: can we use tomorrow’s actual temperature or electricity demand from earlier tomorrow when making this evening’s forecast? No. Use weather forecasts available this evening; actual future weather would leak information. Predicting all of tomorrow requires a multi-step strategy: some recent-demand lags will be unavailable for later forecast hours. The academic calendar and tomorrow’s hour/day are known in advance.
+
+D — Image classification and transfer learning (lecture 17): use a pretrained image model as a feature extractor with a classifier, or fine-tune it. Many images but few labels motivates reusing learned visual features. Ask: if several near-identical frames come from the same animal visit, should they be split randomly across training and test sets? Keep related frames together; consider held-out cameras or locations if that matches intended use. A model trained on ordinary photos may still need adaptation for night-time camera images.
 :::
 
 ## Recap: What approach would you try? (3/3) {.slide-your-turn .smaller}
 
-**E. When will a subscriber cancel?**
+**E. When will a telecom customer leave?**
 
-A streaming service wants to predict how long a new subscriber will stay. You have signup dates and cancellation dates for subscribers who left. Many subscribers are still active when the data are collected.
+A telecom company wants to predict how long a new customer will stay. You have each customer’s observed months since signup and whether they have left the service. Many customers are still subscribed when the data are collected.
 
 - Would you frame this as classification or regression?
-- What target would you assign to someone who has been subscribed for **eight months and is still active**?
-- Would you keep that subscriber in the training data? Why?
+- What target would you assign to a customer who has been subscribed for **eight months and is still active**?
+- Would you keep that customer in the training data? Why?
 
 ::: {.notes}
 Let students propose approaches before naming survival analysis or right censoring. The aim is to expose a gap in familiar targets, rather than expect students to name a method they have not learned.
 
-We know the active subscriber has stayed for at least eight months, but do not know their eventual cancellation time. Assigning eight months as an exact lifetime invents a cancellation; dropping the subscriber discards useful partial information. A snapshot active/cancelled label does not answer how long a new subscriber will stay. Fixed-horizon classification is possible, but some subscribers will not have enough follow-up to receive a known label.
+We know the active customer has stayed for at least eight months, but do not know their eventual churn time. Assigning eight months as an exact lifetime invents a departure; dropping the customer discards useful partial information. A snapshot active/churned label does not answer how long a new customer will stay. Fixed-horizon classification is possible, but some customers will not have enough follow-up to receive a known label.
 
-Invite students to keep this unresolved target question in mind. Transition to the telecom example: the same issue arises when predicting time to churn. The next slides contrast completed and incomplete subscriptions before introducing the terminology.
+Keep this target question open as we continue with the same telecom example for the rest of the lecture and demo. The next slides define the prediction task and contrast completed and incomplete subscriptions before introducing the terminology.
 :::
 
 ## Today’s goals {.slide-goals}
@@ -105,7 +105,7 @@ Invite students to keep this unresolved target question in mind. Transition to t
 
 A telecom retention team wants to anticipate **time to churn**.
 
-Like the streaming service, it has customers who left and others who are still subscribed.
+Let’s continue with the company from our recap: some customers have left, while others are still subscribed.
 
 - **Event:** a customer leaves the service.
 - **Time origin:** the customer’s signup.
@@ -113,67 +113,52 @@ Like the streaming service, it has customers who left and others who are still s
 
 Timing can help plan outreach. Predicting churn does not tell us whether an offer will prevent it.
 
-## Same duration, different information
+## Customer churn
 
-| Customer | Observed months | Churn observed? | What we know |
-|---|---:|---|---|
-| A | 4 | Yes | Churn at month 4 |
-| B | 4 | No | Stayed beyond month 4 |
-| C | 18 | No | Stayed beyond month 18 |
+**Churn** means a customer stops using a company’s service.
 
-**B and C have incomplete lifetimes, not zero churn risk.**
+Our telecom company wants to predict **when**, not just whether, a customer will leave.
 
-## Observation ends before the event
-
-```{python}
-fig, ax = plt.subplots(figsize=(8, 2.8))
-for y, (customer, duration, observed) in enumerate(
-    [("A", 4, True), ("B", 4, False), ("C", 18, False)]
-):
-    ax.hlines(y, 0, duration, color="tab:blue", linewidth=3)
-    ax.plot(duration, y, "X" if observed else "o", color="tab:blue",
-            markerfacecolor="tab:blue" if observed else "white", markersize=9)
-    ax.text(duration + 0.6, y, "Churn" if observed else "Observation ends", va="center")
-ax.set(yticks=[0, 1, 2], yticklabels=["A", "B", "C"],
-       xlabel="Months since each customer's signup", xlim=(-0.5, 26), ylim=(-0.5, 2.5))
-ax.invert_yaxis()
-ax.set_title("An observed event and two incomplete lifetimes")
-plt.show()
-```
+**What information would we need to learn from past customers?**
 
 ::: {.notes}
-Open circles mark the end of observation, not churn. Timelines align by time since signup, not calendar date.
+Connect to the recap scenario. Ask for signup dates, departure dates where observed, observation end dates, and customer features available at prediction time. Keep the distinction between predicting departure and identifying an effective retention action.
 :::
-
-## Right-censoring
-
-For a right-censored customer, we know a **lower bound** on time to churn.
-
-- We observed them event-free through their recorded duration.
-- We do not know their eventual churn time.
-- We should preserve both the **duration** and **event indicator**.
-
-The same structure appears in time to equipment failure or time until finding a job.
 
 ## Meet the customer data {.smaller}
 
-[Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn): one row per customer.
+[Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn): one row per customer. These are six actual records.
 
-| Column | Meaning in our teaching example |
-|---|---|
-| `tenure` | Months from signup to churn or the end of observation |
-| `Churn` | Whether departure was observed (`Yes` / `No`) |
-| `Contract` | Recorded contract type |
-| `MonthlyCharges` | Recorded monthly charge |
-| `InternetService` | Recorded internet service type |
+| Customer | `tenure` (months) | `Churn` |
+|---|---:|---|
+| 7590-VHVEG | 1 | No |
+| 5575-GNVDE | 34 | No |
+| 3668-QPYBK | 2 | Yes |
+| 7795-CFOCW | 45 | No |
+| 9237-HQITU | 2 | Yes |
+| 9305-CDSKC | 8 | Yes |
 
-**Teaching assumption:** this is a snapshot, not a documented customer history. We interpret `Churn = No` as right censoring.
+Other columns include `Contract`, `MonthlyCharges`, and `InternetService`.
+
+**Teaching assumption:** interpret `tenure` as months from signup to departure or the end of observation, and `Churn` as whether departure was observed.
 
 ::: {.notes}
-Before operational use, verify sampling, follow-up, and which features were available at prediction time. Current contract and billing attributes need not be their values at signup. The demo inspects actual rows and explores data quality; these are model illustrations, not validated deployment predictions.
+These are the first six CSV records, shown only to introduce the outcome columns; the demo reserves a test set before analysis. This dataset is a snapshot rather than a documented longitudinal cohort. Before operational use, verify sampling, follow-up, and feature availability at prediction time. Current contract and billing information need not be their values at signup.
 :::
 
-## Could we use classification? {.smaller}
+## Could we use classification? {.slide-your-turn}
+
+Suppose we train a classifier with `Churn` as the target.
+
+- What question would it learn to answer?
+- Does that answer **how long a new customer will stay**?
+- Does `Churn = No` mean the customer will never leave?
+
+::: {.notes}
+Invite answers before moving on. A snapshot classifier distinguishes recorded departures from customers recorded as active; this is different from predicting eventual subscription length. Follow-up lengths differ. No means departure was not observed, not that future departure is impossible.
+:::
+
+## Classification needs a defined horizon {.smaller}
 
 A snapshot label, “churn observed,” mixes customers with different follow-up lengths.
 
@@ -187,30 +172,159 @@ A fixed-horizon question can work: **Will they churn within six months of signup
 
 **An unknown horizon label cannot simply be labelled negative.**
 
-## Two tempting shortcuts {.slide-your-turn}
+## Could we predict tenure with regression? {.slide-your-turn .smaller}
 
-1. Fit a regressor using **only customers who churned**.
-2. Fit a regressor treating **every recorded tenure as final**.
+| Customer | `tenure` (months) | `Churn` |
+|---|---:|---|
+| 7590-VHVEG | 1 | No |
+| 5575-GNVDE | 34 | No |
+| 3668-QPYBK | 2 | Yes |
+| 7795-CFOCW | 45 | No |
+| 9237-HQITU | 2 | Yes |
+| 9305-CDSKC | 8 | Yes |
+
+**Could we use `tenure` as the target for a regressor?**
+
+Does a recorded tenure of 34 months mean the same thing when `Churn` is `Yes` versus `No`?
+
+::: {.notes}
+Pause before explaining. For an observed departure, tenure is a completed duration. For an active customer, it is only follow-up so far. Ordinary regression expects exact targets; some of these records provide bounds instead. Changing the regressor does not fix this difference.
+:::
+
+## Same duration, different information
+
+| Customer | Observed months | Churn observed? | What we know |
+|---|---:|---|---|
+| A | 4 | Yes | Churn at month 4 |
+| B | 4 | No | Stayed beyond month 4 |
+| C | 12 | No | Stayed beyond month 12 |
+
+**B and C have incomplete lifetimes, not zero churn risk.**
+
+## Same cutoff, different information
+
+```{python}
+fig, ax = plt.subplots(figsize=(10, 3.8))
+ax.axvspan(0, 2.5, color="#f1f3f5", zorder=0)
+ax.axvline(0, color="#495057", linestyle="--", linewidth=1.8)
+ax.text(0, -0.65, "Data collected", ha="center", fontsize=12, fontweight="bold")
+
+for y, (customer, months, churned) in enumerate(
+    [("A", 4, True), ("B", 4, False), ("C", 12, False)]
+):
+    color = "#c0392b" if churned else "#2471a3"
+    ax.hlines(y, -months, 0, color=color, linewidth=4)
+    ax.plot(-months, y, "|", color=color, markersize=16, markeredgewidth=2)
+    ax.text(-months, y - 0.2, "Signup", ha="center", fontsize=10)
+    ax.plot(0, y, "X" if churned else "o", color=color,
+            markerfacecolor=color if churned else "white",
+            markersize=11, markeredgewidth=2, zorder=4)
+    if not churned:
+        ax.annotate("", xy=(2, y), xytext=(0.15, y),
+                    arrowprops=dict(arrowstyle="->", color=color,
+                                    linestyle=":", linewidth=2))
+    label = "Churn observed: 4 months" if churned else f"Still active: more than {months} months"
+    ax.text(0.35, y - 0.22, label, color=color, fontsize=11, va="center")
+
+ax.set(yticks=[0, 1, 2], yticklabels=["Customer A", "Customer B", "Customer C"],
+       xticks=[-12, -8, -4, 0], xticklabels=["−12", "−8", "−4", "0"],
+       xlabel="Calendar time relative to data collection (months)",
+       xlim=(-13.5, 7.5), ylim=(2.5, -0.9))
+ax.spines[["top", "right", "left"]].set_visible(False)
+ax.tick_params(axis="y", length=0)
+fig.tight_layout()
+plt.show()
+```
+
+::: {.notes}
+All timelines share a calendar-time cutoff at month 0. A and B signed up four months earlier; C signed up twelve months earlier. A's departure was recorded exactly at the cutoff, so its four-month duration is complete. Open circles mark the end of observation for B and C, not departures. Dotted arrows indicate continuing subscriptions, not known future churn times. The shaded region is beyond the data-collection cutoff.
+:::
+
+## Right-censoring
+
+For a right-censored customer, we know a **lower bound** on time to churn.
+
+- The event was **not observed before observation ended**.
+- We observed them event-free through their recorded duration.
+- We do not know their eventual churn time.
+- We should preserve both the **duration** and **event indicator**.
+
+The same structure appears in time to equipment failure or time until finding a job.
+
+## Approach 1: Use only customers who churned
+
+Keep rows with `Churn = Yes` and fit a regressor to their completed subscription lengths.
+
+```python
+churned = train.loc[train["Churn"].eq("Yes")]
+# Fit a regressor using churned customers only?
+```
+
+**Now every retained row has an observed event time. What did we lose?**
+
+## Your turn: discard active customers? {.slide-your-turn}
 
 A customer is still subscribed when observation ends at month 15.
 
-**What information does each shortcut lose or misrepresent?**
+If we remove their row:
+
+- What useful information have we discarded?
+- Would the remaining customers represent all subscription lengths fairly?
 
 ::: {.notes}
-Shortcut 1 discards evidence that this customer survived beyond 15 months. Shortcut 2 invents an event at month 15. Replacing their duration with the mean of observed events also discards the lower-bound information.
+We discard evidence that this customer stayed at least 15 months. Keeping only observed departures selects events that occurred during follow-up. Under independent censoring, this tends to favor shorter lifetimes, so events-only estimates tend to be too short. Do not present the direction as universal under every possible observation process. The central issue is losing partial information and changing which customers are represented.
+:::
+
+## Approach 2: Treat every tenure as final
+
+Keep all rows and use recorded `tenure` as the regression target, regardless of `Churn`.
+
+| Customer | Observation | Regression target |
+|---|---|---:|
+| A | Left at month 4 | 4 |
+| B | Still subscribed at month 15 | 15 |
+
+**We have a number for everyone. Does it mean the same thing?**
+
+## Your turn: did they leave at month 15? {.slide-your-turn}
+
+For the active customer, setting the target to 15 claims that:
+
+- (A) They left at month 15.
+- (B) They stayed at least 15 months; their departure time is unknown.
+- (C) They will never leave.
+
+**Which claim does an ordinary regression target encode? Which claim does the record support?**
+
+::: {.notes}
+The exact numerical regression target encodes A, but the record supports B. We invent a departure at the observation end. Across records, the model learns observed follow-up rather than completed lifetimes. Do not claim that any particular regressor must underpredict every customer's lifetime; the target is misrepresented regardless of the algorithm.
 :::
 
 ## Why the shortcuts fail
 
-**Events only:** selects customers whose events happened during follow-up; discards censored customers’ evidence of longer survival.
+- **Events only:** discards censored customers’ evidence and selects customers whose departures were observed.
+- **Follow-up as lifetime:** invents departures when observation ends.
 
-- Generally biases lifetime estimates downward under independent censoring.
+**Changing regressors or tuning hyperparameters does not repair the targets.**
 
-**Follow-up as lifetime:** declares that active customers churned when observation ended.
+We need to learn from both **exact event times** and **partial information**.
 
-- Learns observed follow-up rather than time to churn.
+## Approach 3: Survival analysis
 
-**Changing regressors does not repair the targets.**
+Survival analysis models **time to an event** while accounting for censoring.
+
+- Use completed durations when departures are observed.
+- Use lower bounds when observation ends before a departure is observed.
+- Estimate probabilities of remaining subscribed across time.
+
+In the demo:
+
+- **Kaplan–Meier:** estimate overall and group retention curves.
+- **Cox regression:** relate several customer features to time to churn.
+
+::: {.notes}
+These methods use censored records without treating observation ending as a departure. They still require assumptions about the observation process; survival analysis does not automatically correct informative censoring or unsuitable predictors. Discuss the censoring assumption when reading the demo's overall curve.
+:::
 
 ## Preserve the two-part outcome
 
@@ -218,7 +332,7 @@ Shortcut 1 discards evidence that this customer survived beyond 15 months. Short
 |---|---:|---:|---|
 | A | 4 | 1 | Churn at month 4 |
 | B | 4 | 0 | Stayed beyond month 4 |
-| C | 18 | 0 | Stayed beyond month 18 |
+| C | 12 | 0 | Stayed beyond month 12 |
 
 - `event = 1`: churn observed (`Churn = Yes`).
 - `event = 0`: churn not observed (`Churn = No`).
