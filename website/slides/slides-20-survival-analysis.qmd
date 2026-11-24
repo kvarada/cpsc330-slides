@@ -298,10 +298,10 @@ Customer B is still subscribed when observation ends at month 4.
 If we remove their row:
 
 - What useful information have we discarded?
-- Would the remaining customers represent all subscription lengths fairly?
+- If we estimate **average time to churn** using only customers who have already left, would you expect it to be **too short or too long**? Why?
 
 ::: {.notes}
-We discard evidence that B stayed at least 4 months. Keeping only observed departures selects events that occurred during follow-up. Under independent censoring, this tends to favor shorter lifetimes, so events-only estimates tend to be too short. Do not present the direction as universal under every possible observation process. The central issue is losing partial information and changing which customers are represented.
+First discuss the lost information: we discard evidence that B stayed at least 4 months. Then ask students to predict the direction of the error. Expected answer: typically too short under independent censoring, because longer subscriptions are more likely to remain incomplete and be excluded. Keeping only observed departures selects events that occurred during follow-up. Under independent censoring, this tends to favor shorter lifetimes, so events-only estimates tend to be too short. Do not present the direction as universal under every possible observation process. The central issue is losing partial information and changing which customers are represented.
 :::
 
 ## Approach 2: Treat every tenure as final
