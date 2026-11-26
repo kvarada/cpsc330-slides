@@ -1,4 +1,5 @@
 ---
+publish-pdf: true
 title: "Lecture 21: Communication"
 description: "Communicating machine learning results: audience-aware explanations, evidence-based recommendations, probability estimates and reliability, and fair visual comparisons using a housing prediction example"
 description-short: "Explaining ML results and supporting decisions"
