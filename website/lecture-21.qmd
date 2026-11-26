@@ -1,0 +1,25 @@
+---
+title: "Lecture 21: Communication"
+description: "Communicating machine learning results: audience-aware explanations, evidence-based recommendations, probability estimates and reliability, and fair visual comparisons using a housing prediction example"
+description-short: "Explaining ML results and supporting decisions"
+
+editor: { render-on-save: true }
+---
+
+## Slides
+
+[Download slides as PDF](slides/slides-21-communication.pdf){.btn .btn-outline-primary download=""}
+
+{{< revealjs "slides/slides-21-communication.html" height="600px" class="ratio ratio-16x9" >}}
+
+
+## Outline
+
+- Explaining technical methods to newcomers: comparing two grid-search explanations
+- Choosing language, examples, detail, and structure for the audience
+- Connecting model results to decisions: the housing pilot example
+- Structuring updates with What? So what? Now what?
+- Matching claims to evidence and communicating limitations and uncertainty
+- Distinguishing model probability estimates from evidence of reliability
+- Presenting fair comparisons: housing model results, chart choices, and misleading axes
+- Writing a decision-focused update and reviewing it with a communication checklist
