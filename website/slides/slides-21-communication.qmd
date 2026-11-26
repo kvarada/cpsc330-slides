@@ -40,30 +40,33 @@ Before we begin, let’s take a moment to settle in. Take a few comfortable brea
 HW9 is out, and the deadline is December 4. You’re nearly there! Our next lecture, on ethics, will be delivered by Firas, the Section 101 instructor. Please also take a moment to sign the card for Mick, our movement break facilitator.
 :::
 
-## Recap: iClicker {.slide-your-turn .smaller}
+## Recap: Would online security prevent churn? {.slide-your-turn .smaller}
 
-**Select all of the following statements which are TRUE.**
+:::: {.columns}
+::: {.column width="60%"}
 
-- (A) Right censoring occurs when the endpoint of event has not been observed for all study subjects by the end of the study period.
-- (B) Right censoring implies that the data is missing completely at random.
-- (C) In the presence of right-censored data, binary classification models can be applied directly without any modifications or special considerations.
-- (D) Treating an active customer’s observed tenure as their final lifetime understates that customer’s eventual lifetime.
+![Estimated retention among internet-service customers, grouped by whether they have online security.](img/survival-plots-online-security.png){.nostretch fig-align="center" height="440px"}
 
-::: {.notes}
-Which statements do you think are true? Take a moment to choose your answers.
-
-The answers are A and D. In A, some event times are unknown because observation ends before the event is seen. B does not follow: censoring does not imply that the missing event times are missing completely at random. C ignores the fact that an outcome may still be unknown after follow-up ends. For D, an active customer’s observed tenure is only a lower bound. Treating it as their completed lifetime understates that lifetime; this does not mean every prediction from a fitted regression model must be too low.
 :::
+::: {.column width="40%"}
 
-## Recap: incomplete lifetimes
+Customers with online security have **higher estimated retention**.
 
-- An active customer’s observed tenure is a **lower bound**, not a final lifetime.
-- Keep both the **duration** and whether the **event was observed**.
-- Kaplan–Meier estimates a survival curve without customer features.
-- Cox models relate features to the hazard; their output can support survival predictions under model assumptions.
+Would this justify recommending online security **as a way to prevent churn**?
+
+**Why or why not?**
+
+:::
+::::
 
 ::: {.notes}
-If a customer has been active for eight months, we know they stayed for at least eight months. We do not know their final lifetime. That is why we keep both duration and event status. Kaplan–Meier estimates survival without customer features. Cox models relate features to the hazard, from which we can obtain survival predictions under the model’s assumptions.
+Let’s return to the survival curves from last lecture. The vertical axis is the estimated probability of remaining subscribed, and the horizontal axis is months since joining. Customers with online security have higher estimated retention. Does that justify recommending online security as a way to prevent churn? What else would you want to know?
+
+The curves show an association, but they do not tell us what would happen if we sold online security to customers who currently lack it. The groups might differ in contract type, service bundles, or other characteristics. Those are possible explanations to investigate, not facts established by this plot. We would also need to know when online security was purchased: its status when data were collected need not be its status when the customer joined.
+
+This finding could motivate further investigation, but it does not establish that selling online security prevents churn. A suitable intervention study, such as a randomized offer with clearly defined outcomes, could help us assess an action; the effect of offering a product is also distinct from the effect of actually using it.
+
+Notice how easily “customers with security stay longer” becomes “security makes customers stay longer.” A careful update would say: “Customers with online security have higher estimated retention in these data. We have not established that offering it would reduce churn.” Today we’ll practise communicating results without making that unsupported jump. We’ll see the same distinction when we ask whether better house-price predictions lead to better outcomes for sellers.
 :::
 
 ## Today’s goals {.slide-goals}
