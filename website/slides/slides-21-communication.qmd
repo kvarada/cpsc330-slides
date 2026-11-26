@@ -7,6 +7,8 @@ format:
     embed-resources: true
     slide-number: true
     slide-level: 2
+    title-slide-attributes:
+      data-notes: "Today we practise three communication tasks: explaining a method to a newcomer, helping a manager decide what to do next, and presenting a fair comparison. The central skill is to connect a claim to evidence the audience can assess."
     theme: [slides.scss]
     center: true
     logo: img/UBC-CS-logo.png
@@ -23,12 +25,20 @@ execute:
 
 ![](img/inukshuk.jpeg){.nostretch fig-align="center" width="500px"}
 
+::: {.notes}
+Before we begin, let’s take a moment to settle in. Take a few comfortable breaths and let your attention come back to the room.
+:::
+
 ## Announcements
 
 - HW9 has been released (due on December 4th)
   - Almost there! You've got this! 😊
 - Next lecture on Ethics will be delivered by Firas (Section 101 instructor)
 - Please take a moment to sign the card for Mick, our movement break facilitator.
+
+::: {.notes}
+HW9 is out, and the deadline is December 4. You’re nearly there! Our next lecture, on ethics, will be delivered by Firas, the Section 101 instructor. Please also take a moment to sign the card for Mick, our movement break facilitator.
+:::
 
 ## Recap: iClicker {.slide-your-turn .smaller}
 
@@ -40,7 +50,9 @@ execute:
 - (D) Treating an active customer’s observed tenure as their final lifetime understates that customer’s eventual lifetime.
 
 ::: {.notes}
-Answers: A and D. B is not implied by censoring. C ignores the unknown outcome after follow-up ends. D concerns replacing a lower bound with an exact target; it is not a guarantee about every prediction made by Ridge.
+Which statements do you think are true? Take a moment to choose your answers.
+
+The answers are A and D. In A, some event times are unknown because observation ends before the event is seen. B does not follow: censoring does not imply that the missing event times are missing completely at random. C ignores the fact that an outcome may still be unknown after follow-up ends. For D, an active customer’s observed tenure is only a lower bound. Treating it as their completed lifetime understates that lifetime; this does not mean every prediction from a fitted regression model must be too low.
 :::
 
 ## Recap: incomplete lifetimes
@@ -50,12 +62,19 @@ Answers: A and D. B is not implied by censoring. C ignores the unknown outcome a
 - Kaplan–Meier estimates a survival curve without customer features.
 - Cox models relate features to the hazard; their output can support survival predictions under model assumptions.
 
+::: {.notes}
+If a customer has been active for eight months, we know they stayed for at least eight months. We do not know their final lifetime. That is why we keep both duration and event status. Kaplan–Meier estimates survival without customer features. Cox models relate features to the hazard, from which we can obtain survival predictions under the model’s assumptions.
+:::
+
 ## Today’s goals {.slide-goals}
 
 1. **Start from the reader’s needs:** choose language, examples, and structure for the audience.
 2. **Match the claim to the evidence:** connect results to a justified next step.
 3. **Present fair comparisons:** make evidence easy to interpret.
 
+::: {.notes}
+Today we’ll practise three communication tasks. First, how do we explain a familiar method to someone new to ML? Second, how do we help a manager decide what to do with a result? Third, how do we present a comparison fairly? Our housing example will connect the decision and visualization tasks.
+:::
 
 ## Why communication?
 
@@ -65,6 +84,10 @@ Answers: A and D. B is not implied by censoring. C ignores the unknown outcome a
 
 **Communication supports the whole workflow.**
 
+::: {.notes}
+Communication starts before we train a model, when we discuss the goal and question our assumptions. It continues when we explain results. A technically correct score can still leave someone wondering what they should do next. Our aim is to help people understand and decide using appropriate evidence. Adoption is useful only when the evidence supports it.
+:::
+
 ## Is this misleading? {.slide-your-turn .smaller}
 
 ![](img/ml-communication.png){.nostretch fig-align="center" height="380px"}
@@ -72,10 +95,16 @@ Answers: A and D. B is not implied by censoring. C ignores the unknown outcome a
 What task, population, baseline, and metric would you need to assess this claim?
 
 ::: {.notes}
-Keep this as a brief hook. Ask what the headline establishes versus what readers might infer about usefulness in practice. Return to this distinction in the housing example.
+What would you need to know before accepting this headline? What exactly was predicted, for whom, and on which data? What was the baseline? What does the metric measure, and how uncertain is the result?
+
+We cannot settle all of that from a headline. The result might be useful, but we need the evaluation context before drawing that conclusion. Notice the distinction between what a result establishes and what a reader might infer from it. We’ll return to that in the housing example.
 :::
 
 # Task 1: Explain a method to a newcomer
+
+::: {.notes}
+You already know grid search. For this task, imagine you know Python but have not studied ML. What would an explanation need to establish before its terminology and code become useful?
+:::
 
 ## Compare two explanations {.slide-your-turn .smaller}
 
@@ -101,7 +130,9 @@ Imagine reading these on **Day 1 of CPSC 330**. Focus on the explanation, not le
 Read the explanations from [Chapter 21](https://ubc-cs.github.io/cpsc330-book/book/21_communication.html#compare-two-explanations)
 
 ::: {.notes}
-Allow time to read the explanations in the updated notes. The screenshots are reminders, not reading-sized copies. Neither explanation is a template to copy unchanged.
+Please open the two explanations in Chapter 21. The screenshots here are reminders; the full text is in the notes. Take a few minutes to read, and identify one helpful choice and one assumption about the reader in each explanation.
+
+The first explanation connects a problem to a running example and output. The second assumes more vocabulary and context, though an experienced reader looking for an API example might find parts useful. Neither is a template we should copy unchanged.
 :::
 
 ## Critique both explanations {.slide-your-turn .smaller}
@@ -114,7 +145,11 @@ Allow time to read the explanations in the updated notes. The screenshots are re
 **Choose one detail to revise and explain why.**
 
 ::: {.notes}
-A short selection of settings can establish the problem with less distraction. A cockpit can suggest continuously adjustable controls, although settings such as tree count are integers. The second excerpt says “accuracy” for an SVR search scored by negative MSE and overstates optimality: best among tried settings is not universally optimal. Its X and y are undefined in the excerpt. Invite critique of technical precision as well as style.
+What would you revise for a newcomer, and why?
+
+The full constructor shows that there are many settings, but a shorter selection could make that point with less distraction. The cockpit analogy conveys choices, though it might suggest continuous controls when tree count, for example, is an integer. It also does not explain the search itself. A grid diagram could do that more directly; a meme may mainly attract attention.
+
+The first explanation carries the random-forest settings through the grid, code, and output. The second uses SVR, leaves X and y undefined in the excerpt, and does not display a result. It also says “accuracy” although its score is negative mean squared error. We can improve technical precision as well as style: show fewer settings, name the metric correctly, or add output with an explanation. Different revisions can work if they address the reader’s needs.
 :::
 
 ## Choose an opening {.slide-your-turn .smaller}
@@ -128,7 +163,9 @@ Your teammate knows Python but has not studied ML. Which opening would you use?
 **What does each assume? When would A be appropriate?**
 
 ::: {.notes}
-B gives this newcomer a purpose before labels, but may still require explaining held-out data. A is useful shorthand for an experienced teammate. C names settings without explaining why they matter.
+Which opening would you choose for this teammate? What background does each assume?
+
+I would start with B. It explains why we are comparing settings before naming the procedure, although we may still need to explain held-out data. A assumes the reader knows optimization and cross-validation; it could be excellent shorthand for an experienced teammate. C names settings but does not explain their purpose. The choice depends on what knowledge we share with the reader.
 :::
 
 ## Choose a worked example {.slide-your-turn .smaller}
@@ -142,7 +179,11 @@ You have room for one worked example. Which plan would you choose?
 What must the reader keep track of? Could you borrow anything useful from another plan?
 
 ::: {.notes}
-A keeps the settings consistent across the explanation and code, reducing simultaneous unfamiliar ideas. B uses a second model to show that tuning applies beyond random forests, but asks the newcomer to connect the search procedure to a new set of hyperparameters. Discuss whether that transfer is useful at this stage or better introduced after one complete example. C may work as a reference for experienced readers; a glossary alone does not explain relationships.
+What would the reader need to keep track of in each plan?
+
+A keeps one model’s settings consistent across prose, the grid, code, and output. B has a useful goal: showing that tuning applies to another model. But the reader must also learn SVR’s settings while learning the search procedure. C asks them to interpret code while holding several unresolved terms in mind; a glossary helps reference, but does not explain the relationships.
+
+For this newcomer, I would complete A first, then borrow B’s second model to show transfer. C’s glossary could remain available as supporting material. Variety can be useful; its timing matters.
 :::
 
 ## What would you add next? {.slide-your-turn .smaller}
@@ -153,14 +194,18 @@ Your reader now understands **how grid search works**. They ask:
 
 **Which response would you give, and what evidence would you include?**
 
-- **A.** “Grid search selected the settings with the highest mean cross-validation score. Show the search results as evidence that tuning improved the model.”
-- **B.** “Compare the default and selected models on the same held-out data that were not used for tuning. Report whether performance improved here; explain that improvement is not guaranteed on other tasks.”
-- **C.** “Compare default and tuned models across several datasets. Use those comparisons to explain when tuning tends to help and when it may offer little benefit.”
+- **A.** Show the winning cross-validation score as evidence that tuning helped.
+- **B.** Compare default and tuned models on data not used for tuning. Limit the conclusion to this experiment.
+- **C.** Compare default and tuned models across several datasets to investigate when tuning helps.
 
 What can each piece of evidence establish? What would remain uncertain?
 
 ::: {.notes}
-A confuses selecting settings with demonstrating improvement over defaults: the search results alone do not establish that comparison, and the winning cross-validation score can be optimistic after selection. B directly addresses this case using evaluation data not used for tuning and appropriately limits the claim. Explain the metric and the observed difference, including evaluation uncertainty. C adds evidence relevant to the broader question, though its conclusions depend on the datasets, search budgets, and evaluation design. It still cannot establish that grid search always helps. B and C are complementary rather than mutually exclusive; invite students to justify the scope of their response.
+How would you answer these two questions, and what evidence would you provide?
+
+A tells us which settings won the search. It does not, on its own, demonstrate improvement over defaults, and the winning cross-validation score may look optimistic after selection. B directly addresses this case: compare default and tuned models on data not used for tuning, explain the metric and difference, and acknowledge evaluation uncertainty.
+
+C investigates the broader question using several datasets. Its conclusions still depend on which datasets, search budgets, and evaluations we chose. It cannot establish that tuning always helps. B and C can complement each other: one answers what happened here, the other explores how widely that result holds.
 :::
 
 ## Concepts before labels
@@ -172,6 +217,12 @@ A confuses selecting settings with demonstrating improvement over defaults: the 
 The **curse of knowledge**: once we know an idea, we can forget what a newcomer needs explained.
 
 For an experienced reader, the label may be useful shorthand.
+
+::: {.notes}
+Opening B gives the reader something to attach the label to. We have settings to choose, a reason to compare choices, and then a name for that process. A name alone does not provide understanding.
+
+Once a term becomes familiar, it is easy to forget how much background we needed to understand it. That is the curse of knowledge. For a colleague who already understands the concept, starting with the label can be efficient.
+:::
 
 ## Top down or bottom up? {.smaller}
 
@@ -199,29 +250,29 @@ Build from concrete examples or component ideas towards the larger idea.
 **Choose the starting point for the audience and purpose.**
 
 ::: {.notes}
-A newcomer may need settings and combinations before the search procedure. An experienced teammate deciding whether to continue tuning may want the comparison with defaults first. Neither order is always best.
+A top-down explanation starts with the conclusion or overall picture. A bottom-up explanation builds towards it from concrete examples or smaller ideas.
+
+A newcomer may need to see settings and combinations before understanding the search procedure. An experienced teammate deciding whether to continue tuning may want the result compared with defaults first. Neither order is always better. The audience’s background and purpose determine the useful starting point.
 :::
 
-## Build understanding step by step
+## Build understanding step by step {.smaller}
 
-1. Introduce a few settings and their combinations.
-2. Explain how cross-validation compares them.
-3. Connect the steps to code and output.
+**Keep one running example** across prose, tables, code, and output.
 
-**Reuse the same example** across prose, tables, code, and results.
-
-A second example can show transfer once the first idea is clear.
-
-## Use complementary explanations {.smaller}
-
-| Reader’s question | Useful addition |
+| Reader’s next question | Add this next |
 |---|---|
-| Which combinations are tried? | A small grid table |
-| How do I run the search? | Matching code |
-| Did tuning help here? | Default-versus-tuned comparison |
-| How does another search differ? | Grid versus randomized search |
+| Which settings will we try? | A small grid of combinations |
+| How will we compare them? | Explain cross-validation |
+| How do I run it? | Code using those same settings |
+| Did tuning help? | Default-versus-tuned results |
 
-Choose the angle that addresses the difficulty.
+Introduce another model or search method when it answers a new question.
+
+::: {.notes}
+We can keep the reader oriented by answering one question at a time. Which settings will we try? Here is a small grid. How will we compare them? Here is the role of cross-validation. How do we run it? Here is matching code. Did it help? Here is the comparison with defaults.
+
+Keeping the example consistent reduces how many new things the reader must connect at once. Another model or search method becomes useful when it answers their next question.
+:::
 
 ## Keep results close to the explanation
 
@@ -231,6 +282,14 @@ Choose the angle that addresses the difficulty.
 - Say what the experiment supports and what remains unresolved.
 
 **Best among the settings tried** does not mean **universally best**.
+
+::: {.notes}
+When we show an experiment, the relevant result should be easy to find, with an explanation of what to notice. For grid search, best_params_ identifies the best settings among those tried. It does not establish improvement over defaults or universal optimality.
+
+If improvement is the question, we need the appropriate comparison. Disappointing or inconclusive findings belong in the explanation too; choosing only a successful run would give the reader an incomplete picture.
+
+In a longer presentation, it can also help to give a sneak peek of the main result at the beginning. That gives the audience a reason to care and a destination to keep in mind. Then we can explain how we got there—our approach—before walking through the evaluation and detailed results. Any important qualification should stay with the preview, so the opening does not promise more than the evidence supports. We can return to the result with more detail once the audience understands the setup.
+:::
 
 ## It’s not about you {.smaller}
 
@@ -244,14 +303,22 @@ When reluctant to remove a detail, ask:
 **Keep essential assumptions, limitations, and reproducibility details available.**
 
 ::: {.notes}
-“If it doesn’t serve the audience, it’s noise.” Necessary qualifications may be difficult or unexciting but still serve readers. Supporting material can preserve detail without interrupting the main explanation.
+Sometimes we keep a detail because we worked hard on it, worry that the work looks too simple, or want to show what we know. I find it useful to ask: what does this detail help the reader understand or decide?
+
+“If it doesn’t serve the audience, it’s noise.” But important assumptions and limitations do serve the audience, even when they are difficult or unexciting. Supporting material lets us preserve necessary detail without interrupting the main explanation.
 :::
 
 # Task 2: Help a team decide what to do next
 
-## The housing-project update {.slide-your-turn}
+::: {.notes}
+Let’s change audiences. Our newcomer wanted to understand a method. This manager needs to decide whether to fund a pilot. We’ll keep asking what the reader needs, while separating prediction performance from the effects of using those predictions.
+:::
+
+## The housing-project update {.slide-your-turn .smaller}
 
 Staff currently estimate sale prices themselves and use those estimates to advise sellers about asking prices.
+
+**The model estimates the eventual sale price; it does not choose the asking price.**
 
 The team proposes a **limited pilot** using ML predictions instead of staff estimates. A manager must decide whether to fund it.
 
@@ -262,7 +329,13 @@ The team’s draft update says:
 **Which claims need more evidence?**
 
 ::: {.notes}
-The validation comparison is between ML models, not ML predictions and staff estimates. It uses one training/validation split and several tree counts; a separate test set is reserved. No evidence yet establishes more consistent estimates, faster sales, or better offers. Ask what “consistent” means: reproducible outputs, agreement across staff, or consistently small errors? These require different checks. Keep this draft in view through the plotting and rewriting tasks.
+Staff currently estimate sale prices and use them to advise sellers about asking prices. The team wants to try ML estimates instead. The model predicts a sale price; it does not directly decide the asking price.
+
+Which claims in this draft need more evidence?
+
+Our validation comparison is between ML models, not between ML and staff. It does not yet establish more consistent estimates, faster sales, or better offers. Even “consistent” needs a definition: repeatable outputs, agreement across staff, or consistently small errors?
+
+There is another complication: changing asking-price advice might itself change the eventual sale price. Historical prediction accuracy does not tell us the effect of acting on predictions. We’ll keep this draft in view as we examine the results.
 :::
 
 ## Think beyond the prediction {.smaller}
@@ -278,6 +351,12 @@ Today, staff estimate sale prices. The pilot would use **ML estimates instead**.
 
 **Predicting a sale price accurately does not tell us whether the advice helps sellers.**
 
+::: {.notes}
+The prediction is one part of a chain. Staff use an estimated sale price to recommend an asking price, and that advice may affect outcomes the seller cares about. What would need to improve?
+
+A seller who must move soon may value speed more than someone who can wait. We need to agree on success with the people affected. To compare prediction accuracy, we need staff and ML estimates for the same homes, using information available at the same time. That comparison still would not establish faster sales or better offers from changing the advice.
+:::
+
 ## What does the manager need? {.slide-your-turn .smaller}
 
 What should the manager clarify before funding the proposed pilot?
@@ -289,7 +368,11 @@ What should the manager clarify before funding the proposed pilot?
 In a two-minute update, would you move the **baseline**, **full search settings**, or **important failure conditions** to supporting material?
 
 ::: {.notes}
-B makes the pilot’s success criteria explicit. The draft promises several benefits, which require different evidence. Higher validation R² among ML models does not establish improvement over staff estimates or seller outcomes. The full search settings usually belong in supporting material for this manager; the baseline and failure conditions affect the decision. A technical collaborator reproducing the work may need the settings.
+Which question should the manager clarify first?
+
+B makes success explicit. A can help us choose a candidate, but it cannot tell us what a successful pilot means. C may be worthwhile if the candidates are inadequate, but more search will not resolve an undefined objective.
+
+For the two-minute update, I would usually move the full search settings to supporting material. The baseline and important failure conditions affect the manager’s decision, so they belong in the main message. A technical collaborator reproducing our work would need more of those settings. What evidence would this manager need for each promised benefit?
 :::
 
 ## Which next step would you prioritize? {.slide-your-turn .smaller}
@@ -305,7 +388,11 @@ Choose one request for the next team meeting:
 What missing information could change your choice?
 
 ::: {.notes}
-There is no single best answer without context. A checks prediction errors using estimates recorded before outcomes are known, with comparable information and timing. B checks relevance to the pilot. C investigates the claimed seller benefits; a randomized comparison, where feasible, helps separate the effect of advice from market differences. Agree on what “better offers” means and how it will be measured. If the dataset is from a different market, B may come first. Require a reason rather than a universal ranking.
+Choose a next step and explain the assumption that makes it your priority. There is no single best answer without more context.
+
+A checks prediction errors against staff estimates recorded before outcomes are known, using comparable information and timing. B checks whether our evaluation is relevant to the proposed pilot. If our data come from a different market, that could be the first concern. C investigates the effects of changing advice. A randomized comparison, where feasible, can help separate those effects from market differences.
+
+We would also need to define “better offers.” Your priority should follow from the most important missing evidence, and it could change when you learn more.
 :::
 
 ## What? So what? Now what? {.smaller}
@@ -319,7 +406,38 @@ There is no single best answer without context. A checks prediction errors using
 **A score alone leaves the reader to supply the “So what?”**
 
 ::: {.notes}
-Keep observations, interpretations, and recommendations distinct even if combined in one paragraph. “Now what?” can mean further investigation or continuing current practice; it need not mean deployment. Task 3 supplies specific measured scores.
+A useful short update answers three questions. What did we observe? One ML candidate scored higher than another. So what does that mean for this reader? It gives us a candidate to investigate, but does not settle whether to replace staff estimates. Now what? Compare with staff and define how a pilot would test the promised benefits.
+
+We can combine these into one paragraph, while keeping observation, interpretation, and recommendation distinct. The next step could be further investigation or continuing current practice. It does not have to be deployment.
+:::
+
+## Same evidence, different audiences {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+**Technical teammate**
+
+“On the same validation split, gradient boosting had higher $R^2$ than random forest. Neither was compared with staff estimates. Next, compare their prediction errors with staff errors on the same homes.”
+
+:::
+::: {.column width="50%"}
+
+**Manager deciding on the pilot**
+
+“Before deciding on the pilot, compare the model’s estimates with staff estimates. It predicted prices more accurately than the other ML approach in our validation comparison, but we do not yet know whether it improves on staff.”
+
+:::
+::::
+
+**What changed in the language, detail, and order? What stayed the same?**
+
+::: {.notes}
+What changed between these two messages? What stayed the same?
+
+Both describe the same model comparison, acknowledge the missing staff comparison, and propose the same next step. The technical version names the metric and evaluation setup. The manager version leads with the decision and explains the result in ordinary language. Neither claims benefits to sellers.
+
+We have changed the language, detail, and order without changing the evidence. The full evaluation setup and exact scores can remain available as supporting material. Which of those details would your audience need in the main message?
 :::
 
 ## Other useful message structures {.smaller}
@@ -334,6 +452,12 @@ Recommendation $\to$ Reasons and evidence $\to$ Caveats
 
 Choose the order for the reader’s purpose. Keep important qualifications beside the claims they limit.
 
+::: {.notes}
+For a project overview, we might start with the problem, describe the approach, report the result, and explain the limitation. Here, staff need estimates; we compare ML approaches; we report the validation findings; and we acknowledge that staff estimates have not been compared.
+
+When the reader needs a decision first, we could lead with our recommendation, give the reasons and evidence, then state the caveats. These are starting points rather than mandatory templates. Important qualifications should stay beside the claims they limit.
+:::
+
 ## Make uncertainty specific {.smaller}
 
 | Unresolved question | Evidence that would help |
@@ -346,26 +470,31 @@ Choose the order for the reader’s purpose. Keep important qualifications besid
 **Clearer wording cannot repair an unsuitable evaluation or data leakage.**
 
 ::: {.notes}
-One split can give an unstable comparison. Repeated searches can overfit validation results; keep test data separate from selection. Even a strong historical result cannot guarantee future performance. Replace vague “more data needed” statements with the specific missing evidence and why it matters.
-:::
+“We need more data” leaves the reader wondering what to do. A more useful limitation identifies the unanswered question and the evidence that could address it. To compare with staff, we need comparable estimates. To assess relevance, we need coverage of the intended locations and conditions. To assess seller benefits, we need outcomes under the advice strategies.
 
-## A probability is not evidence of reliability {.slide-your-turn .smaller}
-
-A fraud classifier assigns a transaction probability **0.9**. A colleague says: “We are 90% sure the model is trustworthy.”
-
-Which interpretation is appropriate?
-
-- **A.** The model is reliable for 90% of transactions.
-- **B.** The model estimates a 90% probability of fraud here; that output alone does not establish its reliability.
-- **C.** The estimate is meaningless until we know this transaction’s outcome.
-
-**What additional evidence would you want?**
-
-::: {.notes}
-B. Relevant held-out outcomes are needed to assess probability estimates. Uncertainty does not make them useless. One outcome cannot establish reliability: either outcome is possible at a probability of 0.9. An explanation of why the model made a prediction is also distinct from evidence that the prediction is reliable.
+One split may also give an unstable comparison, and repeated searches can overfit validation results. That is why we keep test data separate from selection. Clear wording helps us communicate these limits, but it cannot repair leakage or an unsuitable evaluation.
 :::
 
 # Task 3: Present a fair comparison
+
+::: {.notes}
+Now let’s look at the evidence display for the same housing project. We’ll inspect the full results, then see how different presentations of those scores can suggest different stories.
+:::
+
+## Two comparisons, two questions
+
+| Comparison | What does it help us decide? |
+|---|---|
+| **ML model versus ML model** | Which candidate should we investigate further? |
+| **ML estimates versus staff estimates** | Could changing the current approach be worthwhile? |
+
+The plots answer the **first** question. The pilot decision also needs the **second** comparison and evidence about seller outcomes.
+
+::: {.notes}
+These are two distinct comparisons. Comparing ML models helps us select a candidate to investigate. Comparing ML estimates with staff estimates helps us assess whether changing the current approach might be worthwhile.
+
+Our data contain no staff estimates, so the plots answer only the first question. Even a good staff comparison would concern prediction performance. Evidence about the effects on advice and seller outcomes would require a pilot or another suitable evaluation of changing practice.
+:::
 
 ## Housing comparison: setup {.smaller}
 
@@ -380,7 +509,9 @@ B. Relevant held-out outcomes are needed to assess probability estimates. Uncert
 [Open the reproducible class demo](demos/lecture-21-communication.ipynb)
 
 ::: {.notes}
-The local notebook reproduces the updated course notes. Its split reserves 10% for testing, then 20% of the remainder for validation. Equal tree counts do not mean equal computation or equally thorough tuning. This is a communication example, not an exhaustive model search.
+We’re using the housing data from Chapter 10 and comparing random forest with gradient boosting at five tree counts. The notebook reserves ten percent for testing, then twenty percent of the remainder for validation. The test set stays untouched, and preprocessing is fitted on training data only.
+
+Both models train on log-transformed prices, but predictions are converted back to dollars before calculating R². Equal tree counts do not mean equal computing cost or equally thorough tuning. This is a communication example using a limited comparison, not an exhaustive model search.
 :::
 
 ## Inspect the measured results {.smaller}
@@ -400,23 +531,29 @@ RF = random forest; GB = gradient boosting. Values are $R^2$.
 Does this table tell us whether ML estimates are better than staff estimates?
 
 ::: {.notes}
-Values rounded from the executed Chapter 21 notebook; no new performance measurements are invented. At small counts RF has higher validation scores; around 30 the scores are close; at larger counts GB has higher validation scores in this split.
+How does the comparison change as we increase the tree count?
+
+At three and ten trees, random forest has higher validation R². At thirty, the scores are close. At one hundred and three hundred, gradient boosting is higher on this split. Higher training scores alone would not tell us which candidate to select.
+
+Does the table show that ML beats staff? No: it contains no staff predictions. Also, 0.913 is not 91.3 percent accuracy, and its difference from 0.871 is not a percentage improvement in seller outcomes. These are rounded results from one fixed split; they do not establish a statistically significant or universal difference.
 :::
 
 ## Choose the display {.slide-your-turn .smaller}
 
-Technical teammates ask how the methods compare **across the settings tried**.
+Technical teammates are selecting a candidate for further evaluation. Which display would you use?
 
-- **A.** Show only small tree counts where the difference is easiest to explain.
-- **B.** Show all five settings with labelled axes, shared vertical scales, and separate training/validation panels.
-- **C.** Use a vertical range so wide that the curves look nearly identical.
+- **A.** Validation results only, across all five settings: focus on performance on unseen cases.
+- **B.** Separate training and validation panels: also show the gap between training and validation performance.
+- **C.** Results only for models within a stated computing budget: focus on feasible options.
 
-Predict how A or C changes the apparent conclusion.
-
-When might restricting the comparison to small models be justified?
+**What question does each answer? What would you need to explain or disclose?**
 
 ::: {.notes}
-B preserves the evidence required for this question. A could be justified by a stated resource constraint that makes larger models infeasible; otherwise it hides relevant settings. C obscures differences. Restricted ranges are not inherently dishonest; judge them against the question and claim.
+Which display would help these teammates, and what would you disclose?
+
+A focuses directly on validation performance across the tried settings. B adds the training–validation gap, which helps us inspect generalization. C could be appropriate if a real computing constraint limits feasible options. But tree count alone is not a fair measure of cost across algorithms; we would need runtime or memory measurements and a stated budget.
+
+There is no universally best display. Its scope should match the question, and any exclusions need an explanation. Next we’ll see how omissions and axis choices can change the apparent story.
 :::
 
 ## Same results, different stories {.smaller}
@@ -426,7 +563,11 @@ B preserves the evidence required for this question. A could be justified by a s
 What does each display omit or make harder to see?
 
 ::: {.notes}
-First: only the first three settings, hiding the change at larger tree counts. Second: all settings, but linear spacing compresses the smaller counts. Third: an excessively wide vertical range obscures differences. These panels reproduce outputs from the updated notes.
+What is harder to see in each panel?
+
+The first shows only the small ensembles. It can suggest that random forest dominates, because it omits the larger settings where gradient boosting has higher validation scores. The second includes every setting, but linear spacing crowds the smaller counts. That spacing is not inherently wrong; it makes some comparisons harder. The third uses such a wide vertical range that the differences become difficult to see.
+
+The question is whether the choice helps answer the stated question or hides relevant evidence. A restriction needs a reason that the reader can assess.
 :::
 
 ## A fairer comparison {.smaller}
@@ -436,7 +577,9 @@ First: only the first three settings, hiding the change at larger tree counts. S
 All five settings; shared vertical scale; separate training and validation; labelled log horizontal axis.
 
 ::: {.notes}
-A log horizontal scale makes multiplicative increases easier to compare. Explain it explicitly. The chart supports a comparison on this split, with these settings and this metric. It does not establish general algorithm superiority, improvement over staff estimates, more consistent advice, faster sales, or better offers. The test set remains untouched.
+Here we show all five settings, separate training from validation, and use a shared vertical scale. The horizontal axis is logarithmic: equal distances represent equal ratios in tree count. This makes the multiplicative increases easier to inspect.
+
+We can now compare the measured scores across the settings tried. The chart still does not establish general algorithm superiority, improvement over staff, or benefits such as faster sales and better offers. The test set remains untouched.
 :::
 
 ## Choose axes for the question {.smaller}
@@ -448,6 +591,12 @@ A log horizontal scale makes multiplicative increases easier to compare. Explain
 
 Check whether the range exaggerates **or hides** differences.
 
+::: {.notes}
+Bar lengths encode magnitude, so truncating their baseline can distort relative values. Lines and points encode positions; a clearly labelled narrower range can reveal useful variation. Starting at zero is therefore not a universal requirement, and an excessively wide range can hide differences too.
+
+Shared scales help when we compare the same metric across panels. Independently chosen dual axes can manufacture apparent agreement or divergence between series. Whenever we use a logarithmic axis, we need to make its meaning clear to the audience.
+:::
+
 ## Other ways a display can mislead {.smaller}
 
 - Selectively omit settings, cases, or unfavourable results.
@@ -458,32 +607,43 @@ Check whether the range exaggerates **or hides** differences.
 
 **Start with the comparison the reader needs to make.**
 
-## Complete the housing update {.slide-your-turn .smaller}
-
-The manager is deciding whether to fund a pilot **replacing staff estimates with ML estimates**. Rewrite the draft in **at most 100 words**.
-
-Include:
-
-1. A specific measured result and comparison.
-2. Why it matters for the pilot decision.
-3. What remains untested about staff estimates and the promised seller benefits.
-4. A next step that addresses one of those evidence gaps.
-
-Identify **What / So what / Now what**. Do not invent benefits to sellers.
-
-Would the manager need the full technical plot, a simpler visual, or a sentence?
-
 ::: {.notes}
-Allow individual writing followed by partner exchange. Ask partners what decision the message supports and what remains unknown. Revise wording that led to stronger conclusions than intended. A recommendation-first structure is also acceptable.
+Axes are only one part of the problem. What has been omitted? Would a histogram’s apparent pattern survive reasonable changes to the bins? If area or volume represents a quantity, does its size change proportionally? Does decoration help us compare values or distract from them?
+
+Showing only feasible models can be reasonable if we state the scope and constraint. A useful display makes the relevant evidence visible. But even a clean display can accompany an unsupported interpretation, as we’ll see next.
 :::
 
-## One possible update {.smaller}
+## Clear chart but misleading story {.slide-your-turn .smaller}
 
-> Gradient boosting made smaller prediction errors overall than random forest on our validation data ($R^2$: 0.913 versus 0.871, both with 300 trees). It is a candidate for the proposed pilot, but we have not compared it with staff estimates or shown that it gives more consistent estimates, speeds up sales, or improves offers. Before funding a pilot, I recommend comparing ML and staff estimates for the same homes and agreeing how the pilot would measure seller outcomes. Which benefit matters most to sellers, and what improvement would justify changing the current approach?
+:::: {.columns}
+::: {.column width="58%"}
+
+![A post comparing selected periods of daily confirmed COVID-19 cases in 2020 and 2021.](img/covid-misleading-viz.png){.nostretch fig-align="center" height="390px"}
+
+:::
+::: {.column width="42%"}
+
+The post uses this comparison to suggest that vaccination failed.
+
+- What do the charts actually show?
+- What does that claim add?
+- What missing context would you need?
+
+[Source: *How People Actually Lie With Charts*](https://vdl.sci.utah.edu/blog/2023/04/17/misleading/#cherry-picking)
+
+:::
+::::
 
 ::: {.notes}
-Show after students write. Explain R² further for a manager unfamiliar with it: it compares squared prediction errors with variation in observed sale prices; higher is better on this evaluation. Do not translate it to percentage accuracy or seller benefit. A sentence can carry the main comparison; put the technical plot and setup in supporting material. Other next steps can be reasonable with stated assumptions.
+What do these charts actually show, and what does the surrounding claim add?
+
+They show seven-day averages of reported daily confirmed US cases during selected periods in 2020 and 2021. The vertical scales differ, so equal heights do not mean equal case counts. The interpretation adds a conclusion about vaccination that these two time windows do not establish.
+
+We would want the full time course, vaccination coverage, testing and reporting context, and other differences between the periods. We also need to clarify which outcome the claim concerns. The article by Maxim Lisnic explains that the selected window omits an earlier decline in cases. Before-and-after timing alone is not evidence of causation.
+
+This is the same reasoning problem as the housing claim. A measured difference in prediction scores does not establish that changing advice will improve offers. We need to assess a chart together with its caption, selection of data, and surrounding claim.
 :::
+
 
 ## Before sharing: is my message clear? {.smaller}
 
@@ -493,13 +653,68 @@ Show after students write. Explain R² further for a manager unfamiliar with it:
 - [ ] **Why does it matter?** Have I connected the result to their decision?
 - [ ] **Was the comparison fair?** Did we keep test data out of model selection and use only information available at prediction time?
 
+::: {.notes}
+Let’s apply this checklist to the housing update. Our audience is a manager who may not know R². The purpose is a pilot decision. The finding is a comparison of ML models on one validation split. Its relevance is that we have a candidate to investigate, with no staff comparison yet.
+
+For a fair evaluation, we fitted preprocessing only on training data and kept test data out of model selection. If these questions reveal a problem with the analysis, better wording alone will not solve it. We need to address the problem before relying on the result.
+:::
+
 ## Before sharing: are my claims supported? {.smaller}
 
-- [ ] **What is still unknown?** Have I said where the model has not been tested and what could change the conclusion?
-- [ ] **Am I claiming too much?** Explaining a prediction does not prove it is correct; a model score does not prove benefits for users.
-- [ ] **If I report a probability, have we checked it?** For predictions near 90%, did the event happen about 90% of the time on relevant held-out data? If we have not checked, have I said so?
-- [ ] **What should happen next?** Have I proposed a step that addresses a specific unanswered question?
-- [ ] **If we use the model, who will check it?** What will they monitor, and when should they investigate or make a change?
+- [ ] **What is still unknown?** Have I stated the important limits?
+- [ ] **Am I claiming too much?** Have we measured the benefits I describe?
+- [ ] **What should happen next?** Does my proposal address a specific unanswered question?
+- [ ] **Who will check the model in use?** What would trigger a review or change?
+
+::: {.notes}
+Have we said where the model has not been tested and what could change the conclusion? Have we actually measured the benefits we describe? Explaining why a prediction was made does not prove it is correct, and a model score does not establish benefits for users.
+
+Our proposed next step should address a specific unanswered question. If we recommend using the model, we also need to say who will monitor it and what would trigger investigation or change. The optional probability example illustrates another distinction between an output and evidence that supports relying on it.
+:::
+
+## Exit question: revise one claim {.slide-your-turn}
+
+Choose one claim from the housing draft:
+
+- “More consistent price estimates”
+- “Faster sales”
+- “Better offers”
+
+In **one or two sentences**, explain what we know, what remains unknown, and what we should do next.
+
+::: {.notes}
+Take one minute to revise one of these claims. What do we know, what remains unknown, and what should happen next?
+
+For consistency, one response is: “The validation comparison favours one ML candidate, but does not show greater consistency than staff estimates. We should define consistency and compare both on the same homes.”
+
+For sales speed: “Our evidence concerns price prediction, not time to sale. We should compare sales times in a pilot of ML-based versus current advice.”
+
+For offers: “Higher validation performance does not show better offers. We should define the desired offer outcome and compare advice strategies in a pilot.” Other next steps can be reasonable when they address a specific gap.
+:::
+
+## After class: Complete the housing update {.slide-your-turn .smaller}
+
+Write **at most 100 words** for the manager deciding whether to fund a pilot replacing staff estimates with ML estimates.
+
+Include:
+
+1. A measured result and comparison, explained for the manager.
+2. Why it matters and what remains untested.
+3. A next step that addresses a specific evidence gap.
+
+Label **What / So what / Now what** outside the word limit. Briefly justify your choice of a sentence, simple visual, or full plot.
+
+**Review for:** accuracy, audience fit, clear limitations, and a justified next step.
+
+::: {.notes}
+After class, write the manager’s update in at most one hundred words. Explain a measured comparison, why it matters, what remains untested, and a next step. Label your What, So what, and Now what outside the word limit, and briefly justify your choice of a sentence or visual.
+
+Your message should report the evidence accurately, fit the manager’s background, state the important limits, and propose a justified action. You may put the recommendation first. A sentence may be enough for the main comparison, with the full technical plot available as supporting material.
+
+For example, an update could say: “Gradient boosting made smaller prediction errors overall than random forest on our validation data. It is a candidate for the pilot, but we have not compared it with staff estimates or demonstrated faster sales or better offers. Before funding a pilot, I recommend comparing estimates on the same homes and agreeing how to measure seller outcomes.”
+
+That is one possible response rather than a required template. Use the checklist to review your own wording. If you include R², explain it for the reader rather than presenting it as percentage accuracy.
+:::
 
 ## What did we learn today? {.slide-summary}
 
@@ -509,11 +724,45 @@ Show after students write. Explain R² further for a manager unfamiliar with it:
 
 **What? $\to$ So what? $\to$ Now what?**
 
+::: {.notes}
+We practised starting from the reader’s needs, matching claims to evidence, and presenting fair comparisons. In the grid-search example, that meant choosing language and a starting point for a newcomer. In the housing project, it meant separating prediction scores from hoped-for benefits. In the plots, it meant choosing a display that serves the question.
+
+What, So what, and Now what can help us plan a message. We do not need to use those headings every time, and a justified next step can be further evaluation rather than deployment.
+:::
+
 ## Have a great weekend!
 
 ![](img/eva-seeyou.png){.nostretch fig-align="center" width="500px"}
 
+::: {.notes}
+Thank you, everyone. The after-class housing update is your chance to put these ideas together and apply the checklist. What questions would you like to discuss before we finish? Have a great weekend!
+:::
+
 # Optional activities and resources
+
+::: {.notes}
+These optional examples extend today’s ideas. We can use them to examine probability estimates and practise communicating in a different application. They are also available for you to explore independently.
+:::
+
+## A probability is not evidence of reliability {.slide-optional .smaller}
+
+A fraud classifier assigns a transaction probability **0.9**. A colleague says: “We are 90% sure the model is trustworthy.”
+
+Which interpretation is appropriate?
+
+- **A.** The model is reliable for 90% of transactions.
+- **B.** The model estimates a 90% probability of fraud here; that output alone does not establish its reliability.
+- **C.** The estimate is meaningless until we know this transaction’s outcome.
+
+**What additional evidence would you want?**
+
+::: {.notes}
+Which interpretation would you choose, and what evidence would you want?
+
+B separates the model’s estimate from evidence about its reliability. A probability of 0.9 estimates the chance of fraud for this transaction; it does not mean we are ninety percent sure the whole model is trustworthy. A makes that unsupported jump. C goes too far: uncertainty does not make the estimate meaningless.
+
+We need relevant held-out outcomes to check probability estimates across many predictions. One outcome cannot establish reliability, because either outcome is possible at a probability of 0.9. Knowing why the model predicted fraud would not establish reliability either.
+:::
 
 ## Calibration: checking probabilities {.slide-optional .smaller}
 
@@ -525,7 +774,9 @@ Among **100 held-out transactions** assigned probabilities near **0.9**, we woul
 - Calibration alone does not establish usefulness or overall trustworthiness.
 
 ::: {.notes}
-Counts fluctuate by chance, especially for small groups. Good ranking does not imply calibration; assigning everyone the base rate can be calibrated in aggregate but unhelpful for prioritizing investigations. Overall patterns can also hide subgroup problems.
+Suppose we collect one hundred held-out transactions assigned probabilities near 0.9. If those estimates match observed frequencies, roughly ninety should be fraudulent. If only about sixty are, the estimates are too high for that group.
+
+The counts fluctuate by chance, especially in small groups, so we look across enough relevant cases and across the probability range. Good ranking does not guarantee calibration. Conversely, giving everyone the overall fraud rate might be calibrated in aggregate but unhelpful for prioritizing investigations. An overall pattern can also hide problems for particular groups. Calibration is useful evidence, but not a complete demonstration of trustworthiness.
 :::
 
 ## Transfer: customer-support routing {.slide-optional .smaller}
@@ -539,7 +790,11 @@ A classifier routes support requests to departments:
 Write **≤120 words** for the support manager deciding whether to fund a pilot. Explain evidence, uncertainty, and your next step. Include one question for the manager.
 
 ::: {.notes}
-Use as an exit ticket or follow-up exercise. Do not invent time savings. Ask students to explain two wording/detail choices and what they would add for a technical reviewer. A next step should address the missing operational outcome or changed request mix, with an assumption supporting the priority.
+How would you explain this evidence to the support manager without inventing time savings?
+
+One possible update is: “The model routed eighty-eight percent of historical requests correctly, compared with seventy percent when always choosing the largest department. We have not measured staff time saved, and requests may change after the product launch. I recommend a small pilot checking routing errors and total handling time before wider use. Which misrouted requests cost your team the most time?”
+
+That wording makes the comparison concrete and keeps the unmeasured benefit visible. For a technical teammate, I would add split details, department-level errors, class balance, and evidence that historical requests represent future use. The eighteen-percentage-point accuracy difference cannot be translated directly into time saved.
 :::
 
 ## Transfer: YouTube recommendations {.slide-optional .smaller}
@@ -552,10 +807,23 @@ You train a recommender from user–video clicks, but recommendations are poor.
 
 **A convenient target may not match the objective.**
 
+::: {.notes}
+Do clicks measure the experience we want to improve? A misleading title can attract a click even when the video disappoints the viewer. We need to ask whose objective matters: the viewer’s, the creator’s, or the platform’s, and what tradeoffs we are making.
+
+We could compare against the current recommender or a popularity baseline, collect explicit feedback, and evaluate whether people find the recommendations useful. Viewing time is another imperfect proxy rather than an automatic definition of quality. Several proposals can work, as long as we explain the objective and the evidence we would need.
+:::
+
 ## Further examples {.slide-optional .smaller}
 
+- [How People Actually Lie With Charts — misleading interpretations, cherry-picking, and missing context](https://vdl.sci.utah.edu/blog/2023/04/17/misleading/)
 - [Feynman: knowing a name versus understanding](https://www.youtube.com/watch?v=px_4TxC2mXU)
 - [Calling Bullshit visualization videos](https://www.youtube.com/playlist?list=PLPnZfvKID1Sje5jWxt-4CSZD7bUI4gSPS)
 - [Simplifying a chart](https://www.darkhorseanalytics.com/blog/data-looks-better-naked)
 
 Use the resources to ask: **What claim does this display support, and what might a reader infer beyond it?**
+
+::: {.notes}
+These resources explore different parts of communication. The misleading-charts article examines reasoning and missing context. Feynman discusses understanding beyond knowing a name. The visualization videos examine display choices, and the chart-simplification example shows how clutter affects interpretation.
+
+For any example, ask what the evidence shows and what the surrounding story adds. Would we need an omitted baseline, more context, or a causal argument to support the claim? A cleaner chart can still tell a misleading story.
+:::
